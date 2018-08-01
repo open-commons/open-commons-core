@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="deploy" name="open-commons-core" xmlns:ac="antlib:net.sf.antcontrib">
+
+	<property file="ant.build.properties" />
+
+	<property environment="env" />
+	
+	<property name="ASCII Table.location" value="../ASCII Table" />
+	<property name="ECLIPSE_HOME" value="../../../01.IDE/pde-targets/SDK-4.2-x86_64-CDT-8.1.0" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.8" />
+	<property name="source" value="1.8" />
+	<property name="javac-encoding" value="utf-8" />
+
+	<property name="build.location" value="ant.build" />
+	<!--
+	<property name="classes.location" value="${build.location}/classes" />
+	-->
+	<property name="classes.location" value="${build.location}/classes" />
+	<property name="deploy.location" value="${build.location}/deploy" />
+	<property name="lib.location" value="lib" />
+
+
+	<path id="JUnit 4.libraryclasspath">
+		<pathelement location="../../../01.IDE/eclipse-SDK-4.2-win32-x86_64/plugins/org.junit_4.10.0.v4_10_0_v20120426-0900/junit.jar" />
+		<pathelement location="../../../01.IDE/eclipse-SDK-4.2-win32-x86_64/plugins/org.hamcrest.core_1.1.0.v20090501071000.jar" />
+	</path>
+
+	<path id="open.commons.classpath">
+
+		<pathelement location="${classes.location}" />
+
+		<pathelement location="lib/log4j-1.2.16.jar" />
+		<path refid="JUnit 4.libraryclasspath" />
+	</path>
+
+	<target name="init">
+
+		<mkdir dir="${classes.location}" />
+
+		<copy includeemptydirs="false" todir="classes">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy includeemptydirs="false" todir="classes">
+			<fileset dir="resources">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		
+	</target>
+
+	<target name="clean">
+		<delete dir="${classes.location}" />
+	</target>
+
+	<target depends="clean" name="cleanall">
+		<delete dir="${build.location}" />
+	</target>
+
+	<target depends="cleanall, build" name="deploy">
+		<antcall target="create-jar" />
+
+		<antcall target="send-jars">
+			<param name="values" value="${jar.clients}" />
+			<param name="delimiter" value="|" />
+			<param name="jar" value="${deploy.location}/${ant.project.name}.jar" />
+		</antcall>
+	</target>
+
+	<!-- jar 파일 만들기 -->
+	<target name="create-jar">
+
+		<!-- 임시 작업 공간 생성 -->
+		<mkdir dir="${build.location}/tmp" />
+
+		<!-- 클래스 파일 복사 -->
+		<antcall target="copydir">
+			<param name="todir" value="${build.location}/tmp" />
+			<param name="fromdir" value="${classes.location}" />
+		</antcall>
+
+		<!-- 자바 소스 복사 -->
+		<antcall target="copydir">
+			<param name="todir" value="${build.location}/tmp" />
+			<param name="fromdir" value="./src/" />
+		</antcall>
+
+		<!-- 외부 라이브러리 공간 생성 -->		
+		<!--
+		<mkdir dir="${build.location}/tmp/${lib.location}" />
+		 -->
+
+		<!-- 외부 라이브러리 복사 -->
+		<!--
+		<antcall target="copydir">
+			<param name="todir" value="${build.location}/tmp/${lib.location}" />
+			<param name="fromdir" value="${lib.location}" />
+		</antcall>
+		-->
+
+		<!-- jar 파일 생성 -->
+		<jar destfile="${deploy.location}/${ant.project.name}.jar" basedir="${build.location}/tmp/" />
+
+		<!-- 임시 작업 공간 삭제 -->
+		<delete dir="${build.location}/tmp" />
+
+	</target>
+
+	<target name="send-jars">
+		<ac:for list="${values}" delimiter="${delimiter}" param="value" trim="false" parallel="false">
+			<ac:sequential>
+				<ac:if>
+					<available file="@{value}" />
+					<then>
+						<copy todir="@{value}" file="${jar}" verbose="true" />
+					</then>
+					<else>
+						<echo>(Oops...) There is no location. The location is @{value}</echo>
+					</else>
+				</ac:if>
+			</ac:sequential>
+		</ac:for>
+	</target>
+
+	<target name="copydir">
+		<copy todir="${todir}">
+			<fileset dir="${fromdir}">
+			</fileset>
+		</copy>
+	</target>
+
+	<target depends="build-subprojects,build-project" name="build" />
+
+	<target name="build-subprojects" />
+
+	<target name="compile-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+
+		<!-- javac debug="true" debuglevel="${debuglevel}" destdir="${classes.location}" includeantruntime="false" source="${source}" target="${target}" encoding="${javac-encoding}" executable="${java.compiler}" fork="yes" -->
+		<javac debug="true" debuglevel="${debuglevel}" destdir="${classes.location}" includeantruntime="false" source="${source}" target="${target}" encoding="${javac-encoding}" fork="yes">
+			<src path="src" />
+			<src path="resources" />
+			<classpath refid="open.commons.classpath" />
+
+		</javac>
+	</target>
+
+	<target name="copyfiles-in-buildpath">
+		<copy todir="${classes.location}\properties">
+			<fileset dir="resources/properties" />
+		</copy>
+		<copy todir="${classes.location}\schema">
+			<fileset dir="resources/schema" />
+		</copy>
+	</target>
+
+	<target depends="init" name="build-project">
+		<antcall target="compile-project" />
+		<antcall target="copyfiles-in-buildpath" />
+		<antcall target="refreshLocal">
+			<param name="project.name" value="${ant.project.name}" />
+			<param name="folder.name" value="" />
+		</antcall>
+	</target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: refreshLocal                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="refreshLocal" if="eclipse.refreshLocal">
+		<eclipse.refreshLocal resource="${project.name}/${folder.name}" depth="infinite" />
+	</target>
+
+
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
+		<ant antfile="build.xml" dir="${ASCII Table.location}" inheritAll="false" target="clean" />
+		<ant antfile="build.xml" dir="${ASCII Table.location}" inheritAll="false" target="build">
+			<propertyset>
+				<propertyref name="build.compiler" />
+			</propertyset>
+		</ant>
+	</target>
+
+	<target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+		<copy todir="${ant.library.dir}">
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</copy>
+		<unzip dest="${ant.library.dir}">
+			<patternset includes="jdtCompilerAdapter.jar" />
+			<fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar" />
+		</unzip>
+	</target>
+
+	<target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+		<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<antcall target="build" />
+	</target>
+</project>
