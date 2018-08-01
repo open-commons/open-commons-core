@@ -1,2 +1,2 @@
 # open-commons-core
-Open Commons Core
+Open Commons for Core
