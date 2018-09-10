@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.4.16</version>
+	<version>1.4.17</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<distributionManagement>
@@ -72,7 +72,17 @@
 		</plugins>
 	</build>
 
-	<description>[2018/06/18]
+	<description>[2018/09/10]
+- Release: 1.4.17
+- Update
+ + open.commons.utils.IOUtils.transfer(InputStream, boolean, OutputStream, boolean)
+ + open.commons.utils.IOUtils.transfer(InputStream, OutputStream, boolean)
+ + open.commons.utils.IOUtils.transfer(InputStream, Charset, OutputStream, Charset)
+ + open.commons.utils.IOUtils.transfer(InputStream, OutputStream, Charset)
+ + open.commons.utils.IOUtils.transfer(InputStream, String, boolean, OutputStream, String, boolean)
+ + open.commons.utils.IOUtils.transfer(InputStream, String, OutputStream, String)
+
+[2018/06/18]
 - Bug Fix
  + open.commons.concurrent.ConcurrentWorker.get()
 

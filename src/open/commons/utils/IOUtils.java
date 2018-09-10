@@ -43,6 +43,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -465,6 +466,25 @@ public class IOUtils {
         return null;
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2012. 1. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2012. 01. 10.
+     * 
+     * @see sun.misc.IOUtils.readFully(InputStream, int, boolean)
+     */
     public static byte[] readFully(InputStream inStream) {
         byte[] read = null;
         try {
@@ -540,21 +560,39 @@ public class IOUtils {
     }
 
     /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
      * @param inStream
+     * @param inputClose
+     *            {@link InputStream#close()} 호출 여부
      * @param outStream
+     * @param outputClose
+     *            {@link OutputStream#close()} 호출 여부
      * @return
      * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
      * 
-     * @since 2014. 4. 14.
+     * @see InputStream#close()
+     * @see OutputStream#close()
      */
-    public static int transfer(InputStream inStream, OutputStream outStream) throws IOException {
+    public static int transfer(InputStream inStream, boolean inputClose, OutputStream outStream, boolean outputClose) throws IOException {
+
         int rcvCount = 0;
 
         ReadableByteChannel reader = null;
         WritableByteChannel writer = null;
 
         try {
+
             reader = Channels.newChannel(inStream);
             writer = Channels.newChannel(outStream);
 
@@ -562,6 +600,7 @@ public class IOUtils {
 
             int readCount = -1;
             while ((readCount = reader.read(buf)) > 0) {
+
                 buf.flip();
 
                 writer.write(buf);
@@ -571,23 +610,250 @@ public class IOUtils {
                 rcvCount += readCount;
             }
         } finally {
-            IOUtils.close(reader, writer);
+            if (inputClose) {
+                IOUtils.close(reader);
+            }
+
+            if (outputClose) {
+                IOUtils.close(writer);
+            }
         }
 
         return rcvCount;
     }
 
     /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset) throws IOException {
+        return transfer(inStream, inCharset.name(), true, outStream, outCharset.name(), true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 4. 14.     박준홍         최초 작성
+     * 2018. 9.10.      박준홍         내부 메소드 호출로 변경
+     * </pre>
      * 
      * @param inStream
      * @param outStream
-     * @param outCharset
      * @return
      * @throws IOException
      * 
      * @since 2014. 4. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
-    public static int transfer(InputStream inStream, OutputStream outStream, String outCharset) throws IOException {
+    public static int transfer(InputStream inStream, OutputStream outStream) throws IOException {
+        return transfer(inStream, true, outStream, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, boolean close) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     * 
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset) throws IOException {
+        return transfer(inStream, charset.name(), true, outStream, charset.name(), true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close) throws IOException {
+        return transfer(inStream, charset.name(), close, outStream, charset.name(), close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 4. 14.     박준홍         최초 작성
+     * 2018. 9.10.      박준홍         내부 메소드 호출로 변경
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            charset
+     * @return
+     * @throws IOException
+     * 
+     * @since 2014. 4. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     * 
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, String charset) throws IOException {
+        return transfer(inStream, charset, true, outStream, charset, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, String charset, boolean close) throws IOException {
+        return transfer(inStream, charset, close, outStream, charset, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param inputClose
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param outputClose
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, String inCharset, boolean inputClose, OutputStream outStream, String outCharset, boolean outputClose) throws IOException {
 
         int rcvCount = 0;
 
@@ -596,7 +862,7 @@ public class IOUtils {
 
         try {
 
-            reader = Channels.newReader(Channels.newChannel(inStream), outCharset);
+            reader = Channels.newReader(Channels.newChannel(inStream), inCharset);
             writer = Channels.newWriter(Channels.newChannel(outStream), outCharset);
 
             CharBuffer buf = CharBuffer.allocate(1024 * 10);
@@ -613,9 +879,45 @@ public class IOUtils {
                 rcvCount += readCount;
             }
         } finally {
-            IOUtils.close(writer);
+            if (inputClose) {
+                IOUtils.close(reader);
+            }
+
+            if (outputClose) {
+                IOUtils.close(writer);
+            }
         }
 
         return rcvCount;
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
+        return transfer(inStream, inCharset, true, outStream, outCharset, true);
     }
 }
