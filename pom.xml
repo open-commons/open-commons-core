@@ -81,6 +81,8 @@
  + open.commons.utils.IOUtils.transfer(InputStream, OutputStream, Charset)
  + open.commons.utils.IOUtils.transfer(InputStream, String, boolean, OutputStream, String, boolean)
  + open.commons.utils.IOUtils.transfer(InputStream, String, OutputStream, String)
+- Add
+ + open.commons.io.Closeables
 
 [2018/06/18]
 - Bug Fix
