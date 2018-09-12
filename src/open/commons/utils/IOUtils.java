@@ -609,6 +609,8 @@ public class IOUtils {
 
                 rcvCount += readCount;
             }
+
+            return rcvCount;
         } finally {
             if (inputClose) {
                 IOUtils.close(reader);
@@ -618,8 +620,6 @@ public class IOUtils {
                 IOUtils.close(writer);
             }
         }
-
-        return rcvCount;
     }
 
     /**
@@ -668,6 +668,9 @@ public class IOUtils {
      * @param outStream
      * @return
      * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
      * 
      * @since 2014. 4. 14.
      * 
