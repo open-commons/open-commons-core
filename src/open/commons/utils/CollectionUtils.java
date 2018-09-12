@@ -45,6 +45,8 @@ import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import open.commons.collection.IKeyExtractor;
 
@@ -755,6 +757,61 @@ public class CollectionUtils {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param stream
+     * @param transformer
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 12.
+     */
+    public static <E, NE> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
+        return stream.map(transformer).collect(Collectors.toList());
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param stream
+     * @param transformer
+     * @param implClass
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 12.
+     */
+    public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Class<L> implClass) {
+        L list = null;
+
+        try {
+            list = implClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        list.addAll(stream.map(transformer).collect(Collectors.toList()));
+
+        return list;
+    }
+
+    /**
      * Tranform {@link Collection} to {@link Map}.
      * 
      * @param <K>
@@ -1151,6 +1208,62 @@ public class CollectionUtils {
         if (col != null) {
             set.addAll(col);
         }
+
+        return set;
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param stream
+     * @param transformer
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 12.
+     */
+    public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
+        return stream.map(transformer).collect(Collectors.toSet());
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param stream
+     * @param transformer
+     * @param implClass
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 12.
+     */
+    public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Class<S> implClass) {
+
+        S set = null;
+
+        try {
+            set = implClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        set.addAll(stream.map(transformer).collect(Collectors.toSet()));
 
         return set;
     }

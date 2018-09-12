@@ -100,7 +100,6 @@ public class Closeables implements Closeable {
                 try {
                     c.close();
                 } catch (IOException ignored) {
-                    ignored.printStackTrace();
                 }
             }
         }

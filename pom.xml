@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.4.17</version>
+	<version>1.5.0</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<distributionManagement>
@@ -72,7 +72,15 @@
 		</plugins>
 	</build>
 
-	<description>[2018/09/10]
+	<description>[2018/09/12]
+- Release: 1.5.0
+- Update
+ + open.commons.utils.CollectionUtils.toList(Stream&lt;E&gt;, Function&lt;E, NE&gt;)
+ + open.commons.utils.CollectionUtils.toList(Stream&lt;E&gt;, Function&lt;E, NE&gt;, Class&lt;L&gt;)
+ + open.commons.utils.CollectionUtils.toSet(Stream&lt;E&gt;, Function&lt;E, NE&gt;)
+ + open.commons.utils.CollectionUtils.toSet(Stream&lt;E&gt;, Function&lt;E, NE&gt;, Class&lt;S&gt;)
+
+[2018/09/10]
 - Release: 1.4.17
 - Update
  + open.commons.utils.IOUtils.transfer(InputStream, boolean, OutputStream, boolean)
