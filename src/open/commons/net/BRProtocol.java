@@ -48,6 +48,7 @@ import open.commons.utils.Base64Utils;
  * 
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
+ * @deprecated Not Use. To be deleted.
  */
 public class BRProtocol {
 

@@ -40,7 +40,9 @@ package open.commons.net;
  * 
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
+ * @deprecated Not Use. To be deleted.
  */
+
 public class BRPConstants {
     /** String <-> byte [] 변환시 사용할 Character Set. */
     public static final String CHARSET_NAME = "UTF-8";
