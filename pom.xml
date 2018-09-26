@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<distributionManagement>
@@ -73,6 +73,14 @@
 	</build>
 
 	<description>[2018/09/12]
+- Release: 1.5.1
+- Update
+ + open.commons.utils.IOUtils
+  - transfer(InputStream, String, boolean, Writer, String, boolean)
+  - transfer(Reader, String, boolean, Writer, String, boolean)
+  - transfer(Reader, String, boolean, OutputStream, String, boolean)
+
+[2018/09/12]
 - Release: 1.5.0
 - Update
  + open.commons.utils.CollectionUtils.toList(Stream&lt;E&gt;, Function&lt;E, NE&gt;)

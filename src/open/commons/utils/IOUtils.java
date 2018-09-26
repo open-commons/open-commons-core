@@ -895,6 +895,36 @@ public class IOUtils {
     }
 
     /**
+     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param inputClose
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param outputClose
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 26.
+     */
+    public static int transfer(InputStream inStream, String inCharset, boolean inputClose, Writer writer, String outCharset, boolean outputClose) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), inCharset, inputClose, writer, outCharset, outputClose);
+    }
+
+    /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
@@ -922,5 +952,93 @@ public class IOUtils {
      */
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
         return transfer(inStream, inCharset, true, outStream, outCharset, true);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param inputClose
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param outputClose
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 26.
+     */
+    public static int transfer(Reader reader, String inCharset, boolean inputClose, Writer writer, String outCharset, boolean outputClose) throws IOException {
+
+        int rcvCount = 0;
+
+        try {
+
+            CharBuffer buf = CharBuffer.allocate(1024 * 10);
+
+            int readCount = -1;
+            while ((readCount = reader.read(buf)) > 0) {
+
+                buf.flip();
+
+                writer.write(buf.array());
+
+                buf.clear();
+
+                rcvCount += readCount;
+            }
+        } finally {
+            if (inputClose) {
+                IOUtils.close(reader);
+            }
+
+            if (outputClose) {
+                IOUtils.close(writer);
+            }
+        }
+
+        return rcvCount;
+    }
+
+    /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 26.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param inputClose
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param outputClose
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 26.
+     */
+    public static int transfer1(Reader reader, String inCharset, boolean inputClose, OutputStream outStream, String outCharset, boolean outputClose) throws IOException {
+        return transfer(reader, inCharset, inputClose, Channels.newWriter(Channels.newChannel(outStream), outCharset), outCharset, outputClose);
     }
 }
