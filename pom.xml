@@ -74,10 +74,20 @@
 
 	<description>[2018/09/12]
 - Release: 1.5.1
-- Update
+- Add
  + open.commons.utils.IOUtils
+  - transfer(InputStream, Charset, boolean, Writer, boolean)
+  - transfer(InputStream, Charset, Writer)
+  - transfer(InputStream, Charset, Writer, boolean)
   - transfer(InputStream, String, boolean, Writer, String, boolean)
-  - transfer(Reader, String, boolean, Writer, String, boolean)
+  - transfer(InputStream, String, Writer)
+  - transfer(InputStream, String, Writer, boolean)
+  - transfer(Reader, boolean, OutputStream, Charset, boolean)
+  - transfer(Reader, boolean, Writer, boolean)
+  - transfer(Reader, OutputStream, Charset)
+  - transfer(Reader, OutputStream, Charset, boolean)
+  - transfer(Reader, OutputStream, String)
+  - transfer(Reader, OutputStream, String, boolean)
   - transfer(Reader, String, boolean, OutputStream, String, boolean)
 
 [2018/09/12]
