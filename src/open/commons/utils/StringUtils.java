@@ -2108,13 +2108,17 @@ public class StringUtils {
         char[] cs = string.toCharArray();
         StringBuffer sb = new StringBuffer();
 
+        StringBuffer builder = new StringBuffer();
+        String cstr = null;
         for (char c : cs) {
-            if (map.containsKey(c)) {
-                RegExTokenEscape esc = map.get(c);
+            cstr = builder.append(c).toString();
+            if (map.containsKey(cstr)) {
+                RegExTokenEscape esc = map.get(cstr);
                 sb.append(nTimesString(esc.escape, esc.escCount) + c);
             } else {
                 sb.append(c);
             }
+            builder.setLength(0);
         }
 
         return sb.toString();
