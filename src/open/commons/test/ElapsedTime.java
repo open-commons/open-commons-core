@@ -1,0 +1,273 @@
+/*
+ * Copyright 2018 Park Jun-Hong_(fafanmama_at_naver_com)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ *
+ * This file is generated under this project, "open-commons-core".
+ *
+ * Date  : 2018. 9. 28. 오후 4:36:04
+ *
+ * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
+ */
+
+package open.commons.test;
+
+import java.util.concurrent.TimeUnit;
+
+import open.commons.utils.TimeUtils;
+
+/**
+ * 
+ * @since 2018. 9. 28.
+ * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ */
+public class ElapsedTime {
+
+    private long start = 0L;
+
+    private long end = 0L;
+
+    private boolean running = false;
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 28.     박준홍         최초 작성
+     * </pre>
+     *
+     * @since 2018. 9. 28.
+     */
+    public ElapsedTime() {
+    }
+
+    /**
+     * 경과값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IllegalStateException
+     *             측정 중인 경우
+     * @since 2018. 9. 28.
+     */
+    public long elapsed() throws IllegalStateException {
+        if (this.running) {
+            throw new IllegalStateException("Running NOW !!!");
+        }
+
+        return this.end - this.start;
+    }
+
+    /**
+     * 시간 측정을 종료하고 종료시간값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public long end() {
+        this.end = System.nanoTime();
+        setRunning(false);
+
+        return this.end;
+    }
+
+    /**
+     * 종료 시간값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public long getEnd() {
+        return end;
+    }
+
+    /**
+     * 시작 시간값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public long getStart() {
+        return start;
+    }
+
+    /**
+     * 시간측정 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public boolean isRunning() {
+        return running;
+    }
+
+    /**
+     * 초기화시킨다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public void reset() {
+        this.start = 0L;
+        this.end = 0L;
+        setRunning(false);
+    }
+
+    /**
+     * 측정상태를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param running
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    private void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    /**
+     * 측정을 시작하고 시작시간값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public long start() {
+        this.start = System.nanoTime();
+        setRunning(true);
+
+        return this.start;
+    }
+
+    /**
+     * 측정을 종료하고 경과값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     * 
+     * @throws IllegalStateException
+     *             측정하지 않는 경우
+     */
+    public long stop() {
+
+        if (!this.running) {
+            throw new IllegalStateException("NOT running!!!");
+        }
+
+        this.end();
+
+        return elapsed();
+    }
+
+    /**
+     * 경과값을 시간값으로 변경하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 28.
+     */
+    public String toFormattedElapsed() {
+        return TimeUtils.toFormattedString(this.elapsed(), TimeUnit.NANOSECONDS);
+    }
+}

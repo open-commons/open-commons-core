@@ -75,6 +75,8 @@
 	<description>[2018/09/28]
 - Release: 1.5.2
 - Add
+ + open.commons.io.Consumers
+ + open.commons.test.ElapsedTime
  + open.commons.utils.TimeUtils
 - Update
   + open.commons.utils.StringUtils.toRegExString(String)

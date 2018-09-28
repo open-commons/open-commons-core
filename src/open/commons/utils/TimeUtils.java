@@ -152,7 +152,7 @@ public class TimeUtils {
         }
 
         timeBuf.insert(0, unit);
-        timeBuf.insert(0, time);
+        timeBuf.insert(0, String.format("%,d", time));
     }
 
     /**
