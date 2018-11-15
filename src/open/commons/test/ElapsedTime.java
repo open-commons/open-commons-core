@@ -26,6 +26,7 @@
 
 package open.commons.test;
 
+import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
 
 import open.commons.utils.TimeUtils;
@@ -59,6 +60,37 @@ public class ElapsedTime {
     }
 
     /**
+     * 현재 상태와 주어진 상태를 비교한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 10. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param expected
+     *            상태.
+     *            <ul>
+     *            <li>true: 실행 중
+     *            <li>false: 종료
+     *            </ul>
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IllegalStateException
+     *             현재 상태와 비교상태가 다른 경우.
+     * @since 2018. 10. 1.
+     */
+    private void checkState(boolean expected) throws IllegalStateException {
+        if (this.running != expected) {
+            throw new IllegalStateException(MessageFormat.format("current.state={0}, expected=[1}" //
+                    , running ? "running" : "stopped" //
+                    , expected ? "running" : "stopped") //
+            );
+        }
+    }
+
+    /**
      * 경과값을 제공한다. <br>
      * 
      * <pre>
@@ -76,9 +108,7 @@ public class ElapsedTime {
      * @since 2018. 9. 28.
      */
     public long elapsed() throws IllegalStateException {
-        if (this.running) {
-            throw new IllegalStateException("Running NOW !!!");
-        }
+        checkState(false);
 
         return this.end - this.start;
     }
@@ -99,6 +129,8 @@ public class ElapsedTime {
      * @since 2018. 9. 28.
      */
     public long end() {
+        checkState(true);
+
         this.end = System.nanoTime();
         setRunning(false);
 
@@ -121,6 +153,8 @@ public class ElapsedTime {
      * @since 2018. 9. 28.
      */
     public long getEnd() {
+        checkState(false);
+
         return end;
     }
 
@@ -140,6 +174,8 @@ public class ElapsedTime {
      * @since 2018. 9. 28.
      */
     public long getStart() {
+        checkState(true);
+
         return start;
     }
 
@@ -217,6 +253,9 @@ public class ElapsedTime {
      * @since 2018. 9. 28.
      */
     public long start() {
+
+        checkState(false);
+
         this.start = System.nanoTime();
         setRunning(true);
 
@@ -243,10 +282,6 @@ public class ElapsedTime {
      */
     public long stop() {
 
-        if (!this.running) {
-            throw new IllegalStateException("NOT running!!!");
-        }
-
         this.end();
 
         return elapsed();
@@ -270,4 +305,10 @@ public class ElapsedTime {
     public String toFormattedElapsed() {
         return TimeUtils.toFormattedString(this.elapsed(), TimeUnit.NANOSECONDS);
     }
+
+    @Override
+    public String toString() {
+        return "ElapsedTime [start=" + start + ", end=" + end + ", running=" + running + "]";
+    }
+
 }
