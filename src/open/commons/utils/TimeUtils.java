@@ -187,6 +187,34 @@ public class TimeUtils {
         timeBuf.insert(0, String.format("%,d", time));
     }
 
+    private static void prependTimeAndUnit(StringBuffer timeBuf, long time, TimeUnitInfo unitInfo) {
+        if (time < 1) {
+            return;
+        }
+
+        if (timeBuf.length() > 0) {
+            timeBuf.insert(0, " ");
+        }
+
+        timeBuf.insert(0, unitInfo.unitStr);
+
+        switch (unitInfo.unit) {
+            case DAYS:
+                timeBuf.insert(0, String.format("%,3d", time));
+                break;
+            case HOURS:
+            case MINUTES:
+            case SECONDS:
+                timeBuf.insert(0, String.format("%,2d", time));
+                break;
+            case MILLISECONDS:
+            case MICROSECONDS:
+            case NANOSECONDS:
+                timeBuf.insert(0, String.format("%,3d", time));
+                break;
+        }
+    }
+
     /**
      * 포맷 문자열 제외 목록에서 제거한다. <br>
      * 
@@ -309,7 +337,7 @@ public class TimeUtils {
         for (TimeUnitInfo unit : FN_TIME_UNITS.apply(timeUnit)) {
             if (!OMITTED_TIME_UINITS.contains(unit.unit)) {
                 mod = mod(up, unit.unit);
-                prependTimeAndUnit(timeBuf, mod, unit.unitStr);
+                prependTimeAndUnit(timeBuf, mod, unit);
             }
 
             up = up(up, unit.unit);

@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.5.2.1</version>
+	<version>1.6.0</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<distributionManagement>
@@ -72,7 +72,22 @@
 		</plugins>
 	</build>
 
-	<description>[2018/11/15]
+	<description>[2019/11/22]
+- Release: 1.6.0
+- Add
+ + open.commons.util.BinarySortedList
+- Update
+ + open.commons.utils.CollectionUtils
+ + open.commons.utils.MathUtils
+ + open.commons.utils.OrderingUtils
+ + open.commons.utils.TimeUtils
+
+[2018/11/20]
+- Release: 1.5.3
+- Add
+ + open.commons.utils.EncryptUtils 
+
+[2018/11/15]
 - Release: 1.5.2.1
 - Update
  + open.commons.utils.TimeUtils: Locale 지원

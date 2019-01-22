@@ -26,8 +26,10 @@
 
 package open.commons.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -42,6 +44,58 @@ public class MathUtils {
      * @since 2017. 12. 4.
      */
     private MathUtils() {
+    }
+
+    /**
+     * 정렬된 데이타 중에서 중앙값(media)을 구하는데 사용되는 데이타를 제공한다. <br>
+     * <ul>
+     * 데이타의 개수(size)가
+     * <li>짝수인 경우: (size / 2 - 1), size / 2 번째
+     * <li>홀수인 경우: size / 2 번째
+     * </ul>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 1. 9.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param data
+     *            정렬된 데이터.
+     * @return
+     *
+     * @since 2019. 1. 9.
+     */
+    public static <N> List<N> getMedianEntries(List<N> data) {
+
+        int size = data.size();
+
+        // len == 0
+        if (size < 1) {
+            throw new IllegalArgumentException("no data. size=0");
+        }
+
+        List<N> l = new ArrayList<>();
+
+        // len == 1
+        if (size == 1) {
+            l.add(data.get(0));
+        } else {
+            // odd
+            if ((size & 1) == 1) {
+                l.add(data.get(size / 2));
+            } else
+            // even
+            {
+                int index = size / 2 - 1;
+
+                l.add(data.get(index));
+                l.add(data.get(index + 1));
+            }
+        }
+
+        return l;
     }
 
     /**

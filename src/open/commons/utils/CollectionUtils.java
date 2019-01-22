@@ -817,13 +817,13 @@ public class CollectionUtils {
      * @param <K>
      * @ppram <V>
      * @param col
-     * @param extrator
+     * @param keyGen
      * @return {@link HashMap}
      *
      * @since 2017. 7. 6.
      */
-    public static <K, V> Map<K, V> toMap(Collection<V> col, Function<V, K> extrator) {
-        return toMap(col, extrator, HashMap.class);
+    public static <K, V> Map<K, V> toMap(Collection<V> col, Function<V, K> keyGen) {
+        return toMap(col, keyGen, HashMap.class);
     }
 
     /**
@@ -839,13 +839,13 @@ public class CollectionUtils {
      * </pre>
      *
      * @param col
-     * @param extrator
+     * @param keyGen
      * @param implClass
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> extrator, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyGen, Class<M> implClass) {
 
         M map = null;
 
@@ -856,7 +856,7 @@ public class CollectionUtils {
         }
 
         for (V v : col) {
-            map.put(extrator.apply(v), v);
+            map.put(keyGen.apply(v), v);
         }
 
         return map;
@@ -874,17 +874,17 @@ public class CollectionUtils {
      *
      * @param col
      *            elements.
-     * @param fnKey
+     * @param keyGen
      *            a function to extract a key from an element.
-     * @param fnValue
+     * @param valueGen
      *            a function to extrace a value from an element.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 2. 8.
      */
-    public static <K, V, E, M extends Map<K, List<E>>> M toMap(Collection<V> col, Function<V, K> fnKey, Function<V, E> fnValue) {
-        return (M) toMap(col, fnKey, fnValue, HashMap.class);
+    public static <K, V, E, M extends Map<K, List<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen) {
+        return (M) toMap(col, keyGen, valueGen, HashMap.class);
     }
 
     /**
@@ -899,9 +899,9 @@ public class CollectionUtils {
      *
      * @param col
      *            elements.
-     * @param fnKey
+     * @param keyGen
      *            a function to extract a key from an element.
-     * @param fnValue
+     * @param valueGen
      *            a function to extrace a value from an element.
      * @param implClass
      *            the extended class of a {@link Map}.
@@ -910,7 +910,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 2. 8.
      */
-    public static <K, V, E, M extends Map<K, List<E>>> M toMap(Collection<V> col, Function<V, K> fnKey, Function<V, E> fnValue, Class<M> implClass) {
+    public static <K, V, E, M extends Map<K, List<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> implClass) {
 
         M map = null;
 
@@ -925,7 +925,7 @@ public class CollectionUtils {
 
         for (V v : col) {
 
-            key = fnKey.apply(v);
+            key = keyGen.apply(v);
 
             values = map.get(key);
 
@@ -935,7 +935,7 @@ public class CollectionUtils {
                 map.put(key, values);
             }
 
-            values.add(fnValue.apply(v));
+            values.add(valueGen.apply(v));
         }
 
         return map;
@@ -947,13 +947,13 @@ public class CollectionUtils {
      * @param <K>
      * @ppram <V>
      * @param col
-     * @param extrator
+     * @param keyGen
      * @return {@link HashMap}
      *
      * @since 2014. 10. 17.
      */
-    public static <K, V> Map<K, V> toMap(Collection<V> col, IKeyExtractor<K, V> extrator) {
-        return toMap(col, extrator, HashMap.class);
+    public static <K, V> Map<K, V> toMap(Collection<V> col, IKeyExtractor<K, V> keyGen) {
+        return toMap(col, keyGen, HashMap.class);
     }
 
     /**
@@ -963,14 +963,14 @@ public class CollectionUtils {
      * @param <V>
      * @param <M>
      * @param col
-     * @param extrator
+     * @param keyGen
      * @param implClass
      *            MUST be class. Not allow an interface.
      * @return
      *
      * @since 2017. 7. 27.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, IKeyExtractor<K, V> extrator, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, IKeyExtractor<K, V> keyGen, Class<M> implClass) {
 
         M map = null;
 
@@ -981,7 +981,7 @@ public class CollectionUtils {
         }
 
         for (V v : col) {
-            map.put(extrator.getKey(v), v);
+            map.put(keyGen.getKey(v), v);
         }
 
         return map;
@@ -1000,13 +1000,13 @@ public class CollectionUtils {
      * </pre>
      *
      * @param col
-     * @param extrator
+     * @param keyGen
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V> Map<K, V> toMap(Enumeration<V> col, Function<V, K> extrator) {
-        return toMap(col, extrator, HashMap.class);
+    public static <K, V> Map<K, V> toMap(Enumeration<V> col, Function<V, K> keyGen) {
+        return toMap(col, keyGen, HashMap.class);
     }
 
     /**
@@ -1022,13 +1022,13 @@ public class CollectionUtils {
      * </pre>
      *
      * @param col
-     * @param extrator
+     * @param keyGen
      * @param implClass
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, Function<V, K> extrator, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, Function<V, K> keyGen, Class<M> implClass) {
 
         M map = null;
 
@@ -1043,7 +1043,7 @@ public class CollectionUtils {
         while (col.hasMoreElements()) {
             v = col.nextElement();
 
-            map.put(extrator.apply(v), v);
+            map.put(keyGen.apply(v), v);
         }
 
         return map;
@@ -1062,13 +1062,13 @@ public class CollectionUtils {
      * </pre>
      *
      * @param col
-     * @param extrator
+     * @param keyGen
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V> Map<K, V> toMap(Enumeration<V> col, IKeyExtractor<K, V> extrator) {
-        return toMap(col, extrator, HashMap.class);
+    public static <K, V> Map<K, V> toMap(Enumeration<V> col, IKeyExtractor<K, V> keyGen) {
+        return toMap(col, keyGen, HashMap.class);
     }
 
     /**
@@ -1084,13 +1084,13 @@ public class CollectionUtils {
      * </pre>
      *
      * @param col
-     * @param extrator
+     * @param keyGen
      * @param implClass
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, IKeyExtractor<K, V> extrator, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, IKeyExtractor<K, V> keyGen, Class<M> implClass) {
 
         M map = null;
 
@@ -1105,7 +1105,72 @@ public class CollectionUtils {
         while (col.hasMoreElements()) {
             v = col.nextElement();
 
-            map.put(extrator.getKey(v), v);
+            map.put(keyGen.getKey(v), v);
+        }
+
+        return map;
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to extract a key from an element.
+     * @param valueGen
+     *            a function to extrace a value from an element.
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2019. 1. 15.
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen) {
+        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to extract a key from an element.
+     * @param valueGen
+     *            a function to extrace a value from an element.
+     * @param implClass
+     *            the extended class of a {@link Map}.
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2019. 1. 15.
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> implClass) {
+
+        M map = null;
+
+        try {
+            map = implClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        for (V v : col) {
+            map.put(keyGen.apply(v), valueGen.apply(v));
         }
 
         return map;
