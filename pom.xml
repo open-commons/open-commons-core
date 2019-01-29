@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
@@ -19,6 +20,27 @@
 	</distributionManagement>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
+		<!-- for llog4j-2.x: making all asynchronous loggers -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+			<version>3.3.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.7</version>
+		</dependency>
+		<!-- end: logging -->
+		<!-- ************** -->
+		<!-- ************** -->
 	</dependencies>
 
 	<build>
@@ -37,7 +59,7 @@
 				<includes>
 					<include>LICENSE.txt</include>
 				</includes>
-				<targetPath>META-INF</targetPath>				
+				<targetPath>META-INF</targetPath>
 			</resource>
 		</resources>
 		<plugins>
@@ -76,6 +98,7 @@
 - Release: 1.6.1
 - Add
  + open.commons.utils.JdbcUtils
+ + open.commons.xml package
 
 [2019/01/22]  (misspelled [2019/11/22])
 - Release: 1.6.0
