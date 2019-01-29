@@ -77,7 +77,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
                         qd = queue.poll();
                     } catch (InterruptedException ignored) {
                         ignored.printStackTrace();
-                        
+
                         break;
                     }
                 } while (qd == null);
@@ -85,6 +85,25 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
         }
 
         return qd;
+    }
+
+    /**
+     * 데이터 큐를 위한 Mutex 객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2019. 1. 25.
+     */
+    protected final Object getMutexForQueue() {
+        return this.mutexQueue;
     }
 
     public void push(E data) {

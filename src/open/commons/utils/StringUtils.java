@@ -1307,11 +1307,22 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 {@code n}번 합쳐서 반환한다.
      * 
+     * <br>
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2011. 6. 23.		박준홍			최초 작성
+     * 2019. 1. 24.		박준홍			복사 dest pos 버그 수정. (i * n -> i * strArray.length)
+     * </pre>
+     *
      * @param string
      * @param n
      * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2011. 6. 23.
      */
     public static String nTimesString(String string, int n) {
         char[] cs = new char[string.length() * n];
@@ -1319,7 +1330,7 @@ public class StringUtils {
         char[] strArray = string.toCharArray();
 
         for (int i = 0; i < n; i++) {
-            System.arraycopy(strArray, 0, cs, i * n, strArray.length);
+            System.arraycopy(strArray, 0, cs, i * strArray.length, strArray.length);
         }
 
         return new String(cs);

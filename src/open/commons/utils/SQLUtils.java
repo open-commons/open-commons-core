@@ -93,7 +93,7 @@ public class SQLUtils {
 
         String columnName = cdef.name();
         Class<?> columnType = cdef.type();
-
+        
         if (Array.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getArray(columnName));
         } //
