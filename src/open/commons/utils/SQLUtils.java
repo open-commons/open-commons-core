@@ -37,6 +37,7 @@ import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Date;
 import java.sql.NClob;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -93,7 +94,7 @@ public class SQLUtils {
 
         String columnName = cdef.name();
         Class<?> columnType = cdef.type();
-        
+
         if (Array.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getArray(columnName));
         } //
@@ -125,7 +126,7 @@ public class SQLUtils {
             m.invoke(object, rs.getClob(columnName));
         } //
         else if (Date.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getAsciiStream(columnName));
+            m.invoke(object, rs.getDate(columnName));
         } //
         else if (double.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getDouble(columnName));
@@ -268,6 +269,146 @@ public class SQLUtils {
                 | IllegalArgumentException //
                 | InvocationTargetException e) {
             throw new SQLException("annotation: " + cdef + ", value: " + value, e);
+        }
+    }
+
+    /**
+     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 1. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param stmt
+     * @param index
+     *            Variable Binding Index
+     * @param value
+     *            설정값.
+     * @throws SQLException
+     *
+     * @since 2019. 1. 27.
+     */
+    public static void setValueOrNull(PreparedStatement stmt, int index, Boolean value) throws SQLException {
+
+        if (value != null) {
+            stmt.setBoolean(index, value);
+        } else {
+            stmt.setObject(index, null);
+        }
+    }
+
+    /**
+     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 1. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param stmt
+     * @param index
+     *            Variable Binding Index
+     * @param value
+     *            설정값.
+     * @throws SQLException
+     *
+     * @since 2019. 1. 27.
+     */
+    public static void setValueOrNull(PreparedStatement stmt, int index, Double value) throws SQLException {
+
+        if (value != null) {
+            stmt.setDouble(index, value);
+        } else {
+            stmt.setObject(index, null);
+        }
+    }
+
+    /**
+     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 1. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param stmt
+     * @param index
+     *            Variable Binding Index
+     * @param value
+     *            설정값.
+     * @throws SQLException
+     *
+     * @since 2019. 1. 27.
+     */
+    public static void setValueOrNull(PreparedStatement stmt, int index, Float value) throws SQLException {
+
+        if (value != null) {
+            stmt.setFloat(index, value);
+        } else {
+            stmt.setObject(index, null);
+        }
+    }
+
+    /**
+     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 1. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param stmt
+     * @param index
+     *            Variable Binding Index
+     * @param value
+     *            설정값.
+     * @throws SQLException
+     *
+     * @since 2019. 1. 27.
+     */
+    public static void setValueOrNull(PreparedStatement stmt, int index, Integer value) throws SQLException {
+
+        if (value != null) {
+            stmt.setInt(index, value);
+        } else {
+            stmt.setObject(index, null);
+        }
+    }
+
+    /**
+     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 1. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param stmt
+     * @param index
+     *            Variable Binding Index
+     * @param value
+     *            설정값.
+     * @throws SQLException
+     *
+     * @since 2019. 1. 27.
+     */
+    public static void setValueOrNull(PreparedStatement stmt, int index, Long value) throws SQLException {
+
+        if (value != null) {
+            stmt.setLong(index, value);
+        } else {
+            stmt.setObject(index, null);
         }
     }
 }

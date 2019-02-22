@@ -33,6 +33,9 @@ import java.sql.SQLException;
  * 
  * @since 2019. 1. 27.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
+ * @deprecated Use #SQLUtils instead of, since 2019. 02. 18. open-commons-core-1.6.3.
+ * @see SQLUtils
  */
 public class JdbcUtils {
 
@@ -61,6 +64,7 @@ public class JdbcUtils {
      * @throws SQLException
      *
      * @since 2019. 1. 27.
+     * 
      */
     public static void setValueOrNull(PreparedStatement stmt, int index, Boolean value) throws SQLException {
 

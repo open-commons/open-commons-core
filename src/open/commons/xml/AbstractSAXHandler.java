@@ -50,6 +50,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     protected Logger logger = LogManager.getLogger(getClass());
     protected Logger errorLogger = LogManager.getLogger(getClass());
 
+    private boolean ignoreadInvalidValue;
+
     private String indentStr = "...";
     private int indent = 1;
 
@@ -61,6 +63,16 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     private final HashSet<String> dataQNames = new HashSet<>();
     /** Element Object */
     private final Stack<Object> elemObjects = new Stack<>();
+
+    /**
+     * 
+     * @param ignoreadInvalidValue
+     *            잘못된 값 처리 무시 여부
+     * @since 2019. 1. 29.
+     */
+    public AbstractSAXHandler(boolean ignoreadInvalidValue) {
+        this(null, null, ignoreadInvalidValue);
+    }
 
     /**
      * <pre>
@@ -77,16 +89,30 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * @since 2019. 1. 25.
      */
     public AbstractSAXHandler(Logger logger, Logger errorLogger) {
+        this(null, null, false);
+    }
+
+    /**
+     * 
+     * @param logger
+     *            일반 로그
+     * @param errorLogger
+     *            에러 로그
+     * @param ignoreadInvalidValue
+     *            잘못된 값 처리 무시 여부
+     * @since 2019. 1. 29.
+     */
+    public AbstractSAXHandler(Logger logger, Logger errorLogger, boolean ignoreadInvalidValue) {
         // #0. Assign loggers.
         this.logger = logger != null ? logger : LogManager.getLogger(getClass());
         this.errorLogger = errorLogger != null ? errorLogger : LogManager.getLogger(getClass());
+        this.ignoreadInvalidValue = ignoreadInvalidValue;
 
         // #1. Register a converter.
         registerDataConverters(this.converter);
 
         // #2. Register a name of data element
         registerDataQNames(this.dataQNames);
-
     }
 
     /**
@@ -137,7 +163,9 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
             // #3. TEXT value 를 설정
             converter.convert(parentObj, qname, strValue);
         } catch (NumberFormatException ignored) {
-            errorLogger.warn(String.format("잘못된 형식의 데이타 수신. value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, qname, parentObj, ignored.getMessage()));
+            if (!ignoreadInvalidValue) {
+                errorLogger.warn(String.format("잘못된 형식의 데이타 수신. value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, qname, parentObj, ignored.getMessage()));
+            }
             strValue = null;
         } catch (IllegalAccessException | InvocationTargetException | RuntimeException e) {
             String errorMsg = String.format("value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, qname, parentObj, e.getMessage());

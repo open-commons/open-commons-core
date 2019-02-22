@@ -33,11 +33,22 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 
+import javax.annotation.Resource;
+
 /**
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜      | 작성자   |   내용
+ * ------------------------------------------
+ * 2018. 9. 10.     박준홍     최초 작성
+ * 2019. 2. 19      박준홍     {@link Resource} 추가
+ * </pre>
  * 
  * @since 2018. 9. 10.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
+@Resource
 public class Consumers<T> implements Closeable {
 
     private final Consumer<T> consumer;

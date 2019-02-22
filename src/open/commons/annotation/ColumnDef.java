@@ -79,6 +79,23 @@ public @interface ColumnDef {
     String name();
 
     /**
+     * 데이타의 NULL 여부. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 2. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2019. 2. 18. (v1.6.3)
+     */
+    boolean nullable() default true;
+
+    /**
      * 반드시 있어야하는지 여부.
      * 
      * <br>

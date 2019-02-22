@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.6.1</version>
+	<version>1.6.3</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<distributionManagement>
@@ -94,7 +94,35 @@
 		</plugins>
 	</build>
 
-	<description>[2019/01/29]
+	<description>[2019/02/20]
+- Release: 1.6.3
+- Add
+ + open.commons.test.StopWatch
+ + open.commons.concurernt.ConcurrentJobManager
+ + open.commons.concurrent.IJobFinishedListener
+
+[2019/02/19]
+- Release: 1.6.3
+- Add
+ + open.commons.database.IConnectionCallbackBroker
+ + open.commons.database.ConnectionCallbackBroker2
+ + open.commons.function.SQLBiConsumer
+ + open.commons.function.SQLConsumer
+ + open.commons.lang.AbstractCloseable
+- Update
+ + open.commons.database.AbstractDao
+
+[2019/02/18]
+- Release: 1.6.3
+- Add
+ + open.commons.database.AbstractDao
+
+[2019/01/30]
+- Release: 1.6.2
+- BUGFIX
+ + open.commons.utils.SQLUtils
+
+[2019/01/29]
 - Release: 1.6.1
 - Add
  + open.commons.utils.JdbcUtils

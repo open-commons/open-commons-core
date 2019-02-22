@@ -380,7 +380,7 @@ public class TimeUtils {
     public static class TimeUnitBuilder {
 
         private TimeUnitInfo ns = new TimeUnitInfo(TimeUnit.NANOSECONDS, "ns");
-        private TimeUnitInfo us = new TimeUnitInfo(TimeUnit.MICROSECONDS, "us");
+        private TimeUnitInfo us = new TimeUnitInfo(TimeUnit.MICROSECONDS, "\u03bcs");
         private TimeUnitInfo ms = new TimeUnitInfo(TimeUnit.MILLISECONDS, "ms");
         private TimeUnitInfo s = new TimeUnitInfo(TimeUnit.SECONDS, "s");
         private TimeUnitInfo m = new TimeUnitInfo(TimeUnit.MINUTES, "m");
