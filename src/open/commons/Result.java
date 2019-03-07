@@ -190,21 +190,27 @@ public class Result<T> {
      * 
      * @param data
      * @return
+     * 
+     * @updated 2019. 2. 29. Apply chainging, 'return this' since 1.6.3. Before updating, return lastest data.
      */
-    public T setData(T data) {
-        T latest = this.data;
+    public Result<T> setData(T data) {
         this.data = data;
-        return latest;
+        return this;
     }
 
     /**
+     * 
      * @param message
      *            the message to set
      * 
+     * @return this instance.
+     * 
      * @since 2014. 6. 27.
+     * @updated 2019. 2. 26 Apply chaining, 'return this' since 1.6.3.
      */
-    public void setMessage(String message) {
+    public Result<T> setMessage(String message) {
         this.message = message;
+        return this;
     }
 
     /**
@@ -215,6 +221,7 @@ public class Result<T> {
      * 
      * @since 2012. 02. 15.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @updated 2019. 2. 29. Apply chaining, 'return this' since 1.6.3. Before updating, returh latest result.
      */
     public boolean setResult(boolean result) {
         boolean latestResult = this.result;

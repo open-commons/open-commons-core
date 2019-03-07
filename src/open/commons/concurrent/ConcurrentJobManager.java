@@ -73,6 +73,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * </pre>
      *
      * @param response
+     *            <b><code>null</code></b> 일 수 있음.
      * @return
      *
      * @since 2019. 2. 20.

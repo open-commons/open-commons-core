@@ -61,30 +61,40 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
             mutexQueue.notifyAll();
         }
     }
+    
 
+    /**
+     * 
+     * <br>
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 25.		박준홍			최초 작성
+     * 2019. 3. 0.		박준홍			데이터 존재 유부를 get() 후에 데이터가 null이 아닌 경우로 판단한 버그 수정. null 이 데이타 일 수도 있음.
+     * </pre>
+     *
+     * @return
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2019. 1. 25.
+     */
     protected E get() {
-
-        E qd = null;
-
         // #1. 처리할 데이터 획득.
         synchronized (mutexQueue) {
-            qd = queue.poll();
-            if (qd == null) {
+            if (queue.size() < 1) {
                 do {
                     try {
                         mutexQueue.wait();
-
-                        qd = queue.poll();
                     } catch (InterruptedException ignored) {
                         ignored.printStackTrace();
 
                         break;
                     }
-                } while (qd == null);
+                } while (queue.size() < 1);
             }
+            return queue.poll();
         }
-
-        return qd;
     }
 
     /**

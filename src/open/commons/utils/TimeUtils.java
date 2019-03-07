@@ -183,36 +183,12 @@ public class TimeUtils {
             timeBuf.insert(0, " ");
         }
 
-        timeBuf.insert(0, unit);
-        timeBuf.insert(0, String.format("%,d", time));
+        setTimeUnit(timeBuf, unit);
+        setTimeValue(timeBuf, time);
     }
 
     private static void prependTimeAndUnit(StringBuffer timeBuf, long time, TimeUnitInfo unitInfo) {
-        if (time < 1) {
-            return;
-        }
-
-        if (timeBuf.length() > 0) {
-            timeBuf.insert(0, " ");
-        }
-
-        timeBuf.insert(0, unitInfo.unitStr);
-
-        switch (unitInfo.unit) {
-            case DAYS:
-                timeBuf.insert(0, String.format("%,3d", time));
-                break;
-            case HOURS:
-            case MINUTES:
-            case SECONDS:
-                timeBuf.insert(0, String.format("%,2d", time));
-                break;
-            case MILLISECONDS:
-            case MICROSECONDS:
-            case NANOSECONDS:
-                timeBuf.insert(0, String.format("%,3d", time));
-                break;
-        }
+        prependTimeAndUnit(timeBuf, time, unitInfo.unitStr);
     }
 
     /**
@@ -257,6 +233,10 @@ public class TimeUtils {
      */
     public static void setLocale(Locale locale) {
         CURRENT_LOCALE = locale;
+    }
+
+    private static void setTimeUnit(StringBuffer timeBuf, String unit) {
+        timeBuf.insert(0, String.format("%-3s", unit));
     }
 
     /**
@@ -307,6 +287,10 @@ public class TimeUtils {
         }
 
         TIME_UNITS.put(locale, expr);
+    }
+
+    private static void setTimeValue(StringBuffer timeBuf, long time) {
+        timeBuf.insert(0, String.format("%,3d", time));
     }
 
     /**
