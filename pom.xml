@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.6.4</version>
+	<version>1.6.5</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<distributionManagement>
@@ -94,7 +94,15 @@
 		</plugins>
 	</build>
 
-	<description>[2019/03/07]
+	<description>[2019/03/20]
+- Release: 1.6.5
+- Add
+ + open.commons.utils.IOUtils.readFully(InputStream, boolean)
+ + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
+- Deprecate
+ + open.commons.utils.IOUtils.readFully(InputStream)
+
+[2019/03/07]
 - Release: 1.6.4
 - Bugfix
  + open.commons.concurrent.ConcurrentWorker.get() 로직 수정

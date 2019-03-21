@@ -44,6 +44,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Map.Entry;
 import java.util.Properties;
@@ -483,16 +484,94 @@ public class IOUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2012. 01. 10.
      * 
-     * @see sun.misc.IOUtils.readFully(InputStream, int, boolean)
+     * @see <strike>sun.misc.IOUtils.readFully(InputStream, int, boolean)</strike>
+     * @see #readFully(InputStream, boolean) since 1.6.5
+     * @see #readFully(InputStream, int, boolean) since 1.6.5
      */
     public static byte[] readFully(InputStream inStream) {
-        byte[] read = null;
+        return readFully(inStream, true);
+    }
+
+    /**
+     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 3. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            입력 스트림
+     * @param close
+     *            자동 close 여부
+     * @return
+     *
+     * @since 2019. 3. 21.
+     * @version 1.6.5
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see #readFully(InputStream, int, boolean)
+     */
+    public static byte[] readFully(InputStream inStream, final boolean close) {
+        return readFully(inStream, 1048576 /* 1024 * 1024 */, close);
+    }
+
+    /**
+     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 3. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            입력 스트림
+     * @param bufferSize
+     *            읽기 버퍼 사이즈.
+     * @param close
+     *            자동 close 여부
+     * @return
+     *
+     * @since 2019. 3. 21.
+     * @version 1.6.5
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) {
+
+        ByteBuffer buf = ByteBuffer.allocateDirect(bufferSize);
+
+        ReadableByteChannel reader = Channels.newChannel(inStream);
+
+        int count = 0;
         try {
-            read = sun.misc.IOUtils.readFully(inStream, -1, false);
-        } catch (IOException ignored) {
+            ArrayList<byte[]> store = new ArrayList<>();
+            byte[] bs = null;
+            while ((count = reader.read(buf)) > 0 && count == bufferSize) {
+                buf.clear();
+                buf.get(bs = new byte[bufferSize]);
+                store.add(bs);
+            }
+
+            // 버퍼에 남은 데이터 읽기
+            if (count > 0) {
+                buf.flip();
+                buf.get(bs = new byte[count]);
+                store.add(bs);
+            }
+
+            return ArrayUtils.merge(store.toArray(new byte[0][]));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (close) {
+                IOUtils.close(inStream);
+            }
         }
 
-        return read;
+        return null;
     }
 
     /**
