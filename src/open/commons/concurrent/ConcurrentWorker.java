@@ -31,6 +31,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import open.commons.lang.DefaultRunnable;
 
 /**
+ * Consumer & Provider 형식의 데이터 공유를 지원하는 클래스.
  * 
  * @since 2018. 5. 29.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -61,17 +62,17 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
             mutexQueue.notifyAll();
         }
     }
-    
 
     /**
      * 
      * <br>
+     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2019. 1. 25.		박준홍			최초 작성
-     * 2019. 3. 0.		박준홍			데이터 존재 유부를 get() 후에 데이터가 null이 아닌 경우로 판단한 버그 수정. null 이 데이타 일 수도 있음.
+     * 2019. 3. 1.		박준홍			데이터 존재 유부를 get() 후에 데이터가 null이 아닌 경우로 판단한 버그 수정. null 이 데이타 일 수도 있음.
      * </pre>
      *
      * @return
@@ -116,6 +117,21 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
         return this.mutexQueue;
     }
 
+    /**
+     * 데이터를 추가한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param data
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2019. 1. 25.
+     */
     public void push(E data) {
 
         if (!isRunning()) {

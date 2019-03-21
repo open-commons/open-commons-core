@@ -32,9 +32,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import open.commons.utils.ThreadUtils;
 
 /**
- * 멀티쓰레드로 처리도는 서비스 결과를 관리하는 클래스.
+ * 멀티쓰레드로 처리되는 서비스 결과를 관리하는 클래스.
  * 
  * @since 2019. 2. 20.
+ * @version 1.6.3
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implements IJobFinishedListener<E> {

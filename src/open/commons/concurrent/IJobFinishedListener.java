@@ -32,7 +32,9 @@ package open.commons.concurrent;
  *            작업 타입.
  * 
  * @since 2019. 2. 20.
+ * @version 1.6.3
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
  */
 public interface IJobFinishedListener<E> {
 
