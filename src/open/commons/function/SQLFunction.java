@@ -31,28 +31,25 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts two arguments and produces a result. This is the two-arity specialization of
- * {@link Function}.
+ * Represents a function that accepts one argument and produces a result.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose functional method is
- * {@link #apply(Object, Object)}.
- * 
- * @subject : SQL 접속 Function
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is {@link #apply(Object)}.
  *
  * @param <T>
- *            the type of the first argument to the function
- * @param <U>
- *            the type of the second argument to the function
+ *            the type of the input to the function
  * @param <R>
  *            the type of the result of the function
  *
- * @revision_history : Park_Jun_Hong_(fafanmama_at_naver_com), 2017. 8. 21., 1.0
+ * @revision_history : Park_Jun_Hong_(fafanmama_at_naver_com), 2019. 3. 28., 1.0
+ * 
+ * @since 2019. 3. 28.
+ * @version 1.6.5
  * 
  * @see Function
  */
 @FunctionalInterface
-public interface SQLBiFunction<T, U, R> {
+public interface SQLFunction<T, R> {
     /**
      * Returns a composed function that first applies this function to its input, and then applies the {@code after}
      * function to the result. If evaluation of either function throws an exception, it is relayed to the caller of the
@@ -65,10 +62,13 @@ public interface SQLBiFunction<T, U, R> {
      * @return a composed function that first applies this function and then applies the {@code after} function
      * @throws NullPointerException
      *             if after is null
+     * 
+     * @since 2019. 3. 28.
+     * @see 1.6.5
      */
-    default <V> SQLBiFunction<T, U, V> andThen(Function<? super R, ? extends V> after) {
+    default <V> SQLFunction<T, V> andThen(Function<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
-        return (T t, U u) -> after.apply(apply(t, u));
+        return (T t) -> after.apply(apply(t));
     }
 
     /**
@@ -76,9 +76,10 @@ public interface SQLBiFunction<T, U, R> {
      *
      * @param t
      *            the first function argument
-     * @param u
-     *            the second function argument
      * @return the function result
+     * 
+     * @since 2019. 3. 28.
+     * @see 1.6.5
      */
-    R apply(T t, U u) throws SQLException;
+    R apply(T t) throws SQLException;
 }

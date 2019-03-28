@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong_(fafanmama_at_naver_com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 
 /*
-* COPYLEFT by 'Open Commons' & Park Jun-Hong All Rights Reserved.
-* 
 * This file is generated under this project, "open-commons-core".
 *
 * Date  : 2012. 02. 15. 오후 2:57:52

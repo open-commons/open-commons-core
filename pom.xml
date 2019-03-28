@@ -5,6 +5,12 @@
 	<artifactId>open-commons-core</artifactId>
 	<version>1.6.5</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
+	
+	
+	
+	<properties>
+		<encoding>UTF-8</encoding>	
+	</properties>
 
 	<distributionManagement>
 		<repository>
@@ -63,6 +69,8 @@
 			</resource>
 		</resources>
 		<plugins>
+			<!-- ============== -->
+			<!-- begin: compile -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -74,6 +82,9 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			<!-- end: compile -->
+			<!-- ============ -->
+			<!-- begin: source -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -91,10 +102,34 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- end: source -->
+			<!-- ============== -->
+			<!-- begin: javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<goal>deploy</goal>
+					<show>private</show>
+					<nohelp>true</nohelp>
+					<additionalOptions>
+						<additionalOption>-Xdoclint:none</additionalOption>
+					</additionalOptions>
+					<charset>${encoding}</charset>
+					<docencoding>${encoding}</docencoding>
+					<encoding>${encoding}</encoding>
+				</configuration>
+			</plugin>
+			<!-- end: javadoc -->
 		</plugins>
 	</build>
 
-	<description>[2019/03/20]
+	<description>[2019/03/28]
+- Add
+ + open.commons.function.SQLFunction
+
+[2019/03/20]
 - Release: 1.6.5
 - Add
  + open.commons.utils.IOUtils.readFully(InputStream, boolean)
