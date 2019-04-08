@@ -8,11 +8,11 @@
 
 	<properties>
 		<encoding>UTF-8</encoding>
-		<java-version>1.8</java-version>
+		<java.version>1.8</java.version>
 
-		<compile.encoding-version>UTF-8</compile.encoding-version>
-		<compile.source-version>1.8</compile.source-version>
-		<compile.target-version>1.8</compile.target-version>
+		<compile.encoding>UTF-8</compile.encoding>
+		<compile.source.version>1.8</compile.source.version>
+		<compile.target.version>1.8</compile.target.version>
 
 		<!-- >>> begin: dependencies -->
 		<org.apache.logging.lo4j.log4j-core.version>2.7</org.apache.logging.lo4j.log4j-core.version>
@@ -21,13 +21,10 @@
 
 		<!-- >>> begin: plugin dependencies -->
 		<build.finalName>open-commons-core-${project.version}</build.finalName>
-		
-		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>		
+
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
 		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
 		<!-- >>> end: plugin dependencies -->
 	</properties>
 
@@ -94,9 +91,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<encoding>${compile.encoding-version}</encoding>
-					<source>${compile.source-version}</source>
-					<target>${compile.target-version}</target>
+					<encoding>${compile.encoding}</encoding>
+					<source>${compile.source.version}</source>
+					<target>${compile.target.version}</target>
 				</configuration>
 			</plugin>
 			<!-- <<< end: compile -->
@@ -136,6 +133,41 @@
 				</configuration>
 			</plugin>
 			<!-- <<< end: javadoc -->
+
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-antrun-plugin</artifactId> -->
+			<!-- <version>${java.version}</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <phase>compile</phase> -->
+			<!-- <configuration> -->
+			<!-- <target> -->
+			<!-- <ant antfile="${basedir}/build.xml"> -->
+			<!-- <target name="deploy" /> -->
+			<!-- </ant> -->
+			<!-- </target> -->
+			<!-- </configuration> -->
+			<!-- <goals> -->
+			<!-- <goal>run</goal> -->
+			<!-- </goals> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+
+			<!-- <dependencies> -->
+			<!-- <dependency> -->
+			<!-- <groupId>ant-contrib</groupId> -->
+			<!-- <artifactId>ant-contrib</artifactId> -->
+			<!-- <version>1.0b3</version> -->
+			<!-- <exclusions> -->
+			<!-- <exclusion> -->
+			<!-- <groupId>ant</groupId> -->
+			<!-- <artifactId>ant</artifactId> -->
+			<!-- </exclusion> -->
+			<!-- </exclusions> -->
+			<!-- </dependency> -->
+			<!-- </dependencies> -->
+			<!-- </plugin> -->
+
 		</plugins>
 	</build>
 
