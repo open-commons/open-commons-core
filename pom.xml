@@ -5,11 +5,30 @@
 	<artifactId>open-commons-core</artifactId>
 	<version>1.6.5</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
-	
-	
-	
+
 	<properties>
-		<encoding>UTF-8</encoding>	
+		<encoding>UTF-8</encoding>
+		<java-version>1.8</java-version>
+
+		<compile.encoding-version>UTF-8</compile.encoding-version>
+		<compile.source-version>1.8</compile.source-version>
+		<compile.target-version>1.8</compile.target-version>
+
+		<!-- >>> begin: dependencies -->
+		<org.apache.logging.lo4j.log4j-core.version>2.7</org.apache.logging.lo4j.log4j-core.version>
+		<org.apache.logging.lo4j.log4j-api.version>2.7</org.apache.logging.lo4j.log4j-api.version>
+		<!-- <<< end: dependencies -->
+
+		<!-- >>> begin: plugin dependencies -->
+		<build.finalName>open-commons-core-${project.version}</build.finalName>
+		
+		<maven-eclipse-plugin.version>2.9</maven-eclipse-plugin.version>		
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+		<maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
+		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+		<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
+		<!-- >>> end: plugin dependencies -->
 	</properties>
 
 	<distributionManagement>
@@ -26,6 +45,8 @@
 	</distributionManagement>
 
 	<dependencies>
+
+		<!-- >>> begin: logging -->
 		<!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
 		<!-- for llog4j-2.x: making all asynchronous loggers -->
 		<dependency>
@@ -36,26 +57,24 @@
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.7</version>
+			<artifactId>log4j-core</artifactId>
+			<version>${org.apache.logging.lo4j.log4j-core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.7</version>
+			<artifactId>log4j-api</artifactId>
+			<version>${org.apache.logging.lo4j.log4j-api.version}</version>
 		</dependency>
-		<!-- end: logging -->
-		<!-- ************** -->
-		<!-- ************** -->
+		<!-- <<< end: logging -->
 	</dependencies>
 
 	<build>
-		<finalName>open-commons-core</finalName>
+		<finalName>${build.finalName}</finalName>
 		<defaultGoal>install</defaultGoal>
-		<sourceDirectory>src</sourceDirectory>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<resource>
-				<directory>resources</directory>
+				<directory>src/main/resources</directory>
 				<includes>
 					<include>**/*.*</include>
 				</includes>
@@ -63,33 +82,29 @@
 			<resource>
 				<directory>${project.basedir}</directory>
 				<includes>
-					<include>LICENSE.txt</include>
+					<include>LICENSE</include>
 				</includes>
 				<targetPath>META-INF</targetPath>
 			</resource>
 		</resources>
 		<plugins>
-			<!-- ============== -->
-			<!-- begin: compile -->
+			<!-- >>> begin: compile -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<!-- <version>3.1</version> -->
-				<version>3.6.1</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
-					<encoding>UTF-8</encoding>
-					<source>1.8</source>
-					<target>1.8</target>
+					<encoding>${compile.encoding-version}</encoding>
+					<source>${compile.source-version}</source>
+					<target>${compile.target-version}</target>
 				</configuration>
 			</plugin>
-			<!-- end: compile -->
-			<!-- ============ -->
-			<!-- begin: source -->
+			<!-- <<< end: compile -->
+			<!-- >>> begin: source -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<!-- <version>2.2.1</version> -->
-				<version>3.0.1</version>
+				<version>${maven-source-plugin.version}</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
@@ -102,13 +117,12 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- end: source -->
-			<!-- ============== -->
-			<!-- begin: javadoc -->
+			<!-- <<< end: source -->
+			<!-- >>> begin: javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>${maven-javadoc-plugin.version}</version>
 				<configuration>
 					<goal>deploy</goal>
 					<show>private</show>
@@ -121,7 +135,7 @@
 					<encoding>${encoding}</encoding>
 				</configuration>
 			</plugin>
-			<!-- end: javadoc -->
+			<!-- <<< end: javadoc -->
 		</plugins>
 	</build>
 
