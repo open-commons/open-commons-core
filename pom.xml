@@ -171,7 +171,15 @@
 		</plugins>
 	</build>
 
-	<description>[2019/03/28]
+	<description>[2019/04/12]
+- Update
+ + open.commons.util.BinarySortedList.add(E)
+- Add
+ + open.commons.util.BinarySortedList.insertelementAt(E, int)
+ + open.commons.util.BinarySortedList.grow(int)
+ + open.commons.util.BinarySortedList.hugeCapacity(int)
+
+[2019/03/28]
 - Add
  + open.commons.function.SQLFunction
 

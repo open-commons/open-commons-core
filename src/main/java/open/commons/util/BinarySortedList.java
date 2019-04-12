@@ -26,6 +26,7 @@
 
 package open.commons.util;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Vector;
@@ -39,6 +40,8 @@ import java.util.Vector;
 public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
 
     private static final long serialVersionUID = 1L;
+
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     private final Comparator<E> DEFAULT_COMPARATOR = new Comparator<E>() {
         @Override
@@ -163,7 +166,12 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
             return false;
         }
 
-        super.add(index, e);
+        modCount++;
+
+        ensureCapacityHelper(elementCount + 1);
+        System.arraycopy(elementData, index, elementData, index + 1, elementCount - index);
+        elementData[index] = e;
+        elementCount++;
 
         return true;
     }
@@ -236,6 +244,12 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
         }
     }
 
+    private void ensureCapacityHelper(int minCapacity) {
+        // overflow-conscious code
+        if (minCapacity - elementData.length > 0)
+            grow(minCapacity);
+    }
+
     /**
      * 정렬하기 위한 인덱스를 제공한다. <br>
      * 
@@ -296,9 +310,36 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
         }
     }
 
+    private void grow(int minCapacity) {
+        // overflow-conscious code
+        int oldCapacity = elementData.length;
+        int newCapacity = oldCapacity + ((capacityIncrement > 0) ? capacityIncrement : oldCapacity);
+        if (newCapacity - minCapacity < 0)
+            newCapacity = minCapacity;
+        if (newCapacity - MAX_ARRAY_SIZE > 0)
+            newCapacity = hugeCapacity(minCapacity);
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+
     private void init(boolean asc, Comparator<E> comparator) {
         this.asc = asc;
         this.comparator = comparator != null ? comparator : DEFAULT_COMPARATOR;
     }
 
+    /**
+     * @see java.util.Vector#insertElementAt(java.lang.Object, int)
+     * 
+     * @since 2019. 4. 12.
+     * @version 1.6.5
+     */
+    @Override
+    public final synchronized void insertElementAt(E e, int index) {
+        throw new UnsupportedOperationException("CANNOT set an index of an element. Use add(E)");
+    }
+
+    private static int hugeCapacity(int minCapacity) {
+        if (minCapacity < 0) // overflow
+            throw new OutOfMemoryError();
+        return (minCapacity > MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;
+    }
 }
