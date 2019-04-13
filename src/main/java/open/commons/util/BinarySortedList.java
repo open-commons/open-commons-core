@@ -244,6 +244,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
         }
     }
 
+    /* Copied from java.lang.Vector.ensureCapacityHelper(int) */
     private void ensureCapacityHelper(int minCapacity) {
         // overflow-conscious code
         if (minCapacity - elementData.length > 0)
@@ -310,6 +311,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
         }
     }
 
+    /* Copied from java.lang.Vector.grow(int) */
     private void grow(int minCapacity) {
         // overflow-conscious code
         int oldCapacity = elementData.length;
@@ -337,6 +339,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
         throw new UnsupportedOperationException("CANNOT set an index of an element. Use add(E)");
     }
 
+    /* Copied from java.lang.Vector.hugeCapacity(int) */
     private static int hugeCapacity(int minCapacity) {
         if (minCapacity < 0) // overflow
             throw new OutOfMemoryError();
