@@ -161,7 +161,7 @@
 [2018/02/08]
 - Release: 1.4.14
 - Add
-  + <K, V, N, M extends Map<K, List<N>>> M open.commons.utils.CollectionUtils.toMap(Collection<V> ,Function<V, K>, BiFunction<K, V, N>, Class<M>)
+  + <K, V, N, M extends Map<K, List<N>>> M open.commons.utils.CollectionUtils.toMap(Collection<V> ,Function<V, K>, BiFunction<K, V, N>, Class\<M>)
   + <K, V, N, M extends Map<K, List<N>>> M open.commons.utils.CollectionUtils.toMap(Collection<V> ,Function<V, K> ,BiFunction<K, V, N>)
 
 
@@ -223,9 +223,9 @@
 - Release: 1.4.5
 - Update
   + <K, V> Map<K,V> open.commons.utils.CollectionUtils.toMap<Enumeration<V>, Function<V, K>);
-  + <K, V, M extends Map<K, V>> M  open.commons.utils.CollectionUtils.toMap<Enumeration<V>, Function<V, K>, Class<M>);
+  + <K, V, M extends Map<K, V>> M  open.commons.utils.CollectionUtils.toMap<Enumeration<V>, Function<V, K>, Class\<M>);
   + <K, V> Map<K,V> open.commons.utils.CollectionUtils.toMap<Enumeration<V>, IKeyExtractor<K, V>);
-  + <K, V, M extends Map<K, V>> M  open.commons.utils.CollectionUtils.toMap<Enumeration<V>, IKeyExtractor<K, V>, Class<M>);
+  + <K, V, M extends Map<K, V>> M  open.commons.utils.CollectionUtils.toMap<Enumeration<V>, IKeyExtractor<K, V>, Class\<M>);
 
 [2017/09/06]
 - Release: 1.4.4.0
