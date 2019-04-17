@@ -2,9 +2,10 @@
 - Update
   + open.commons.util.BinarySortedList.add(E)
 - Add
-  + open.commons.util.BinarySortedList.insertelementAt(E, int)
-  + open.commons.util.BinarySortedList.grow(int)
-  + open.commons.util.BinarySortedList.hugeCapacity(int)
+  + open.commons.util.BinarySortedList
+    - insertelementAt(E, int)
+    - grow(int)
+    - hugeCapacity(int)
 
 [2019/03/28]
 - Add
@@ -13,8 +14,9 @@
 [2019/03/20]
 - Release: 1.6.5
 - Add
-  + open.commons.utils.IOUtils.readFully(InputStream, boolean)
-  + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
+  + open.commons.utils.IOUtils
+    - readFully(InputStream, boolean)
+    - readFully(InputStream, int, boolean)
 - Deprecate
   + open.commons.utils.IOUtils.readFully(InputStream)
 
