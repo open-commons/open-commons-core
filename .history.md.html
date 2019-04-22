@@ -1,0 +1,1295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>G:\03.WORKSPACE\open-commons\open-commons-core\.history.md.html</title>
+
+
+<style type="text/css">
+body {
+	color: #333;
+	font: 13px/1.4 "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	background: transparent;
+	color: #4183c4;
+	text-decoration: none;
+}
+
+a:active,
+a:hover {
+	outline: 0 none;
+	text-decoration: underline;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+dfn {
+	font-style: italic;
+}
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+mark {
+	background: #ff0;
+	color: #000;
+}
+small {
+	font-size: 80%;
+}
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+img {
+	border: 0 none;
+}
+svg:not(:root) {
+	overflow: hidden;
+}
+figure {
+	margin: 1em 40px;
+}
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: monospace,monospace;
+	font-size: 1em;
+}
+
+pre {
+	overflow: auto;
+	font: 12px Consolas,"Liberation Mono",Menlo,Courier,monospace;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.markdown-body {
+	padding: 30px;
+	font-size: 16px;
+	line-height: 1.6;
+	word-wrap: break-word;
+}
+
+.markdown-body>*:first-child {
+	margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+	margin-bottom: 0 !important;
+}
+
+.markdown-body .absent {
+	color: #c00;
+}
+
+.markdown-body .anchor {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	padding-right: 6px;
+	padding-left: 30px;
+	margin-left: -30px;
+}
+
+.markdown-body .anchor:focus {
+	outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+	position: relative;
+	margin-top: 1em;
+	margin-bottom: 16px;
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+	display: none;
+	color: #000;
+	vertical-align: middle;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+	padding-left: 8px;
+	margin-left: -30px;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+	display: inline-block;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+	font-size: inherit;
+}
+
+.markdown-body h1 {
+	padding-bottom: 0.3em;
+	font-size: 2.25em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+	padding-bottom: 0.3em;
+	font-size: 1.75em;
+	line-height: 1.225;
+	border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+	font-size: 1.5em;
+	line-height: 1.43;
+}
+
+.markdown-body h4 {
+	font-size: 1.25em;
+}
+
+.markdown-body h5 {
+	font-size: 1em;
+}
+
+.markdown-body h6 {
+	font-size: 1em;
+	color: #777;
+}
+
+.markdown-body p,.markdown-body blockquote,
+.markdown-body ul,.markdown-body ol,
+.markdown-body dl,.markdown-body table,
+.markdown-body pre {
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.markdown-body hr {
+	height: 4px;
+	padding: 0;
+	margin: 16px 0;
+	background-color: #e7e7e7;
+	border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+	padding-left: 2em;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+	padding: 0;
+	list-style-type: none;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.markdown-body li>p {
+	margin-top: 16px;
+}
+
+.markdown-body dl {
+	padding: 0;
+}
+
+.markdown-body dl dt {
+	padding: 0;
+	margin-top: 16px;
+	font-size: 1em;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.markdown-body dl dd {
+	padding: 0 16px;
+	margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+	padding: 0 15px;
+	color: #777;
+	border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+	margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+	margin-bottom: 0;
+}
+
+.markdown-body table {
+	display: block;
+	width: 100%;
+	overflow: auto;
+	word-break: normal;
+	word-break: keep-all;
+}
+
+.markdown-body table th {
+	font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+	padding: 6px 13px;
+	border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+	background-color: #fff;
+	border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+	background-color: #f8f8f8;
+}
+
+.markdown-body img {
+	max-width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.markdown-body span.frame {
+	display: block;
+	overflow: hidden;
+}
+
+.markdown-body span.frame>span {
+	display: block;
+	float: left;
+	width: auto;
+	padding: 7px;
+	margin: 13px 0 0;
+	overflow: hidden;
+	border: 1px solid #ddd;
+}
+
+.markdown-body span.frame span img {
+	display: block;
+	float: left;
+}
+
+.markdown-body span.frame span span {
+	display: block;
+	padding: 5px 0 0;
+	clear: both;
+	color: #333;
+}
+
+.markdown-body span.align-center {
+	display: block;
+	overflow: hidden;
+	clear: both;
+}
+
+.markdown-body span.align-center>span {
+	display: block;
+	margin: 13px auto 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+.markdown-body span.align-center span img {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.markdown-body span.align-right {
+	display: block;
+	overflow: hidden;
+	clear: both;
+}
+
+.markdown-body span.align-right>span {
+	display: block;
+	margin: 13px 0 0;
+	overflow: hidden;
+	text-align: right;
+}
+
+.markdown-body span.align-right span img {
+	margin: 0;
+	text-align: right;
+}
+
+.markdown-body span.float-left {
+	display: block;
+	float: left;
+	margin-right: 13px;
+	overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+	margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+	display: block;
+	float: right;
+	margin-left: 13px;
+	overflow: hidden;
+}
+
+.markdown-body span.float-right>span {
+	display: block;
+	margin: 13px auto 0;
+	overflow: hidden;
+	text-align: right;
+}
+
+.markdown-body code,.markdown-body tt {
+	padding: 0;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	margin: 0;
+	font-size: 85%;
+	background-color: rgba(0,0,0,0.04);
+	border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after,
+.markdown-body tt:before,
+.markdown-body tt:after {
+	letter-spacing: -0.2em;
+	content: "\00a0";
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+	display: none;
+}
+
+.markdown-body del code {
+	text-decoration: inherit;
+}
+
+.markdown-body pre>code {
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	word-break: normal;
+	white-space: pre;
+	background: transparent;
+	border: 0;
+}
+
+.markdown-body .highlight {
+	margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+	padding: 16px;
+	overflow: auto;
+	font-size: 85%;
+	line-height: 1.45;
+	background-color: #f7f7f7;
+	border-radius: 3px;
+}
+
+.markdown-body .highlight pre {
+	margin-bottom: 0;
+	word-break: normal;
+}
+
+.markdown-body pre {
+	word-wrap: normal;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+	display: inline;
+	max-width: initial;
+	padding: 0;
+	margin: 0;
+	overflow: initial;
+	line-height: inherit;
+	word-wrap: normal;
+	background-color: transparent;
+	border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after,
+.markdown-body pre tt:before,
+.markdown-body pre tt:after {
+	content: normal;
+}
+
+.highlight .pl-coc,
+.highlight .pl-entl,
+.highlight .pl-entm,
+.highlight .pl-eoa,
+.highlight .pl-mai .pl-sf,
+.highlight .pl-mm,
+.highlight .pl-pdv,
+.highlight .pl-sc,
+.highlight .pl-som,
+.highlight .pl-sr,
+.highlight .pl-v,
+.highlight .pl-vpf {
+	color: #0086b3;
+}
+.highlight .pl-eoac,
+.highlight .pl-mdht,
+.highlight .pl-mi1,
+.highlight .pl-mri,
+.highlight .pl-va,
+.highlight .pl-vpu {
+	color: #008080;
+}
+.highlight .pl-c,
+.highlight .pl-pdc {
+	color: #b4b7b4;
+	font-style: italic;
+}
+.highlight .pl-k,
+.highlight .pl-ko,
+.highlight .pl-kolp,
+.highlight .pl-mc,
+.highlight .pl-mr,
+.highlight .pl-ms,
+.highlight .pl-s,
+.highlight .pl-sok,
+.highlight .pl-st {
+	color: #6e5494;
+}
+.highlight .pl-ef,
+.highlight .pl-enf,
+.highlight .pl-enm,
+.highlight .pl-entc,
+.highlight .pl-eoi,
+.highlight .pl-sf,
+.highlight .pl-smc {
+	color: #d12089;
+}
+.highlight .pl-ens,
+.highlight .pl-eoai,
+.highlight .pl-kos,
+.highlight .pl-mh .pl-pdh,
+.highlight .pl-mp,
+.highlight .pl-pde,
+.highlight .pl-stp {
+	color: #458;
+}
+.highlight .pl-enti {
+	color: #d12089;
+	font-weight: bold;
+}
+.highlight .pl-cce,
+.highlight .pl-enc,
+.highlight .pl-kou,
+.highlight .pl-mq {
+	color: #f93;
+}
+.highlight .pl-mp1 .pl-sf {
+	color: #458;
+	font-weight: bold;
+}
+.highlight .pl-cos,
+.highlight .pl-ent,
+.highlight .pl-md,
+.highlight .pl-mdhf,
+.highlight .pl-ml,
+.highlight .pl-pdc1,
+.highlight .pl-pds,
+.highlight .pl-s1,
+.highlight .pl-scp,
+.highlight .pl-sol {
+	color: #df5000;
+}
+.highlight .pl-c1,
+.highlight .pl-cn,
+.highlight .pl-pse,
+.highlight .pl-pse .pl-s2,
+.highlight .pl-vi {
+	color: #a31515;
+}
+.highlight .pl-mb,
+.highlight .pl-pdb {
+	color: #df5000;
+	font-weight: bold;
+}
+.highlight .pl-mi,
+.highlight .pl-pdi {
+	color: #6e5494;
+	font-style: italic;
+}
+.highlight .pl-ms1 {
+	background-color: #f5f5f5;
+}
+.highlight .pl-mdh,
+.highlight .pl-mdi {
+	font-weight: bold;
+}
+.highlight .pl-mdr {
+	color: #0086b3;
+	font-weight: bold;
+}
+.highlight .pl-s2 {
+	color: #333;
+}
+.highlight .pl-ii {
+	background-color: #df5000;
+	color: #fff;
+}
+.highlight .pl-ib {
+	background-color: #f93;
+}
+.highlight .pl-id {
+	background-color: #a31515;
+	color: #fff;
+}
+.highlight .pl-iu {
+	background-color: #b4b7b4;
+}
+.highlight .pl-mo {
+	color: #969896;
+}
+
+</style>
+
+
+<script type="text/javascript">
+
+function getDocumentScrollTop() 
+{
+   var res = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0;
+   // alert(res);
+   return res;
+}
+
+function setDocumentScrollTop(ypos) 
+{
+	window.scrollTo(0, ypos);
+}
+
+</script>
+
+
+</head>
+<body class="markdown-body">
+<p>[2019/04/12]</p> 
+<ul> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.util.BinarySortedList.add(E)</li> 
+  </ul> </li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.util.BinarySortedList 
+    <ul> 
+     <li>insertelementAt(E, int)</li> 
+     <li>grow(int)</li> 
+     <li>hugeCapacity(int)</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/03/28]</p> 
+<ul> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.function.SQLFunction</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/03/20]</p> 
+<ul> 
+ <li>Release: 1.6.5</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.IOUtils 
+    <ul> 
+     <li>readFully(InputStream, boolean)</li> 
+     <li>readFully(InputStream, int, boolean)</li> 
+    </ul> </li> 
+  </ul> </li> 
+ <li>Deprecate 
+  <ul> 
+   <li>open.commons.utils.IOUtils.readFully(InputStream)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/03/07]</p> 
+<ul> 
+ <li>Release: 1.6.4</li> 
+ <li>Bugfix 
+  <ul> 
+   <li>open.commons.concurrent.ConcurrentWorker.get() 로직 수정</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/02/29]</p> 
+<ul> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.Result.setData(T)</li> 
+   <li>open.commons.Result.setMessage(String)</li> 
+   <li>open.commons.Result.setResult(boolean)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/02/20]</p> 
+<ul> 
+ <li>Release: 1.6.3</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.test.StopWatch</li> 
+   <li>open.commons.concurernt.ConcurrentJobManager</li> 
+   <li>open.commons.concurrent.IJobFinishedListener</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/02/19]</p> 
+<ul> 
+ <li>Release: 1.6.3</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.database.IConnectionCallbackBroker</li> 
+   <li>open.commons.database.ConnectionCallbackBroker2</li> 
+   <li>open.commons.function.SQLBiConsumer</li> 
+   <li>open.commons.function.SQLConsumer</li> 
+   <li>open.commons.lang.AbstractCloseable</li> 
+  </ul> </li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.database.AbstractDao</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/02/18]</p> 
+<ul> 
+ <li>Release: 1.6.3</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.database.AbstractDao</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/01/30]</p> 
+<ul> 
+ <li>Release: 1.6.2</li> 
+ <li>BUGFIX 
+  <ul> 
+   <li>open.commons.utils.SQLUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/01/29]</p> 
+<ul> 
+ <li>Release: 1.6.1</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.JdbcUtils</li> 
+   <li>open.commons.xml package</li> 
+  </ul> </li> 
+</ul> 
+<p>[2019/01/22] (misspelled [2019/11/22])</p> 
+<ul> 
+ <li>Release: 1.6.0</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.util.BinarySortedList</li> 
+  </ul> </li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.CollectionUtils</li> 
+   <li>open.commons.utils.MathUtils</li> 
+   <li>open.commons.utils.OrderingUtils</li> 
+   <li>open.commons.utils.TimeUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/11/20]</p> 
+<ul> 
+ <li>Release: 1.5.3</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.EncryptUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/11/15]</p> 
+<ul> 
+ <li>Release: 1.5.2.1</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.TimeUtils: Locale 지원</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/10/01]</p> 
+<ul> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.test.ElapsedTime 상태 체크 추가</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/09/28]</p> 
+<ul> 
+ <li>Release: 1.5.2</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.io.Consumers</li> 
+   <li>open.commons.test.ElapsedTime</li> 
+   <li>open.commons.utils.TimeUtils</li> 
+  </ul> </li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.StringUtils.toRegExString(String)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/09/12]</p> 
+<ul> 
+ <li>Release: 1.5.1</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.IOUtils 
+    <ul> 
+     <li>transfer(InputStream, Charset, boolean, Writer, boolean)</li> 
+     <li>transfer(InputStream, Charset, Writer)</li> 
+     <li>transfer(InputStream, Charset, Writer, boolean)</li> 
+     <li>transfer(InputStream, String, boolean, Writer, String, boolean)</li> 
+     <li>transfer(InputStream, String, Writer)</li> 
+     <li>transfer(InputStream, String, Writer, boolean)</li> 
+     <li>transfer(Reader, boolean, OutputStream, Charset, boolean)</li> 
+     <li>transfer(Reader, boolean, Writer, boolean)</li> 
+     <li>transfer(Reader, OutputStream, Charset)</li> 
+     <li>transfer(Reader, OutputStream, Charset, boolean)</li> 
+     <li>transfer(Reader, OutputStream, String)</li> 
+     <li>transfer(Reader, OutputStream, String, boolean)</li> 
+     <li>transfer(Reader, String, boolean, OutputStream, String, boolean)</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/09/12]</p> 
+<ul> 
+ <li>Release: 1.5.0</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.CollectionUtils 
+    <ul> 
+     <li>toList(Stream&lt;E&gt;, Function&lt;E, NE&gt;)</li> 
+     <li>toList(Stream&lt;E&gt;, Function&lt;E, NE&gt;, Class&lt;L&gt;)</li> 
+     <li>toSet(Stream&lt;E&gt;, Function&lt;E, NE&gt;)</li> 
+     <li>toSet(Stream&lt;E&gt;, Function&lt;E, NE&gt;, Class&lt;S&gt;)</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/09/10]</p> 
+<ul> 
+ <li>Release: 1.4.17</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.IOUtils.transfer(InputStream, boolean, OutputStream, boolean) 
+    <ul> 
+     <li>transfer(InputStream, OutputStream, boolean)</li> 
+     <li>transfer(InputStream, Charset, OutputStream, Charset)</li> 
+     <li>transfer(InputStream, OutputStream, Charset)</li> 
+     <li>transfer(InputStream, String, boolean, OutputStream, String, boolean)</li> 
+     <li>transfer(InputStream, String, OutputStream, String)</li> 
+    </ul> </li> 
+  </ul> </li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.io.Closeables</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/06/18]</p> 
+<ul> 
+ <li>Bug Fix 
+  <ul> 
+   <li>open.commons.concurrent.ConcurrentWorker.get()</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/05/30]</p> 
+<ul> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.SQLUtils.newInstance(Class, ResultSet, String ...) 
+    <ul> 
+     <li>데이터 타입에 맞는 함수 호출 적용</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/05/29]</p> 
+<ul> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.concurrent.ConcurrentWorker&lt;E&gt;</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/04/18]</p> 
+<ul> 
+ <li>Add 
+  <ul> 
+   <li>public static T[] toArray(Collection, Class)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/03/29]</p> 
+<ul> 
+ <li>Release: 1.4.15</li> 
+ <li>Add 
+  <ul> 
+   <li>public interface open.commons.function.QuadFunction&lt;T, U, V, W, R&gt;</li> 
+   <li>public interface open.commons.function.PentagonFunction&lt;T, U, V, W, X, R&gt;</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/02/08]</p> 
+<ul> 
+ <li>Release: 1.4.14</li> 
+ <li>Add 
+  <ul> 
+   <li>&lt;K, V, N, M extends Map&lt;K, List&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class&lt;M&gt;)</li> 
+   <li>&lt;K, V, N, M extends Map&lt;K, List&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/01/31]</p> 
+<ul> 
+ <li>Release: 1.4.13</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.ObjectUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2018/01/05]</p> 
+<ul> 
+ <li>Release: 1.4.12</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.annotation.ColumnDef.caseSensitivie() 기본값 변경 
+    <ul> 
+     <li>false -&gt; true</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/12/29]</p> 
+<ul> 
+ <li>Release: 1.4.11</li> 
+ <li>Add 
+  <ul> 
+   <li>class open.commons.database.ConnectionCallbackBroker</li> 
+   <li>class open.commons.database.IConnectionCallbackSetter</li> 
+   <li>class open.commons.database.IRowMapperSetter</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/12/13]</p> 
+<ul> 
+ <li>Release: 1.4.10</li> 
+ <li>Add 
+  <ul> 
+   <li>&lt;C extends Collectin&lt;E&gt;, E&gt; C open.commons.utils.CollectionUtils.addIfNotNull(C, Class, E)</li> 
+   <li>&lt;C extends Collectin&lt;E&gt;, E&gt; C open.commons.utils.CollectionUtils.addAllIfNotNull(C, Class, E[])</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/12/04]</p> 
+<ul> 
+ <li>Release: 1.4.9</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.MathUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/10/18]</p> 
+<ul> 
+ <li>Release: 1.4.8.1</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.CollectionUtils.read(List, int, int)</li> 
+   <li>open.commons.utils.CollectionUtils.readAsArray(List, int, int, Class)</li> 
+   <li>open.commons.utils.MapUtils.read(Map&lt;K, V&gt;, int)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/09/22]</p> 
+<ul> 
+ <li>Release: 1.4.8</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.function.SQLBiFunction</li> 
+   <li>open.commons.function.TripleConsumer</li> 
+   <li>open.commons.function.TripleFunction</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/09/22]</p> 
+<ul> 
+ <li>Release: 1.4.7</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.annotation.ColumnDef</li> 
+   <li>open.commons.utils.SQLUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/09/07]</p> 
+<ul> 
+ <li>Release: 1.4.6</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.concurrent.DefaultThreadFactory</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/09/06]</p> 
+<ul> 
+ <li>Release: 1.4.5</li> 
+ <li>Update 
+  <ul> 
+   <li>&lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration, Function&lt;V, K&gt;);</li> 
+   <li>&lt;K, V, M extends Map&lt;K, V&gt;&gt; M open.commons.utils.CollectionUtils.toMap&lt;Enumeration, Function&lt;V, K&gt;, Class&lt;M&gt;);</li> 
+   <li>&lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration, IKeyExtractor&lt;K, V&gt;);</li> 
+   <li>&lt;K, V, M extends Map&lt;K, V&gt;&gt; M open.commons.utils.CollectionUtils.toMap&lt;Enumeration, IKeyExtractor&lt;K, V&gt;, Class&lt;M&gt;);</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/09/06]</p> 
+<ul> 
+ <li>Release: 1.4.4.0</li> 
+ <li>Update 
+  <ul> 
+   <li>boolean open.commons.utils.AssertUtils.assert0(Class, String) 버그 패치</li> 
+   <li>int open.commons.utils.IOUtils.readStream(InputStream, int, boolean) 추가</li> 
+   <li>int open.commons.utils.IOUtils.readStream(InputStream, int) 수정</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/08/07]</p> 
+<ul> 
+ <li>Release: 1.4.3.1</li> 
+ <li>Update 
+  <ul> 
+   <li>boolean open.commons.utils.StringUtils.isWhiteSpace(String) 버그 패치</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/07/27]</p> 
+<ul> 
+ <li>Release: 1.4.3</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.CollectionUtils.java</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/07/06]</p> 
+<ul> 
+ <li>Release: 1.4.2.1</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.DateUtil.java</li> 
+   <li>open.commons.utils.StringUtils.java</li> 
+  </ul> </li> 
+</ul> 
+<p>[2017/03/14]</p> 
+<ul> 
+ <li>Release: 1.4.2</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.DateUtil.java</li> 
+   <li>open.commons.utils.StringUtils.java</li> 
+  </ul> </li> 
+</ul> 
+<p>[2016/09/20]</p> 
+<ul> 
+ <li>Release: 1.4.1</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.StringUtils.split(String, String, boolean, int)</li> 
+   <li>open.commons.utils.StringUtils.splitWithoutBracket(String, String, boolean)</li> 
+   <li>open.commons.utils.StringUtils.splitWithoutBracket(String, String, boolean, int)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2016/03/15]</p> 
+<ul> 
+ <li>Release: 1.4.0</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.ReflectionUtils.getAllAnnodatedFields(Object, Class, IFilter)</li> 
+   <li>open.commons.utils.ReflectionUtils.getAllAnnodatedFields(OBject, Class)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/12/11]</p> 
+<ul> 
+ <li>Release: 1.3.3</li> 
+ <li>Update 
+  <ul> 
+   <li>open.commons.utils.CollectionUtils.getIgnoreCase(): Apply generic</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/07/23]</p> 
+<ul> 
+ <li>Release: 1.3.2</li> 
+ <li>Bugfix 
+  <ul> 
+   <li>open.commons.utils.FileUtils.getFileExtension(File)</li> 
+   <li>open.commons.io.FileRecursiveHandler: add statistics APIs.</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/04/14]</p> 
+<ul> 
+ <li>Release: 1.3.1</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.net.SubNetwork</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/03/17]</p> 
+<ul> 
+ <li>Release: 1.3.0</li> 
+ <li>Bugfix 
+  <ul> 
+   <li>open.commons.utils.NetUtils.REGEX_IPV4 값 수정</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/03/14]</p> 
+<ul> 
+ <li>Release: 1.2.8</li> 
+ <li>Bugfix 
+  <ul> 
+   <li>public String FIFOMap.toString(): Infinite Loop 버그 수정</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/03/12]</p> 
+<ul> 
+ <li>Release: 1.2.6</li> 
+ <li>Bugfix 
+  <ul> 
+   <li>public static byte[] readStream(InputStream inStream, final int length) 버그 수정</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/03/08]</p> 
+<ul> 
+ <li>Release: 1.2.4</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.NetUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2015/01/13]</p> 
+<ul> 
+ <li>Release: 1.2.2</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.ExceptionUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/12/02]</p> 
+<ul> 
+ <li>Release 1.2.1</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.text.NamedTemplate.clear();</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/11/07]</p> 
+<ul> 
+ <li>Release 1.2.0 &lt;- 1.1.3</li> 
+ <li>Add 
+  <ul> 
+   <li>open.comons.utils.AnnotationUtils.getAnnotatedFields(Object, Class)</li> 
+   <li>open.comons.utils.AnnotationUtils.getAnnotatedMethods(Object, Class) [2014/10/17]</li> 
+  </ul> </li> 
+ <li>Release 1.1.3</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.util.CollectionUtils.toList(Collection)</li> 
+   <li>open.commons.util.CollectionUtils.toList(Collection, Class)</li> 
+   <li>open.commons.util.CollectionUtils.toSet(Collection)</li> 
+   <li>open.commons.util.CollectionUtils.toSet(Collection, Class)</li> 
+   <li>open.commons.collections.FIFOMap.atFirst()</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/09/26]</p> 
+<ul> 
+ <li>Release 1.1.2</li> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.annotation.Hide</li> 
+   <li>open.commons.reflect.IAccessibleObjectAction</li> 
+   <li>open.commons.utils.DataUtils</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/09/17]</p> 
+<ul> 
+ <li>Release 1.1.1</li> 
+ <li>Change 
+  <ul> 
+   <li>open.commons.validation.supports -&gt; open.commons.validation.token</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/09/05]</p> 
+<ul> 
+ <li>Release 1.1.0</li> 
+ <li>Bug fix 
+  <ul> 
+   <li>open.commons.text.NamedTemplate 
+    <ul> 
+     <li>public static String format(String pattern, Map&lt;String, Object&gt; values, boolean trim): name에 대한 trim() 처리 버그</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/07/10]</p> 
+<ul> 
+ <li> <p>Add</p> 
+  <ul> 
+   <li>open.commons.utils.IntegerUtils.parseInt(String)</li> 
+   <li>open.commons.utils.IntegerUtils.radix)String)</li> 
+  </ul> </li> 
+ <li> <p>Change</p> 
+  <ul> 
+   <li>open.commons.utils.IntegerUtils.parseInt(String, int)</li> 
+   <li>open.commons.utils.IntegerUtils.parseInt(String, int, int)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/06/30]</p> 
+<ul> 
+ <li>Add 
+  <ul> 
+   <li>open.commons.utils.StringUtils.toStrings(String ...)</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/06/24]</p> 
+<ul> 
+ <li>Bug fix 
+  <ul> 
+   <li>AbstractRunnable.stop() 'NullPointerException'</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/06/18]</p> 
+<ul> 
+ <li> <p>Release 1.0.9</p> </li> 
+ <li> <p>New</p> 
+  <ul> 
+   <li>open.commons.reflect.IllegalGenericNameException 추가</li> 
+   <li>open.commons.reflect.TypeVariableNamses 추가</li> 
+  </ul> </li> 
+ <li> <p>Update</p> 
+  <ul> 
+   <li>open.commons.utils/ArrayUtils.java 
+    <ul> 
+     <li>public static Class&gt;[] adjustByLength(int length, Class&gt;... classes)</li> 
+    </ul> </li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/06/04]</p> 
+<ul> 
+ <li>Release 1.0.8</li> 
+ <li>Changes !!!!!!!!!!!!! 
+  <ul> 
+   <li>open.commons.reflect.GenericParamType -&gt; open.commons.reflect.GenericTypeVariable</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/06/03]</p> 
+<ul> 
+ <li>New!!! 
+  <ul> 
+   <li>open.commons.utils.DateUtil2</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/05/30]</p> 
+<ul> 
+ <li> <p>Hot !!!</p> 
+  <ul> 
+   <li>License is changed!!! 
+    <ul> 
+     <li>before: COPYLEFT by 'Open Commons' &amp; Park Jun-Hong All Rights Reserved when use for commercial purpose.</li> 
+     <li>after:</li> 
+    </ul> </li> 
+  </ul> </li> 
+ <li> <p>Changes</p> 
+  <ul> 
+   <li>open.commons.text.NamedFormat -&gt; open.commons.text.NamedTemplate</li> 
+  </ul> </li> 
+ <li> <p>New!!!</p> 
+  <ul> 
+   <li>open.commons.net.EtherTypejava</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/05/27]</p> 
+<ul> 
+ <li>New!!! 
+  <ul> 
+   <li>open.commons.net.Protocols.java</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/05/08]</p> 
+<ul> 
+ <li>Release 1.0.7 
+  <ul> 
+   <li>open.commons.lang.ToStringHashCode 추가</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/05/02]</p> 
+<ul> 
+ <li> <p>Release 1.0.6</p> 
+  <ul> 
+   <li>New interface: open.commons.util.IFilter</li> 
+   <li>Modify wrong words.</li> 
+  </ul> 
+  <ul> 
+   <li>candidator -&gt; candidate</li> 
+  </ul> </li> 
+</ul> 
+<p>[2014/04/23]</p> 
+<ul> 
+ <li>Release 1.0.5</li> 
+ <li>New 
+  <ul> 
+   <li>open.commons.text.NamedFormat 추가</li> 
+   <li>open.commons.utils.Updated ByteUtils.hexBinStringToByteArray()</li> 
+  </ul> </li> 
+</ul>
+</body>
+</html>
