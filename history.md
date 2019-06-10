@@ -1,3 +1,8 @@
+[2019/06/10]
+- Release: 1.6.7
+- Bugfix
+  + open.commons.utils.SQLUtils.invoke(ResultSet, ColumnDef, Method, Object): 타입 비교 우선순위 버그 처리
+
 [2019/04/12]
 - Update
   + open.commons.util.BinarySortedList.add(E)

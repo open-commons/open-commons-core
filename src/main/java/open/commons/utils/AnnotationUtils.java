@@ -25,7 +25,9 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -35,6 +37,45 @@ import java.util.List;
  * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
  */
 public class AnnotationUtils {
+
+    /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annotationClass
+     * @return
+     *
+     * @since 2019. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T extends Annotation> List<Field> getAnnotatedFields(Class<?> typeClass, Class<T> annotationClass) {
+        ArrayList<Field> methods = new ArrayList<>();
+
+        Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+                .forEach(m -> {
+                    boolean accessible = false;
+                    try {
+                        accessible = m.isAccessible();
+
+                        if (m.isAnnotationPresent(annotationClass)) {
+                            methods.add(m);
+                        }
+                    } catch (Throwable ignored) {
+                        // ignored
+                    } finally {
+                        m.setAccessible(accessible);
+                    }
+                });
+
+        return methods;
+    }
 
     /**
      * 
@@ -57,22 +98,30 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      */
     public static <T extends Annotation> List<Field> getAnnotatedFields(Object object, Class<T> annotationClass) {
-        List<Field> fields = new ArrayList<>();
+        return getAnnotatedFields(object.getClass(), annotationClass);
+    }
 
-        boolean accessible = false;
-        for (Field field : object.getClass().getDeclaredFields()) {
-            try {
-                accessible = field.isAccessible();
-
-                if (field.isAnnotationPresent(annotationClass)) {
-                    fields.add(field);
-                }
-            } finally {
-                field.setAccessible(accessible);
-            }
-        }
-
-        return fields;
+    /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annotationClass
+     * @return
+     *
+     * @since 2019. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T extends Annotation> List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<T> annotationClass) {
+        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+                .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
+                .collect(Collectors.toList());
     }
 
     /**
@@ -96,22 +145,48 @@ public class AnnotationUtils {
      * @see Class#getFields()
      */
     public static <T extends Annotation> List<Field> getAnnotatedFieldsAll(Object object, Class<T> annotationClass) {
-        List<Field> fields = new ArrayList<>();
+        return getAnnotatedFieldsAll(object.getClass(), annotationClass);
+    }
 
-        boolean accessible = false;
-        for (Field field : object.getClass().getFields()) {
-            try {
-                accessible = field.isAccessible();
+    /**
+     * 대상 클래스의 "public" {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annotationClass
+     * @return
+     *
+     * @since 2019. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see Class#getDeclaredMethods()
+     */
+    public static <T extends Annotation> List<Method> getAnnotatedMethods(Class<?> typeClass, Class<T> annotationClass) {
+        ArrayList<Method> methods = new ArrayList<>();
 
-                if (field.isAnnotationPresent(annotationClass)) {
-                    fields.add(field);
-                }
-            } finally {
-                field.setAccessible(accessible);
-            }
-        }
+        Arrays.stream(typeClass.getDeclaredMethods()) // create methods stream
+                .forEach(m -> {
+                    boolean accessible = false;
+                    try {
+                        accessible = m.isAccessible();
 
-        return fields;
+                        if (m.isAnnotationPresent(annotationClass)) {
+                            methods.add(m);
+                        }
+                    } catch (Throwable ignored) {
+                        // ignored
+                    } finally {
+                        m.setAccessible(accessible);
+                    }
+                });
+
+        return methods;
     }
 
     /**
@@ -135,22 +210,32 @@ public class AnnotationUtils {
      * @see Class#getDeclaredMethods()
      */
     public static <T extends Annotation> List<Method> getAnnotatedMethods(Object object, Class<T> annotationClass) {
-        List<Method> methods = new ArrayList<>();
+        return getAnnotatedMethods(object.getClass(), annotationClass);
+    }
 
-        boolean accessible = false;
-        for (Method method : object.getClass().getDeclaredMethods()) {
-            try {
-                accessible = method.isAccessible();
-
-                if (method.isAnnotationPresent(annotationClass)) {
-                    methods.add(method);
-                }
-            } finally {
-                method.setAccessible(accessible);
-            }
-        }
-
-        return methods;
+    /**
+     * 대상 클래스의 메소드 중에서 특정 어노테이션이 있는 메소드만 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annotationClass
+     * @return
+     *
+     * @since 2019. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see Class#getMethods()
+     */
+    public static <T extends Annotation> List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<T> annotationClass) {
+        return Arrays.stream(typeClass.getMethods()) // create methods stream
+                .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
+                .collect(Collectors.toList());
     }
 
     /**
@@ -174,22 +259,7 @@ public class AnnotationUtils {
      * @see Class#getMethods()
      */
     public static <T extends Annotation> List<Method> getAnnotatedMethodsAll(Object object, Class<T> annotationClass) {
-        List<Method> methods = new ArrayList<>();
-
-        boolean accessible = false;
-        for (Method method : object.getClass().getMethods()) {
-            try {
-                accessible = method.isAccessible();
-
-                if (method.isAnnotationPresent(annotationClass)) {
-                    methods.add(method);
-                }
-            } finally {
-                method.setAccessible(accessible);
-            }
-        }
-
-        return methods;
+        return getAnnotatedMethodsAll(object.getClass(), annotationClass);
     }
 
     /**
@@ -267,10 +337,35 @@ public class AnnotationUtils {
     }
 
     /**
+     * 
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환한다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param obj
+     * @param annotationClass
+     *            찾고자 하는 {@link Annotation} 타입
+     * @return {@link AnnotationFormatError} 또는 <code>null</code>
+     *
+     * @since 2019. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <A extends Annotation> A hasAnnotation(Class<?> type, Class<A> annotationClass) {
+        return type.getAnnotation(annotationClass);
+    }
+
+    /**
      * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환한다.
      * 
      * @param obj
-     * @param annoType
+     * @param annotationClass
      *            찾고자 하는 {@link Annotation} 타입
      * @return {@link AnnotationFormatError} 또는 <code>null</code>
      * @since 2012. 2. 6.
@@ -278,8 +373,8 @@ public class AnnotationUtils {
      * 
      * @throws NullPointerException
      */
-    public static <A extends Annotation> A hasAnnotation(Object obj, Class<A> annoType) {
-        return obj.getClass().getAnnotation(annoType);
+    public static <A extends Annotation> A hasAnnotation(Object obj, Class<A> annotationClass) {
+        return obj.getClass().getAnnotation(annotationClass);
     }
 
     /**
@@ -300,11 +395,39 @@ public class AnnotationUtils {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param type
+     *            {@link Annotation}이 존재하는지 확인하고자 하는 타입
+     * @param annotationClass
+     *            {@link Annotation} 객체
+     * @return
+     * @throws NullPointerException
+     *             주어진 객체나, Annotation 타입이 <code>null</code>인 경우
+     * 
+     * @return
+     *
+     * @since 2019. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <A extends Annotation> boolean isAnnotationPresent(Class<?> type, Class<A> annotationClass) {
+        return type.isAnnotationPresent(annotationClass);
+    }
+
+    /**
      * 주어진 객체에 {@link Annotation}이 존재하는지 여부를 반환한다.
      * 
      * @param obj
      *            {@link Annotation}이 존재하는지 확인하고자 하는 객체
-     * @param annoType
+     * @param annotationClass
      *            {@link Annotation} 객체
      * @return
      * @throws NullPointerException
@@ -313,7 +436,7 @@ public class AnnotationUtils {
      * @since 2012. 02. 13.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static <A extends Annotation> boolean isAnnotationPresent(Object obj, Class<A> annoType) {
-        return obj.getClass().isAnnotationPresent(annoType);
+    public static <A extends Annotation> boolean isAnnotationPresent(Object obj, Class<A> annotationClass) {
+        return obj.getClass().isAnnotationPresent(annotationClass);
     }
 }

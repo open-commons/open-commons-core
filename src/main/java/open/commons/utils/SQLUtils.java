@@ -155,9 +155,6 @@ public class SQLUtils {
         else if (NClob.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getNClob(columnName));
         } //
-        else if (Object.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getObject(columnName));
-        } //
         else if (short.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getShort(columnName));
         } //
@@ -175,6 +172,9 @@ public class SQLUtils {
         } //
         else if (URL.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getURL(columnName));
+        } //
+        else if (Object.class.isAssignableFrom(columnType)) {
+            m.invoke(object, rs.getObject(columnName));
         } else {
             throw new SQLException("지원하지 않는 데이터 타입입니다.");
         }

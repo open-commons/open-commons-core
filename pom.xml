@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
-	<version>1.6.5</version>
+	<version>1.6.7</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<licenses>
@@ -181,7 +181,19 @@
 		</plugins>
 	</build>
 
-	<description>[2019/04/12]
+	<description>[2019/05/29]
+- Release: 1.6.6
+- Add
+ + open.commons.utils.AnnotationUtils
+  - getAnnotatedFields(Class&lt;?&gt;, Class&lt;T&gt;)
+  - getAnnotatedFieldsAll(Class&lt;?&gt;, Class&lt;T&gt;)
+  - getAnnotatedMethods(Class&lt;?&gt;, Class&lt;T&gt;)
+  - getAnnotatedMethodsAll(Class&lt;?&gt;, Class&lt;T&gt;)
+  - getAnnotation(Class&lt;?&gt;, Class&lt;T&gt;)
+  - hasAnnotation(Class&lt;?&gt;, Class&lt;A&gt;)
+  - isAnnotationPresent(Class&lt;?&gt;, Class&lt;A&gt;)
+
+[2019/04/12]
 - Update
  + open.commons.util.BinarySortedList.add(E)
 - Add
