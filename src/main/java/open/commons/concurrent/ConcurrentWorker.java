@@ -88,8 +88,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
                     try {
                         mutexQueue.wait();
                     } catch (InterruptedException ignored) {
-                        ignored.printStackTrace();
-
+                        System.err.println("Explicitly Interrupted by EXTERNAL.");
                         break;
                     }
                 } while (queue.size() < 1);
