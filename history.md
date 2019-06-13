@@ -1,3 +1,8 @@
+[2019/06/13]
+- Release: 1.6.7.1
+- Bugfix
+  + open.commons.utils.StringUtils.indexOf(String, char, int): ordinal(세번째 파라미터) 적용 버그 수정
+  
 [2019/06/10]
 - Release: 1.6.7
 - Bugfix

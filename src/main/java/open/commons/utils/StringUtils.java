@@ -766,7 +766,7 @@ public class StringUtils {
         if (indice.length < ordinal || ordinal < 1) {
             return -1;
         } else {
-            return indice[ordinal];
+            return indice[ordinal - 1];
         }
     }
 
@@ -1309,6 +1309,7 @@ public class StringUtils {
     /**
      * 
      * <br>
+     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
