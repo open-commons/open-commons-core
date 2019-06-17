@@ -29,11 +29,13 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import open.commons.reflect.FieldTypeVariable;
 import open.commons.reflect.GenericTypeVariable;
@@ -372,6 +374,35 @@ public class ReflectionUtils {
         }
 
         return annotatedFields;
+    }
+
+    /**
+     * 주어진 어노테이션이 있는 메소드만 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param annoType
+     *            어노테이션 타입.
+     * @param dataType
+     *            데이터 타입.
+     * @return
+     *
+     * @since 2019. 6. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annoType, Class<?> dataType) {
+
+        AssertUtils.assertNulls(annoType, dataType);
+
+        return Arrays.stream(dataType.getMethods()) //
+                .filter(m -> m.getAnnotation(annoType) != null) //
+                .collect(Collectors.toList());
+
     }
 
     /**

@@ -44,10 +44,15 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import open.commons.TwoValueObject;
 import open.commons.annotation.ColumnDef;
+import open.commons.annotation.ColumnValue;
 
 /**
  * 
@@ -61,6 +66,82 @@ public class SQLUtils {
      * @since 2017. 9. 22.
      */
     private SQLUtils() {
+    }
+
+    /**
+     * 2개의 객체에서 주어진 컬럼에 해당하는 또는 모든 컬럼 값을 비교해서 서로 다른 컬럼 정보를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param obj1
+     * @param obj2
+     * @param columns
+     * @return
+     * @throws RuntimeException
+     *             2개의 데이터를 비교할 때 발생할 수 있는 예외.
+     *             <ul>
+     *             <li>IllegalAccessException
+     *             <li>IllegalArgumentException
+     *             <li>InvocationTargetException
+     *             </ul>
+     *
+     * @since 2019. 6. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see ColumnValue
+     */
+    public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns) throws RuntimeException {
+        AssertUtils.assertNulls(obj1, obj2);
+
+        Class<?> dataType = obj1.getClass();
+        // #0. @ColumnValue 어노테이션이 있는 메소드 조회
+        Collection<Method> methods = ReflectionUtils.getAnnotatedMethods(ColumnValue.class, dataType);
+
+        Map<String, TwoValueObject<Object, Object>> diff = new HashMap<>();
+
+        methods.stream() //
+                .forEach(m -> {
+                    Object v1 = null;
+                    Object v2 = null;
+                    ColumnValue anno = null;
+
+                    try {
+                        v1 = m.invoke(obj1);
+                        v2 = m.invoke(obj2);
+                    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    anno = m.getAnnotation(ColumnValue.class);
+
+                    if (v1 == null && v2 == null) {
+                        return;
+                    }
+
+                    if (v1 == null // v1 is only null
+                            || v2 == null // v2 is only null
+                            || !v1.equals(v2) // v1 & v2 are not null and not equal
+                    ) {
+
+                        String annoValue = anno.value().trim();
+                        String annoColumn = anno.column().trim();
+
+                        if (StringUtils.isNullOrEmptyStringAnd(annoValue, annoColumn)) {
+                            throw new IllegalArgumentException(String.format("컬럼명은 빈문자열이 올 수 없습니다. column=%s, value=%s", annoColumn, annoValue));
+                        }
+
+                        String column = annoValue.isEmpty() ? annoColumn : annoValue;
+
+                        diff.put(column, new TwoValueObject<Object, Object>(v1, v2));
+                    }
+                });
+
+        return diff;
     }
 
     /**

@@ -1,3 +1,9 @@
+[2019/06/17]
+- Release: 1.6.8
+- Add
+  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class<A>, Class<?>)
+  + open.commons.utils.SQLUtils.findDifferences(T, T, String...)
+
 [2019/06/13]
 - Release: 1.6.7.1
 - Bugfix

@@ -30,8 +30,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.sql.ResultSet;
 
 /**
+ * {@link ResultSet}으로부터 데이터를 추출해 객체를 생성하기 위한 어노테이션.
  * 
  * @since 2017. 9. 22.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
