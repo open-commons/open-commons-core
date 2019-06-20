@@ -249,7 +249,7 @@ public class SQLUtils {
             m.invoke(object, rs.getTime(columnName));
         } //
         else if (Timestamp.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getTime(columnName));
+            m.invoke(object, rs.getTimestamp(columnName));
         } //
         else if (URL.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getURL(columnName));

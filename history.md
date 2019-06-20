@@ -1,3 +1,15 @@
+
+[2019/06/21]
+- Add
+  + open.commons.utils.ObjectUtils.transform(S, Class<D>)
+
+[2019/06/20]
+- Release: 1.6.8.1
+- Bugfix
+	+ open.commons.utils.SQLUtils.invoke(ResultSet, ColumnDef, Method, Object)
+- Add
+	+ open.commons.annotation.Getter + open.commons.annotation.Setter
+  
 [2019/06/17]
 - Release: 1.6.8
 - Add
