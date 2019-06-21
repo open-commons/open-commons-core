@@ -1,7 +1,16 @@
 
 [2019/06/21]
+- Release: 1.6.9
 - Add
   + open.commons.utils.ObjectUtils.transform(S, Class<D>)
+  + open.commons.utils.StringUtils
+    - concatenate(String, boolean, Collection<T>)
+    - concatenate(String, boolean, Collection<T>, Function<T, R>)
+    - concatenate(String, boolean, Map<K, V>, Function<Entry<K, V>, R>)
+    - concatenate(String, boolean, Object...)
+    - concatenate(String, boolean, String...)
+    - concatenate(String, Collection<T>, Function<T, R>)
+    - concatenate(String, Map<K, V>, Function<Entry<K, V>, R>)    
 
 [2019/06/20]
 - Release: 1.6.8.1

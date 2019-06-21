@@ -36,6 +36,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.function.Function;
 
 import open.commons.log.LogUtils;
 import open.commons.prog.StrLenRvrOrderingEntry;
@@ -266,32 +267,44 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
      * @param delimRegEx
-     * @param strings
+     *            구분자
+     * @param startsWithDelimeter
+     *            구분자를 제일 앞에 넣을지 여부
+     * @param data
+     *            데이터
      * @return
-     * 
-     *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
-     * @since 2012. 01. 17.
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <T> String concatenate(String delimRegEx, Collection<T> strings) {
-
-        if (strings.isEmpty()) {
+    public static <T> String concatenate(String delimRegEx, boolean startsWithDelimeter, Collection<T> data) {
+        if (data.isEmpty()) {
             return "";
         } else {
             StringBuffer sb = new StringBuffer();
-            Iterator<T> itr = strings.iterator();
+            Iterator<T> itr = data.iterator();
 
-            Object object = itr.next();
-            sb.append(object);
+            Object datum = itr.next();
+            if (startsWithDelimeter) {
+                sb.append(delimRegEx);
+            }
+            sb.append(datum);
 
             while (itr.hasNext()) {
-                object = itr.next();
+                datum = itr.next();
 
                 sb.append(delimRegEx);
-                sb.append(object);
+                sb.append(datum);
             }
 
             return sb.toString();
@@ -299,51 +312,254 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
      * @param delimRegEx
-     * @param strings
+     *            구분자
+     * @param startsWithDelimeter
+     *            구분자를 제일 앞에 넣을지 여부
+     * @param data
+     *            데이터
+     * @param gen
+     *            데이터 변환함수
      * @return
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static String concatenate(String delimRegEx, Object... strings) {
-        switch (strings.length) {
-            case 0:
-                return "";
-            case 1:
-                return strings[0].toString();
-            default:
-                StringBuffer sb = new StringBuffer();
-                sb.append(strings[0]);
-                for (int i = 1; i < strings.length; i++) {
-                    sb.append(delimRegEx);
-                    sb.append(strings[i]);
-                }
-                return sb.toString().trim();
+    public static <T, R> String concatenate(String delimRegEx, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
+        if (data.isEmpty()) {
+            return "";
+        } else {
+            StringBuffer sb = new StringBuffer();
+            Iterator<T> itr = data.iterator();
+
+            T datum = itr.next();
+            if (startsWithDelimeter) {
+                sb.append(delimRegEx);
+            }
+            sb.append(gen.apply(datum));
+
+            while (itr.hasNext()) {
+                datum = itr.next();
+
+                sb.append(delimRegEx);
+                sb.append(gen.apply(datum));
+            }
+
+            return sb.toString();
         }
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param delimRegEx
+     *            구분자
+     * @param startsWithDelimeter
+     *            구분자를 제일 앞에 넣을지 여부
+     * @param data
+     *            데이터
+     * @param gen
+     *            데이터 변환함수
+     * @return
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, R> String concatenate(String delimRegEx, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+        return concatenate(delimRegEx, startsWithDelimeter, data.entrySet(), gen);
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param delimRegEx
+     *            구분자
+     * @param startsWithDelimeter
+     *            구분자를 제일 앞에 넣을지 여부
+     * @param data
+     *            데이터
+     * @return
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String concatenate(String delimRegEx, boolean startsWithDelimeter, Object... data) {
+        if (data.length < 1) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        if (startsWithDelimeter) {
+            sb.append(delimRegEx);
+        }
+        sb.append(data[0]);
+
+        for (int i = 1; i < data.length; i++) {
+            sb.append(delimRegEx);
+            sb.append(data[i]);
+        }
+
+        return sb.toString().trim();
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param delimRegEx
+     *            구분자
+     * @param startsWithDelimeter
+     *            구분자를 제일 앞에 넣을지 여부
+     * @param strings
+     *            데이터
+     * @return
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String concatenate(String delimRegEx, boolean startsWithDelimeter, String... strings) {
+        if (strings.length < 1) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        if (startsWithDelimeter) {
+            sb.append(delimRegEx);
+        }
+        sb.append(strings[0]);
+
+        for (int i = 1; i < strings.length; i++) {
+            sb.append(delimRegEx);
+            sb.append(strings[i]);
+        }
+
+        return sb.toString().trim();
     }
 
     /**
      * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
      * 
      * @param delimRegEx
+     *            구분자
+     * @param data
+     *            데이터
+     * @return
+     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @since 2012. 01. 17.
+     */
+    public static <T> String concatenate(String delimRegEx, Collection<T> data) {
+        return concatenate(delimRegEx, false, data);
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param delimRegEx
+     *            구분자
+     * @param data
+     *            데이터
+     * @param gen
+     *            데이터 변환함수
+     * @return
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see #concatenate(String, boolean, Collection, Function)
+     */
+    public static <T, R> String concatenate(String delimRegEx, Collection<T> strings, Function<T, R> gen) {
+        return concatenate(delimRegEx, false, strings, gen);
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param delimRegEx
+     *            구분자
+     * @param data
+     *            데이터
+     * @param gen
+     *            데이터 변환함수
+     * @return
+     *
+     * @since 2019. 6. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, R> String concatenate(String delimRegEx, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+        return concatenate(delimRegEx, false, data, gen);
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 
+     * @param delimRegEx
+     *            구분자
+     * @param data
+     *            데이터
+     * @return
+     */
+    public static String concatenate(String delimRegEx, Object... data) {
+        return concatenate(delimRegEx, false, data);
+    }
+
+    /**
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 
+     * @param delimRegEx
+     *            구분자
      * @param strings
+     *            데이터
      * @return
      */
     public static String concatenate(String delimRegEx, String... strings) {
-        switch (strings.length) {
-            case 0:
-                return "";
-            case 1:
-                return strings[0].toString();
-            default:
-                StringBuffer sb = new StringBuffer();
-                sb.append(strings[0]);
-                for (int i = 1; i < strings.length; i++) {
-                    sb.append(delimRegEx);
-                    sb.append(strings[i]);
-                }
-                return sb.toString().trim();
-        }
+        return concatenate(delimRegEx, false, strings);
     }
 
     /**
