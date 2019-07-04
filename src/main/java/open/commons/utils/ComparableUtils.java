@@ -184,7 +184,7 @@ public class ComparableUtils {
      * 
      * @see ComparableValue
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static <T> int compareTo(T obj1, T obj2) {
 
         List<Field> fields1 = AnnotationUtils.getAnnotatedFields(obj1, ComparableValue.class);

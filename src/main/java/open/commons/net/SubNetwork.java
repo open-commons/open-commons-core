@@ -44,6 +44,7 @@ public class SubNetwork {
 
     protected static final String TO_STRING_FORMAT = "%-10s: %-35s / %s";
     private Pattern patternIPv4 = Pattern.compile(REGEX_IPV4);
+    @SuppressWarnings("unused")
     private Pattern patternIPv4Strict = Pattern.compile(REGEX_IPV4_STRICT);
 
     private Pattern patternCidrNotation = Pattern.compile(CIDR_NOTATION);

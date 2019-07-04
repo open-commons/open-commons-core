@@ -401,15 +401,15 @@ public class StringUtils {
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
-     * @param data
+     * @param strings
      *            데이터
      * @return
      *
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static String concatenate(String delimRegEx, boolean startsWithDelimeter, Object... data) {
-        if (data.length < 1) {
+    public static String concatenate(String delimRegEx, boolean startsWithDelimeter, Object... strings) {
+        if (strings.length < 1) {
             return "";
         }
 
@@ -417,11 +417,11 @@ public class StringUtils {
         if (startsWithDelimeter) {
             sb.append(delimRegEx);
         }
-        sb.append(data[0]);
+        sb.append(strings[0]);
 
-        for (int i = 1; i < data.length; i++) {
+        for (int i = 1; i < strings.length; i++) {
             sb.append(delimRegEx);
-            sb.append(data[i]);
+            sb.append(strings[i]);
         }
 
         return sb.toString().trim();
@@ -546,7 +546,19 @@ public class StringUtils {
      * @return
      */
     public static String concatenate(String delimRegEx, Object... data) {
-        return concatenate(delimRegEx, false, data);
+        if (data.length < 1) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(data[0]);
+
+        for (int i = 1; i < data.length; i++) {
+            sb.append(delimRegEx);
+            sb.append(data[i]);
+        }
+
+        return sb.toString().trim();
     }
 
     /**
@@ -668,6 +680,31 @@ public class StringUtils {
         for (char c : string.toCharArray()) {
             if (Character.isUpperCase(c))
                 return true;
+        }
+        return false;
+    }
+
+    /**
+     * 주어진 문자열에 Whitespace가 포함되어 있는지 확인한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 6. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     * @return
+     *
+     * @since 2019. 6. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean containsWhitespace(String string) {
+        for (char c : string.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                return true;
+            }
         }
         return false;
     }

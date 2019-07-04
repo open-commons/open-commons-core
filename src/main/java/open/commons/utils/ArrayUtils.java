@@ -59,6 +59,7 @@ public class ArrayUtils {
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
     public static boolean[] add(boolean[] array, boolean value) {
+
         boolean[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -71,6 +72,27 @@ public class ArrayUtils {
 
         newArray[newArray.length - 1] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean[] add(boolean[] array, boolean... values) {
+        return merge(array, values);
     }
 
     /**
@@ -100,6 +122,27 @@ public class ArrayUtils {
     }
 
     /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static byte[] add(byte[] array, byte... values) {
+        return merge(array, values);
+    }
+
+    /**
      * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
      * 
      * @param array
@@ -123,6 +166,28 @@ public class ArrayUtils {
 
         newArray[newArray.length - 1] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static char[] add(char[] array, char... values) {
+        return merge(array, values);
     }
 
     /**
@@ -152,6 +217,28 @@ public class ArrayUtils {
     }
 
     /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static double[] add(double[] array, double... values) {
+        return merge(array, values);
+    }
+
+    /**
      * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
      * 
      * @param array
@@ -175,6 +262,28 @@ public class ArrayUtils {
 
         newArray[newArray.length - 1] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static float[] add(float[] array, float... values) {
+        return merge(array, values);
     }
 
     /**
@@ -204,6 +313,28 @@ public class ArrayUtils {
     }
 
     /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int[] add(int[] array, int... values) {
+        return merge(array, values);
+    }
+
+    /**
      * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
      * 
      * @param array
@@ -230,6 +361,28 @@ public class ArrayUtils {
     }
 
     /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static long[] add(long[] array, long... values) {
+        return merge(array, values);
+    }
+
+    /**
      * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
      * 
      * @param array
@@ -253,6 +406,28 @@ public class ArrayUtils {
 
         newArray[newArray.length - 1] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static short[] add(short[] array, short... values) {
+        return merge(array, values);
     }
 
     /**
@@ -292,33 +467,25 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 4.      박준홍         최초 작성
+     * </pre>
+     *
      * @param array
-     * @param value
+     * @param values
      * @return
-     * 
-     *         <BR>
-     * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static byte[] addIfAbsend(byte[] array, byte value) {
-        byte[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new byte[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new byte[1];
-        }
-
-        newArray[newArray.length - 1] = value;
-        return newArray;
+    public static <T> T[] add(T[] array, T... values) {
+        return merge(array, values);
     }
 
     /**
@@ -332,23 +499,12 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static char[] addIfAbsend(char[] array, char value) {
-        char[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new char[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new char[1];
+    public static boolean[] addIfAbsent(boolean[] array, boolean value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
+        return add(array, value);
     }
 
     /**
@@ -362,23 +518,44 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static double[] addIfAbsend(double[] array, double value) {
-        double[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new double[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new double[1];
+    public static byte[] addIfAbsent(byte[] array, byte value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static byte[] addIfAbsent(byte[] array, byte... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Byte> indice = new ArrayList<>();
+        for (byte value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Byte[0])));
     }
 
     /**
@@ -392,23 +569,44 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static int[] addIfAbsend(int[] array, int value) {
-        int[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new int[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new int[1];
+    public static char[] addIfAbsent(char[] array, char value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static char[] addIfAbsent(char[] array, char... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Character> indice = new ArrayList<>();
+        for (char value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Character[0])));
     }
 
     /**
@@ -422,23 +620,44 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static long[] addIfAbsend(long[] array, long value) {
-        long[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new long[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new long[1];
+    public static double[] addIfAbsent(double[] array, double value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static double[] addIfAbsent(double[] array, double... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Double> indice = new ArrayList<>();
+        for (double value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Double[0])));
     }
 
     /**
@@ -452,23 +671,197 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static short[] addIfAbsend(short[] array, short value) {
-        short[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new short[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new short[1];
+    public static float[] addIfAbsent(float[] array, float value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static float[] addIfAbsent(float[] array, float... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Float> indice = new ArrayList<>();
+        for (float value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Float[0])));
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 
+     * @param array
+     * @param value
+     * @return
+     * 
+     *         <BR>
+     * @since 2012. 3. 9.
+     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     */
+    public static int[] addIfAbsent(int[] array, int value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
+        }
+
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int[] addIfAbsent(int[] array, int... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Integer> indice = new ArrayList<>();
+        for (int value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Integer[0])));
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 
+     * @param array
+     * @param value
+     * @return
+     * 
+     *         <BR>
+     * @since 2012. 3. 9.
+     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     */
+    public static long[] addIfAbsent(long[] array, long value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
+        }
+
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static long[] addIfAbsent(long[] array, long... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Long> indice = new ArrayList<>();
+        for (long value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Long[0])));
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 
+     * @param array
+     * @param value
+     * @return
+     * 
+     *         <BR>
+     * @since 2012. 3. 9.
+     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     */
+    public static short[] addIfAbsent(short[] array, short value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
+        }
+
+        return add(array, value);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static short[] addIfAbsent(short[] array, short... values) {
+        if (values == null || values.length < 1) {
+            return copyOf(array, array.length);
+        }
+
+        List<Short> indice = new ArrayList<>();
+        for (short value : values) {
+            if (!contains(array, value)) {
+                indice.add(value);
+            }
+        }
+
+        return merge(array, toPrimitiveArray(indice.toArray(new Short[0])));
     }
 
     /**
@@ -488,86 +881,35 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
-    public static <T> T[] addIfAbsend(T[] array, T value) {
-        T[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            if (value != null) {
-                newArray = (T[]) Array.newInstance(value.getClass(), 1);
-            } else {
-                return null;
-            }
+    public static <T> T[] addIfAbsent(T[] array, T value) {
+        if (contains(array, value)) {
+            return copyOf(array, array.length);
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
+        return add(array, value);
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 주어진 길이(<b><code>length</code></b>)만큼 주어진 배열(<b><code>classes</code></b>) 로부터 데이터를 복사하여 새로운 배열을 반환한다.<br>
+     * 주어진 배열(<b><code>classes</code></b>)의 길이가 주어진 길이(<b><code>length</code></b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
      * 
-     * @param array
-     * @param value
+     * @param length
+     * @param classes
      * @return
      * 
-     *         <BR>
-     * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @since 2014. 6. 18.
      */
-    public static boolean[] addIfAbsent(boolean[] array, boolean value) {
-        boolean[] newArray = null;
+    public static Class<?>[] adjustByLength(int length, Class<?>... classes) {
 
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
+        Class<?>[] newArray = new Class<?>[length];
+        System.arraycopy(classes, 0, newArray, 0, Math.min(length, classes.length));
+
+        if (length > classes.length) {
+            for (int i = classes.length; i < length; i++) {
+                newArray[i] = classes[classes.length - 1];
             }
-
-            newArray = new boolean[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new boolean[1];
         }
 
-        newArray[newArray.length - 1] = value;
-        return newArray;
-    }
-
-    /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     *         <BR>
-     * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
-     */
-    public static float[] addIfAbsent(float[] array, float value) {
-        float[] newArray = null;
-
-        if (array != null && array.length > 0) {
-            if (contains(array, value)) {
-                return copyOf(array, array.length);
-            }
-
-            newArray = new float[array.length + 1];
-
-            System.arraycopy(array, 0, newArray, 0, array.length);
-        } else {
-            newArray = new float[1];
-        }
-
-        newArray[newArray.length - 1] = value;
         return newArray;
     }
 
@@ -2228,30 +2570,6 @@ public class ArrayUtils {
         } else {
             return true;
         }
-    }
-
-    /**
-     * 주어진 길이(<b><code>length</code></b>)만큼 주어진 배열(<b><code>classes</code></b>) 로부터 데이터를 복사하여 새로운 배열을 반환한다.<br>
-     * 주어진 배열(<b><code>classes</code></b>)의 길이가 주어진 길이(<b><code>length</code></b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
-     * 
-     * @param length
-     * @param classes
-     * @return
-     * 
-     * @since 2014. 6. 18.
-     */
-    public static Class<?>[] adjustByLength(int length, Class<?>... classes) {
-
-        Class<?>[] newArray = new Class<?>[length];
-        System.arraycopy(classes, 0, newArray, 0, Math.min(length, classes.length));
-
-        if (length > classes.length) {
-            for (int i = classes.length; i < length; i++) {
-                newArray[i] = classes[classes.length - 1];
-            }
-        }
-
-        return newArray;
     }
 
     /**
@@ -8981,6 +9299,86 @@ public class ArrayUtils {
         }
     }
 
+    public static boolean[] toPrimitiveArray(Boolean[] arr) {
+        boolean[] array = new boolean[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static byte[] toPrimitiveArray(Byte[] arr) {
+        byte[] array = new byte[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static char[] toPrimitiveArray(Character[] arr) {
+        char[] array = new char[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static double[] toPrimitiveArray(Double[] arr) {
+        double[] array = new double[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static float[] toPrimitiveArray(Float[] arr) {
+        float[] array = new float[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static int[] toPrimitiveArray(Integer[] arr) {
+        int[] array = new int[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static long[] toPrimitiveArray(Long[] arr) {
+        long[] array = new long[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
+    public static short[] toPrimitiveArray(Short[] arr) {
+        short[] array = new short[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
     /**
      * Returns the result of deep {@link Arrays#toString(args)}
      * 
@@ -9146,5 +9544,15 @@ public class ArrayUtils {
         } else {
             return (T[]) array;
         }
+    }
+
+    public static Short[] toWrapperArray(short[] arr) {
+        Short[] array = new Short[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
     }
 }

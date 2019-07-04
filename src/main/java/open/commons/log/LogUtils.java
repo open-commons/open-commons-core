@@ -33,8 +33,6 @@ public class LogUtils {
 
     private static boolean enabled = false;
 
-    private static final String CATEGORY = "Park Jun-Hong";
-
     private static final String TIMESTAMP_FORMAT_STRING = "yyyy-MM-dd hh:mm:ss.SSS";
 
     private static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat(TIMESTAMP_FORMAT_STRING);

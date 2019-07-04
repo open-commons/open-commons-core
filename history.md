@@ -1,3 +1,39 @@
+[2019/07/04]
+- Release: 1.6.10
+- Add
+	+ open.commons.utils
+		- ArrayUtils.add(boolean[], boolean...)
+		- ArrayUtils.add(byte[], byte...)
+		- ArrayUtils.add(char[], char...)
+		- ArrayUtils.add(double[], double...)
+		- ArrayUtils.add(flot[], float...)
+		- ArrayUtils.add(int[], int...)
+		- ArrayUtils.add(long[], long...)
+		- ArrayUtils.add(short[], short...)
+		- ArrayUtils.add(T[], T...)
+		- ArrayUtils.addIfAbsent(byte[], byte...)
+		- ArrayUtils.addIfAbsent(char[], char...)
+		- ArrayUtils.addIfAbsent(double[], double...)
+		- ArrayUtils.addIfAbsent(float[], float...)
+		- ArrayUtils.addIfAbsent(int[], int...)
+		- ArrayUtils.addIfAbsent(long[], long...)
+		- ArrayUtils.addIfAbsent(short[], short...)		
+		- ArrayUtils.toPrimitiveArray(Boolean[])
+		- ArrayUtils.toPrimitiveArray(byte[])
+		- ArrayUtils.toPrimitiveArray(Character[])
+		- ArrayUtils.toPrimitiveArray(Double[])
+		- ArrayUtils.toPrimitiveArray(Float[])
+		- ArrayUtils.toPrimitiveArray(Integer[])
+		- ArrayUtils.toPrimitiveArray(Long[])		
+		- ArrayUtils.toPrimitiveArray(Short[])
+
+
+[2019/06/28]
+- Add
+	+ open.commons.util.IterableEnumeration
+	+ open.commons.utils.LangUtils
+	+ open.commons.utils.StringUtils
+		- containsWhitespace(String)
 
 [2019/06/21]
 - Release: 1.6.9

@@ -32,11 +32,16 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Park Jun-Hong.(mail_to:fafanmama_at_naver_dot_com)
  * 
  */
 public class FileUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
     static final FileFilter READ_FILE = new FileFilter() {
 
@@ -146,8 +151,7 @@ public class FileUtils {
                     try {
                         return f.delete();
                     } catch (Exception e) {
-                        System.err.println(e.getMessage());
-
+                        logger.error(e.getMessage());
                         return false;
                     }
                 } else {
