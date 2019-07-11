@@ -4495,11 +4495,6 @@ public class ArrayUtils {
         }
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(concatenate(new int[] { 1, 2, 3 }, '.'));
-    }
-
     /**
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
      * 

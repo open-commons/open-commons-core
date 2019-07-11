@@ -190,8 +190,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 대상 객체 클래스의 "public" {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -214,7 +213,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 메소드 중에서 특정 어노테이션이 있는 메소드만 제공한다. <br>
+     * 대상 클래스의 "Public" 메소드 중에서 특정 어노테이션이 있는 메소드만 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -239,8 +238,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 대상 객체 클래스의 "Public" 메소드 중에서 특정 어노테이션이 있는 메소드만 제공한다. <br>
      * 
      * <pre>
      * [개정이력]

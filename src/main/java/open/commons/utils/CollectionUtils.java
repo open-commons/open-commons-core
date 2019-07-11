@@ -60,6 +60,18 @@ import open.commons.collection.IKeyExtractor;
 @SuppressWarnings("unchecked")
 public class CollectionUtils {
 
+    /**
+     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 
+     * @param col
+     * @param clazz
+     *            <code>col</code>이 <code>null</code> 인 경우 생성할 {@link Collection} 타입.
+     * @param elem
+     *            새로운 데이터
+     * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <C extends Collection<E>, E> C add(C col, Class<? extends C> clazz, E elem) {
 
         if (col == null) {
@@ -75,7 +87,19 @@ public class CollectionUtils {
         return col;
     }
 
-    public static <C extends Collection<E>, E> C addAll(C col, Class<? extends C> clazz, E[] elems) {
+    /**
+     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 
+     * @param col
+     * @param clazz
+     *            <code>col</code>이 <code>null</code> 인 경우 생성할 {@link Collection} 타입.
+     * @param elems
+     *            새로운 데이터
+     * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <C extends Collection<E>, E> C addAll(C col, Class<? extends C> clazz, E... elems) {
 
         if (col == null) {
             try {
@@ -92,6 +116,45 @@ public class CollectionUtils {
         return col;
     }
 
+    /**
+     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param col
+     * @param elems
+     * @return
+     *
+     * @since 2019. 7. 4.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <C extends Collection<E>, E> C addAll(C col, E... elems) {
+        for (E elem : elems) {
+            col.add(elem);
+        }
+
+        return col;
+    }
+
+    /**
+     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 
+     * @param col
+     * @param clazz
+     *            <code>col</code>이 <code>null</code> 인 경우 생성할 {@link Collection} 타입.
+     * @param elems
+     *            새로운 데이터
+     * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <C extends Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, Collection<E> elems) {
 
         if (col == null) {
@@ -111,7 +174,19 @@ public class CollectionUtils {
         return col;
     }
 
-    public static <C extends Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, E[] elems) {
+    /**
+     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 
+     * @param col
+     * @param clazz
+     *            <code>col</code>이 <code>null</code> 인 경우 생성할 {@link Collection} 타입.
+     * @param elems
+     *            새로운 데이터
+     * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <C extends Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, E... elems) {
 
         if (col == null) {
             try {
@@ -365,6 +440,15 @@ public class CollectionUtils {
         return t3;
     }
 
+    public static <T> List<T> newList(List<T> list, T... elems) {
+        List<T> newList = (List<T>) newList(list.toArray());
+        if (elems != null) {
+            newList.addAll(Arrays.asList(elems));
+        }
+
+        return newList;
+    }
+
     public static <T> List<T> newList(T... elems) {
         List<T> list = new ArrayList<T>();
         if (elems != null) {
@@ -372,6 +456,33 @@ public class CollectionUtils {
         }
 
         return list;
+    }
+
+    public static <T> List<T> newList(T elem, Collection<T> col) {
+        List<T> newList = newList(elem);
+        if (col != null) {
+            newList.addAll(col);
+        }
+
+        return newList;
+    }
+
+    public static <T> List<T> newList(T elem, List<T> list) {
+        List<T> newList = newList(elem);
+        if (list != null) {
+            newList.addAll(list);
+        }
+
+        return newList;
+    }
+
+    public static <T> Set<T> newSet(Set<T> set, T... elems) {
+        Set<T> newSet = (Set<T>) newSet(set.toArray());
+        if (elems != null) {
+            newSet.addAll(Arrays.asList(elems));
+        }
+
+        return newSet;
     }
 
     public static <T> Set<T> newSet(T... elems) {
@@ -383,6 +494,24 @@ public class CollectionUtils {
         return set;
     }
 
+    public static <T> Set<T> newSet(T elem, Collection<T> col) {
+        Set<T> newSet = newSet(elem);
+        if (col != null) {
+            newSet.addAll(col);
+        }
+
+        return newSet;
+    }
+
+    public static <T> Set<T> newSet(T elem, Set<T> set) {
+        Set<T> newSet = newSet(elem);
+        if (set != null) {
+            newSet.addAll(set);
+        }
+
+        return newSet;
+    }
+
     public static <T> Vector<T> newVector(T... elems) {
         Vector<T> vector = new Vector<T>();
         if (elems != null) {
@@ -390,6 +519,33 @@ public class CollectionUtils {
         }
 
         return vector;
+    }
+
+    public static <T> Vector<T> newVector(T elem, Collection<T> col) {
+        Vector<T> newVector = newVector(elem);
+        if (col != null) {
+            newVector.addAll(col);
+        }
+
+        return newVector;
+    }
+
+    public static <T> Vector<T> newVector(T elem, Vector<T> vector) {
+        Vector<T> newVector = newVector(elem);
+        if (vector != null) {
+            newVector.addAll(vector);
+        }
+
+        return newVector;
+    }
+
+    public static <T> Vector<T> newVector(Vector<T> vector, T... elems) {
+        Vector<T> newVector = (Vector<T>) newVector(vector.toArray());
+        if (elems != null) {
+            newVector.addAll(Arrays.asList(elems));
+        }
+
+        return newVector;
     }
 
     /**

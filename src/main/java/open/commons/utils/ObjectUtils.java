@@ -298,37 +298,64 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 20.     박준홍         최초 작성
+     * 2019. 7. 11.     박준홍         최초 작성
      * </pre>
      *
      * @param src
      *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetType
-     *            변환 타입
+     *            변환 타입. 기본생성자가 반드시 있어야 한다.
      * @return
      *
-     * @since 2019. 6. 20.
-     * @version
+     * @since 2019. 7. 11.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
-     * @see Getter
-     * @see Setter
+     * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, D> D transform(S src, Class<D> targetType) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType) {
+        return transform(src, lookupSrcSuper, targetType, false);
+    }
+
+    /**
+     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 7. 11.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetType
+     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2019. 7. 11.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper) {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
 
-        List<Method> getters = AnnotationUtils.getAnnotatedMethods(src, Getter.class);
+        List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
         if (getters.size() < 1) {
             return null;
         }
 
-        List<Method> setters = AnnotationUtils.getAnnotatedMethods(targetType, Setter.class);
+        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(targetType, Setter.class) : AnnotationUtils.getAnnotatedMethods(targetType, Setter.class);
         if (setters.size() < 1) {
             try {
                 return targetType.newInstance();
@@ -368,14 +395,100 @@ public class ObjectUtils {
             throw new IllegalStateException(e);
         }
 
+        // method name
+        String methodName = null;
+        // getter method
+        Method getter = null;
+        boolean getterAccessible = false;
+        // setter method
+        Method setter = null;
+        boolean setterAccessible = false;
+
         for (Entry<String, Method> entry : setterMap.entrySet()) {
             try {
-                entry.getValue().invoke(target, getterMap.get(entry.getKey()).invoke(src));
+                methodName = entry.getKey();
+
+                getter = getterMap.get(methodName);
+
+                // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
+                if (getter == null) {
+                    continue;
+                }
+
+                getterAccessible = getter.isAccessible();
+                getter.setAccessible(true);
+
+                setter = entry.getValue();
+                setterAccessible = setter.isAccessible();
+                setter.setAccessible(true);
+
+                setter.invoke(target, getter.invoke(src));
+
             } catch (Exception e) {
                 throw new IllegalArgumentException(e);
+            } finally {
+                if (getter != null) {
+                    getter.setAccessible(getterAccessible);
+                }
+                if (setter != null) {
+                    setter.setAccessible(setterAccessible);
+                }
             }
         }
 
         return target;
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 6. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타
+     * @param targetType
+     *            변환 타입
+     * @return
+     *
+     * @since 2019. 6. 20.
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see Getter
+     * @see Setter
+     */
+    public static <S, D> D transform(S src, Class<D> targetType) {
+        return transform(src, false, targetType, false);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 11.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타.
+     * @param targetType
+     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2019. 7. 11.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper) {
+        return transform(src, false, targetType, lookupTargetSuper);
     }
 }

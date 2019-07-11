@@ -1,3 +1,14 @@
+[2019/07/11]
+- Release: 1.6.11
+- Update
+	+ open.commons.utils
+		- ObjectUtils.transform(S, Class<D>)
+- Add
+	+ open.commons.utils
+		- ObjectUtils.transform(S, boolean, Class<D>)
+		- ObjectUtils.transform(S, boolean, Class<D>, boolean)
+		- ObjectUtils.transform(S, Class<D>, boolean)		
+	
 [2019/07/04]
 - Release: 1.6.10
 - Add
@@ -11,6 +22,7 @@
 		- ArrayUtils.add(long[], long...)
 		- ArrayUtils.add(short[], short...)
 		- ArrayUtils.add(T[], T...)
+		- ArrayUtils.addAll(C, E...)
 		- ArrayUtils.addIfAbsent(byte[], byte...)
 		- ArrayUtils.addIfAbsent(char[], char...)
 		- ArrayUtils.addIfAbsent(double[], double...)
@@ -18,6 +30,15 @@
 		- ArrayUtils.addIfAbsent(int[], int...)
 		- ArrayUtils.addIfAbsent(long[], long...)
 		- ArrayUtils.addIfAbsent(short[], short...)		
+		- ArrayUtils.newList(List<T>, T...)
+		- ArrayUtils.newList(T, Collection<T>)
+		- ArrayUtils.newList(T, List<T>)
+		- ArrayUtils.newSet(Set<T>, T...)
+		- ArrayUtils.newSet(T, Collection<T>)
+		- ArrayUtils.newSet(T, Set<T>)
+		- ArrayUtils.newVector(T, Collection<T>)
+		- ArrayUtils.newVector(T, Vector<T>)
+		- ArrayUtils.newVector(Vector<T>, T...)
 		- ArrayUtils.toPrimitiveArray(Boolean[])
 		- ArrayUtils.toPrimitiveArray(byte[])
 		- ArrayUtils.toPrimitiveArray(Character[])
@@ -26,7 +47,6 @@
 		- ArrayUtils.toPrimitiveArray(Integer[])
 		- ArrayUtils.toPrimitiveArray(Long[])		
 		- ArrayUtils.toPrimitiveArray(Short[])
-
 
 [2019/06/28]
 - Add
