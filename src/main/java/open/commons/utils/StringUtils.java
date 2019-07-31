@@ -1874,7 +1874,7 @@ public class StringUtils {
     public static String rtrim(String string) {
         char[] cStr = string.toCharArray();
 
-        int idx = 0;
+        int idx = cStr.length;
         int i = cStr.length - 1;
         for (; i > -1; i--) {
             if (!Character.isWhitespace(cStr[i])) {

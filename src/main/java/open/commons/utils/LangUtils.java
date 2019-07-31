@@ -309,6 +309,8 @@ public class LangUtils {
      * @since 2018. 10. 26.
      * @see Closeable
      * @see AutoCloseable
+     * 
+     * @deprecated Use {@link FileUtils#removableFiles()} instead of.
      */
     public static Consumers<File> removableFiles() {
         return new Consumers<>(f -> {

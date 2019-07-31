@@ -20,6 +20,7 @@
 package open.commons.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
@@ -34,6 +35,8 @@ import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import open.commons.io.Consumers;
 
 /**
  * @author Park Jun-Hong.(mail_to:fafanmama_at_naver_dot_com)
@@ -472,6 +475,34 @@ public class FileUtils {
         }
 
         return output;
+    }
+
+    /**
+     * {@link File}을 <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 10. 26.        박준홍         최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2018. 10. 26.
+     * @see Closeable
+     * @see AutoCloseable
+     */
+    public static Consumers<File> removableFiles() {
+        return new Consumers<>(f -> {
+            if (f != null) {
+                FileUtils.delete(f, true);
+
+                if (logger.isInfoEnabled()) {
+                    logger.info("[ deleted ] {}", f.getAbsolutePath());
+                }
+            }
+        });
     }
 
     /**

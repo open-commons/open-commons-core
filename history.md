@@ -1,3 +1,15 @@
+[2019/07/31]
+- Snapshot: 1.6.13-SNAPSHOT
+- Bugfix
+  + open.commons.utils.StringUtils.rtrim(String)
+  
+[2019/07/22]
+- Snapshot: 1.6.12-SNAPSHOT
+- Add
+  + open.commons.utils.FileUtils.removableFiles()
+- Deprecated
+  + open.commons.utils.LangUtils.removableFiles()
+
 [2019/07/11]
 - Release: 1.6.11
 - Update
