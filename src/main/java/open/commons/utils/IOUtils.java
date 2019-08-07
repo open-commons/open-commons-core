@@ -1232,13 +1232,15 @@ public class IOUtils {
             while ((readCount = reader.read(buf)) > 0) {
 
                 buf.flip();
-
-                writer.write(buf.array());
+                
+                writer.write(buf.array(), 0, readCount);
 
                 buf.clear();
 
                 rcvCount += readCount;
             }
+            
+            return rcvCount;
         } finally {
             if (closeInput) {
                 IOUtils.close(reader);
@@ -1248,8 +1250,6 @@ public class IOUtils {
                 IOUtils.close(writer);
             }
         }
-
-        return rcvCount;
     }
 
     /**
@@ -1358,5 +1358,27 @@ public class IOUtils {
      */
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close) throws IOException {
         return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset), close);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 8. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param writer
+     * @return
+     * @throws IOException
+     *
+     * @since 2019. 8. 7.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int transfer(Reader reader, Writer writer) throws IOException {
+        return transfer(reader, true, writer, true);
     }
 }

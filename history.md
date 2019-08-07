@@ -1,10 +1,13 @@
+[2019/08/07]
+- Release: 1.6.13
+- Add
+	+ open.commons.utils.IOUtils.transfer(Reader, Writer)
+- Bugfix
+	+ open.commons.utils.IOUtils.transfer(Reader, boolean, Writer, boolean)
+		- 읽기버퍼 dummy 데이터 flush 처리
+
 [2019/07/31]
 - Release: 1.6.12
-- Bugfix
-  + open.commons.utils.StringUtils.rtrim(String)
-  
-[2019/07/31]
-- Snapshot: 1.6.13-SNAPSHOT
 - Bugfix
   + open.commons.utils.StringUtils.rtrim(String)
   
