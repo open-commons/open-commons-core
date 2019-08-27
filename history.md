@@ -1,3 +1,22 @@
+[2019/08/08]
+- Release: 1.6.14
+- Bugfix
+ + open.commons.utils.LangUtils.toNumber(String)
+
+
+[2019/08/08]
+- Add
+	+ open.commons.utils.CollectionUtils
+	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, BiFunction<V, Integer, E>)
+	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, BiFunction<V, Integer, E>, Class<M>)
+	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, Function<V, E>)
+	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, Function<V, E>, Class<M>)
+	  - toMapHSV(Collection<V>, Function<V, K>, BiFunction<V, Integer, E>)
+	  - toMapHSV(Collection<V>, Function<V, K>, BiFunction<V, Integer, E>, Class<M>)
+	+ open.commons.utils.FileUtils
+		- clearDirectory(File)
+		- learDirectory(String)
+
 [2019/08/07]
 - Release: 1.6.13
 - Add

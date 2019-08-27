@@ -341,6 +341,7 @@ public class LangUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2018. 9. 26.     박준홍         최초 작성
+     * 2019. 8. 27.     박준홍         숫자값 초기화 누락 버그 수정.
      * </pre>
      *
      * @param value
@@ -348,9 +349,8 @@ public class LangUtils {
      *
      * @since 2018. 9. 26.
      */
-    public static int toNumber(String value) {
+    public static long toNumber(String value) {
 
-        int splitSizeByte = 0;
 
         Matcher m = NUMBER_VALUE.matcher(value.trim().toLowerCase());
 
@@ -358,8 +358,9 @@ public class LangUtils {
             String number = m.group(1);
             String unit = m.group(2);
 
+            long splitSizeByte = Long.parseLong(number);
+            
             if (unit != null) {
-                splitSizeByte = 1;
                 switch (unit) {
                     case "pb":
                         splitSizeByte *= 1024;
@@ -376,8 +377,6 @@ public class LangUtils {
                     default:
                         throw new IllegalArgumentException("Illegal Value. value: " + value);
                 }
-            } else {
-                splitSizeByte = Integer.parseInt(number);
             }
 
             return splitSizeByte;

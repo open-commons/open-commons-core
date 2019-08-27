@@ -63,6 +63,58 @@ public class FileUtils {
     };
 
     /**
+     * Delete all files and directories in the specific directory.<br>
+     * DO NOT delete the specifi directory. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dir
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean clearDirectory(File dir) {
+        if (dir == null || dir.isFile() || dir.list().length < 1) {
+            return true;
+        }
+
+        File[] files = listFiles(dir);
+        File[] dirs = listDirectories(dir);
+
+        deleteFiles(files);
+        deleteDirs(true, dirs);
+
+        return true;
+    }
+
+    /**
+     * Delete all files and directories in the specific directory.<br>
+     * DO NOT delete the specifi directory. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dir
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean clearDirectory(String dir) {
+        return clearDirectory(new File(dir));
+    }
+
+    /**
      * 
      * @param inStream
      *            원본 파일

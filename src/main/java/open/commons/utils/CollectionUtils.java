@@ -44,6 +44,7 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -1262,6 +1263,204 @@ public class CollectionUtils {
             v = col.nextElement();
 
             map.put(keyGen.getKey(v), v);
+        }
+
+        return map;
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements
+     * @param keyGen
+     *            a function to extract a key from an element with an elment's index.
+     * @param valueGen
+     *            a function to extract a value from an element with an element's index.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, BiFunction<V, Integer, E> valueGen) {
+        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements
+     * @param keyGen
+     *            a function to extract a key from an element with an elment's index.
+     * @param valueGen
+     *            a function to extract a value from an element with an element's index.
+     * @param implClass
+     *            the extended class of a {@link Map}.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> implClass) {
+        M map = null;
+
+        try {
+            map = implClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        int i = 0;
+        for (V v : col) {
+            map.put(keyGen.apply(v, i), valueGen.apply(v, i));
+            i++;
+        }
+
+        return map;
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements
+     * @param keyGen
+     *            a function to extract a key from an element with an elment's index.
+     * @param valueGen
+     *            a function to extract a value from an element.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, Function<V, E> valueGen) {
+        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements
+     * @param keyGen
+     *            a function to extract a key from an element with an elment's index.
+     * @param valueGen
+     *            a function to extract a value from an element.
+     * @param implClass
+     *            the extended class of a {@link Map}.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, Function<V, E> valueGen, Class<M> implClass) {
+        M map = null;
+
+        try {
+            map = implClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        int i = 0;
+        for (V v : col) {
+            map.put(keyGen.apply(v, i), valueGen.apply(v));
+            i++;
+        }
+
+        return map;
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements
+     * @param keyGen
+     *            a function to extract a key from an element.
+     * @param valueGen
+     *            a function to extract a value from an element with an element's index.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, BiFunction<V, Integer, E> valueGen) {
+        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param col
+     *            elements
+     * @param keyGen
+     *            a function to extract a key from an element.
+     * @param valueGen
+     *            a function to extract a value from an element with an element's index.
+     * @param implClass
+     *            the extended class of a {@link Map}.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> implClass) {
+        M map = null;
+
+        try {
+            map = implClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        int i = 0;
+        for (V v : col) {
+            map.put(keyGen.apply(v), valueGen.apply(v, i));
+            i++;
         }
 
         return map;
