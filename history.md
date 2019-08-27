@@ -1,4 +1,4 @@
-[2019/08/08]
+[2019/08/27]
 - Release: 1.6.14
 - Bugfix
  + open.commons.utils.LangUtils.toNumber(String)
