@@ -14,7 +14,7 @@ See [wiki](https://github.com/parkjunhong/open-commons-core/wiki)
 
 ---
 # Repository
-maven (**<a href="http://nexus3.ymtech.co.kr/#browse/browse:maven-public:open%2Fcommons%2Fopen-commons-core" target="_new">Go to LATEST</a>**)
+maven (**[Go to LATEST](http://nexus3.ymtech.co.kr/#browse/browse:maven-public:open%2Fcommons%2Fopen-commons-core)**)
 ``` xml
 <repositories>
   <repository>
