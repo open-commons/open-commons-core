@@ -474,8 +474,25 @@ public class StopWatch {
      */
     @Override
     public String toString() {
-        return "StopWatch [state=" + state + ", begin=" + begin + ", end=" + end + ", record=" + record + ", pause=" + pause + ", paused=" + paused + ", pausedAcc=" + pausedAcc
-                + ", recrods=" + records + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("StopWatch [state=");
+        builder.append(state);
+        builder.append(", begin=");
+        builder.append(begin);
+        builder.append(", end=");
+        builder.append(end);
+        builder.append(", pause=");
+        builder.append(pause);
+        builder.append(", paused=");
+        builder.append(paused);
+        builder.append(", pausedAcc=");
+        builder.append(pausedAcc);
+        builder.append(", record=");
+        builder.append(record);
+        builder.append(", records=");
+        builder.append(records);
+        builder.append("]");
+        return builder.toString();
     }
 
     private void updatePaused(long cur) {
@@ -567,7 +584,17 @@ public class StopWatch {
          */
         @Override
         public String toString() {
-            return "Record [start=" + start + ", stop=" + stop + ", paused=" + paused + ", pausedAcc=" + pausedAcc + "]";
+            StringBuilder builder = new StringBuilder();
+            builder.append("Record [start=");
+            builder.append(start);
+            builder.append(", stop=");
+            builder.append(stop);
+            builder.append(", paused=");
+            builder.append(paused);
+            builder.append(", pausedAcc=");
+            builder.append(pausedAcc);
+            builder.append("]");
+            return builder.toString();
         }
     }
 

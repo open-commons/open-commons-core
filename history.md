@@ -1,3 +1,9 @@
+[2019/08/29]
+- Tag: 1.6.15-SNAPSHOT
+- Update
+ + open.commons.test.StopWatch.toString()
+ + open.commons.test.StopWatch.Record.toString()
+ 
 [2019/08/27]
 - Release: 1.6.14
 - Bugfix
