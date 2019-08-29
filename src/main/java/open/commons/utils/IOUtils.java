@@ -525,6 +525,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2019. 3. 21.		박준홍			최초 작성
+     * 2019. 8. 29.     박준홍         내부 로직 성능 향상 및 안정성 강화
      * </pre>
      *
      * @param inStream
@@ -549,10 +550,11 @@ public class IOUtils {
         try {
             ArrayList<byte[]> store = new ArrayList<>();
             byte[] bs = null;
-            while ((count = reader.read(buf)) > 0 && count == bufferSize) {
-                buf.clear();
-                buf.get(bs = new byte[bufferSize]);
+            while ((count = reader.read(buf)) > 0) {
+                buf.flip();
+                buf.get(bs = new byte[count]);
                 store.add(bs);
+                buf.clear();
             }
 
             // 버퍼에 남은 데이터 읽기
@@ -595,10 +597,12 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2017. 9. 6.		박준홍			최초 작성
+     * 2019. 8. 29.		박준홍			내부 로직 성능 향상 및 안정성 강화
      * </pre>
      *
      * @param inStream
      * @param length
+     *            a number greater than 0
      * @param close
      *            소켓 close 여부
      * @return
@@ -607,24 +611,47 @@ public class IOUtils {
      */
     public static byte[] readStream(InputStream inStream, final int length, boolean close) {
 
-        ByteBuffer buf = ByteBuffer.allocateDirect(length);
+        // buffer size
+        int bufferSize = 1024 * 1024;
+
+        // assign a real buffer.
+        ByteBuffer buf = ByteBuffer.allocateDirect(bufferSize < length ? bufferSize : length);
 
         ReadableByteChannel reader = Channels.newChannel(inStream);
 
         int total = 0;
-        int count = 0;
+        int read = 0;
+        int over = 0;
+
+        ArrayList<byte[]> store = new ArrayList<>();
+        byte[] bs = null;
 
         try {
-            while (total < length && (count = reader.read(buf)) > 0) {
-                total += count;
-            }
+            do {
+                read = reader.read(buf);
 
-            byte[] read = new byte[length];
+                if (read < 1) {
+                    break;
+                }
 
-            buf.clear();
-            buf.get(read);
+                // check overed data.
+                over = (length - total) - read;
+                // remained data to read.
+                if (over < 0) {
+                    read -= over;
+                }
 
-            return read;
+                buf.flip();
+
+                buf.get(bs = new byte[read]);
+                store.add(bs);
+
+                buf.clear();
+
+                total += read;
+            } while (total < length);
+
+            return ArrayUtils.merge(store.toArray(new byte[0][]));
 
         } catch (Throwable e) {
             e.printStackTrace();
@@ -1232,14 +1259,14 @@ public class IOUtils {
             while ((readCount = reader.read(buf)) > 0) {
 
                 buf.flip();
-                
+
                 writer.write(buf.array(), 0, readCount);
 
                 buf.clear();
 
                 rcvCount += readCount;
             }
-            
+
             return rcvCount;
         } finally {
             if (closeInput) {

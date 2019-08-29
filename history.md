@@ -1,4 +1,10 @@
 [2019/08/29]
+- Release: 1.6.15
+- Update
+ + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
+ + open.commons.utils.IOUtils.readStream(InputStream, int, boolean)
+ 
+[2019/08/29]
 - Tag: 1.6.15-SNAPSHOT
 - Update
  + open.commons.test.StopWatch.toString()
