@@ -1,5 +1,11 @@
+[2019/09/03]
+- Add
+ + open.commons.utils.ObjectUtils.checkType(Class<?>, Class<?>)
+ + open.commons.utils.ObjectUtils.load(Class<T>, Map<String, Object>)
+
 [2019/08/29]
 - Release: 1.6.15
+- Tag: 1.6.16-SNAPSHOT
 - Update
  + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
  + open.commons.utils.IOUtils.readStream(InputStream, int, boolean)

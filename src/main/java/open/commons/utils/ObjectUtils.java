@@ -26,6 +26,7 @@
 
 package open.commons.utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
@@ -56,6 +57,147 @@ public class ObjectUtils {
 
     // Prevent to create a new instance.
     private ObjectUtils() {
+    }
+
+    /**
+     * 검사 대상 타입이 기준타입과 호환가능한지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param target
+     *            검사 대상 타입
+     * @param standard
+     *            기준 타입
+     * @return
+     *
+     * @since 2019. 9. 3.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean checkType(Class<?> target, Class<?> standard) {
+
+        switch (standard.getName()) {
+            case "boolean":
+            case "java.lang.Boolean":
+                return checkType(target, boolean.class, Boolean.class);
+            case "byte":
+            case "java.lang.Byte":
+                return checkType(target, byte.class, Byte.class);
+            case "char":
+            case "java.lang.Character":
+                return checkType(target, char.class, Character.class);
+            case "short":
+            case "java.lang.Short":
+                return checkType(target, short.class, Short.class);
+            case "int":
+            case "java.lang.Integer":
+                return checkType(target, int.class, Integer.class);
+            case "long":
+            case "java.lang.Long":
+                return checkType(target, long.class, Long.class);
+            case "float":
+            case "java.lang.Float":
+                return checkType(target, float.class, Float.class);
+            case "double":
+            case "java.lang.Double":
+                return checkType(target, double.class, Double.class);
+            default:
+                return standard.isAssignableFrom(target);
+        }
+    };
+
+    /**
+     * 검사 대상 타입이 기준 타입과 호환되는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param target
+     *            검사 대상 타입
+     * @param standards
+     *            기준 타입
+     * @return
+     *
+     * @since 2019. 9. 3.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    private static boolean checkType(Class<?> target, Class<?>... standards) {
+        for (Class<?> standard : standards) {
+            if (standard.isAssignableFrom(target)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * {@link Setter} 어노테이션이 기술된 메소드를 이용하여 {@link Map}으로부터 데이터를 읽어 새로운 객체를 생성한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 9. 3.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param type
+     *            데이터 타입
+     * @param map
+     *            데이터를 가지고 있는 {@link Map}
+     * @return
+     *
+     * @since 2019. 9. 3.
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * 
+     * @see Setter
+     */
+    public static <T> T load(Class<T> type, Map<String, Object> map) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+        T obj = type.newInstance();
+
+        List<Method> methods = AnnotationUtils.getAnnotatedMethodsAll(type, Setter.class);
+        boolean accessible = false;
+        Setter setter = null;
+        String name = null;
+        Class<?> paramType = null;
+        Object param = null;
+        for (Method m : methods) {
+            try {
+                accessible = m.isAccessible();
+                setter = m.getAnnotation(Setter.class);
+                name = setter.name();
+                paramType = setter.type();
+
+                // Map에 데이터가 없는 경우
+                if ((param = map.get(name)) == null) {
+                    continue;
+                }
+
+                if (!checkType(param.getClass(), paramType)) {
+                    throw new IllegalArgumentException(String.format("Required: %s, Input.type: %s, Input.value: %s", paramType, param.getClass(), param));
+                }
+
+                m.invoke(obj, param);
+            } finally {
+                m.setAccessible(accessible);
+            }
+        }
+
+        return obj;
     }
 
     /**
