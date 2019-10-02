@@ -27,6 +27,8 @@
 package open.commons.concurrent;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 import open.commons.lang.DefaultRunnable;
 
@@ -38,8 +40,13 @@ import open.commons.lang.DefaultRunnable;
  */
 public abstract class ConcurrentWorker<E> extends DefaultRunnable {
 
+    /** 작업할 데이터 큐 */
     private ConcurrentLinkedQueue<E> queue = new ConcurrentLinkedQueue<>();
     private Mutex mutexQueue = new Mutex("mutex for 'Queue'");
+
+    /** 작업 예정 또는 작업 중인 데이터 개수 */
+    private AtomicInteger workJobCounter = new AtomicInteger();
+    private ReentrantLock mutexWJC = new ReentrantLock();
 
     /**
      * 
@@ -61,6 +68,26 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
 
             mutexQueue.notifyAll();
         }
+    }
+
+    /**
+     * 작업큐에서 꺼낸 작업이 완료되어 작업개수를 감소한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     *
+     * @since 2019. 10. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    protected void doneJob() {
+        mutexWJC.lock();
+        workJobCounter.decrementAndGet();
+        mutexWJC.unlock();
     }
 
     /**
@@ -137,14 +164,64 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
             return;
         }
 
+        mutexWJC.lock();
+        workJobCounter.incrementAndGet();
+        mutexWJC.unlock();
+
         synchronized (mutexQueue) {
-
             queue.add(data);
-
             mutexQueue.notifyAll();
+        }
+
+    }
+
+    /**
+     * 처리 중인 작업이 있는지를 알려준다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2019. 10. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public boolean remainsWorkJob() {
+        mutexWJC.lock();
+        try {
+            return workJobCounter.get() > 0;
+        } finally {
+            mutexWJC.unlock();
         }
     }
 
+    /**
+     * {@link #run()} 메소드를 구현하여 {@link #queue}에서 꺼낸 데이터를 처리한 후, 작업완료를 명시적으로 기록하기 위해서 {@link #doneJob()}를 사용할 수 있다.<br>
+     * 
+     * @see open.commons.lang.AbstractRunnable#run()
+     */
+    @Override
+    public abstract void run();
+
+    /**
+     * 작업큐에 남은 개수를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 5. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2018. 5. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     protected int size() {
         return queue.size();
     }

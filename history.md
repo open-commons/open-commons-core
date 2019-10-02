@@ -1,25 +1,35 @@
+[2019/10/02]
+- Add
+  + open.commons.lang.AbstractRunnable
+    - public void join() 
+    - public void join(long) 
+    - public void join(long, int)
+  + open.commonc.current.ConcurrentWorker
+    - protected void doneJob()
+    - public boolean remainsWorkJob()
+     
 [2019/09/03]
 - Add
- + open.commons.utils.ObjectUtils.checkType(Class<?>, Class<?>)
- + open.commons.utils.ObjectUtils.load(Class<T>, Map<String, Object>)
+  + open.commons.utils.ObjectUtils.checkType(Class<?>, Class<?>)
+  + open.commons.utils.ObjectUtils.load(Class<T>, Map<String, Object>)
 
 [2019/08/29]
 - Release: 1.6.15
 - Tag: 1.6.16-SNAPSHOT
 - Update
- + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
- + open.commons.utils.IOUtils.readStream(InputStream, int, boolean)
+  + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
+  + open.commons.utils.IOUtils.readStream(InputStream, int, boolean)
  
 [2019/08/29]
 - Tag: 1.6.15-SNAPSHOT
 - Update
- + open.commons.test.StopWatch.toString()
- + open.commons.test.StopWatch.Record.toString()
+  + open.commons.test.StopWatch.toString()
+  + open.commons.test.StopWatch.Record.toString()
  
 [2019/08/27]
 - Release: 1.6.14
 - Bugfix
- + open.commons.utils.LangUtils.toNumber(String)
+  + open.commons.utils.LangUtils.toNumber(String)
 
 
 [2019/08/08]

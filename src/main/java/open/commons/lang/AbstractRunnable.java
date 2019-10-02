@@ -95,6 +95,70 @@ public abstract class AbstractRunnable implements IRunnable {
     }
 
     /**
+     * 현재 작업이 종료될 때까지 대기한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     *
+     * @since 2019. 10. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public void join() {
+        join(0, 0);
+    }
+
+    /**
+     * 현재 작업이 종료될 때까지 대기한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param millis
+     *
+     * @since 2019. 10. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public void join(long millis) {
+        join(millis, 0);
+    }
+
+    /**
+     * 현재 작업이 종료될 때까지 대기한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param millis
+     * @param nanos
+     *
+     * @since 2019. 10. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public void join(long millis, int nanos) {
+        try {
+            if (executor == null) {
+                Thread.currentThread().join(millis, nanos);
+            } else {
+                this.executor.join(millis, nanos);
+            }
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+    /**
      * @see open.commons.lang.IControllable#ready()
      */
     @Override
@@ -174,4 +238,5 @@ public abstract class AbstractRunnable implements IRunnable {
             stop();
         }
     }
+
 }
