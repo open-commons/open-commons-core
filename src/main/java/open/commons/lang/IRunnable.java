@@ -33,5 +33,23 @@ package open.commons.lang;
  * 
  */
 public interface IRunnable extends Runnable, IControllable {
-
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param daemon
+     *            데몬형태 구동 여부
+     *
+     * @since 2019. 10. 10.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @version 1.6.16
+     */
+    public void start(boolean daemon);
 }

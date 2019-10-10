@@ -1,3 +1,9 @@
+[2019/10/10]
+- Add
+  + void open.commons.lang.IRunnable.start(boolean daemon)
+  + void open.commons.lang.AbstractRunnable.start(boolean daemon)
+
+
 [2019/10/02]
 - Add
   + open.commons.lang.AbstractRunnable

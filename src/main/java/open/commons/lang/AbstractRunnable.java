@@ -183,13 +183,21 @@ public abstract class AbstractRunnable implements IRunnable {
      */
     @Override
     public void start() {
+        start(false);
+    }
 
+    /**
+     * @see open.commons.lang.IRunnable#start(boolean)
+     */
+    @Override
+    public void start(boolean daemon) {
         beforeStartup();
 
         if (startedExternally) {
             executor = Thread.currentThread();
         } else {
             executor = new Thread(this);
+            executor.setDaemon(daemon);
             startedInternally = true;
             executor.start();
         }
