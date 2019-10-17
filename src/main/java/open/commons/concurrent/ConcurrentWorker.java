@@ -202,10 +202,10 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     /**
      * {@link #run()} 메소드를 구현하여 {@link #queue}에서 꺼낸 데이터를 처리한 후, 작업완료를 명시적으로 기록하기 위해서 {@link #doneJob()}를 사용할 수 있다.<br>
      * 
-     * @see open.commons.lang.AbstractRunnable#run()
+     * @see open.commons.lang.DefaultRunnable#runInternal()
      */
     @Override
-    public abstract void run();
+    protected abstract void runInternal();
 
     /**
      * 작업큐에 남은 개수를 제공한다. <br>

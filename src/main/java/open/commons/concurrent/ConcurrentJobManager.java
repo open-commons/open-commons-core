@@ -181,11 +181,10 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
     }
 
     /**
-     * @see open.commons.lang.AbstractRunnable#run()
+     * @see open.commons.concurrent.ConcurrentWorker#runInternal()
      */
     @Override
-    public void run() {
-
+    protected void runInternal() {
         final String OTN = Thread.currentThread().getName();
         String threadName = getThreadName();
         if (threadName != null) {

@@ -1,6 +1,13 @@
 [2019/10/17]
 - Update
-  + open.commons.lang.DefaultRunnable.beforeStartup(): Process ID를 ThreadContext에 'pid'라는 이름으로 설정.
+  + open.commons.lang.DefaultRunnable
+    - beforeRun()
+    - run() 메소드 final로 정의하고 Process ID를 ThreadContext에 'pid' 라는 이름으로 추가하는 기능 구현.
+    - runInternal(): 실제 기능 구현 메소드
+  + open.commons.concurrent.ConcurrentJobManager<E>
+    - void run()에 구현된 내용을 void runInternal()로 이관
+  + open.commons.concurrent.ConcurrentWorker<E>
+    - void run() -> void runInternal()로 대체      
   + org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
     - open.commons.database.AbstractDao
     - open.commons.lang.AbstractCloseable

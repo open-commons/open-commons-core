@@ -68,11 +68,46 @@ public abstract class DefaultRunnable extends AbstractRunnable {
     }
 
     /**
+     * {@link #runInternal()} 메소드 실행 전에 수행되는 기능을 구현한다.<br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     *
+     * @since 2019. 10. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    protected abstract void beforeRun();
+
+    /**
      * 
      * @see open.commons.lang.AbstractRunnable#beforeStartup()
      */
     @Override
     protected void beforeStartup() {
+
+    }
+
+    /**
+     * 
+     * @see open.commons.lang.AbstractRunnable#beforeStop()
+     */
+    @Override
+    protected void beforeStop() {
+
+    }
+
+    /**
+     * @see open.commons.lang.AbstractRunnable#run()
+     */
+    @Override
+    public final void run() {
 
         // begin - PATCH [2019. 10. 17.]: Process ID를 ThreadContext에 'pid' 라는 이름으로 설정<br>
         // Log4j(1/2) 사용지 Pattern에 %X{pid} 라는 설정으로 사용할 수 있다.
@@ -86,14 +121,25 @@ public abstract class DefaultRunnable extends AbstractRunnable {
         }
         ThreadContext.put("pid", buf.toString());
         // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2019. 10. 17.
+
+        runInternal();
     }
 
     /**
+     * {@link Thread}에 Process ID 정보를 설정하기 위해서, {@link Runnable#run()} 를 final 로 정의하였다.<br>
+     * 이를 대체하기 위해서 실제 기능 구현을 하는 메소드이다. <br>
+     * Log4j(1,2)에서 Pattern에 %X{pid} 로 설정함으로써 로그메시지에 Process ID 를 출력할 수 있다.<br>
      * 
-     * @see open.commons.lang.AbstractRunnable#beforeStop()
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 10. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     *
+     * @since 2019. 10. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    @Override
-    protected void beforeStop() {
-
-    }
+    protected abstract void runInternal();
 }
