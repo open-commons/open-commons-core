@@ -28,7 +28,22 @@
  */
 package open.commons.lang;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
+
+import org.apache.logging.log4j.ThreadContext;
+
 /**
+ * <br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜      | 작성자   |   내용
+ * ------------------------------------------
+ * xxxx.xx.xx       xxx         최초작성
+ * 2019. 10. 17.        박준홍         {@link #beforeStartup()}에 Process ID 를 {@link ThreadContext}에 'pid'란 이름으로 추가.
+ * </pre>
+ * 
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
  */
@@ -59,6 +74,18 @@ public abstract class DefaultRunnable extends AbstractRunnable {
     @Override
     protected void beforeStartup() {
 
+        // begin - PATCH [2019. 10. 17.]: Process ID를 ThreadContext에 'pid' 라는 이름으로 설정<br>
+        // Log4j(1/2) 사용지 Pattern에 %X{pid} 라는 설정으로 사용할 수 있다.
+        // Park_Jun_Hong_(fafanmama_at_naver_com)
+        RuntimeMXBean rt = ManagementFactory.getRuntimeMXBean();
+        StringBuffer buf = new StringBuffer();
+        for (char ch : rt.getName().toCharArray()) {
+            if (ch >= '0' && ch <= '9') {
+                buf.append(ch);
+            }
+        }
+        ThreadContext.put("pid", buf.toString());
+        // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2019. 10. 17.
     }
 
     /**

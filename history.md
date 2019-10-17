@@ -1,3 +1,12 @@
+[2019/10/17]
+- Update
+  + open.commons.lang.DefaultRunnable.beforeStartup(): Process ID를 ThreadContext에 'pid'라는 이름으로 설정.
+  + org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
+    - open.commons.database.AbstractDao
+    - open.commons.lang.AbstractCloseable
+    - open.commons.xml.AbstractSAXHandler
+
+
 [2019/10/10]
 - Add
   + void open.commons.lang.IRunnable.start(boolean daemon)

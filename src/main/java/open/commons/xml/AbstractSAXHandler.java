@@ -31,8 +31,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Stack;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -41,14 +41,23 @@ import open.commons.utils.ArrayUtils;
 import open.commons.utils.StringUtils;
 
 /**
+ * <br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자	|	내용
+ * ------------------------------------------
+ * xxxx.xx.xx		xxx			최초작성
+ * 2019. 10. 17.		박준홍			Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
+ * </pre>
  * 
  * @since 2019. 1. 25.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public abstract class AbstractSAXHandler extends DefaultHandler {
 
-    protected Logger logger = LogManager.getLogger(getClass());
-    protected Logger errorLogger = LogManager.getLogger(getClass());
+    protected Logger logger = LoggerFactory.getLogger(getClass());
+    protected Logger errorLogger = LoggerFactory.getLogger(getClass());
 
     private boolean ignoreadInvalidValue;
 
@@ -104,8 +113,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      */
     public AbstractSAXHandler(Logger logger, Logger errorLogger, boolean ignoreadInvalidValue) {
         // #0. Assign loggers.
-        this.logger = logger != null ? logger : LogManager.getLogger(getClass());
-        this.errorLogger = errorLogger != null ? errorLogger : LogManager.getLogger(getClass());
+        this.logger = logger != null ? logger : LoggerFactory.getLogger(getClass());
+        this.errorLogger = errorLogger != null ? errorLogger : LoggerFactory.getLogger(getClass());
         this.ignoreadInvalidValue = ignoreadInvalidValue;
 
         // #1. Register a converter.
