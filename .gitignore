@@ -19,3 +19,4 @@ buildNumber.properties
 # custom
 ant.build/
 doc/
+.sts4-cache

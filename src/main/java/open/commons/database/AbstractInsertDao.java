@@ -73,23 +73,23 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * 2019. 1. 4.     박준홍         최초 작성
      * </pre>
      *
-     * @param insertAllQueryPrefix
-     *            다중 데이터 추가 쿼리 Prefix. 테이블 정보 및 Column 바인딩
+     * @param insertAllQuery
+     *            다중 데이터 추가 쿼리. 테이블 정보 및 Column 바인딩
      * @param insertAllQueryValues
-     *            다중 데이터 추가 쿼리 suffix. 데이터 바인딩 변수 영역
+     *            다중 데이터 추가 쿼리 데이터 바인딩 변수 영역
      * @param dataCount
      *            데이터 개수
      * @return
      *
      * @since 2019. 1. 4.
      */
-    protected final String createInsertAllQuery(String insertAllQueryPrefix, String insertAllQueryValues, int dataCount) {
+    protected String createInsertAllQuery(String insertAllQuery, String insertAllQueryValues, int dataCount) {
 
         if (dataCount < 1) {
             throw new IllegalArgumentException("The count of data MUST BE bigger than 0.");
         }
 
-        StringBuffer queryBuf = new StringBuffer(insertAllQueryPrefix);
+        StringBuffer queryBuf = new StringBuffer(insertAllQuery);
 
         queryBuf.append(' ');
         queryBuf.append(insertAllQueryValues);

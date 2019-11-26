@@ -1,3 +1,15 @@
+[2019/11/26]
+- Add
+  + open.commons.database.AbstractOracleInsertDao
+- Update
+  + open.commons.database.AbstractInsertDao
+  
+
+[2019/10/24]
+- Add
+  + open.commons.util.ArrayItr<E>
+
+
 [2019/10/17]
 - Update
   + open.commons.lang.DefaultRunnable

@@ -33,6 +33,8 @@ import java.lang.management.RuntimeMXBean;
 
 import org.apache.logging.log4j.ThreadContext;
 
+import open.commons.utils.ThreadUtils;
+
 /**
  * <br>
  * 
@@ -83,7 +85,9 @@ public abstract class DefaultRunnable extends AbstractRunnable {
      * @since 2019. 10. 17.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    protected abstract void beforeRun();
+    protected void beforeRun() {
+
+    }
 
     /**
      * 
@@ -103,11 +107,21 @@ public abstract class DefaultRunnable extends AbstractRunnable {
 
     }
 
+    protected String getThreadName() {
+        return null;
+    }
+
     /**
      * @see open.commons.lang.AbstractRunnable#run()
      */
     @Override
     public final void run() {
+
+        String OTN = null;
+        String tn = getThreadName();
+        if (tn != null) {
+            OTN = ThreadUtils.setThreadName(tn);
+        }
 
         // begin - PATCH [2019. 10. 17.]: Process ID를 ThreadContext에 'pid' 라는 이름으로 설정<br>
         // Log4j(1/2) 사용지 Pattern에 %X{pid} 라는 설정으로 사용할 수 있다.
@@ -122,7 +136,15 @@ public abstract class DefaultRunnable extends AbstractRunnable {
         ThreadContext.put("pid", buf.toString());
         // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2019. 10. 17.
 
+        if (!startedInternally) {
+            startInternally();
+        }
+
         runInternal();
+
+        if (tn != null) {
+            ThreadUtils.setThreadName(OTN);
+        }
     }
 
     /**
