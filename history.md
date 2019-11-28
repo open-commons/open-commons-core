@@ -1,4 +1,10 @@
 [2019/11/26]
+- Release: 1.6.16-RELEASE
+- Add
+  + open.commons.utils.CollectionUtils
+    - toMap(Collection<V>, Function<V, K>, Function<V, E>, Class<M>, Class<C>)
+    
+[2019/11/26]
 - Add
   + open.commons.database.AbstractOracleInsertDao
 - Update

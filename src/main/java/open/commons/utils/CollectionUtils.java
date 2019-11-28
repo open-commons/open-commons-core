@@ -853,7 +853,7 @@ public class CollectionUtils {
      *            extends of {@link List}
      * @param col
      * @param transformer
-     * @param implClass
+     * @param listClass
      *            MUST be class. Not allow an interface.
      * @return
      *
@@ -861,13 +861,13 @@ public class CollectionUtils {
      * 
      * @see Class#newInstance()
      */
-    public static <E, NE, L extends List<NE>> L toList(Collection<E> col, Function<E, NE> transformer, Class<L> implClass) {
+    public static <E, NE, L extends List<NE>> L toList(Collection<E> col, Function<E, NE> transformer, Class<L> listClass) {
 
         L list = null;
 
         try {
 
-            list = implClass.newInstance();
+            list = listClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -888,7 +888,7 @@ public class CollectionUtils {
      * @param <L>
      *            type of extension of {@link List}
      * @param col
-     * @param implClass
+     * @param listClass
      *            MUST be class. Not allow an interface.
      * @return
      *
@@ -896,12 +896,12 @@ public class CollectionUtils {
      * 
      * @see Class#newInstance()
      */
-    public static <T, L extends List<T>> List<T> toList(Collection<T> col, Class<L> implClass) {
+    public static <T, L extends List<T>> List<T> toList(Collection<T> col, Class<L> listClass) {
 
         List<T> list = null;
 
         try {
-            list = implClass.newInstance();
+            list = listClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -948,17 +948,17 @@ public class CollectionUtils {
      *
      * @param stream
      * @param transformer
-     * @param implClass
+     * @param mapClass
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 9. 12.
      */
-    public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Class<L> implClass) {
+    public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Class<L> mapClass) {
         L list = null;
 
         try {
-            list = implClass.newInstance();
+            list = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -972,9 +972,13 @@ public class CollectionUtils {
      * Tranform {@link Collection} to {@link Map}.
      * 
      * @param <K>
-     * @ppram <V>
+     *            key로 사용될 데이터 타입
+     * @param <V>
+     *            입력 데이터 타입
      * @param col
+     *            elements
      * @param keyGen
+     *            a function to create a key using an element
      * @return {@link HashMap}
      *
      * @since 2017. 7. 6.
@@ -995,19 +999,28 @@ public class CollectionUtils {
      * 2017. 9. 11.		박준홍			최초 작성
      * </pre>
      *
+     * @param <K>
+     *            key로 사용될 데이터 타입
+     * @param <V>
+     *            입력 데이터 타입
+     * @param <M>
+     *            새로운 {@link Map} 타입
      * @param col
+     *            elements
      * @param keyGen
-     * @param implClass
+     *            a function to create a key from an element
+     * @param mapClass
+     *            a subclass of {@link Map}
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyGen, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyGen, Class<M> mapClass) {
 
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1029,18 +1042,26 @@ public class CollectionUtils {
      * 2018. 2. 8.		박준홍			최초 작성
      * </pre>
      *
+     * @param <K>
+     *            key로 사용될 데이터 타입
+     * @param <V>
+     *            입력 데이터 타입
+     * @param <E>
+     *            새로운 value로 사용될 데이터 타입
+     * @param <M>
+     *            새로운 {@link Map} 타입
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to extract a key from an element.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to extrace a value from an element.
+     *            a function to create a value using an element.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 2. 8.
      */
-    public static <K, V, E, M extends Map<K, List<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen) {
+    public static <K, V, E, M extends Map<K, Collection<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen) {
         return (M) toMap(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -1053,41 +1074,95 @@ public class CollectionUtils {
      * ------------------------------------------
      * 2018. 2. 8.		박준홍			최초 작성
      * </pre>
+     * 
+     * @param <K>
+     *            key로 사용될 데이터 타입
+     * @param <V>
+     *            입력 데이터 타입
+     * @param <E>
+     *            새로운 value로 사용될 데이터 타입
+     * @param <M>
+     *            새로운 {@link Map} 타입
      *
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to extract a key from an element.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to extrace a value from an element.
-     * @param implClass
-     *            the extended class of a {@link Map}.
+     *            a function to create a value using an element.
+     * @param mapClass
+     *            the subclass of a {@link Map}.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 2. 8.
      */
-    public static <K, V, E, M extends Map<K, List<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> implClass) {
+    public static <K, V, E, M extends Map<K, Collection<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> mapClass) {
+        return (M) toMap(col, keyGen, valueGen, mapClass, ArrayList.class);
+    }
+
+    /**
+     * Transfor a Collection to the specified {@link Map}. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 11. 28.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param <K>
+     *            key로 사용될 데이터 타입
+     * @param <V>
+     *            입력 데이터 타입
+     * @param <E>
+     *            새로운 value로 사용될 데이터 타입
+     * @param <C>
+     *            {@link Collection} 타입
+     * @param <M>
+     *            새로운 {@link Map} 타입
+     * 
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param valueGen
+     *            a function to create a value using an element.
+     * @param mapClass
+     *            the subclass of a {@link Map}.
+     * @param colClass
+     *            the subclass of a {@link Collection}
+     * 
+     * @return
+     *
+     * @since 2019. 11. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, E, M extends Map<K, Collection<E>>, C extends Collection<E>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> mapClass,
+            Class<C> colClass) {
 
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         K key = null;
-        List<E> values = null;
+        Collection<E> values = null;
 
         for (V v : col) {
-
             key = keyGen.apply(v);
-
             values = map.get(key);
 
             if (values == null) {
-                values = new ArrayList<>();
+                try {
+                    values = colClass.newInstance();
+                } catch (InstantiationException //
+                        | IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
 
                 map.put(key, values);
             }
@@ -1121,18 +1196,18 @@ public class CollectionUtils {
      * @param <M>
      * @param col
      * @param keyGen
-     * @param implClass
+     * @param mapClass
      *            MUST be class. Not allow an interface.
      * @return
      *
      * @since 2017. 7. 27.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, IKeyExtractor<K, V> keyGen, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, IKeyExtractor<K, V> keyGen, Class<M> mapClass) {
 
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1180,17 +1255,17 @@ public class CollectionUtils {
      *
      * @param col
      * @param keyGen
-     * @param implClass
+     * @param mapClass
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, Function<V, K> keyGen, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, Function<V, K> keyGen, Class<M> mapClass) {
 
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1242,17 +1317,17 @@ public class CollectionUtils {
      *
      * @param col
      * @param keyGen
-     * @param implClass
+     * @param mapClass
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, IKeyExtractor<K, V> keyGen, Class<M> implClass) {
+    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, IKeyExtractor<K, V> keyGen, Class<M> mapClass) {
 
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1309,18 +1384,18 @@ public class CollectionUtils {
      *            a function to extract a key from an element with an elment's index.
      * @param valueGen
      *            a function to extract a value from an element with an element's index.
-     * @param implClass
-     *            the extended class of a {@link Map}.
+     * @param mapClass
+     *            the subclass of a {@link Map}.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> implClass) {
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> mapClass) {
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1375,18 +1450,18 @@ public class CollectionUtils {
      *            a function to extract a key from an element with an elment's index.
      * @param valueGen
      *            a function to extract a value from an element.
-     * @param implClass
-     *            the extended class of a {@link Map}.
+     * @param mapClass
+     *            the subclass of a {@link Map}.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, Function<V, E> valueGen, Class<M> implClass) {
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, Function<V, E> valueGen, Class<M> mapClass) {
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1413,7 +1488,7 @@ public class CollectionUtils {
      * @param col
      *            elements
      * @param keyGen
-     *            a function to extract a key from an element.
+     *            a function to create a key using an element.
      * @param valueGen
      *            a function to extract a value from an element with an element's index.
      * @return
@@ -1438,21 +1513,21 @@ public class CollectionUtils {
      * @param col
      *            elements
      * @param keyGen
-     *            a function to extract a key from an element.
+     *            a function to create a key using an element.
      * @param valueGen
      *            a function to extract a value from an element with an element's index.
-     * @param implClass
-     *            the extended class of a {@link Map}.
+     * @param mapClass
+     *            the subclass of a {@link Map}.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> implClass) {
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> mapClass) {
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1479,9 +1554,9 @@ public class CollectionUtils {
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to extract a key from an element.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to extrace a value from an element.
+     *            a function to create a value using an element.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -1504,22 +1579,22 @@ public class CollectionUtils {
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to extract a key from an element.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to extrace a value from an element.
-     * @param implClass
-     *            the extended class of a {@link Map}.
+     *            a function to create a value using an element.
+     * @param mapClass
+     *            the subclass of a {@link Map}.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2019. 1. 15.
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> implClass) {
+    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> mapClass) {
 
         M map = null;
 
         try {
-            map = implClass.newInstance();
+            map = mapClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1565,18 +1640,18 @@ public class CollectionUtils {
      * 
      * @param col
      * @param transformer
-     * @param implClass
+     * @param setClass
      *            MUST be class. Not allow an interface.
      * @return
      *
      * @since 2017. 7. 27.
      */
-    public static <E, NE, NS extends Set<NE>> NS toSet(Collection<E> col, Function<E, NE> transformer, Class<NS> implClass) {
+    public static <E, NE, NS extends Set<NE>> NS toSet(Collection<E> col, Function<E, NE> transformer, Class<NS> setClass) {
 
         NS set = null;
 
         try {
-            set = implClass.newInstance();
+            set = setClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -1606,20 +1681,20 @@ public class CollectionUtils {
      * @param <T>
      * @param <S>
      * @param col
-     * @param implClass
+     * @param setClass
      *            MUST be class. Not allow an interface.
      * @return
      *
      * @since 2014. 10. 17.
      */
-    public static <T, S extends Set<T>> Set<T> toSet(Collection<T> col, Class<S> implClass) {
+    public static <T, S extends Set<T>> Set<T> toSet(Collection<T> col, Class<S> setClass) {
         Set<T> set = null;
 
-        if (implClass == null) {
+        if (setClass == null) {
             set = new HashSet<>();
         } else {
             try {
-                set = implClass.newInstance();
+                set = setClass.newInstance();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -1667,18 +1742,18 @@ public class CollectionUtils {
      *
      * @param stream
      * @param transformer
-     * @param implClass
+     * @param setClass
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 9. 12.
      */
-    public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Class<S> implClass) {
+    public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Class<S> setClass) {
 
         S set = null;
 
         try {
-            set = implClass.newInstance();
+            set = setClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
