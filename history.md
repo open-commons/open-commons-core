@@ -1,4 +1,7 @@
-[2019/11/26]
+[2019/11/28]
+- Tag: 1.6.17-SNAPSHOT
+
+[2019/11/28]
 - Release: 1.6.16-RELEASE
 - Add
   + open.commons.utils.CollectionUtils
