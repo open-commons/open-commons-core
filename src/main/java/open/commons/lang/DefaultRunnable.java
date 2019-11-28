@@ -49,7 +49,7 @@ import open.commons.utils.ThreadUtils;
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
  */
-public abstract class DefaultRunnable extends AbstractRunnable {
+public abstract class DefaultRunnable extends AbstractRunnable implements AutoCloseable {
 
     /**
      * 

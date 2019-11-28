@@ -1,5 +1,8 @@
 [2019/11/28]
 - Tag: 1.6.17-SNAPSHOT
+- Update
+  + open.commons.lang.DefaultRunnable
+    - implements AutoCloseable  
 
 [2019/11/28]
 - Release: 1.6.16-RELEASE
