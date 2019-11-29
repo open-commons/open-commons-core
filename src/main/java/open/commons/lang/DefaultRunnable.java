@@ -117,10 +117,10 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
     @Override
     public final void run() {
 
-        String OTN = null;
+        String OTN = Thread.currentThread().getName();
         String tn = getThreadName();
         if (tn != null) {
-            OTN = ThreadUtils.setThreadName(tn);
+            ThreadUtils.setThreadName(tn);
         }
 
         // begin - PATCH [2019. 10. 17.]: Process ID를 ThreadContext에 'pid' 라는 이름으로 설정<br>
@@ -142,7 +142,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
 
         runInternal();
 
-        if (tn != null) {
+        if (OTN != null) {
             ThreadUtils.setThreadName(OTN);
         }
     }

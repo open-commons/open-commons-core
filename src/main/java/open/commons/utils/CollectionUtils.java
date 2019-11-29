@@ -1356,9 +1356,9 @@ public class CollectionUtils {
      * @param col
      *            elements
      * @param keyGen
-     *            a function to extract a key from an element with an elment's index.
+     *            a function to create a key with an element and an elment's index.
      * @param valueGen
-     *            a function to extract a value from an element with an element's index.
+     *            a function to create a value with an element and an element's index.
      * @return
      *
      * @since 2019. 8. 8.
@@ -1381,9 +1381,9 @@ public class CollectionUtils {
      * @param col
      *            elements
      * @param keyGen
-     *            a function to extract a key from an element with an elment's index.
+     *            a function to create a key with an element and an elment's index.
      * @param valueGen
-     *            a function to extract a value from an element with an element's index.
+     *            a function to create a value with an element and an element's index.
      * @param mapClass
      *            the subclass of a {@link Map}.
      * @return
@@ -1422,9 +1422,9 @@ public class CollectionUtils {
      * @param col
      *            elements
      * @param keyGen
-     *            a function to extract a key from an element with an elment's index.
+     *            a function to create a key with an element and an elment's index.
      * @param valueGen
-     *            a function to extract a value from an element.
+     *            a function to create a value with an element.
      * @return
      *
      * @since 2019. 8. 8.
@@ -1447,9 +1447,9 @@ public class CollectionUtils {
      * @param col
      *            elements
      * @param keyGen
-     *            a function to extract a key from an element with an elment's index.
+     *            a function to create a key with an element and an elment's index.
      * @param valueGen
-     *            a function to extract a value from an element.
+     *            a function to create a value with an element.
      * @param mapClass
      *            the subclass of a {@link Map}.
      * @return
@@ -1490,7 +1490,7 @@ public class CollectionUtils {
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to extract a value from an element with an element's index.
+     *            a function to create a value with an element and an element's index.
      * @return
      *
      * @since 2019. 8. 8.
@@ -1515,7 +1515,7 @@ public class CollectionUtils {
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to extract a value from an element with an element's index.
+     *            a function to create a value with an element and an element's index.
      * @param mapClass
      *            the subclass of a {@link Map}.
      * @return
