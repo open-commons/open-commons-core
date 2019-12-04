@@ -29,8 +29,6 @@ package open.commons.concurrent;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import open.commons.utils.ThreadUtils;
-
 /**
  * 멀티쓰레드로 처리되는 서비스 결과를 관리하는 클래스.
  * 
@@ -185,11 +183,6 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      */
     @Override
     protected void runInternal() {
-        final String OTN = Thread.currentThread().getName();
-        String threadName = getThreadName();
-        if (threadName != null) {
-            ThreadUtils.setThreadName(threadName);
-        }
 
         E e = null;
 
@@ -198,7 +191,5 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
                 stop();
             }
         }
-
-        ThreadUtils.setThreadName(OTN);
     }
 }

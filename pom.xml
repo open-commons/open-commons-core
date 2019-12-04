@@ -5,23 +5,15 @@
 	<artifactId>open-commons-core</artifactId>
 	<version>1.6.17-SNAPSHOT</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
-
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<properties>
+	
+		<properties>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
 
 		<compile.encoding>UTF-8</compile.encoding>
 		<compile.source.version>1.8</compile.source.version>
 		<compile.target.version>1.8</compile.target.version>
-
+		
 		<!-- >>> begin: dependencies -->
 		<slf4j-api.version>1.7.26</slf4j-api.version>
 		<org.apache.logging.lo4j.log4j-core.version>2.7</org.apache.logging.lo4j.log4j-core.version>
@@ -34,8 +26,18 @@
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
 		<!-- >>> end: plugin dependencies -->
 	</properties>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
 
 	<distributionManagement>
 		<repository>
@@ -121,6 +123,26 @@
 				</configuration>
 			</plugin>
 			<!-- <<< end: compile -->
+
+			<!-- >>> begin: jar -->
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-jar-plugin</artifactId> -->
+<!-- 				<version>${maven-jar-plugin.version}</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>deploy</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>jar</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<classifier>RELEASE</classifier> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+			<!-- <<< end: jar -->
+
 			<!-- >>> begin: source -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

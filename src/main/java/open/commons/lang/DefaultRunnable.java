@@ -57,7 +57,6 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      */
     @Override
     protected void afterStartup() {
-
     }
 
     /**
@@ -66,7 +65,6 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      */
     @Override
     protected void afterStop() {
-
     }
 
     /**
@@ -86,7 +84,6 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     protected void beforeRun() {
-
     }
 
     /**
@@ -95,7 +92,6 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      */
     @Override
     protected void beforeStartup() {
-
     }
 
     /**
@@ -104,7 +100,13 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      */
     @Override
     protected void beforeStop() {
+    }
 
+    /**
+     * @see java.lang.AutoCloseable#close()
+     */
+    @Override
+    public void close() throws Exception {
     }
 
     protected String getThreadName() {

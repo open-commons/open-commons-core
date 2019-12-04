@@ -348,7 +348,8 @@ public class SQLUtils {
         } catch (InstantiationException //
                 | IllegalAccessException //
                 | IllegalArgumentException //
-                | InvocationTargetException e) {
+                | InvocationTargetException //
+                | SQLException e) {
             throw new SQLException("annotation: " + cdef + ", value: " + value, e);
         }
     }
