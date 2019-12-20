@@ -1,3 +1,7 @@
+[2019/12/20]
+- Release: 1.6.16
+- Omit "-RELEASE"
+
 [2019/11/28]
 - Tag: 1.6.17-SNAPSHOT
 - Update
