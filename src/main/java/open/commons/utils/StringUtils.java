@@ -27,12 +27,14 @@
 package open.commons.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
@@ -64,6 +66,13 @@ public class StringUtils {
                 map.put((String) entry.getKey(), new RegExTokenEscape(((String) entry.getKey()).charAt(0), (String) entry.getValue()));
             }
         } catch (Exception ignored) {
+        }
+    }
+
+    private static void append(StringBuilder buf, String concatenator, Optional<String> data) {
+        if (data.isPresent()) {
+            buf.append(concatenator);
+            buf.append(data.get());
         }
     }
 
@@ -264,6 +273,48 @@ public class StringUtils {
         for (int i = 0; i < array.length; i++) {
             array[i] = SL - array[i] - 1;
         }
+    }
+
+    /**
+     * 주어진 문자열을 하나의 문자열로 연결하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 10. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param delimeter
+     *            문자열 연결자
+     * @param startsWithDelimeter
+     *            구분자로 시작하는지 여부
+     * @param trim
+     *            String.trim() 처리 여부
+     * @param addNulpty
+     *            문자열이 Null 또는 빈문자열(Empty)인 경우 추가 여부
+     * @param strings
+     *            문자열
+     * @return
+     *
+     * @since 2019. 10. 15.
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String concat(String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
+        AssertUtils.assertNull(delimeter);
+        AssertUtils.assertNull(strings);
+
+        StringBuilder buf = new StringBuilder();
+
+        Iterator<String> itr = Arrays.asList(strings).iterator();
+        append(buf, startsWithDelimeter ? delimeter : "", next(itr.next(), trim, addNulpty));
+
+        while (itr.hasNext()) {
+            append(buf, buf.length() < 1 && !startsWithDelimeter ? "" : delimeter, next(itr.next(), trim, addNulpty));
+        }
+
+        return buf.toString();
     }
 
     /**
@@ -1557,6 +1608,19 @@ public class StringUtils {
 
         System.out.println(lpad("1", 2, true));
 
+    }
+
+    private static Optional<String> next(String str, boolean trim, boolean addNulpty) {
+        // null 확인
+        if (str == null && addNulpty) {
+            return Optional.ofNullable(addNulpty ? "null" : null);
+        } else
+        // 빈 문자열 확인
+        if (str.trim().isEmpty()) {
+            return Optional.ofNullable(addNulpty ? (trim ? "" : str) : null);
+        } else {
+            return Optional.of(trim ? str.trim() : str);
+        }
     }
 
     /**
