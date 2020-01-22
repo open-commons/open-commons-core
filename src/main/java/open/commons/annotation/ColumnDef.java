@@ -62,6 +62,28 @@ public @interface ColumnDef {
     boolean caseSensitive() default false;
 
     /**
+     * 컬럼명을 변환하는 방식.<br>
+     * 프로그래밍 언어와 DBMS 간 명명규칙이 상이하기
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 16.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 1. 16.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see ColumnNameType
+     */
+    ColumnNameType columnNameType() default ColumnNameType.NAME;
+
+    /**
      * 컬럼명을 제공한다.
      * 
      * <br>
@@ -134,4 +156,41 @@ public @interface ColumnDef {
      * @since 2017. 9. 5.
      */
     Class<?> type() default String.class;
+
+    /**
+     * DBMS 컬럼명 표기 타입
+     * 
+     * @since 2020. 1. 16.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static enum ColumnNameType {
+        /**
+         * camelCase: 각 단어의 첫문자를 대문자로 표기하고 붙여쓰되, 맨처음 문자는 소문자로 표기함 띄어쓰기 대신 대문자로 단어를 구분하는 표기 방식<br>
+         * 예) backgroundColor, typeName, iPhone
+         */
+        CAMEL_CASE,
+        /**
+         * kebab-case: 하이픈으로 단어를 연결하는 표기법<br>
+         * 예) backgroud-color, type-name, i-phone
+         */
+        KEBAB_CASE,
+        /**
+         * 설정된 컬럼명과 동일하게 사용
+         * 
+         * @see ColumnDef#name()
+         */
+        NAME,
+        /**
+         * PascalCase: 첫 단어를 대문자로 시작하는 표기법<br>
+         * 예): BackgroundColor, TypeName, PowerPoint
+         */
+        PASCAL_CASE,
+        /**
+         * snake_case: 단어를 밑줄문자로 구분하는 표기법<br>
+         * 예) backgroud_color, type_name, power_point
+         */
+        SNAKE_CASE,
+        //
+        ;
+    }
 }

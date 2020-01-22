@@ -51,7 +51,7 @@ import java.util.function.Function;
  * @see Function
  * @since 1.8
  * 
- * @revision_history : Park_Jun_Hong_(fafanmama_at_naver_com), 2017. 9. 14., 1.0
+ * @author : Park_Jun_Hong_(fafanmama_at_naver_com), 2017. 9. 14., 1.0
  */
 @FunctionalInterface
 public interface TripleFunction<T, U, V, R> {

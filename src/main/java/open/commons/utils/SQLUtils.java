@@ -52,7 +52,7 @@ import java.util.stream.Collectors;
 
 import open.commons.TwoValueObject;
 import open.commons.annotation.ColumnDef;
-import open.commons.annotation.ColumnValue;
+import open.commons.annotation.ColumnDecl;
 
 /**
  * 
@@ -93,14 +93,14 @@ public class SQLUtils {
      * @since 2019. 6. 17.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
-     * @see ColumnValue
+     * @see ColumnDecl
      */
     public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns) throws RuntimeException {
         AssertUtils.assertNulls(obj1, obj2);
 
         Class<?> dataType = obj1.getClass();
-        // #0. @ColumnValue 어노테이션이 있는 메소드 조회
-        Collection<Method> methods = ReflectionUtils.getAnnotatedMethods(ColumnValue.class, dataType);
+        // #0. @ColumnDecl 어노테이션이 있는 메소드 조회
+        Collection<Method> methods = ReflectionUtils.getAnnotatedMethods(ColumnDecl.class, dataType);
 
         Map<String, TwoValueObject<Object, Object>> diff = new HashMap<>();
 
@@ -108,7 +108,7 @@ public class SQLUtils {
                 .forEach(m -> {
                     Object v1 = null;
                     Object v2 = null;
-                    ColumnValue anno = null;
+                    ColumnDecl anno = null;
 
                     try {
                         v1 = m.invoke(obj1);
@@ -117,7 +117,7 @@ public class SQLUtils {
                         throw new RuntimeException(e);
                     }
 
-                    anno = m.getAnnotation(ColumnValue.class);
+                    anno = m.getAnnotation(ColumnDecl.class);
 
                     if (v1 == null && v2 == null) {
                         return;
@@ -173,8 +173,28 @@ public class SQLUtils {
     private static void invoke(ResultSet rs, ColumnDef cdef, Method m, Object object)
             throws SQLException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
-        String columnName = cdef.name();
         Class<?> columnType = cdef.type();
+        String clmnName = cdef.name();
+        String columnName = null;
+        switch (cdef.columnNameType()) {
+            case CAMEL_CASE:
+                columnName = clmnName;
+                break;
+            case KEBAB_CASE:
+                columnName = StringUtils.toKebabCase(clmnName);
+                break;
+            case NAME:
+                columnName = clmnName;
+                break;
+            case PASCAL_CASE:
+                columnName = StringUtils.toPascalCase(clmnName);
+                break;
+            case SNAKE_CASE:
+                columnName = StringUtils.toSnakeCase(clmnName);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
 
         if (Array.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getArray(columnName));

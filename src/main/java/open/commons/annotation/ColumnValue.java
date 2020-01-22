@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  *
  * This file is generated under this project, "open-commons-core".
  *
- * Date  : 2019. 6. 17. 오후 4:56:56
+ * Date  : 2020. 1. 22. 오후 3:27:03
  *
  * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
@@ -32,14 +32,19 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
-import open.commons.Result;
+import java.sql.PreparedStatement;
 
 /**
- * {@link Result}으로부터 만들어진 객체에서 컬럼 값을 얻기 위한 어노테이션.
+ * Repository DTO 객체가 값을 제공해주는 메소드에 적용.<br>
+ * 해당 메소드를 이용하여 @{link PreparedStatement} 에 파라미터를 설정한다.
  * 
- * @since 2019. 6. 17..
+ * @since 2020. 1. 22.
+ * @version 1.6.17
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
+ * @see PreparedStatement
+ * @see PreparedStatement#setObject(int, Object)
+ * 
  */
 @Documented
 @Retention(RUNTIME)
@@ -55,37 +60,77 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 17.      박준홍         최초 작성
+     * 2020. 1. 22.      박준홍         최초 작성
      * </pre>
      *
      * @return
      *
+     * @since 2020. 1. 22.
+     * @version 1.6.17
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @since 2019. 6. 17.
      */
     boolean caseSensitive() default false;
 
     /**
-     * 컬럼명을 제공한다.
+     * 컬럼명을 제공한다.<br>
+     * 이 값이 빈문자열("")인 경우 해당 메소드 이름과 반환 타입을 이용하여 컬럼명을 추출한다.<br>
+     * 먼저 반환타입이 boolean/Boolean 인 경우 메소드이름이 알파벳 소문자 'is' 또는 'get'으로 시작하는지 확인하고<br>
+     * 맞다면 'is' 또는 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면 {@link IllegalArgumentException} 를 발생시킨다.<br>
+     * 반환타입이 그 외인 경우 알파벳 소문자 메소드 이름이 알파벳 소문자 'get' 으로 시작는지 확인하고<br>
+     * 맞다면 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면 {@link IllegalArgumentException} 를 발생시킨다.<br>
      * 
-     * <br>
+     * <pre>
+     * // 'isGood' -> 'good' 으로 처리
+     * &#64;ColumnValue(caseSensitive=true)
+     * public boolean isGood(){
+     *  return ...
+     * }
+     * 
+     * // 'getGood' -> 'good' 으로 처리
+     * &#64;ColumnValue(caseSensitive=true)
+     * public Boolean getGood(){
+     *  return ...
+     * }
+     * 
+     * // 'good' -> IllegalAccessException 발생
+     * &#64;ColumnValue(caseSensitive=true)
+     * public boolean good(){
+     *  return ...
+     * }
+     * 
+     * </pre>
      * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 17.      박준홍         최초 작성
+     * 2020. 1. 22.      박준홍         최초 작성
      * </pre>
      *
      * @return
      *
+     * @since 2020. 1. 22.
+     * @version 1.6.17
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @since 2019. 6. 17.
      */
-    @AliasFor("value")
-    String column() default "";
+    String name() default "";
 
-    @AliasFor("column")
-    String value() default "";
-
+    /**
+     * 컬럼의 순서정보를 제공한다.<br>
+     * 사용하고자 하는 컬럼정보가 없는 경우 이 데이터의 값을 기준으로 오름차순 정렬을 적용한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 1. 22.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    int order() default Integer.MAX_VALUE;
 }

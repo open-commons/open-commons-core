@@ -1,3 +1,37 @@
+[2020/01/22]
+- Add
+  + open.commons.function
+    - SQLTripleConsumer
+    - SQLTripleFunction
+  + open.commons.annotations.ColumnValue
+  	
+- Update
+  + open.commons.annotations.ColumnDef
+    - (+) open.commons.annotation.ColumnDef.ColumnNameType
+    - (+) ColumnNameType open.commons.annotation.ColumnDef.columnNameType() : ColumnNameType.NAME
+  + open.commons.function
+    - SQLConsumer
+      - (+) SQLConsumer<PreparedStatement> open.commons.function.SQLConsumer.setParameters(Object[])
+    - TripleFunction
+  + open.commons.utils
+    - StringUtils
+      - String concat(List<String>, String, boolean, boolean, boolean)
+      - String toKebabCase(String)
+      - String toPascalCase(String)
+      - String toSnakeCase(String)
+- Change
+  + open.commons.annotations.ColumnDecl
+    - FROM 'OLD' open.commons.annotations.ColumnValue  
+    
+- Patch
+  + open.commons.utils.SQLUtils
+    - void invoke(ResultSet, ColumnDef, Method, Object): ColumnDef.columnNameType() 처리 추가
+
+- Bugfix
+  + open.commons.collection.FIFOSet
+    - boolean open.commons.collection.FIFOSet.remove(Object o): 데이터 포함 여부 버그
+
+
 [2019/12/20]
 - Release: 1.6.16
 - Omit "-RELEASE"

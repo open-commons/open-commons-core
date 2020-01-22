@@ -123,7 +123,8 @@ public class FIFOSet<E> implements Set<E> {
     public synchronized boolean remove(Object o) {
         boolean removed = false;
 
-        if (!values.contains(o)) {
+//        if (!values.contains(o)) {
+        if (values.contains(o)) {
             Integer sequence = null;
 
             for (Entry<Integer, E> entry : orderedValues.entrySet()) {

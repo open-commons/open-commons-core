@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -273,6 +274,48 @@ public class StringUtils {
         for (int i = 0; i < array.length; i++) {
             array[i] = SL - array[i] - 1;
         }
+    }
+
+    /**
+     * 주어진 문자열을 하나의 문자열로 연결하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 10. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param strings
+     *            문자열
+     * @param delimeter
+     *            문자열 연결자
+     * @param startsWithDelimeter
+     *            구분자로 시작하는지 여부
+     * @param trim
+     *            String.trim() 처리 여부
+     * @param addNulpty
+     *            문자열이 Null 또는 빈문자열(Empty)인 경우 추가 여부
+     * @return
+     *
+     * @since 2020. 1. 16
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String concat(List<String> strings, String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
+        AssertUtils.assertNull(delimeter);
+        AssertUtils.assertNull(strings);
+
+        StringBuilder buf = new StringBuilder();
+
+        Iterator<String> itr = strings.iterator();
+        append(buf, startsWithDelimeter ? delimeter : "", next(itr.next(), trim, addNulpty));
+
+        while (itr.hasNext()) {
+            append(buf, buf.length() < 1 && !startsWithDelimeter ? "" : delimeter, next(itr.next(), trim, addNulpty));
+        }
+
+        return buf.toString();
     }
 
     /**
@@ -946,6 +989,15 @@ public class StringUtils {
         return false;
     }
 
+    private static void flushBuffer(StringBuffer buf, ArrayList<String> list) {
+        if (buf.length() < 1) {
+            return;
+        }
+
+        list.add(buf.toString());
+        buf.setLength(0);
+    }
+
     /**
      * 다수의 문자열 값을 하나의 byte 배열로 반환한다.
      * 
@@ -1607,6 +1659,11 @@ public class StringUtils {
         System.out.println(">" + rtrim("11111111       ") + "<");
 
         System.out.println(lpad("1", 2, true));
+
+        String camelCase = "camelCase";
+        System.out.println("[K] " + camelCase + " -> " + toKebabCase(camelCase));
+        System.out.println("[P] " + camelCase + " -> " + toPascalCase(camelCase));
+        System.out.println("[S] " + camelCase + " -> " + toSnakeCase(camelCase));
 
     }
 
@@ -2381,6 +2438,41 @@ public class StringUtils {
                 }
             }
         }
+    };
+
+    /**
+     * camelCase 문자열을 kebab_case 문자열로 변경한다.<br>
+     * 예) camelCase -> camel_Case <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 16.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     * @return
+     *
+     * @since 2020. 1. 16.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toKebabCase(String camelCase) {
+
+        ArrayList<String> strs = new ArrayList<>();
+
+        StringBuffer buf = new StringBuffer();
+        for (char c : camelCase.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                flushBuffer(buf, strs);
+            }
+
+            buf.append(c);
+        }
+
+        flushBuffer(buf, strs);
+
+        return StringUtils.concat(strs, "-", false, false, false);
     }
 
     /**
@@ -2428,6 +2520,40 @@ public class StringUtils {
     }
 
     /**
+     * camelCase 문자열을 PascalCase 문자열로 변경한다.<br>
+     * 예) camelCase -> CamelCase <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 16.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     * @return
+     *
+     * @since 2020. 1. 16.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toPascalCase(String camelCase) {
+        ArrayList<String> strs = new ArrayList<>();
+
+        StringBuffer buf = new StringBuffer();
+        for (char c : camelCase.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                flushBuffer(buf, strs);
+            }
+
+            buf.append(buf.length() < 1 ? Character.toUpperCase(c) : Character.toLowerCase(c));
+        }
+
+        flushBuffer(buf, strs);
+
+        return StringUtils.concat(strs, "", false, false, false);
+    }
+
+    /**
      * 문자열을 정규식에 사용할 수 있도록 변환한 후 반환한다.
      * 
      * @param string
@@ -2451,6 +2577,40 @@ public class StringUtils {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * camelCase 문자열을 snake_case 문자열로 변경한다.<br>
+     * 예) camelCase -> camel_case<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 16.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     * @return
+     *
+     * @since 2020. 1. 16.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toSnakeCase(String camelCase) {
+        ArrayList<String> strs = new ArrayList<>();
+
+        StringBuffer buf = new StringBuffer();
+        for (char c : camelCase.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                flushBuffer(buf, strs);
+            }
+
+            buf.append(Character.toLowerCase(c));
+        }
+
+        flushBuffer(buf, strs);
+
+        return StringUtils.concat(strs, "_", false, false, false);
     }
 
     /**

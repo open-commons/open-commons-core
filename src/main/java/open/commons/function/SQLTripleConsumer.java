@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  *
  * This file is generated under this project, "open-commons-core".
  *
- * Date  : 2019. 2. 19. 오전 10:33:53
+ * Date  : 2020. 1. 20. 오후 3:21:59
  *
  * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
@@ -26,9 +26,9 @@
 
 package open.commons.function;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Represents an operation that accepts a single input argument and returns no result. Unlike most other functional
@@ -37,65 +37,60 @@ import java.util.Objects;
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose functional method is {@link #accept(Object)}.
  *
- * @param <T>
- *            the type of the input to the operation
  *
- * @since 1.8
+ * @param <T>
+ *            the type of the first argument to the operation
+ * @param <U>
+ *            the type of the second argument to the operation
+ * @param <V>
+ *            the type of the third argument to the operation
+ *
+ * 
+ * @since 2020. 1. 20.
+ * @since JDK: 1.8
+ * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @see Consumer
  */
 @FunctionalInterface
-public interface SQLConsumer<T> {
+public interface SQLTripleConsumer<T, U, V> {
 
     /**
-     * Performs this operation on the given argument.
+     * Performs this operation on the given arguments.
      *
      * @param t
-     *            the input argument
+     *            the first input argument
+     * @param u
+     *            the second input argument
+     * @param u
+     *            the thrid input argument
+     * @throws SQLException
+     *             TODO
+     * 
+     * @since 1.6.17
      */
-    void accept(T t) throws SQLException;
+    void accept(T t, U u, V v) throws SQLException;
 
     /**
-     * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by the {@code after}
+     * Returns a composed {@code BiConsumer} that performs, in sequence, this operation followed by the {@code after}
      * operation. If performing either operation throws an exception, it is relayed to the caller of the composed
      * operation. If performing this operation throws an exception, the {@code after} operation will not be performed.
      *
      * @param after
      *            the operation to perform after this operation
-     * @return a composed {@code Consumer} that performs in sequence this operation followed by the {@code after}
+     * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation
+     * @throws SQLException
+     *             TODO
      * @throws NullPointerException
      *             if {@code after} is null
+     * @since 1.6.17
      */
-    default SQLConsumer<T> andThen(SQLConsumer<? super T> after) {
+    default SQLTripleConsumer<T, U, V> andThen(TripleConsumer<? super T, ? super U, ? super V> after) throws SQLException {
         Objects.requireNonNull(after);
-        return (T t) -> {
-            accept(t);
-            after.accept(t);
-        };
-    }
 
-    /**
-     * {@link PreparedStatement}에 데이터를 설정한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 22.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param params
-     *            쿼리 파라미터.
-     * @return
-     *
-     * @since 2020. 1. 22.
-     * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     */
-    public static SQLConsumer<PreparedStatement> setParameters(Object[] params) {
-        return stmt -> {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
-            }
+        return (l, r, u) -> {
+            accept(l, r, u);
+            after.accept(l, r, u);
         };
     }
 }
