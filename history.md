@@ -1,3 +1,14 @@
+[2020/02/13]
+- Release: 1.6.17
+- Add
+  + open.commons.function.HexaFunction
+- Update
+  + open.commons.annotation.Getter
+  + open.commons.function.SQLTripleFunction
+  + open.commons.utils.CollectionUtils
+  + open.commons.utils.IOUtils
+  + open.commons.utils.SQLUtils
+
 [2020/01/22]
 - Add
   + open.commons.function

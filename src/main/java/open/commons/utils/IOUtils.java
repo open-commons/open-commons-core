@@ -44,8 +44,10 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Vector;
@@ -574,6 +576,180 @@ public class IOUtils {
         }
 
         return null;
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see BufferedReader
+     */
+    public static List<String> readLines(File file) throws FileNotFoundException, IOException {
+        return readLines(file, Charset.defaultCharset());
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     * @param charset
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readLines(File file, Charset charset) throws FileNotFoundException, IOException {
+        return readLines(new FileInputStream(file), charset);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readLines(InputStream inStream) throws IOException {
+        return readLines(inStream, Charset.defaultCharset());
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param charset
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readLines(InputStream inStream, Charset charset) throws IOException {
+        List<String> lines = new ArrayList<>();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, charset));
+        String readline = null;
+        while ((readline = reader.readLine()) != null) {
+            lines.add(readline);
+        }
+
+        return lines;
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param charsetName
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readLines(InputStream inStream, String charsetName) throws IOException {
+        Charset charset = Charset.isSupported(charsetName) //
+                ? Charset.forName(charsetName) //
+                : Charset.defaultCharset();
+        return readLines(inStream, charset);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param path
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
+        return readLines(path.toFile());
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param filepath
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2020. 2. 8.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
+        return readLines(new File(filepath));
     }
 
     /**

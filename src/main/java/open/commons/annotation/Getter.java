@@ -52,5 +52,4 @@ public @interface Getter {
 
     /** 데이터 타입 */
     Class<?> type();
-
 }

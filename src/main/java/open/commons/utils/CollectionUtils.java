@@ -44,6 +44,7 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -60,6 +61,12 @@ import open.commons.collection.IKeyExtractor;
  */
 @SuppressWarnings("unchecked")
 public class CollectionUtils {
+
+    private static final BiConsumer<StringBuffer, String[]> APPENDER_STR = (sb, strs) -> {
+        for (String str : strs) {
+            sb.append(str);
+        }
+    };
 
     /**
      * 새로운 데이터를 {@link Collection}에 추가한다.
@@ -285,21 +292,36 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to {@link Map}.
+     * Transform {@link Collection} to {@link Map}. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2017. 7. 6.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
      * @param col
-     * @param extrator
+     *            elements
+     * @param keyGen
+     *            a function to create a key using an element.
      * @return
      *
      * @since 2017. 7. 6.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V> Map<K, List<V>> elementToListValuedMap(Collection<V> col, Function<V, K> extrator) {
-        Map<K, List<V>> map = new HashMap<>();
+    public static <E, K> Map<K, List<E>> elementToListValuedMap(Collection<E> col, Function<E, K> keyGen) {
+        Map<K, List<E>> map = new HashMap<>();
 
         K k = null;
-        List<V> vs = null;
-        for (V v : col) {
-            k = extrator.apply(v);
+        List<E> vs = null;
+        for (E e : col) {
+            k = keyGen.apply(e);
 
             vs = map.get(k);
             if (vs == null) {
@@ -307,28 +329,45 @@ public class CollectionUtils {
                 map.put(k, vs);
             }
 
-            vs.add(v);
+            vs.add(e);
         }
 
         return map;
     }
 
     /**
-     * Transform {@link Collection} to {@link Map}.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 10. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
      * @param col
-     * @param extrator
+     *            elements
+     * @param extractor
+     *            a instance to create a key using an element.
      * @return
      *
      * @since 2014. 10. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @deprecated Use {@link #elementToListValuedMap(Collection, Function)}, if supports JDK 1.8 or higher.
      */
-    public static <K, V> Map<K, List<V>> elementToListValuedMap(Collection<V> col, IKeyExtractor<K, V> extrator) {
-        Map<K, List<V>> map = new HashMap<>();
+    public static <E, K> Map<K, List<E>> elementToListValuedMap(Collection<E> col, IKeyExtractor<K, E> extrator) {
+        Map<K, List<E>> map = new HashMap<>();
 
         K k = null;
-        List<V> vs = null;
-        for (V v : col) {
-            k = extrator.getKey(v);
+        List<E> vs = null;
+        for (E e : col) {
+            k = extrator.getKey(e);
 
             vs = map.get(k);
             if (vs == null) {
@@ -336,14 +375,36 @@ public class CollectionUtils {
                 map.put(k, vs);
             }
 
-            vs.add(v);
+            vs.add(e);
         }
 
         return map;
     }
 
-    public static <T> Collection<T> getIgnoreCase(Map<String, T> map, String keyIgnoreCase) {
-        ArrayList<T> result = new ArrayList<>();
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of a value.
+     * @param map
+     *            elements.
+     * @param keyIgnoreCase
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E> Collection<E> getIgnoreCase(Map<String, E> map, String keyIgnoreCase) {
+        ArrayList<E> result = new ArrayList<>();
 
         for (String key : map.keySet()) {
             if (key.equalsIgnoreCase(keyIgnoreCase)) {
@@ -359,22 +420,36 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to {@link Map}.
+     * Transform {@link Collection} to {@link Map}. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2017. 7. 6.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
      * @param col
-     * @param extrator
+     *            elements
+     * @param keyGen
+     *            a function to create a key using an element.
      * @return
      *
      * @since 2017. 7. 6.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V> Map<K, List<V>> listElementToListValuedMap(Collection<List<V>> col, Function<V, K> extrator) {
-        Map<K, List<V>> map = new HashMap<>();
+    public static <E, K> Map<K, List<E>> listElementToListValuedMap(Collection<List<E>> col, Function<E, K> keyGen) {
+        Map<K, List<E>> map = new HashMap<>();
 
         K k = null;
-        List<V> vs;
-        for (List<V> list : col) {
-            for (V v : list) {
-                k = extrator.apply(v);
+        List<E> vs;
+        for (List<E> list : col) {
+            for (E e : list) {
+                k = keyGen.apply(e);
 
                 vs = map.get(k);
                 if (vs == null) {
@@ -382,7 +457,7 @@ public class CollectionUtils {
                     map.put(k, vs);
                 }
 
-                vs.add(v);
+                vs.add(e);
             }
         }
 
@@ -390,22 +465,38 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to {@link Map}.
+     * Transform {@link Collection} to {@link Map}. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 10. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
      * @param col
-     * @param extrator
+     *            elements
+     * @param extractor
+     *            a instance to create a key using an element.
      * @return
      *
      * @since 2014. 10. 17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @deprecated Use {@link #listElementToListValuedMap(Collection, Function)}, if supports JDK 1.8 or higher.
      */
-    public static <K, V> Map<K, List<V>> listElementToListValuedMap(Collection<List<V>> col, IKeyExtractor<K, V> extrator) {
-        Map<K, List<V>> map = new HashMap<>();
+    public static <E, K> Map<K, List<E>> listElementToListValuedMap(Collection<List<E>> col, IKeyExtractor<K, E> extrator) {
+        Map<K, List<E>> map = new HashMap<>();
 
         K k = null;
-        List<V> vs;
-        for (List<V> list : col) {
-            for (V v : list) {
-                k = extrator.getKey(v);
+        List<E> vs;
+        for (List<E> list : col) {
+            for (E e : list) {
+                k = extrator.getKey(e);
 
                 vs = map.get(k);
                 if (vs == null) {
@@ -413,7 +504,7 @@ public class CollectionUtils {
                     map.put(k, vs);
                 }
 
-                vs.add(v);
+                vs.add(e);
             }
         }
 
@@ -432,8 +523,8 @@ public class CollectionUtils {
      * @see NullPointerException
      * @deprecated 2014. 6. 30. Instead of, use {@link ArrayUtils#merge(Object[], Object[])}.
      */
-    public static <T> T[] merge(T[] t1, T[] t2) {
-        T[] t3 = (T[]) Array.newInstance(t1.getClass(), t1.length + t2.length);
+    public static <E> E[] merge(E[] t1, E[] t2) {
+        E[] t3 = (E[]) Array.newInstance(t1.getClass(), t1.length + t2.length);
 
         System.arraycopy(t1, 0, t3, 0, t1.length);
         System.arraycopy(t2, 0, t3, t1.length, t2.length);
@@ -441,17 +532,8 @@ public class CollectionUtils {
         return t3;
     }
 
-    public static <T> List<T> newList(List<T> list, T... elems) {
-        List<T> newList = (List<T>) newList(list.toArray());
-        if (elems != null) {
-            newList.addAll(Arrays.asList(elems));
-        }
-
-        return newList;
-    }
-
-    public static <T> List<T> newList(T... elems) {
-        List<T> list = new ArrayList<T>();
+    public static <E> List<E> newList(E... elems) {
+        List<E> list = new ArrayList<E>();
         if (elems != null) {
             list.addAll(Arrays.asList(elems));
         }
@@ -459,8 +541,8 @@ public class CollectionUtils {
         return list;
     }
 
-    public static <T> List<T> newList(T elem, Collection<T> col) {
-        List<T> newList = newList(elem);
+    public static <E> List<E> newList(E elem, Collection<E> col) {
+        List<E> newList = newList(elem);
         if (col != null) {
             newList.addAll(col);
         }
@@ -468,8 +550,8 @@ public class CollectionUtils {
         return newList;
     }
 
-    public static <T> List<T> newList(T elem, List<T> list) {
-        List<T> newList = newList(elem);
+    public static <E> List<E> newList(E elem, List<E> list) {
+        List<E> newList = newList(elem);
         if (list != null) {
             newList.addAll(list);
         }
@@ -477,17 +559,17 @@ public class CollectionUtils {
         return newList;
     }
 
-    public static <T> Set<T> newSet(Set<T> set, T... elems) {
-        Set<T> newSet = (Set<T>) newSet(set.toArray());
+    public static <E> List<E> newList(List<E> list, E... elems) {
+        List<E> newList = (List<E>) newList(list.toArray());
         if (elems != null) {
-            newSet.addAll(Arrays.asList(elems));
+            newList.addAll(Arrays.asList(elems));
         }
 
-        return newSet;
+        return newList;
     }
 
-    public static <T> Set<T> newSet(T... elems) {
-        Set<T> set = new HashSet<T>();
+    public static <E> Set<E> newSet(E... elems) {
+        Set<E> set = new HashSet<E>();
         if (elems != null) {
             set.addAll(Arrays.asList(elems));
         }
@@ -495,8 +577,8 @@ public class CollectionUtils {
         return set;
     }
 
-    public static <T> Set<T> newSet(T elem, Collection<T> col) {
-        Set<T> newSet = newSet(elem);
+    public static <E> Set<E> newSet(E elem, Collection<E> col) {
+        Set<E> newSet = newSet(elem);
         if (col != null) {
             newSet.addAll(col);
         }
@@ -504,8 +586,8 @@ public class CollectionUtils {
         return newSet;
     }
 
-    public static <T> Set<T> newSet(T elem, Set<T> set) {
-        Set<T> newSet = newSet(elem);
+    public static <E> Set<E> newSet(E elem, Set<E> set) {
+        Set<E> newSet = newSet(elem);
         if (set != null) {
             newSet.addAll(set);
         }
@@ -513,8 +595,17 @@ public class CollectionUtils {
         return newSet;
     }
 
-    public static <T> Vector<T> newVector(T... elems) {
-        Vector<T> vector = new Vector<T>();
+    public static <E> Set<E> newSet(Set<E> set, E... elems) {
+        Set<E> newSet = (Set<E>) newSet(set.toArray());
+        if (elems != null) {
+            newSet.addAll(Arrays.asList(elems));
+        }
+
+        return newSet;
+    }
+
+    public static <E> Vector<E> newVector(E... elems) {
+        Vector<E> vector = new Vector<E>();
         if (elems != null) {
             vector.addAll(Arrays.asList(elems));
         }
@@ -522,8 +613,8 @@ public class CollectionUtils {
         return vector;
     }
 
-    public static <T> Vector<T> newVector(T elem, Collection<T> col) {
-        Vector<T> newVector = newVector(elem);
+    public static <E> Vector<E> newVector(E elem, Collection<E> col) {
+        Vector<E> newVector = newVector(elem);
         if (col != null) {
             newVector.addAll(col);
         }
@@ -531,8 +622,8 @@ public class CollectionUtils {
         return newVector;
     }
 
-    public static <T> Vector<T> newVector(T elem, Vector<T> vector) {
-        Vector<T> newVector = newVector(elem);
+    public static <E> Vector<E> newVector(E elem, Vector<E> vector) {
+        Vector<E> newVector = newVector(elem);
         if (vector != null) {
             newVector.addAll(vector);
         }
@@ -540,8 +631,8 @@ public class CollectionUtils {
         return newVector;
     }
 
-    public static <T> Vector<T> newVector(Vector<T> vector, T... elems) {
-        Vector<T> newVector = (Vector<T>) newVector(vector.toArray());
+    public static <E> Vector<E> newVector(Vector<E> vector, E... elems) {
+        Vector<E> newVector = (Vector<E>) newVector(vector.toArray());
         if (elems != null) {
             newVector.addAll(Arrays.asList(elems));
         }
@@ -558,8 +649,8 @@ public class CollectionUtils {
      *            <b><code>true: asc, false: desc</code></b>
      * @return
      */
-    public static <T extends Comparable<T>> Collection<T> order(Collection<T> col, boolean asc) {
-        ConcurrentSkipListSet<T> orderedSet = new ConcurrentSkipListSet<T>(asc ? new AscComparator<T>() : new DescComparator<T>());
+    public static <E extends Comparable<E>> Collection<E> order(Collection<E> col, boolean asc) {
+        ConcurrentSkipListSet<E> orderedSet = new ConcurrentSkipListSet<E>(asc ? new AscComparator<E>() : new DescComparator<E>());
         orderedSet.addAll(col);
         return orderedSet;
     }
@@ -573,8 +664,8 @@ public class CollectionUtils {
      *            <b><code>true: asc, false: desc</code></b>
      * @return
      */
-    public static <T extends Comparable<T>> Collection<T> order(Collection<T> col, Comparator<T> comparator) {
-        ConcurrentSkipListSet<T> orderedSet = new ConcurrentSkipListSet<T>(comparator);
+    public static <E extends Comparable<E>> Collection<E> order(Collection<E> col, Comparator<E> comparator) {
+        ConcurrentSkipListSet<E> orderedSet = new ConcurrentSkipListSet<E>(comparator);
         orderedSet.addAll(col);
         return orderedSet;
     }
@@ -637,10 +728,10 @@ public class CollectionUtils {
      * @param col
      * @return 첫번째 데이터. 없는 경우 <code>null</code>.
      */
-    public static <T> T pick(Collection<T> col) {
-        T elem = null;
+    public static <E> E pick(Collection<E> col) {
+        E elem = null;
 
-        Iterator<T> itr = col.iterator();
+        Iterator<E> itr = col.iterator();
         if (itr.hasNext()) {
             elem = itr.next();
         }
@@ -668,9 +759,9 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2017. 10. 18.
      */
-    public static <T> List<T> read(List<T> list, int pos, int maxCount) {
+    public static <E> List<E> read(List<E> list, int pos, int maxCount) {
 
-        List<T> read = new ArrayList<>();
+        List<E> read = new ArrayList<>();
 
         if (pos >= list.size()) {
             return read;
@@ -708,17 +799,17 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2017. 10. 18.
      */
-    public static <T> T[] readAsArray(List<T> list, int pos, int maxCount, Class<T> type) {
+    public static <E> E[] readAsArray(List<E> list, int pos, int maxCount, Class<E> type) {
 
         if (pos >= list.size()) {
-            return (T[]) Array.newInstance(type, 0);
+            return (E[]) Array.newInstance(type, 0);
         }
 
         int len = Math.min(list.size() - pos, maxCount);
 
         int readCount = 0;
 
-        T[] read = (T[]) Array.newInstance(type, len);
+        E[] read = (E[]) Array.newInstance(type, len);
 
         for (int i = pos; i < list.size() && readCount < maxCount; i++, readCount++) {
             read[readCount] = list.get(i);
@@ -730,18 +821,18 @@ public class CollectionUtils {
     /**
      * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환한다.
      * 
-     * @param <T>
+     * @param <E>
      * @param list
      * @param s
      *            시작 위치 inclusive
      * @return
      */
-    public static <T> List<T> subCollection(List<T> list, int s) {
+    public static <E> List<E> subCollection(List<E> list, int s) {
         if (s > list.size() - 1) {
             return Collections.emptyList();
         }
 
-        List<T> newList = new ArrayList<T>();
+        List<E> newList = new ArrayList<E>();
 
         for (int i = s; i < list.size(); i++) {
             newList.add(list.get(i));
@@ -753,7 +844,7 @@ public class CollectionUtils {
     /**
      * {@link List}에서 주어진 범위(<code>s</code> ~ <code>e</code>) 내의 원소들을 포함하는 새로운 {@link List}를 반환한다.
      * 
-     * @param <T>
+     * @param <E>
      * @param list
      * @param s
      *            시작 위치 inclusive
@@ -761,12 +852,12 @@ public class CollectionUtils {
      *            종료 위치 exclusive
      * @return
      */
-    public static <T> List<T> subCollection(List<T> list, int s, int e) {
+    public static <E> List<E> subCollection(List<E> list, int s, int e) {
         if (s > list.size() - 1 || s >= e || e < 0) {
             return Collections.emptyList();
         }
 
-        List<T> newList = new ArrayList<T>();
+        List<E> newList = new ArrayList<E>();
 
         for (int i = s; i < e; i++) {
             newList.add(list.get(i));
@@ -785,7 +876,7 @@ public class CollectionUtils {
      * 2018. 4. 18.		박준홍			최초 작성
      * </pre>
      *
-     * @param T
+     * @param E
      *            데이터 타입
      * @param col
      *            {@link Collection}
@@ -796,16 +887,16 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 4. 18.
      */
-    public static <T> T[] toArray(Collection<T> col, Class<T> type) {
+    public static <E> E[] toArray(Collection<E> col, Class<E> type) {
 
         int len = col.size();
 
-        T[] array = type == Object.class //
-                ? (T[]) new Object[len] //
-                : (T[]) Array.newInstance(type, len);
+        E[] array = type == Object.class //
+                ? (E[]) new Object[len] //
+                : (E[]) Array.newInstance(type, len);
 
         int i = 0;
-        for (T t : col) {
+        for (E t : col) {
             array[i++] = t;
         }
 
@@ -969,21 +1060,30 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to {@link Map}.
+     * Tranform {@link Collection} to {@link Map}. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2017. 7. 60.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
      * @param <K>
-     *            key로 사용될 데이터 타입
-     * @param <V>
-     *            입력 데이터 타입
+     *            a type of a key.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
-     *            a function to create a key using an element
-     * @return {@link HashMap}
+     *            a function to create a key using an element.
+     * @return
      *
      * @since 2017. 7. 6.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
      */
-    public static <K, V> Map<K, V> toMap(Collection<V> col, Function<V, K> keyGen) {
+    public static <E, K> Map<K, E> toMap(Collection<E> col, Function<E, K> keyGen) {
         return toMap(col, keyGen, HashMap.class);
     }
 
@@ -999,23 +1099,23 @@ public class CollectionUtils {
      * 2017. 9. 11.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            입력 데이터 타입
      * @param <K>
      *            key로 사용될 데이터 타입
-     * @param <V>
-     *            입력 데이터 타입
      * @param <M>
      *            새로운 {@link Map} 타입
      * @param col
      *            elements
      * @param keyGen
-     *            a function to create a key from an element
+     *            a function to create a key using an element.
      * @param mapClass
      *            a subclass of {@link Map}
      * @return
      *
      * @since 2017. 9. 11.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -1025,11 +1125,7 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
-        for (V v : col) {
-            map.put(keyGen.apply(v), v);
-        }
-
-        return map;
+        return toMap(col, keyGen, map);
     }
 
     /**
@@ -1042,11 +1138,11 @@ public class CollectionUtils {
      * 2018. 2. 8.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            입력 데이터 타입
      * @param <K>
      *            key로 사용될 데이터 타입
      * @param <V>
-     *            입력 데이터 타입
-     * @param <E>
      *            새로운 value로 사용될 데이터 타입
      * @param <M>
      *            새로운 {@link Map} 타입
@@ -1055,13 +1151,13 @@ public class CollectionUtils {
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value using an element.
+     *            a function to create a new element using an old element.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 2. 8.
      */
-    public static <K, V, E, M extends Map<K, Collection<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen) {
+    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
         return (M) toMap(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -1075,21 +1171,20 @@ public class CollectionUtils {
      * 2018. 2. 8.		박준홍			최초 작성
      * </pre>
      * 
+     * @param <E>
+     *            입력 데이터 타입
      * @param <K>
      *            key로 사용될 데이터 타입
      * @param <V>
-     *            입력 데이터 타입
-     * @param <E>
      *            새로운 value로 사용될 데이터 타입
      * @param <M>
      *            새로운 {@link Map} 타입
-     *
      * @param col
      *            elements.
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value using an element.
+     *            a function to create a new element using an old element.
      * @param mapClass
      *            the subclass of a {@link Map}.
      * @return
@@ -1097,7 +1192,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 2. 8.
      */
-    public static <K, V, E, M extends Map<K, Collection<E>>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
         return (M) toMap(col, keyGen, valueGen, mapClass, ArrayList.class);
     }
 
@@ -1111,11 +1206,11 @@ public class CollectionUtils {
      * 2019. 11. 28.		박준홍			최초 작성
      * </pre>
      * 
+     * @param <E>
+     *            입력 데이터 타입
      * @param <K>
      *            key로 사용될 데이터 타입
      * @param <V>
-     *            입력 데이터 타입
-     * @param <E>
      *            새로운 value로 사용될 데이터 타입
      * @param <C>
      *            {@link Collection} 타입
@@ -1127,7 +1222,7 @@ public class CollectionUtils {
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value using an element.
+     *            a function to create a new element using an old element.
      * @param mapClass
      *            the subclass of a {@link Map}.
      * @param colClass
@@ -1138,7 +1233,7 @@ public class CollectionUtils {
      * @since 2019. 11. 28.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, Collection<E>>, C extends Collection<E>> M toMap(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> mapClass,
+    public static <E, K, V, M extends Map<K, Collection<V>>, C extends Collection<V>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
             Class<C> colClass) {
 
         M map = null;
@@ -1149,25 +1244,101 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
-        K key = null;
-        Collection<E> values = null;
+        return toMap(col, keyGen, valueGen, map, colClass);
+    }
 
-        for (V v : col) {
-            key = keyGen.apply(v);
+    /**
+     * Transfor a Collection to the specified {@link Map}. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param valueGen
+     *            a function to create a new element using an old element.
+     * @param map
+     *            an instance of {@link Map}.
+     * @param colClass
+     *            the subclass of a {@link Collection}.
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, V, M extends Map<K, Collection<V>>, C extends Collection<V>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
+            Class<C> colClass) {
+
+        K key = null;
+        Collection<V> values = null;
+
+        for (E e : col) {
+            key = keyGen.apply(e);
             values = map.get(key);
 
             if (values == null) {
                 try {
                     values = colClass.newInstance();
                 } catch (InstantiationException //
-                        | IllegalAccessException e) {
-                    throw new RuntimeException(e);
+                        | IllegalAccessException ex) {
+                    throw new RuntimeException(ex);
                 }
 
                 map.put(key, values);
             }
 
-            values.add(valueGen.apply(v));
+            values.add(valueGen.apply(e));
+        }
+
+        return map;
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map}. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of a value.
+     * @param <K>
+     *            a type of a key.
+     * @param <M>
+     *            a type of a {@link Map}.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param map
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, M map) {
+
+        for (E v : col) {
+            map.put(keyGen.apply(v), v);
         }
 
         return map;
@@ -1176,24 +1347,54 @@ public class CollectionUtils {
     /**
      * Tranform {@link Collection} to {@link Map}.
      * 
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------ 
+     * 2014. 10. 17.        박준홍         최초작성
+     * 2020. 1. 30.         박준홍         deprecated.
+     * </pre>
+     * 
+     * @ppram <E> a type of an element.
      * @param <K>
-     * @ppram <V>
+     *            a type of a key.
      * @param col
+     *            elements.
      * @param keyGen
+     *            a function to create a key using an element.
      * @return {@link HashMap}
      *
      * @since 2014. 10. 17.
+     * 
+     * @deprecated Use {@link {@link #toMap(Collection, Function)}, if supports JDK 1.8 or higher.
      */
-    public static <K, V> Map<K, V> toMap(Collection<V> col, IKeyExtractor<K, V> keyGen) {
+    public static <E, K> Map<K, E> toMap(Collection<E> col, IKeyExtractor<K, E> keyGen) {
         return toMap(col, keyGen, HashMap.class);
     }
 
     /**
      * Transform {@link Collection} to extension of {@link Map}.
      * 
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2017. 7. 27.        박준홍         최초작성
+     * 2020. 1. 30.         박준홍         deprecated.
+     * </pre>
+     * 
+     * @param <E>
+     *            a type of an element.
      * @param <K>
-     * @param <V>
+     *            a type of a key.
      * @param <M>
+     *            a type of a {@link Map}.
      * @param col
      * @param keyGen
      * @param mapClass
@@ -1201,8 +1402,10 @@ public class CollectionUtils {
      * @return
      *
      * @since 2017. 7. 27.
+     * 
+     * @deprecated Use {@link #toMap(Collection, Function, Class)}, if supports JDK 1.8 or higher.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, IKeyExtractor<K, V> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(Collection<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -1212,17 +1415,15 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
-        for (V v : col) {
-            map.put(keyGen.getKey(v), v);
+        for (E e : col) {
+            map.put(keyGen.getKey(e), e);
         }
 
         return map;
     }
 
     /**
-     * Tranform {@link Enumeration} to {@link Map}.
-     * 
-     * <br>
+     * Tranform {@link Enumeration} to {@link Map}. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1231,20 +1432,25 @@ public class CollectionUtils {
      * 2017. 9. 11.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
      * @param col
+     *            elements.
      * @param keyGen
+     *            a function to create a key using an element.
      * @return
      *
      * @since 2017. 9. 11.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V> Map<K, V> toMap(Enumeration<V> col, Function<V, K> keyGen) {
+    public static <E, K> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyGen) {
         return toMap(col, keyGen, HashMap.class);
     }
 
     /**
-     * Tranform {@link Enumeration} to the specified {@link Map}.
-     * 
-     * <br>
+     * Tranform {@link Enumeration} to the specified {@link Map}. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1253,14 +1459,24 @@ public class CollectionUtils {
      * 2017. 9. 11.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
+     *            elements.
      * @param keyGen
+     *            a function to create a key using an element.
      * @param mapClass
+     *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @since 2017. 9. 11.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, Function<V, K> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, Function<E, K> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -1270,7 +1486,41 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
-        V v = null;
+        return toMap(col, keyGen, map);
+    }
+
+    /**
+     * Tranform {@link Enumeration} to the specified {@link Map}. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param map
+     *            an instance of a {@link Map}.
+     * 
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, Function<E, K> keyGen, M map) {
+
+        E v = null;
 
         while (col.hasMoreElements()) {
             v = col.nextElement();
@@ -1291,15 +1541,24 @@ public class CollectionUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2017. 9. 11.		박준홍			최초 작성
+     * 2020. 1. 30.     박준홍         deprecated.
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
      * @param col
+     *            elements.
      * @param keyGen
+     *            a function to create a key using an element.
      * @return
      *
      * @since 2017. 9. 11.
+     * 
+     * @deprecated Use {@link #toMap(Enumeration, Function, Class)}, if supports JDK 1.8 or higher.
      */
-    public static <K, V> Map<K, V> toMap(Enumeration<V> col, IKeyExtractor<K, V> keyGen) {
+    public static <E, K> Map<K, E> toMap(Enumeration<E> col, IKeyExtractor<K, E> keyGen) {
         return toMap(col, keyGen, HashMap.class);
     }
 
@@ -1313,16 +1572,28 @@ public class CollectionUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2017. 9. 11.		박준홍			최초 작성
+     * 2020. 1. 30.     박준홍         deprecated.
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
+     *            elements.
      * @param keyGen
+     *            a function to create a key using an element.
      * @param mapClass
+     *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @since 2017. 9. 11.
+     * 
+     * @deprecated Use {@link #toMap(Enumeration, Function, Class)}, if supports JDK 1.8 or higher.
      */
-    public static <K, V, M extends Map<K, V>> M toMap(Enumeration<V> col, IKeyExtractor<K, V> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -1332,12 +1603,12 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
-        V v = null;
+        E e = null;
 
         while (col.hasMoreElements()) {
-            v = col.nextElement();
+            e = col.nextElement();
 
-            map.put(keyGen.getKey(v), v);
+            map.put(keyGen.getKey(e), e);
         }
 
         return map;
@@ -1353,18 +1624,26 @@ public class CollectionUtils {
      * 2019. 8. 8.      박준홍         최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
-     *            a function to create a key with an element and an elment's index.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value with an element and an element's index.
+     *            a function to create a new element using an element.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, BiFunction<V, Integer, E> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -1378,20 +1657,28 @@ public class CollectionUtils {
      * 2019. 8. 8.      박준홍         최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
-     *            a function to create a key with an element and an elment's index.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value with an element and an element's index.
+     *            a function to create a new element using an element.
      * @param mapClass
-     *            the subclass of a {@link Map}.
+     *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
         M map = null;
 
         try {
@@ -1400,9 +1687,46 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
+        return toMapHSV(col, keyGen, valueGen, map);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param valueGen
+     *            a function to create a new element using an element.
+     * @param map
+     *            an instance of a {@link Map}.
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
+
         int i = 0;
-        for (V v : col) {
-            map.put(keyGen.apply(v, i), valueGen.apply(v, i));
+        for (E e : col) {
+            map.put(keyGen.apply(e, i), valueGen.apply(e, i));
             i++;
         }
 
@@ -1419,18 +1743,26 @@ public class CollectionUtils {
      * 2019. 8. 8.      박준홍         최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
-     *            a function to create a key with an element and an elment's index.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value with an element.
+     *            a function to create a new element using an element.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, Function<V, E> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -1444,20 +1776,28 @@ public class CollectionUtils {
      * 2019. 8. 8.      박준홍         최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
-     *            a function to create a key with an element and an elment's index.
+     *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value with an element.
+     *            a function to create a new element using an element.
      * @param mapClass
-     *            the subclass of a {@link Map}.
+     *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, BiFunction<V, Integer, K> keyGen, Function<V, E> valueGen, Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
         M map = null;
 
         try {
@@ -1466,9 +1806,46 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
+        return toMapHSV(col, keyGen, valueGen, map);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param valueGen
+     *            a function to create a new element using an element.
+     * @param map
+     *            an instance of a {@link Map}.
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, M map) {
+
         int i = 0;
-        for (V v : col) {
-            map.put(keyGen.apply(v, i), valueGen.apply(v));
+        for (E e : col) {
+            map.put(keyGen.apply(e, i), valueGen.apply(e));
             i++;
         }
 
@@ -1485,18 +1862,26 @@ public class CollectionUtils {
      * 2019. 8. 8.      박준홍         최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value with an element and an element's index.
+     *            a function to create a new element using an element.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, BiFunction<V, Integer, E> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -1510,20 +1895,28 @@ public class CollectionUtils {
      * 2019. 8. 8.      박준홍         최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
-     *            elements
+     *            elements.
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value with an element and an element's index.
+     *            a function to create a new element using an element.
      * @param mapClass
-     *            the subclass of a {@link Map}.
+     *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, BiFunction<V, Integer, E> valueGen, Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
         M map = null;
 
         try {
@@ -1532,9 +1925,48 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
+        return toMapHSV(col, keyGen, valueGen, map);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param valueGen
+     *            a function to create a new element using an element.
+     * @param map
+     *            an instance of a {@link Map}.
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
+
         int i = 0;
-        for (V v : col) {
-            map.put(keyGen.apply(v), valueGen.apply(v, i));
+        for (E e : col) {
+            map.put(keyGen.apply(e), valueGen.apply(e, i));
             i++;
         }
 
@@ -1551,18 +1983,26 @@ public class CollectionUtils {
      * 2019. 1. 15.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value using an element.
+     *            a function to create a new element using an element.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2019. 1. 15.
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -1576,20 +2016,28 @@ public class CollectionUtils {
      * 2019. 1. 15.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
      *            a function to create a key using an element.
      * @param valueGen
-     *            a function to create a value using an element.
+     *            a function to create a new element using an element.
      * @param mapClass
-     *            the subclass of a {@link Map}.
+     *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2019. 1. 15.
      */
-    public static <K, V, E, M extends Map<K, E>> M toMapHSV(Collection<V> col, Function<V, K> keyGen, Function<V, E> valueGen, Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -1599,11 +2047,94 @@ public class CollectionUtils {
             throw new RuntimeException(e);
         }
 
-        for (V v : col) {
-            map.put(keyGen.apply(v), valueGen.apply(v));
+        return toMapHSV(col, keyGen, valueGen, map);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            a type of a key.
+     * @param <V>
+     *            a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            a function to create a key using an element.
+     * @param valueGen
+     *            a function to create a new element using an element.
+     * @param map
+     *            an instance of a {@link Map}.
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map) {
+        for (E e : col) {
+            map.put(keyGen.apply(e), valueGen.apply(e));
+        }
+        return map;
+    }
+
+    /**
+     * Transform {@link Set} to {@link Set} that has an another element type.
+     * 
+     * @param <E>
+     *            a type of an element.
+     * @param col
+     *            elements.
+     * @return
+     *
+     * @since 2014. 10. 17.
+     */
+    public static <E> Set<E> toSet(Collection<E> col) {
+        return toSet(col, HashSet.class);
+    }
+
+    /**
+     * Transform {@link Set} to extension of a {@link Set}.
+     * 
+     * @param <E>
+     *            a type of an element.
+     * @param <S>
+     *            a type of subclass of {@link Set}, not interface.
+     * @param col
+     *            elements.
+     * @param setClass
+     *            a sub-{@link Class} of a {@link Set}.
+     * @return
+     *
+     * @since 2014. 10. 17.
+     */
+    public static <E, S extends Set<E>> Set<E> toSet(Collection<E> col, Class<S> setClass) {
+        Set<E> set = null;
+
+        if (setClass == null) {
+            set = new HashSet<>();
+        } else {
+            try {
+                set = setClass.newInstance();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return map;
+        return toSet(col, set);
     }
 
     /**
@@ -1664,41 +2195,30 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Set} to {@link Set} that has an another element type.
+     * Transform {@link Set} to extension of a {@link Set}. <br>
      * 
-     * @param col
-     * @return
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		박준홍			최초 작성
+     * </pre>
      *
-     * @since 2014. 10. 17.
-     */
-    public static <T> Set<T> toSet(Collection<T> col) {
-        return toSet(col, HashSet.class);
-    }
-
-    /**
-     * Transform {@link Set} to extension of a {@link Set}.
-     * 
-     * @param <T>
+     * @param <E>
+     *            a type of an element.
      * @param <S>
+     *            a type of subclass of {@link Set}, not interface.
      * @param col
-     * @param setClass
-     *            MUST be class. Not allow an interface.
+     *            elements.
+     * @param set
+     *            a instance of of a {@link Set}.
      * @return
      *
-     * @since 2014. 10. 17.
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <T, S extends Set<T>> Set<T> toSet(Collection<T> col, Class<S> setClass) {
-        Set<T> set = null;
-
-        if (setClass == null) {
-            set = new HashSet<>();
-        } else {
-            try {
-                set = setClass.newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+    public static <E, S extends Set<E>> Set<E> toSet(Collection<E> col, S set) {
 
         if (col != null) {
             set.addAll(col);
@@ -1718,12 +2238,16 @@ public class CollectionUtils {
      * 2018. 9. 12.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <NE>
+     *            a type of a new element.
      * @param stream
      * @param transformer
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2018. 9. 12.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
         return stream.map(transformer).collect(Collectors.toSet());
@@ -1740,13 +2264,19 @@ public class CollectionUtils {
      * 2018. 9. 12.		박준홍			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            a type of an element.
+     * @param <NE>
+     *            a type of a new element.
+     * @param <S>
+     *            a type of a subclass of {@link Set}, not interface.
      * @param stream
      * @param transformer
      * @param setClass
      * @return
      *
+     * @since 2019. 9. 12.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @since 2018. 9. 12.
      */
     public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Class<S> setClass) {
 
@@ -1830,13 +2360,11 @@ public class CollectionUtils {
             Iterator<T> itr = col.iterator();
 
             T t = itr.next();
-
-            sb.append(prefix + t.toString() + suffix);
+            APPENDER_STR.accept(sb, new String[] { prefix, t.toString(), suffix });
 
             while (itr.hasNext()) {
                 t = itr.next();
-
-                sb.append(delim + prefix + t.toString() + suffix);
+                APPENDER_STR.accept(sb, new String[] { delim, prefix, t.toString(), suffix });
             }
 
             return sb.toString();

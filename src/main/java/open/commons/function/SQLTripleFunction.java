@@ -131,7 +131,7 @@ public interface SQLTripleFunction<T, U, V, R> {
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
      * @throws SQLException
-     *             TODO
+     *             if occurs an exception while interworking with DBMS.
      * @throws NullPointerException
      *             if after is null
      * @since 1.6.17
@@ -152,7 +152,7 @@ public interface SQLTripleFunction<T, U, V, R> {
      *            the third function argument
      * @return the function result
      * @throws SQLException
-     *             TODO
+     *             if occurs an exception while interworking with DBMS.
      * 
      * @since 1.6.17
      */

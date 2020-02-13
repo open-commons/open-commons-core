@@ -51,8 +51,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import open.commons.TwoValueObject;
-import open.commons.annotation.ColumnDef;
 import open.commons.annotation.ColumnDecl;
+import open.commons.annotation.ColumnDef;
 
 /**
  * 
