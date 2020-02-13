@@ -1,4 +1,7 @@
 [2020/02/13]
+- Tag: 1.6.18-SNAPSHOT
+
+[2020/02/13]
 - Release: 1.6.17
 - Add
   + open.commons.function.HexaFunction
