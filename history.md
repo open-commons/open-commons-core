@@ -1,3 +1,24 @@
+[2020/05/20]
+- Update
+  + .gitignore
+  + POM.xml
+    - Apply Javadoc
+
+[2020/04/10]
+- Add
+  + open.commons.utils.StreamUtils
+
+[2020/03/29]
+- Add
+  + open.commons.utils.MapUtils.getOrDefault(Map<K, V>, K, V, boolean)
+  
+[2020/02/14]
+- Add
+  + open.commons.Result
+    - setMessage(String, Object...)
+    - error(String)
+    - success(T)
+  
 [2020/02/13]
 - Tag: 1.6.18-SNAPSHOT
 

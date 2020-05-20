@@ -215,6 +215,32 @@ public class Result<T> {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 2. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param format
+     *            메시지 포맷.
+     * @param args
+     *            메시지 파라미터.
+     * @return
+     *
+     * @since 2020. 2. 14.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public Result<T> setMessage(String format, Object... args) {
+        this.message = String.format(format, args);
+        return this;
+    }
+
+    /**
      * 결과값을 설정하고, 이전 결과값을 반환한다.
      * 
      * @param result
@@ -232,11 +258,80 @@ public class Result<T> {
     }
 
     /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 4. 11.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 4. 11.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "Result [data=" + data + ", result=" + result + ", message=" + message + "]";
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("Result [data=");
+        builder.append(data);
+        builder.append(", result=");
+        builder.append(result);
+        builder.append(", message=");
+        builder.append(message);
+        builder.append("]");
+
+        return builder.toString();
+    }
+
+    /**
+     * "에러" 결과 객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 4. 11.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param errorMessage
+     * @return
+     *
+     * @since 2020. 4. 11.
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> Result<T> error(String errorMessage) {
+        return new Result<T>().setMessage(errorMessage);
+    }
+
+    /**
+     * "성공" 결과 객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 4. 11.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param data
+     * @return
+     *
+     * @since 2020. 4. 11.
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> Result<T> success(T data) {
+        return new Result<T>(data, true);
     }
 
 }

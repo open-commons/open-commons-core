@@ -82,6 +82,37 @@ public class NetUtils {
         return null;
     }
 
+    /**
+     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2015. 3. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param ip
+     * @return
+     *
+     * @since 2015. 3. 4.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String intToIp(int ip) {
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(ip >> 24 & 0xFF);
+        sb.append('.');
+        sb.append(ip >> 16 & 0xFF);
+        sb.append('.');
+        sb.append(ip >> 8 & 0xFF);
+        sb.append('.');
+        sb.append(ip & 0xFF);
+
+        return sb.toString();
+    }
+
     public static String toPrettyString(byte[] mac) {
 
         String macStr = toString(mac);
@@ -101,7 +132,26 @@ public class NetUtils {
         return sb.toString();
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2015. 3. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param mac
+     * @return
+     *
+     * @since 2015. 3. 4.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static String toString(byte[] mac) {
         return ByteUtils.hexBinString(mac);
     }
+
 }

@@ -49,6 +49,44 @@ public class MapUtils {
     }
 
     /**
+     * {@link Map}에서 주어진 <code>key</code>에 해당하는 값을 제공한다.<br>
+     * 존재하지 않는 경우 기본값(<code>defaultValue</code>)을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 3. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param map
+     * @param key
+     *            찾고자하는 데이터 키
+     * @param defaultValue
+     *            기본값
+     * @param insertIfNot
+     *            {@link Map}에 존재하지 않는 경우 추가할지 여부
+     * @return
+     *
+     * @since v1.6.18
+     * @since 2020. 3. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see Map#getOrDefault(Object, Object)
+     */
+    public static <K, V> V getOrDefault(Map<K, V> map, K key, V defaultValue, boolean insertIfNot) {
+        V v = map.getOrDefault(key, defaultValue);
+
+        if (!map.containsKey(key) && insertIfNot) {
+            map.put(key, v);
+        }
+
+        return v;
+    }
+
+    /**
      * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환한다. <br>
      * 
      * <pre>
