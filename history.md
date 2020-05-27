@@ -1,3 +1,9 @@
+[2020/05/27]
+- Release: 1.6.18
+- Bug Fix
+  + open.commons.SQLUtils.invoke(ResultSet, ColumnDef, Method, Object)
+    - primitive type 의 Wrapper Type인 경우 DB조회결과가 null 인 경우 primitive type의 기본값 설정 버그 수정
+
 [2020/05/20]
 - Update
   + .gitignore

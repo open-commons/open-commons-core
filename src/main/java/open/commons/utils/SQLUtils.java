@@ -211,6 +211,9 @@ public class SQLUtils {
         else if (Blob.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getBlob(columnName));
         } //
+        else if (boolean.class.isAssignableFrom(columnType)) {
+            m.invoke(object, rs.getBoolean(columnName));
+        } //
         else if (Boolean.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getBoolean(columnName));
         } //
@@ -233,25 +236,29 @@ public class SQLUtils {
             m.invoke(object, rs.getDouble(columnName));
         } //
         else if (Double.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getDouble(columnName));
+            BigDecimal v = rs.getBigDecimal(columnName);
+            m.invoke(object, v != null ? v.doubleValue() : null);
         } //
         else if (float.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getFloat(columnName));
         } //
         else if (Float.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getFloat(columnName));
+            BigDecimal v = rs.getBigDecimal(columnName);
+            m.invoke(object, v != null ? v.floatValue() : null);
         } //
         else if (int.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getInt(columnName));
         } //
         else if (Integer.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getInt(columnName));
+            BigDecimal v = rs.getBigDecimal(columnName);
+            m.invoke(object, v != null ? v.intValue() : null);
         } //
         else if (long.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getLong(columnName));
         } //
         else if (Long.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getLong(columnName));
+            BigDecimal v = rs.getBigDecimal(columnName);
+            m.invoke(object, v != null ? v.longValue() : null);
         } //
         else if (NClob.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getNClob(columnName));
@@ -260,7 +267,8 @@ public class SQLUtils {
             m.invoke(object, rs.getShort(columnName));
         } //
         else if (Short.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getShort(columnName));
+            BigDecimal v = rs.getBigDecimal(columnName);
+            m.invoke(object, v != null ? v.shortValue() : null);
         } //
         else if (String.class.isAssignableFrom(columnType)) {
             m.invoke(object, rs.getString(columnName));
