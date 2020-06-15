@@ -1,3 +1,20 @@
+[2020/06/14]
+- Add
+  + open.commons.utils.StreamUtils
+    - build(BiFunction<S, T, U>, S, T, BiFunction<V, W, X>, V, Function<U, W>, Function<Throwable, X>)
+    - build(BiFunction<T, U, R>, T, U, Function<R, X>, Function<Throwable, X>)
+    - build(Function<S, T>, S, Function<U, X>, Function<T, U>, Function<Throwable, X>)
+    - build(Function<T, R>, T, Function<R, X>, Function<Throwable, X>)
+    - build(Function<T, Result<R>>, T, Consumer<R>)
+    - build(Function<T, Result<R>>, T, Consumer<R>, Function<Throwable, String>)
+    - getOnAsync(Future<Result<R>>)
+    - runIf(T, Predicate<T>, Function<T, R>)
+    - runIf(T, Predicate<T>, Function<T, R>, R)
+    - runIf(T, Predicate<T>, Function<T, U>, Function<U, R>)
+    - runIf(T, Predicate<T>, Function<T, U>, Function<U, R>, R)
+    - runIf(T, Predicate<T>, Supplier<U>, Function<U, R>)
+    - runIf(T, Predicate<T>, Supplier<U>, Function<U, R>, R)
+
 [2020/05/27]
 - Release: 1.6.18
 - Bug Fix
