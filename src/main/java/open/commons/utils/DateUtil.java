@@ -54,7 +54,7 @@ public class DateUtil {
 
     private static ConcurrentSkipListMap<String, SimpleDateFormat> formats = new ConcurrentSkipListMap<String, SimpleDateFormat>();
 
-    public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
+    public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*\\s?\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
     public static final String REGEX_yyyyMMDD_HHmm = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
     public static final String REGEX_yyyyMMDD = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
 
@@ -143,6 +143,7 @@ public class DateUtil {
      *         </ul>
      */
     public static int compare(String date, String sDate, String eDate) {
+        
         int resultValue = date.compareTo(sDate);
 
         if (resultValue <= 0) {

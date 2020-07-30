@@ -1,3 +1,23 @@
+[2020/7/29]
+- Bugfix
+  + open.commons.utils.DateUtil.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
+  + open.commons.utils.DateUtil2.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
+- Update
+  + open.commons.utils.StreamUtils
+    - runIf(T, Predicate<T>, Function<T, R>, Supplier<R>)
+    - runIf(T, Predicate<T>, Function<T,U>, Function<U, R>, Supplier<R>)
+    - runIf(T, Predicate<T>, Supplier<T,U>, Function<U, R>, Supplier<R>)
+- Update
+  + open.commons.utils.StreamUtils
+    - build(BiFunction<S, T, U>, S, T, BiFunction<V, W, X>, V, Function<U, W>, Function<Throwable, X>)
+    - build(BiFunction<T, U, R>, T, U, Function<R, X>, Function<Throwable, X>)
+- Delete
+  + open.commons.utils.StreamUtils    
+    - runIf(T, Predicate<T>, Function<T, R>, R)
+    - runIf(T, Predicate<T>, Function<T,U>, Function<U, R>, R)
+    - runIf(T, Predicate<T>, Suplier<T,U>, Function<U, R>, R)
+    - runIf(T, Predicate<T>, Suplier<T,U>, Function<U, R>)
+
 [2020/06/14]
 - Add
   + open.commons.utils.StreamUtils

@@ -93,6 +93,7 @@ public class StreamUtils {
                 U r = action.apply(param1, param2);
                 return onSuccess.apply(osParam1, osParam2.apply(r));
             } catch (Throwable t) {
+                t.printStackTrace();
                 return onError.apply(t);
             }
         };
@@ -138,6 +139,7 @@ public class StreamUtils {
                 R r = action.apply(param1, param2);
                 return onSuccess.apply(r);
             } catch (Throwable t) {
+                t.printStackTrace();
                 return onError.apply(t);
             }
         };
@@ -705,8 +707,38 @@ public class StreamUtils {
      * @since 2020. 6. 14.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
-        return test.test(value) ? run.apply(value) : defaultValue;
+//    public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
+//        return test.test(value) ? run.apply(value) : defaultValue;
+//    }
+
+    /**
+     * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 7. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     * @param value
+     *            데이터
+     * @param test
+     *            데이터 검증
+     * @param run
+     *            실행할 함수
+     * @param defaultValue
+     *            기본값 제공자
+     * @return
+     *
+     * @since 2020. 7. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
+        return test.test(value) ? run.apply(value) : defaultValue.get();
     }
 
     /**
@@ -742,7 +774,6 @@ public class StreamUtils {
 
     /**
      * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다. <br>
-     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -769,13 +800,45 @@ public class StreamUtils {
      * @since 2020. 6. 14.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
-        return test.test(value) ? run.apply(param.apply(value)) : defaultValue;
+//    public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
+//        return test.test(value) ? run.apply(param.apply(value)) : defaultValue;
+//    }
+    
+    /**
+     * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 7. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param <R>
+     * @param value
+     *            데이터
+     * @param test
+     *            데이터 검증
+     * @param param
+     *            데이터를 이용한 실행함수 파라미터 제공자
+     * @param run
+     *            실행 함수
+     * @param defualtValue
+     *            데이터 검증에 따른 기본값
+     * @return
+     *
+     * @since 2020. 7. 22.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
+        return test.test(value) ? run.apply(param.apply(value)) : defaultValue.get();
     }
+    
 
     /**
      * 데이터를 검증한 후 함수의 실행 결과를 반환한다. <br>
-     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -806,7 +869,6 @@ public class StreamUtils {
 
     /**
      * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다.<br>
-     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -833,8 +895,40 @@ public class StreamUtils {
      * @since 2020. 6. 14.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {
-        return test.test(value) ? run.apply(param.get()) : defaultValue;
+//    public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {
+//        return test.test(value) ? run.apply(param.get()) : defaultValue;
+//    }
+
+    /**
+     * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 7. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param <R>
+     * @param value
+     *            데이터
+     * @param test
+     *            데이터 검증
+     * @param param
+     *            실행함수 파라미터 제공자
+     * @param run
+     *            실행 함수
+     * @param defaultValue
+     *            기본값.
+     * @return
+     *
+     * @since 2020. 7. 21.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
+        return test.test(value) ? run.apply(param.get()) : defaultValue.get();
     }
 
     /**

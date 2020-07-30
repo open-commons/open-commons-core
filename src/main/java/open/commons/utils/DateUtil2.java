@@ -40,10 +40,10 @@ import java.util.regex.Pattern;
  */
 public class DateUtil2 {
 
-    public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
+    public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*\\s?\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
     public static final String REGEX_yyyyMMDD_HHmm = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
     public static final String REGEX_yyyyMMDD = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
-
+    
     public static final String REGEX_ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
     public static final String REGEX_ISO_FORMAT_NO_TZ = "yyyy-MM-dd'T'HH:mm:ss";
 
