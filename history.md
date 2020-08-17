@@ -1,3 +1,45 @@
+[2020/08/13]
+- Update
+  + open.commons.function.SQLConsumer
+    - setParameters(Object...): Variable Binding 이후 파라미터 자원 해제
+
+[2020/7/29]
+- Bugfix
+  + open.commons.utils.DateUtil.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
+  + open.commons.utils.DateUtil2.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
+- Update
+  + open.commons.utils.StreamUtils
+    - runIf(T, Predicate<T>, Function<T, R>, Supplier<R>)
+    - runIf(T, Predicate<T>, Function<T,U>, Function<U, R>, Supplier<R>)
+    - runIf(T, Predicate<T>, Supplier<T,U>, Function<U, R>, Supplier<R>)
+- Update
+  + open.commons.utils.StreamUtils
+    - build(BiFunction<S, T, U>, S, T, BiFunction<V, W, X>, V, Function<U, W>, Function<Throwable, X>)
+    - build(BiFunction<T, U, R>, T, U, Function<R, X>, Function<Throwable, X>)
+- Delete
+  + open.commons.utils.StreamUtils    
+    - runIf(T, Predicate<T>, Function<T, R>, R)
+    - runIf(T, Predicate<T>, Function<T,U>, Function<U, R>, R)
+    - runIf(T, Predicate<T>, Suplier<T,U>, Function<U, R>, R)
+    - runIf(T, Predicate<T>, Suplier<T,U>, Function<U, R>)
+
+[2020/06/14]
+- Add
+  + open.commons.utils.StreamUtils
+    - build(BiFunction<S, T, U>, S, T, BiFunction<V, W, X>, V, Function<U, W>, Function<Throwable, X>)
+    - build(BiFunction<T, U, R>, T, U, Function<R, X>, Function<Throwable, X>)
+    - build(Function<S, T>, S, Function<U, X>, Function<T, U>, Function<Throwable, X>)
+    - build(Function<T, R>, T, Function<R, X>, Function<Throwable, X>)
+    - build(Function<T, Result<R>>, T, Consumer<R>)
+    - build(Function<T, Result<R>>, T, Consumer<R>, Function<Throwable, String>)
+    - getOnAsync(Future<Result<R>>)
+    - runIf(T, Predicate<T>, Function<T, R>)
+    - runIf(T, Predicate<T>, Function<T, R>, R)
+    - runIf(T, Predicate<T>, Function<T, U>, Function<U, R>)
+    - runIf(T, Predicate<T>, Function<T, U>, Function<U, R>, R)
+    - runIf(T, Predicate<T>, Supplier<U>, Function<U, R>)
+    - runIf(T, Predicate<T>, Supplier<U>, Function<U, R>, R)
+
 [2020/05/27]
 - Release: 1.6.18
 - Bug Fix

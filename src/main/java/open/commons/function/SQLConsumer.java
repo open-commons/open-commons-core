@@ -81,6 +81,7 @@ public interface SQLConsumer<T> {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2020. 1. 22.		박준홍			최초 작성
+     * 2020. 8. 13.		박준홍			파라미터 자원 release
      * </pre>
      *
      * @param params
@@ -91,10 +92,11 @@ public interface SQLConsumer<T> {
      * @version 1.6.17
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static SQLConsumer<PreparedStatement> setParameters(Object[] params) {
+    public static SQLConsumer<PreparedStatement> setParameters(Object... params) {
         return stmt -> {
             for (int i = 0; i < params.length; i++) {
                 stmt.setObject(i + 1, params[i]);
+                params[i] = null;
             }
         };
     }
