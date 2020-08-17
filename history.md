@@ -1,3 +1,8 @@
+[2020/08/13]
+- Update
+  + open.commons.function.SQLConsumer
+    - setParameters(Object...): Variable Binding 이후 파라미터 자원 해제
+
 [2020/7/29]
 - Bugfix
   + open.commons.utils.DateUtil.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정

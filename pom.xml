@@ -6,7 +6,7 @@
 	<version>1.7.0-SNAPSHOT</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 	
-		<properties>
+	<properties>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
 
@@ -184,7 +184,7 @@
 							<goal>jar</goal>
 						</goals>
 					</execution>
-				</executions>				
+				</executions>
 			</plugin>
 			<!-- <<< end: javadoc -->
 
