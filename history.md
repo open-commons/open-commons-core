@@ -1,3 +1,45 @@
+[2020/09/24]
+- Update
+  + open.commons.annotation.ColumnValue
+    - ColumnNameType columnNameType() 추가
+  + open.commons.function.SQLTripleFunction
+    - ColumnNameType 처리 추가
+    
+[2020/09/13]
+- Update
+ + open.commons.utils.IOUtils
+   - byte[] readFully(InputStream,int, boolean)
+- Add
+ + open.commons.utils.IOUtils
+   - byte[] readFully(ReadableByteChannel, int, boolean) {
+
+[2020/09/10]
+- Add
+  + open.commons.utils.DateUtil
+    - Calendar getCalendar(int, int)
+    - Date getDate(int, int)
+    - long getTimestamp(int, int)
+
+[2020/09/02]
+- Add
+ + open.commons.utils.MathUtils
+   - &lt;T extends Comparable&lt;T&gt;&gt; T max(T ...)
+   - &lt;T extends Comparable&lt;T&gt;&gt; T min(T ...)
+
+[2020/08/29]
+- Add
+  + open.commons.functin.Runner
+  + open.commons.utils.FunctionUtils
+- Deprecated
+  + open.commons.utils.StreamUtils
+  
+[2020/08/17]
+- Add
+  + open.commons.concurrent.ConcurrentWorker
+    - Collection&lt;E&gt; flush()
+    - E get(boolean)
+    - void push(Collection&lt;E&gt;)
+
 [2020/08/13]
 - Update
   + open.commons.function.SQLConsumer
@@ -9,36 +51,36 @@
   + open.commons.utils.DateUtil2.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
 - Update
   + open.commons.utils.StreamUtils
-    - runIf(T, Predicate<T>, Function<T, R>, Supplier<R>)
-    - runIf(T, Predicate<T>, Function<T,U>, Function<U, R>, Supplier<R>)
-    - runIf(T, Predicate<T>, Supplier<T,U>, Function<U, R>, Supplier<R>)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, Supplier&lt;R&gt;)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T,U&gt;, Function&lt;U, R&gt;, Supplier&lt;R&gt;)
+    - runIf(T, Predicate&lt;T&gt;, Supplier&lt;T,U&gt;, Function&lt;U, R&gt;, Supplier&lt;R&gt;)
 - Update
   + open.commons.utils.StreamUtils
-    - build(BiFunction<S, T, U>, S, T, BiFunction<V, W, X>, V, Function<U, W>, Function<Throwable, X>)
-    - build(BiFunction<T, U, R>, T, U, Function<R, X>, Function<Throwable, X>)
+    - build(BiFunction&lt;S, T, U&gt;, S, T, BiFunction&lt;V, W, X&gt;, V, Function&lt;U, W&gt;, Function&lt;Throwable, X&gt;)
+    - build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
 - Delete
   + open.commons.utils.StreamUtils    
-    - runIf(T, Predicate<T>, Function<T, R>, R)
-    - runIf(T, Predicate<T>, Function<T,U>, Function<U, R>, R)
-    - runIf(T, Predicate<T>, Suplier<T,U>, Function<U, R>, R)
-    - runIf(T, Predicate<T>, Suplier<T,U>, Function<U, R>)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T,U&gt;, Function&lt;U, R&gt;, R)
+    - runIf(T, Predicate&lt;T&gt;, Suplier&lt;T,U&gt;, Function&lt;U, R&gt;, R)
+    - runIf(T, Predicate&lt;T&gt;, Suplier&lt;T,U&gt;, Function&lt;U, R&gt;)
 
 [2020/06/14]
 - Add
   + open.commons.utils.StreamUtils
-    - build(BiFunction<S, T, U>, S, T, BiFunction<V, W, X>, V, Function<U, W>, Function<Throwable, X>)
-    - build(BiFunction<T, U, R>, T, U, Function<R, X>, Function<Throwable, X>)
-    - build(Function<S, T>, S, Function<U, X>, Function<T, U>, Function<Throwable, X>)
-    - build(Function<T, R>, T, Function<R, X>, Function<Throwable, X>)
-    - build(Function<T, Result<R>>, T, Consumer<R>)
-    - build(Function<T, Result<R>>, T, Consumer<R>, Function<Throwable, String>)
-    - getOnAsync(Future<Result<R>>)
-    - runIf(T, Predicate<T>, Function<T, R>)
-    - runIf(T, Predicate<T>, Function<T, R>, R)
-    - runIf(T, Predicate<T>, Function<T, U>, Function<U, R>)
-    - runIf(T, Predicate<T>, Function<T, U>, Function<U, R>, R)
-    - runIf(T, Predicate<T>, Supplier<U>, Function<U, R>)
-    - runIf(T, Predicate<T>, Supplier<U>, Function<U, R>, R)
+    - build(BiFunction&lt;S, T, U&gt;, S, T, BiFunction&lt;V, W, X&gt;, V, Function&lt;U, W&gt;, Function&lt;Throwable, X&gt;)
+    - build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
+    - build(Function&lt;S, T&gt;, S, Function&lt;U, X&gt;, Function&lt;T, U&gt;, Function&lt;Throwable, X&gt;)
+    - build(Function&lt;T, R&gt;, T, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
+    - build(Function&lt;T, Result&lt;R&gt;>, T, Consumer&lt;R&gt;)
+    - build(Function&lt;T, Result&lt;R&gt;>, T, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;)
+    - getOnAsync(Future&lt;Result&lt;R&gt;>)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;)
+    - runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;, R)
+    - runIf(T, Predicate&lt;T&gt;, Supplier&lt;U&gt;, Function&lt;U, R&gt;)
+    - runIf(T, Predicate&lt;T&gt;, Supplier&lt;U&gt;, Function&lt;U, R&gt;, R)
 
 [2020/05/27]
 - Release: 1.6.18
@@ -58,7 +100,7 @@
 
 [2020/03/29]
 - Add
-  + open.commons.utils.MapUtils.getOrDefault(Map<K, V>, K, V, boolean)
+  + open.commons.utils.MapUtils.getOrDefault(Map&lt;K, V&gt;, K, V, boolean)
   
 [2020/02/14]
 - Add
@@ -94,11 +136,11 @@
     - (+) ColumnNameType open.commons.annotation.ColumnDef.columnNameType() : ColumnNameType.NAME
   + open.commons.function
     - SQLConsumer
-      - (+) SQLConsumer<PreparedStatement> open.commons.function.SQLConsumer.setParameters(Object[])
+      - (+) SQLConsumer&lt;PreparedStatement&gt; open.commons.function.SQLConsumer.setParameters(Object[])
     - TripleFunction
   + open.commons.utils
     - StringUtils
-      - String concat(List<String>, String, boolean, boolean, boolean)
+      - String concat(List&lt;String&gt;, String, boolean, boolean, boolean)
       - String toKebabCase(String)
       - String toPascalCase(String)
       - String toSnakeCase(String)
@@ -129,7 +171,7 @@
 - Release: 1.6.16-RELEASE
 - Add
   + open.commons.utils.CollectionUtils
-    - toMap(Collection<V>, Function<V, K>, Function<V, E>, Class<M>, Class<C>)
+    - toMap(Collection&lt;V&gt;, Function&lt;V, K&gt;, Function&lt;V, E&gt;, Class&lt;M&gt;, Class&lt;C&gt;)
     
 [2019/11/26]
 - Add
@@ -140,7 +182,7 @@
 
 [2019/10/24]
 - Add
-  + open.commons.util.ArrayItr<E>
+  + open.commons.util.ArrayItr&lt;E&gt;
 
 
 [2019/10/17]
@@ -149,9 +191,9 @@
     - beforeRun()
     - run() 메소드 final로 정의하고 Process ID를 ThreadContext에 'pid' 라는 이름으로 추가하는 기능 구현.
     - runInternal(): 실제 기능 구현 메소드
-  + open.commons.concurrent.ConcurrentJobManager<E>
+  + open.commons.concurrent.ConcurrentJobManager&lt;E&gt;
     - void run()에 구현된 내용을 void runInternal()로 이관
-  + open.commons.concurrent.ConcurrentWorker<E>
+  + open.commons.concurrent.ConcurrentWorker&lt;E&gt;
     - void run() -> void runInternal()로 대체      
   + org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
     - open.commons.database.AbstractDao
@@ -178,7 +220,7 @@
 [2019/09/03]
 - Add
   + open.commons.utils.ObjectUtils.checkType(Class<?>, Class<?>)
-  + open.commons.utils.ObjectUtils.load(Class<T>, Map<String, Object>)
+  + open.commons.utils.ObjectUtils.load(Class&lt;T&gt;, Map&lt;String, Object&gt;)
 
 [2019/08/29]
 - Release: 1.6.15
@@ -202,12 +244,12 @@
 [2019/08/08]
 - Add
 	+ open.commons.utils.CollectionUtils
-	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, BiFunction<V, Integer, E>)
-	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, BiFunction<V, Integer, E>, Class<M>)
-	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, Function<V, E>)
-	  - toMapHSV(Collection<V>, BiFunction<V, Integer, K>, Function<V, E>, Class<M>)
-	  - toMapHSV(Collection<V>, Function<V, K>, BiFunction<V, Integer, E>)
-	  - toMapHSV(Collection<V>, Function<V, K>, BiFunction<V, Integer, E>, Class<M>)
+	  - toMapHSV(Collection&lt;V&gt;, BiFunction&lt;V, Integer, K&gt;, BiFunction&lt;V, Integer, E&gt;)
+	  - toMapHSV(Collection&lt;V&gt;, BiFunction&lt;V, Integer, K&gt;, BiFunction&lt;V, Integer, E&gt;, Class&lt;M&gt;)
+	  - toMapHSV(Collection&lt;V&gt;, BiFunction&lt;V, Integer, K&gt;, Function&lt;V, E&gt;)
+	  - toMapHSV(Collection&lt;V&gt;, BiFunction&lt;V, Integer, K&gt;, Function&lt;V, E&gt;, Class&lt;M&gt;)
+	  - toMapHSV(Collection&lt;V&gt;, Function&lt;V, K&gt;, BiFunction&lt;V, Integer, E&gt;)
+	  - toMapHSV(Collection&lt;V&gt;, Function&lt;V, K&gt;, BiFunction&lt;V, Integer, E&gt;, Class&lt;M&gt;)
 	+ open.commons.utils.FileUtils
 		- clearDirectory(File)
 		- learDirectory(String)
@@ -236,12 +278,12 @@
 - Release: 1.6.11
 - Update
 	+ open.commons.utils
-		- ObjectUtils.transform(S, Class<D>)
+		- ObjectUtils.transform(S, Class&lt;D&gt;)
 - Add
 	+ open.commons.utils
-		- ObjectUtils.transform(S, boolean, Class<D>)
-		- ObjectUtils.transform(S, boolean, Class<D>, boolean)
-		- ObjectUtils.transform(S, Class<D>, boolean)		
+		- ObjectUtils.transform(S, boolean, Class&lt;D&gt;)
+		- ObjectUtils.transform(S, boolean, Class&lt;D&gt;, boolean)
+		- ObjectUtils.transform(S, Class&lt;D&gt;, boolean)		
 	
 [2019/07/04]
 - Release: 1.6.10
@@ -264,15 +306,15 @@
 		- ArrayUtils.addIfAbsent(int[], int...)
 		- ArrayUtils.addIfAbsent(long[], long...)
 		- ArrayUtils.addIfAbsent(short[], short...)		
-		- ArrayUtils.newList(List<T>, T...)
-		- ArrayUtils.newList(T, Collection<T>)
-		- ArrayUtils.newList(T, List<T>)
-		- ArrayUtils.newSet(Set<T>, T...)
-		- ArrayUtils.newSet(T, Collection<T>)
-		- ArrayUtils.newSet(T, Set<T>)
-		- ArrayUtils.newVector(T, Collection<T>)
-		- ArrayUtils.newVector(T, Vector<T>)
-		- ArrayUtils.newVector(Vector<T>, T...)
+		- ArrayUtils.newList(List&lt;T&gt;, T...)
+		- ArrayUtils.newList(T, Collection&lt;T&gt;)
+		- ArrayUtils.newList(T, List&lt;T&gt;)
+		- ArrayUtils.newSet(Set&lt;T&gt;, T...)
+		- ArrayUtils.newSet(T, Collection&lt;T&gt;)
+		- ArrayUtils.newSet(T, Set&lt;T&gt;)
+		- ArrayUtils.newVector(T, Collection&lt;T&gt;)
+		- ArrayUtils.newVector(T, Vector&lt;T&gt;)
+		- ArrayUtils.newVector(Vector&lt;T&gt;, T...)
 		- ArrayUtils.toPrimitiveArray(Boolean[])
 		- ArrayUtils.toPrimitiveArray(byte[])
 		- ArrayUtils.toPrimitiveArray(Character[])
@@ -292,15 +334,15 @@
 [2019/06/21]
 - Release: 1.6.9
 - Add
-  + open.commons.utils.ObjectUtils.transform(S, Class<D>)
+  + open.commons.utils.ObjectUtils.transform(S, Class&lt;D&gt;)
   + open.commons.utils.StringUtils
-    - concatenate(String, boolean, Collection<T>)
-    - concatenate(String, boolean, Collection<T>, Function<T, R>)
-    - concatenate(String, boolean, Map<K, V>, Function<Entry<K, V>, R>)
+    - concatenate(String, boolean, Collection&lt;T&gt;)
+    - concatenate(String, boolean, Collection&lt;T&gt;, Function&lt;T, R&gt;)
+    - concatenate(String, boolean, Map&lt;K, V&gt;, Function&lt;Entry&lt;K, V&gt;, R&gt;)
     - concatenate(String, boolean, Object...)
     - concatenate(String, boolean, String...)
-    - concatenate(String, Collection<T>, Function<T, R>)
-    - concatenate(String, Map<K, V>, Function<Entry<K, V>, R>)    
+    - concatenate(String, Collection&lt;T&gt;, Function&lt;T, R&gt;)
+    - concatenate(String, Map&lt;K, V&gt;, Function&lt;Entry&lt;K, V&gt;, R&gt;)    
 
 [2019/06/20]
 - Release: 1.6.8.1
@@ -312,7 +354,7 @@
 [2019/06/17]
 - Release: 1.6.8
 - Add
-  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class<A>, Class<?>)
+  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class&lt;A&gt;, Class<?>)
   + open.commons.utils.SQLUtils.findDifferences(T, T, String...)
 
 [2019/06/13]
@@ -447,10 +489,10 @@
 - Release: 1.5.0
 - Update
   + open.commons.utils.CollectionUtils
-    - toList(Stream\<E>, Function<E, NE>)
-    - toList(Stream\<E>, Function<E, NE>, Class\<L>)
-    - toSet(Stream\<E>, Function<E, NE>)
-    - toSet(Stream\<E>, Function<E, NE>, Class\<S>)
+    - toList(Stream\&lt;E&gt;, Function&lt;E, NE&gt;)
+    - toList(Stream\&lt;E&gt;, Function&lt;E, NE&gt;, Class\&lt;L&gt;)
+    - toSet(Stream\&lt;E&gt;, Function&lt;E, NE&gt;)
+    - toSet(Stream\&lt;E&gt;, Function&lt;E, NE&gt;, Class\&lt;S&gt;)
 
 [2018/09/10]
 - Release: 1.4.17
@@ -475,23 +517,23 @@
 
 [2018/05/29]
 - Add
-  + open.commons.concurrent.ConcurrentWorker\<E>
+  + open.commons.concurrent.ConcurrentWorker\&lt;E&gt;
 
 [2018/04/18]
 - Add
-  + public static <T> T[] toArray(Collection<T>, Class<T>)
+  + public static &lt;T&gt; T[] toArray(Collection&lt;T&gt;, Class&lt;T&gt;)
 
 [2018/03/29]
 - Release: 1.4.15
 - Add
-  + public interface open.commons.function.QuadFunction<T, U, V, W, R>
-  + public interface open.commons.function.PentagonFunction<T, U, V, W, X, R>
+  + public interface open.commons.function.QuadFunction&lt;T, U, V, W, R&gt;
+  + public interface open.commons.function.PentagonFunction&lt;T, U, V, W, X, R&gt;
 
 [2018/02/08]
 - Release: 1.4.14
 - Add
-  + <K, V, N, M extends Map<K, List<N>>> M open.commons.utils.CollectionUtils.toMap(Collection<V> ,Function<V, K>, BiFunction<K, V, N>, Class\<M>)
-  + <K, V, N, M extends Map<K, List<N>>> M open.commons.utils.CollectionUtils.toMap(Collection<V> ,Function<V, K> ,BiFunction<K, V, N>)
+  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;>> M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class\&lt;M&gt;)
+  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;>> M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)
 
 
 [2018/01/31]
@@ -515,8 +557,8 @@
 [2017/12/13]
 - Release: 1.4.10
 - Add
-  + <C extends Collectin\<E>, E> C open.commons.utils.CollectionUtils.addIfNotNull(C, Class, E)
-  + <C extends Collectin\<E>, E> C open.commons.utils.CollectionUtils.addAllIfNotNull(C, Class, E[])
+  + &lt;C extends Collectin\&lt;E&gt;, E&gt; C open.commons.utils.CollectionUtils.addIfNotNull(C, Class, E)
+  + &lt;C extends Collectin\&lt;E&gt;, E&gt; C open.commons.utils.CollectionUtils.addAllIfNotNull(C, Class, E[])
 
 [2017/12/04]
 - Release: 1.4.9
@@ -526,9 +568,9 @@
 [2017/10/18]
 - Release: 1.4.8.1
 - Add
-  + open.commons.utils.CollectionUtils.read(List<T>, int, int)
-  + open.commons.utils.CollectionUtils.readAsArray(List<T>, int, int, Class)
-  + open.commons.utils.MapUtils.read(Map<K, V>, int)
+  + open.commons.utils.CollectionUtils.read(List&lt;T&gt;, int, int)
+  + open.commons.utils.CollectionUtils.readAsArray(List&lt;T&gt;, int, int, Class)
+  + open.commons.utils.MapUtils.read(Map&lt;K, V&gt;, int)
 
 [2017/09/22]
 - Release: 1.4.8
@@ -551,10 +593,10 @@
 [2017/09/06]
 - Release: 1.4.5
 - Update
-  + <K, V> Map<K,V> open.commons.utils.CollectionUtils.toMap<Enumeration<V>, Function<V, K>);
-  + <K, V, M extends Map<K, V>> M  open.commons.utils.CollectionUtils.toMap<Enumeration<V>, Function<V, K>, Class\<M>);
-  + <K, V> Map<K,V> open.commons.utils.CollectionUtils.toMap<Enumeration<V>, IKeyExtractor<K, V>);
-  + <K, V, M extends Map<K, V>> M  open.commons.utils.CollectionUtils.toMap<Enumeration<V>, IKeyExtractor<K, V>, Class\<M>);
+  + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;);
+  + &lt;K, V, M extends Map&lt;K, V&gt;> M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;, Class\&lt;M&gt;);
+  + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;);
+  + &lt;K, V, M extends Map&lt;K, V&gt;> M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;, Class\&lt;M&gt;);
 
 [2017/09/06]
 - Release: 1.4.4.0
@@ -648,8 +690,8 @@
 [2014/11/07]
 - Release 1.2.0 <- 1.1.3
 - Add
-  + open.comons.utils.AnnotationUtils.getAnnotatedFields(Object, Class<T>)
-  + open.comons.utils.AnnotationUtils.getAnnotatedMethods(Object, Class<T>)
+  + open.comons.utils.AnnotationUtils.getAnnotatedFields(Object, Class&lt;T&gt;)
+  + open.comons.utils.AnnotationUtils.getAnnotatedMethods(Object, Class&lt;T&gt;)
 [2014/10/17]
 - Release 1.1.3
 - Add
@@ -675,7 +717,7 @@
 - Release 1.1.0
 - Bug fix
   + open.commons.text.NamedTemplate
-    - public static String format(String pattern, Map<String, Object> values, boolean trim): name에 대한 trim() 처리 버그
+    - public static String format(String pattern, Map&lt;String, Object&gt; values, boolean trim): name에 대한 trim() 처리 버그
 
 [2014/07/10]
 - Add
@@ -736,7 +778,7 @@
 [2014/05/02]
 - Release 1.0.6
 
-  + New interface: open.commons.util.IFilter<T>
+  + New interface: open.commons.util.IFilter&lt;T&gt;
   + Modify wrong words.
    - candidator -> candidate
 

@@ -26,6 +26,9 @@
 
 package open.commons.concurrent;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -63,7 +66,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
 
         super.afterStop();
 
-        synchronized (mutexQueue) {
+        synchronized (this.mutexQueue) {
             queue.clear();
 
             mutexQueue.notifyAll();
@@ -91,8 +94,37 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
+     * {@link Queue}의 모든 데이터를 제공한다. 기존 {@link Queue} 의 데이터는 제거된다. <br>
      * 
-     * <br>
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 8. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 8. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Queue#poll()
+     */
+    protected Collection<E> flush() {
+        Collection<E> all = null;
+        synchronized (this.mutexQueue) {
+            all = new ArrayList<>(this.queue);
+            this.queue.clear();
+
+            mutexWJC.lock();
+            workJobCounter.set(0);
+            mutexWJC.unlock();
+        }
+
+        return all;
+    }
+
+    /**
+     * {@link Queue}의 첫번째 데이터를 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -106,10 +138,11 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2019. 1. 25.
+     * @see Queue#poll()
      */
     protected E get() {
         // #1. 처리할 데이터 획득.
-        synchronized (mutexQueue) {
+        synchronized (this.mutexQueue) {
             if (queue.size() < 1) {
                 do {
                     try {
@@ -121,6 +154,35 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
                 } while (queue.size() < 1);
             }
             return queue.poll();
+        }
+    }
+
+    /**
+     * {@link Queue}의 첫번째 데이타를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 8. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param nowait
+     *            데이터가 없는 경우 {@link Object#wait()} 여부
+     * @return
+     *
+     * @since 2020. 8. 17.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Queue#poll()
+     */
+    protected E get(boolean nowait) {
+        // #1. 처리할 데이터 획득.
+        synchronized (this.mutexQueue) {
+            if (nowait) {
+                return queue.size() < 1 ? null : queue.poll();
+            } else {
+                return get();
+            }
         }
     }
 
@@ -141,6 +203,22 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      */
     protected final Object getMutexForQueue() {
         return this.mutexQueue;
+    }
+
+    public void push(Collection<E> data) {
+
+        if (!isRunning()) {
+            return;
+        }
+
+        mutexWJC.lock();
+        workJobCounter.addAndGet(data.size());
+        mutexWJC.unlock();
+
+        synchronized (this.mutexQueue) {
+            this.queue.addAll(data);
+            mutexQueue.notifyAll();
+        }
     }
 
     /**
@@ -168,7 +246,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
         workJobCounter.incrementAndGet();
         mutexWJC.unlock();
 
-        synchronized (mutexQueue) {
+        synchronized (this.mutexQueue) {
             queue.add(data);
             mutexQueue.notifyAll();
         }

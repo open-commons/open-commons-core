@@ -40,6 +40,7 @@ import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.Channels;
+import java.nio.channels.ClosedByInterruptException;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
@@ -51,6 +52,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Vector;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import open.commons.CommonProperties;
 
@@ -64,6 +68,8 @@ import open.commons.CommonProperties;
  * 
  */
 public class IOUtils {
+
+    private static Logger logger = LoggerFactory.getLogger(IOUtils.class);
 
     private static final String COMMAND_OPEN;
 
@@ -528,6 +534,7 @@ public class IOUtils {
      * ------------------------------------------
      * 2019. 3. 21.		박준홍			최초 작성
      * 2019. 8. 29.     박준홍         내부 로직 성능 향상 및 안정성 강화
+     * 2020. 9. 13.     박준홍         Channel 처리 함수를 별도 분리 후, 내부 호출
      * </pre>
      *
      * @param inStream
@@ -543,16 +550,36 @@ public class IOUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) {
+        return readFully(Channels.newChannel(inStream), bufferSize, close);
+    }
+
+    /**
+     * 채널에 있는 데이터를 읽어 byte 배열로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param channel
+     * @param bufferSize
+     * @param close
+     * @return
+     *
+     * @since 2020. 9. 13.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) {
 
         ByteBuffer buf = ByteBuffer.allocateDirect(bufferSize);
-
-        ReadableByteChannel reader = Channels.newChannel(inStream);
 
         int count = 0;
         try {
             ArrayList<byte[]> store = new ArrayList<>();
             byte[] bs = null;
-            while ((count = reader.read(buf)) > 0) {
+            while ((count = channel.read(buf)) > 0) {
                 buf.flip();
                 buf.get(bs = new byte[count]);
                 store.add(bs);
@@ -567,11 +594,15 @@ public class IOUtils {
             }
 
             return ArrayUtils.merge(store.toArray(new byte[0][]));
+        } catch (ClosedByInterruptException e) {
+            logger.info("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.info("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
+        } catch (Throwable e) {
+            logger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
         } finally {
             if (close) {
-                IOUtils.close(inStream);
+                IOUtils.close(channel);
             }
         }
 

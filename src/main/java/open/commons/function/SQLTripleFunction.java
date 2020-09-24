@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +43,7 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import open.commons.annotation.ColumnDef.ColumnNameType;
 import open.commons.annotation.ColumnValue;
 import open.commons.utils.AnnotationUtils;
 import open.commons.utils.CollectionUtils;
@@ -202,6 +204,7 @@ public interface SQLTripleFunction<T, U, V, R> {
                     String clmn = cv.name();
                     if (clmn.isEmpty()) {
                         Class<?> rtnClass = m.getReturnType();
+
                         if (boolean.class.isAssignableFrom(rtnClass) //
                                 || Boolean.class.isAssignableFrom(rtnClass)) {
                             clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, m.getName());
@@ -211,6 +214,24 @@ public interface SQLTripleFunction<T, U, V, R> {
 
                         if (clmn == null) {
                             throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, m));
+                        }
+
+                        switch (cv.columnNameType()) {
+                            case CAMEL_CASE:
+                                clmn = StringUtils.toLowerCase(clmn, 0);
+                                break;
+                            case PASCAL_CASE:
+                                clmn = StringUtils.toPascalCase(clmn);
+                                break;
+                            case SNAKE_CASE:
+                                clmn = StringUtils.toSnakeCase(clmn);
+                                break;
+                            case NAME:
+                                // 그대로 사용
+                                break;
+                            default:
+                                throw new IllegalArgumentException(
+                                        String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
                         }
                     }
 

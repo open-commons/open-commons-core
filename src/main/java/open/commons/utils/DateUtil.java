@@ -143,7 +143,7 @@ public class DateUtil {
      *         </ul>
      */
     public static int compare(String date, String sDate, String eDate) {
-        
+
         int resultValue = date.compareTo(sDate);
 
         if (resultValue <= 0) {
@@ -200,6 +200,53 @@ public class DateUtil {
 
     public static int diffDay(Date date1, Date date2) {
         return diffDay(newCalendar(date1), newCalendar(date2));
+    }
+
+    /**
+     * 현재 시간을 기준으로 주어진 정보에 맞게 변경된 정보를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param field
+     * @param amount
+     * @return
+     *
+     * @since 2020. 9. 10.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar getCalendar(int field, int amount) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(field, amount);
+        return cal;
+    }
+
+    /**
+     * 현재 시간을 기준으로 주어진 정보에 맞게 변경된 정보를 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param field
+     * @param amount
+     * @return
+     *
+     * @since 2020. 9. 10.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Date getDate(int field, int amount) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(field, amount);
+        return cal.getTime();
     }
 
     /**
@@ -525,6 +572,30 @@ public class DateUtil {
      */
     public static String getTimeModeString(Date date) {
         return new SimpleDateFormat("MMddHHmmss").format(date);
+    }
+
+    /**
+     * 현재 시간을 기준으로 주어진 정보에 맞게 변경된 정보를 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param field
+     * @param amount
+     * @return
+     *
+     * @since 2020. 9. 10.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static long getTimestamp(int field, int amount) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(field, amount);
+        return cal.getTime().getTime();
     }
 
     /**

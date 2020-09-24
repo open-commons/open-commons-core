@@ -27,6 +27,7 @@
 package open.commons.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -119,7 +120,6 @@ public class MathUtils {
     public static <T extends Comparable<T>> T max(Collection<T> values) {
 
         Optional<T> max = values.stream().max(new Comparator<T>() {
-
             @Override
             public int compare(T o1, T o2) {
                 return o1.compareTo(o2);
@@ -127,6 +127,28 @@ public class MathUtils {
         });
 
         return max.get();
+    }
+
+    /**
+     * 최대값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param values
+     * @return
+     *
+     * @since 2020. 9. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <T extends Comparable<T>> T max(T... values) {
+        return max(Arrays.asList(values));
     }
 
     /**
@@ -158,5 +180,27 @@ public class MathUtils {
         });
 
         return min.get();
+    }
+
+    /**
+     * 최소값을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param values
+     * @return
+     *
+     * @since 2020. 9. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <T extends Comparable<T>> T min(T... values) {
+        return max(Arrays.asList(values));
     }
 }

@@ -34,6 +34,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.sql.PreparedStatement;
 
+import open.commons.annotation.ColumnDef.ColumnNameType;
+
 /**
  * Repository DTO 객체가 값을 제공해주는 메소드에 적용.<br>
  * 해당 메소드를 이용하여 @{link PreparedStatement} 에 파라미터를 설정한다.
@@ -70,6 +72,34 @@ public @interface ColumnValue {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     boolean caseSensitive() default false;
+
+    /**
+     * 컬럼명을 변환하는 방식.<br>
+     * 프로그래밍 언어와 DBMS 간 명명규칙이 상이하기
+     * <ul>
+     * <li>{@link ColumnNameType#CAMEL_CASE}
+     * <li>{@link ColumnNameType#NAME}
+     * <li>{@link ColumnNameType#PASCAL_CASE}
+     * <li>{@link ColumnNameType#SNAKE_CASE}
+     * </ul>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 9. 24.     박준홍         최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 1. 16.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see ColumnDef#columnNameType()
+     */
+    ColumnNameType columnNameType() default ColumnNameType.NAME;
 
     /**
      * 컬럼명을 제공한다.<br>
