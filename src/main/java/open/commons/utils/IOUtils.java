@@ -24,7 +24,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +34,6 @@ import java.io.Reader;
 import java.io.SequenceInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -45,6 +43,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -128,7 +127,15 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다.
+     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2012. 01. 10.        박준홍     최초 작성
+     * 2020. 9. 25.         박준홍     {@link Path} 메소드로 전환
+     * </pre>
      * 
      * @param file
      * @return 예외가 발생하는 경우 <code>null</code>을 반환한다.
@@ -139,29 +146,93 @@ public class IOUtils {
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
     public static BufferedReader getReader(File file) {
-        BufferedReader reader = null;
-
-        if (file != null) {
-            try {
-                reader = new BufferedReader(new FileReader(file));
-            } catch (FileNotFoundException ignored) {
-            }
-        }
-
-        return reader;
+        return file != null ? getReader(file.toPath(), (Charset) null) : null;
     }
 
     /**
-     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환한다.
+     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일 객체
+     * @param cs
+     *            file character set
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static BufferedReader getReader(File file, Charset cs) {
+        return file != null ? getReader(file.toPath(), cs) : null;
+    }
+
+    /**
+     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     * @param charsetNam
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static BufferedReader getReader(File file, String charsetNam) {
+        return file != null ? getReader(file.toPath(), charsetNam) : null;
+    }
+
+    /**
+     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 6. 24.         박준홍     최초 작성
+     * 2020. 9. 25.		   박준홍     내부 구현 변경.
+     * </pre>
      * 
      * @param inStream
      * @return {@link BufferedReader} 객체, {@link InputStream}인 <code>null</code>인 경우 <code>null</code>반환.
      */
     public static BufferedReader getReader(InputStream inStream) {
+        return getReader(inStream, (Charset) null);
+    }
+
+    /**
+     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param cs
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static BufferedReader getReader(InputStream inStream, Charset cs) {
         BufferedReader reader = null;
 
         if (inStream != null) {
-            reader = new BufferedReader(new InputStreamReader(inStream));
+            reader = new BufferedReader(cs != null ? new InputStreamReader(inStream, cs) : new InputStreamReader(inStream));
         }
 
         return reader;
@@ -175,17 +246,85 @@ public class IOUtils {
      * 
      * @since 2014. 6. 24.
      */
-    public static BufferedReader getReader(InputStream inStream, String charset) {
+    public static BufferedReader getReader(InputStream inStream, String charsetName) {
+        return getReader(inStream, charsetName != null ? Charset.forName(charsetName) : null);
+    }
+
+    /**
+     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param path
+     *            파일 경로
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static BufferedReader getReader(Path path) {
+        return getReader(path, (Charset) null);
+    }
+
+    /**
+     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param path
+     * @param cs
+     *            file character set
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static BufferedReader getReader(Path path, Charset cs) {
         BufferedReader reader = null;
 
-        if (inStream != null) {
+        if (path != null) {
             try {
-                reader = new BufferedReader(new InputStreamReader(inStream, charset));
-            } catch (UnsupportedEncodingException e) {
+                reader = getReader(Files.newInputStream(path), cs);
+            } catch (IOException e) {
+                logger.warn("reader 생성시 에러가 발생하였습니다. 원인={}", e.getMessage());
             }
         }
 
         return reader;
+    }
+
+    /**
+     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param path
+     * @param charsetName
+     *            file character set name
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static BufferedReader getReader(Path path, String charsetName) {
+        return getReader(path, charsetName != null ? Charset.forName(charsetName) : (Charset) null);
     }
 
     /**

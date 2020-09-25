@@ -1,6 +1,16 @@
+[2020/09/25]
+- Update
+  + open.commons.utils.IOUtils
+    - getReader(File, Charset)
+    - getReader(File, String)  
+    - getReader(Path)
+    - getReader(Path, Charset)
+    - getReader(Path, String)
+    - getReader(InputStream, Charset)
+  
 [2020/09/24]
 - Update
-  + open.commons.annotation.ColumnValue
+  + open.commons.annotation.ColumnValue  
     - ColumnNameType columnNameType() 추가
   + open.commons.function.SQLTripleFunction
     - ColumnNameType 처리 추가

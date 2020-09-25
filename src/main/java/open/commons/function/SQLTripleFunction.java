@@ -216,6 +216,7 @@ public interface SQLTripleFunction<T, U, V, R> {
                             throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, m));
                         }
 
+                        // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 | Park_Jun_Hong_(fafanmama_at_naver_com)
                         switch (cv.columnNameType()) {
                             case CAMEL_CASE:
                                 clmn = StringUtils.toLowerCase(clmn, 0);
@@ -233,6 +234,8 @@ public interface SQLTripleFunction<T, U, V, R> {
                                 throw new IllegalArgumentException(
                                         String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
                         }
+                        // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2020. 9. 24.
+
                     }
 
                     clmnCaseSensitive.put(clmn, cv.caseSensitive());
