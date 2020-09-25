@@ -138,9 +138,7 @@ public class IOUtils {
      * </pre>
      * 
      * @param file
-     * @return 예외가 발생하는 경우 <code>null</code>을 반환한다.
-     * @throws FileNotFoundException
-     *             파일이 없는 경우 발생하지만, 실제로는 <code>null</code>을 반환한다.
+     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      * 
      * @since 2012. 01. 10.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
@@ -163,7 +161,7 @@ public class IOUtils {
      *            파일 객체
      * @param cs
      *            file character set
-     * @return
+     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -184,7 +182,7 @@ public class IOUtils {
      *
      * @param file
      * @param charsetNam
-     * @return
+     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -223,7 +221,7 @@ public class IOUtils {
      *
      * @param inStream
      * @param cs
-     * @return
+     * @return {@link BufferedReader} 객체, {@link InputStream}인 <code>null</code>인 경우 <code>null</code>반환.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -262,7 +260,7 @@ public class IOUtils {
      *
      * @param path
      *            파일 경로
-     * @return
+     * @return 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -285,7 +283,7 @@ public class IOUtils {
      * @param path
      * @param cs
      *            file character set
-     * @return
+     * @return {@link Path} 가 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -318,7 +316,7 @@ public class IOUtils {
      * @param path
      * @param charsetName
      *            file character set name
-     * @return
+     * @return 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
