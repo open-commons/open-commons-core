@@ -5,7 +5,7 @@
 	<artifactId>open-commons-core</artifactId>
 	<version>1.7.0-SNAPSHOT</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
-	
+
 	<properties>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
@@ -13,7 +13,7 @@
 		<compile.encoding>UTF-8</compile.encoding>
 		<compile.source.version>1.8</compile.source.version>
 		<compile.target.version>1.8</compile.target.version>
-		
+
 		<!-- >>> begin: dependencies -->
 		<slf4j-api.version>1.7.26</slf4j-api.version>
 		<org.apache.logging.lo4j-core.version>[2.13.2]</org.apache.logging.lo4j-core.version>
@@ -85,9 +85,7 @@
 		</dependency>
 		<!-- end: slf4j -->
 		<!-- ********************** -->
-
 		<!-- <<< end: logging -->
-
 	</dependencies>
 
 	<build>
@@ -124,22 +122,22 @@
 			<!-- <<< end: compile -->
 
 			<!-- >>> begin: jar -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-jar-plugin</artifactId> -->
-<!-- 				<version>${maven-jar-plugin.version}</version> -->
-<!-- 				<executions> -->
-<!-- 					<execution> -->
-<!-- 						<phase>deploy</phase> -->
-<!-- 						<goals> -->
-<!-- 							<goal>jar</goal> -->
-<!-- 						</goals> -->
-<!-- 						<configuration> -->
-<!-- 							<classifier>RELEASE</classifier> -->
-<!-- 						</configuration> -->
-<!-- 					</execution> -->
-<!-- 				</executions> -->
-<!-- 			</plugin> -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-jar-plugin</artifactId> -->
+			<!-- <version>${maven-jar-plugin.version}</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <phase>deploy</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>jar</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <classifier>RELEASE</classifier> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 			<!-- <<< end: jar -->
 
 			<!-- >>> begin: source -->

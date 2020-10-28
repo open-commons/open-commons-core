@@ -681,6 +681,7 @@ public class StringUtils {
     }
 
     /**
+     * 문자열이 배열에 포함된 문자열을 모두 포함하고 있는지 여부를 제공한다.
      * 
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      * @date 2012. 1. 6.
@@ -987,6 +988,102 @@ public class StringUtils {
         }
 
         return false;
+    }
+
+    /**
+     * 주어진 문자열이 포함되었는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param target
+     * @param strings
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean exists(String target, Collection<String> strings) {
+        for (String str : strings) {
+            if (str.equals(target)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 주어진 문자열이 포함되었는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param target
+     * @param strings
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean exists(String target, String... strings) {
+        return strings != null ? exists(target, Arrays.asList(strings)) : false;
+    }
+
+    /**
+     * 주어진 문자열이 포함되었는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param target
+     * @param strings
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean existsIgnoreCase(String target, Collection<String> strings) {
+        for (String str : strings) {
+            if (str.equalsIgnoreCase(target)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 주어진 문자열이 포함되었는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 9. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param target
+     * @param strings
+     * @return
+     *
+     * @since 2020. 9. 25.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean existsIgnoreCase(String target, String... strings) {
+        return strings != null ? existsIgnoreCase(target, Arrays.asList(strings)) : false;
     }
 
     private static void flushBuffer(StringBuffer buf, ArrayList<String> list) {

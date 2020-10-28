@@ -28,6 +28,7 @@ package open.commons.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -37,6 +38,199 @@ import java.util.Iterator;
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class ExceptionUtils {
+
+    /**
+     * 예외객체를 생성한다. <br>
+     * 단 예외타입은 문자열 1개를 파라미터로 받는 생성자가 필요하다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 10. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param type
+     *            예외 타입
+     * @param format
+     *            로그 포맷
+     * @param args
+     *            로그 데이터
+     * @return
+     *
+     * @since 2020. 10. 15.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E extends Throwable> E newException(Class<E> type, String format, Object... args) {
+        try {
+            Constructor<E> c = type.getConstructor(String.class);
+            return c.newInstance(String.format(format, args));
+        } catch (Throwable e) {
+            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인={}", e.getMessage()));
+        }
+    }
+
+    /**
+     * 예외객체를 생성한다. <br>
+     * 단 예외타입은 문자열 1개를 파라미터로 받는 생성자가 필요하다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 10. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param type
+     *            예외 타입
+     * @param parent
+     *            상위 예외발생 정보
+     * @param format
+     *            로그 포맷
+     * @param args
+     *            로그 데이터
+     * @return
+     *
+     * @since 2020. 10. 20.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object... args) {
+        try {
+            Constructor<E> c = type.getConstructor(String.class, Throwable.class);
+            return c.newInstance(String.format(format, args), parent);
+        } catch (Throwable e) {
+            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인={}", e.getMessage()));
+        }
+    }
+
+    /**
+     * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 10. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param e
+     *            예외상황 객체
+     * @param expected
+     *            확인할 '시작 문자열'
+     * @param ignoreCase
+     *            대소문자 무시 여부
+     * @return
+     *
+     * @since 2020. 10. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    private static boolean startsWith(String errorMsg, String expected, boolean ignoreCase) {
+        if (errorMsg.length() < expected.length()) {
+            return false;
+        }
+
+        if (ignoreCase) {
+            return errorMsg.substring(0, errorMsg.length()).equalsIgnoreCase(expected);
+        } else {
+            return errorMsg.startsWith(expected);
+        }
+    }
+
+    /**
+     * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 10. 28.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param e
+     *            예외상황 객체
+     * @param expected
+     *            확인할 '시작 문자열'
+     * @return
+     *
+     * @since 2020. 10. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean startsWith(Throwable e, String expected) {
+        return startsWith(e.getMessage(), expected, false);
+    }
+
+    /**
+     * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 10. 28.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param e
+     *            예외상황 객체
+     * @param expected
+     *            확인할 '시작 문자열'
+     * @param toffset
+     *            비교 시작 위치
+     * @return
+     *
+     * @since 2020. 10. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean startsWith(Throwable e, String expected, int toffset) {
+        return startsWith(e.getMessage().substring(toffset), expected, false);
+    }
+
+    /**
+     * * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 10. 28.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param e
+     *            예외상황 객체
+     * @param expected
+     *            확인할 '시작 문자열'
+     * @return
+     *
+     * @since 2020. 10. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean startsWithIgnoreCase(Throwable e, String expected) {
+        return startsWith(e.getMessage(), expected, true);
+    }
+
+    /**
+     * * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 10. 28.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param e
+     *            예외상황 객체
+     * @param expected
+     *            확인할 '시작 문자열'
+     * @return
+     *
+     * @since 2020. 10. 28.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean startsWithIgnoreCase(Throwable e, String expected, int toffset) {
+        return startsWith(e.getMessage().substring(toffset), expected, true);
+    }
 
     public static String toString(StackTraceElement... stacks) {
         StringBuffer buf = new StringBuffer();

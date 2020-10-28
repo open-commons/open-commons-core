@@ -1,3 +1,22 @@
+[2020/10/28]
+- Add
+  + open.commons.ExceptionUtils
+    - startsWith(String, String, boolean)
+    - startsWith(Throwable, String)
+    - startsWith(Throwable, String, int)
+    - startsWithIgnoreCase(Throwable, String)
+    - startsWithIgnoreCase(Throwable, String, int)
+ 
+[2020/10/21]
+- Bugfix
+  + open.commons.xml.SaxTextConverter
+    - convert(Object, String, String): 문자열이 모두 whitespace 로 이루어진 경우 메소드가 없으면 처리
+
+[2020/10/15]
+- Add
+  + open.commons.utils.ExceptionUtils
+    - newException(Class&lt;E&gt;, String, Object...)
+
 [2020/09/25]
 - Update
   + open.commons.utils.IOUtils
@@ -7,6 +26,11 @@
     - getReader(Path, Charset)
     - getReader(Path, String)
     - getReader(InputStream, Charset)
+  + open.commons.utils.StringUtisl
+    - exists(String, Collection&lt;String&gt;)
+    - exists(String, String...)
+    - existsIgnoreCase(String, Collection&lt;String&gt;)
+    - existsIgnoreCase(String, String...)
   
 [2020/09/24]
 - Update

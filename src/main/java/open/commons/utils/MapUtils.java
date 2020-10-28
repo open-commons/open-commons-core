@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Supplier;
 
 /**
  * 
@@ -46,6 +47,46 @@ public class MapUtils {
                 map.clear();
             }
         }
+    }
+
+    /**
+     * {@link Map}에서 주어진 <code>key</code>에 해당하는 값을 제공한다.<br>
+     * 존재하지 않는 경우 기본값(<code>defaultValue</code>)을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 3. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param map
+     * @param key
+     *            찾고자하는 데이터 키
+     * @param defaultValue
+     *            기본값
+     * @param insertIfNot
+     *            {@link Map}에 존재하지 않는 경우 추가할지 여부
+     * @return
+     *
+     * @since 1.7.0
+     * @since 2020. 10. 23.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V> V getOrDefault(Map<K, V> map, K key, Supplier<V> defaultValue, boolean insertIfNot) {
+
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
+
+        V v = defaultValue.get();
+        if (insertIfNot) {
+            map.put(key, v);
+        }
+
+        return v;
     }
 
     /**
