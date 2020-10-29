@@ -1,5 +1,13 @@
 [2020/10/29]
 - Snapshot: 1.8.0-SNAPSHOT
+- Add
+  + open.commons.data.IConnectionCallbackBroker
+    - getStatement(Connection)
+  + open.commons.data.ConnectionCallbackBroker2
+    - getStatement(Connection)
+    - ConnectionCallbackBroker2(String, T, boolean)
+  + open.commons.data.DefaultConCallbackBroker2
+    - DefaultConCallbackBroker2(String, SQLConsumer&lt;PreparedStatement&gt;, boolean)
 
 [2020/10/29]
 - Release: 1.7.0
