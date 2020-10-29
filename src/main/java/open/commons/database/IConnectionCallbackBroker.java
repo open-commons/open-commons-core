@@ -26,11 +26,23 @@
 
 package open.commons.database;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
  * SQL 쿼리에 파라미터를 설정하는 역할을 정의한 인터페이스.
+ * 
+ * 
+ * 
+ * <br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자	|	내용
+ * ------------------------------------------
+ * 2019. 2. 19.		박준홍        최초 작성
+ * </pre>
  * 
  * @param <T>
  * @since 2019. 2. 19.
@@ -56,6 +68,26 @@ public interface IConnectionCallbackBroker {
     String getQuery();
 
     /**
+     * DBMS 연결정보와 내부 쿼리 정보를 이용하여 {@link PreparedStatement} 를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 10. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param con
+     * @return
+     * @throws SQLException TODO
+     *
+     * @since 2020. 10. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public PreparedStatement getStatement(Connection con) throws SQLException;
+
+    /**
      * {@link PreparedStatement}에 SQL 쿼리 파라미터를 설정한다.<br>
      * 
      * <pre>
@@ -67,7 +99,6 @@ public interface IConnectionCallbackBroker {
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @param stmt
-     *            TODO
      * @since 2019. 2. 19.
      */
     void set(PreparedStatement stmt) throws SQLException;

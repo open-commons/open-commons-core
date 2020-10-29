@@ -43,7 +43,7 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      * @since 2019. 2. 22.
      */
     public DefaultConCallbackBroker2(String query) {
-        super(query);
+        this(query, null, false);
     }
 
     /**
@@ -53,7 +53,30 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      * @since 2019. 2. 22.
      */
     public DefaultConCallbackBroker2(String query, SQLConsumer<PreparedStatement> setter) {
-        super(query, setter);
+        this(query, setter, false);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 10. 29.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param query
+     *            SQL 쿼리
+     * @param setter
+     *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
+     * @param forStoredProcedure
+     *            실행 쿼리가 Stored Procedure를 실행하는지 여부
+     * @since 2020. 10. 29.
+     */
+    public DefaultConCallbackBroker2(String query, SQLConsumer<PreparedStatement> setter, boolean forStoredProcedure) {
+        super(query, setter, forStoredProcedure);
     }
 
     /**

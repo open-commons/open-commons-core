@@ -176,6 +176,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * @throws SQLException
      *
      * @since 2018. 5. 23.
+     * @deprecated Use {@link #executeQuery(ConnectionCallbackBroker2, Class, String...)}
      */
     @SuppressWarnings("unchecked")
     public final <R> List<R> executeQuery(ConnectionCallbackBroker broker, Class<R> entity, String... colums) throws SQLException {
@@ -210,6 +211,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * @throws SQLException
      *
      * @since 2018. 5. 23.
+     * @deprecated Use {@link #executeQuery(ConnectionCallbackBroker2, SQLBiFunction)}
      */
     public final <R> List<R> executeQuery(ConnectionCallbackBroker broker, SQLBiFunction<ResultSet, Integer, R> creator) throws SQLException {
 
@@ -373,6 +375,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * @throws SQLException
      *
      * @since 2018. 5. 23.
+     * @deprecated Use {@link #executeUpdate(ConnectionCallbackBroker2)}
      */
     public final int executeUpdate(ConnectionCallbackBroker broker) throws SQLException {
 

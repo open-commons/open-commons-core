@@ -26,6 +26,8 @@
 
 package open.commons.database;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.function.Function;
@@ -34,6 +36,7 @@ import java.util.function.Function;
  * {@link Function}을 지원하기 위해서 추가된 클래스.
  * 
  * @param <T>
+ *            {@link PreparedStatement} 에 데이터를 설정하는 객체 타입.
  * @since 2019. 2. 19.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
@@ -46,12 +49,18 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
     private T setter;
 
     /**
+     * 실행 쿼리가 Stored Procedure를 실행하는지 여부<br>
+     * 기본설정은 {@link PreparedStatement} 를 기반으로 동작하지만, <code>true</code> 인 경우 {@link CallableStatement} 를 기반으로 동작한다.
+     */
+    private boolean forStoredProcedure;
+
+    /**
      * 
      * @param query
      * @since 2019. 2. 22.
      */
     public ConnectionCallbackBroker2(String query) {
-        this(query, null);
+        this(query, null, false);
     }
 
     /**
@@ -63,8 +72,32 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      * @since 2019. 2. 19.
      */
     public ConnectionCallbackBroker2(String query, T setter) {
+        this(query, setter, false);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 10. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param query
+     *            SQL 쿼리
+     * @param setter
+     *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
+     * @param forStoredProcedure
+     *            실행 쿼리가 Stored Procedure를 실행하는지 여부
+     * @since 2020. 10. 29.
+     */
+    public ConnectionCallbackBroker2(String query, T setter, boolean forStoredProcedure) {
         this.query = query;
         this.setter = setter;
+        this.forStoredProcedure = forStoredProcedure;
     }
 
     /**
@@ -83,6 +116,17 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      */
     public T getSetter() {
         return setter;
+    }
+
+    /**
+     * @throws SQLException
+     * @since 2020. 10. 29.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see open.commons.database.IConnectionCallbackBroker#getStatement(java.sql.Connection)
+     */
+    @Override
+    public final PreparedStatement getStatement(Connection con) throws SQLException {
+        return forStoredProcedure ? con.prepareCall(getQuery()) : con.prepareStatement(getQuery());
     }
 
     /**
