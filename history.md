@@ -1,6 +1,8 @@
 [2020/10/29]
-- Release: 1.7.0
+- Snapshot: 1.8.0-SNAPSHOT
 
+[2020/10/29]
+- Release: 1.7.0
 
 [2020/10/28]
 - Add
