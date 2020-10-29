@@ -1,3 +1,7 @@
+[2020/10/29]
+- Release: 1.7.0
+
+
 [2020/10/28]
 - Add
   + open.commons.ExceptionUtils
