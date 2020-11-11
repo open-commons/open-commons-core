@@ -48,11 +48,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import open.commons.TwoValueObject;
 import open.commons.annotation.ColumnDecl;
 import open.commons.annotation.ColumnDef;
+import open.commons.database.annotation.ColumnConstraint;
 
 /**
  * 
@@ -66,6 +68,80 @@ public class SQLUtils {
      * @since 2017. 9. 22.
      */
     private SQLUtils() {
+    }
+
+    /**
+     * Table Column 조건 중에 'null' 과 길이에 대한 조건을 확인하여 제공한다. <br>
+     * 코드 정의
+     * <ul>
+     * <li>0: 정상
+     * <li>1: 길이 오류
+     * <li>2: null 오류
+     * </ul>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param obj
+     * @return Table Column 순서에 따른 검증결과. <br>
+     *         예) 00000000000000000120: 18: 길이 오류, 19th: null 오류
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see ColumnConstraint
+     */
+    public static char[] checkColumnConstraints(Object obj) {
+
+        TreeMap<Integer, Character> validations = new TreeMap<>();
+
+        AnnotationUtils.getAnnotatedMethodsAllAsStream(obj.getClass(), ColumnConstraint.class) //
+                // 어노테이션 확인
+                .sorted((o1, o2) -> {
+                    ColumnConstraint cc1 = o1.getAnnotation(ColumnConstraint.class);
+                    ColumnConstraint cc2 = o2.getAnnotation(ColumnConstraint.class);
+                    return cc1.index() - cc2.index();
+                })
+                // 메소드 정렬
+                .collect(Collectors.toList())
+                // 데이터 검증
+                .stream() //
+                .forEach(m -> {
+                    ColumnConstraint anno = m.getAnnotation(ColumnConstraint.class);
+                    int index = anno.index();
+                    char chekced = '0';
+                    try {
+                        Object value = m.invoke(obj);
+                        // #1. has 'length' & not null
+                        if (anno.hasLength() && !anno.nullable()) {
+                            if (value == null) {
+                                chekced = '2';
+                            } else if (lengthOnOracle(value.toString()) > anno.length()) {
+                                chekced = '1';
+                            }
+                        } else
+                        // #2. has 'length' & nullable
+                        if (anno.hasLength()) {
+                            if (value != null && lengthOnOracle(value.toString()) > anno.length()) {
+                                chekced = '1';
+                            }
+                        } else
+                        // #3. has NOT 'length' & not null
+                        if (!anno.nullable()) {
+                            if (value == null) {
+                                chekced = '2';
+                            }
+                        }
+                        validations.put(index, chekced);
+                    } catch (Throwable e) {
+                        throw ExceptionUtils.newException(RuntimeException.class, e, "데이터 검증 중 에러가 발생하였습니다. data=%s, method=%s", obj, m);
+                    }
+                });
+        char[] result = ArrayUtils.toPrimitiveArray(new ArrayList<>(validations.values()).toArray(new Character[] {}));
+        return result;
     }
 
     /**
@@ -287,6 +363,31 @@ public class SQLUtils {
         } else {
             throw new SQLException("지원하지 않는 데이터 타입입니다.");
         }
+    }
+
+    /**
+     * Oracle에서 한글을 3바이트로 처리하기 때문에, 그에 맞는 문자열 길이를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param str
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int lengthOnOracle(String str) {
+        int len = 0;
+
+        for (char c : str.toCharArray()) {
+            len += (CharUtils.isKorean(c) ? 3 : 1);
+        }
+        return len;
     }
 
     /**

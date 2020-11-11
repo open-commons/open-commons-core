@@ -1,20 +1,20 @@
 [2020/10/29]
 - Snapshot: 1.8.0-SNAPSHOT
 - Add
-  + open.commons.data.IConnectionCallbackBroker
-    - getStatement(Connection)
-  + open.commons.data.ConnectionCallbackBroker2
+  + open.commons.database.ConnectionCallbackBroker2
     - getStatement(Connection)
     - ConnectionCallbackBroker2(String, T, boolean)
-  + open.commons.data.DefaultConCallbackBroker2
+  + open.commons.database.DefaultConCallbackBroker2
     - DefaultConCallbackBroker2(String, SQLConsumer&lt;PreparedStatement&gt;, boolean)
+  + open.commons.database.IConnectionCallbackBroker
+    - getStatement(Connection)
 
 [2020/10/29]
 - Release: 1.7.0
 
 [2020/10/28]
 - Add
-  + open.commons.ExceptionUtils
+  + open.commons.utils.ExceptionUtils
     - startsWith(String, String, boolean)
     - startsWith(Throwable, String)
     - startsWith(Throwable, String, int)

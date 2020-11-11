@@ -601,6 +601,7 @@ public class StopWatch {
     @SuppressWarnings("unused")
     private static enum State {
         READY(0), RUNNING(1), PAUSED(2), STOPPED(3);
+
         private int state;
 
         private State(int s) {

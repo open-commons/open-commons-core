@@ -351,7 +351,6 @@ public class LangUtils {
      */
     public static long toNumber(String value) {
 
-
         Matcher m = NUMBER_VALUE.matcher(value.trim().toLowerCase());
 
         if (m.matches()) {
@@ -359,7 +358,7 @@ public class LangUtils {
             String unit = m.group(2);
 
             long splitSizeByte = Long.parseLong(number);
-            
+
             if (unit != null) {
                 switch (unit) {
                     case "pb":

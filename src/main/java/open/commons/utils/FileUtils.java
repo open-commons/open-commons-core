@@ -31,6 +31,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -159,6 +162,35 @@ public class FileUtils {
 
     public static void copyFile(String src, String target) throws IOException {
         IOUtils.transfer(new FileInputStream(src), new FileOutputStream(target));
+    }
+
+    /**
+     * 파일이 존재하지 않는 경우 생성한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param first
+     * @param more
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IOException
+     * @see Paths#get(String, String...)
+     */
+    public static Path createFileIfNotExist(String first, String... more) throws IOException {
+        Path file = Paths.get(first, more);
+        if (!Files.exists(file)) {
+            Files.createDirectories(file.getParent());
+            Files.createFile(file);
+        }
+
+        return file;
     }
 
     /**

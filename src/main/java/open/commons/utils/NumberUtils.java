@@ -25,12 +25,17 @@
 
 package open.commons.utils;
 
+import java.util.function.Function;
+
 /**
  * 
  * @since 2014. 7. 10.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class NumberUtils {
+
+    public static final Function<Integer, String> INT_TO_STR = i -> String.format("%,d", i);
+    public static final Function<Long, String> LONG_TO_STR = i -> String.format("%,l", i);
 
     // Prevet to create a new instance.
     private NumberUtils() {

@@ -15,15 +15,15 @@
  */
 
 /*
-* 
-* 
-* This file is generated under this project, "open-commons-core".
-*
-* Date  : 2013. 6. 21. 오후 3:12:17
-*
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
-* 
-*/
+ * 
+ * 
+ * This file is generated under this project, "open-commons-core".
+ *
+ * Date  : 2013. 6. 21. 오후 3:12:17
+ *
+ * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
+ */
 package open.commons.utils;
 
 import java.util.HashMap;

@@ -141,7 +141,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
         if (!startedInternally) {
             startInternally();
         }
-        
+
         beforeRun();
 
         runInternal();

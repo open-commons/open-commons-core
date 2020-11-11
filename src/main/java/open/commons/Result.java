@@ -313,6 +313,31 @@ public class Result<T> {
     }
 
     /**
+     * {@link Result#getResult()} 가 <code>true</code> 인 경우의 메시지를 선택적으로 제공한다. <br>
+     * {@link Result#getResult()} 가 <code>false</code> 인 경우 {@link Result#getMessage()}를 제공한다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 3.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param result
+     * @param format
+     * @param args
+     *            TODO
+     * @return
+     *
+     * @since 2020. 11. 3.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> String getTrueMessage(Result<T> result, String format, Object... args) {
+        return result.getResult() ? String.format(format, args) : result.getMessage();
+    }
+
+    /**
      * "성공" 결과 객체를 제공한다. <br>
      * 
      * <pre>
