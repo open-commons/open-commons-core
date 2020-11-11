@@ -1,3 +1,9 @@
+[2020/11/11]
+- Add
+ + open.commons.concurrent.AsyncJobManager: 비동기 작업을 처리할 수 있도록 관리하는 클래스.
+ + oepn.commons.database.IndexedColumnDTO: DB Table Column에 대응하는 데이터를 정해진 순서에 맞도록 CSV 데이터를 생성하도록 지원
+ + open.commons.database.annotation.ColumnConstraints : DB Table Column 에 정의된 Constraint 를 DTO 레벨에서 확인할 수 있도록 명시
+
 [2020/10/29]
 - Snapshot: 1.8.0-SNAPSHOT
 - Add
