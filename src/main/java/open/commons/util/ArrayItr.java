@@ -36,7 +36,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 2019. 10. 24.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
-public class ArrayItr<E> implements Iterator<E> {
+public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
 
     private final E[] array;
     private int cursor = 0;
@@ -60,6 +60,28 @@ public class ArrayItr<E> implements Iterator<E> {
     }
 
     /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 11. 13.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     *
+     * @see java.lang.Iterable#iterator()
+     */
+    @Override
+    public Iterator<E> iterator() {
+        return this;
+    }
+
+    /**
      * @see java.util.Iterator#next()
      */
     @Override
@@ -71,6 +93,30 @@ public class ArrayItr<E> implements Iterator<E> {
             } else {
                 throw new NoSuchElementException();
             }
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /**
+     * 커서의 위치를 초기화 시킨다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public void reset() {
+        try {
+            lock.lock();
+            this.cursor = 0;
         } finally {
             lock.unlock();
         }

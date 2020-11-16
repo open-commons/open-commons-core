@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
 import java.io.Reader;
 import java.io.SequenceInputStream;
 import java.io.StringReader;
@@ -39,6 +40,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ClosedByInterruptException;
+import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
@@ -47,15 +49,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Vector;
+import java.util.function.Function;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import open.commons.CommonProperties;
+import open.commons.Result;
+import open.commons.io.IRandomAccessible;
+import open.commons.util.ArrayItr;
 
 /**
  * 
@@ -99,15 +106,19 @@ public class IOUtils {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     /**
-     * {@link BufferedWriter}에 데이터를 바로 보낸다.
+     * byte[] 데이터를 제공한다.
      * 
-     * @param writer
-     * @param msg
-     * @throws IOException
+     * @param i
+     *            줄 번호
+     * @param bs
+     *            byte[] 형태의 줄 데이터
      */
-    public void write(BufferedWriter writer, String msg) throws IOException {
-        writer.write(msg + LINE_SEPARATOR);
-    }
+    private static final Function<byte[], byte[]> BYTE_ACTION_BYPASS = bs -> bs;
+
+    public static final int BUFFER_SIZE_1KB = 1024;
+    public static final int BUFFER_SIZE_1MB = 1024 * 1024;
+    public static final int BUFFER_SIZE_10MB = 1024 * 1024 * 10;
+    public static final int BUFFER_SIZE_1GB = 1024 * 1024 * 1024;
 
     /**
      * {@link AutoCloseable}를 모두 닫는다.
@@ -610,6 +621,530 @@ public class IOUtils {
         }
 
         return null;
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        List<T> data = new ArrayList<>();
+        T datum = null;
+
+        Iterator<R> itr = accessibles.iterator();
+        R access = null;
+        if (itr.hasNext()) {
+            access = itr.next();
+            channel.position(access.getPosition());
+            do {
+                datum = readChannel(channel, access.getLength(), ByteBuffer.allocate(access.getLength()), action);
+                data.add(datum);
+            } while (itr.hasNext() && (access = itr.next()) != null);
+        }
+
+        return data;
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param len
+     *            읽을 byte 길이
+     * @param buf
+     *            데이터 버퍼
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    private static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
+        byte[] bs = new byte[len];
+        channel.read(buf);
+        buf.flip();
+        buf.get(bs);
+        buf.clear();
+
+        return action.apply(bs);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param bufCapacity
+     *            줄 데이터를 읽을 버퍼 크기
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, int bufCapacity, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readChannel(channel, action, new ArrayItr<>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @param accessibles
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), action, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @param accessibles
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readFile(file, action, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, Iterable<R> accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, R... accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessible
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <R extends IRandomAccessible> Result<byte[]> readFile(File file, R accessible) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), accessible);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        List<T> data = null;
+        boolean result = true;
+        String message = null;
+        try (FileChannel channel = file.getChannel()) {
+            data = readChannel(channel, action, accessibles);
+        } catch (Exception e) {
+            result = false;
+            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
+
+            logger.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+
+            e.printStackTrace();
+        }
+
+        return new Result<>(data, result).setMessage(message);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readFile(file, action, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessibles) throws IOException {
+
+        boolean result = true;
+        String message = null;
+        T data = null;
+
+        ByteBuffer buf = null;
+        int len = accessibles.getLength();
+
+        try (FileChannel channel = file.getChannel()) {
+            buf = ByteBuffer.allocateDirect(len);
+            channel.position(accessibles.getPosition());
+            data = readChannel(channel, len, buf, action);
+        } catch (Exception e) {
+            result = false;
+            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
+            logger.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+        }
+
+        return new Result<>(data, result).setMessage(message);
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessible
+     *            줄단위 메타데이어
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <R extends IRandomAccessible> Result<byte[]> readFile(RandomAccessFile file, R accessible) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, accessible);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), action, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readFile(file, action, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, Iterable<R> accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SafeVarargs
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, R... accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            파일
+     * @param accessible
+     *            줄단위 메타데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <R extends IRandomAccessible> Result<byte[]> readFile(String file, R accessible) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), accessible);
     }
 
     /**
@@ -1751,5 +2286,16 @@ public class IOUtils {
      */
     public static int transfer(Reader reader, Writer writer) throws IOException {
         return transfer(reader, true, writer, true);
+    }
+
+    /**
+     * {@link BufferedWriter}에 데이터를 바로 보낸다.
+     * 
+     * @param writer
+     * @param msg
+     * @throws IOException
+     */
+    public static void write(BufferedWriter writer, String msg) throws IOException {
+        writer.write(msg + LINE_SEPARATOR);
     }
 }

@@ -1,3 +1,35 @@
+[2020/11-16]
+- Add
+  + open.commons.io.IRandomAccessible
+  + open.commons.io.TextLineInfo
+- Updated
+  + open.commons.utils.ArrayItr
+    - Interable&lt;E&gt; 인터페이스 상속 추가
+    - public Iterator&lt;E&gt; iterator() 추가
+    - public void reset() 추가
+  + open.commons.utils.IOUtils
+    - readChannel(FileChannel, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readChannel(FileChannel, int, ByteBuffer, Function&lt;byte[], T&gt;)
+    - readChannel(FileChannel, int, Function&lt;byte[], T&gt;, R...)
+    - readFile(File, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readFile(File, Function&lt;byte[], T&gt;, R...)
+    - readFile(File, Iterable&lt;R&gt;)
+    - readFile(File, R)
+    - readFile(File, R...)
+    - readFile(RandomAccessFile, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readFile(RandomAccessFile, Function&lt;byte[], T&gt;, R)
+    - readFile(RandomAccessFile, Function&lt;byte[], T&gt;, R...)
+    - readFile(RandomAccessFile, R)
+    - readFile(String, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readFile(String, Function&lt;byte[], T&gt;, R...)
+    - readFile(String, Iterable&lt;R&gt;)
+    - readFile(String, R)
+    - readFile(String, R...)
+    - readFully(InputStream)
+    - readFully(InputStream, boolean)
+    - readFully(InputStream, int, boolean)
+    - readFully(ReadableByteChannel, int, boolean)  
+
 [2020/11/11]
 - Add
  + open.commons.concurrent.AsyncJobManager: 비동기 작업을 처리할 수 있도록 관리하는 클래스.
