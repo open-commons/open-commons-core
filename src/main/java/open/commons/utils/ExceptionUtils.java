@@ -67,7 +67,7 @@ public class ExceptionUtils {
             Constructor<E> c = type.getConstructor(String.class);
             return c.newInstance(String.format(format, args));
         } catch (Throwable e) {
-            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인={}", e.getMessage()));
+            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인=%s", e.getMessage()));
         }
     }
 
@@ -101,7 +101,7 @@ public class ExceptionUtils {
             Constructor<E> c = type.getConstructor(String.class, Throwable.class);
             return c.newInstance(String.format(format, args), parent);
         } catch (Throwable e) {
-            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인={}", e.getMessage()));
+            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인=%s, parent=%s", e.getMessage(), e));
         }
     }
 

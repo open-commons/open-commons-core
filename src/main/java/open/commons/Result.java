@@ -291,6 +291,28 @@ public class Result<T> {
     }
 
     /**
+     * 결과와 메시지를 복제한 새로운 객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <N>
+     * @param o
+     * @return
+     *
+     * @since 2020. 11. 20.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <N> Result<N> copyOf(Result<?> o) {
+        return new Result<N>(null, o.getResult()).setMessage(o.getMessage());
+    }
+
+    /**
      * "에러" 결과 객체를 제공한다. <br>
      * 
      * <pre>

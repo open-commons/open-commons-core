@@ -1,4 +1,9 @@
-[2020/11-16]
+[2020/11/20]
+- Add
+  + open.commons.Result
+    - copyOf(Result&lt;?&gt;)
+    
+[2020/11/16]
 - Add
   + open.commons.io.IRandomAccessible
   + open.commons.io.TextLineInfo
