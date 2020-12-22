@@ -1,3 +1,75 @@
+[2020/12/22]
+- Add
+  + open.commons.utils.ObjectUtils
+    - isPrimitive(Class&lt;?&gt;)
+    - isPrimitive(Object)
+    - isWrapper(Class&lt;?&gt;)
+    - isWrapper(Object)
+  + open.commons.utils.SQLConsumer
+    - setParameters(Object, String...)
+  + open.commons.utils.SQLUtils
+    - setParameters(PreparedStatement, int, Object, String...)
+- Modify
+  + open.commons.SQLTripleFunction
+    - setParameters(String...):  내부 구현부가 open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...)로 이관됨.
+
+[2020/12/17]
+- New
+  + open.commons.lang.NumString    
+- Add
+  + open.commons.utils.ByteUtils
+    - hexBinString(boolean, byte ...)
+    - hexBinString(String, boolean, byte...)
+    - hexBinString(String, byte...)
+    - toIPv4Expr(byte[])
+    - toMACExpr(byte[])
+  + open.commons.utils.IntegerUtils
+    - hex(String)
+    - toIPv4(int)
+    - toIPv4(int[])
+- Delete
+  + open.commons.utils.ByteUtils
+    - main(String[])
+
+[2020/12/15]
+- Add
+  + open.commons.Utils.CollectionUtils
+    - newList(boolean...)
+    - newList(byte...)
+    - newList(char...)
+    - newList(double...)
+    - newList(int...)
+    - newList(long...)
+    - newList(short...)
+    - newSet(boolean...)
+    - newSet(byte...)
+    - newSet(char...)
+    - newSet(double...)
+    - newSet(int...)
+    - newSet(long...)
+    - newSet(short...)
+    - newVector(boolean...)
+    - newVector(byte...)
+    - newVector(char...)
+    - newVector(double...)
+    - newVector(int...)
+    - newVector(long...)
+    - newVector(short...)
+  
+[2020/12/13]
+- Add
+  + open.commons.Utils.CollectionUtils
+    - addAllIfNotNull(C, Class&lt;? extends C&gt;, Collection&lt;E&gt;)
+    - addIfAbsent(List&lt;T&gt;, T)
+    
+[2020/12/08]
+- Add
+  + open.commons.utils.ObjectUtils
+    - transform(S, boolean, D, boolean)
+    - transform(S, boolean, D)
+    - transform(S, D, boolean)
+    - transform(S, D)
+
 [2020/11/20]
 - Add
   + open.commons.Result

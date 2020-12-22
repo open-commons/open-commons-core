@@ -26,8 +26,11 @@
 */
 package open.commons.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.util.StringJoiner;
+
+import open.commons.lang.NumString;
+import open.commons.util.ArrayItr;
 
 public class ByteUtils {
 
@@ -45,23 +48,106 @@ public class ByteUtils {
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
     /**
-     * Byte 배열을 Hexa 문자열로 반환한다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param split
+     *            byte 단위의 Hex 표기값을 띄워서 표시할지 여부
+     * @param data
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String hexBinString(boolean split, byte... data) {
+        return hexBinString("", split, data);
+    }
+
+    /**
+     * byte 배열을 Hexa 문자열로 반환한다.
      * 
      * @param data
      * @return
      * 
      */
-    public static String hexBinString(byte[] data) {
+    public static String hexBinString(byte... data) {
+        return hexBinString("", false, data);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param prefix
+     *            Hex 문자열 앞에 붙힐 접두어.
+     * @param split
+     *            byte 단위의 Hex 표기값을 띄워서 표시할지 여부
+     * @param data
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String hexBinString(String prefix, boolean split, byte... data) {
         if (data == null) {
             return null;
         }
 
-        StringBuilder r = new StringBuilder(data.length * 2);
-        for (byte b : data) {
-            r.append(hexCode[(b >> 4) & 0xF]);
-            r.append(hexCode[(b & 0xF)]);
+        ArrayItr<Byte> itr = new ArrayItr<>(ArrayUtils.toWrapperArray(data));
+        StringBuilder sb = new StringBuilder(prefix);
+        Byte b = 0x00;
+        if (itr.hasNext()) {
+            b = itr.next();
+            sb.append(hexCode[(b >> 4) & 0xF]);
+            sb.append(hexCode[(b & 0xF)]);
+
+            while (itr.hasNext() && (b = itr.next()) != null) {
+                sb.append(split ? " " : "");
+                sb.append(hexCode[(b >> 4) & 0xF]);
+                sb.append(hexCode[(b & 0xF)]);
+            }
         }
-        return r.toString();
+
+        return sb.toString();
+    }
+
+    /**
+     * byte 배열을 Hex 문자열로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param prefix
+     *            Hex 문자열 앞에 붙힐 접두어.
+     * @param data
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String hexBinString(String prefix, byte... data) {
+        return hexBinString(prefix, false, data);
     }
 
     /**
@@ -113,56 +199,6 @@ public class ByteUtils {
             return ch - 'a' + 10;
         }
         return -1;
-    }
-
-    /**
-     * @param args
-     * @throws UnsupportedEncodingException
-     */
-    public static void main(String[] args) throws UnsupportedEncodingException {
-
-        byte b = 0x01;
-        System.out.println(IntegerUtils.toBinary32String(b, 8));
-        System.out.println(b);
-
-        b = upset(b);
-        System.out.println(IntegerUtils.toBinary32String(b, 8));
-        System.out.println(b);
-
-        b = upset(b);
-        System.out.println(IntegerUtils.toBinary32String(b, 8));
-        System.out.println(b);
-
-        // System.out.println(H8);
-        //
-        // System.out.println(IntegerUtil.toBinary32String(0x80));
-        // System.out.println(IntegerUtil.toBinary32String(H8));
-
-        byte[] bytes = "1234567".getBytes();
-
-        System.out.println(new String(bytes));
-
-        // byte[] upsets = upsetArray(bytes);
-        // System.out.println(new String(upsets));
-
-        upsetArray(bytes);
-        System.out.println(new String(bytes));
-
-        upsetArray(bytes);
-        System.out.println(new String(bytes));
-
-        b = (byte) 255;
-        System.out.printf("byte(%d) -> int(%d), int=%d\n", b, toInt(b), (int) b);
-
-        System.out.println(hexBinString(xor(new byte[] { (byte) 0xff }, new byte[] { (byte) 0x00 })));
-
-        String hexBinStr = "01:0d:00:5d:00:01:fe:e8:ff:ff:ff:ff:ff:ff:00:08:00:00:00:08:00:08:00:00:ff:ff:ff:ff:ff:ff:be:86:7d:29:ab:be:89:42:20:00:06:04:00:02:00:00:02:07:04:00:00:00:00:00:02:04:03:02:00:08:06:02:00:78:fe:0c:00:26:e1:00:00:00:00:00:00:00:00:02:18:08:0a:21:91:79:24:5a:f8:b5:e6:01:01:00:00:01:0d:00:5d:00:01:fe:e9:ff:ff:ff:ff:ff:ff:00:08:00:00:00:08:00:05:00:00:ff:ff:ff:ff:ff:ff:2a:67:47:23:81:d5:89:42:20:00:06:04:00:02:00:00:02:07:04:00:00:00:00:00:02:04:03:02:00:05:06:02:00:78:fe:0c:00:26:e1:00:00:00:00:00:00:00:00:02:18:08:0a:21:91:79:24:5a:f8:b5:e6:01:01:00:00:01:0d:00:5d:00:01:fe:ea:ff:ff:ff:ff:ff:ff:00:08:00:00:00:08:00:04:00:00:ff:ff:ff:ff:ff:ff:22:65:7a:90:0d:af:89:42:20:00:06:04:00:02:00:00:02:07:04:00:00:00:00:00:02:04:03:02:00:04:06:02:00:78:fe:0c:00:26:e1:00:00:00:00:00:00:00:00:02:18:08:0a:21:91:79:24:5a:f8:b5:e6:01:01:00:00:01:0d:00:5d:00:01:fe:eb:ff:ff:ff:ff:ff:ff:00:08:00:00:00:08:00:07:00:00:ff:ff:ff:ff:ff:ff:ce:3a:d5:b7:a7:67:89:42:20:00:06:04:00:02:00:00:02:07:04:00:00:00:00:00:02:04:03:02:00:07:06:02:00:78:fe:0c:00:26:e1:00:00:00:00:00:00:00:00:02:18:08:0a:21:91:79:24:5a:f8:b5:e6:01:01:00:00:01:0d:00:5d:00:01:fe:ec:ff:ff:ff:ff:ff:ff:00:08:00:00:00:08:00:06:00:00:ff:ff:ff:ff:ff:ff:86:b6:42:00:fb:7b:89:42:20:00:06:04:00:02:00:00:02:07:04:00:00:00:00:00:02:04:03:02:00:06:06:02:00:78:fe:0c:00:26:e1:00:00:00:00:00:00:00:00:02:18:08:0a:21:91:79:24:5a:f8:b5:e6:01:01:00:00";
-
-        System.out.println(new String(hexBinStringToByteArray(hexBinStr), "UTF-8"));
-        System.out.println("------------------");
-        System.out.println(new String(hexBinStringToByteArray(hexBinStr), "euc-kr"));
-        System.out.println("------------------");
-        System.out.println(new String(hexBinStringToByteArray(hexBinStr), "ISO8859-1"));
     }
 
     /**
@@ -234,6 +270,54 @@ public class ByteUtils {
         int returnedValue = ((value[0] << 24) & 0xFF000000) | ((value[1] << 16) & 0x00FF0000) | ((value[2] << 8) & 0x0000FF00) | ((value[3]) & 0x000000FF);
 
         return returnedValue;
+    }
+
+    /**
+     * byte 배열을 IPV4 주소 형태로 변환하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toIPv4Expr(byte[] bytes) {
+        byte[] bs = new byte[4];
+        System.arraycopy(bytes, 0, bs, 0, Math.min(bytes.length, bs.length));
+        return String.join(".", NumString.sequence(b -> new NumString<Integer>(toInt(b)), ArrayUtils.toWrapperArray(bs)));
+    }
+
+    /**
+     * byte 배열을 MAC 주소 형태로 변환하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toMACExpr(byte[] bytes) {
+        StringJoiner join = new StringJoiner(":");
+        for (byte b : bytes) {
+            join.add(hexBinString(b));
+        }
+        return join.toString();
     }
 
     /**

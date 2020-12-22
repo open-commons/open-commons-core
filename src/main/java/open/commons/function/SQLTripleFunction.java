@@ -26,27 +26,19 @@
 
 package open.commons.function;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import open.commons.annotation.ColumnDef.ColumnNameType;
 import open.commons.annotation.ColumnValue;
 import open.commons.utils.AnnotationUtils;
-import open.commons.utils.CollectionUtils;
+import open.commons.utils.SQLUtils;
 import open.commons.utils.StringUtils;
 
 /**
@@ -169,13 +161,20 @@ public interface SQLTripleFunction<T, U, V, R> {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2020. 1. 22.		박준홍			최초 작성
+     * 2020. 12. 22.    박준홍         데이터 설정 메소드 분리.
      * </pre>
      *
      * @param <T>
      *            추가하려는 데이터 타입.
      * @param columnNames
      *            추가하려는 데이터 컬럼값들.
-     * @return
+     * @return {@link SQLTripleConsumer}
+     *         <ul>
+     *         <li>stmt: DB 연동 객체
+     *         <li>cur: 현재까지 파라미터가 설정된 index
+     *         <li>d: 저정할 데이터
+     *         </ul>
+     * 
      *
      * @since 2020. 1. 22.
      * @version _._._
@@ -184,88 +183,90 @@ public interface SQLTripleFunction<T, U, V, R> {
      * @see ColumnValue
      */
     public static <T> SQLTripleFunction<PreparedStatement, Integer, T, Integer> setParameters(String... columnNames) {
-        return (stmt, cur, d) -> {
-            // #1. @ColumnValue 어노테이션이 설정된 Method 조회
-            List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(d.getClass(), ColumnValue.class);
-
-            // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
-            if (columnNames == null || columnNames.length < 1) {
-                // ColumnValue#order() 값에 대한 오름차순 정렬 적용
-                methods.sort(Comparator.comparing(m -> {
-                    return m.getAnnotation(ColumnValue.class).order();
-                }));
-            } else {
-                // 메소드별 컬럼명 대/소문자 비교 여부
-                final Map<String, Boolean> clmnCaseSensitive = new HashMap<>();
-                // 컬럼이름/메소드
-                final Map<String, Method> methodMap = CollectionUtils.toMapHSV(methods, m -> {
-                    ColumnValue cv = m.getClass().getAnnotation(ColumnValue.class);
-                    // 설정된 컬럼명이 빈 문자열이 경우 처리
-                    String clmn = cv.name();
-                    if (clmn.isEmpty()) {
-                        Class<?> rtnClass = m.getReturnType();
-
-                        if (boolean.class.isAssignableFrom(rtnClass) //
-                                || Boolean.class.isAssignableFrom(rtnClass)) {
-                            clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, m.getName());
-                        } else {
-                            clmn = METHOD_MATCHER.apply(METHOD_PATTERN, m.getName());
-                        }
-
-                        if (clmn == null) {
-                            throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, m));
-                        }
-
-                        // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 | Park_Jun_Hong_(fafanmama_at_naver_com)
-                        switch (cv.columnNameType()) {
-                            case CAMEL_CASE:
-                                clmn = StringUtils.toLowerCase(clmn, 0);
-                                break;
-                            case PASCAL_CASE:
-                                clmn = StringUtils.toPascalCase(clmn);
-                                break;
-                            case SNAKE_CASE:
-                                clmn = StringUtils.toSnakeCase(clmn);
-                                break;
-                            case NAME:
-                                // 그대로 사용
-                                break;
-                            default:
-                                throw new IllegalArgumentException(
-                                        String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
-                        }
-                        // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2020. 9. 24.
-
-                    }
-
-                    clmnCaseSensitive.put(clmn, cv.caseSensitive());
-
-                    return clmn;
-                }, m -> m);
-
-                methods = new ArrayList<>();
-
-                for (String clmn : columnNames) {
-                    for (Entry<String, Method> entry : methodMap.entrySet()) {
-                        if (COLUMN_CHECKER.apply(clmn, entry.getKey(), clmnCaseSensitive.get(entry.getKey()))) {
-                            methods.add(entry.getValue());
-                            break;
-                        }
-                    }
-                    throw new IllegalArgumentException(String.format("지원하지 않는 컬럼이름입니다. 컬럼명: %s, 메소드: %s", clmn, methodMap));
-                }
-            }
-
-            // #3. 필터링 된 Method를 이용하여 파라미터 값 설정
-            for (Method m : methods) {
-                try {
-                    stmt.setObject(++cur, m.invoke(d));
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                    throw new SQLException("파라미터 설정 도중  에러가 발생하였습니다. 원인: " + e.getMessage(), e);
-                }
-            }
-
-            return cur;
-        };
+        return (stmt, cur, d) -> SQLUtils.setParameters(stmt, cur, d, columnNames);
+        // return (stmt, cur, d) -> {
+        // // #1. @ColumnValue 어노테이션이 설정된 Method 조회
+        // List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(d.getClass(), ColumnValue.class);
+        //
+        // // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
+        // if (columnNames == null || columnNames.length < 1) {
+        // // ColumnValue#order() 값에 대한 오름차순 정렬 적용
+        // methods.sort(Comparator.comparing(m -> {
+        // return m.getAnnotation(ColumnValue.class).order();
+        // }));
+        // } else {
+        // // 메소드별 컬럼명 대/소문자 비교 여부
+        // final Map<String, Boolean> clmnCaseSensitive = new HashMap<>();
+        // // 컬럼이름/메소드
+        // final Map<String, Method> methodMap = CollectionUtils.toMapHSV(methods, m -> {
+        // ColumnValue cv = m.getClass().getAnnotation(ColumnValue.class);
+        // // 설정된 컬럼명이 빈 문자열이 경우 처리
+        // String clmn = cv.name();
+        // if (clmn.isEmpty()) {
+        // Class<?> rtnClass = m.getReturnType();
+        //
+        // if (boolean.class.isAssignableFrom(rtnClass) //
+        // || Boolean.class.isAssignableFrom(rtnClass)) {
+        // clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, m.getName());
+        // } else {
+        // clmn = METHOD_MATCHER.apply(METHOD_PATTERN, m.getName());
+        // }
+        //
+        // if (clmn == null) {
+        // throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, m));
+        // }
+        //
+        // // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 | Park_Jun_Hong_(fafanmama_at_naver_com)
+        // switch (cv.columnNameType()) {
+        // case CAMEL_CASE:
+        // clmn = StringUtils.toLowerCase(clmn, 0);
+        // break;
+        // case PASCAL_CASE:
+        // clmn = StringUtils.toPascalCase(clmn);
+        // break;
+        // case SNAKE_CASE:
+        // clmn = StringUtils.toSnakeCase(clmn);
+        // break;
+        // case NAME:
+        // // 그대로 사용
+        // break;
+        // default:
+        // throw new IllegalArgumentException(
+        // String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()),
+        // cv.columnNameType()));
+        // }
+        // // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2020. 9. 24.
+        //
+        // }
+        //
+        // clmnCaseSensitive.put(clmn, cv.caseSensitive());
+        //
+        // return clmn;
+        // }, m -> m);
+        //
+        // methods = new ArrayList<>();
+        //
+        // for (String clmn : columnNames) {
+        // for (Entry<String, Method> entry : methodMap.entrySet()) {
+        // if (COLUMN_CHECKER.apply(clmn, entry.getKey(), clmnCaseSensitive.get(entry.getKey()))) {
+        // methods.add(entry.getValue());
+        // break;
+        // }
+        // }
+        // throw new IllegalArgumentException(String.format("지원하지 않는 컬럼이름입니다. 컬럼명: %s, 메소드: %s", clmn, methodMap));
+        // }
+        // }
+        //
+        // // #3. 필터링 된 Method를 이용하여 파라미터 값 설정
+        // for (Method m : methods) {
+        // try {
+        // stmt.setObject(++cur, m.invoke(d));
+        // } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        // throw new SQLException("파라미터 설정 도중 에러가 발생하였습니다. 원인: " + e.getMessage(), e);
+        // }
+        // }
+        //
+        // return cur;
+        // };
     }
 }
