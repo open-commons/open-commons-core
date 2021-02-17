@@ -1,3 +1,54 @@
+[2021/02/10]
+- Add
+  + open.commons.utils.FileUtils
+    - move(File, File, CopyOption...)
+    - move(Path, String, CopyOption...)
+    - move(String, Path, CopyOption...)
+    - move(String, String, CopyOption...)
+  
+[2021/02/09]
+- Modify
+  + open.commons.concurrent.AsyncJobManager
+    - get(K)
+    - register(K, Future<?>)
+    - unregister(K)
+  + open.commons.concurrent.AsyncJobManager.Builder
+    - getManager(Object)
+  	
+[2021/02/09]
+- Add
+  + open.commons.utils.FileUtils
+    - listFiles(Path, int, BiFunction&lt;Path, BasicFileAttributes, Boolean&gt;)
+
+[2021/01/14]
+- Add
+  + open.commons.utils.IOUtils
+    - transfer(InputStream, boolean, OutputStream, boolean, int)
+    - transfer(InputStream, Charset, boolean, Writer, boolean, int)
+    - transfer(InputStream, Charset, OutputStream, Charset, int)
+    - transfer(InputStream, Charset, Writer, boolean, int)
+    - transfer(InputStream, Charset, Writer, int)
+    - transfer(InputStream, OutputStream, boolean, int)
+    - transfer(InputStream, OutputStream, Charset, boolean, int)
+    - transfer(InputStream, OutputStream, Charset, int)
+    - transfer(InputStream, OutputStream, int)
+    - transfer(InputStream, OutputStream, String, boolean, int)
+    - transfer(InputStream, OutputStream, String, int)
+    - transfer(InputStream, String, boolean, OutputStream, String, boolean, int)
+    - transfer(InputStream, String, boolean, Writer, boolean, int)
+    - transfer(InputStream, String, OutputStream, String, int)
+    - transfer(InputStream, String, Writer, boolean, int)
+    - transfer(InputStream, String, Writer, int)
+    - transfer(Reader, boolean, OutputStream, Charset, boolean, int)
+    - transfer(Reader, boolean, OutputStream, String, boolean, int)
+    - transfer(Reader, boolean, Writer, boolean, int)
+    - transfer(Reader, boolean, Writer, boolean)
+    - transfer(Reader, OutputStream, Charset, boolean, int)
+    - transfer(Reader, OutputStream, Charset, int)
+    - transfer(Reader, OutputStream, String, boolean, int)
+    - transfer(Reader, OutputStream, String, int)
+    - transfer(Reader, Writer, int)  
+
 [2020/12/22]
 - Add
   + open.commons.utils.ObjectUtils
