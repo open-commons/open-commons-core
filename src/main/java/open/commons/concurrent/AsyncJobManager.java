@@ -50,7 +50,20 @@ public class AsyncJobManager<K, V> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private HashMap<K, Future<V>> ASYNC_JOBS = new HashMap<>();
+    // private HashMap<K, Future<V>> ASYNC_JOBS = new HashMap<>();
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 10     박준홍     최초 작성
+     * 2021. 2. 9.		박준홍     Future의 Generic 타입을 wildcard로 변경
+     * </pre>
+     */
+    private HashMap<K, Future<?>> ASYNC_JOBS = new HashMap<>();
 
     private ReentrantLock LOCK = new ReentrantLock();
 
@@ -77,6 +90,7 @@ public class AsyncJobManager<K, V> {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2020. 11. 10.		박준홍			최초 작성
+     * 2021. 2. 9.      박준홍     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      *
      * @param key
@@ -86,7 +100,8 @@ public class AsyncJobManager<K, V> {
      * @version _._._
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public Future<V> get(K key) {
+    // public Future<V> get(K key) {
+    public Future<?> get(K key) {
         if (key == null) {
             return null;
         }
@@ -144,6 +159,7 @@ public class AsyncJobManager<K, V> {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 11. 10.        박준홍         최초 작성
+     * 2021. 2. 9.      박준홍     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      *
      * @param key
@@ -153,7 +169,8 @@ public class AsyncJobManager<K, V> {
      * @since 2020. 11. 10.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public boolean register(K key, Future<V> job) {
+    // public boolean register(K key, Future<V> job) {
+    public boolean register(K key, Future<?> job) {
         if (key == null || job == null) {
             return false;
         }
@@ -185,6 +202,7 @@ public class AsyncJobManager<K, V> {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 11. 10.        박준홍         최초 작성
+     * 2021. 2. 9.      박준홍     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      *
      * @param <T>
@@ -194,7 +212,8 @@ public class AsyncJobManager<K, V> {
      * @since 2020. 11. 10.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public Future<V> unregister(K key) {
+    // public Future<V> unregister(K key) {
+    public Future<?> unregister(K key) {
         if (key == null) {
             return null;
         }
@@ -232,7 +251,8 @@ public class AsyncJobManager<K, V> {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2020. 11. 10.        박준홍         최초 작성
+         * 2020. 11. 10.    박준홍     최초 작성
+         * 2021. 2. 9.      박준홍     AsyncJobManager의 두번째 Generic 타입을 wildcard로 변경
          * </pre>
          *
          * @param <K>
@@ -245,17 +265,18 @@ public class AsyncJobManager<K, V> {
          * @author Park_Jun_Hong_(fafanmama_at_naver_com)
          */
         @SuppressWarnings("unchecked")
-        public static <K, V> AsyncJobManager<K, V> getManager(Object key) {
+        // public static <K, V> AsyncJobManager<K, V> getManager(Object key) {
+        public static <K> AsyncJobManager<K, ?> getManager(Object key) {
 
             ReentrantLock lock = LOCK;
             lock.lock();
-            
+
             try {
-                AsyncJobManager<K, V> m = null;
+                AsyncJobManager<K, ?> m = null;
                 if (SINGLETON.containsKey(key)) {
-                    m = (AsyncJobManager<K, V>) SINGLETON.get(key);
+                    m = (AsyncJobManager<K, ?>) SINGLETON.get(key);
                 } else {
-                    m = new AsyncJobManager<K, V>();
+                    m = new AsyncJobManager<K, Object>();
                     SINGLETON.put(key, m);
                 }
                 return m;

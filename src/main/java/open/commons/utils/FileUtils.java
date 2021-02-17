@@ -31,10 +31,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.nio.file.CopyOption;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.BiFunction;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -484,6 +493,49 @@ public class FileUtils {
         return dir.listFiles(READ_FILE);
     }
 
+    /**
+     * 주어진 경로에서 조건에 맞는 파일 정보를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            검색할 최상위 디렉토리
+     * @param maxDepth
+     *            내부 디렉토리 검색 레벨.
+     * @param filter
+     *            파일 또는 디렉토리 필터
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 2. 8.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
+        if (!Files.exists(directory)) {
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "존재하지 않는 경로입니다. directory=%s", directory.toString());
+        }
+
+        final Set<Path> files = new HashSet<>();
+        Files.walkFileTree(directory, EnumSet.noneOf(FileVisitOption.class), maxDepth, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                if (filter.apply(file, attrs)) {
+                    files.add(file);
+                }
+
+                return FileVisitResult.CONTINUE;
+            }
+        });
+
+        return files;
+    }
+
     public static void main(String[] args) {
         // File src = new File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src\\open\\commons");
         // for (File file : src.listFiles()) {
@@ -508,6 +560,118 @@ public class FileUtils {
 
         System.out.println("abc.de".lastIndexOf('.'));
         System.out.println(StringUtils.backIndexOf("abc.de", '.'));
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 2. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param source
+     *            복사할 파일 경로
+     * @param target
+     *            복사될 위치 경로
+     * @return
+     *
+     * @since 2021. 2. 10.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IOException
+     * 
+     * @see {@link Files#move(Path, Path, CopyOption...)}
+     */
+    public static Path move(File source, File target, CopyOption... options) throws IOException {
+        return Files.move(source.toPath(), target.toPath(), options);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 2. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param source
+     *            복사할 파일 경로
+     * @param target
+     *            복사될 위치 경로
+     * @return
+     *
+     * @since 2021. 2. 10.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IOException
+     * 
+     * @see {@link Files#move(Path, Path, CopyOption...)}
+     */
+    public static Path move(Path source, String target, CopyOption... options) throws IOException {
+        return Files.move(source, Paths.get(target), options);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 2. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param source
+     *            복사할 파일 경로
+     * @param target
+     *            복사될 위치 경로
+     * @return
+     *
+     * @since 2021. 2. 10.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IOException
+     * 
+     * @see {@link Files#move(Path, Path, CopyOption...)}
+     */
+    public static Path move(String source, Path target, CopyOption... options) throws IOException {
+        return Files.move(Paths.get(source), target, options);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param source
+     *            복사할 파일 경로
+     * @param target
+     *            복사될 위치 경로
+     * @return
+     *
+     * @since 2021. 2. 10.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @throws IOException
+     * 
+     * @see {@link Files#move(Path, Path, CopyOption...)}
+     */
+    public static Path move(String source, String target, CopyOption... options) throws IOException {
+        return Files.move(Paths.get(source), Paths.get(target), options);
     }
 
     /**

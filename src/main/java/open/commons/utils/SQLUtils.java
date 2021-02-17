@@ -559,7 +559,7 @@ public class SQLUtils {
     public static int setParameters(PreparedStatement stmt, int index, Object obj, String... columnNames) throws SQLException {
         // #1. @ColumnValue 어노테이션이 설정된 Method 조회
         Class<?> type = obj.getClass();
-        List<Method> methods = SQLUtils.COLUMN_VALUE_METHOD_PROVIDER.apply(type, ColumnValue.class);
+        List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(type, ColumnValue.class);
 
         // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
         if (columnNames == null || columnNames.length < 1) {
@@ -580,9 +580,9 @@ public class SQLUtils {
 
                     if (boolean.class.isAssignableFrom(rtnClass) //
                             || Boolean.class.isAssignableFrom(rtnClass)) {
-                        clmn = SQLUtils.METHOD_MATCHER.apply(SQLUtils.METHOD_BOOLEAN_PATTERN, m.getName());
+                        clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, m.getName());
                     } else {
-                        clmn = SQLUtils.METHOD_MATCHER.apply(SQLUtils.METHOD_PATTERN, m.getName());
+                        clmn = METHOD_MATCHER.apply(METHOD_PATTERN, m.getName());
                     }
 
                     if (clmn == null) {
@@ -620,7 +620,7 @@ public class SQLUtils {
 
             for (String clmn : columnNames) {
                 for (Entry<String, Method> entry : methodMap.entrySet()) {
-                    if (SQLUtils.COLUMN_CHECKER.apply(clmn, entry.getKey(), clmnCaseSensitive.get(entry.getKey()))) {
+                    if (COLUMN_CHECKER.apply(clmn, entry.getKey(), clmnCaseSensitive.get(entry.getKey()))) {
                         methods.add(entry.getValue());
                         break;
                     }

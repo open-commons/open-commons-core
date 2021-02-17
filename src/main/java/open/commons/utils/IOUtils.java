@@ -115,6 +115,7 @@ public class IOUtils {
      */
     private static final Function<byte[], byte[]> BYTE_ACTION_BYPASS = bs -> bs;
 
+    public static final int BUFFER_SIZE_32B = 32;
     public static final int BUFFER_SIZE_1KB = 1024;
     public static final int BUFFER_SIZE_1MB = 1024 * 1024;
     public static final int BUFFER_SIZE_10MB = 1024 * 1024 * 10;
@@ -1570,6 +1571,37 @@ public class IOUtils {
      * @see OutputStream#close()
      */
     public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput) throws IOException {
+        return transfer(inStream, closeInput, outStream, closeOutput, BUFFER_SIZE_32B);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput, int readBufferSize) throws IOException {
 
         int rcvCount = 0;
 
@@ -1581,7 +1613,7 @@ public class IOUtils {
             reader = Channels.newChannel(inStream);
             writer = Channels.newChannel(outStream);
 
-            ByteBuffer buf = ByteBuffer.allocateDirect(1024 * 10);
+            ByteBuffer buf = ByteBuffer.allocateDirect(readBufferSize);
 
             int readCount = -1;
             while ((readCount = reader.read(buf)) > 0) {
@@ -1589,6 +1621,8 @@ public class IOUtils {
                 buf.flip();
 
                 writer.write(buf);
+                
+                outStream.flush();
 
                 buf.clear();
 
@@ -1638,6 +1672,38 @@ public class IOUtils {
     }
 
     /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(InputStream inStream, Charset inCharset, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), closeInput, writer, closeOutput, readBufferSize);
+    }
+
+    /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
@@ -1665,6 +1731,38 @@ public class IOUtils {
      */
     public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset) throws IOException {
         return transfer(inStream, inCharset.name(), true, outStream, outCharset.name(), true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+        return transfer(inStream, inCharset.name(), true, outStream, outCharset.name(), true, readBufferSize);
     }
 
     /**
@@ -1719,6 +1817,64 @@ public class IOUtils {
      */
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
         return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), close, writer, close);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param close
+     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), close, writer, close, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(InputStream inStream, Charset inCharset, Writer writer, int readBufferSize) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), true, writer, true, readBufferSize);
     }
 
     /**
@@ -1781,6 +1937,36 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, boolean close, int readBufferSize) throws IOException {
+        return transfer(inStream, close, outStream, close, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -1836,6 +2022,100 @@ public class IOUtils {
      */
     public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close) throws IOException {
         return transfer(inStream, charset.name(), close, outStream, charset.name(), close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close, int readBufferSize) throws IOException {
+        return transfer(inStream, charset.name(), close, outStream, charset.name(), close, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     * 
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, int readBufferSize) throws IOException {
+        return transfer(inStream, charset.name(), true, outStream, charset.name(), true, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2018. 9. 10.
+     * 
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, int readBufferSize) throws IOException {
+        return transfer(inStream, true, outStream, true, readBufferSize);
     }
 
     /**
@@ -1905,6 +2185,69 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, String charset, boolean close, int readBufferSize) throws IOException {
+        return transfer(inStream, charset, close, outStream, charset, close, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            charset
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     * 
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     * 
+     */
+    public static int transfer(InputStream inStream, OutputStream outStream, String charset, int readBufferSize) throws IOException {
+        return transfer(inStream, charset, true, outStream, charset, true, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
      * 2018. 9. 10.     박준홍         최초 작성
      * </pre>
      *
@@ -1930,6 +2273,44 @@ public class IOUtils {
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
         return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize)
+            throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput,
+                readBufferSize);
     }
 
     /**
@@ -1961,6 +2342,36 @@ public class IOUtils {
     }
 
     /**
+     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     */
+    public static int transfer(InputStream inStream, String inCharset, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, writer, closeOutput, readBufferSize);
+    }
+
+    /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
@@ -1988,6 +2399,38 @@ public class IOUtils {
      */
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
         return transfer(inStream, inCharset, true, outStream, outCharset, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see InputStream#close()
+     * @see OutputStream#close()
+     */
+    public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+        return transfer(inStream, inCharset, true, outStream, outCharset, true, readBufferSize);
     }
 
     /**
@@ -2045,6 +2488,64 @@ public class IOUtils {
     }
 
     /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param close
+     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), close, writer, close, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
+        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), true, writer, true, readBufferSize);
+    }
+
+    /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
      * 
      * <pre>
@@ -2072,6 +2573,38 @@ public class IOUtils {
      */
     public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
         return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), closeOutput);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize) throws IOException {
+        return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), closeOutput, readBufferSize);
     }
 
     /**
@@ -2105,6 +2638,38 @@ public class IOUtils {
     }
 
     /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
+        return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput, readBufferSize);
+    }
+
+    /**
      * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
      * 
      * <pre>
@@ -2127,12 +2692,40 @@ public class IOUtils {
      * @since 2018. 9. 26.
      */
     public static int transfer(Reader reader, boolean closeInput, Writer writer, boolean closeOutput) throws IOException {
+        return transfer(reader, closeInput, writer, closeOutput, BUFFER_SIZE_32B);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     */
+    public static int transfer(Reader reader, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
 
         int rcvCount = 0;
 
         try {
 
-            CharBuffer buf = CharBuffer.allocate(1024 * 10);
+            CharBuffer buf = CharBuffer.allocate(readBufferSize);
 
             int readCount = -1;
             while ((readCount = reader.read(buf)) > 0) {
@@ -2140,6 +2733,7 @@ public class IOUtils {
                 buf.flip();
 
                 writer.write(buf.array(), 0, readCount);
+                writer.flush();
 
                 buf.clear();
 
@@ -2213,6 +2807,64 @@ public class IOUtils {
     }
 
     /**
+     * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
+        return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), close, readBufferSize);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+        return transfer(reader, true, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), true, readBufferSize);
+    }
+
+    /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
      * 
      * <pre>
@@ -2267,6 +2919,64 @@ public class IOUtils {
     }
 
     /**
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
+        return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset), close, readBufferSize);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(Reader reader, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+        return transfer(reader, true, Channels.newWriter(Channels.newChannel(outStream), outCharset), true, readBufferSize);
+    }
+
+    /**
      * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
      * 
      * <pre>
@@ -2286,6 +2996,30 @@ public class IOUtils {
      */
     public static int transfer(Reader reader, Writer writer) throws IOException {
         return transfer(reader, true, writer, true);
+    }
+
+    /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param reader
+     * @param writer
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int transfer(Reader reader, Writer writer, int readBufferSize) throws IOException {
+        return transfer(reader, true, writer, true, readBufferSize);
     }
 
     /**
