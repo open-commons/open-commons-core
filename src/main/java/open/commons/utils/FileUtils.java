@@ -563,8 +563,7 @@ public class FileUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 파일을 이동시키거나 이름을 변경한다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -577,6 +576,9 @@ public class FileUtils {
      *            복사할 파일 경로
      * @param target
      *            복사될 위치 경로
+     * @param options
+     *            복사 또는 이동 설정
+     * 
      * @return
      *
      * @since 2021. 2. 10.
@@ -591,8 +593,34 @@ public class FileUtils {
     }
 
     /**
+     * 파일을 이동시키거나 이름을 변경한다.<br>
      * 
-     * <br>
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param source
+     *            복사할 파일 경로
+     * @param target
+     *            복사될 위치 경로
+     * @param options
+     *            복사 또는 이동 설정
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 2. 18.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Path move(Path source, Path target, CopyOption... options) throws IOException {
+        return Files.move(source, target, options);
+    }
+
+    /**
+     * 파일을 이동시키거나 이름을 변경한다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -605,6 +633,8 @@ public class FileUtils {
      *            복사할 파일 경로
      * @param target
      *            복사될 위치 경로
+     * @param options
+     *            복사 또는 이동 설정
      * @return
      *
      * @since 2021. 2. 10.
@@ -619,8 +649,7 @@ public class FileUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 파일을 이동시키거나 이름을 변경한다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -633,6 +662,8 @@ public class FileUtils {
      *            복사할 파일 경로
      * @param target
      *            복사될 위치 경로
+     * @param options
+     *            복사 또는 이동 설정
      * @return
      *
      * @since 2021. 2. 10.
@@ -647,8 +678,7 @@ public class FileUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 파일을 이동시키거나 이름을 변경한다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -661,6 +691,8 @@ public class FileUtils {
      *            복사할 파일 경로
      * @param target
      *            복사될 위치 경로
+     * @param options
+     *            복사 또는 이동 설정
      * @return
      *
      * @since 2021. 2. 10.

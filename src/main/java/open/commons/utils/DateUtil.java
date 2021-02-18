@@ -912,6 +912,34 @@ public class DateUtil {
     }
 
     /**
+     * 해당 필드의 값을 0으로 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dateFields
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
+     * @return
+     *
+     * @since 2021. 2. 18.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar resetDateFields(int... dateFields) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        resetDateFields(calendar, dateFields);
+
+        return calendar;
+    }
+
+    /**
      * 해당 필드의 값을 0으로 설정한다.
      * 
      * @param calendar
