@@ -32,6 +32,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 import open.commons.annotation.ColumnValue;
+import open.commons.utils.ArrayUtils;
 import open.commons.utils.ObjectUtils;
 import open.commons.utils.SQLUtils;
 
@@ -115,7 +116,8 @@ public interface SQLConsumer<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		박준홍			최초 작성
+     * 2020. 12. 22.        박준홍     최초 작성
+     * 2021. 02. 26.        박준홍     버그 수정. (파라미터가 문자열만 오는 경우 판단 오류 수정. Reported by. 'jhlee@ymtech.kr'
      * </pre>
      *
      * @param param
@@ -127,13 +129,15 @@ public interface SQLConsumer<T> {
      * @see SQLUtils#setParameters(PreparedStatement, int, Object, String...)
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object param, String... columnNames) {
-        if (((columnNames == null || columnNames.length < 1)) //
-                && (ObjectUtils.isPrimitive(param) //
-                        || ObjectUtils.isWrapper(param) //
-                        || String.class.equals(param.getClass()) //
-                ) //
+        if (ObjectUtils.isPrimitive(param) //
+                || ObjectUtils.isWrapper(param) //
+                || String.class.equals(param.getClass()) //
         ) {
-            return setParameters(new Object[] { param });
+            return setParameters( //
+                    columnNames != null && columnNames.length > 0 //
+                            ? ArrayUtils.prepend(columnNames, (String) param)//
+                            : new Object[] { param } //
+            );
         } else {
             return stmt -> SQLUtils.setParameters(stmt, 0, param, columnNames);
         }
