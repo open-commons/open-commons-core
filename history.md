@@ -1,3 +1,13 @@
+[2021/02/26]
+- Bugfix
+  _ open.commons.function.SQLConsumer
+    + setParameters(Object, String...): 파라미터가 문자열만 오는 경우 판단 오류 수정. (Reported by. 'jhlee@ymtech.kr')
+
+[2021/02/19]
+- Add
+  + open.commons.concurrent.ConcurrentWorker
+    - getJobCount()
+
 [2021/02/18]
 - Add
   + open.commons.utils.DateUtil

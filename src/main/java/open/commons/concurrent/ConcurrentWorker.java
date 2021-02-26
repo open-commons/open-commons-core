@@ -187,6 +187,31 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
+     * 현재 남아있는 작업개수를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 2. 19.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public int getJobCount() {
+        mutexWJC.lock();
+        try {
+            return workJobCounter.get();
+        } finally {
+            mutexWJC.unlock();
+        }
+    }
+
+    /**
      * 데이터 큐를 위한 Mutex 객체를 제공한다. <br>
      * 
      * <pre>
