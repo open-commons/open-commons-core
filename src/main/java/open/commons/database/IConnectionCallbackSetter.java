@@ -33,6 +33,8 @@ import java.sql.SQLException;
  * 
  * @since 2017. 12. 29.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
+ * @deprecated Use {@link IConnectionCallbackBroker}
  */
 public interface IConnectionCallbackSetter {
 

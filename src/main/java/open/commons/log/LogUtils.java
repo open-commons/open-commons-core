@@ -257,14 +257,13 @@ public class LogUtils {
         String threadName = Thread.currentThread().getName();
         StackTraceElement ste = Thread.currentThread().getStackTrace()[2];
 
-        log(System.err,
-                String.format(LOG_FORMAT_2 // log format
-                        , timestamp // timestamp
-                        , threadName // thread name
-                        , logIndentation() // log depth indentation
-                        , log //
-                        , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
-                ));
+        log(System.err, String.format(LOG_FORMAT_2 // log format
+                , timestamp // timestamp
+                , threadName // thread name
+                , logIndentation() // log depth indentation
+                , log //
+                , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
+        ));
     }
 
     public static void error(String name, String log) {
@@ -272,15 +271,14 @@ public class LogUtils {
         String threadName = Thread.currentThread().getName();
         StackTraceElement ste = Thread.currentThread().getStackTrace()[2];
 
-        log(System.err,
-                String.format(LOG_FORMAT_3 // log format
-                        , timestamp // timestamp
-                        , threadName // thread name
-                        , logIndentation() // log depth indentation
-                        , name // category
-                        , log // mesasge
-                        , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
-                ));
+        log(System.err, String.format(LOG_FORMAT_3 // log format
+                , timestamp // timestamp
+                , threadName // thread name
+                , logIndentation() // log depth indentation
+                , name // category
+                , log // mesasge
+                , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
+        ));
     }
 
     public static void leaveLog() {
@@ -381,14 +379,13 @@ public class LogUtils {
         String threadName = Thread.currentThread().getName();
         StackTraceElement ste = Thread.currentThread().getStackTrace()[2];
 
-        log(System.out,
-                String.format(LOG_FORMAT_2 // log format
-                        , timestamp // timestamp
-                        , threadName // thread name
-                        , logIndentation() // log depth indentation
-                        , log //
-                        , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
-                ));
+        log(System.out, String.format(LOG_FORMAT_2 // log format
+                , timestamp // timestamp
+                , threadName // thread name
+                , logIndentation() // log depth indentation
+                , log //
+                , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
+        ));
     }
 
     public static void log(String name, String log) {
@@ -396,15 +393,14 @@ public class LogUtils {
         String threadName = Thread.currentThread().getName();
         StackTraceElement ste = Thread.currentThread().getStackTrace()[2];
 
-        log(System.out,
-                String.format(LOG_FORMAT_3 // log format
-                        , timestamp // timestamp
-                        , threadName // thread name
-                        , logIndentation() // log depth indentation
-                        , name // category
-                        , log // mesasge
-                        , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
-                ));
+        log(System.out, String.format(LOG_FORMAT_3 // log format
+                , timestamp // timestamp
+                , threadName // thread name
+                , logIndentation() // log depth indentation
+                , name // category
+                , log // mesasge
+                , ste.getClassName() + ".java:" + ste.getLineNumber() // source traceable info
+        ));
     }
 
     public static String logCallStack() {

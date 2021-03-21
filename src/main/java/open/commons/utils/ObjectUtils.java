@@ -29,9 +29,11 @@ package open.commons.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -54,6 +56,45 @@ public class ObjectUtils {
     private static final Function<Object, Double> doubleFunction = o -> Double.parseDouble(o.toString());
     private static final Function<Object, Boolean> booleanFunction = o -> Boolean.parseBoolean(o.toString());
     private static final Function<Object, String> strFunction = o -> o.toString();
+
+    /**
+     * Primitive type classes
+     * 
+     * @since 2020. 12. 22.
+     * @version 1.8.0
+     */
+    private static final Set<Class<?>> PRIMITIVES = new HashSet<>();
+
+    /**
+     * Wrapper type classes
+     * 
+     * @since 2020. 12. 22.
+     * @version 1.8.0
+     */
+    private static final Set<Class<?>> WRAPPER_TYPES = new HashSet<>();
+    static {
+        // begin: primitive types
+        PRIMITIVES.add(boolean.class);
+        PRIMITIVES.add(byte.class);
+        PRIMITIVES.add(char.class);
+        PRIMITIVES.add(double.class);
+        PRIMITIVES.add(float.class);
+        PRIMITIVES.add(int.class);
+        PRIMITIVES.add(long.class);
+        PRIMITIVES.add(short.class);
+        // end: primitive types
+
+        // begin: wrapper types
+        WRAPPER_TYPES.add(Boolean.class);
+        WRAPPER_TYPES.add(Byte.class);
+        WRAPPER_TYPES.add(Character.class);
+        WRAPPER_TYPES.add(Double.class);
+        WRAPPER_TYPES.add(Float.class);
+        WRAPPER_TYPES.add(Integer.class);
+        WRAPPER_TYPES.add(Long.class);
+        WRAPPER_TYPES.add(Short.class);
+        // end: wrapper types
+    }
 
     // Prevent to create a new instance.
     private ObjectUtils() {
@@ -136,6 +177,90 @@ public class ObjectUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * primitive 타입인지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param type
+     * @return
+     *
+     * @since 2020. 12. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean isPrimitive(Class<?> type) {
+        return PRIMITIVES.contains(type.getClass());
+    }
+
+    /**
+     * 객체가 primitive 타입인지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param obj
+     * @return
+     *
+     * @since 2020. 12. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean isPrimitive(Object obj) {
+        return PRIMITIVES.contains(obj.getClass());
+    }
+
+    /**
+     * wrapper class 타입인지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param type
+     * @return
+     *
+     * @since 2020. 12. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean isWrapper(Class<?> type) {
+        return WRAPPER_TYPES.contains(type.getClass());
+    }
+
+    /**
+     * 객체가 wrapper class 타입인지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param obj
+     * @return
+     *
+     * @since 2020. 12. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean isWrapper(Object obj) {
+        return WRAPPER_TYPES.contains(obj.getClass());
     }
 
     /**
@@ -582,6 +707,136 @@ public class ObjectUtils {
     }
 
     /**
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 08.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @return
+     *
+     * @since 2020. 12. 08.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target) {
+        return transform(src, lookupSrcSuper, target, false);
+    }
+
+    /**
+     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 08.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2020. 12. 08.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper) {
+        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+
+        List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
+        if (getters.size() < 1) {
+            return null;
+        }
+
+        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(target, Setter.class) : AnnotationUtils.getAnnotatedMethods(target, Setter.class);
+        if (setters.size() < 1) {
+            return target;
+        }
+
+        // #0. Setter 메소드 재정렬
+        final Map<String, Method> setterMap = CollectionUtils.toMapHSV(setters, m -> {
+            Setter annoSetter = m.getAnnotation(Setter.class);
+            return String.join("-", annoSetter.name(), annoSetter.type().toString());
+        }, m -> m);
+
+        final Function<Method, String> GetterKeyGen = m -> {
+            Getter annoGetter = m.getAnnotation(Getter.class);
+            return String.join("-", annoGetter.name(), annoGetter.type().toString());
+        };
+
+        // #1. Setter와 동일한 식별정보를 갖는 Getter 추출
+        List<Method> gettersFiltered = getters.stream().filter(m -> {
+            return setterMap.containsKey(GetterKeyGen.apply(m));
+        }).collect(Collectors.toList());
+
+        // #2. Setter와 연결되는 Getter 메소드 재정렬
+        Map<String, Method> getterMap = CollectionUtils.toMapHSV(gettersFiltered //
+                , m -> {
+                    Getter annoGetter = m.getAnnotation(Getter.class);
+                    return String.join("-", annoGetter.name(), annoGetter.type().toString());
+                }, m -> m);
+
+        // method name
+        String methodName = null;
+        // getter method
+        Method getter = null;
+        boolean getterAccessible = false;
+        // setter method
+        Method setter = null;
+        boolean setterAccessible = false;
+
+        for (Entry<String, Method> entry : setterMap.entrySet()) {
+            try {
+                methodName = entry.getKey();
+
+                getter = getterMap.get(methodName);
+
+                // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
+                if (getter == null) {
+                    continue;
+                }
+
+                getterAccessible = getter.isAccessible();
+                getter.setAccessible(true);
+
+                setter = entry.getValue();
+                setterAccessible = setter.isAccessible();
+                setter.setAccessible(true);
+
+                setter.invoke(target, getter.invoke(src));
+
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e);
+            } finally {
+                if (getter != null) {
+                    getter.setAccessible(getterAccessible);
+                }
+                if (setter != null) {
+                    setter.setAccessible(setterAccessible);
+                }
+            }
+        }
+
+        return target;
+    }
+
+    /**
      * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다.
      * <br>
      * 
@@ -632,5 +887,58 @@ public class ObjectUtils {
      */
     public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper) {
         return transform(src, false, targetType, lookupTargetSuper);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 08.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @return
+     *
+     * @since 2020. 12. 08.
+     * @version
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see Getter
+     * @see Setter
+     */
+    public static <S, D> D transform(S src, D target) {
+        return transform(src, false, target, false);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 7. 11.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param src
+     *            입력 데이타.
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2019. 7. 11.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, D> D transform(S src, D target, boolean lookupTargetSuper) {
+        return transform(src, false, target, lookupTargetSuper);
     }
 }

@@ -669,15 +669,32 @@ public class StringUtils {
     }
 
     /**
-     * 하나의 문자열에 2개의 문자열 중 어느 것이 더 많은지 여부를 반환한다.
+     * 대상 문자열에 주어진 문자열이 포함되어 있는지 여부를 제공한다. <br>
+     * 단 하나의 문자열만 포함되어 있어도 <code>true</code>를 반환한다.
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
      * @param string
-     * @param target1
-     * @param target2
-     * @return 0 이면 같음, 양수면 첫번째 문자열이 많음, 음수면 두번째 문자열이 많음.
+     *            대상 문자열
+     * @param strs
+     *            포함여부를 확인할 문자열
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static int contains(String string, String target1, String target2) {
-        return (string.contains(target1) ? 1 : 0) + (string.contains(target2) ? -1 : 0);
+    public static boolean contains(String string, CharSequence... strs) {
+        for (CharSequence str : strs) {
+            if (string.contains(str)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -690,8 +707,8 @@ public class StringUtils {
      * @param strs
      * @return
      */
-    public static boolean containsAll(String string, String... strs) {
-        for (String str : strs) {
+    public static boolean containsAll(String string, CharSequence... strs) {
+        for (CharSequence str : strs) {
             if (!string.contains(str))
                 return false;
         }

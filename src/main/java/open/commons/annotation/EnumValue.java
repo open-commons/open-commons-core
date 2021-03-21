@@ -44,6 +44,7 @@ public @interface EnumValue {
     /**
      * 
      * <br>
+     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용

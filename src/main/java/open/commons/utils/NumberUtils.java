@@ -25,6 +25,9 @@
 
 package open.commons.utils;
 
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Function;
+
 /**
  * 
  * @since 2014. 7. 10.
@@ -32,8 +35,51 @@ package open.commons.utils;
  */
 public class NumberUtils {
 
+    public static final Function<Integer, String> INT_TO_STR = i -> String.format("%,d", i);
+    public static final Function<Long, String> LONG_TO_STR = i -> String.format("%,l", i);
+
+    private static final StringBuffer HEX_SB = new StringBuffer();
+    private static final ReentrantLock HEX_LOCK_SB = new ReentrantLock();
+
     // Prevet to create a new instance.
     private NumberUtils() {
+    }
+
+    private static String concat(String... strings) {
+        HEX_LOCK_SB.lock();
+        try {
+            String str = null;
+            for (String s : strings) {
+                HEX_SB.append(s);
+            }
+            str = HEX_SB.toString();
+            HEX_SB.setLength(0);
+            return str;
+        } finally {
+            HEX_LOCK_SB.unlock();
+        }
+    }
+
+    /**
+     * 문자열 앞에 '0x'를 붙여 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 17.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param str
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+
+    public static String hex(String str) {
+        return concat("0x", str);
     }
 
     /**

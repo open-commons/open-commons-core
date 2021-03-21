@@ -20,7 +20,9 @@
 package open.commons.utils;
 
 import java.util.Arrays;
+import java.util.concurrent.locks.ReentrantLock;
 
+import open.commons.lang.NumString;
 import open.commons.utils.NumberUtils.IntegerType;
 
 /**
@@ -34,6 +36,9 @@ public class IntegerUtils {
     private static final int BINARY_DIGIT_LENGTH = 32;
     private static final int OCTAL_DIGIT_LENGTH = 12;
     private static final int HEX_DIGIT_LENGTH = 8;
+
+    private static final StringBuffer HEX_SB = new StringBuffer();
+    private static final ReentrantLock HEX_LOCK_SB = new ReentrantLock();
 
     /**
      * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로 이루어진 int 배열을 반환한다.
@@ -78,6 +83,42 @@ public class IntegerUtils {
         int returnedValue = ((value[0] << 24) & 0xFF000000) | ((value[1] << 16) & 0x00FF0000) | ((value[2] << 8) & 0x0000FF00) | ((value[3]) & 0x000000FF);
 
         return returnedValue;
+    }
+
+    private static String concat(String... strings) {
+        HEX_LOCK_SB.lock();
+        try {
+            String str = null;
+            for (String s : strings) {
+                HEX_SB.append(s);
+            }
+            str = HEX_SB.toString();
+            HEX_SB.setLength(0);
+            return str;
+        } finally {
+            HEX_LOCK_SB.unlock();
+        }
+    }
+
+    /**
+     * 문자열 앞에 '0x'를 붙여 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 17.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param str
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String hex(String str) {
+        return concat("", "0x", str);
     }
 
     /**
@@ -432,6 +473,55 @@ public class IntegerUtils {
      */
     public static String toHexString(String value, int length) {
         return toHexString(Integer.parseInt(value), length);
+    }
+
+    /**
+     * int 값을 IPV4 주소 형태로 변환하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 17.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param nums
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toIPv4(int nums) {
+        int[] ar = new int[4];
+        ar[3] = nums & 0xFF;
+        ar[2] = nums & 0xFF00;
+        ar[1] = nums & 0xFF0000;
+        ar[0] = nums & 0xFF000000;
+        return String.join(".", NumString.sequence(ArrayUtils.toWrapperArray(ar)));
+    }
+
+    /**
+     * int 배열을 IPV4 주소 형태로 변환하여 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 17.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param nums
+     * @return
+     *
+     * @since 2020. 12. 17.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toIPv4(int[] nums) {
+        int[] ar = new int[4];
+        System.arraycopy(nums, 0, ar, 0, Math.min(nums.length, ar.length));
+        return String.join(".", NumString.sequence(ArrayUtils.toWrapperArray(ar)));
     }
 
     /**

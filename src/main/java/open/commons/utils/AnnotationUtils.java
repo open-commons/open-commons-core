@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 
@@ -37,6 +38,36 @@ import java.util.stream.Collectors;
  * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
  */
 public class AnnotationUtils {
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param accObj
+     * @param annoClasses
+     *            어노테이션 타입.
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see AccessibleObject#isAnnotationPresent(Class)
+     */
+    @SuppressWarnings("unchecked")
+    public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
+        for (Class<? extends Annotation> annoClass : annoClasses) {
+            if (!accObj.isAnnotationPresent(annoClass)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
@@ -54,8 +85,10 @@ public class AnnotationUtils {
      *
      * @since 2019. 5. 29.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getDeclaredFields()
+     * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static <T extends Annotation> List<Field> getAnnotatedFields(Class<?> typeClass, Class<T> annotationClass) {
+    public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
         ArrayList<Field> methods = new ArrayList<>();
 
         Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
@@ -95,9 +128,9 @@ public class AnnotationUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @since 2012. 2. 6.
      * 
-     * @see Class#getDeclaredFields()
+     * @see #getAnnotatedFields(Class, Class)
      */
-    public static <T extends Annotation> List<Field> getAnnotatedFields(Object object, Class<T> annotationClass) {
+    public static List<Field> getAnnotatedFields(Object object, Class<? extends Annotation> annotationClass) {
         return getAnnotatedFields(object.getClass(), annotationClass);
     }
 
@@ -117,10 +150,39 @@ public class AnnotationUtils {
      *
      * @since 2019. 5. 29.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getDeclaredFields()
+     * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static <T extends Annotation> List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<T> annotationClass) {
+    public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
                 .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annoClasses
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getDeclaredFields()
+     * @see #existAllAnnotations(AccessibleObject, Class...)
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
                 .collect(Collectors.toList());
     }
 
@@ -144,8 +206,63 @@ public class AnnotationUtils {
      * 
      * @see Class#getFields()
      */
-    public static <T extends Annotation> List<Field> getAnnotatedFieldsAll(Object object, Class<T> annotationClass) {
+    public static List<Field> getAnnotatedFieldsAll(Object object, Class<? extends Annotation> annotationClass) {
         return getAnnotatedFieldsAll(object.getClass(), annotationClass);
+    }
+
+    /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annotationClass
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getDeclaredFields()
+     * @see AccessibleObject#isAnnotationPresent(Class)
+     */
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
+        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+                .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
+        ;
+    }
+
+    /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annoClasses
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getDeclaredFields()
+     * @see #existAllAnnotations(AccessibleObject, Class...)
+     */
+    @SuppressWarnings("unchecked")
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
+        ;
     }
 
     /**
@@ -167,7 +284,7 @@ public class AnnotationUtils {
      * 
      * @see Class#getDeclaredMethods()
      */
-    public static <T extends Annotation> List<Method> getAnnotatedMethods(Class<?> typeClass, Class<T> annotationClass) {
+    public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
         ArrayList<Method> methods = new ArrayList<>();
 
         Arrays.stream(typeClass.getDeclaredMethods()) // create methods stream
@@ -208,7 +325,7 @@ public class AnnotationUtils {
      * 
      * @see Class#getDeclaredMethods()
      */
-    public static <T extends Annotation> List<Method> getAnnotatedMethods(Object object, Class<T> annotationClass) {
+    public static List<Method> getAnnotatedMethods(Object object, Class<? extends Annotation> annotationClass) {
         return getAnnotatedMethods(object.getClass(), annotationClass);
     }
 
@@ -231,9 +348,36 @@ public class AnnotationUtils {
      * 
      * @see Class#getMethods()
      */
-    public static <T extends Annotation> List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<T> annotationClass) {
+    public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 대상 클래스의 "Public" 메소드 중에서 특정 어노테이션이 있는 메소드만 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annoClasses
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getMethods()
+     * @see #existAllAnnotations(AccessibleObject, Class...)
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+        return Arrays.stream(typeClass.getMethods()) // create methods stream
+                .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
                 .collect(Collectors.toList());
     }
 
@@ -256,8 +400,140 @@ public class AnnotationUtils {
      * 
      * @see Class#getMethods()
      */
-    public static <T extends Annotation> List<Method> getAnnotatedMethodsAll(Object object, Class<T> annotationClass) {
+    public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation> annotationClass) {
         return getAnnotatedMethodsAll(object.getClass(), annotationClass);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param object
+     * @param annotationClass
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getMethods()
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation>... annoClasses) {
+        return getAnnotatedMethodsAll(object.getClass(), annoClasses);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annoClasses
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see Class#getDeclaredFields()
+     * @see #existAllAnnotations(AccessibleObject, Class...)
+     */
+    @SuppressWarnings("unchecked")
+    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+        return Arrays.stream(typeClass.getMethods()) // create methods stream
+                .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
+        ;
+    }
+
+    /**
+     * 대상 클래스의 "Public" 메소드 중에서 특정 어노테이션이 있는 메소드만 제공한다. <br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annotationClass
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
+        return Arrays.stream(typeClass.getMethods()) // create methods stream
+                .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
+        ;
+    }
+
+    /**
+     * 상위 클래스에서 정의된 메소드까지 확인한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param object
+     * @param annotationClass
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+
+        Class<?> type = typeClass;
+
+        List<Method> fields = new ArrayList<>();
+        while (type != null && !type.equals(Object.class)) {
+            fields.addAll(getAnnotatedMethodsAll(type, annoClasses));
+            type = type.getSuperclass();
+        }
+
+        return fields;
+    }
+
+    /**
+     * 상위 클래스에서 정의된 메소드까지 확인한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param object
+     * @param annotationClass
+     * @return
+     *
+     * @since 2020. 11. 9.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
+        return getAnnotatedMethodsAllHierarchy(object.getClass(), annoClasses);
     }
 
     /**

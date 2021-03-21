@@ -38,7 +38,26 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ ElementType.FIELD, ElementType.METHOD })
 public @interface AQueryIndex {
+
     int index() default -1;
+
+    /**
+     * 이름을 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2020. 12. 8.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    String name() default "";
 }

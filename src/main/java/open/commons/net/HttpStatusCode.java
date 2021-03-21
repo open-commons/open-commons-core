@@ -54,16 +54,14 @@ public class HttpStatusCode implements Cloneable {
                 "As a WebDAV request may contain many sub-requests involving file operations, it may take a long time to complete the request. This code indicates that the server has received and is processing the request, but no response is available yet. This prevents the client from timing out and assuming the request was lost.",
                 "Informational",
                 "Request received, continuing process. This class of status code indicates a provisional response, consisting only of the Status-Line and optional headers, and is terminated by an empty line. Since HTTP/1.0 did not define any 1xx status codes, servers must not send a 1xx response to an HTTP/1.0 client except under experimental conditions."));
-        httpStatusCodes.put(200,
-                new HttpStatusCode(200, "OK",
-                        "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action.",
-                        "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
+        httpStatusCodes.put(200, new HttpStatusCode(200, "OK",
+                "Standard response for successful HTTP requests. The actual response will depend on the request method used. In a GET request, the response will contain an entity corresponding to the requested resource. In a POST request the response will contain an entity describing or containing the result of the action.",
+                "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
         httpStatusCodes.put(201, new HttpStatusCode(201, "Created", "The request has been fulfilled and resulted in a new resource being created.", "Success",
                 "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
-        httpStatusCodes.put(202,
-                new HttpStatusCode(202, "Accepted",
-                        "The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place.",
-                        "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
+        httpStatusCodes.put(202, new HttpStatusCode(202, "Accepted",
+                "The request has been accepted for processing, but the processing has not been completed. The request might or might not eventually be acted upon, as it might be disallowed when processing actually takes place.",
+                "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
         httpStatusCodes.put(203,
                 new HttpStatusCode(203, "Non-Authoritative Information (since HTTP/1.1)",
                         "The server successfully processed the request, but is returning information that may be from another source.", "Success",
@@ -72,14 +70,12 @@ public class HttpStatusCode implements Cloneable {
                 new HttpStatusCode(204, "No Content",
                         "The server successfully processed the request, but is not returning any content. Usually used as a response to a successful delete request.", "Success",
                         "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
-        httpStatusCodes.put(205,
-                new HttpStatusCode(205, "Reset Content",
-                        "The server successfully processed the request, but is not returning any content. Unlike a 204 response, this response requires that the requester reset the document view.",
-                        "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
-        httpStatusCodes.put(206,
-                new HttpStatusCode(206, "Partial Content",
-                        "The server is delivering only part of the resource due to a range header sent by the client. The range header is used by tools like wget to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams.",
-                        "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
+        httpStatusCodes.put(205, new HttpStatusCode(205, "Reset Content",
+                "The server successfully processed the request, but is not returning any content. Unlike a 204 response, this response requires that the requester reset the document view.",
+                "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
+        httpStatusCodes.put(206, new HttpStatusCode(206, "Partial Content",
+                "The server is delivering only part of the resource due to a range header sent by the client. The range header is used by tools like wget to enable resuming of interrupted downloads, or split a download into multiple simultaneous streams.",
+                "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
         httpStatusCodes.put(207,
                 new HttpStatusCode(207, "Multi-Status (WebDAV; RFC 4918)",
                         "The message body that follows is an XML message and can contain a number of separate response codes, depending on how many sub-requests were made.",
@@ -88,10 +84,9 @@ public class HttpStatusCode implements Cloneable {
                 new HttpStatusCode(208, "Already Reported (WebDAV; RFC 5842)",
                         "The members of a DAV binding have already been enumerated in a previous reply to this request, and are not being included again.", "Success",
                         "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
-        httpStatusCodes.put(226,
-                new HttpStatusCode(226, "IM Used (RFC 3229)",
-                        "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
-                        "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
+        httpStatusCodes.put(226, new HttpStatusCode(226, "IM Used (RFC 3229)",
+                "The server has fulfilled a GET request for the resource, and the response is a representation of the result of one or more instance-manipulations applied to the current instance.",
+                "Success", "This class of status codes indicates the action requested by the client was received, understood, accepted and processed successfully."));
         httpStatusCodes.put(300, new HttpStatusCode(300, "Multiple Choices",
                 "Indicates multiple options for the resource that the client may follow. It, for instance, could be used to present different format options for video, list files with different extensions, or word sense disambiguation.",
                 "Redirection",

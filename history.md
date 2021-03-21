@@ -1,10 +1,203 @@
+[2021/02/26]
+- Bugfix
+  _ open.commons.function.SQLConsumer
+    + setParameters(Object, String...): 파라미터가 문자열만 오는 경우 판단 오류 수정. (Reported by. 'jhlee@ymtech.kr')
+
+[2021/02/19]
+- Add
+  + open.commons.concurrent.ConcurrentWorker
+    - getJobCount()
+
+[2021/02/18]
+- Add
+  + open.commons.utils.DateUtil
+    - resetDateFields(int...)
+  + open.commons.utils.FileUtils
+    - move(Path, Path, CopyOption...)
+
+[2021/02/10]
+- Add
+  + open.commons.utils.FileUtils
+    - move(File, File, CopyOption...)
+    - move(Path, String, CopyOption...)
+    - move(String, Path, CopyOption...)
+    - move(String, String, CopyOption...)
+  
+[2021/02/09]
+- Modify
+  + open.commons.concurrent.AsyncJobManager
+    - get(K)
+    - register(K, Future<?>)
+    - unregister(K)
+  + open.commons.concurrent.AsyncJobManager.Builder
+    - getManager(Object)
+  	
+[2021/02/09]
+- Add
+  + open.commons.utils.FileUtils
+    - listFiles(Path, int, BiFunction&lt;Path, BasicFileAttributes, Boolean&gt;)
+
+[2021/01/14]
+- Add
+  + open.commons.utils.IOUtils
+    - transfer(InputStream, boolean, OutputStream, boolean, int)
+    - transfer(InputStream, Charset, boolean, Writer, boolean, int)
+    - transfer(InputStream, Charset, OutputStream, Charset, int)
+    - transfer(InputStream, Charset, Writer, boolean, int)
+    - transfer(InputStream, Charset, Writer, int)
+    - transfer(InputStream, OutputStream, boolean, int)
+    - transfer(InputStream, OutputStream, Charset, boolean, int)
+    - transfer(InputStream, OutputStream, Charset, int)
+    - transfer(InputStream, OutputStream, int)
+    - transfer(InputStream, OutputStream, String, boolean, int)
+    - transfer(InputStream, OutputStream, String, int)
+    - transfer(InputStream, String, boolean, OutputStream, String, boolean, int)
+    - transfer(InputStream, String, boolean, Writer, boolean, int)
+    - transfer(InputStream, String, OutputStream, String, int)
+    - transfer(InputStream, String, Writer, boolean, int)
+    - transfer(InputStream, String, Writer, int)
+    - transfer(Reader, boolean, OutputStream, Charset, boolean, int)
+    - transfer(Reader, boolean, OutputStream, String, boolean, int)
+    - transfer(Reader, boolean, Writer, boolean, int)
+    - transfer(Reader, boolean, Writer, boolean)
+    - transfer(Reader, OutputStream, Charset, boolean, int)
+    - transfer(Reader, OutputStream, Charset, int)
+    - transfer(Reader, OutputStream, String, boolean, int)
+    - transfer(Reader, OutputStream, String, int)
+    - transfer(Reader, Writer, int)  
+
+[2020/12/22]
+- Add
+  + open.commons.utils.ObjectUtils
+    - isPrimitive(Class&lt;?&gt;)
+    - isPrimitive(Object)
+    - isWrapper(Class&lt;?&gt;)
+    - isWrapper(Object)
+  + open.commons.utils.SQLConsumer
+    - setParameters(Object, String...)
+  + open.commons.utils.SQLUtils
+    - setParameters(PreparedStatement, int, Object, String...)
+- Modify
+  + open.commons.SQLTripleFunction
+    - setParameters(String...):  내부 구현부가 open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...)로 이관됨.
+
+[2020/12/17]
+- New
+  + open.commons.lang.NumString    
+- Add
+  + open.commons.utils.ByteUtils
+    - hexBinString(boolean, byte ...)
+    - hexBinString(String, boolean, byte...)
+    - hexBinString(String, byte...)
+    - toIPv4Expr(byte[])
+    - toMACExpr(byte[])
+  + open.commons.utils.IntegerUtils
+    - hex(String)
+    - toIPv4(int)
+    - toIPv4(int[])
+- Delete
+  + open.commons.utils.ByteUtils
+    - main(String[])
+
+[2020/12/15]
+- Add
+  + open.commons.Utils.CollectionUtils
+    - newList(boolean...)
+    - newList(byte...)
+    - newList(char...)
+    - newList(double...)
+    - newList(int...)
+    - newList(long...)
+    - newList(short...)
+    - newSet(boolean...)
+    - newSet(byte...)
+    - newSet(char...)
+    - newSet(double...)
+    - newSet(int...)
+    - newSet(long...)
+    - newSet(short...)
+    - newVector(boolean...)
+    - newVector(byte...)
+    - newVector(char...)
+    - newVector(double...)
+    - newVector(int...)
+    - newVector(long...)
+    - newVector(short...)
+  
+[2020/12/13]
+- Add
+  + open.commons.Utils.CollectionUtils
+    - addAllIfNotNull(C, Class&lt;? extends C&gt;, Collection&lt;E&gt;)
+    - addIfAbsent(List&lt;T&gt;, T)
+    
+[2020/12/08]
+- Add
+  + open.commons.utils.ObjectUtils
+    - transform(S, boolean, D, boolean)
+    - transform(S, boolean, D)
+    - transform(S, D, boolean)
+    - transform(S, D)
+
+[2020/11/20]
+- Add
+  + open.commons.Result
+    - copyOf(Result&lt;?&gt;)
+    
+[2020/11/16]
+- Add
+  + open.commons.io.IRandomAccessible
+  + open.commons.io.TextLineInfo
+- Updated
+  + open.commons.utils.ArrayItr
+    - Interable&lt;E&gt; 인터페이스 상속 추가
+    - public Iterator&lt;E&gt; iterator() 추가
+    - public void reset() 추가
+  + open.commons.utils.IOUtils
+    - readChannel(FileChannel, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readChannel(FileChannel, int, ByteBuffer, Function&lt;byte[], T&gt;)
+    - readChannel(FileChannel, int, Function&lt;byte[], T&gt;, R...)
+    - readFile(File, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readFile(File, Function&lt;byte[], T&gt;, R...)
+    - readFile(File, Iterable&lt;R&gt;)
+    - readFile(File, R)
+    - readFile(File, R...)
+    - readFile(RandomAccessFile, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readFile(RandomAccessFile, Function&lt;byte[], T&gt;, R)
+    - readFile(RandomAccessFile, Function&lt;byte[], T&gt;, R...)
+    - readFile(RandomAccessFile, R)
+    - readFile(String, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;)
+    - readFile(String, Function&lt;byte[], T&gt;, R...)
+    - readFile(String, Iterable&lt;R&gt;)
+    - readFile(String, R)
+    - readFile(String, R...)
+    - readFully(InputStream)
+    - readFully(InputStream, boolean)
+    - readFully(InputStream, int, boolean)
+    - readFully(ReadableByteChannel, int, boolean)  
+
+[2020/11/11]
+- Add
+ + open.commons.concurrent.AsyncJobManager: 비동기 작업을 처리할 수 있도록 관리하는 클래스.
+ + oepn.commons.database.IndexedColumnDTO: DB Table Column에 대응하는 데이터를 정해진 순서에 맞도록 CSV 데이터를 생성하도록 지원
+ + open.commons.database.annotation.ColumnConstraints : DB Table Column 에 정의된 Constraint 를 DTO 레벨에서 확인할 수 있도록 명시
+
+[2020/10/29]
+- Snapshot: 1.8.0-SNAPSHOT
+- Add
+  + open.commons.database.ConnectionCallbackBroker2
+    - getStatement(Connection)
+    - ConnectionCallbackBroker2(String, T, boolean)
+  + open.commons.database.DefaultConCallbackBroker2
+    - DefaultConCallbackBroker2(String, SQLConsumer&lt;PreparedStatement&gt;, boolean)
+  + open.commons.database.IConnectionCallbackBroker
+    - getStatement(Connection)
+
 [2020/10/29]
 - Release: 1.7.0
 
-
 [2020/10/28]
 - Add
-  + open.commons.ExceptionUtils
+  + open.commons.utils.ExceptionUtils
     - startsWith(String, String, boolean)
     - startsWith(Throwable, String)
     - startsWith(Throwable, String, int)

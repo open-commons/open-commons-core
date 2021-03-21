@@ -30,6 +30,8 @@ package open.commons.database;
  * 
  * @since 2017. 12. 29.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * 
+ * @deprecated Use {@link ConnectionCallbackBroker2}
  */
 public class ConnectionCallbackBroker {
 

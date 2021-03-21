@@ -54,9 +54,8 @@ import open.commons.collection.IKeyExtractor;
 
 /**
  * 
- * <BR>
- * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com) since 2011. 10. 24.
+ * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @since 2011. 10. 24.
  * 
  */
 @SuppressWarnings("unchecked")
@@ -154,6 +153,13 @@ public class CollectionUtils {
     /**
      * 새로운 데이터를 {@link Collection}에 추가한다.
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2017. 12. 13.        박준홍         최초 작성
+     * </pre>
+     * 
      * @param col
      * @param clazz
      *            <code>col</code>이 <code>null</code> 인 경우 생성할 {@link Collection} 타입.
@@ -162,6 +168,7 @@ public class CollectionUtils {
      * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
      *
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @since 2017. 12. 13.
      */
     public static <C extends Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, Collection<E> elems) {
 
@@ -213,6 +220,26 @@ public class CollectionUtils {
         return col;
     }
 
+    /***
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2017. 12. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param list
+     * @param value
+     * @return
+     *
+     * @since 2017. 12. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <T> boolean addIfAbsent(List<T> list, T value) {
         if (list == null) {
             return false;
@@ -532,6 +559,130 @@ public class CollectionUtils {
         return t3;
     }
 
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Boolean> newList(boolean... elems) {
+        List<Boolean> list = new ArrayList<>();
+        for (boolean e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Byte> newList(byte... elems) {
+        List<Byte> list = new ArrayList<>();
+        for (byte e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Character> newList(char... elems) {
+        List<Character> list = new ArrayList<>();
+        for (char e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Double> newList(double... elems) {
+        List<Double> list = new ArrayList<>();
+        for (double e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * 배열에 포함된 데이터를 {@link List} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elems
+     *            데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> List<E> newList(E... elems) {
         List<E> list = new ArrayList<E>();
         if (elems != null) {
@@ -541,6 +692,28 @@ public class CollectionUtils {
         return list;
     }
 
+    /**
+     * 데이터를 추가하여 새로운 {@link List} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elem
+     *            데이터
+     * @param col
+     *            기존 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> List<E> newList(E elem, Collection<E> col) {
         List<E> newList = newList(elem);
         if (col != null) {
@@ -550,6 +723,28 @@ public class CollectionUtils {
         return newList;
     }
 
+    /**
+     * 데이터를 추가하여 새로운 {@link List} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elem
+     *            데이터
+     * @param list
+     *            기존 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> List<E> newList(E elem, List<E> list) {
         List<E> newList = newList(elem);
         if (list != null) {
@@ -559,6 +754,54 @@ public class CollectionUtils {
         return newList;
     }
 
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Integer> newList(int... elems) {
+        List<Integer> list = new ArrayList<>();
+        for (int e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link List} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param list
+     *            기존 데이터
+     * @param elems
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> List<E> newList(List<E> list, E... elems) {
         List<E> newList = (List<E>) newList(list.toArray());
         if (elems != null) {
@@ -568,6 +811,182 @@ public class CollectionUtils {
         return newList;
     }
 
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Long> newList(long... elems) {
+        List<Long> list = new ArrayList<>();
+        for (long e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<Short> newList(short... elems) {
+        List<Short> list = new ArrayList<>();
+        for (short e : elems) {
+            list.add(e);
+        }
+
+        return list;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Boolean> newSet(boolean... elems) {
+        Set<Boolean> set = new HashSet<>();
+        for (boolean e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Byte> newSet(byte... elems) {
+        Set<Byte> set = new HashSet<>();
+        for (byte e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Character> newSet(char... elems) {
+        Set<Character> set = new HashSet<>();
+        for (char e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Double> newSet(double... elems) {
+        Set<Double> set = new HashSet<>();
+        for (double e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * 배열 데이터를 새로운 {@link Set} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elems
+     *            데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Set<E> newSet(E... elems) {
         Set<E> set = new HashSet<E>();
         if (elems != null) {
@@ -577,6 +996,28 @@ public class CollectionUtils {
         return set;
     }
 
+    /**
+     * 데이터를 추가하여 새로운 {@link Set} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elem
+     *            데이터
+     * @param col
+     *            기존 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Set<E> newSet(E elem, Collection<E> col) {
         Set<E> newSet = newSet(elem);
         if (col != null) {
@@ -586,6 +1027,28 @@ public class CollectionUtils {
         return newSet;
     }
 
+    /**
+     * 데이터를 추가하여 새로운 {@link Set} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elem
+     *            데이터
+     * @param set
+     *            기존 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Set<E> newSet(E elem, Set<E> set) {
         Set<E> newSet = newSet(elem);
         if (set != null) {
@@ -595,6 +1058,80 @@ public class CollectionUtils {
         return newSet;
     }
 
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Integer> newSet(int... elems) {
+        Set<Integer> set = new HashSet<>();
+        for (int e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Long> newSet(long... elems) {
+        Set<Long> set = new HashSet<>();
+        for (long e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Set} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param set
+     *            기존 데이터
+     * @param elems
+     *            데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Set<E> newSet(Set<E> set, E... elems) {
         Set<E> newSet = (Set<E>) newSet(set.toArray());
         if (elems != null) {
@@ -604,6 +1141,156 @@ public class CollectionUtils {
         return newSet;
     }
 
+    /**
+     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Set<Short> newSet(short... elems) {
+        Set<Short> set = new HashSet<>();
+        for (short e : elems) {
+            set.add(e);
+        }
+
+        return set;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Boolean> newVector(boolean... elems) {
+        Vector<Boolean> vector = new Vector<>();
+        for (boolean e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Byte> newVector(byte... elems) {
+        Vector<Byte> vector = new Vector<>();
+        for (byte e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Character> newVector(char... elems) {
+        Vector<Character> vector = new Vector<>();
+        for (char e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Double> newVector(double... elems) {
+        Vector<Double> vector = new Vector<>();
+        for (double e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * 배열 데이터를 새로운 {@link Vector} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elems
+     *            데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Vector<E> newVector(E... elems) {
         Vector<E> vector = new Vector<E>();
         if (elems != null) {
@@ -613,6 +1300,28 @@ public class CollectionUtils {
         return vector;
     }
 
+    /**
+     * 데이터를 추가하여 새로운 {@link Vector} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elem
+     *            데이터
+     * @param col
+     *            기존 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Vector<E> newVector(E elem, Collection<E> col) {
         Vector<E> newVector = newVector(elem);
         if (col != null) {
@@ -622,6 +1331,28 @@ public class CollectionUtils {
         return newVector;
     }
 
+    /**
+     * 데이터를 추가하여 새로운 {@link Vector} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param elem
+     *            데이터
+     * @param vector
+     *            기존 데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Vector<E> newVector(E elem, Vector<E> vector) {
         Vector<E> newVector = newVector(elem);
         if (vector != null) {
@@ -631,6 +1362,106 @@ public class CollectionUtils {
         return newVector;
     }
 
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Integer> newVector(int... elems) {
+        Vector<Integer> vector = new Vector<>();
+        for (int e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Long> newVector(long... elems) {
+        Vector<Long> vector = new Vector<>();
+        for (long e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param elems
+     * @return
+     *
+     * @since 2020. 12. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Vector<Short> newVector(short... elems) {
+        Vector<Short> vector = new Vector<>();
+        for (short e : elems) {
+            vector.add(e);
+        }
+
+        return vector;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Vector} 로 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 21.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param vector
+     *            기존 데이터
+     * @param elems
+     *            데이터
+     * @return
+     *
+     * @since 2020. 12. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static <E> Vector<E> newVector(Vector<E> vector, E... elems) {
         Vector<E> newVector = (Vector<E>) newVector(vector.toArray());
         if (elems != null) {
@@ -2387,4 +3218,5 @@ public class CollectionUtils {
 
         }
     }
+
 }

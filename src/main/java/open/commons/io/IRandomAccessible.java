@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,89 +18,73 @@
  *
  * This file is generated under this project, "open-commons-core".
  *
- * Date  : 2019. 2. 19. 오전 10:42:09
+ * Date  : 2020. 11. 13. 오후 2:17:06
  *
  * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
  */
 
-package open.commons.database;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+package open.commons.io;
 
 /**
- * SQL 쿼리에 파라미터를 설정하는 역할을 정의한 인터페이스.
  * 
- * 
- * 
- * <br>
- * 
- * <pre>
- * [개정이력]
- *      날짜    	| 작성자	|	내용
- * ------------------------------------------
- * 2019. 2. 19.		박준홍        최초 작성
- * </pre>
- * 
- * @param <T>
- * @since 2019. 2. 19.
+ * @since 2020. 11. 13.
+ * @version _._._
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
-public interface IConnectionCallbackBroker {
+public interface IRandomAccessible {
 
     /**
-     * SQL 쿼리를 제공한다. <br>
+     * 현재 줄에 위치하는 데이터의 byte[] 길이를 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 19.		박준홍			최초 작성
+     * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
      * @return
      *
+     * @since 2020. 11. 13.
+     * @version _._._
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @since 2019. 2. 19.
      */
-    String getQuery();
+    int getLength();
 
     /**
-     * DBMS 연결정보와 내부 쿼리 정보를 이용하여 {@link PreparedStatement} 를 제공한다. <br>
+     * 다음 줄의 시작 위치를 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 10. 29.		박준홍			최초 작성
+     * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
-     * @param <T>
-     * @param con
      * @return
-     * @throws SQLException
-     *             TODO
      *
-     * @since 2020. 10. 29.
+     * @since 2020. 11. 13.
+     * @version _._._
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public PreparedStatement getStatement(Connection con) throws SQLException;
+    int getNextPosition();
 
     /**
-     * {@link PreparedStatement}에 SQL 쿼리 파라미터를 설정한다.<br>
+     * 현재 줄의 시작 위치를 제공한다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 19.		박준홍			최초 작성
+     * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @return
+     *
+     * @since 2020. 11. 13.
+     * @version _._._
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @param stmt
-     * @since 2019. 2. 19.
      */
-    void set(PreparedStatement stmt) throws SQLException;
+    int getPosition();
 }

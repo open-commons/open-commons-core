@@ -27,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,6 +87,9 @@ public class DateUtil {
      * @see #REGEX_yyyyMMDD_HHmmss
      */
     public static final Pattern yyyyMMDD_HHmmss = Pattern.compile(REGEX_yyyyMMDD_HHmmss);
+
+    /** 날짜를 구성하는 문자형 데이터를 정수형 데이터로 제공한다. */
+    private static final Function<String, Integer> CAL_S2I = s -> s != null ? Integer.parseInt(s) : 0;
 
     /**
      * 주어진 시간이 경과한 후에 현재 시간 이후인지 여부를 제공한다.
@@ -728,6 +732,65 @@ public class DateUtil {
     }
 
     /**
+     * 주어진 정보에 맞는 시간객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 5.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param year
+     *            년도
+     * @param month
+     *            월 (0 ~ 11)
+     * @param date
+     *            날짜
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar newCalendar(int year, int month, int date) {
+        return newCalendar(year, month, date, 0, 0, 0);
+    }
+
+    /**
+     * 주어진 정보에 맞는 시간객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 5.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param year
+     *            년도
+     * @param month
+     *            월 (0 ~ 11)
+     * @param date
+     *            날짜
+     * @param hourOfDay
+     *            시간
+     * @param minute
+     *            분
+     * @param second
+     *            초
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar newCalendar(int year, int month, int date, int hourOfDay, int minute, int second) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, date, hourOfDay, minute, second);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
+
+    /**
      * 주어진 밀리초 정보에 맞는 {@link Calendar} 객체를 반환한다.
      * 
      * @param timeInMillis
@@ -739,6 +802,65 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timeInMillis);
 
+        return calendar;
+    }
+
+    /**
+     * 주어진 정보에 맞는 시간객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 5.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param year
+     *            년도
+     * @param month
+     *            월 (0 ~ 11)
+     * @param date
+     *            날짜
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar newCalendar(String year, String month, String date) {
+        return newCalendar(year, month, date, null, null, null);
+    }
+
+    /**
+     * 주어진 정보에 맞는 시간객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 5.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param year
+     *            년도
+     * @param month
+     *            월 (0 ~ 11)
+     * @param date
+     *            날짜
+     * @param hourOfDay
+     *            시간
+     * @param minute
+     *            분
+     * @param second
+     *            초
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar newCalendar(String year, String month, String date, String hourOfDay, String minute, String second) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(CAL_S2I.apply(year), CAL_S2I.apply(month), CAL_S2I.apply(date), CAL_S2I.apply(hourOfDay), CAL_S2I.apply(minute), CAL_S2I.apply(second));
+        calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
     }
 
@@ -787,6 +909,34 @@ public class DateUtil {
         for (int field : dateFields) {
             calendar.set(field, 0);
         }
+    }
+
+    /**
+     * 해당 필드의 값을 0으로 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dateFields
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
+     * @return
+     *
+     * @since 2021. 2. 18.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Calendar resetDateFields(int... dateFields) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        resetDateFields(calendar, dateFields);
+
+        return calendar;
     }
 
     /**
@@ -862,6 +1012,29 @@ public class DateUtil {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param timestamp
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toISOFormat(Long timestamp) {
+        AssertUtils.assertNull(timestamp);
+
+        return ISO_FORMAT.format(newCalendar(timestamp).getTime());
+    }
+
+    /**
      * @param calendar
      * @return
      * 
@@ -903,6 +1076,29 @@ public class DateUtil {
      */
     public static String toISOFormatNoTZ(int year, int month, int dayOfMonth, int hourOfDay, int min, int sec) {
         return toISOFormatNoTZ(pad(year), pad(month), pad(dayOfMonth), pad(hourOfDay), pad(min), pad(sec));
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param timestamp
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toISOFormatNoTZ(Long timestamp) {
+        AssertUtils.assertNull(timestamp);
+
+        return ISO_FORMAT_NO_TZ.format(newCalendar(timestamp).getTime());
     }
 
     /**
@@ -1027,6 +1223,35 @@ public class DateUtil {
         }
 
         return format.format(date);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 11. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param timestamp
+     * @param pattern
+     * @return
+     *
+     * @since 2020. 11. 5.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String toString(Long timestamp, String pattern) {
+        SimpleDateFormat format = formats.get(pattern);
+        if (format == null) {
+            format = new SimpleDateFormat(pattern);
+
+            formats.put(pattern, format);
+        }
+
+        return format.format(new Date(timestamp));
     }
 
     /**

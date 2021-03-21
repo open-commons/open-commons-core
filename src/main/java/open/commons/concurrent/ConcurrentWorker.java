@@ -146,7 +146,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
             if (queue.size() < 1) {
                 do {
                     try {
-                        mutexQueue.wait();                        
+                        mutexQueue.wait();
                     } catch (InterruptedException ignored) {
                         System.err.println("Explicitly Interrupted by EXTERNAL.");
                         break;
@@ -183,6 +183,31 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
             } else {
                 return get();
             }
+        }
+    }
+
+    /**
+     * 현재 남아있는 작업개수를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 2. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 2. 19.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public int getJobCount() {
+        mutexWJC.lock();
+        try {
+            return workJobCounter.get();
+        } finally {
+            mutexWJC.unlock();
         }
     }
 
