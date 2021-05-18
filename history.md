@@ -1,3 +1,7 @@
+[2021/05/55]
+- bugfix
+  + open.commons.collection.FIFOMap.clear(): 데이터(값) 미삭제 버그 수정
+
 [2021/02/26]
 - Add
   + open.commons.function.IOFunction&lt;T, R&gt;
