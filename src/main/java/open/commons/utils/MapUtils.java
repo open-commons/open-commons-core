@@ -27,10 +27,12 @@
 package open.commons.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -66,7 +68,7 @@ public class MapUtils {
      * @param key
      *            찾고자하는 데이터 키
      * @param defaultValue
-     *            기본값
+     *            기본값 ({@link Supplier#get()) MUST NOT be null.)
      * @param insertIfNot
      *            {@link Map}에 존재하지 않는 경우 추가할지 여부
      * @return
@@ -77,11 +79,12 @@ public class MapUtils {
      */
     public static <K, V> V getOrDefault(Map<K, V> map, K key, Supplier<V> defaultValue, boolean insertIfNot) {
 
-        if (map.containsKey(key)) {
-            return map.get(key);
+        V v = map.get(key);
+        if (v != null) {
+            return v;
         }
 
-        V v = defaultValue.get();
+        v = defaultValue.get();
         if (insertIfNot) {
             map.put(key, v);
         }
@@ -125,6 +128,67 @@ public class MapUtils {
         }
 
         return v;
+    }
+
+    /**
+     * {@link Map}에 포함된 데이터를 주어진 정보에 맞게 처리하여 새로운 {@link Map}을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 16.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <NK>
+     * @param <NV>
+     * @param <C>
+     * @param <M>
+     * @param src
+     *            원본 데이터
+     * @param keyGen
+     * @param valueGen
+     * @param mapClass
+     * @param colClass
+     * @return
+     * @throws RuntimeException
+     *             {@link Map} 객체 또는 {@link Collection} 객체 생성을 실패했을 경우
+     *
+     * @since 2021. 6. 16.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(Map<K, V> src, Function<Entry<K, V>, NK> keyGen, Function<Entry<K, V>, NV> valueGen,
+            Class<M> mapClass, Class<C> colClass) throws RuntimeException {
+
+        M newMap = null;
+        NK nk = null;
+
+        try {
+            Supplier<C> dnv = () -> {
+                try {
+                    return (C) colClass.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw ExceptionUtils.newException(RuntimeException.class, e, "Collection 객체 생성 도중 에러가 발생하였습니다. 원인=%s", e.getMessage());
+                }
+            };
+
+            newMap = mapClass.newInstance();
+            for (Entry<K, V> entry : src.entrySet()) {
+                nk = keyGen.apply(entry);
+                if (nk == null) {
+                    continue;
+                }
+
+                getOrDefault(newMap, nk, dnv, true) //
+                        .add(valueGen.apply(entry));
+            }
+            return newMap;
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw ExceptionUtils.newException(RuntimeException.class, e, "Map 객체 생성 중 에러가 발생하였습니다.");
+        }
     }
 
     /**

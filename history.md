@@ -1,3 +1,7 @@
+[2021/06/16]
+- Add
+  + open.commons.core.utils.MapUtils.map(Map&lt;K, V&gt;, Function&lt;Entry&lt;K, V&gt;, NK&gt;, Function&lt;Entry&lt;K, V&gt;, NV&gt;, Class&lt;M&gt;, Class&lt;C&gt;)
+
 [2021/05/55]
 - bugfix
   + open.commons.collection.FIFOMap.clear(): 데이터(값) 미삭제 버그 수정
@@ -35,7 +39,7 @@
 - Modify
   + open.commons.concurrent.AsyncJobManager
     - get(K)
-    - register(K, Future<?>)
+    - register(K, Future&lt;?&gt;)
     - unregister(K)
   + open.commons.concurrent.AsyncJobManager.Builder
     - getManager(Object)
@@ -311,9 +315,9 @@
     - build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
     - build(Function&lt;S, T&gt;, S, Function&lt;U, X&gt;, Function&lt;T, U&gt;, Function&lt;Throwable, X&gt;)
     - build(Function&lt;T, R&gt;, T, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
-    - build(Function&lt;T, Result&lt;R&gt;>, T, Consumer&lt;R&gt;)
-    - build(Function&lt;T, Result&lt;R&gt;>, T, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;)
-    - getOnAsync(Future&lt;Result&lt;R&gt;>)
+    - build(Function&lt;T, Result&lt;R&gt;&gt;, T, Consumer&lt;R&gt;)
+    - build(Function&lt;T, Result&lt;R&gt;&gt;, T, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;)
+    - getOnAsync(Future&lt;Result&lt;R&gt;&gt;)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;)
@@ -458,7 +462,7 @@
      
 [2019/09/03]
 - Add
-  + open.commons.utils.ObjectUtils.checkType(Class<?>, Class<?>)
+  + open.commons.utils.ObjectUtils.checkType(Class&lt;?&gt;, Class&lt;?&gt;)
   + open.commons.utils.ObjectUtils.load(Class&lt;T&gt;, Map&lt;String, Object&gt;)
 
 [2019/08/29]
@@ -593,7 +597,7 @@
 [2019/06/17]
 - Release: 1.6.8
 - Add
-  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class&lt;A&gt;, Class<?>)
+  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class&lt;A&gt;, Class&lt;?&gt;)
   + open.commons.utils.SQLUtils.findDifferences(T, T, String...)
 
 [2019/06/13]
@@ -771,8 +775,8 @@
 [2018/02/08]
 - Release: 1.4.14
 - Add
-  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;>> M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class\&lt;M&gt;)
-  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;>> M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)
+  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class\&lt;M&gt;)
+  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)
 
 
 [2018/01/31]
@@ -833,9 +837,9 @@
 - Release: 1.4.5
 - Update
   + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;);
-  + &lt;K, V, M extends Map&lt;K, V&gt;> M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;, Class\&lt;M&gt;);
+  + &lt;K, V, M extends Map&lt;K, V&gt;&gt; M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;, Class\&lt;M&gt;);
   + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;);
-  + &lt;K, V, M extends Map&lt;K, V&gt;> M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;, Class\&lt;M&gt;);
+  + &lt;K, V, M extends Map&lt;K, V&gt;&gt; M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;, Class\&lt;M&gt;);
 
 [2017/09/06]
 - Release: 1.4.4.0
@@ -983,7 +987,7 @@
 
 - Update
   + open.commons.utils/ArrayUtils.java
-    - public static Class<?>[] adjustByLength(int length, Class<?>... classes)
+    - public static Class&lt;?&gt;[] adjustByLength(int length, Class&lt;?&gt;... classes)
 
 [2014/06/04]
 - Release 1.0.8

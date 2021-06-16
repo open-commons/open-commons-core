@@ -47,10 +47,7 @@ public interface Runner {
     }
 
     default Runner andThen(Runner run) {
-        return () -> {
-            run();
-            run.run();
-        };
+        return andIfThen(() -> true, run);
     }
 
     void run() throws RuntimeException;

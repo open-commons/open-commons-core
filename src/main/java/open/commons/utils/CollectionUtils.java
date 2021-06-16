@@ -2064,7 +2064,7 @@ public class CollectionUtils {
      * @since 2019. 11. 28.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <E, K, V, M extends Map<K, Collection<V>>, C extends Collection<V>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
+    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
             Class<C> colClass) {
 
         M map = null;
@@ -2112,7 +2112,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <E, K, V, M extends Map<K, Collection<V>>, C extends Collection<V>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
+    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
             Class<C> colClass) {
 
         K key = null;
