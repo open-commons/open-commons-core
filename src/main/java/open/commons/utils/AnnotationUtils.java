@@ -89,16 +89,16 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
-        ArrayList<Field> methods = new ArrayList<>();
+        ArrayList<Field> fields = new ArrayList<>();
 
-        Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+        Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .forEach(m -> {
                     boolean accessible = false;
                     try {
                         accessible = m.isAccessible();
 
                         if (m.isAnnotationPresent(annotationClass)) {
-                            methods.add(m);
+                            fields.add(m);
                         }
                     } catch (Throwable ignored) {
                         // ignored
@@ -107,7 +107,7 @@ public class AnnotationUtils {
                     }
                 });
 
-        return methods;
+        return fields;
     }
 
     /**
@@ -154,7 +154,7 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
-        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+        return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
                 .collect(Collectors.toList());
     }
@@ -181,7 +181,7 @@ public class AnnotationUtils {
      */
     @SuppressWarnings("unchecked")
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
-        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+        return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
                 .collect(Collectors.toList());
     }
@@ -232,7 +232,7 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
-        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+        return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
         ;
     }
@@ -260,7 +260,7 @@ public class AnnotationUtils {
      */
     @SuppressWarnings("unchecked")
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
-        return Arrays.stream(typeClass.getDeclaredFields()) // create methods stream
+        return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
         ;
     }
