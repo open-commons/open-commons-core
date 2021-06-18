@@ -199,7 +199,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2021. 2. 19.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public int getJobCount() {

@@ -38,7 +38,7 @@ import java.util.function.Function;
  * {@link #apply(Object, Object, Object, Object)}.
  * 
  * @since 2020. 1. 30.
- * @version _._._
+ * @version 1.8.0
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 @FunctionalInterface
@@ -63,7 +63,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * @return
      *
      * @since 2020. 1. 30.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     default <Z> HexaFunction<T, U, V, W, X, Y, Z> andThen(Function<? super R, ? extends Z> after) {
@@ -90,7 +90,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * @return
      *
      * @since 2020. 1. 30.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     R apply(T t, U u, V v, W w, X x, Y y);

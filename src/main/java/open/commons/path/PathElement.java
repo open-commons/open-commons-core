@@ -84,7 +84,7 @@ public class PathElement implements Iterable<String> {
     /**
      * 주어진 문자를 구분자로 사용해서 새로운 객체를 생성한다.
      * 
-     * @param separator
+     * @param delimiter
      *            경로 구분자 <BR>
      * @since 2012. 03. 15.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
@@ -130,7 +130,7 @@ public class PathElement implements Iterable<String> {
     /**
      * 생성자
      * 
-     * @param separator
+     * @param delimiter
      *            경로 구분자.
      * 
      *            <BR>
@@ -139,9 +139,9 @@ public class PathElement implements Iterable<String> {
      */
     public PathElement(String separator) {
         if (separator == null) {
-            throw new IllegalArgumentException(new NullPointerException("A separator must not be 'null': separator=null"));
+            throw new IllegalArgumentException(new NullPointerException("A delimiter must not be 'null': delimiter=null"));
         } else if (StringUtils.isNullOrEmptyString(separator)) {
-            throw new IllegalArgumentException("A separator must not be 'empty string': separator=" + separator);
+            throw new IllegalArgumentException("A delimiter must not be 'empty string': delimiter=" + separator);
         }
 
         this.separator = separator;
@@ -150,7 +150,7 @@ public class PathElement implements Iterable<String> {
 
     /**
      * 
-     * @param separator
+     * @param delimiter
      * @param elems
      *            경로값들의 문자열 배열
      * @param elemLength
@@ -676,7 +676,7 @@ public class PathElement implements Iterable<String> {
      * 경로 구분자를 변경한 후, 이전 구분자를 반환한다. <br>
      * 구분자는 <code>null</code>이 될 수 없다.
      * 
-     * @param separator
+     * @param delimiter
      * @return 이전 구분자.
      * 
      *         <BR>
@@ -696,7 +696,7 @@ public class PathElement implements Iterable<String> {
      * 경로 구분자를 변경한 후, 이전 구분자를 반환한다. <br>
      * 구분자는 <code>null</code>이 될 수 없다.
      * 
-     * @param separator
+     * @param delimiter
      * @return 이전 구분자. 파라미터가 <code>null</code>인 경우 변경을 하지 않고, <code>null</code>을 반환하다. <BR>
      * @since 2012. 03. 12.
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)

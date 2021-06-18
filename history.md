@@ -1,3 +1,13 @@
+[2021/06/18]
+- Add
+  + open.commons.core.csv.AbstractCsvData
+  + open.commons.core.csv.FieldBase
+  + open.commons.core.csv.MethodBase
+  + open.commons.core.lang.Char
+- Modify
+  + open.commons.core.database.IndexedColumnDTO
+    - 공통 기능을 open.commons.core.csv.AbstractCsvData 로 이관
+
 [2021/06/16]
 - Add
   + open.commons.core.utils.MapUtils.map(Map&lt;K, V&gt;, Function&lt;Entry&lt;K, V&gt;, NK&gt;, Function&lt;Entry&lt;K, V&gt;, NV&gt;, Class&lt;M&gt;, Class&lt;C&gt;)

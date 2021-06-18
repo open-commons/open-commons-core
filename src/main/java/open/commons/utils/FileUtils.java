@@ -582,7 +582,7 @@ public class FileUtils {
      * @return
      *
      * @since 2021. 2. 10.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @throws IOException
      * 
@@ -612,7 +612,7 @@ public class FileUtils {
      * @throws IOException
      *
      * @since 2021. 2. 18.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static Path move(Path source, Path target, CopyOption... options) throws IOException {
@@ -638,7 +638,7 @@ public class FileUtils {
      * @return
      *
      * @since 2021. 2. 10.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @throws IOException
      * 
@@ -667,7 +667,7 @@ public class FileUtils {
      * @return
      *
      * @since 2021. 2. 10.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @throws IOException
      * 
@@ -696,7 +696,7 @@ public class FileUtils {
      * @return
      *
      * @since 2021. 2. 10.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @throws IOException
      * 

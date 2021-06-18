@@ -232,7 +232,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 2. 14.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public Result<T> setMessage(String format, Object... args) {
@@ -305,7 +305,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 11. 20.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <N> Result<N> copyOf(Result<?> o) {

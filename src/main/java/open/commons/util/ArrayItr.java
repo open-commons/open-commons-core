@@ -110,7 +110,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      *
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public void reset() {

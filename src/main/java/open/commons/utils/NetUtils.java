@@ -96,7 +96,7 @@ public class NetUtils {
      * @return
      *
      * @since 2015. 3. 4.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static String intToIp(int ip) {
@@ -147,7 +147,7 @@ public class NetUtils {
      * @return
      *
      * @since 2015. 3. 4.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static String toString(byte[] mac) {

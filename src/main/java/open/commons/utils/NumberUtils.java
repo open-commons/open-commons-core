@@ -74,7 +74,7 @@ public class NumberUtils {
      * @return
      *
      * @since 2020. 12. 17.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
 

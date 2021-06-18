@@ -1654,18 +1654,18 @@ public class CollectionUtils {
      * 
      * @param <E>
      * @param list
-     * @param s
+     * @param begin
      *            시작 위치 inclusive
      * @return
      */
-    public static <E> List<E> subCollection(List<E> list, int s) {
-        if (s > list.size() - 1) {
+    public static <E> List<E> subCollection(List<E> list, int begin) {
+        if (begin > list.size() - 1) {
             return Collections.emptyList();
         }
 
         List<E> newList = new ArrayList<E>();
 
-        for (int i = s; i < list.size(); i++) {
+        for (int i = begin; i < list.size(); i++) {
             newList.add(list.get(i));
         }
 
@@ -1677,20 +1677,20 @@ public class CollectionUtils {
      * 
      * @param <E>
      * @param list
-     * @param s
+     * @param begin
      *            시작 위치 inclusive
-     * @param e
+     * @param end
      *            종료 위치 exclusive
      * @return
      */
-    public static <E> List<E> subCollection(List<E> list, int s, int e) {
-        if (s > list.size() - 1 || s >= e || e < 0) {
+    public static <E> List<E> subCollection(List<E> list, int begin, int end) {
+        if (begin > list.size() - 1 || begin >= end || end < 0) {
             return Collections.emptyList();
         }
 
         List<E> newList = new ArrayList<E>();
 
-        for (int i = s; i < e; i++) {
+        for (int i = begin; i < end; i++) {
             newList.add(list.get(i));
         }
 

@@ -40,7 +40,7 @@ import open.commons.Result;
 /**
  * 
  * @since 2020. 4. 10.
- * @version _._._
+ * @version 1.8.0
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class StreamUtils {

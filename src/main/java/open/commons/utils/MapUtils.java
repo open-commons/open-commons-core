@@ -157,7 +157,7 @@ public class MapUtils {
      *             {@link Map} 객체 또는 {@link Collection} 객체 생성을 실패했을 경우
      *
      * @since 2021. 6. 16.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(Map<K, V> src, Function<Entry<K, V>, NK> keyGen, Function<Entry<K, V>, NV> valueGen,

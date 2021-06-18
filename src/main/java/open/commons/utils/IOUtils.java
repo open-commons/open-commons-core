@@ -644,7 +644,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
@@ -689,7 +689,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     private static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
@@ -724,7 +724,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     @SafeVarargs
@@ -754,7 +754,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
@@ -783,7 +783,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     @SafeVarargs
@@ -809,7 +809,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, Iterable<R> accessibles) throws IOException {
@@ -834,7 +834,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     @SafeVarargs
@@ -860,7 +860,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <R extends IRandomAccessible> Result<byte[]> readFile(File file, R accessible) throws IOException {
@@ -889,7 +889,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
@@ -932,7 +932,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     @SafeVarargs
@@ -961,7 +961,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessibles) throws IOException {
@@ -1004,7 +1004,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <R extends IRandomAccessible> Result<byte[]> readFile(RandomAccessFile file, R accessible) throws IOException {
@@ -1034,7 +1034,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
@@ -1064,7 +1064,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     @SafeVarargs
@@ -1090,7 +1090,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, Iterable<R> accessibles) throws IOException {
@@ -1115,7 +1115,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     @SafeVarargs
@@ -1141,7 +1141,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 11. 13.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <R extends IRandomAccessible> Result<byte[]> readFile(String file, R accessible) throws IOException {
@@ -1298,7 +1298,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
      * @see BufferedReader
@@ -1324,7 +1324,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static List<String> readLines(File file, Charset charset) throws FileNotFoundException, IOException {
@@ -1346,7 +1346,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static List<String> readLines(InputStream inStream) throws IOException {
@@ -1369,7 +1369,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static List<String> readLines(InputStream inStream, Charset charset) throws IOException {
@@ -1400,7 +1400,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static List<String> readLines(InputStream inStream, String charsetName) throws IOException {
@@ -1426,7 +1426,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
@@ -1449,7 +1449,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2020. 2. 8.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {

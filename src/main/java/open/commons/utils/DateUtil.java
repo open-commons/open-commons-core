@@ -926,7 +926,7 @@ public class DateUtil {
      * @return
      *
      * @since 2021. 2. 18.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static Calendar resetDateFields(int... dateFields) {

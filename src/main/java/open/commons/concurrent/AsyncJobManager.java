@@ -233,7 +233,7 @@ public class AsyncJobManager<K, V> {
      * {@link AsyncJobManager} 를 생성하는 클래스.
      * 
      * @since 2020. 11. 11.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static class Builder {
