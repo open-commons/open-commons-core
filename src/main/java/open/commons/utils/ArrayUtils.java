@@ -9181,19 +9181,22 @@ public class ArrayUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T> T[] splitAt(T[] array, Function<T, Boolean> at, Function<T, T> post) {
-        List<T> list = new ArrayList<>();
+
+        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+        int pos = 0;
+
         for (T elem : array) {
             if (at.apply(elem)) {
                 if (post != null) {
                     elem = post.apply(elem);
                 }
-                list.add(elem);
+                newArr[pos++] = elem;
                 break;
             }
-            list.add(elem);
+            newArr[pos++] = elem;
         }
 
-        return list.toArray((T[]) new Object[0]);
+        return ArrayUtils.copyOf(newArr, pos);
     }
 
     /**
@@ -9218,15 +9221,16 @@ public class ArrayUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <T> T[] splitBefore(T[] array, Function<T, Boolean> at) {
-        List<T> list = new ArrayList<>();
+        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+        int pos = 0;
         for (T elem : array) {
             if (at.apply(elem)) {
                 break;
             }
-            list.add(elem);
+            newArr[pos++] = elem;
         }
 
-        return list.toArray((T[]) new Object[0]);
+        return ArrayUtils.copyOf(newArr, pos);
     }
 
     /**

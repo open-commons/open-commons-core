@@ -2356,17 +2356,12 @@ public class StringUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static boolean startsWithDigit(String string) {
-        if (string == null) {
-            throw new IllegalArgumentException("파라미터는 'null'을 허용하지 않습니다.");
+        if (string == null || string.trim().isEmpty()) {
+            return false;
         }
 
-        for (char c : string.toCharArray()) {
-            if (Character.isDigit(c)) {
-                return true;
-            }
-        }
-
-        return false;
+        char c = string.charAt(0);
+        return c >= '0' && c <= '9';
     }
 
     /**
