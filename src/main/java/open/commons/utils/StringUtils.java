@@ -2339,6 +2339,37 @@ public class StringUtils {
     }
 
     /**
+     * 문자열이 숫자로 시작하는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static boolean startsWithDigit(String string) {
+        if (string == null) {
+            throw new IllegalArgumentException("파라미터는 'null'을 허용하지 않습니다.");
+        }
+
+        for (char c : string.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * 문자열이 주어진 <b><code>prefix</code></b>로 시작하는지 여부를 반환한다. (대소문자 관계없이)
      * 
      * @param string

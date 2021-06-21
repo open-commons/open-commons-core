@@ -1,3 +1,20 @@
+[2021/06/21]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    - indexOf(boolean[], Function<Boolean, Boolean>)
+    - indexOf(byte[], Function<Byte, Boolean>)
+    - indexOf(char[], Function<Character, Boolean>)
+    - indexOf(double[], Function<Double, Boolean>)
+    - indexOf(float[], Function<Float, Boolean>)
+    - indexOf(int[], Function<Integer, Boolean>)
+    - indexOf(long[], Function<Long, Boolean>)
+    - indexOf(short[], Function<Short, Boolean>)
+    - indexOf(T[], Function<T, Boolean>)
+    - splitAt(T[], Function&lt;T, Boolean&gt;, Function&lt;T, T&gt;)
+    - splitBefore(T[], Function&lt;T, Boolean&gt;)
+  + open.commons.core.utils.StringUtils
+    - startsWithDigit(String)
+
 [2021/06/18]
 - Add
   + open.commons.core.csv.AbstractCsvData

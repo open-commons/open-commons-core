@@ -30,6 +30,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.commons.DefaultEquivalent;
 import open.commons.EquivalentFactory;
@@ -2665,6 +2666,267 @@ public class ArrayUtils {
         }
 
         return rtnBytes;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(char[] array, Function<Character, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(double[] array, Function<Double, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(float[] array, Function<Float, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(int[] array, Function<Integer, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(long[] array, Function<Long, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(short[] array, Function<Short, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> int indexOf(T[] array, Function<T, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     /**
@@ -8894,6 +9156,77 @@ public class ArrayUtils {
         } else {
             throw new IllegalArgumentException("A parameter(T[] array) must not be 'null'", new NullPointerException("array=null"));
         }
+    }
+
+    /**
+     * 첫 데이터부터 주어진 조건에 맞는 데이터까지 새로운 배열로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param at
+     *            조건에 맞는지 비교하는 함수. (inclusive)
+     * @param post
+     *            조건에 맞는 데이터를 후처리하는 함수.
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] splitAt(T[] array, Function<T, Boolean> at, Function<T, T> post) {
+        List<T> list = new ArrayList<>();
+        for (T elem : array) {
+            if (at.apply(elem)) {
+                if (post != null) {
+                    elem = post.apply(elem);
+                }
+                list.add(elem);
+                break;
+            }
+            list.add(elem);
+        }
+
+        return list.toArray((T[]) new Object[0]);
+    }
+
+    /**
+     * 첫 데이터부터 주어진 조건에 맞는 데이터 직전까지 새로운 배열로 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param at
+     *            조건에 맞는지 비교하는 함수. (exclusive)
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] splitBefore(T[] array, Function<T, Boolean> at) {
+        List<T> list = new ArrayList<>();
+        for (T elem : array) {
+            if (at.apply(elem)) {
+                break;
+            }
+            list.add(elem);
+        }
+
+        return list.toArray((T[]) new Object[0]);
     }
 
     /**
