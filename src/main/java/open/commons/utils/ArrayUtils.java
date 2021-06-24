@@ -9159,6 +9159,47 @@ public class ArrayUtils {
     }
 
     /**
+     * 조건에 맞는 데이터 이후부터 끝까지 데이터를 새로운 배열로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 24.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param at
+     *            조건에 맞는지 비교하는 함수. (exclusive)
+     * @return
+     *
+     * @since 2021. 6. 24.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] splitAfter(T[] array, Function<T, Boolean> at) {
+        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+
+        int pos = 0;
+        boolean found = false;
+        for (T elem : array) {
+            if (!found) {
+                found = at.apply(elem);
+                continue;
+            }
+
+            newArr[pos++] = elem;
+        }
+
+        if (pos < 1) {
+            return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
+        } else {
+            return ArrayUtils.copyOf(newArr, pos);
+        }
+    }
+
+    /**
      * 첫 데이터부터 주어진 조건에 맞는 데이터까지 새로운 배열로 제공한다. <br>
      * 
      * <pre>

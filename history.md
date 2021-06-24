@@ -1,3 +1,8 @@
+[2021/06/24]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    - splitAfter(T[], Function&lt;T, Boolean&gt;)
+
 [2021/06/21]
 - Add
   + open.commons.core.utils.ArrayUtils
