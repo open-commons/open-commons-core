@@ -1,5 +1,13 @@
 [2021/06/24]
 - Add
+  + open.commons.core.csv.CsvConfig
+  + open.commons.core.csv.CsvFileConfig
+- Modify
+  + open.commons.core.csv.AbstractCsvData: 기본 설정값 참조 변경
+    - 자체 설정값에서 open.commons.core.csv.CsvConfig 참조
+
+[2021/06/24]
+- Add
   + open.commons.core.utils.ArrayUtils
     - splitAfter(T[], Function&lt;T, Boolean&gt;)
 

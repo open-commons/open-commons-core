@@ -43,10 +43,6 @@ import open.commons.utils.ExceptionUtils;
  */
 public abstract class AbstractCsvData {
 
-    protected static final char DEFAULT_DELIMITER = ',';
-    protected static final char DEFAULT_QUOTE = '"';
-    protected static final char DEFAULT_ESCAPE = '"';
-
     /** 데이터 구분자 */
     protected final char delimiter;
     /** Quotation 문자 */
@@ -70,7 +66,7 @@ public abstract class AbstractCsvData {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public AbstractCsvData() {
-        this(DEFAULT_DELIMITER, DEFAULT_QUOTE, DEFAULT_ESCAPE);
+        this(CsvConfig.DEFAULT_SEPARATOR, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
     }
 
     /**
@@ -92,7 +88,7 @@ public abstract class AbstractCsvData {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public AbstractCsvData(char delimiter) {
-        this(delimiter, DEFAULT_QUOTE, DEFAULT_ESCAPE);
+        this(delimiter, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
     }
 
     /**

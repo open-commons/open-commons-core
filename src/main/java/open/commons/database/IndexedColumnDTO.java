@@ -19,6 +19,7 @@ import java.util.TreeMap;
 import java.util.function.Supplier;
 
 import open.commons.csv.AbstractCsvData;
+import open.commons.csv.CsvConfig;
 import open.commons.csv.MethodBase;
 import open.commons.database.annotation.AQueryIndex;
 import open.commons.utils.AnnotationUtils;
@@ -47,9 +48,9 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * @since 2020. 11.4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see #DEFAULT_DELIMITER
-     * @see #DEFAULT_QUOTE
-     * @see #DEFAULT_ESCAPE
+     * @see CsvConfig#DEFAULT_SEPARATOR
+     * @see CsvConfig.DEFAULT_QUOTE_CHARACTER
+     * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
      */
     public IndexedColumnDTO() {
         super();
