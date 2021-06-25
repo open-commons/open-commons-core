@@ -42,15 +42,15 @@ public class CsvConfig {
     public static final boolean DEFAULT_IGNORE_LEADING_WHITESPACE = true;
 
     /** 데이터를 구분하는 문자 */
-    private char separator;
+    protected char separator;
     /** 문자열로 묶어주는 문자 */
-    private char quotechar;
+    protected char quotechar;
     /** escape 문자 */
-    private char escape;
+    protected char escape;
     /** 무조건 문자열로 묶는 여부 */
-    private boolean strictQuotes;
+    protected boolean strictQuotes;
     /** 데이터 앞쪽의 whitespace 제거 여부 */
-    private boolean ignoreLeadingWhiteSpace;
+    protected boolean ignoreLeadingWhiteSpace;
 
     /**
      * <br>
@@ -72,7 +72,6 @@ public class CsvConfig {
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
-     * @see #DEFAULT_SKIP_LINE_COUNT
      */
     public CsvConfig() {
         this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -100,7 +99,6 @@ public class CsvConfig {
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
-     * @see #DEFAULT_SKIP_LINE_COUNT
      */
     public CsvConfig(char separator) {
         this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -129,7 +127,6 @@ public class CsvConfig {
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
-     * @see #DEFAULT_SKIP_LINE_COUNT
      */
     public CsvConfig(char separator, char quotechar) {
         this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -146,10 +143,15 @@ public class CsvConfig {
      * </pre>
      *
      * @param separator
+     *            데이터를 구분하는 문자
      * @param quotechar
+     *            문자열로 묶어주는 문자
      * @param escape
+     *            escape 문자
      * @param strictQuotes
+     *            무조건 문자열로 묶는 여부
      * @param ignoreLeadingWhiteSpace
+     *            데이터 앞쪽의 whitespace 제거 여부
      * @since 2021. 6. 25.
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
