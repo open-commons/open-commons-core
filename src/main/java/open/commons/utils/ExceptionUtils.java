@@ -31,6 +31,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.function.Supplier;
 
 /**
  * 
@@ -38,6 +39,32 @@ import java.util.Iterator;
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class ExceptionUtils {
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param type
+     * @param args
+     * @param format
+     * @param msgArgs
+     * @return
+     *
+     * @since 2021. 7. 5.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E extends Throwable> E newException(Class<E> type, Class<?>[] argTypes, Object[] args, String format, Object... msgArgs) {
+        return newException(type, () -> argTypes, args, format, msgArgs);
+    }
 
     /**
      * 예외객체를 생성한다. <br>
@@ -63,9 +90,50 @@ public class ExceptionUtils {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <E extends Throwable> E newException(Class<E> type, String format, Object... args) {
+        return newException(type, () -> null, null, format, args);
+    }
+
+    /**
+     * 예외객체를 생성한다. <br>
+     * 단 예외타입은 문자열 1개를 파라미터로 받는 생성자가 필요하다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param type
+     * @param argTypes
+     * @param args
+     * @param format
+     * @param msgArgs
+     * @return
+     *
+     * @since 2021. 7. 5.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E extends Throwable> E newException(Class<E> type, Supplier<Class<?>[]> argTypes, Object[] args, String format, Object... msgArgs) {
         try {
-            Constructor<E> c = type.getConstructor(String.class);
-            return c.newInstance(String.format(format, args));
+            Constructor<E> c = null;
+            Class<?>[] paramTypes = null;
+            if (argTypes != null && format != null) {
+                paramTypes = ArrayUtils.add(argTypes.get(), String.class);
+                c = type.getConstructor(paramTypes);
+                args = ArrayUtils.add(args, String.format(format, msgArgs));
+            } else if (argTypes != null) {
+                c = type.getConstructor(argTypes.get());
+            } else if (format != null) {
+                c = type.getConstructor(String.class);
+                args = new Object[] { String.format(format, msgArgs) };
+            } else {
+                c = type.getConstructor();
+            }
+            c = type.getConstructor(paramTypes);
+            return c.newInstance(args);
         } catch (Throwable e) {
             throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인=%s", e.getMessage()));
         }

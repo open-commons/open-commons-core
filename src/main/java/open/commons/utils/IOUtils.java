@@ -48,6 +48,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -128,6 +129,35 @@ public class IOUtils {
      *            {@link AutoCloseable} 객체들.
      */
     public static void close(AutoCloseable... closeables) {
+        for (AutoCloseable closeable : closeables) {
+            if (closeable != null) {
+                try {
+                    closeable.close();
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
+
+    /**
+     * {@link AutoCloseable}를 모두 닫는다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * 
+     * @param closeables
+     *            {@link AutoCloseable} 객체들.
+     *
+     * @since 2021. 7. 5.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static void close(Collection<AutoCloseable> closeables) {
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -1621,7 +1651,7 @@ public class IOUtils {
                 buf.flip();
 
                 writer.write(buf);
-                
+
                 outStream.flush();
 
                 buf.clear();

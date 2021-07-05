@@ -1,3 +1,11 @@
+[2021/07/05]
+- Add
+  + open.commons.utils.IOUtils.close(Collection&lt;AutoCloseable&gt;)
+
+[2021/07/01]
+- Add
+  + open.commons.core.lang.CloseableContainer: {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로 해제({@link AutoCloseable#close()})
+
 [2021/06/24]
 - Add
   + open.commons.core.csv.CsvConfig
