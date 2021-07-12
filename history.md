@@ -1,3 +1,12 @@
+[2021/07/12]
+- Add
+  + open.commons.utils.NetUtils.REGEX\_IPV4\_STRICT
+  + open.commons.utils.NetUtils.REGEX\_IPV6
+  + open.commons.utils.NetUtils.REGEX\_IPV6\_STRICT
+  + open.commons.utils.NetUtils.intToIPv4(int)
+  + open.commons.utils.NetUtils.isIPv4(String)
+  + open.commons.utils.NetUtils.isIPv6(String)
+
 [2021/07/05]
 - Add
   + open.commons.utils.IOUtils.close(Collection&lt;AutoCloseable&gt;)

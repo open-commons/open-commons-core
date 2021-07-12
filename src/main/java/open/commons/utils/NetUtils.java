@@ -37,10 +37,18 @@ import java.net.SocketException;
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class NetUtils {
-    private static final String REGEX_IPV4 = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."//
-            + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."//
-            + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."//
-            + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+    public static final String REGEX_IPV4 = "(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\.(?!$)|$)){4}";
+    public static final String REGEX_IPV6 = "^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}" // IPv6 Standard
+            + "|" //
+            + "((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)" // IPv6 HEX
+                                                                                                             // Compressed
+                                                                                                             // Pattern
+    ;
+    public static final String REGEX_IPV4_IPV6 = REGEX_IPV4 + "|" + REGEX_IPV6;
+
+    public static final String REGEX_IPV4_STRICT = strict(REGEX_IPV4);
+    public static final String REGEX_IPV6_STRICT = strict(REGEX_IPV6);
+    public static final String REGEX_IPV4_IPV6_STRICT = strict(REGEX_IPV4_IPV6);
 
     /**
      * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환한다.
@@ -52,7 +60,7 @@ public class NetUtils {
      */
     public static InterfaceAddress getInet4Address(NetworkInterface ni) {
         for (InterfaceAddress infAddr : ni.getInterfaceAddresses()) {
-            if (infAddr.getAddress().getHostAddress().matches(REGEX_IPV4)) {
+            if (infAddr.getAddress().getHostAddress().matches(REGEX_IPV4_STRICT)) {
                 return infAddr;
             }
         }
@@ -74,7 +82,7 @@ public class NetUtils {
         NetworkInterface ni = NetworkInterface.getByName(name);
 
         for (InterfaceAddress infAddr : ni.getInterfaceAddresses()) {
-            if (infAddr.getAddress().getHostAddress().matches(REGEX_IPV4)) {
+            if (infAddr.getAddress().getHostAddress().matches(REGEX_IPV4_STRICT)) {
                 return infAddr;
             }
         }
@@ -98,6 +106,7 @@ public class NetUtils {
      * @since 2015. 3. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @deprecated Use {@link NetUtils#intToIPv4(int)}.
      */
     public static String intToIp(int ip) {
         StringBuffer sb = new StringBuffer();
@@ -113,6 +122,105 @@ public class NetUtils {
         return sb.toString();
     }
 
+    /**
+     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2015. 3. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param ip
+     * @return
+     *
+     * @since 2015. 3. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String intToIPv4(int ip) {
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(ip >> 24 & 0xFF);
+        sb.append('.');
+        sb.append(ip >> 16 & 0xFF);
+        sb.append('.');
+        sb.append(ip >> 8 & 0xFF);
+        sb.append('.');
+        sb.append(ip & 0xFF);
+
+        return sb.toString();
+    }
+
+    /**
+     * IPv4 주소 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param ip
+     * @return
+     *
+     * @since 2021. 7. 12.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see #REGEX_IPV4
+     * @see #REGEX_IPV4_STRICT
+     */
+    public static boolean isIPv4(String ip) {
+        return ip.matches(REGEX_IPV4_STRICT);
+    }
+
+    /**
+     * IPv6 주소 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param ip
+     * @return
+     *
+     * @since 2021. 7. 12.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see #REGEX_IPV6
+     * @see #REGEX_IPV6_STRICT
+     */
+    public static boolean isIPv6(String ip) {
+        return ip.matches(REGEX_IPV6_STRICT);
+    }
+
+    private static String strict(String regex) {
+        return new StringBuffer("^").append(regex).append("$").toString();
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2015. 3. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param mac
+     * @return
+     *
+     * @since 2015. 3. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
     public static String toPrettyString(byte[] mac) {
 
         String macStr = toString(mac);
@@ -153,5 +261,4 @@ public class NetUtils {
     public static String toString(byte[] mac) {
         return ByteUtils.hexBinString(mac);
     }
-
 }
