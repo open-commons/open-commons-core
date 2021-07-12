@@ -44,11 +44,11 @@ public class NetUtils {
                                                                                                              // Compressed
                                                                                                              // Pattern
     ;
+    
+    public static final String REGEX_IPV4_STRICT = "^" + REGEX_IPV4 + "$";
+    public static final String REGEX_IPV6_STRICT = "^" + REGEX_IPV6 + "$";
     public static final String REGEX_IPV4_IPV6 = REGEX_IPV4 + "|" + REGEX_IPV6;
-
-    public static final String REGEX_IPV4_STRICT = strict(REGEX_IPV4);
-    public static final String REGEX_IPV6_STRICT = strict(REGEX_IPV6);
-    public static final String REGEX_IPV4_IPV6_STRICT = strict(REGEX_IPV4_IPV6);
+    public static final String REGEX_IPV4_IPV6_STRICT = "^" + REGEX_IPV4_IPV6 + "$";
 
     /**
      * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환한다.
@@ -197,10 +197,6 @@ public class NetUtils {
      */
     public static boolean isIPv6(String ip) {
         return ip.matches(REGEX_IPV6_STRICT);
-    }
-
-    private static String strict(String regex) {
-        return new StringBuffer("^").append(regex).append("$").toString();
     }
 
     /**
