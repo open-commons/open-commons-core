@@ -37,14 +37,21 @@ import java.net.SocketException;
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class NetUtils {
+    /**
+     * IPv4 Regular Expression from
+     * 'https://mkyong.com/regular-expressions/how-to-validate-ip-address-with-regular-expression/'.
+     */
     public static final String REGEX_IPV4 = "(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\.(?!$)|$)){4}";
+    /**
+     * IPv6 Regular Expression from 'http://www.java2s.com/example/java/java.util.regex/is-ipv6-address-by-regex.html'.
+     */
     public static final String REGEX_IPV6 = "^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}" // IPv6 Standard
             + "|" //
             + "((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)" // IPv6 HEX
                                                                                                              // Compressed
                                                                                                              // Pattern
     ;
-    
+
     public static final String REGEX_IPV4_STRICT = "^" + REGEX_IPV4 + "$";
     public static final String REGEX_IPV6_STRICT = "^" + REGEX_IPV6 + "$";
     public static final String REGEX_IPV4_IPV6 = REGEX_IPV4 + "|" + REGEX_IPV6;
