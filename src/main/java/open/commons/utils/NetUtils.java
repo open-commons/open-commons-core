@@ -170,17 +170,40 @@ public class NetUtils {
      * 2021. 7. 12.		박준홍			최초 작성
      * </pre>
      *
-     * @param ip
+     * @param ipAddr
      * @return
      *
      * @since 2021. 7. 12.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @see #REGEX_IPV4
      * @see #REGEX_IPV4_STRICT
      */
-    public static boolean isIPv4(String ip) {
-        return ip.matches(REGEX_IPV4_STRICT);
+    public static boolean isIPv4(String ipAddr) {
+        return ipAddr == null ? false : ipAddr.matches(REGEX_IPV4_STRICT);
+    }
+
+    /**
+     * IPv4 또는 IPv6 주소 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param ipAddr
+     * @return
+     *
+     * @since 2021. 7. 12.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see #REGEX_IPV4_IPV6
+     * @see #REGEX_IPV4_IPV6_STRICT
+     */
+    public static boolean isIPv4OrIPv6(String ipAddr) {
+        return ipAddr == null ? false : ipAddr.matches(REGEX_IPV4_IPV6_STRICT);
     }
 
     /**
@@ -193,17 +216,17 @@ public class NetUtils {
      * 2021. 7. 12.		박준홍			최초 작성
      * </pre>
      *
-     * @param ip
+     * @param ipAddr
      * @return
      *
      * @since 2021. 7. 12.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * @see #REGEX_IPV6
      * @see #REGEX_IPV6_STRICT
      */
-    public static boolean isIPv6(String ip) {
-        return ip.matches(REGEX_IPV6_STRICT);
+    public static boolean isIPv6(String ipAddr) {
+        return ipAddr == null ? false : ipAddr.matches(REGEX_IPV6_STRICT);
     }
 
     /**
