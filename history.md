@@ -1,3 +1,9 @@
+[2021/07/13]
+- Add
+  + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, C)
+  + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, Class&lt;C&gt;)
+  + open.commons.utils.CollectionUtils.has(Collection&lt;E&gt;, Predicate&lt;E&gt;)
+
 [2021/07/12]
 - Add
   + open.commons.utils.NetUtils.REGEX\_IPV4\_STRICT
@@ -34,15 +40,15 @@
 [2021/06/21]
 - Add
   + open.commons.core.utils.ArrayUtils
-    - indexOf(boolean[], Function<Boolean, Boolean>)
-    - indexOf(byte[], Function<Byte, Boolean>)
-    - indexOf(char[], Function<Character, Boolean>)
-    - indexOf(double[], Function<Double, Boolean>)
-    - indexOf(float[], Function<Float, Boolean>)
-    - indexOf(int[], Function<Integer, Boolean>)
-    - indexOf(long[], Function<Long, Boolean>)
-    - indexOf(short[], Function<Short, Boolean>)
-    - indexOf(T[], Function<T, Boolean>)
+    - indexOf(boolean[], Function&lt;Boolean, Boolean&gt;)
+    - indexOf(byte[], Function&lt;Byte, Boolean&gt;)
+    - indexOf(char[], Function&lt;Character, Boolean&gt;)
+    - indexOf(double[], Function&lt;Double, Boolean&gt;)
+    - indexOf(float[], Function&lt;Float, Boolean&gt;)
+    - indexOf(int[], Function&lt;Integer, Boolean&gt;)
+    - indexOf(long[], Function&lt;Long, Boolean&gt;)
+    - indexOf(short[], Function&lt;Short, Boolean&gt;)
+    - indexOf(T[], Function&lt;T, Boolean&gt;)
     - splitAt(T[], Function&lt;T, Boolean&gt;, Function&lt;T, T&gt;)
     - splitBefore(T[], Function&lt;T, Boolean&gt;)
   + open.commons.core.utils.StringUtils

@@ -47,6 +47,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -409,6 +410,63 @@ public class CollectionUtils {
     }
 
     /**
+     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}에 추가한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param <C>
+     * @param col
+     * @param p
+     * @param newCol
+     *
+     * @since 2021. 7. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, C extends Collection<E>> void get(Collection<E> col, Predicate<E> p, C newCol) {
+        for (E e : col) {
+            if (p.test(e)) {
+                newCol.add(e);
+            }
+        }
+    }
+
+    /**
+     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}으로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param <C>
+     * @param col
+     * @param p
+     * @param type
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     *
+     * @since 2021. 7. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, C extends Collection<E>> C get(Collection<E> col, Predicate<E> p, Class<C> type) throws InstantiationException, IllegalAccessException {
+        C ret = type.newInstance();
+        get(col, p, ret);
+        return ret;
+    }
+
+    /**
      * 
      * <br>
      * 
@@ -440,6 +498,31 @@ public class CollectionUtils {
         }
 
         return result;
+    }
+
+    /**
+     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param col
+     *            데이터
+     * @param p
+     *            조건
+     * @return
+     *
+     * @since 2021. 7. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E> boolean has(Collection<E> col, Predicate<E> p) {
+        return col.parallelStream().anyMatch(p);
     }
 
     public static <T> boolean isNullOrEmpty(Collection<T> col) {
