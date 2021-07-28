@@ -99,12 +99,7 @@ public interface SQLConsumer<T> {
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object... params) {
-        return stmt -> {
-            for (int i = 0; i < params.length; i++) {
-                stmt.setObject(i + 1, params[i]);
-                params[i] = null;
-            }
-        };
+        return setParametersAndRelease(true, params);
     }
 
     /**
@@ -141,5 +136,35 @@ public interface SQLConsumer<T> {
         } else {
             return stmt -> SQLUtils.setParameters(stmt, 0, param, columnNames);
         }
+    }
+
+    /**
+     * {@link PreparedStatement}에 데이터를 설정한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param autoRelease
+     *            파라미터 자원 해제 여부.
+     * @param params
+     * @return
+     *
+     * @since 2021. 7. 19.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static SQLConsumer<PreparedStatement> setParametersAndRelease(boolean autoRelease, Object... params) {
+        return stmt -> {
+            for (int i = 0; i < params.length; i++) {
+                stmt.setObject(i + 1, params[i]);
+                if (autoRelease) {
+                    params[i] = null;
+                }
+            }
+        };
     }
 }

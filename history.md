@@ -1,3 +1,12 @@
+[2021/07/14]
+- Add
+  + open.commons.function.SQLFunction.setParametersAndRelease(boolean, Object...)
+
+
+[2021/07/14]
+- Add
+  + open.commons.Result.error(String, Object...)
+  
 [2021/07/13]
 - Add
   + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, C)

@@ -335,6 +335,31 @@ public class Result<T> {
     }
 
     /**
+     * '에러' 결과 객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param format
+     *            메시지 포맷
+     * @param args
+     *            메시지 정보
+     * @return
+     *
+     * @since 2021. 7. 14.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> Result<T> error(String format, Object... args) {
+        return new Result<T>().setMessage(format, args);
+    }
+
+    /**
      * {@link Result#getResult()} 가 <code>true</code> 인 경우의 메시지를 선택적으로 제공한다. <br>
      * {@link Result#getResult()} 가 <code>false</code> 인 경우 {@link Result#getMessage()}를 제공한다.
      * 
