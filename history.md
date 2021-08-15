@@ -1,6 +1,7 @@
 [2021/08/15]
 - Add
-  + open.commons.utils.entrySet(T[])
+  + open.commons.utils.ArrayUtils.entrySet(T[])
+  + open.commons.Utils.ComparableUtils.compare(T, T)
 
 [2021/07/14]
 - Add
