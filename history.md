@@ -1,3 +1,7 @@
+[2021/08/15]
+- Add
+  + open.commons.utils.entrySet(T[])
+
 [2021/07/14]
 - Add
   + open.commons.function.SQLFunction.setParametersAndRelease(boolean, Object...)

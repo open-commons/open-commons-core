@@ -30,6 +30,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.function.Function;
 
 import open.commons.DefaultEquivalent;
@@ -2400,6 +2401,37 @@ public class ArrayUtils {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * 주어진 배열에 대해서 index와 데이터 정보를 {@link List}로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @return
+     *
+     * @since 2021. 8. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> List<Entry<Integer, T>> entrySet(T[] array) {
+        if (array == null) {
+            return null;
+        }
+
+        List<Entry<Integer, T>> entries = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            entries.add(new EntryValue<Integer, T>(i, array[i]));
+        }
+
+        return entries;
     }
 
     /**
@@ -6673,10 +6705,6 @@ public class ArrayUtils {
     }
 
     /**
-     * 추가할 메소드의 제네닉 메소드
-     */
-
-    /**
      * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
      * 
      * @param array
@@ -6694,6 +6722,10 @@ public class ArrayUtils {
     public static <T> T[] removeFirst(T[] array, T value) {
         return removeFirst(array, value, null);
     }
+
+    /**
+     * 추가할 메소드의 제네닉 메소드
+     */
 
     /**
      * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
@@ -9927,5 +9959,91 @@ public class ArrayUtils {
         }
 
         return array;
+    }
+
+    public static class EntryValue<K, V> implements Entry<K, V> {
+
+        private K key;
+        private V value;
+
+        /**
+         * @param key
+         * @param value
+         * @since 2021. 8. 15.
+         */
+        public EntryValue(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2021. 8. 15.		박준홍			최초 작성
+         * </pre>
+         *
+         * @return
+         *
+         * @since 2021. 8. 15.
+         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         *
+         * @see java.util.Map.Entry#getKey()
+         */
+        @Override
+        public K getKey() {
+            return this.key;
+        }
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2021. 8. 15.		박준홍			최초 작성
+         * </pre>
+         *
+         * @return
+         *
+         * @since 2021. 8. 15.
+         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         *
+         * @see java.util.Map.Entry#getValue()
+         */
+        @Override
+        public V getValue() {
+            return this.value;
+        }
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2021. 8. 15.		박준홍			최초 작성
+         * </pre>
+         *
+         * @param value
+         * @return
+         *
+         * @since 2021. 8. 15.
+         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         *
+         * @see java.util.Map.Entry#setValue(java.lang.Object)
+         */
+        @Override
+        public V setValue(V value) {
+            V v = this.value;
+            this.value = value;
+            return v;
+        }
+
     }
 }
