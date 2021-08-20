@@ -1718,6 +1718,31 @@ public class ArrayUtils {
     }
 
     /**
+     * deep copy <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param original
+     * @param newLength
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
+        return copyOf(original, newLength, (Class<T[]>) original.getClass(), clone);
+    }
+
+    /**
      * <p>
      * <b><font color="RED">free against JDK 1.6 </font></b>
      * </p>
@@ -1747,6 +1772,42 @@ public class ArrayUtils {
     public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
         T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
         System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
+        return copy;
+    }
+
+    /**
+     * deep copyl <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param original
+     * @param newLength
+     * @param newType
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType, Function<U, T> clone) {
+        T[] copy = ((Object) newType == (Object) Object[].class) //
+                ? (T[]) new Object[newLength] //
+                : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+
+        final int newArrlen = Math.min(original.length, newLength);
+        for (int i = 0; i < newArrlen; i++) {
+            copy[i] = clone.apply(original[i]);
+        }
+
         return copy;
     }
 
@@ -2095,6 +2156,32 @@ public class ArrayUtils {
     }
 
     /**
+     * deep copy <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param original
+     * @param from
+     * @param to
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
+        return copyOfRange(original, from, to, (Class<T[]>) original.getClass(), clone);
+    }
+
+    /**
      * <p>
      * <b><font color="RED">free against JDK 1.6 </font></b>
      * </p>
@@ -2135,6 +2222,44 @@ public class ArrayUtils {
             throw new IllegalArgumentException(from + " > " + to);
         T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
         System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
+        return copy;
+    }
+
+    /**
+     * deep copy. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param original
+     * @param from
+     * @param to
+     * @param newType
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType, Function<U, T> clone) {
+        int newLength = to - from;
+        if (newLength < 0)
+            throw new IllegalArgumentException(from + " > " + to);
+        T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+
+        final int newArrlen = Math.min(original.length, newLength);
+        for (int i = 0; i < newArrlen; i++) {
+            copy[i] = clone.apply(original[i]);
+        }
+
         return copy;
     }
 

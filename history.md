@@ -1,3 +1,10 @@
+[2021/08/19]
+- Add
+  + open.commons.utils.ArrayUtils.copyOf(T[], int, Function<T, T>)
+  + open.commons.utils.ArrayUtils.copyOf(U[], int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
+  + open.commons.utils.ArrayUtils.copyOfRange(T[], int, int, Function<T, T>)
+  + open.commons.utils.ArrayUtils.copyOfRange(U[], int, int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
+  
 [2021/08/15]
 - Add
   + open.commons.utils.ArrayUtils.entrySet(T[])
@@ -6,7 +13,6 @@
 [2021/07/14]
 - Add
   + open.commons.function.SQLFunction.setParametersAndRelease(boolean, Object...)
-
 
 [2021/07/14]
 - Add
