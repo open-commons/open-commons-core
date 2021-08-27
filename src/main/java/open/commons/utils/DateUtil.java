@@ -596,7 +596,7 @@ public class DateUtil {
      * @return
      *
      * @since 2021. 8. 27.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static long getTimestamp(Calendar cal, int field, int amount) {
@@ -627,6 +627,152 @@ public class DateUtil {
         Calendar cal = Calendar.getInstance();
         cal.add(field, amount);
         return cal.getTime().getTime();
+    }
+
+    /**
+     * 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 8. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param date
+     *            시간 객체
+     * @param dateFormat
+     *            시분초 표기포맷.
+     * @return
+     *
+     * @since 2021. 8. 27.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see SimpleDateFormat
+     */
+    public static String getTimestampString(Calendar cal, SimpleDateFormat dateFormat) {
+        return dateFormat.format(cal.getTime());
+    }
+
+    /**
+     * 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 8. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param date
+     *            시간 객체
+     * @param format
+     *            시분초 표기포맷.
+     * @return
+     *
+     * @since 2021. 8. 27.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see SimpleDateFormat
+     */
+    public static String getTimestampString(Calendar cal, String format) {
+        return new SimpleDateFormat(format).format(cal.getTime());
+    }
+
+    /**
+     * 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 8. 27.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param date
+     *            시간 객체
+     * @param format
+     *            시분초 표기포맷.
+     * @return
+     *
+     * @since 2021. 8. 27.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see SimpleDateFormat
+     */
+    public static String getTimestampString(Date date, String format) {
+        return new SimpleDateFormat(format).format(date);
+    }
+
+    /**
+     * 시간의 시분초 시간 정보를 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param timestamp
+     *            시간정보 (단위: ms)
+     * @param dateFormat
+     *            시간 표기 포맷.
+     * @return
+     *
+     * @since 2021. 8. 27.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String getTimestampString(long timestamp, SimpleDateFormat dateFormat) {
+        return dateFormat.format(new Date(timestamp));
+    }
+
+    /**
+     * 시간의 시분초 시간 정보를 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param timestamp
+     *            시간정보 (단위: ms)
+     * @param format
+     *            시간 표기 포맷.
+     * @return
+     *
+     * @since 2021. 8. 27.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static String getTimestampString(long timestamp, String format) {
+        return new SimpleDateFormat(format).format(new Date(timestamp));
+    }
+
+    /**
+     * 현재 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param format
+     *            시분초 표기포맷.
+     * @return
+     *
+     * @since 2021. 8. 27.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see SimpleDateFormat
+     */
+    public static String getTimestampString(String format) {
+        return new SimpleDateFormat(format).format(new Date());
     }
 
     /**
@@ -663,56 +809,6 @@ public class DateUtil {
     }
 
     /**
-     * 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 8. 27.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param date
-     *            시간 객체
-     * @param dateFormat
-     *            시분초 표기포맷.
-     * @return
-     *
-     * @since 2021. 8. 27.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see SimpleDateFormat
-     */
-    public static String getTimeString(Calendar cal, SimpleDateFormat dateFormat) {
-        return dateFormat.format(cal.getTime());
-    }
-
-    /**
-     * 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 8. 27.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param date
-     *            시간 객체
-     * @param format
-     *            시분초 표기포맷.
-     * @return
-     *
-     * @since 2021. 8. 27.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see SimpleDateFormat
-     */
-    public static String getTimeString(Calendar cal, String format) {
-        return new SimpleDateFormat(format).format(cal.getTime());
-    }
-
-    /**
      * 시간의 시분초 시간 정보를 반환한다. <br>
      * 예) 오후 3시 20분 12초: 152012
      * 
@@ -720,31 +816,6 @@ public class DateUtil {
      */
     public static String getTimeString(Date date) {
         return new SimpleDateFormat("HHmmss").format(date);
-    }
-
-    /**
-     * 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 8. 27.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param date
-     *            시간 객체
-     * @param format
-     *            시분초 표기포맷.
-     * @return
-     *
-     * @since 2021. 8. 27.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see SimpleDateFormat
-     */
-    public static String getTimeString(Date date, String format) {
-        return new SimpleDateFormat(format).format(date);
     }
 
     /**
@@ -767,77 +838,6 @@ public class DateUtil {
      */
     public static String getTimeString(long timestamp) {
         return new SimpleDateFormat("HHmmss").format(new Date(timestamp));
-    }
-
-    /**
-     * 시간의 시분초 시간 정보를 반환한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 8. 27.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param timestamp
-     *            시간정보 (단위: ms)
-     * @param dateFormat
-     *            시간 표기 포맷.
-     * @return
-     *
-     * @since 2021. 8. 27.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     */
-    public static String getTimeString(long timestamp, SimpleDateFormat dateFormat) {
-        return dateFormat.format(new Date(timestamp));
-    }
-
-    /**
-     * 시간의 시분초 시간 정보를 반환한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 8. 27.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param timestamp
-     *            시간정보 (단위: ms)
-     * @param format
-     *            시간 표기 포맷.
-     * @return
-     *
-     * @since 2021. 8. 27.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     */
-    public static String getTimeString(long timestamp, String format) {
-        return new SimpleDateFormat(format).format(new Date(timestamp));
-    }
-
-    /**
-     * 현재 시간의 시분초 시간 정보를 주어진 포맷에 맞추어 제공한다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 8. 27.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param format
-     *            시분초 표기포맷.
-     * @return
-     *
-     * @since 2021. 8. 27.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see SimpleDateFormat
-     */
-    public static String getTimeString(String format) {
-        return new SimpleDateFormat(format).format(new Date());
     }
 
     /**
