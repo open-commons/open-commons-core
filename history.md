@@ -1,3 +1,10 @@
+[2021/09/14]
+- Add
+  + open.commons.exception.AsyncExecutionException: 비동기 작업 실행 도중 발생하는 예외 클래스.
+  + open.commons.concurrent.ConcurrentWorker
+    + contains(E): 데이터 존재 여부 제공
+    + remove(E): 데이터 삭제
+
 [2021/08/27]
 - Add
   + open.commons.utils.DateUtil

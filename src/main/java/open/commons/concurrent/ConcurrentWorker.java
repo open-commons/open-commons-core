@@ -74,6 +74,29 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
+     * 데이터가 포함여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 9. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param o
+     * @return
+     *
+     * @since 2021. 9. 14.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public boolean contains(E o) {
+        synchronized (this.mutexQueue) {
+            return this.queue.contains(o);
+        }
+    }
+
+    /**
      * 작업큐에서 꺼낸 작업이 완료되어 작업개수를 감소한다. <br>
      * 
      * <pre>
@@ -299,6 +322,29 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
             return workJobCounter.get() > 0;
         } finally {
             mutexWJC.unlock();
+        }
+    }
+
+    /**
+     * 데이터를 삭제한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 9. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param o
+     * @return
+     *
+     * @since 2021. 9. 14.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public boolean remove(E o) {
+        synchronized (this.mutexQueue) {
+            return this.queue.remove(o);
         }
     }
 

@@ -113,7 +113,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2021. 7. 5.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <E extends Throwable> E newException(Class<E> type, Supplier<Class<?>[]> argTypes, Object[] args, String format, Object... msgArgs) {
