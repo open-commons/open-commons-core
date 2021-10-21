@@ -1,3 +1,9 @@
+[2021/10/21]
+- Bugfix
+  + open.commons.utils.CollectionUtils
+    + subCollection(List&lt;E&gt;, int): zero-size 반환 객체 변경
+    + subCollection(List&lt;E&gt;, int, int): zero-size 반환 객체 변경
+
 [2021/09/14]
 - Add
   + open.commons.exception.AsyncExecutionException: 비동기 작업 실행 도중 발생하는 예외 클래스.
