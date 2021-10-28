@@ -162,7 +162,13 @@ public class Result<T> {
     }
 
     /**
-     * 결과를 반환한다.
+     * 결과를 반환한다.<br>
+     * 좀 더 명확한 의미를 얻고자 한다면,
+     * <ul>
+     * <li>{@link #isFail()}: 실패/에러
+     * <li>{@link #isSuccess()}: 성공
+     * </ul>
+     * 을 사용한다.
      * 
      * @return
      * 
@@ -204,6 +210,27 @@ public class Result<T> {
      */
     public boolean isFail() {
         return !this.getResult();
+    }
+
+    /**
+     * 성공 여부를 제공한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 10. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 10. 28.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see {@link Result#getResult()} 와 동일한 기능.
+     */
+    public boolean isSuccess() {
+        return this.getResult();
     }
 
     /**
