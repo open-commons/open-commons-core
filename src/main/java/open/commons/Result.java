@@ -208,7 +208,7 @@ public class Result<T> {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public boolean isFail() {
+    public boolean isError() {
         return !this.getResult();
     }
 
