@@ -148,7 +148,7 @@ public class Result<T> {
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
     public T getData() {
-        return data;
+        return this.data;
     }
 
     /**
@@ -158,7 +158,7 @@ public class Result<T> {
      * @since 2014. 6. 27.
      */
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     /**
@@ -170,7 +170,7 @@ public class Result<T> {
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
     public boolean getResult() {
-        return result;
+        return this.result;
     }
 
     /**
@@ -184,6 +184,26 @@ public class Result<T> {
         result = prime * result + ((message == null) ? 0 : message.hashCode());
         result = prime * result + (this.result ? 1231 : 1237);
         return result;
+    }
+
+    /**
+     * 실패 여부를 제공한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 10. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 10. 28.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public boolean isFail() {
+        return !this.getResult();
     }
 
     /**

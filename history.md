@@ -1,3 +1,8 @@
+[2021/10/28]
+- Add
+  + open.commons.Result
+    + isFail(): 실패 여부를 사용하기 위해서, ``!Result.getResolt()`` 작성할 때 `!(not)`을 종종 빠뜨리는 경우를 방지하기 위함.
+
 [2021/10/21]
 - Bugfix
   + open.commons.utils.CollectionUtils
