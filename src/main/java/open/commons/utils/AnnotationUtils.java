@@ -92,18 +92,18 @@ public class AnnotationUtils {
         ArrayList<Field> fields = new ArrayList<>();
 
         Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
-                .forEach(m -> {
+                .forEach(f -> {
                     boolean accessible = false;
                     try {
-                        accessible = m.isAccessible();
+                        accessible = f.isAccessible();
 
-                        if (m.isAnnotationPresent(annotationClass)) {
-                            fields.add(m);
+                        if (f.isAnnotationPresent(annotationClass)) {
+                            fields.add(f);
                         }
                     } catch (Throwable ignored) {
                         // ignored
                     } finally {
-                        m.setAccessible(accessible);
+                        f.setAccessible(accessible);
                     }
                 });
 
@@ -263,6 +263,28 @@ public class AnnotationUtils {
         return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
         ;
+    }
+
+    /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param object
+     * @param annotationClass
+     * @return
+     *
+     * @since 2021. 11. 3.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Object object, Class<? extends Annotation> annotationClass) {
+        return getAnnotatedFieldsAllAsStream(object.getClass(), annotationClass);
     }
 
     /**

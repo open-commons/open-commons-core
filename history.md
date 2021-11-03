@@ -1,3 +1,12 @@
+[2021/11/03]
+- New
+  + open.commons.annotation.Information
+- Add
+  + open.commons.utils.AnnotationUtils
+    + getAnnotatedFieldsAllAsStream(Object, Class<? extends Annotation>)
+  + open.commons.utils.ObjectUtils
+    + readInformation(Object)
+
 [2021/10/28]
 - Add
   + open.commons.Result

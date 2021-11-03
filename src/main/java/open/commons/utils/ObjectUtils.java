@@ -28,6 +28,7 @@ package open.commons.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +39,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import open.commons.annotation.Getter;
+import open.commons.annotation.Information;
 import open.commons.annotation.Setter;
 
 /**
@@ -323,6 +325,50 @@ public class ObjectUtils {
         }
 
         return obj;
+    }
+
+    /**
+     * {@link Information}이 있는 필드 정보를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param o
+     * @return
+     *
+     * @since 2021. 11. 3.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static List<String> readInformation(Object o) {
+        final String fmt = "%-15s = %s";
+        final ArrayList<String> info = new ArrayList<>();
+
+        AnnotationUtils.getAnnotatedFieldsAllAsStream(o, Information.class) //
+                .sorted((f1, f2) -> {
+                    return f1.getName().compareTo(f2.getName());
+                }) //
+                .forEach(f -> {
+                    String value = null;
+                    boolean accessible = f.isAccessible();
+                    try {
+                        f.setAccessible(true);
+                        Object v = String.format(fmt, f.getName(), f.get(o));
+                        value = v != null ? v.toString() : null;
+                    } catch (IllegalArgumentException | IllegalAccessException e) {
+                        value = e.getMessage();
+                    } finally {
+                        f.setAccessible(accessible);
+                    }
+                    info.add(value);
+                }) //
+        ;
+
+        return info;
     }
 
     /**
