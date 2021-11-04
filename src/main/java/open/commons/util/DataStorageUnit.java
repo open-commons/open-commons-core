@@ -39,13 +39,13 @@ import java.util.stream.Collectors;
 import open.commons.utils.ExceptionUtils;
 
 /**
- * Memory 용량 단위
+ * 컴퓨터 저장장치 용량 단위. (예: 디스크, 메모리, ...)
  * 
  * @since 2021. 11. 4.
  * @version 1.8.0
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
-public enum MemoryUnit {
+public enum DataStorageUnit {
     /**
      * Byte = 2 * 1 Byte (8 bits)<br>
      * <ul>
@@ -122,11 +122,11 @@ public enum MemoryUnit {
     ;
 
     /** 크기에 따른 오름차순 정렬 */
-    static final List<MemoryUnit> BOTTOM_UP;
+    static final List<DataStorageUnit> BOTTOM_UP;
     /** 크기에 따른 내림차순 정렬 */
-    static final List<MemoryUnit> TOP_DOWN;
+    static final List<DataStorageUnit> TOP_DOWN;
     static {
-        List<MemoryUnit> units = Arrays.asList(values());
+        List<DataStorageUnit> units = Arrays.asList(values());
         // 오름차순
         Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num));
         BOTTOM_UP = Collections.unmodifiableList(units);
@@ -141,7 +141,7 @@ public enum MemoryUnit {
     /** Byte 기준 크기 */
     private BigDecimal num;
 
-    private MemoryUnit(String str, BigDecimal num) {
+    private DataStorageUnit(String str, BigDecimal num) {
         this.str = str;
         this.num = num.setScale(10, RoundingMode.HALF_UP);
     }
@@ -166,9 +166,9 @@ public enum MemoryUnit {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
-     * @see #convertHasRemain(long, MemoryUnit)
+     * @see #convertHasRemain(long, DataStorageUnit)
      */
-    public BigDecimal convert(long size, MemoryUnit unit) {
+    public BigDecimal convert(long size, DataStorageUnit unit) {
         return convert(size, unit, false)[0];
     }
 
@@ -194,9 +194,9 @@ public enum MemoryUnit {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public BigDecimal[] convert(long size, MemoryUnit unit, boolean alsoSubUnit) {
+    public BigDecimal[] convert(long size, DataStorageUnit unit, boolean alsoSubUnit) {
         return alsoSubUnit //
-                ? convert(size, unit, MemoryUnit.Byte) //
+                ? convert(size, unit, DataStorageUnit.Byte) //
                 : convert(size, unit, unit);
     }
 
@@ -224,7 +224,7 @@ public enum MemoryUnit {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public BigDecimal[] convert(long size, MemoryUnit bigUnit, MemoryUnit littleUnit) {
+    public BigDecimal[] convert(long size, DataStorageUnit bigUnit, DataStorageUnit littleUnit) {
         if (bigUnit.num.compareTo(littleUnit.num) < 0) {
             throw ExceptionUtils.newException(IllegalArgumentException.class, "변환단위가 잘못되었습니다. big=%s, little=%s", bigUnit, littleUnit);
         }
@@ -234,7 +234,7 @@ public enum MemoryUnit {
         // Bytes 변환
         BigDecimal bytes = BigDecimal.valueOf(size).multiply(this.num).setScale(10, RoundingMode.HALF_UP);
 
-        List<MemoryUnit> units = TOP_DOWN.stream() //
+        List<DataStorageUnit> units = TOP_DOWN.stream() //
                 .filter(u -> !(u.num.compareTo(bigUnit.num) > 0 || u.num.compareTo(littleUnit.num) < 0)) //
                 .collect(Collectors.toList());
 
@@ -269,7 +269,7 @@ public enum MemoryUnit {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public MemoryUnit down() {
+    public DataStorageUnit down() {
         switch (this) {
             case Byte:
                 return null;
@@ -291,13 +291,13 @@ public enum MemoryUnit {
                 return ZByte;
             default:
                 // unreachable code
-                throw new IllegalArgumentException("Unexpected 'str' value of 'MemoryUnit'");
+                throw new IllegalArgumentException("Unexpected 'str' value of 'DataStorageUnit'");
         }
     }
 
     /**
      *
-     * @return a string of an instance of {@link MemoryUnit}
+     * @return a string of an instance of {@link DataStorageUnit}
      *
      * @since 2021. 11. 4.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
@@ -333,7 +333,7 @@ public enum MemoryUnit {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public MemoryUnit up() {
+    public DataStorageUnit up() {
         switch (this) {
             case Byte:
                 return KByte;
@@ -355,66 +355,66 @@ public enum MemoryUnit {
                 return null;
             default:
                 // unreachable code
-                throw new IllegalArgumentException("Unexpected 'str' value of 'MemoryUnit'");
+                throw new IllegalArgumentException("Unexpected 'str' value of 'DataStorageUnit'");
         }
     }
 
     /**
      * 
      * @param str
-     *            a string for {@link MemoryUnit} instance.
+     *            a string for {@link DataStorageUnit} instance.
      *
-     * @return an instance of {@link MemoryUnit}
+     * @return an instance of {@link DataStorageUnit}
      *
      * @since 2021. 11. 4.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      *
      * @see #get(String, boolean)
      */
-    public static MemoryUnit get(String str) {
+    public static DataStorageUnit get(String str) {
         return get(str, false);
     }
 
     /**
      *
      * @param str
-     *            a string for an instance of {@link MemoryUnit}.
+     *            a string for an instance of {@link DataStorageUnit}.
      * @param ignoreCase
      *            ignore <code><b>case-sensitive</b></code> or not.
      *
-     * @return an instance of {@link MemoryUnit}
+     * @return an instance of {@link DataStorageUnit}
      *
      * @since 2021. 11. 4.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static MemoryUnit get(String str, boolean ignoreCase) {
+    public static DataStorageUnit get(String str, boolean ignoreCase) {
 
         if (str == null) {
             throw new IllegalArgumentException("'str' MUST NOT be null. input: " + str);
         }
 
         if (ignoreCase) {
-            for (MemoryUnit value : values()) {
+            for (DataStorageUnit value : values()) {
                 if (value.str.equalsIgnoreCase(str)) {
                     return value;
                 }
             }
         } else {
-            for (MemoryUnit value : values()) {
+            for (DataStorageUnit value : values()) {
                 if (value.str.equals(str)) {
                     return value;
                 }
             }
         }
 
-        throw new IllegalArgumentException("Unexpected 'str' value of 'MemoryUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + str);
+        throw new IllegalArgumentException("Unexpected 'str' value of 'DataStorageUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + str);
     }
 
     private static List<String> values0() {
 
         List<String> valuesStr = new ArrayList<>();
 
-        for (MemoryUnit value : values()) {
+        for (DataStorageUnit value : values()) {
             valuesStr.add(value.get());
         }
 

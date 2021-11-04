@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import open.commons.util.MemoryUnit;
+import open.commons.util.DataStorageUnit;
 
 /**
  * 단위 관련 기능을 제공.
@@ -74,10 +74,6 @@ public class UnitUtils {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        test_memory();
-    }
-
     /**
      * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
      * 
@@ -98,10 +94,10 @@ public class UnitUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
-     * @see MemoryUnit#convert(long, MemoryUnit)
+     * @see DataStorageUnit#convert(long, DataStorageUnit)
      */
-    public static BigDecimal memory(long bytes, MemoryUnit unit) {
-        return MemoryUnit.Byte.convert(bytes, unit);
+    public static BigDecimal dataStorage(long bytes, DataStorageUnit unit) {
+        return DataStorageUnit.Byte.convert(bytes, unit);
     }
 
     /**
@@ -124,98 +120,10 @@ public class UnitUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
-     * @see MemoryUnit#convert(long, MemoryUnit, boolean)
+     * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
      */
-    public static BigDecimal[] memoryAlsoSubUnit(long bytes, MemoryUnit unit) {
-        return MemoryUnit.Byte.convert(bytes, unit, true);
-    }
-
-    /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param bytes
-     *            메모리 크기 (단위: Byte)
-     * @param unit
-     *            변환 단위
-     * @return
-     *
-     * @since 2021. 11. 4.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * 
-     * @see MemoryUnit#convert(long, MemoryUnit)
-     */
-    public static String memoryString(long bytes, MemoryUnit unit) {
-        return memoryString(bytes, MemoryUnit.Byte, unit, true);
-    }
-
-    /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param bytes
-     *            메모리 크기 (단위: Byte)
-     * @param unit
-     *            변환 단위
-     * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @return
-     *
-     * @since 2021. 11. 4.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * 
-     * @see MemoryUnit#convert(long, MemoryUnit)
-     */
-    public static String memoryString(long bytes, MemoryUnit unit, boolean pretty) {
-        return memoryString(bytes, MemoryUnit.Byte, unit, pretty);
-    }
-
-    /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param size
-     *            메모리 크기
-     * @param srcUnit
-     *            변환할 데이터 단위
-     * @param dstUnit
-     *            변환 단위
-     * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @return
-     *
-     * @since 2021. 11. 4.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * 
-     * @see MemoryUnit#convert(long, MemoryUnit)
-     */
-    public static String memoryString(long size, MemoryUnit srcUnit, MemoryUnit dstUnit, boolean pretty) {
-        String val = srcUnit.convert(size, dstUnit).toString();
-        if (pretty) {
-            val = ADD_COMMA.apply(val);
-        }
-        return concat(val, " ", dstUnit.get());
+    public static BigDecimal[] dataStorageAlsoSubUnit(long bytes, DataStorageUnit unit) {
+        return DataStorageUnit.Byte.convert(bytes, unit, true);
     }
 
     /**
@@ -237,10 +145,10 @@ public class UnitUtils {
      * @since 2021. 11. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see #memoryStringAlsoSubUnit(long, MemoryUnit, boolean, boolean)
+     * @see #dataStorageAlsoSubUnitAsString(long, DataStorageUnit, boolean, boolean)
      */
-    public static String memoryStringAlsoSubUnit(long bytes, MemoryUnit unit) {
-        return memoryStringAlsoSubUnit(bytes, unit, true, true);
+    public static String dataStorageAlsoSubUnitAsString(long bytes, DataStorageUnit unit) {
+        return dataStorageAlsoSubUnitAsString(bytes, unit, true, true);
     }
 
     /**
@@ -266,10 +174,10 @@ public class UnitUtils {
      * @since 2021. 11. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see MemoryUnit#convert(long, MemoryUnit, boolean)
+     * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
      */
-    public static String memoryStringAlsoSubUnit(long bytes, MemoryUnit unit, boolean pretty, boolean trim) {
-        return memoryStringAlsoSubUnit(bytes, MemoryUnit.Byte, unit, pretty, trim);
+    public static String dataStorageAlsoSubUnitAsString(long bytes, DataStorageUnit unit, boolean pretty, boolean trim) {
+        return dataStorageAlsoSubUnitAsString(bytes, DataStorageUnit.Byte, unit, pretty, trim);
     }
 
     /**
@@ -297,13 +205,13 @@ public class UnitUtils {
      * @since 2021. 11. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     * @see MemoryUnit#convert(long, MemoryUnit, boolean)
+     * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
      */
-    public static String memoryStringAlsoSubUnit(long size, MemoryUnit srcUnit, MemoryUnit dstUnit, boolean pretty, boolean trim) {
+    public static String dataStorageAlsoSubUnitAsString(long size, DataStorageUnit srcUnit, DataStorageUnit dstUnit, boolean pretty, boolean trim) {
         BigDecimal[] values = srcUnit.convert(size, dstUnit, true);
         List<String> s = new ArrayList<>();
 
-        MemoryUnit u = dstUnit;
+        DataStorageUnit u = dstUnit;
         String val = null;
         for (int i = 0; i < values.length; i++) {
             if (!trim || values[i].compareTo(BigDecimal.ZERO) != 0) {
@@ -319,38 +227,134 @@ public class UnitUtils {
         return String.join(" ", s);
     }
 
+    /**
+     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            메모리 크기 (단위: Byte)
+     * @param unit
+     *            변환 단위
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see DataStorageUnit#convert(long, DataStorageUnit)
+     */
+    public static String dataStorageAsString(long bytes, DataStorageUnit unit) {
+        return dataStorageAsString(bytes, DataStorageUnit.Byte, unit, true);
+    }
+
+    /**
+     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            메모리 크기 (단위: Byte)
+     * @param unit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see DataStorageUnit#convert(long, DataStorageUnit)
+     */
+    public static String dataStorageAsString(long bytes, DataStorageUnit unit, boolean pretty) {
+        return dataStorageAsString(bytes, DataStorageUnit.Byte, unit, pretty);
+    }
+
+    /**
+     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param size
+     *            메모리 크기
+     * @param srcUnit
+     *            변환할 데이터 단위
+     * @param dstUnit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * 
+     * @see DataStorageUnit#convert(long, DataStorageUnit)
+     */
+    public static String dataStorageAsString(long size, DataStorageUnit srcUnit, DataStorageUnit dstUnit, boolean pretty) {
+        String val = srcUnit.convert(size, dstUnit).toString();
+        if (pretty) {
+            val = ADD_COMMA.apply(val);
+        }
+        return concat(val, " ", dstUnit.get());
+    }
+
+    public static void main(String[] args) {
+        test_memory();
+    }
+
     static void test_memory() {
-        MemoryUnit memUnit = MemoryUnit.Byte;
+        DataStorageUnit memUnit = DataStorageUnit.Byte;
         long memSize = 1 * 1024 * 1024 * 1024;
 
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.Byte.get(), memUnit.convert(memSize, MemoryUnit.Byte).toString());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.KByte.get(), memUnit.convert(memSize, MemoryUnit.KByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.KByte.get(), memUnit.convert(memSize, MemoryUnit.KByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.MByte.get(), memUnit.convert(memSize, MemoryUnit.MByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.MByte.get(), memUnit.convert(memSize, MemoryUnit.MByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.GByte.get(), memUnit.convert(memSize, MemoryUnit.GByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.GByte.get(), memUnit.convert(memSize, MemoryUnit.GByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.TByte.get(), memUnit.convert(memSize, MemoryUnit.TByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.TByte.get(), memUnit.convert(memSize, MemoryUnit.TByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.PByte.get(), memUnit.convert(memSize, MemoryUnit.PByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.PByte.get(), memUnit.convert(memSize, MemoryUnit.PByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.EByte.get(), memUnit.convert(memSize, MemoryUnit.EByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.EByte.get(), memUnit.convert(memSize, MemoryUnit.EByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.ZByte.get(), memUnit.convert(memSize, MemoryUnit.ZByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), MemoryUnit.ZByte.get(), memUnit.convert(memSize, MemoryUnit.ZByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), MemoryUnit.YByte.get(), memUnit.convert(memSize, MemoryUnit.YByte).toString());
-        System.out.printf("%,d %s -> %s => %,.100f\n", memSize, memUnit.get(), MemoryUnit.YByte.get(), memUnit.convert(memSize, MemoryUnit.YByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.Byte.get(), memUnit.convert(memSize, DataStorageUnit.Byte).toString());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.KByte.get(), memUnit.convert(memSize, DataStorageUnit.KByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.KByte.get(), memUnit.convert(memSize, DataStorageUnit.KByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.MByte.get(), memUnit.convert(memSize, DataStorageUnit.MByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.MByte.get(), memUnit.convert(memSize, DataStorageUnit.MByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.GByte.get(), memUnit.convert(memSize, DataStorageUnit.GByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.GByte.get(), memUnit.convert(memSize, DataStorageUnit.GByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.TByte.get(), memUnit.convert(memSize, DataStorageUnit.TByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.TByte.get(), memUnit.convert(memSize, DataStorageUnit.TByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.PByte.get(), memUnit.convert(memSize, DataStorageUnit.PByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.PByte.get(), memUnit.convert(memSize, DataStorageUnit.PByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.EByte.get(), memUnit.convert(memSize, DataStorageUnit.EByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.EByte.get(), memUnit.convert(memSize, DataStorageUnit.EByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.ZByte.get(), memUnit.convert(memSize, DataStorageUnit.ZByte).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.ZByte.get(), memUnit.convert(memSize, DataStorageUnit.ZByte).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.YByte.get(), memUnit.convert(memSize, DataStorageUnit.YByte).toString());
+        System.out.printf("%,d %s -> %s => %,.100f\n", memSize, memUnit.get(), DataStorageUnit.YByte.get(), memUnit.convert(memSize, DataStorageUnit.YByte).doubleValue());
 
         // *--
-        memSize = MemoryUnit.GByte.convert(32, MemoryUnit.Byte).longValueExact();
-        System.out.printf("%,d >> %s -> %s => %,d\n", memSize, MemoryUnit.Byte.get(), MemoryUnit.MByte.get(), memory(memSize, MemoryUnit.MByte).longValueExact());
-        System.out.printf("%,d >> %s -> %s => %s\n", memSize, MemoryUnit.Byte.get(), MemoryUnit.MByte.get(), memoryString(memSize, MemoryUnit.MByte, true));
+        memSize = DataStorageUnit.GByte.convert(32, DataStorageUnit.Byte).longValueExact();
+        System.out.printf("%,d >> %s -> %s => %,d\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.MByte.get(),
+                dataStorage(memSize, DataStorageUnit.MByte).longValueExact());
+        System.out.printf("%,d >> %s -> %s => %s\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.MByte.get(), dataStorageAsString(memSize, DataStorageUnit.MByte, true));
         // memSize = 12345678;
-        System.out.printf("%,d >> %s -> %s => %s\n", memSize, MemoryUnit.Byte.get(), MemoryUnit.KByte.get(), memoryStringAlsoSubUnit(memSize, MemoryUnit.KByte));
-        System.out.printf("%,d >> %s -> %s => %s\n", memSize, MemoryUnit.Byte.get(), MemoryUnit.KByte.get(), memoryStringAlsoSubUnit(memSize, MemoryUnit.KByte, true, false));
+        System.out.printf("%,d >> %s -> %s => %s\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.KByte.get(),
+                dataStorageAlsoSubUnitAsString(memSize, DataStorageUnit.KByte));
+        System.out.printf("%,d >> %s -> %s => %s\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.KByte.get(),
+                dataStorageAlsoSubUnitAsString(memSize, DataStorageUnit.KByte, true, false));
 
         // *--
-        System.out.printf("%,d >> %s -> %s => %,.30f\n", 10, MemoryUnit.GByte.get(), MemoryUnit.KByte.get(), MemoryUnit.GByte.convert(10, MemoryUnit.KByte).doubleValue());
+        System.out.printf("%,d >> %s -> %s => %,.30f\n", 10, DataStorageUnit.GByte.get(), DataStorageUnit.KByte.get(),
+                DataStorageUnit.GByte.convert(10, DataStorageUnit.KByte).doubleValue());
 
     }
 }

@@ -1,6 +1,7 @@
 [2021/11/04]
 - New
-  + open.commons.util.MemoryUnit
+  + open.commons.util.DataStorageUnit
+    + <strike>open.commons.util.MemoryUnit</strike>
   + open.commons.utils.UnitUtils
 
 [2021/11/03]
