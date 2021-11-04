@@ -49,7 +49,17 @@ public class UnitUtils {
      *            숫자 문자열
      * @return 천단위마다 콤마(,)가 추가된 문자열.
      */
-    private static final Function<String, String> ADD_COMMA = val -> val.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+    private static final Function<String, String> ADD_COMMA = val -> {
+        String[] arr = val.split("[.]");
+        String result = null;
+        if (arr.length == 1) {
+            result = val.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+        } else {
+            result = String.join(".", arr[0].replaceAll("\\B(?=(\\d{3})+(?!\\d))", ","), arr[1]);
+        }
+
+        return result;
+    };
 
     // prevent to create an instance.
     private UnitUtils() {
@@ -205,7 +215,7 @@ public class UnitUtils {
         if (pretty) {
             val = ADD_COMMA.apply(val);
         }
-        return concat(val, dstUnit.get());
+        return concat(val, " ", dstUnit.get());
     }
 
     /**
