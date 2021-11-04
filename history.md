@@ -1,3 +1,8 @@
+[2021/11/04]
+- New
+  + open.commons.util.MemoryUnit
+  + open.commons.utils.UnitUtils
+
 [2021/11/03]
 - New
   + open.commons.annotation.Information
