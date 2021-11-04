@@ -250,25 +250,6 @@ public enum MemoryUnit {
 
         converted.add(bytes.divide(units.get(i).num));
 
-        for (MemoryUnit u : TOP_DOWN) {
-            if (u.num.compareTo(bigUnit.num) > 0) {
-                continue;
-            } else if (u.num.compareTo(littleUnit.num) < 0) {
-                break;
-            } else {
-                // 몫 계산
-                calc = bytes.divideAndRemainder(u.num);
-                converted.add(calc[0]);
-                // 나머지, 다음 단위의 계산
-                bytes = calc[1];
-            }
-        }
-
-        if (bytes.compareTo(BigDecimal.ZERO) > 0) {
-            BigDecimal last = new BigDecimal(String.join(".", converted.removeLast().toString(), bytes.toString()));
-            converted.add(last);
-        }
-
         return converted.toArray(new BigDecimal[0]);
     }
 
