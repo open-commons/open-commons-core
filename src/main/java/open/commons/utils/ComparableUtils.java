@@ -63,6 +63,37 @@ public class ComparableUtils {
     }
 
     /**
+     * 두 객체에 대한 비교 결과를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param o1
+     * @param o2
+     * @return
+     *
+     * @since 2021. 8. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T extends Comparable<T>> int compare(T o1, T o2) {
+        if (o1 != null && o2 != null) {
+            return o1.compareTo(o2);
+        } else if (o1 != null) {
+            return -1;
+        } else if (o2 != null) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * {@link ComparableValue}이 사용된 필드만 이용해서 비교 결과를 반환한다. 단, {@link ComparableValue}가 사용된 필드는 {@link Comparable}를
      * implement 해야만 한다.
      * 

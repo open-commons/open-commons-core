@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,37 +18,29 @@
  *
  * This file is generated under this project, "open-commons-core".
  *
- * Date  : 2020. 8. 29. 오전 1:20:35
+ * Date  : 2021. 11. 3. 오후 1:50:37
  *
  * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
  * 
  */
 
-package open.commons.function;
+package open.commons.annotation;
 
-import java.util.function.Supplier;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
- * Represents a function that run without any parameter.
+ * 해당 변수에 값이 설정될 때 로그를 남길 필요가 있는 경우
  * 
- * @since 2020. 8. 29.
- * @version 1.7.0
+ * @since 2021. 11. 3.
+ * @version
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
-@FunctionalInterface
-public interface Runner {
-    default Runner andIfThen(Supplier<Boolean> p, Runner run) {
-        return () -> {
-            run();
-            if (p.get()) {
-                run.run();
-            }
-        };
-    }
+@Retention(RUNTIME)
+@Target({ FIELD })
+public @interface Information {
 
-    default Runner andThen(Runner run) {
-        return andIfThen(() -> true, run);
-    }
-
-    void run() throws RuntimeException;
 }

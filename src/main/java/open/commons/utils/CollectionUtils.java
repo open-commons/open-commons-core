@@ -31,7 +31,6 @@ import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -47,6 +46,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -409,6 +409,63 @@ public class CollectionUtils {
     }
 
     /**
+     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}에 추가한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param <C>
+     * @param col
+     * @param p
+     * @param newCol
+     *
+     * @since 2021. 7. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, C extends Collection<E>> void get(Collection<E> col, Predicate<E> p, C newCol) {
+        for (E e : col) {
+            if (p.test(e)) {
+                newCol.add(e);
+            }
+        }
+    }
+
+    /**
+     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}으로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param <C>
+     * @param col
+     * @param p
+     * @param type
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     *
+     * @since 2021. 7. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E, C extends Collection<E>> C get(Collection<E> col, Predicate<E> p, Class<C> type) throws InstantiationException, IllegalAccessException {
+        C ret = type.newInstance();
+        get(col, p, ret);
+        return ret;
+    }
+
+    /**
      * 
      * <br>
      * 
@@ -440,6 +497,31 @@ public class CollectionUtils {
         }
 
         return result;
+    }
+
+    /**
+     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param col
+     *            데이터
+     * @param p
+     *            조건
+     * @return
+     *
+     * @since 2021. 7. 13.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <E> boolean has(Collection<E> col, Predicate<E> p) {
+        return col.parallelStream().anyMatch(p);
     }
 
     public static <T> boolean isNullOrEmpty(Collection<T> col) {
@@ -1654,18 +1736,18 @@ public class CollectionUtils {
      * 
      * @param <E>
      * @param list
-     * @param s
+     * @param begin
      *            시작 위치 inclusive
      * @return
      */
-    public static <E> List<E> subCollection(List<E> list, int s) {
-        if (s > list.size() - 1) {
-            return Collections.emptyList();
+    public static <E> List<E> subCollection(List<E> list, int begin) {
+        if (begin > list.size() - 1) {
+            return new ArrayList<E>();
         }
 
         List<E> newList = new ArrayList<E>();
 
-        for (int i = s; i < list.size(); i++) {
+        for (int i = begin; i < list.size(); i++) {
             newList.add(list.get(i));
         }
 
@@ -1677,20 +1759,20 @@ public class CollectionUtils {
      * 
      * @param <E>
      * @param list
-     * @param s
+     * @param begin
      *            시작 위치 inclusive
-     * @param e
+     * @param end
      *            종료 위치 exclusive
      * @return
      */
-    public static <E> List<E> subCollection(List<E> list, int s, int e) {
-        if (s > list.size() - 1 || s >= e || e < 0) {
-            return Collections.emptyList();
+    public static <E> List<E> subCollection(List<E> list, int begin, int end) {
+        if (begin > list.size() - 1 || begin >= end || end < 0) {
+            return new ArrayList<E>();
         }
 
         List<E> newList = new ArrayList<E>();
 
-        for (int i = s; i < e; i++) {
+        for (int i = begin; i < end; i++) {
             newList.add(list.get(i));
         }
 
@@ -2064,7 +2146,7 @@ public class CollectionUtils {
      * @since 2019. 11. 28.
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <E, K, V, M extends Map<K, Collection<V>>, C extends Collection<V>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
+    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
             Class<C> colClass) {
 
         M map = null;
@@ -2112,7 +2194,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <E, K, V, M extends Map<K, Collection<V>>, C extends Collection<V>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
+    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
             Class<C> colClass) {
 
         K key = null;

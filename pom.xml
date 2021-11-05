@@ -86,6 +86,17 @@
 		<!-- end: slf4j -->
 		<!-- ********************** -->
 		<!-- <<< end: logging -->
+
+		<!-- ************** -->
+		<!-- begin: OpenCSV -->
+		<!-- https://mvnrepository.com/artifact/net.sf.opencsv/opencsv -->
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<!-- end: OpenCSV -->
+		<!-- ************** -->
 	</dependencies>
 
 	<build>

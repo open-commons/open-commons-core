@@ -30,7 +30,7 @@ package open.commons.io;
  * 텍스트 파일의 줄 단위 데이터 정보
  * 
  * @since 2020. 11. 12.
- * @version _._._
+ * @version 1.8.0
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
 public class TextLineInfo implements IRandomAccessible {

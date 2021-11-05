@@ -171,7 +171,7 @@ public interface SQLTripleFunction<T, U, V, R> {
      * 
      *
      * @since 2020. 1. 22.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      * 
      * @see ColumnValue

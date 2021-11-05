@@ -44,7 +44,7 @@ import open.commons.utils.ExceptionUtils;
  * @param <V>
  *            {@link Future}가 제공하는 데이터 타입.
  * @since 2020. 11. 10.
- * @version _._._
+ * @version 1.8.0
  */
 public class AsyncJobManager<K, V> {
 
@@ -97,10 +97,9 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    // public Future<V> get(K key) {
     public Future<?> get(K key) {
         if (key == null) {
             return null;
@@ -234,7 +233,7 @@ public class AsyncJobManager<K, V> {
      * {@link AsyncJobManager} 를 생성하는 클래스.
      * 
      * @since 2020. 11. 11.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static class Builder {
@@ -257,27 +256,26 @@ public class AsyncJobManager<K, V> {
          *
          * @param <K>
          * @param <V>
-         * @param key
+         * @param holder
          * @return
          *
          * @since 2020. 11. 10.
-         * @version _._._
+         * @version 1.8.0
          * @author Park_Jun_Hong_(fafanmama_at_naver_com)
          */
         @SuppressWarnings("unchecked")
-        // public static <K, V> AsyncJobManager<K, V> getManager(Object key) {
-        public static <K> AsyncJobManager<K, ?> getManager(Object key) {
+        public static <K> AsyncJobManager<K, ?> getManager(Object holder) {
 
             ReentrantLock lock = LOCK;
             lock.lock();
 
             try {
                 AsyncJobManager<K, ?> m = null;
-                if (SINGLETON.containsKey(key)) {
-                    m = (AsyncJobManager<K, ?>) SINGLETON.get(key);
+                if (SINGLETON.containsKey(holder)) {
+                    m = (AsyncJobManager<K, ?>) SINGLETON.get(holder);
                 } else {
                     m = new AsyncJobManager<K, Object>();
-                    SINGLETON.put(key, m);
+                    SINGLETON.put(holder, m);
                 }
                 return m;
             } catch (Throwable t) {

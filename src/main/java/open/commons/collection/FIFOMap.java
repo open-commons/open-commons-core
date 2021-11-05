@@ -60,10 +60,29 @@ public class FIFOMap<K, V> implements Map<K, V> {
         return itr.hasNext() ? itr.next() : null;
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 5. 18.		박준홍			데이터({@link #orderedValues}) 미삭제 버그 수정
+     * </pre>
+     *
+     *
+     * @since 2021. 5. 18.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     *
+     * @see java.util.Map#clear()
+     */
     @Override
     public synchronized void clear() {
+        seqSeed.set(0);
         keys.clear();
         orderedKeys.clear();
+        orderedValues.clear();
     }
 
     @Override

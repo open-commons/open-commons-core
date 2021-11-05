@@ -520,6 +520,60 @@ public class FunctionUtils {
         }
     }
 
+    /**
+     * 조건에 맞는 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 5. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param condition
+     *            비교
+     * @param then
+     *            조건이 'true'인 경우
+     * @param elze
+     *            조건이 'false'인 경우
+     * @return
+     *
+     * @since 2021. 5. 18.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T ifThenElse(Supplier<Boolean> condition, Supplier<T> then, Supplier<T> elze) {
+        return condition.get() ? then.get() : elze.get();
+    }
+
+    /**
+     * 조건에 맞는 데이터를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 5. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param condition
+     *            비교
+     * @param then
+     *            조건이 'true'인 경우
+     * @param elze
+     *            조건이 'false'인 경우
+     * @return
+     *
+     * @since 2021. 5. 18.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T ifThenElse(Supplier<Boolean> condition, T then, T elze) {
+        return condition.get() ? then : elze;
+    }
+
     public static Predicate<Object> isNotNull() {
         return o -> o != null;
     }

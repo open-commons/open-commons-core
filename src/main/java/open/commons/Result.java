@@ -148,7 +148,7 @@ public class Result<T> {
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
     public T getData() {
-        return data;
+        return this.data;
     }
 
     /**
@@ -158,11 +158,17 @@ public class Result<T> {
      * @since 2014. 6. 27.
      */
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     /**
-     * 결과를 반환한다.
+     * 결과를 반환한다.<br>
+     * 좀 더 명확한 의미를 얻고자 한다면,
+     * <ul>
+     * <li>{@link #isFail()}: 실패/에러
+     * <li>{@link #isSuccess()}: 성공
+     * </ul>
+     * 을 사용한다.
      * 
      * @return
      * 
@@ -170,7 +176,7 @@ public class Result<T> {
      * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
      */
     public boolean getResult() {
-        return result;
+        return this.result;
     }
 
     /**
@@ -184,6 +190,47 @@ public class Result<T> {
         result = prime * result + ((message == null) ? 0 : message.hashCode());
         result = prime * result + (this.result ? 1231 : 1237);
         return result;
+    }
+
+    /**
+     * 실패 여부를 제공한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 10. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 10. 28.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public boolean isError() {
+        return !this.getResult();
+    }
+
+    /**
+     * 성공 여부를 제공한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 10. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 10. 28.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @see {@link Result#getResult()} 와 동일한 기능.
+     */
+    public boolean isSuccess() {
+        return this.getResult();
     }
 
     /**
@@ -232,7 +279,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 2. 14.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public Result<T> setMessage(String format, Object... args) {
@@ -305,7 +352,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 11. 20.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
     public static <N> Result<N> copyOf(Result<?> o) {
@@ -332,6 +379,31 @@ public class Result<T> {
      */
     public static <T> Result<T> error(String errorMessage) {
         return new Result<T>().setMessage(errorMessage);
+    }
+
+    /**
+     * '에러' 결과 객체를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 7. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param format
+     *            메시지 포맷
+     * @param args
+     *            메시지 정보
+     * @return
+     *
+     * @since 2021. 7. 14.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> Result<T> error(String format, Object... args) {
+        return new Result<T>().setMessage(format, args);
     }
 
     /**

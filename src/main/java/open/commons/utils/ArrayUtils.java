@@ -30,6 +30,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.function.Function;
 
 import open.commons.DefaultEquivalent;
 import open.commons.EquivalentFactory;
@@ -1716,6 +1718,31 @@ public class ArrayUtils {
     }
 
     /**
+     * deep copy <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param original
+     * @param newLength
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
+        return copyOf(original, newLength, (Class<T[]>) original.getClass(), clone);
+    }
+
+    /**
      * <p>
      * <b><font color="RED">free against JDK 1.6 </font></b>
      * </p>
@@ -1745,6 +1772,42 @@ public class ArrayUtils {
     public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
         T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
         System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
+        return copy;
+    }
+
+    /**
+     * deep copyl <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param original
+     * @param newLength
+     * @param newType
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType, Function<U, T> clone) {
+        T[] copy = ((Object) newType == (Object) Object[].class) //
+                ? (T[]) new Object[newLength] //
+                : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+
+        final int newArrlen = Math.min(original.length, newLength);
+        for (int i = 0; i < newArrlen; i++) {
+            copy[i] = clone.apply(original[i]);
+        }
+
         return copy;
     }
 
@@ -2093,6 +2156,32 @@ public class ArrayUtils {
     }
 
     /**
+     * deep copy <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param original
+     * @param from
+     * @param to
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
+        return copyOfRange(original, from, to, (Class<T[]>) original.getClass(), clone);
+    }
+
+    /**
      * <p>
      * <b><font color="RED">free against JDK 1.6 </font></b>
      * </p>
@@ -2133,6 +2222,44 @@ public class ArrayUtils {
             throw new IllegalArgumentException(from + " > " + to);
         T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
         System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
+        return copy;
+    }
+
+    /**
+     * deep copy. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param original
+     * @param from
+     * @param to
+     * @param newType
+     * @param clone
+     *            deep copy 함수
+     * @return
+     *
+     * @since 2021. 8. 19.
+     * @version _._._
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType, Function<U, T> clone) {
+        int newLength = to - from;
+        if (newLength < 0)
+            throw new IllegalArgumentException(from + " > " + to);
+        T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+
+        final int newArrlen = Math.min(original.length, newLength);
+        for (int i = 0; i < newArrlen; i++) {
+            copy[i] = clone.apply(original[i]);
+        }
+
         return copy;
     }
 
@@ -2402,6 +2529,37 @@ public class ArrayUtils {
     }
 
     /**
+     * 주어진 배열에 대해서 index와 데이터 정보를 {@link List}로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 8. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @return
+     *
+     * @since 2021. 8. 15.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> List<Entry<Integer, T>> entrySet(T[] array) {
+        if (array == null) {
+            return null;
+        }
+
+        List<Entry<Integer, T>> entries = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            entries.add(new EntryValue<Integer, T>(i, array[i]));
+        }
+
+        return entries;
+    }
+
+    /**
      * 2개의 배열이 동일한지 여부를 확인한다.
      * 
      * @param array1
@@ -2665,6 +2823,267 @@ public class ArrayUtils {
         }
 
         return rtnBytes;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(char[] array, Function<Character, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(double[] array, Function<Double, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(float[] array, Function<Float, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(int[] array, Function<Integer, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(long[] array, Function<Long, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static int indexOf(short[] array, Function<Short, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param c
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> int indexOf(T[] array, Function<T, Boolean> c) {
+        for (int i = 0; i < array.length; i++) {
+            if (c.apply(array[i])) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     /**
@@ -6411,10 +6830,6 @@ public class ArrayUtils {
     }
 
     /**
-     * 추가할 메소드의 제네닉 메소드
-     */
-
-    /**
      * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
      * 
      * @param array
@@ -6432,6 +6847,10 @@ public class ArrayUtils {
     public static <T> T[] removeFirst(T[] array, T value) {
         return removeFirst(array, value, null);
     }
+
+    /**
+     * 추가할 메소드의 제네닉 메소드
+     */
 
     /**
      * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
@@ -8897,6 +9316,122 @@ public class ArrayUtils {
     }
 
     /**
+     * 조건에 맞는 데이터 이후부터 끝까지 데이터를 새로운 배열로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 24.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param at
+     *            조건에 맞는지 비교하는 함수. (exclusive)
+     * @return
+     *
+     * @since 2021. 6. 24.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] splitAfter(T[] array, Function<T, Boolean> at) {
+        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+
+        int pos = 0;
+        boolean found = false;
+        for (T elem : array) {
+            if (!found) {
+                found = at.apply(elem);
+                continue;
+            }
+
+            newArr[pos++] = elem;
+        }
+
+        if (pos < 1) {
+            return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
+        } else {
+            return ArrayUtils.copyOf(newArr, pos);
+        }
+    }
+
+    /**
+     * 첫 데이터부터 주어진 조건에 맞는 데이터까지 새로운 배열로 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 6. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param at
+     *            조건에 맞는지 비교하는 함수. (inclusive)
+     * @param post
+     *            조건에 맞는 데이터를 후처리하는 함수.
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] splitAt(T[] array, Function<T, Boolean> at, Function<T, T> post) {
+
+        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+        int pos = 0;
+
+        for (T elem : array) {
+            if (at.apply(elem)) {
+                if (post != null) {
+                    elem = post.apply(elem);
+                }
+                newArr[pos++] = elem;
+                break;
+            }
+            newArr[pos++] = elem;
+        }
+
+        return ArrayUtils.copyOf(newArr, pos);
+    }
+
+    /**
+     * 첫 데이터부터 주어진 조건에 맞는 데이터 직전까지 새로운 배열로 제공한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @param at
+     *            조건에 맞는지 비교하는 함수. (exclusive)
+     * @return
+     *
+     * @since 2021. 6. 21.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <T> T[] splitBefore(T[] array, Function<T, Boolean> at) {
+        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+        int pos = 0;
+        for (T elem : array) {
+            if (at.apply(elem)) {
+                break;
+            }
+            newArr[pos++] = elem;
+        }
+
+        return ArrayUtils.copyOf(newArr, pos);
+    }
+
+    /**
      * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
      * 
      * @param array
@@ -9549,5 +10084,91 @@ public class ArrayUtils {
         }
 
         return array;
+    }
+
+    public static class EntryValue<K, V> implements Entry<K, V> {
+
+        private K key;
+        private V value;
+
+        /**
+         * @param key
+         * @param value
+         * @since 2021. 8. 15.
+         */
+        public EntryValue(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2021. 8. 15.		박준홍			최초 작성
+         * </pre>
+         *
+         * @return
+         *
+         * @since 2021. 8. 15.
+         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         *
+         * @see java.util.Map.Entry#getKey()
+         */
+        @Override
+        public K getKey() {
+            return this.key;
+        }
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2021. 8. 15.		박준홍			최초 작성
+         * </pre>
+         *
+         * @return
+         *
+         * @since 2021. 8. 15.
+         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         *
+         * @see java.util.Map.Entry#getValue()
+         */
+        @Override
+        public V getValue() {
+            return this.value;
+        }
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2021. 8. 15.		박준홍			최초 작성
+         * </pre>
+         *
+         * @param value
+         * @return
+         *
+         * @since 2021. 8. 15.
+         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         *
+         * @see java.util.Map.Entry#setValue(java.lang.Object)
+         */
+        @Override
+        public V setValue(V value) {
+            V v = this.value;
+            this.value = value;
+            return v;
+        }
+
     }
 }

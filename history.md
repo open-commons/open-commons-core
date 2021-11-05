@@ -1,3 +1,150 @@
+[2021/11/04]
+- New
+  + open.commons.util.DataStorageUnit
+    + <strike>open.commons.util.MemoryUnit</strike>
+  + open.commons.utils.UnitUtils
+
+[2021/11/03]
+- New
+  + open.commons.annotation.Information
+- Add
+  + open.commons.utils.AnnotationUtils
+    + getAnnotatedFieldsAllAsStream(Object, Class<? extends Annotation>)
+  + open.commons.utils.ObjectUtils
+    + readInformation(Object)
+
+[2021/10/28]
+- Add
+  + open.commons.Result
+    + isError(): 실패 여부를 사용하기 위해서, ``!Result.getResolt()`` 작성할 때 `!(not)`을 종종 빠뜨리는 경우를 방지하기 위함.
+    + isSuccess(): 명확한 의미를 제공하기 위함.
+
+[2021/10/21]
+- Bugfix
+  + open.commons.utils.CollectionUtils
+    + subCollection(List&lt;E&gt;, int): zero-size 반환 객체 변경
+    + subCollection(List&lt;E&gt;, int, int): zero-size 반환 객체 변경
+
+[2021/09/14]
+- Add
+  + open.commons.exception.AsyncExecutionException: 비동기 작업 실행 도중 발생하는 예외 클래스.
+  + open.commons.concurrent.ConcurrentWorker
+    + contains(E): 데이터 존재 여부 제공
+    + remove(E): 데이터 삭제
+
+[2021/08/27]
+- Add
+  + open.commons.utils.DateUtil
+    + getTimestamp(Calendar, int, int)
+    + getTimestamp(int, int)
+    + getTimestampString(Calendar, SimpleDateFormat)
+    + getTimestampString(Calendar, String)
+    + getTimestampString(Date, String)
+    + getTimestampString(long, SimpleDateFormat)
+    + getTimestampString(long, String)
+    + getTimestampString(String)
+    + getTimeString(Calendar)
+    + getTimeString(long)
+
+
+[2021/08/19]
+- Add
+  + open.commons.utils.ArrayUtils.copyOf(T[], int, Function<T, T>)
+  + open.commons.utils.ArrayUtils.copyOf(U[], int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
+  + open.commons.utils.ArrayUtils.copyOfRange(T[], int, int, Function<T, T>)
+  + open.commons.utils.ArrayUtils.copyOfRange(U[], int, int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
+  
+[2021/08/15]
+- Add
+  + open.commons.utils.ArrayUtils.entrySet(T[])
+  + open.commons.Utils.ComparableUtils.compare(T, T)
+
+[2021/07/14]
+- Add
+  + open.commons.function.SQLFunction.setParametersAndRelease(boolean, Object...)
+
+[2021/07/14]
+- Add
+  + open.commons.Result.error(String, Object...)
+  
+[2021/07/13]
+- Add
+  + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, C)
+  + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, Class&lt;C&gt;)
+  + open.commons.utils.CollectionUtils.has(Collection&lt;E&gt;, Predicate&lt;E&gt;)
+
+[2021/07/12]
+- Add
+  + open.commons.utils.NetUtils.REGEX\_IPV4\_STRICT
+  + open.commons.utils.NetUtils.REGEX\_IPV6
+  + open.commons.utils.NetUtils.REGEX\_IPV6\_STRICT
+  + open.commons.utils.NetUtils.REGEX\_IPV4\_IPV6
+  + open.commons.utils.NetUtils.REGEX\_IPV4\_IPV6\_STRICT
+  + open.commons.utils.NetUtils.intToIPv4(int)
+  + open.commons.utils.NetUtils.isIPv4(String)
+  + open.commons.utils.NetUtils.isIPv4OrIPv6(String)
+  + open.commons.utils.NetUtils.isIPv6(String)
+
+[2021/07/05]
+- Add
+  + open.commons.utils.IOUtils.close(Collection&lt;AutoCloseable&gt;)
+
+[2021/07/01]
+- Add
+  + open.commons.core.lang.CloseableContainer: {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로 해제({@link AutoCloseable#close()})
+
+[2021/06/24]
+- Add
+  + open.commons.core.csv.CsvConfig
+  + open.commons.core.csv.CsvFileConfig
+- Modify
+  + open.commons.core.csv.AbstractCsvData: 기본 설정값 참조 변경
+    - 자체 설정값에서 open.commons.core.csv.CsvConfig 참조
+
+[2021/06/24]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    - splitAfter(T[], Function&lt;T, Boolean&gt;)
+
+[2021/06/21]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    - indexOf(boolean[], Function&lt;Boolean, Boolean&gt;)
+    - indexOf(byte[], Function&lt;Byte, Boolean&gt;)
+    - indexOf(char[], Function&lt;Character, Boolean&gt;)
+    - indexOf(double[], Function&lt;Double, Boolean&gt;)
+    - indexOf(float[], Function&lt;Float, Boolean&gt;)
+    - indexOf(int[], Function&lt;Integer, Boolean&gt;)
+    - indexOf(long[], Function&lt;Long, Boolean&gt;)
+    - indexOf(short[], Function&lt;Short, Boolean&gt;)
+    - indexOf(T[], Function&lt;T, Boolean&gt;)
+    - splitAt(T[], Function&lt;T, Boolean&gt;, Function&lt;T, T&gt;)
+    - splitBefore(T[], Function&lt;T, Boolean&gt;)
+  + open.commons.core.utils.StringUtils
+    - startsWithDigit(String)
+
+[2021/06/18]
+- Add
+  + open.commons.core.csv.AbstractCsvData
+  + open.commons.core.csv.FieldBase
+  + open.commons.core.csv.MethodBase
+  + open.commons.core.lang.Char
+- Modify
+  + open.commons.core.database.IndexedColumnDTO
+    - 공통 기능을 open.commons.core.csv.AbstractCsvData 로 이관
+
+[2021/06/16]
+- Add
+  + open.commons.core.utils.MapUtils.map(Map&lt;K, V&gt;, Function&lt;Entry&lt;K, V&gt;, NK&gt;, Function&lt;Entry&lt;K, V&gt;, NV&gt;, Class&lt;M&gt;, Class&lt;C&gt;)
+
+[2021/05/55]
+- bugfix
+  + open.commons.collection.FIFOMap.clear(): 데이터(값) 미삭제 버그 수정
+
+[2021/02/26]
+- Add
+  + open.commons.function.IOFunction&lt;T, R&gt;
+
 [2021/02/26]
 - Bugfix
   _ open.commons.function.SQLConsumer
@@ -27,7 +174,7 @@
 - Modify
   + open.commons.concurrent.AsyncJobManager
     - get(K)
-    - register(K, Future<?>)
+    - register(K, Future&lt;?&gt;)
     - unregister(K)
   + open.commons.concurrent.AsyncJobManager.Builder
     - getManager(Object)
@@ -303,9 +450,9 @@
     - build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
     - build(Function&lt;S, T&gt;, S, Function&lt;U, X&gt;, Function&lt;T, U&gt;, Function&lt;Throwable, X&gt;)
     - build(Function&lt;T, R&gt;, T, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
-    - build(Function&lt;T, Result&lt;R&gt;>, T, Consumer&lt;R&gt;)
-    - build(Function&lt;T, Result&lt;R&gt;>, T, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;)
-    - getOnAsync(Future&lt;Result&lt;R&gt;>)
+    - build(Function&lt;T, Result&lt;R&gt;&gt;, T, Consumer&lt;R&gt;)
+    - build(Function&lt;T, Result&lt;R&gt;&gt;, T, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;)
+    - getOnAsync(Future&lt;Result&lt;R&gt;&gt;)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;)
@@ -450,7 +597,7 @@
      
 [2019/09/03]
 - Add
-  + open.commons.utils.ObjectUtils.checkType(Class<?>, Class<?>)
+  + open.commons.utils.ObjectUtils.checkType(Class&lt;?&gt;, Class&lt;?&gt;)
   + open.commons.utils.ObjectUtils.load(Class&lt;T&gt;, Map&lt;String, Object&gt;)
 
 [2019/08/29]
@@ -585,7 +732,7 @@
 [2019/06/17]
 - Release: 1.6.8
 - Add
-  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class&lt;A&gt;, Class<?>)
+  + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class&lt;A&gt;, Class&lt;?&gt;)
   + open.commons.utils.SQLUtils.findDifferences(T, T, String...)
 
 [2019/06/13]
@@ -763,8 +910,8 @@
 [2018/02/08]
 - Release: 1.4.14
 - Add
-  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;>> M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class\&lt;M&gt;)
-  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;>> M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)
+  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class\&lt;M&gt;)
+  + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)
 
 
 [2018/01/31]
@@ -825,9 +972,9 @@
 - Release: 1.4.5
 - Update
   + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;);
-  + &lt;K, V, M extends Map&lt;K, V&gt;> M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;, Class\&lt;M&gt;);
+  + &lt;K, V, M extends Map&lt;K, V&gt;&gt; M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;, Class\&lt;M&gt;);
   + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;);
-  + &lt;K, V, M extends Map&lt;K, V&gt;> M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;, Class\&lt;M&gt;);
+  + &lt;K, V, M extends Map&lt;K, V&gt;&gt; M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;, Class\&lt;M&gt;);
 
 [2017/09/06]
 - Release: 1.4.4.0
@@ -975,7 +1122,7 @@
 
 - Update
   + open.commons.utils/ArrayUtils.java
-    - public static Class<?>[] adjustByLength(int length, Class<?>... classes)
+    - public static Class&lt;?&gt;[] adjustByLength(int length, Class&lt;?&gt;... classes)
 
 [2014/06/04]
 - Release 1.0.8

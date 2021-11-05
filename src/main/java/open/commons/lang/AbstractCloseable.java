@@ -26,11 +26,6 @@
 
 package open.commons.lang;
 
-import java.lang.reflect.Field;
-import java.util.HashSet;
-
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @since 2019. 2. 19.
  * @author Park_Jun_Hong_(fafanmama_at_naver_com)
  */
-public class AbstractCloseable implements AutoCloseable {
+public class AbstractCloseable implements CloseableContainer {
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -59,44 +54,5 @@ public class AbstractCloseable implements AutoCloseable {
      * @since 2019. 2. 19.
      */
     public AbstractCloseable() {
-    }
-
-    /**
-     * @see java.lang.AutoCloseable#close()
-     */
-    @Override
-    public void close() throws Exception {
-
-        HashSet<AutoCloseable> resources = new HashSet<>();
-
-        Field[] fields = getClass().getDeclaredFields();
-
-        Class<?> fieldClass = null;
-        boolean accessible = false;
-        for (Field field : fields) {
-            fieldClass = field.getType();
-            if (fieldClass.isAnnotationPresent(Resource.class) //
-                    && AutoCloseable.class.isAssignableFrom(fieldClass)) {
-                accessible = field.isAccessible();
-                try {
-                    field.setAccessible(true);
-                    resources.add((AutoCloseable) field.get(this));
-                } catch (Exception e) {
-                    logger.error("Fail to initialize a " + Resource.class.getName() + " instance.", e);
-                    throw new RuntimeException("Fail to initialize a " + Resource.class.getName() + " instance.", e);
-                } finally {
-                    field.setAccessible(accessible);
-                }
-            }
-        }
-
-        // Release Resources.
-        try {
-            for (AutoCloseable c : resources) {
-                c.close();
-            }
-        } catch (Exception ignored) {
-            logger.warn("ignored", ignored);
-        }
     }
 }
