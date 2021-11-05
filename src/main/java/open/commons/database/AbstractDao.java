@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2018 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2018. 5. 23. 오전 11:22:28
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -59,7 +59,7 @@ import open.commons.utils.SQLUtils;
  * </pre>
  * 
  * @since 2018. 5. 23.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public abstract class AbstractDao implements AutoCloseable {
 
@@ -277,7 +277,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * @return
      * @throws SQLException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 19.
      */
     @SuppressWarnings("unchecked")
@@ -531,7 +531,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 5. 23.
      */
     public abstract String getQuery(String name);

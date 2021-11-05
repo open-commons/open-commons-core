@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 *
 * Date  : 2013. 6. 20. 오전 11:47:42
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -31,7 +31,7 @@ package open.commons.lang;
 import open.commons.concurrent.Mutex;
 
 /**
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 public abstract class AbstractRunnable implements IRunnable {
@@ -106,7 +106,7 @@ public abstract class AbstractRunnable implements IRunnable {
      *
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public void join() {
         join(0, 0);
@@ -125,7 +125,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * @param millis
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public void join(long millis) {
         join(millis, 0);
@@ -145,7 +145,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * @param nanos
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public void join(long millis, int nanos) {
         try {

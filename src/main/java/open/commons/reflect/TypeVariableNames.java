@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2014. 6. 17. 오후 3:03:00
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -36,7 +36,7 @@ import open.commons.concurrent.Mutex;
  * Generic 을 사용하는 클래스들의 Generic Type Variable Name Literal을 제공하는 클래스.
  * 
  * @since 2014. 6. 17.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 @SuppressWarnings("unused")
 public class TypeVariableNames {

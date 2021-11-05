@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 11. 4. 오후 3:09:23
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -43,7 +43,7 @@ import open.commons.utils.ExceptionUtils;
  * 
  * @since 2021. 11. 4.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public enum DataStorageUnit {
     /**
@@ -164,7 +164,7 @@ public enum DataStorageUnit {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #convertHasRemain(long, DataStorageUnit)
      */
@@ -192,7 +192,7 @@ public enum DataStorageUnit {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public BigDecimal[] convert(long size, DataStorageUnit unit, boolean alsoSubUnit) {
         return alsoSubUnit //
@@ -222,7 +222,7 @@ public enum DataStorageUnit {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public BigDecimal[] convert(long size, DataStorageUnit bigUnit, DataStorageUnit littleUnit) {
         if (bigUnit.num.compareTo(littleUnit.num) < 0) {
@@ -267,7 +267,7 @@ public enum DataStorageUnit {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public DataStorageUnit down() {
         switch (this) {
@@ -300,7 +300,7 @@ public enum DataStorageUnit {
      * @return a string of an instance of {@link DataStorageUnit}
      *
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public String get() {
         return this.str;
@@ -308,7 +308,7 @@ public enum DataStorageUnit {
 
     /**
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Enum#toString()
      */
@@ -331,7 +331,7 @@ public enum DataStorageUnit {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public DataStorageUnit up() {
         switch (this) {
@@ -367,7 +367,7 @@ public enum DataStorageUnit {
      * @return an instance of {@link DataStorageUnit}
      *
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see #get(String, boolean)
      */
@@ -385,7 +385,7 @@ public enum DataStorageUnit {
      * @return an instance of {@link DataStorageUnit}
      *
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static DataStorageUnit get(String str, boolean ignoreCase) {
 

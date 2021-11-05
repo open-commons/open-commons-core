@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 import open.commons.io.Consumers;
 
 /**
- * @author Park Jun-Hong.(mail_to:fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
  * 
  */
 public class FileUtils {
@@ -89,7 +89,7 @@ public class FileUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean clearDirectory(File dir) {
         if (dir == null || dir.isFile() || dir.list().length < 1) {
@@ -120,7 +120,7 @@ public class FileUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean clearDirectory(String dir) {
         return clearDirectory(new File(dir));
@@ -188,7 +188,7 @@ public class FileUtils {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IOException
      * @see Paths#get(String, String...)
      */
@@ -230,7 +230,7 @@ public class FileUtils {
      * @exception IllegalArgumentException
      *                If {@link File} instance is <code>null</code>.
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean delete(File f, boolean forced) {
         if (f != null) {
@@ -328,7 +328,7 @@ public class FileUtils {
      * @return file-extension or <code>null</code> if <code>file</code> is <code>null</code> or not a file.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFileExtension(File file) {
         if (file == null) {
@@ -348,7 +348,7 @@ public class FileUtils {
      * @return file-extension or <code>null</code> if <code>file</code> is <code>null</code>.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFileExtension(String file) {
         if (file == null) {
@@ -368,7 +368,7 @@ public class FileUtils {
      * @return filename or <code>null</code> if <code>file</code> is <code>null</code>.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFileName(String file) {
         if (file == null) {
@@ -387,7 +387,7 @@ public class FileUtils {
      * @return filename or <code>null</code> if <code>file</code> is <code>null</code>.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFileNameNoExtension(File file) {
         if (file == null) {
@@ -407,7 +407,7 @@ public class FileUtils {
      * @return filename or <code>null</code> if <code>file</code> is <code>null</code>.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFileNameNoExtension(String file) {
         String filename = getFileName(file);
@@ -427,7 +427,7 @@ public class FileUtils {
      * @return filepath or <code>null</code> if <code>file</code> is <code>null</code>.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFilePath(File file) {
         if (file == null) {
@@ -451,7 +451,7 @@ public class FileUtils {
      * @see File#getParent()
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getFilePath(String file) {
         if (file == null) {
@@ -514,7 +514,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
         if (!Files.exists(directory)) {
@@ -583,7 +583,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -613,7 +613,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Path move(Path source, Path target, CopyOption... options) throws IOException {
         return Files.move(source, target, options);
@@ -639,7 +639,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -668,7 +668,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -697,7 +697,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}

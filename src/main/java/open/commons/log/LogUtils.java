@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import open.commons.utils.ArrayUtils;
 import open.commons.utils.StringUtils;
 
 /**
- * @author Park Jun-Hong.(mail_to:fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
  * 
  * @date
  * 
@@ -128,7 +128,7 @@ public class LogUtils {
      *            the depth from the parameter <b><code>start</code></b>.
      * @return
      * @since 2012. 7. 5.
-     * @author Park Jun-Hong (fafanmama_at_naver_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String[] callStack(int start, int depth) {
         if (depth < 1) {

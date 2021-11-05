@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2018. 1. 31. 오후 1:39:21
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -46,7 +46,7 @@ import open.commons.annotation.Setter;
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
  * 
  * @since 2018. 1. 31.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class ObjectUtils {
 
@@ -119,7 +119,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 9. 3.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean checkType(Class<?> target, Class<?> standard) {
 
@@ -170,7 +170,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 9. 3.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     private static boolean checkType(Class<?> target, Class<?>... standards) {
         for (Class<?> standard : standards) {
@@ -196,7 +196,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isPrimitive(Class<?> type) {
         return PRIMITIVES.contains(type.getClass());
@@ -217,7 +217,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isPrimitive(Object obj) {
         return PRIMITIVES.contains(obj.getClass());
@@ -238,7 +238,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWrapper(Class<?> type) {
         return WRAPPER_TYPES.contains(type.getClass());
@@ -259,7 +259,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWrapper(Object obj) {
         return WRAPPER_TYPES.contains(obj.getClass());
@@ -284,7 +284,7 @@ public class ObjectUtils {
      *
      * @since 2019. 9. 3.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws InvocationTargetException
@@ -342,7 +342,7 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 3.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readInformation(Object o) {
         final String fmt = "%-15s = %s";
@@ -629,7 +629,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
@@ -658,7 +658,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper) {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
@@ -771,7 +771,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2020. 12. 08.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
@@ -800,7 +800,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2020. 12. 08.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper) {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
@@ -901,7 +901,7 @@ public class ObjectUtils {
      *
      * @since 2019. 6. 20.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see Getter
      * @see Setter
@@ -929,7 +929,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper) {
         return transform(src, false, targetType, lookupTargetSuper);
@@ -954,7 +954,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 08.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see Getter
      * @see Setter
@@ -982,7 +982,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, D> D transform(S src, D target, boolean lookupTargetSuper) {
         return transform(src, false, target, lookupTargetSuper);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 8. 29. 오전 1:33:57
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -43,7 +43,7 @@ import open.commons.function.Runner;
  * 
  * @since 2020. 8. 29.
  * @version 1.7.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 public class FunctionUtils {
@@ -85,7 +85,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, U, V, W, X> Supplier<X> build(BiFunction<S, T, U> action, S param1, T param2 //
             , BiFunction<V, W, X> onSuccess, V osParam1, Function<U, W> osParam2 //
@@ -131,7 +131,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U, R, X> Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2 //
             , Function<R, X> onSuccess //
@@ -176,7 +176,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, U, X> Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam, Function<Throwable, X> onError) {
         return () -> {
@@ -216,7 +216,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R, X> Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
         return () -> {
@@ -254,7 +254,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
         return build(action, param, onSuccess, t -> t.getMessage());
@@ -285,7 +285,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess, Function<Throwable, String> onError) {
         return () -> {
@@ -328,7 +328,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R, X> Supplier<X> build(Supplier<R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
         return () -> {
@@ -366,7 +366,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess) {
         return build(action, onSuccess, t -> t.getMessage());
@@ -397,7 +397,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
         return () -> {
@@ -438,7 +438,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess) {
         return build(param1, param2, action, onSuccess, t -> t.getMessage());
@@ -471,7 +471,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 10.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
         return () -> {
@@ -506,7 +506,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R> Result<R> getOnAsync(Future<Result<R>> future) {
         if (future == null) {
@@ -541,7 +541,7 @@ public class FunctionUtils {
      *
      * @since 2021. 5. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T ifThenElse(Supplier<Boolean> condition, Supplier<T> then, Supplier<T> elze) {
         return condition.get() ? then.get() : elze.get();
@@ -568,7 +568,7 @@ public class FunctionUtils {
      *
      * @since 2021. 5. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T ifThenElse(Supplier<Boolean> condition, T then, T elze) {
         return condition.get() ? then : elze;
@@ -639,7 +639,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run) {
         return test.test(value) ? run.apply(value) : null;
@@ -669,7 +669,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
         return test.test(value) ? run.apply(value) : defaultValue.get();
@@ -697,7 +697,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
     // return test.test(value) ? run.apply(value) : defaultValue;
@@ -728,7 +728,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run) {
         return test.test(value) ? run.apply(param.apply(value)) : null;
@@ -760,7 +760,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 7. 22.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
         return test.test(value) ? run.apply(param.apply(value)) : defaultValue.get();
@@ -792,7 +792,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R
     // defaultValue) {
@@ -828,7 +828,7 @@ public class FunctionUtils {
      *            실행 함수
      *
      * @since 2020. 8. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U> void runIf(T value, Predicate<T> test, Supplier<U> param, Consumer<U> run) {
         if (test.test(value)) {
@@ -860,7 +860,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
         return test.test(value) ? run.apply(param.get()) : null;
@@ -892,7 +892,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
         return test.test(value) ? run.apply(param.get()) : defaultValue.get();
@@ -924,7 +924,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R
     // defaultValue) {
@@ -954,7 +954,7 @@ public class FunctionUtils {
      *            실행 함수
      *
      * @since 2020. 8. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U> void runIf(T value, Predicate<T> test, U param, Consumer<U> run) {
         if (test.test(value)) {
@@ -983,7 +983,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
     public static <R> Optional<R> runOnAsync(Predicate<R> filterIn, Supplier<R>... actions) {
@@ -1020,7 +1020,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
     public static <R> Optional<R> runOnSync(Predicate<R> filterIn, Supplier<R>... actions) {

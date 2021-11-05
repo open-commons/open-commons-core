@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import java.util.Properties;
  * 공통 프로퍼티 제공 클래스 <BR>
  * 
  * @since 2012. 01. 30.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class CommonProperties {
 
@@ -49,7 +49,7 @@ public class CommonProperties {
      * @param key
      * @return <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Properties#get(Object)
      */
@@ -62,7 +62,7 @@ public class CommonProperties {
      * @param keyPrefix
      * @return <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Properties subProperteis(String keyPrefix) {
         Properties prop = new Properties();

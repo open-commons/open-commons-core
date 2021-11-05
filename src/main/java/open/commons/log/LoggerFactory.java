@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2013. 7. 3. 오후 6:21:57
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 package open.commons.log;
@@ -31,7 +31,7 @@ import java.io.PrintStream;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 public class LoggerFactory {
@@ -153,7 +153,7 @@ public class LoggerFactory {
     /**
      * 표준 출력/에러 출력에 로그를 기록하는 클래스.
      * 
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      */
     static class ConsoleLogger extends AbstractLogger {

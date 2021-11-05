@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 12. 17. 오후 1:19:03
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -38,7 +38,7 @@ import open.commons.utils.CollectionUtils;
  * 
  * @since 2020. 12. 17.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class NumString<N extends Number> implements CharSequence {
 
@@ -71,7 +71,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#charAt(int)
      */
@@ -103,7 +103,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#length()
      */
@@ -131,7 +131,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#subSequence(int, int)
      */
@@ -153,7 +153,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */
@@ -178,7 +178,7 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <N extends Number> List<NumString<N>> sequence(Collection<N> nums) {
         return sequence(n -> new NumString<N>(n), nums);
@@ -201,7 +201,7 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, Collection<T> nums) {
         ArrayList<NumString<N>> list = new ArrayList<>();
@@ -229,7 +229,7 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, T... nums) {
@@ -252,7 +252,7 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
     public static <N extends Number> List<NumString<N>> sequence(N... nums) {

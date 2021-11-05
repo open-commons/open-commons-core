@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2019 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2019. 2. 19. 오전 10:41:11
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -38,7 +38,7 @@ import java.util.function.Function;
  * @param <T>
  *            {@link PreparedStatement} 에 데이터를 설정하는 객체 타입.
  * @since 2019. 2. 19.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  * @see ConnectionCallbackBroker
  */
@@ -121,7 +121,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
     /**
      * @throws SQLException
      * @since 2020. 10. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see open.commons.database.IConnectionCallbackBroker#getStatement(java.sql.Connection)
      */
     @Override
@@ -152,7 +152,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      * @param stmt
      * @param setter
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 19.
      */
     protected abstract void set(PreparedStatement stmt, T setter) throws SQLException;

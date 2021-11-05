@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * <BR>
  * 
  * @since 2012. 2. 7.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class IndentationFactory {
     private static Object mutex = new Object();
@@ -72,7 +72,7 @@ public class IndentationFactory {
          * 
          * 
          * @since 2012. 2. 7.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         public void dec() {
             synchronized (mutex) {
@@ -93,7 +93,7 @@ public class IndentationFactory {
          * 
          *         <BR>
          * @since 2012. 2. 7.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         public final int getDepth() {
             return depth;
@@ -125,7 +125,7 @@ public class IndentationFactory {
          * @return
          * 
          * @since 2012. 2. 7.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         private String toString0() {
             String str = strings.get(depth);

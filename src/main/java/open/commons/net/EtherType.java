@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2014. 5. 30. 오전 10:56:26
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -30,7 +30,7 @@ package open.commons.net;
 /**
  * 
  * @since 2014. 5. 30.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class EtherType {
 

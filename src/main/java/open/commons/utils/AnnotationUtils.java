@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import java.util.stream.Stream;
  * <BR>
  * 
  * @since 2012. 2. 6.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class AnnotationUtils {
 
@@ -56,7 +56,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     @SuppressWarnings("unchecked")
@@ -84,7 +84,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getDeclaredFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
@@ -125,7 +125,7 @@ public class AnnotationUtils {
      * @param annotationClass
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2012. 2. 6.
      * 
      * @see #getAnnotatedFields(Class, Class)
@@ -149,7 +149,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getDeclaredFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
@@ -175,7 +175,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
@@ -201,7 +201,7 @@ public class AnnotationUtils {
      * @param annotationClass
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 9. 26.
      * 
      * @see Class#getFields()
@@ -227,7 +227,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getDeclaredFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
@@ -254,7 +254,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
@@ -281,7 +281,7 @@ public class AnnotationUtils {
      *
      * @since 2021. 11. 3.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Object object, Class<? extends Annotation> annotationClass) {
         return getAnnotatedFieldsAllAsStream(object.getClass(), annotationClass);
@@ -302,7 +302,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see Class#getDeclaredMethods()
      */
@@ -342,7 +342,7 @@ public class AnnotationUtils {
      * @param annotationClass
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2012. 2. 6.
      * 
      * @see Class#getDeclaredMethods()
@@ -366,7 +366,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see Class#getMethods()
      */
@@ -392,7 +392,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getMethods()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
@@ -417,7 +417,7 @@ public class AnnotationUtils {
      * @param annotationClass
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 9. 26.
      * 
      * @see Class#getMethods()
@@ -442,7 +442,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getMethods()
      */
     @SuppressWarnings("unchecked")
@@ -466,7 +466,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
@@ -494,7 +494,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
@@ -518,7 +518,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
     public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -550,7 +550,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
      */
     @SuppressWarnings("unchecked")
@@ -594,7 +594,7 @@ public class AnnotationUtils {
      * @param annotationClass
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2012. 2. 6.
      */
     public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annotationClass) {
@@ -651,7 +651,7 @@ public class AnnotationUtils {
      * @return {@link AnnotationFormatError} 또는 <code>null</code>
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <A extends Annotation> A hasAnnotation(Class<?> type, Class<A> annotationClass) {
         return type.getAnnotation(annotationClass);
@@ -665,7 +665,7 @@ public class AnnotationUtils {
      *            찾고자 하는 {@link Annotation} 타입
      * @return {@link AnnotationFormatError} 또는 <code>null</code>
      * @since 2012. 2. 6.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @throws NullPointerException
      */
@@ -682,7 +682,7 @@ public class AnnotationUtils {
      *             주어진 객체가 <code>null</code>인 경우
      * 
      * @since 2012. 02. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Class#isAnnotation()
      */
@@ -712,7 +712,7 @@ public class AnnotationUtils {
      * @return
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <A extends Annotation> boolean isAnnotationPresent(Class<?> type, Class<A> annotationClass) {
         return type.isAnnotationPresent(annotationClass);
@@ -730,7 +730,7 @@ public class AnnotationUtils {
      *             주어진 객체나, Annotation 타입이 <code>null</code>인 경우
      * 
      * @since 2012. 02. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <A extends Annotation> boolean isAnnotationPresent(Object obj, Class<A> annotationClass) {
         return obj.getClass().isAnnotationPresent(annotationClass);

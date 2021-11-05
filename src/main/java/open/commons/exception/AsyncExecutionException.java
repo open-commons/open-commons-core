@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 9. 14. 오후 1:26:50
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -31,7 +31,7 @@ package open.commons.exception;
  * 
  * @since 2021. 9. 14.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class AsyncExecutionException extends RuntimeException {
 
@@ -50,7 +50,7 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AsyncExecutionException() {
     }
@@ -69,7 +69,7 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AsyncExecutionException(String message) {
         super(message);
@@ -90,7 +90,7 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AsyncExecutionException(String message, Throwable cause) {
         super(message, cause);
@@ -113,7 +113,7 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AsyncExecutionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
@@ -133,7 +133,7 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AsyncExecutionException(Throwable cause) {
         super(cause);

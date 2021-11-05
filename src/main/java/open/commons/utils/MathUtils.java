@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2017. 12. 4. 오후 4:57:19
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -36,7 +36,7 @@ import java.util.Optional;
 /**
  * 
  * @since 2017. 12. 4.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class MathUtils {
 
@@ -114,7 +114,7 @@ public class MathUtils {
      * @param values
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 12. 4.
      */
     public static <T extends Comparable<T>> T max(Collection<T> values) {
@@ -144,7 +144,7 @@ public class MathUtils {
      * @return
      *
      * @since 2020. 9. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <T extends Comparable<T>> T max(T... values) {
@@ -166,7 +166,7 @@ public class MathUtils {
      * @param values
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 12. 4.
      */
     public static <T extends Comparable<T>> T min(Collection<T> values) {
@@ -197,7 +197,7 @@ public class MathUtils {
      * @return
      *
      * @since 2020. 9. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <T extends Comparable<T>> T min(T... values) {

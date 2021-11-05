@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import open.commons.utils.StringUtils;
  * <BR>
  * 
  * @since 2012. 01. 20.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class FileExtensionInclusive implements FileFilter {
 
@@ -47,7 +47,7 @@ public class FileExtensionInclusive implements FileFilter {
      * @param exts
      *            파일 확장자
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Set#addAll(Collection)
      */
@@ -60,7 +60,7 @@ public class FileExtensionInclusive implements FileFilter {
      * @param exts
      *            파일 확장자
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public FileExtensionInclusive(String... exts) {
         for (String ext : exts) {
@@ -73,7 +73,7 @@ public class FileExtensionInclusive implements FileFilter {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.io.FileFilter#accept(java.io.File)
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 6. 25. 오후 1:25:39
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -35,7 +35,7 @@ import open.commons.utils.ExceptionUtils;
  * 
  * @since 2021. 6. 25.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class CsvFileConfig extends CsvConfig {
 
@@ -61,7 +61,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -91,7 +91,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -122,7 +122,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -161,7 +161,7 @@ public class CsvFileConfig extends CsvConfig {
      *            파일 Charset
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, Charset charset) {
         super(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace);
@@ -195,7 +195,7 @@ public class CsvFileConfig extends CsvConfig {
      *            파일 Charset
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, String charsetName) {
         this(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, Charset.forName(charsetName));
@@ -220,7 +220,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -249,7 +249,7 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -280,7 +280,7 @@ public class CsvFileConfig extends CsvConfig {
      *            문자열 셋
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -310,7 +310,7 @@ public class CsvFileConfig extends CsvConfig {
      *            문자열 셋
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -339,7 +339,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -367,7 +367,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -396,7 +396,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -427,7 +427,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -457,7 +457,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -485,7 +485,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -642,7 +642,7 @@ public class CsvFileConfig extends CsvConfig {
      * @return
      *
      * @since 2021. 6. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 6. 18. 오후 4:11:23
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -31,7 +31,7 @@ package open.commons.lang;
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class Char implements CharSequence {
 
@@ -50,7 +50,7 @@ public class Char implements CharSequence {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public Char(char c) {
         this.c = c;
@@ -70,7 +70,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#charAt(int)
      */
@@ -95,7 +95,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#length()
      */
@@ -119,7 +119,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#subSequence(int, int)
      */
@@ -144,7 +144,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */

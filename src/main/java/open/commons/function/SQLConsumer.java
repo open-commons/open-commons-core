@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2019 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2019. 2. 19. 오전 10:33:53
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -96,7 +96,7 @@ public interface SQLConsumer<T> {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object... params) {
         return setParametersAndRelease(true, params);
@@ -120,7 +120,7 @@ public interface SQLConsumer<T> {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see SQLUtils#setParameters(PreparedStatement, int, Object, String...)
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object param, String... columnNames) {
@@ -155,7 +155,7 @@ public interface SQLConsumer<T> {
      *
      * @since 2021. 7. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static SQLConsumer<PreparedStatement> setParametersAndRelease(boolean autoRelease, Object... params) {
         return stmt -> {

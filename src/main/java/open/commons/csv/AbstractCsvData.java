@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 6. 18. 오후 5:15:58
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -39,7 +39,7 @@ import open.commons.utils.ExceptionUtils;
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public abstract class AbstractCsvData {
 
@@ -63,7 +63,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AbstractCsvData() {
         this(CsvConfig.DEFAULT_SEPARATOR, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
@@ -85,7 +85,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AbstractCsvData(char delimiter) {
         this(delimiter, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
@@ -111,7 +111,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public AbstractCsvData(char delimiter, char quote, char escape) {
         this.delimiter = delimiter;
@@ -141,7 +141,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public final String csv(char delim, char quote, char escape, String nullValue) {
         List<Supplier<String>> providers = getValues();
@@ -171,7 +171,7 @@ public abstract class AbstractCsvData {
      * @return
      *
      * @since 2020. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see AQueryIndex
      * @see #csv(char, char, char, String)
@@ -197,7 +197,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #csv(char, char, char, String)
      */
     public final String csv(String nullValue) {
@@ -223,7 +223,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public String[] csvArray(char delim, char quote, char escape, String nullValue) {
         List<Supplier<String>> providers = getValues();
@@ -253,7 +253,7 @@ public abstract class AbstractCsvData {
      * @return
      *
      * @since 2020. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see AQueryIndex
      * @see #csv(char, char, char, String)
@@ -279,7 +279,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #csv(char, char, char, String)
      */
     public final String[] csvArray(String nullValue) {
@@ -342,7 +342,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public abstract List<String> getHeaders();
 
@@ -381,7 +381,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public abstract List<Supplier<String>> getValues();
 
@@ -416,7 +416,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     private <T extends Supplier<String>> void handleValue(List<T> orderedValues, char delim, char quote, char escape, String nullValue, BiConsumer<String, Integer> consumer) {
         int index = 0;
@@ -448,7 +448,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     private String processString(String str, char delim, char quote, char escape) {
         if (str == null) {
@@ -494,7 +494,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T extends AbstractCsvData> List<String> columns(Class<T> target) {
         try {
@@ -521,7 +521,7 @@ public abstract class AbstractCsvData {
      * @return
      *
      * @since 2020. 11. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see AQueryIndex
      */
     public static <T extends AbstractCsvData> List<String> columns(T target) {

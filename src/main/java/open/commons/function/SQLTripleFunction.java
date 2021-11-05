@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 1. 20. 오후 3:19:26
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -58,7 +58,7 @@ import open.commons.utils.SQLUtils;
  * 
  * @since 2020. 1. 20.
  * @version 1.6.17
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * @see Function
  */
 @FunctionalInterface
@@ -172,7 +172,7 @@ public interface SQLTripleFunction<T, U, V, R> {
      *
      * @since 2020. 1. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see ColumnValue
      */
@@ -210,7 +210,7 @@ public interface SQLTripleFunction<T, U, V, R> {
 //                            throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, m));
 //                        }
 //
-//                        // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 | Park_Jun_Hong_(fafanmama_at_naver_com)
+//                        // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 | Park_Jun_Hong_(parkjunhong77@gmail.com)
 //                        switch (cv.columnNameType()) {
 //                            case CAMEL_CASE:
 //                                clmn = StringUtils.toLowerCase(clmn, 0);
@@ -228,7 +228,7 @@ public interface SQLTripleFunction<T, U, V, R> {
 //                                throw new IllegalArgumentException(
 //                                        String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
 //                        }
-//                        // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2020. 9. 24.
+//                        // end - Park_Jun_Hong_(parkjunhong77@gmail.com), 2020. 9. 24.
 //
 //                    }
 //

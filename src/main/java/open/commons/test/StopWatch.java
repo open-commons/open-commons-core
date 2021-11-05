@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2019 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2019. 2. 20. 오후 4:40:29
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -47,7 +47,7 @@ import open.commons.utils.TimeUtils;
  * </ul>
  * 
  * @since 2019. 2. 20.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class StopWatch {
     /** 종료 구간 식별자 */
@@ -93,7 +93,7 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      * 
      * @see Map#get(Object)
@@ -124,7 +124,7 @@ public class StopWatch {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public Long get() {
@@ -152,7 +152,7 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      * 
      * @see Map#get(Object)
@@ -179,7 +179,7 @@ public class StopWatch {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public String getAsPretty() {
@@ -199,7 +199,7 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public String getAsPretty(String name) {
@@ -224,7 +224,7 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      * 
      * @see Map#containsKey(Object)
@@ -249,7 +249,7 @@ public class StopWatch {
      * </pre>
      *
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public void pause() {
@@ -279,7 +279,7 @@ public class StopWatch {
      * @param r
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     private String pretty(Long r) {
@@ -303,7 +303,7 @@ public class StopWatch {
      * @param name
      * @return 기록 정보.
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public Long record(String name) {
@@ -343,7 +343,7 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public Long recordAndPause(String name) {
@@ -368,7 +368,7 @@ public class StopWatch {
      * </pre>
      *
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public void reset() {
@@ -402,7 +402,7 @@ public class StopWatch {
      *
      * @throws IllegalStateException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public StopWatch start() throws IllegalStateException {
@@ -442,7 +442,7 @@ public class StopWatch {
      * @return
      * @throws IllegalStateException
      * 
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public StopWatch stop() throws IllegalStateException {
@@ -512,7 +512,7 @@ public class StopWatch {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 20.
      */
     public static StopWatch startNow() {
@@ -553,7 +553,7 @@ public class StopWatch {
          * @param begin
          * @return
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2019. 2. 20.
          */
         public long fromBegin(long begin) {
@@ -572,7 +572,7 @@ public class StopWatch {
          *
          * @return
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2019. 2. 20.
          */
         public long get() {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2012. 3. 9. 오후 3:05:00
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons.path;
@@ -41,7 +41,7 @@ import open.commons.utils.StringUtils;
  * 패스 정보를 보다 빠르게 처리하기 위해 제공되는 클래스 <BR>
  * 
  * @since 2012. 3. 9.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class PathElement implements Iterable<String> {
 
@@ -73,7 +73,7 @@ public class PathElement implements Iterable<String> {
      * <BR>
      * 
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see PathElement#PathElement(String)
      */
@@ -87,7 +87,7 @@ public class PathElement implements Iterable<String> {
      * @param delimiter
      *            경로 구분자 <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public PathElement(char separator) {
 
@@ -103,7 +103,7 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public PathElement(char[] elems, int[][] elemLength) {
         this(File.separator, elems, elemLength);
@@ -115,7 +115,7 @@ public class PathElement implements Iterable<String> {
      * @param elems
      *            경로를 구성하는 문자열들 <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public PathElement(String... elems) {
         this(File.separator);
@@ -135,7 +135,7 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public PathElement(String separator) {
         if (separator == null) {
@@ -158,7 +158,7 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public PathElement(String separator, char[] elems, int[][] elemLength) {
         this(separator);
@@ -195,7 +195,7 @@ public class PathElement implements Iterable<String> {
      * @param path
      *            <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public void add(char path) {
         char[] npc = new char[] { path };
@@ -210,7 +210,7 @@ public class PathElement implements Iterable<String> {
      * @param path
      *            <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public void add(String path) {
         if (path != null) {
@@ -227,7 +227,7 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #add(String)
      */
@@ -249,7 +249,7 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #add(String)
      */
@@ -271,7 +271,7 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #add(String)
      */
@@ -326,7 +326,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#clone()
      */
@@ -350,7 +350,7 @@ public class PathElement implements Iterable<String> {
      * @param path
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public boolean contains(String path) {
         if (path != null) {
@@ -399,7 +399,7 @@ public class PathElement implements Iterable<String> {
      * @param npc
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private void createPathValue(char[] npc) {
         elems = ArrayUtils.merge(elems, npc);
@@ -419,7 +419,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -458,7 +458,7 @@ public class PathElement implements Iterable<String> {
      * @param c2
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private boolean equalsChars(char[] c1, char[] c2) {
         for (int i = 0; i < c1.length; i++) {
@@ -474,7 +474,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public int getElemCount() {
         synchronized (mtxPaths) {
@@ -487,7 +487,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public int[][] getElementLengths() {
         synchronized (mtxPaths) {
@@ -500,7 +500,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public char[] getElements() {
         synchronized (mtxPaths) {
@@ -514,7 +514,7 @@ public class PathElement implements Iterable<String> {
      * @param index
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String getPath(int index) {
         synchronized (mtxPaths) {
@@ -535,7 +535,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String[] getPaths() {
 
@@ -560,7 +560,7 @@ public class PathElement implements Iterable<String> {
      *            inclusive
      * @return <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String[] getPaths(int index) {
         synchronized (mtxPaths) {
@@ -580,7 +580,7 @@ public class PathElement implements Iterable<String> {
      * @param count
      * @return <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private String[] getPaths_internal(int count) {
         String[] paths = new String[count];
@@ -599,7 +599,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String getSeparator() {
         return separator;
@@ -609,7 +609,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#hashCode()
      */
@@ -630,7 +630,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Iterable#iterator()
      */
@@ -648,7 +648,7 @@ public class PathElement implements Iterable<String> {
      * 
      *                <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String remove() {
         synchronized (mtxPaths) {
@@ -681,7 +681,7 @@ public class PathElement implements Iterable<String> {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String setSeparator(char separator) {
         synchronized (mtxPaths) {
@@ -699,7 +699,7 @@ public class PathElement implements Iterable<String> {
      * @param delimiter
      * @return 이전 구분자. 파라미터가 <code>null</code>인 경우 변경을 하지 않고, <code>null</code>을 반환하다. <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public String setSeparator(String separator) {
         if (separator != null) {
@@ -718,7 +718,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#toString()
      */
@@ -784,7 +784,7 @@ public class PathElement implements Iterable<String> {
          * @return
          * 
          * @since 2012. 03. 14.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          * 
          * @see java.util.Iterator#hasNext()
          */
@@ -801,7 +801,7 @@ public class PathElement implements Iterable<String> {
          * @except ArrayIndexOutOfBoundsException
          * 
          * @since 2012. 03. 14.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          * 
          * @see java.util.Iterator#next()
          */
@@ -817,7 +817,7 @@ public class PathElement implements Iterable<String> {
          * 
          * 
          * @since 2012. 03. 14.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          * 
          * @see java.util.Iterator#remove()
          */

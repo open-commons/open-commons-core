@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -221,7 +221,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 9. 10.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Calendar getCalendar(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -245,7 +245,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 9. 10.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Date getDate(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -597,7 +597,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static long getTimestamp(Calendar cal, int field, int amount) {
         cal.add(field, amount);
@@ -621,7 +621,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 9. 10.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static long getTimestamp(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -647,7 +647,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, SimpleDateFormat dateFormat) {
@@ -672,7 +672,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, String format) {
@@ -697,7 +697,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Date date, String format) {
@@ -722,7 +722,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String getTimestampString(long timestamp, SimpleDateFormat dateFormat) {
         return dateFormat.format(new Date(timestamp));
@@ -746,7 +746,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String getTimestampString(long timestamp, String format) {
         return new SimpleDateFormat(format).format(new Date(timestamp));
@@ -768,7 +768,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see SimpleDateFormat
      */
     public static String getTimestampString(String format) {
@@ -801,7 +801,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see SimpleDateFormat
      */
     public static String getTimeString(Calendar cal) {
@@ -834,7 +834,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String getTimeString(long timestamp) {
         return new SimpleDateFormat("HHmmss").format(new Date(timestamp));
@@ -968,7 +968,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Calendar newCalendar(int year, int month, int date) {
         return newCalendar(year, month, date, 0, 0, 0);
@@ -999,7 +999,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Calendar newCalendar(int year, int month, int date, int hourOfDay, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
@@ -1042,7 +1042,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Calendar newCalendar(String year, String month, String date) {
         return newCalendar(year, month, date, null, null, null);
@@ -1073,7 +1073,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Calendar newCalendar(String year, String month, String date, String hourOfDay, String minute, String second) {
         Calendar calendar = Calendar.getInstance();
@@ -1145,7 +1145,7 @@ public class DateUtil {
      *
      * @since 2021. 2. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Calendar resetDateFields(int... dateFields) {
 
@@ -1244,7 +1244,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toISOFormat(Long timestamp) {
         AssertUtils.assertNull(timestamp);
@@ -1311,7 +1311,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toISOFormatNoTZ(Long timestamp) {
         AssertUtils.assertNull(timestamp);
@@ -1459,7 +1459,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toString(Long timestamp, String pattern) {
         SimpleDateFormat format = formats.get(pattern);

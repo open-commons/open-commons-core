@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2018. 5. 29. 오후 6:28:42
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -39,7 +39,7 @@ import open.commons.lang.DefaultRunnable;
  * Consumer & Provider 형식의 데이터 공유를 지원하는 클래스.
  * 
  * @since 2018. 5. 29.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public abstract class ConcurrentWorker<E> extends DefaultRunnable {
 
@@ -88,7 +88,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public boolean contains(E o) {
         synchronized (this.mutexQueue) {
@@ -108,7 +108,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     protected void doneJob() {
         mutexWJC.lock();
@@ -129,7 +129,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2020. 8. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Queue#poll()
      */
     protected Collection<E> flush() {
@@ -159,7 +159,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 25.
      * @see Queue#poll()
      */
@@ -195,7 +195,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2020. 8. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Queue#poll()
      */
     protected E get(boolean nowait) {
@@ -223,7 +223,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 2. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public int getJobCount() {
         mutexWJC.lock();
@@ -246,7 +246,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 25.
      */
     protected final Object getMutexForQueue() {
@@ -281,7 +281,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @param data
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 25.
      */
     public void push(E data) {
@@ -314,7 +314,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public boolean remainsWorkJob() {
         mutexWJC.lock();
@@ -340,7 +340,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public boolean remove(E o) {
         synchronized (this.mutexQueue) {
@@ -369,7 +369,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2018. 5. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     protected int size() {
         return queue.size();

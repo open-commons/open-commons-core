@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 11. 10. 오후 6:01:08
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -98,7 +98,7 @@ public class AsyncJobManager<K, V> {
      *
      * @since 2020. 11. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public Future<?> get(K key) {
         if (key == null) {
@@ -131,7 +131,7 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public boolean has(K key) {
         if (key == null) {
@@ -166,7 +166,7 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public boolean register(K key, Future<V> job) {
     public boolean register(K key, Future<?> job) {
@@ -209,7 +209,7 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public Future<V> unregister(K key) {
     public Future<?> unregister(K key) {
@@ -234,7 +234,7 @@ public class AsyncJobManager<K, V> {
      * 
      * @since 2020. 11. 11.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static class Builder {
 
@@ -261,7 +261,7 @@ public class AsyncJobManager<K, V> {
          *
          * @since 2020. 11. 10.
          * @version 1.8.0
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          */
         @SuppressWarnings("unchecked")
         public static <K> AsyncJobManager<K, ?> getManager(Object holder) {

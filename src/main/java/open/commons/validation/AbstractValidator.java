@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2014. 4. 10. 오후 2:09:03
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -49,7 +49,7 @@ import open.commons.utils.CollectionUtils;
  * @param <T>
  *            {token} 데이터를 검증에 사용될 단위 데이터 타입
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class AbstractValidator<D, T> implements IValidator<D, T> {
 
@@ -366,7 +366,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
 
                 setFeature(feature, false, true);
 
-                // (start) TODO: 미등록 토큰 처리 / Park_Jun_Hong_(fafanmama_at_naver_com): 2014. 9. 17.
+                // (start) TODO: 미등록 토큰 처리 / Park_Jun_Hong_(parkjunhong77@gmail.com): 2014. 9. 17.
                 if (feature == UNKNOWN_TOKEN_FEATURE) {
                 }
                 // (end): 2014. 9. 17.

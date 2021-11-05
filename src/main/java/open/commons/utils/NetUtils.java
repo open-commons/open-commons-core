@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 *
 * Date  : 2015. 3. 4. 오후 6:23:47
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -34,7 +34,7 @@ import java.net.SocketException;
  * 
  * 
  * @since 2015. 3. 4.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class NetUtils {
     /**
@@ -112,7 +112,7 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link NetUtils#intToIPv4(int)}.
      */
     public static String intToIp(int ip) {
@@ -144,7 +144,7 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String intToIPv4(int ip) {
         StringBuffer sb = new StringBuffer();
@@ -175,7 +175,7 @@ public class NetUtils {
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #REGEX_IPV4
      * @see #REGEX_IPV4_STRICT
      */
@@ -198,7 +198,7 @@ public class NetUtils {
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #REGEX_IPV4_IPV6
      * @see #REGEX_IPV4_IPV6_STRICT
      */
@@ -221,7 +221,7 @@ public class NetUtils {
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #REGEX_IPV6
      * @see #REGEX_IPV6_STRICT
      */
@@ -245,7 +245,7 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toPrettyString(byte[] mac) {
 
@@ -282,7 +282,7 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toString(byte[] mac) {
         return ByteUtils.hexBinString(mac);

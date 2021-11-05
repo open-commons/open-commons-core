@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2012. 03. 20. 오후 7:15:58
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons;
@@ -30,7 +30,7 @@ package open.commons;
  * 같은 타입의 2개의 객체가 동일한지를 판단하는 메소드를 제공하는 인터페이스 <BR>
  * 
  * @since 2012. 03. 20.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public interface IEquivalent<T> {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2012. 3. 8. 오전 11:20:52
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons.collection;
@@ -30,7 +30,7 @@ package open.commons.collection;
  * 값과 정렬을 위한 값을 제공하는 클래스. <BR>
  * 
  * @since 2012. 3. 8.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class OrderingKey<T extends Comparable<T>> implements Comparable<OrderingKey<T>> {
 
@@ -46,7 +46,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @param o
      *            정렬에 사용되는 값 <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public OrderingKey(Object v, T o) {
         value = v;
@@ -58,7 +58,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
@@ -72,7 +72,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -105,7 +105,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * 
      *         <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public T getOrder() {
         return order;
@@ -116,7 +116,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * 
      *         <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public Object getValue() {
         return value;
@@ -126,7 +126,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#hashCode()
      */
@@ -143,7 +143,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.lang.Object#toString()
      */

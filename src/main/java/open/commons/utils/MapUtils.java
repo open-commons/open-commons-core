@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 *
 * Date  : 2015. 1. 6. 오후 4:00:34
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -38,7 +38,7 @@ import java.util.function.Supplier;
 /**
  * 
  * @since 2015. 1. 6.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class MapUtils {
 
@@ -75,7 +75,7 @@ public class MapUtils {
      *
      * @since 1.7.0
      * @since 2020. 10. 23.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <K, V> V getOrDefault(Map<K, V> map, K key, Supplier<V> defaultValue, boolean insertIfNot) {
 
@@ -116,7 +116,7 @@ public class MapUtils {
      *
      * @since v1.6.18
      * @since 2020. 3. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see Map#getOrDefault(Object, Object)
      */
@@ -158,7 +158,7 @@ public class MapUtils {
      *
      * @since 2021. 6. 16.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(Map<K, V> src, Function<Entry<K, V>, NK> keyGen, Function<Entry<K, V>, NV> valueGen,
             Class<M> mapClass, Class<C> colClass) throws RuntimeException {
@@ -206,7 +206,7 @@ public class MapUtils {
      *            읽어올 개수
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 10. 18.
      */
     public static <K, V> Map<K, V> read(Map<K, V> map, int readCount) {

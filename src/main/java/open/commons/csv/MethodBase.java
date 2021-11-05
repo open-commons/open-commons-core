@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 6. 18. 오후 5:44:37
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -34,7 +34,7 @@ import java.util.function.Supplier;
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class MethodBase implements Supplier<String> {
 
@@ -55,7 +55,7 @@ public class MethodBase implements Supplier<String> {
      * @param method
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public MethodBase(Object owner, Method method) {
         this.owner = owner;
@@ -75,7 +75,7 @@ public class MethodBase implements Supplier<String> {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.util.function.Supplier#get()
      */

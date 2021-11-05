@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2013. 7. 1. 오전 12:09:56
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 package open.commons;
@@ -36,7 +36,7 @@ import open.commons.utils.CheckUtils;
  * 객체를 생성하는 시점에 입력하는 이름으로 여러 개의 데이터를 사용할 수 있는 클래스.<br>
  * {@link Map}과 유사한 성격을 갖는다.
  * 
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 public class NValues {

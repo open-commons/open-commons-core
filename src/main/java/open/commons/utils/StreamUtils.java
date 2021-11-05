@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 4. 10. 오후 1:41:53
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -41,7 +41,7 @@ import open.commons.Result;
  * 
  * @since 2020. 4. 10.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class StreamUtils {
 
@@ -83,7 +83,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @deprecated Use {@link FunctionUtils#build(BiFunction, Object, Object, BiFunction, Object, Function, Function)}
      * 
@@ -132,7 +132,7 @@ public class StreamUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(BiFunction, Object, Object, Function, Function)}
      */
     public static <T, U, R, X> Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2 //
@@ -178,7 +178,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Function, Object, Function, Function, Function)}
      */
     public static <S, T, U, X> Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam, Function<Throwable, X> onError) {
@@ -219,7 +219,7 @@ public class StreamUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Function, Function, Function)}
      */
     public static <T, R, X> Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
@@ -258,7 +258,7 @@ public class StreamUtils {
      *
      * @since 2020. 6. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Function, Object, Consumer)}
      */
     public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
@@ -290,7 +290,7 @@ public class StreamUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Function, Object, Consumer, Function)}
      */
     public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess, Function<Throwable, String> onError) {
@@ -334,7 +334,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Supplier, Function, Function)}
      */
     public static <R, X> Supplier<X> build(Supplier<R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
@@ -373,7 +373,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Supplier, Consumer)}
      */
     public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess) {
@@ -405,7 +405,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Supplier, Consumer, Function)}
      */
     public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
@@ -451,7 +451,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 10.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link #build(Function, Object, Function, Function)}
      */
     public static <T, R, X> Supplier<X> build(T param, Function<T, R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
@@ -483,7 +483,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 10.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @deprecated Use {@link #build(Function, Object, Consumer)}
      */
@@ -516,7 +516,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 10.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @deprecated Use {@link #build(Function, Object, Consumer, Function)}
      */
@@ -554,7 +554,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @deprecated Use {@link #build(BiFunction, Object, Object, Function, Function)}
      */
@@ -585,7 +585,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Object, Object, BiFunction, Consumer)}
      */
     public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess) {
@@ -619,7 +619,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 10.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#build(Object, Object, BiFunction, Consumer, Function)}
      */
     public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
@@ -655,7 +655,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#getOnAsync(Future)}
      */
     public static <R> Result<R> getOnAsync(Future<Result<R>> future) {
@@ -691,7 +691,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function)}
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run) {
@@ -720,7 +720,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
     // return test.test(value) ? run.apply(value) : defaultValue;
@@ -750,7 +750,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function, Supplier)}
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
@@ -782,7 +782,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function, Function)}
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run) {
@@ -815,7 +815,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R
     // defaultValue) {
@@ -848,7 +848,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 7. 22.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function, Function, Supplier)}
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
@@ -879,7 +879,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Supplier, Function)}
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
@@ -912,7 +912,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     // public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R
     // defaultValue) {
@@ -945,7 +945,7 @@ public class StreamUtils {
      * @return
      *
      * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Supplier, Function, Supplier)}
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
@@ -973,7 +973,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runOnAsync(Predicate, Supplier...)}
      */
     @SuppressWarnings("unchecked")
@@ -1011,7 +1011,7 @@ public class StreamUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @deprecated Use {@link FunctionUtils#runOnSync(Predicate, Supplier...)}
      */
     @SuppressWarnings("unchecked")

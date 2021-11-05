@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2019 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2019. 10. 24. 오후 12:58:44
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -34,7 +34,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Array을 Iterator로 감싼 클래스.
  * 
  * @since 2019. 10. 24.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
 
@@ -72,7 +72,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * @return
      *
      * @since 2020. 11. 13.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Iterable#iterator()
      */
@@ -111,7 +111,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public void reset() {
         try {
@@ -134,7 +134,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      *
      *
      * @since 2019. 10. 24.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public void rollback() {
         try {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2012. 02. 21. 오전 10:13:26
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons.utils;
@@ -44,7 +44,7 @@ import open.commons.collection.IContainer;
  * 배열에 대한 기능성 메소드를 제공하는 클래스 <BR>
  * 
  * @since 2012. 02. 21.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 @SuppressWarnings("unchecked")
 public class ArrayUtils {
@@ -58,7 +58,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] add(boolean[] array, boolean value) {
 
@@ -91,7 +91,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean[] add(boolean[] array, boolean... values) {
         return merge(array, values);
@@ -106,7 +106,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] add(byte[] array, byte value) {
         byte[] newArray = null;
@@ -138,7 +138,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static byte[] add(byte[] array, byte... values) {
         return merge(array, values);
@@ -153,7 +153,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] add(char[] array, char value) {
         char[] newArray = null;
@@ -186,7 +186,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static char[] add(char[] array, char... values) {
         return merge(array, values);
@@ -201,7 +201,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] add(double[] array, double value) {
         double[] newArray = null;
@@ -234,7 +234,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static double[] add(double[] array, double... values) {
         return merge(array, values);
@@ -249,7 +249,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] add(float[] array, float value) {
         float[] newArray = null;
@@ -282,7 +282,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static float[] add(float[] array, float... values) {
         return merge(array, values);
@@ -297,7 +297,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] add(int[] array, int value) {
         int[] newArray = null;
@@ -330,7 +330,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int[] add(int[] array, int... values) {
         return merge(array, values);
@@ -345,7 +345,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] add(long[] array, long value) {
         long[] newArray = null;
@@ -378,7 +378,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static long[] add(long[] array, long... values) {
         return merge(array, values);
@@ -393,7 +393,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] add(short[] array, short value) {
         short[] newArray = null;
@@ -426,7 +426,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static short[] add(short[] array, short... values) {
         return merge(array, values);
@@ -447,7 +447,7 @@ public class ArrayUtils {
      * 
      *            <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] add(T[] array, T value) {
         T[] newArray = null;
@@ -484,7 +484,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] add(T[] array, T... values) {
         return merge(array, values);
@@ -499,7 +499,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] addIfAbsent(boolean[] array, boolean value) {
         if (contains(array, value)) {
@@ -518,7 +518,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] addIfAbsent(byte[] array, byte value) {
         if (contains(array, value)) {
@@ -543,7 +543,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static byte[] addIfAbsent(byte[] array, byte... values) {
         if (values == null || values.length < 1) {
@@ -569,7 +569,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] addIfAbsent(char[] array, char value) {
         if (contains(array, value)) {
@@ -594,7 +594,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static char[] addIfAbsent(char[] array, char... values) {
         if (values == null || values.length < 1) {
@@ -620,7 +620,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] addIfAbsent(double[] array, double value) {
         if (contains(array, value)) {
@@ -645,7 +645,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static double[] addIfAbsent(double[] array, double... values) {
         if (values == null || values.length < 1) {
@@ -671,7 +671,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] addIfAbsent(float[] array, float value) {
         if (contains(array, value)) {
@@ -696,7 +696,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static float[] addIfAbsent(float[] array, float... values) {
         if (values == null || values.length < 1) {
@@ -722,7 +722,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] addIfAbsent(int[] array, int value) {
         if (contains(array, value)) {
@@ -747,7 +747,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int[] addIfAbsent(int[] array, int... values) {
         if (values == null || values.length < 1) {
@@ -773,7 +773,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] addIfAbsent(long[] array, long value) {
         if (contains(array, value)) {
@@ -798,7 +798,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static long[] addIfAbsent(long[] array, long... values) {
         if (values == null || values.length < 1) {
@@ -824,7 +824,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] addIfAbsent(short[] array, short value) {
         if (contains(array, value)) {
@@ -849,7 +849,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static short[] addIfAbsent(short[] array, short... values) {
         if (values == null || values.length < 1) {
@@ -881,7 +881,7 @@ public class ArrayUtils {
      * 
      *            <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] addIfAbsent(T[] array, T value) {
         if (contains(array, value)) {
@@ -934,7 +934,7 @@ public class ArrayUtils {
      * @param value
      *            값 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static void checkRange(int min, int max, int... values) {
         for (int index : values) {
@@ -1736,7 +1736,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
         return copyOf(original, newLength, (Class<T[]>) original.getClass(), clone);
@@ -1796,7 +1796,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType, Function<U, T> clone) {
         T[] copy = ((Object) newType == (Object) Object[].class) //
@@ -2175,7 +2175,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version _._._
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
         return copyOfRange(original, from, to, (Class<T[]>) original.getClass(), clone);
@@ -2247,7 +2247,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version _._._
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType, Function<U, T> clone) {
         int newLength = to - from;
@@ -2270,7 +2270,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(boolean[] array, boolean value) {
 
@@ -2296,7 +2296,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(byte[] array, byte value) {
 
@@ -2322,7 +2322,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(char[] array, char value) {
 
@@ -2348,7 +2348,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(double[] array, double value) {
 
@@ -2374,7 +2374,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(float[] array, float value) {
 
@@ -2400,7 +2400,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(int[] array, int value) {
 
@@ -2426,7 +2426,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(long[] array, long value) {
 
@@ -2452,7 +2452,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int countOf(short[] array, short value) {
 
@@ -2478,7 +2478,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> int countOf(T[] array, T value) {
         return countOf(array, value, null);
@@ -2491,7 +2491,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> int countOf(T[] array, T value, IEquivalent<T> equivalent) {
 
@@ -2544,7 +2544,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> List<Entry<Integer, T>> entrySet(T[] array) {
         if (array == null) {
@@ -2570,7 +2570,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> boolean equals(T[] array1, T[] array2) {
         return equals(array1, array2, null);
@@ -2702,7 +2702,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> boolean equals(T[] array1, T[] array2, IEquivalent<T> equivalent) {
         if (array1 != null && array2 != null) {
@@ -2842,7 +2842,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -2871,7 +2871,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -2900,7 +2900,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(char[] array, Function<Character, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -2929,7 +2929,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(double[] array, Function<Double, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -2958,7 +2958,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(float[] array, Function<Float, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -2987,7 +2987,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(int[] array, Function<Integer, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3016,7 +3016,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(long[] array, Function<Long, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3045,7 +3045,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int indexOf(short[] array, Function<Short, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3074,7 +3074,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> int indexOf(T[] array, Function<T, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3094,7 +3094,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(boolean[] array, boolean value) {
         if (array != null) {
@@ -3129,7 +3129,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(boolean[] array, boolean[] values) {
         if (array != null && values != null) {
@@ -3185,7 +3185,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(byte[] array, byte value) {
         if (array != null) {
@@ -3220,7 +3220,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(byte[] array, byte[] values) {
         if (array != null && values != null) {
@@ -3276,7 +3276,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(char[] array, char value) {
         if (array != null) {
@@ -3311,7 +3311,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(char[] array, char[] values) {
         if (array != null && values != null) {
@@ -3367,7 +3367,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(double[] array, double value) {
         if (array != null) {
@@ -3402,7 +3402,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(double[] array, double[] values) {
         if (array != null && values != null) {
@@ -3458,7 +3458,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(float[] array, float value) {
         if (array != null) {
@@ -3493,7 +3493,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(float[] array, float[] values) {
         if (array != null && values != null) {
@@ -3549,7 +3549,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(int[] array, int value) {
         if (array != null) {
@@ -3584,7 +3584,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(int[] array, int[] values) {
         if (array != null && values != null) {
@@ -3640,7 +3640,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(long[] array, long value) {
         if (array != null) {
@@ -3675,7 +3675,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(long[] array, long[] values) {
         if (array != null && values != null) {
@@ -3731,7 +3731,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(short[] array, short value) {
         if (array != null) {
@@ -3766,7 +3766,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(short[] array, short[] values) {
         if (array != null && values != null) {
@@ -3824,7 +3824,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> int[] indiceOf(T[] array, T value) {
         return indiceOf(array, value, null);
@@ -3842,7 +3842,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> int[] indiceOf(T[] array, T value, IEquivalent<T> equivalent) {
         if (array != null) {
@@ -3881,7 +3881,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> int[] indiceOf(T[] array, T[] values) {
         if (array != null && values != null) {
@@ -3902,7 +3902,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> int[] indiceOfArray(T[] array, T[] values, IEquivalent<T[]> equi) {
         if (array != null && values != null) {
@@ -4133,7 +4133,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] insert(boolean[] array, boolean value, int index) {
         if (array != null) {
@@ -4168,7 +4168,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] insert(boolean[] array, boolean value, int... indice) {
         if (array != null && indice != null) {
@@ -4221,7 +4221,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] insert(byte[] array, byte value, int index) {
         if (array != null) {
@@ -4256,7 +4256,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] insert(byte[] array, byte value, int... indice) {
         if (array != null && indice != null) {
@@ -4309,7 +4309,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] insert(char[] array, char value, int index) {
         if (array != null) {
@@ -4344,7 +4344,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] insert(char[] array, char value, int... indice) {
         if (array != null && indice != null) {
@@ -4397,7 +4397,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] insert(double[] array, double value, int index) {
         if (array != null) {
@@ -4432,7 +4432,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] insert(double[] array, double value, int... indice) {
         if (array != null && indice != null) {
@@ -4485,7 +4485,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] insert(float[] array, float value, int index) {
         if (array != null) {
@@ -4520,7 +4520,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] insert(float[] array, float value, int... indice) {
         if (array != null && indice != null) {
@@ -4573,7 +4573,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] insert(int[] array, int value, int index) {
         if (array != null) {
@@ -4608,7 +4608,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] insert(int[] array, int value, int... indice) {
         if (array != null && indice != null) {
@@ -4661,7 +4661,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] insert(long[] array, long value, int index) {
         if (array != null) {
@@ -4696,7 +4696,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] insert(long[] array, long value, int... indice) {
         if (array != null && indice != null) {
@@ -4746,7 +4746,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] insert(short[] array, short value, int... indice) {
         if (array != null && indice != null) {
@@ -4799,7 +4799,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] insert(short[] array, short value, int index) {
         if (array != null) {
@@ -4837,7 +4837,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 <code>null</code>인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] insert(T[] array, T value, int index) {
         if (array != null) {
@@ -4872,7 +4872,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] insert(T[] array, T value, int... indice) {
         if (array != null && indice != null) {
@@ -4922,7 +4922,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] merge(boolean[]... arrays) {
 
@@ -4971,7 +4971,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] merge(boolean[] arr1, boolean[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -4998,7 +4998,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] merge(byte[]... arrays) {
 
@@ -5047,7 +5047,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] merge(byte[] arr1, byte[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5107,7 +5107,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] merge(char[]... arrays) {
 
@@ -5156,7 +5156,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] merge(char[] arr1, char[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5183,7 +5183,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] merge(double[]... arrays) {
 
@@ -5231,7 +5231,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] merge(double[] arr1, double[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5258,7 +5258,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] merge(float[]... arrays) {
 
@@ -5306,7 +5306,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] merge(float[] arr1, float[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5333,7 +5333,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] merge(int[]... arrays) {
 
@@ -5381,7 +5381,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] merge(int[] arr1, int[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5408,7 +5408,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] merge(long[]... arrays) {
 
@@ -5456,7 +5456,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] merge(long[] arr1, long[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5483,7 +5483,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] merge(short[]... arrays) {
 
@@ -5531,7 +5531,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] merge(short[] arr1, short[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5558,7 +5558,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] merge(T[]... arrays) {
 
@@ -5606,7 +5606,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @see {@link Array#newInstance(Class, int)}
      */
 
@@ -5637,7 +5637,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] prepend(boolean[] array, boolean value) {
         boolean[] newArray = null;
@@ -5663,7 +5663,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] prepend(byte[] array, byte value) {
         byte[] newArray = null;
@@ -5689,7 +5689,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] prepend(char[] array, char value) {
         char[] newArray = null;
@@ -5715,7 +5715,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] prepend(double[] array, double value) {
         double[] newArray = null;
@@ -5741,7 +5741,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] prepend(float[] array, float value) {
         float[] newArray = null;
@@ -5767,7 +5767,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] prepend(int[] array, int value) {
         int[] newArray = null;
@@ -5793,7 +5793,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] prepend(long[] array, long value) {
         long[] newArray = null;
@@ -5819,7 +5819,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] prepend(short[] array, short value) {
         short[] newArray = null;
@@ -5845,7 +5845,7 @@ public class ArrayUtils {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] prepend(T[] array, T value) {
         T[] newArray = null;
@@ -5874,7 +5874,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] removeAll(boolean[] array, boolean value) {
 
@@ -5930,7 +5930,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] removeAll(byte[] array, byte value) {
 
@@ -5986,7 +5986,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] removeAll(char[] array, char value) {
 
@@ -6042,7 +6042,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] removeAll(double[] array, double value) {
 
@@ -6098,7 +6098,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] removeAll(float[] array, float value) {
 
@@ -6154,7 +6154,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] removeAll(int[] array, int value) {
 
@@ -6210,7 +6210,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] removeAll(long[] array, long value) {
 
@@ -6266,7 +6266,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] removeAll(short[] array, short value) {
 
@@ -6323,7 +6323,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] removeAll(T[] array, T value) {
         return removeAll(array, value, null);
@@ -6343,7 +6343,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] removeAll(T[] array, T value, IEquivalent<T> equivalent) {
 
@@ -6397,7 +6397,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] removeAt(boolean[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6419,7 +6419,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] removeAt(byte[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6441,7 +6441,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] removeAt(char[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6463,7 +6463,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] removeAt(double[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6485,7 +6485,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] removeAt(float[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6507,7 +6507,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] removeAt(int[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6529,7 +6529,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] removeAt(long[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6551,7 +6551,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] removeAt(short[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -6573,7 +6573,7 @@ public class ArrayUtils {
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
 
     public static <T> T[] removeAt(T[] array, int index) {
@@ -6601,7 +6601,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] removeFirst(boolean[] array, boolean value) {
         if (array != null) {
@@ -6631,7 +6631,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] removeFirst(byte[] array, byte value) {
         if (array != null) {
@@ -6661,7 +6661,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] removeFirst(char[] array, char value) {
         if (array != null) {
@@ -6691,7 +6691,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] removeFirst(double[] array, double value) {
         if (array != null) {
@@ -6721,7 +6721,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] removeFirst(float[] array, float value) {
         if (array != null) {
@@ -6751,7 +6751,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] removeFirst(int[] array, int value) {
         if (array != null) {
@@ -6781,7 +6781,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] removeFirst(long[] array, long value) {
         if (array != null) {
@@ -6811,7 +6811,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] removeFirst(short[] array, short value) {
         if (array != null) {
@@ -6842,7 +6842,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] removeFirst(T[] array, T value) {
         return removeFirst(array, value, null);
@@ -6866,7 +6866,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] removeFirst(T[] array, T value, IEquivalent<T> equivalent) {
         if (array != null) {
@@ -6899,7 +6899,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] removeLast(boolean[] array, boolean value) {
         if (array != null) {
@@ -6929,7 +6929,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] removeLast(byte[] array, byte value) {
         if (array != null) {
@@ -6959,7 +6959,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] removeLast(char[] array, char value) {
         if (array != null) {
@@ -6989,7 +6989,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] removeLast(double[] array, double value) {
         if (array != null) {
@@ -7019,7 +7019,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] removeLast(float[] array, float value) {
         if (array != null) {
@@ -7049,7 +7049,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] removeLast(int[] array, int value) {
         if (array != null) {
@@ -7079,7 +7079,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] removeLast(long[] array, long value) {
         if (array != null) {
@@ -7109,7 +7109,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] removeLast(short[] array, short value) {
         if (array != null) {
@@ -7140,7 +7140,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] removeLast(T[] array, T value) {
         return removeLast(array, value, null);
@@ -7160,7 +7160,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] removeLast(T[] array, T value, IEquivalent<T> equivalent) {
         if (array != null) {
@@ -7192,7 +7192,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] replaceAll(boolean[] array, boolean target, boolean[] data) {
         if (array != null && data != null) {
@@ -7243,7 +7243,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean data) {
         if (array != null && target != null) {
@@ -7263,7 +7263,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean[] data) {
         if (array != null && target != null && data != null) {
@@ -7324,7 +7324,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] replaceAll(byte[] array, byte target, byte[] data) {
         if (array != null && data != null) {
@@ -7375,7 +7375,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] replaceAll(byte[] array, byte[] target, byte data) {
         if (array != null && target != null) {
@@ -7394,7 +7394,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] replaceAll(byte[] array, byte[] target, byte[] data) {
         if (array != null && target != null && data != null) {
@@ -7455,7 +7455,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] replaceAll(char[] array, char target, char[] data) {
         if (array != null && data != null) {
@@ -7508,7 +7508,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] replaceAll(char[] array, char[] target, char data) {
         if (array != null && target != null) {
@@ -7528,7 +7528,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] replaceAll(char[] array, char[] target, char[] data) {
         if (array != null && target != null && data != null) {
@@ -7590,7 +7590,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] replaceAll(double[] array, double target, double[] data) {
         if (array != null && data != null) {
@@ -7641,7 +7641,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] replaceAll(double[] array, double[] target, double data) {
         if (array != null && target != null) {
@@ -7661,7 +7661,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] replaceAll(double[] array, double[] target, double[] data) {
         if (array != null && target != null && data != null) {
@@ -7722,7 +7722,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] replaceAll(float[] array, float target, float[] data) {
         if (array != null && data != null) {
@@ -7773,7 +7773,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] replaceAll(float[] array, float[] target, float data) {
         if (array != null && target != null) {
@@ -7793,7 +7793,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] replaceAll(float[] array, float[] target, float[] data) {
         if (array != null && target != null && data != null) {
@@ -7854,7 +7854,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] replaceAll(int[] array, int target, int[] data) {
         if (array != null && data != null) {
@@ -7905,7 +7905,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] replaceAll(int[] array, int[] target, int data) {
         if (array != null && target != null) {
@@ -7924,7 +7924,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] replaceAll(int[] array, int[] target, int[] data) {
         if (array != null && target != null && data != null) {
@@ -7985,7 +7985,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] replaceAll(long[] array, long target, long[] data) {
         if (array != null && data != null) {
@@ -8036,7 +8036,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] replaceAll(long[] array, long[] target, long data) {
         if (array != null && target != null) {
@@ -8055,7 +8055,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] replaceAll(long[] array, long[] target, long[] data) {
         if (array != null && target != null && data != null) {
@@ -8116,7 +8116,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] replaceAll(short[] array, short target, short[] data) {
         if (array != null && data != null) {
@@ -8167,7 +8167,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] replaceAll(short[] array, short[] target, short data) {
         if (array != null && target != null) {
@@ -8187,7 +8187,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] replaceAll(short[] array, short[] target, short[] data) {
         if (array != null && target != null && data != null) {
@@ -8248,7 +8248,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] replaceAll(T[] array, T target, T[] data) {
         return replaceAllToArray(array, target, data, null);
@@ -8263,7 +8263,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] replaceAll(T[] array, T[] target, T data) {
         return replaceAllToData(array, target, data, null);
@@ -8278,7 +8278,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] replaceAll(T[] array, T[] target, T[] data) {
         return replaceAll(array, target, data, null);
@@ -8293,7 +8293,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] replaceAll(T[] array, T[] target, T[] data, IEquivalent<T[]> equivalent) {
         if (array != null && target != null && data != null) {
@@ -8356,7 +8356,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] replaceAllToArray(T[] array, T target, T[] data, IEquivalent<T> equivalent) {
         if (array != null && data != null) {
@@ -8407,7 +8407,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] replaceAllToData(T[] array, T[] target, T data, IEquivalent<T[]> equivalent) {
         if (array != null && target != null) {
@@ -8461,7 +8461,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[] reverse(boolean[] array) {
 
@@ -8485,7 +8485,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] reverse(byte[] array) {
 
@@ -8509,7 +8509,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] reverse(char[] array) {
 
@@ -8533,7 +8533,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[] reverse(double[] array) {
 
@@ -8557,7 +8557,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[] reverse(float[] array) {
 
@@ -8581,7 +8581,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] reverse(int[] array) {
 
@@ -8605,7 +8605,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[] reverse(long[] array) {
 
@@ -8629,7 +8629,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[] reverse(short[] array) {
 
@@ -8653,7 +8653,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
 
     public static <T> T[] reverse(T[] array) {
@@ -8796,7 +8796,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[][] split(boolean[] array, boolean value) {
 
@@ -8853,7 +8853,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[][] split(byte[] array, byte value) {
 
@@ -8910,7 +8910,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[][] split(char[] array, char value) {
 
@@ -8967,7 +8967,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[][] split(double[] array, double value) {
 
@@ -9024,7 +9024,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[][] split(int[] array, int value) {
 
@@ -9081,7 +9081,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[][] split(long[] array, long value) {
 
@@ -9138,7 +9138,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[][] split(short[] array, short value) {
 
@@ -9196,7 +9196,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[][] split(T[] array, T value) {
         return split(array, value, null);
@@ -9259,7 +9259,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[][] split(T[] array, T value, IEquivalent<T> equivalent) {
 
@@ -9333,7 +9333,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 24.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] splitAfter(T[] array, Function<T, Boolean> at) {
         T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
@@ -9376,7 +9376,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] splitAt(T[] array, Function<T, Boolean> at, Function<T, T> post) {
 
@@ -9416,7 +9416,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] splitBefore(T[] array, Function<T, Boolean> at) {
         T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
@@ -9447,7 +9447,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean[][] subArrays(boolean[] array, int index, boolean inclusive) {
         if (array != null) {
@@ -9490,7 +9490,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[][] subArrays(byte[] array, int index, boolean inclusive) {
 
@@ -9534,7 +9534,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[][] subArrays(char[] array, int index, boolean inclusive) {
 
@@ -9578,7 +9578,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static double[][] subArrays(double[] array, int index, boolean inclusive) {
 
@@ -9622,7 +9622,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static float[][] subArrays(float[] array, int index, boolean inclusive) {
 
@@ -9666,7 +9666,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[][] subArrays(int[] array, int index, boolean inclusive) {
 
@@ -9710,7 +9710,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static long[][] subArrays(long[] array, int index, boolean inclusive) {
 
@@ -9754,7 +9754,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static short[][] subArrays(short[] array, int index, boolean inclusive) {
 
@@ -9800,7 +9800,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
 
     public static <T> Object[][] subArrays(T[] array, int index, boolean inclusive) {
@@ -9916,7 +9916,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toString(Object[] array) {
 
@@ -10114,7 +10114,7 @@ public class ArrayUtils {
          * @return
          *
          * @since 2021. 8. 15.
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          *
          * @see java.util.Map.Entry#getKey()
          */
@@ -10136,7 +10136,7 @@ public class ArrayUtils {
          * @return
          *
          * @since 2021. 8. 15.
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          *
          * @see java.util.Map.Entry#getValue()
          */
@@ -10159,7 +10159,7 @@ public class ArrayUtils {
          * @return
          *
          * @since 2021. 8. 15.
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          *
          * @see java.util.Map.Entry#setValue(java.lang.Object)
          */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2018 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2018. 1. 9. 오후 4:24:47
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -45,7 +45,7 @@ import java.util.function.Function;
  * </pre>
  * 
  * @since 2018. 1. 9.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class TimeUtils {
     /** default time unit info */
@@ -120,7 +120,7 @@ public class TimeUtils {
      *
      * @param units
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 11. 15.
      */
     public static void addOmit(TimeUnit... units) {
@@ -171,7 +171,7 @@ public class TimeUtils {
      * @param time
      * @param unit
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 1. 9.
      */
     private static void prependTimeAndUnit(StringBuffer timeBuf, long time, String unit) {
@@ -203,7 +203,7 @@ public class TimeUtils {
      *
      * @param units
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 11. 15.
      */
     public static void removeOmit(TimeUnit... units) {
@@ -228,7 +228,7 @@ public class TimeUtils {
      *
      * @param locale
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 11. 15.
      */
     public static void setLocale(Locale locale) {
@@ -254,7 +254,7 @@ public class TimeUtils {
      *            등록하려는 {@link Locale} 정보
      * @param expr
      *            {@link TimeUnit} Expression
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 11. 15.
      */
     public static void setTimeUnitExpr(Locale locale, TimeUnitExpr expr) {
@@ -278,7 +278,7 @@ public class TimeUtils {
      *            {@link TimeUnit} Expression
      * @param setCurrentLocale
      *            현재 {@link Locale} 로 설정할지 여부.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 11. 15.
      */
     public static void setTimeUnitExpr(Locale locale, TimeUnitExpr expr, boolean setCurrentLocale) {
@@ -359,7 +359,7 @@ public class TimeUtils {
      * {@link TimeUnit} Expression String Builder.
      * 
      * @since 2018. 11. 15.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static class TimeUnitBuilder {
 
@@ -387,7 +387,7 @@ public class TimeUtils {
          *
          * @return
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitExpr build() {
@@ -408,7 +408,7 @@ public class TimeUtils {
          * @param unit
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder set(TimeUnit unit, String expr) {
@@ -455,7 +455,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setDay(String expr) {
@@ -475,7 +475,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setHour(String expr) {
@@ -495,7 +495,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMicrosecond(String expr) {
@@ -515,7 +515,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMillisecond(String expr) {
@@ -535,7 +535,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMinute(String expr) {
@@ -555,7 +555,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setNanosecond(String expr) {
@@ -575,7 +575,7 @@ public class TimeUtils {
          *
          * @param expr
          *
-         * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setSecond(String expr) {

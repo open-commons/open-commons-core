@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2018 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2018. 9. 10. 오후 4:37:14
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -46,7 +46,7 @@ import javax.annotation.Resource;
  * </pre>
  * 
  * @since 2018. 9. 10.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 @Resource
 public class Consumers<T> implements Closeable {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2019 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2019. 2. 18. 오후 3:25:31
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -38,7 +38,7 @@ import open.commons.function.TripleFunction;
 /**
  * 
  * @since 2019. 1. 14.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public abstract class AbstractInsertDao extends AbstractDao {
 
@@ -221,7 +221,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * @param brokerProvider
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 22.
      */
     public final <T, S> Result<Integer> insert(Collection<T> data, long timestamp, String variableQuery, String valueQuery,

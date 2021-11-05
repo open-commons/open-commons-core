@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 1. 22. 오후 3:27:03
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -42,7 +42,7 @@ import open.commons.annotation.ColumnDef.ColumnNameType;
  * 
  * @since 2020. 1. 22.
  * @version 1.6.17
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  * @see PreparedStatement
  * @see PreparedStatement#setObject(int, Object)
@@ -69,7 +69,7 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     boolean caseSensitive() default false;
 
@@ -95,7 +95,7 @@ public @interface ColumnValue {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see ColumnDef#columnNameType()
      */
@@ -141,7 +141,7 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     String name() default "";
 
@@ -160,7 +160,7 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     int order() default Integer.MAX_VALUE;
 }

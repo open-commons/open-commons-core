@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2017. 9. 22. 오후 7:17:08
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -47,7 +47,7 @@ import java.util.function.Function;
  * @param <R>
  *            the type of the result of the function
  *
- * @revision_history : Park_Jun_Hong_(fafanmama_at_naver_com), 2017. 8. 21., 1.0
+ * @revision_history : Park_Jun_Hong_(parkjunhong77@gmail.com), 2017. 8. 21., 1.0
  * 
  * @see Function
  */

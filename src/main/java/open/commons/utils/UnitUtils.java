@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2021 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2021. 11. 4. 오후 1:23:48
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -38,7 +38,7 @@ import open.commons.util.DataStorageUnit;
  * 
  * @since 2021. 11. 4.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class UnitUtils {
 
@@ -92,7 +92,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see DataStorageUnit#convert(long, DataStorageUnit)
      */
@@ -118,7 +118,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
      */
@@ -144,7 +144,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #dataStorageAlsoSubUnitAsString(long, DataStorageUnit, boolean, boolean)
      */
     public static String dataStorageAlsoSubUnitAsString(long bytes, DataStorageUnit unit) {
@@ -173,7 +173,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
      */
     public static String dataStorageAlsoSubUnitAsString(long bytes, DataStorageUnit unit, boolean pretty, boolean trim) {
@@ -204,7 +204,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
      */
     public static String dataStorageAlsoSubUnitAsString(long size, DataStorageUnit srcUnit, DataStorageUnit dstUnit, boolean pretty, boolean trim) {
@@ -245,7 +245,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see DataStorageUnit#convert(long, DataStorageUnit)
      */
@@ -273,7 +273,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see DataStorageUnit#convert(long, DataStorageUnit)
      */
@@ -303,7 +303,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see DataStorageUnit#convert(long, DataStorageUnit)
      */

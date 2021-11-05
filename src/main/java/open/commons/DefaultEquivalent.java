@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 *
 * Date  : 2012. 03. 20. 오후 7:17:58
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons;
@@ -29,7 +29,7 @@ package open.commons;
  * <BR>
  * 
  * @since 2012. 03. 20.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class DefaultEquivalent<T> implements IEquivalent<T> {
 
@@ -39,7 +39,7 @@ public class DefaultEquivalent<T> implements IEquivalent<T> {
      * @return
      * 
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see open.commons.IEquivalent#equals(java.lang.Object, java.lang.Object)
      */
@@ -60,7 +60,7 @@ public class DefaultEquivalent<T> implements IEquivalent<T> {
      * @param t2
      * @return <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     protected final boolean nullEquals(T t1, T t2) {
         if (t1 == null && t2 == null) {

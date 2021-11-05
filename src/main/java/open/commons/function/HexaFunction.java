@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 1. 30. 오후 7:25:28
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -39,7 +39,7 @@ import java.util.function.Function;
  * 
  * @since 2020. 1. 30.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 @FunctionalInterface
 public interface HexaFunction<T, U, V, W, X, Y, R> {
@@ -64,7 +64,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      *
      * @since 2020. 1. 30.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     default <Z> HexaFunction<T, U, V, W, X, Y, Z> andThen(Function<? super R, ? extends Z> after) {
         Objects.requireNonNull(after);
@@ -91,7 +91,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      *
      * @since 2020. 1. 30.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     R apply(T t, U u, V v, W w, X x, Y y);
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import java.util.concurrent.TimeoutException;
  * <BR>
  * 
  * @since 2012. 01. 20.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class FixedThreadPoolService implements ExecutorService {
 
@@ -47,7 +47,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @exception IllegalArgumentException
      *                {@link ExecutorService} 객체가 <code>null</code>인 경우 <BR>
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public FixedThreadPoolService(ExecutorService executor) {
         if (executor == null) {
@@ -62,7 +62,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param nThreads
      *            <BR>
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Executors#newFixedThreadPool(int)
      */
@@ -76,7 +76,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param threadFactory
      *            <BR>
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Executors#newFixedThreadPool(int, ThreadFactory)
      */
@@ -93,7 +93,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws InterruptedException
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#awaitTermination(long, java.util.concurrent.TimeUnit)
      */
@@ -108,7 +108,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param command
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.Executor#execute(java.lang.Runnable)
      */
@@ -122,7 +122,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @return <BR>
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ExecutorService getService() {
         return executor;
@@ -136,7 +136,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws InterruptedException
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection)
      */
@@ -155,7 +155,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws InterruptedException
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection, long, java.util.concurrent.TimeUnit)
      */
@@ -173,7 +173,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws ExecutionException
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#invokeAny(java.util.Collection)
      */
@@ -194,7 +194,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws TimeoutException
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#invokeAny(java.util.Collection, long, java.util.concurrent.TimeUnit)
      */
@@ -209,7 +209,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#isShutdown()
      */
@@ -224,7 +224,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#isTerminated()
      */
@@ -237,7 +237,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * Forwarding to a {@link ExecutorService} instance.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#shutdown()
      */
@@ -253,7 +253,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#shutdownNow()
      */
@@ -269,7 +269,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.util.concurrent.Callable)
      */
@@ -285,7 +285,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.lang.Runnable)
      */
@@ -302,7 +302,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.lang.Runnable, java.lang.Object)
      */
@@ -317,7 +317,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * <BR>
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see ExecutorService#isTerminated()
      * @see ExecutorService#shutdown()
@@ -339,7 +339,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * <BR>
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see ExecutorService#shutdownNow()
      */

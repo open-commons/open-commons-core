@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2017. 9. 22. 오후 5:06:44
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -67,7 +67,7 @@ import open.commons.function.TripleFunction;
 /**
  * 
  * @since 2017. 9. 22.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class SQLUtils {
 
@@ -143,7 +143,7 @@ public class SQLUtils {
      *         예) 00000000000000000120: 18: 길이 오류, 19th: null 오류
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see ColumnConstraint
      */
     public static char[] checkColumnConstraints(Object obj) {
@@ -219,7 +219,7 @@ public class SQLUtils {
      *             </ul>
      *
      * @since 2019. 6. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see ColumnDecl
      */
@@ -295,7 +295,7 @@ public class SQLUtils {
      * @throws IllegalArgumentException
      * @throws InvocationTargetException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 5. 30.
      */
     private static void invoke(ResultSet rs, ColumnDef cdef, Method m, Object object)
@@ -431,7 +431,7 @@ public class SQLUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int lengthOnOracle(String str) {
         int len = 0;
@@ -470,7 +470,7 @@ public class SQLUtils {
      * @throws InvocationTargetException
      * @throws SQLException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 9. 5.
      */
     @SuppressWarnings("unchecked")
@@ -554,7 +554,7 @@ public class SQLUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int setParameters(PreparedStatement stmt, int index, Object obj, String... columnNames) throws SQLException {
         // #1. @ColumnValue 어노테이션이 설정된 Method 조회
@@ -590,7 +590,7 @@ public class SQLUtils {
                     }
 
                     // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 |
-                    // Park_Jun_Hong_(fafanmama_at_naver_com)
+                    // Park_Jun_Hong_(parkjunhong77@gmail.com)
                     switch (cv.columnNameType()) {
                         case CAMEL_CASE:
                             clmn = StringUtils.toLowerCase(clmn, 0);
@@ -607,7 +607,7 @@ public class SQLUtils {
                         default:
                             throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
                     }
-                    // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2020. 9. 24.
+                    // end - Park_Jun_Hong_(parkjunhong77@gmail.com), 2020. 9. 24.
 
                 }
 

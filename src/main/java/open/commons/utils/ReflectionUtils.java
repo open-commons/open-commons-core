@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
  * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2011. 1. 2.
  * 
  */
@@ -80,7 +80,7 @@ public class ReflectionUtils {
      * @param fieldname
      * @return <BR>
      * @since 2012. 02. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Class#getDeclaredFields()
      */
@@ -100,7 +100,7 @@ public class ReflectionUtils {
      * @param fieldname
      * @return <BR>
      * @since 2012. 02. 14.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Class#getFields()
      */
@@ -393,7 +393,7 @@ public class ReflectionUtils {
      * @return
      *
      * @since 2019. 6. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annoType, Class<?> dataType) {
 

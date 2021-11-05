@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Park Jun-Hong_(parkjunhong77/google/com)
+ * Copyright 2020 Park Jun-Hong_(parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2020. 11. 12. 오후 5:02:31
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -31,7 +31,7 @@ package open.commons.io;
  * 
  * @since 2020. 11. 12.
  * @version 1.8.0
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class TextLineInfo implements IRandomAccessible {
     /** 파일 경로 */
@@ -69,7 +69,7 @@ public class TextLineInfo implements IRandomAccessible {
      * @return
      *
      * @since 2020. 11. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see open.commons.io.IRandomAccessible#getLength()
      */
@@ -167,7 +167,7 @@ public class TextLineInfo implements IRandomAccessible {
      * @return
      *
      * @since 2020. 11. 13.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */

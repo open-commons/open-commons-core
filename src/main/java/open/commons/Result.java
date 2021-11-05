@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ package open.commons;
 /**
  * true/false 결과와 함께 관련 데이타를 같이 전달해주는 클래스 <BR>
  * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @since 2014. 6. 27. - add {@link #message}: 성공/실패에 대한 정보
  * @since 2012. 02. 15.
@@ -59,7 +59,7 @@ public class Result<T> {
      * @param data
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #Result(Object, boolean)
      */
@@ -74,7 +74,7 @@ public class Result<T> {
      * @param result
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public Result(T data, boolean result) {
         // if (data == null) {
@@ -145,7 +145,7 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public T getData() {
         return this.data;
@@ -173,7 +173,7 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public boolean getResult() {
         return this.result;
@@ -206,7 +206,7 @@ public class Result<T> {
      *
      * @since 2021. 10. 28.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public boolean isError() {
         return !this.getResult();
@@ -226,7 +226,7 @@ public class Result<T> {
      *
      * @since 2021. 10. 28.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see {@link Result#getResult()} 와 동일한 기능.
      */
     public boolean isSuccess() {
@@ -280,7 +280,7 @@ public class Result<T> {
      *
      * @since 2020. 2. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public Result<T> setMessage(String format, Object... args) {
         this.message = String.format(format, args);
@@ -294,7 +294,7 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @updated 2019. 2. 29. Apply chaining, 'return this' since 1.6.3. Before updating, returh latest result.
      */
     public boolean setResult(boolean result) {
@@ -317,7 +317,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 4. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
      */
@@ -353,7 +353,7 @@ public class Result<T> {
      *
      * @since 2020. 11. 20.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <N> Result<N> copyOf(Result<?> o) {
         return new Result<N>(null, o.getResult()).setMessage(o.getMessage());
@@ -375,7 +375,7 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> Result<T> error(String errorMessage) {
         return new Result<T>().setMessage(errorMessage);
@@ -400,7 +400,7 @@ public class Result<T> {
      *
      * @since 2021. 7. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> Result<T> error(String format, Object... args) {
         return new Result<T>().setMessage(format, args);
@@ -425,7 +425,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 11. 3.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> String getTrueMessage(Result<T> result, String format, Object... args) {
         return result.getResult() ? String.format(format, args) : result.getMessage();
@@ -447,7 +447,7 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> Result<T> success(T data) {
         return new Result<T>(data, true);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import open.commons.DefaultEquivalent;
 import open.commons.IEquivalent;
 
 /**
- * @author Park Jun-Hong.(mail_to:fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
  * 
  * @date
  * @title [등록] 화면방식 상세항목 분기 매핑테이블 관련내용
@@ -41,7 +41,7 @@ public class CheckUtils {
      * @param col
      *            확인하고자 하는 데이타 <BR>
      * @since 2012. 02. 16.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see NullPointerException 파라미터가 <code>null</code>인 경우.
      */
@@ -72,7 +72,7 @@ public class CheckUtils {
      * @param objs
      *            확인하고자 하는 데이타 <BR>
      * @since 2012. 02. 16.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see NullPointerException 파라미터가 <code>null</code>인 경우.
      */
@@ -107,7 +107,7 @@ public class CheckUtils {
      * @param t2
      * @return <BR>
      * @since 2012. 03. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> boolean equals(T t1, T t2) {
         return equals(t1, t2, null);
@@ -120,7 +120,7 @@ public class CheckUtils {
      * @param equivalent
      * @return <BR>
      * @since 2012. 03. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> boolean equals(T t1, T t2, IEquivalent<T> equivalent) {
 

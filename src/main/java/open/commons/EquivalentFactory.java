@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 *
 * Date  : 2012. 03. 22. 오후 5:19:39
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons;
@@ -31,7 +31,7 @@ import java.util.Map;
  * primitive 타입으로 이루어진 배열들을 비교해주는 {@link IEquivalent} 객체 팩토리 클래스
  * 
  * @since 2012. 03. 22.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class EquivalentFactory {
 
@@ -269,7 +269,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<boolean[]> booleanArrayEquiv() {
 
@@ -281,7 +281,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<byte[]> byteArrayEquiv() {
 
@@ -293,7 +293,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<char[]> charArrayEquiv() {
 
@@ -305,7 +305,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<double[]> doubleArrayEquiv() {
 
@@ -317,7 +317,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<float[]> floatArrayEquiv() {
 
@@ -331,7 +331,7 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<?> get(Object key) {
         synchronized (factory) {
@@ -345,7 +345,7 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
     public static <T> IEquivalent<T> getDefault() {
@@ -357,7 +357,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<int[]> intArrayEquiv() {
 
@@ -369,7 +369,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<long[]> longArrayEquiv() {
 
@@ -384,7 +384,7 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<?> register(Object key, IEquivalent<?> equivalent) {
         synchronized (factory) {
@@ -401,7 +401,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IEquivalent<short[]> shortArrayEquiv() {
 

@@ -4,7 +4,7 @@
  *
  * Date  : 2020. 11. 4. 오후 6:15:42
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -29,7 +29,7 @@ import open.commons.utils.StringUtils;
  * 
  * @since 2020. 11. 4.
  * @version
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class IndexedColumnDTO extends AbstractCsvData {
 
@@ -47,7 +47,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2020. 11.4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see CsvConfig#DEFAULT_SEPARATOR
      * @see CsvConfig.DEFAULT_QUOTE_CHARACTER
      * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
@@ -69,7 +69,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see open.commons.csv.AbstractCsvData#getHeaders()
      */
@@ -105,7 +105,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public List<Supplier<String>> getValues() {
         Map<Integer, Supplier<String>> orderedValues = new TreeMap<>();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2013. 2. 22. 오전 11:43:07
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 package open.commons.utils;
@@ -65,7 +65,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String hexBinString(boolean split, byte... data) {
         return hexBinString("", split, data);
@@ -102,7 +102,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String hexBinString(String prefix, boolean split, byte... data) {
         if (data == null) {
@@ -144,7 +144,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String hexBinString(String prefix, byte... data) {
         return hexBinString(prefix, false, data);
@@ -287,7 +287,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toIPv4Expr(byte[] bytes) {
         byte[] bs = new byte[4];
@@ -310,7 +310,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toMACExpr(byte[] bytes) {
         StringJoiner join = new StringJoiner(":");

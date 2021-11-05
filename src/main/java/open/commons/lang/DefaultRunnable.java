@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 *
 * Date  : 2013. 6. 20. 오후 3:00:34
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -46,7 +46,7 @@ import open.commons.utils.ThreadUtils;
  * 2019. 10. 17.        박준홍         {@link #beforeStartup()}에 Process ID 를 {@link ThreadContext}에 'pid'란 이름으로 추가.
  * </pre>
  * 
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 public abstract class DefaultRunnable extends AbstractRunnable implements AutoCloseable {
@@ -81,7 +81,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      *
      *
      * @since 2019. 10. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     protected void beforeRun() {
     }
@@ -127,7 +127,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
 
         // begin - PATCH [2019. 10. 17.]: Process ID를 ThreadContext에 'pid' 라는 이름으로 설정<br>
         // Log4j(1/2) 사용지 Pattern에 %X{pid} 라는 설정으로 사용할 수 있다.
-        // Park_Jun_Hong_(fafanmama_at_naver_com)
+        // Park_Jun_Hong_(parkjunhong77@gmail.com)
         RuntimeMXBean rt = ManagementFactory.getRuntimeMXBean();
         StringBuffer buf = new StringBuffer();
         for (char ch : rt.getName().toCharArray()) {
@@ -136,7 +136,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
             }
         }
         ThreadContext.put("pid", buf.toString());
-        // end - Park_Jun_Hong_(fafanmama_at_naver_com), 2019. 10. 17.
+        // end - Park_Jun_Hong_(parkjunhong77@gmail.com), 2019. 10. 17.
 
         if (!startedInternally) {
             startInternally();
@@ -165,7 +165,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      *
      *
      * @since 2019. 10. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     protected abstract void runInternal();
 }

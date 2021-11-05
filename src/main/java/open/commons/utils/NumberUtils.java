@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
 *
 * Date  : 2014. 7. 10. 오후 12:13:59
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -31,7 +31,7 @@ import java.util.function.Function;
 /**
  * 
  * @since 2014. 7. 10.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class NumberUtils {
 
@@ -75,7 +75,7 @@ public class NumberUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
 
     public static String hex(String str) {
@@ -163,7 +163,7 @@ public class NumberUtils {
     }
 
     public static enum IntegerType {
-        // start - Wrapper Classes : 2014. 7. 10., Park_Jun_Hong_(fafanmama_at_naver_com)
+        // start - Wrapper Classes : 2014. 7. 10., Park_Jun_Hong_(parkjunhong77@gmail.com)
         /** The type is <code>Byte.class</code> */
         BYTE(Byte.class), //
         /** The type is <code>Short.class</code> */
@@ -174,7 +174,7 @@ public class NumberUtils {
         LONG(Long.class) //
         // end - Wrapper Classes : 2014. 7. 10.
 
-        // start - primitive Classes : 2014. 7. 10., Park_Jun_Hong_(fafanmama_at_naver_com)
+        // start - primitive Classes : 2014. 7. 10., Park_Jun_Hong_(parkjunhong77@gmail.com)
         /** The type is <code>byte.class</code> */
         ,Byte(byte.class), //
         /** The type is <code>short.class</code> */

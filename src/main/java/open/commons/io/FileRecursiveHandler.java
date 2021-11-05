@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import open.commons.utils.ArrayUtils;
 
 /**
  * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2012. 11. 02.
  * 
  */
@@ -77,7 +77,7 @@ public class FileRecursiveHandler {
      *            검색을 위한 최상위 위치의 절대 경로 문자열
      * 
      *            <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      * @see #FileRecursiveHandler(String, FileFilter, FileFilter)
      */
@@ -96,7 +96,7 @@ public class FileRecursiveHandler {
      *            하위 디렉토리 검색을 위한 필터
      * 
      *            <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public FileRecursiveHandler(String rootpath, FileFilter filefilter, FileFilter dirfilter) {
@@ -123,7 +123,7 @@ public class FileRecursiveHandler {
      * @param handle
      * 
      *            <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public void addFileHandler(IFileHandler handle) {
@@ -167,7 +167,7 @@ public class FileRecursiveHandler {
      * 
      * <BR>
      * 
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      * 
      */
@@ -189,7 +189,7 @@ public class FileRecursiveHandler {
      * @param dir
      *            <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     protected final void handleDir(File dir) {
         countUpDir();
@@ -288,7 +288,7 @@ public class FileRecursiveHandler {
      * @param handle
      * 
      *            <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public void removeFileHandler(IFileHandler handle) {
@@ -311,7 +311,7 @@ public class FileRecursiveHandler {
      * 
      * <BR>
      * 
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public final void resetErrorLog() {
@@ -325,7 +325,7 @@ public class FileRecursiveHandler {
      *            디렉토리 필터
      * 
      *            <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public void setDirFilter(FileFilter dirfilter) {
@@ -339,7 +339,7 @@ public class FileRecursiveHandler {
      *            파일 필터s
      * 
      *            <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public void setFileFilter(FileFilter filefilter) {
@@ -355,7 +355,7 @@ public class FileRecursiveHandler {
      *             - <code>rootpath</code> 가 <code>null</code>인 경우
      * 
      *             <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public String setRootPath(String rootpath) {

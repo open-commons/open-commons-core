@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 *
 * Date  : 2015. 1. 13. 오전 8:37:55
 *
-* Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+* Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
 * 
 */
 
@@ -36,7 +36,7 @@ import java.util.function.Supplier;
 /**
  * 
  * @since 2015. 1. 13.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class ExceptionUtils {
 
@@ -60,7 +60,7 @@ public class ExceptionUtils {
      *
      * @since 2021. 7. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E extends Throwable> E newException(Class<E> type, Class<?>[] argTypes, Object[] args, String format, Object... msgArgs) {
         return newException(type, () -> argTypes, args, format, msgArgs);
@@ -87,7 +87,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 15.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E extends Throwable> E newException(Class<E> type, String format, Object... args) {
         return newException(type, () -> null, null, format, args);
@@ -114,7 +114,7 @@ public class ExceptionUtils {
      *
      * @since 2021. 7. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E extends Throwable> E newException(Class<E> type, Supplier<Class<?>[]> argTypes, Object[] args, String format, Object... msgArgs) {
         try {
@@ -162,7 +162,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 20.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object... args) {
         try {
@@ -192,7 +192,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     private static boolean startsWith(String errorMsg, String expected, boolean ignoreCase) {
         if (errorMsg.length() < expected.length()) {
@@ -223,7 +223,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean startsWith(Throwable e, String expected) {
         return startsWith(e.getMessage(), expected, false);
@@ -248,7 +248,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean startsWith(Throwable e, String expected, int toffset) {
         return startsWith(e.getMessage().substring(toffset), expected, false);
@@ -271,7 +271,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean startsWithIgnoreCase(Throwable e, String expected) {
         return startsWith(e.getMessage(), expected, true);
@@ -294,7 +294,7 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean startsWithIgnoreCase(Throwable e, String expected, int toffset) {
         return startsWith(e.getMessage().substring(toffset), expected, true);

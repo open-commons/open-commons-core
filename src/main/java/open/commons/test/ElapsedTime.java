@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2018 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2018. 9. 28. 오후 4:36:04
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -34,7 +34,7 @@ import open.commons.utils.TimeUtils;
 /**
  * 
  * @since 2018. 9. 28.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class ElapsedTime {
 
@@ -76,7 +76,7 @@ public class ElapsedTime {
      *            <li>false: 종료
      *            </ul>
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IllegalStateException
      *             현재 상태와 비교상태가 다른 경우.
      * @since 2018. 10. 1.
@@ -102,7 +102,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @throws IllegalStateException
      *             측정 중인 경우
      * @since 2018. 9. 28.
@@ -125,7 +125,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public long end() {
@@ -149,7 +149,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public long getEnd() {
@@ -170,7 +170,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public long getStart() {
@@ -191,7 +191,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public boolean isRunning() {
@@ -209,7 +209,7 @@ public class ElapsedTime {
      * </pre>
      *
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public void reset() {
@@ -230,7 +230,7 @@ public class ElapsedTime {
      *
      * @param running
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     private void setRunning(boolean running) {
@@ -249,7 +249,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public long start() {
@@ -274,7 +274,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      * 
      * @throws IllegalStateException
@@ -299,7 +299,7 @@ public class ElapsedTime {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 28.
      */
     public String toFormattedElapsed() {

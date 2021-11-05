@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ import open.commons.utils.OrderingUtils;
  * </pre>
  * 
  * @since 2012. 02. 15.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class ReferenceableProperties extends Properties {
     /** ${key} 형태의 문자열을 처리하는 정규식 */
@@ -133,7 +133,7 @@ public class ReferenceableProperties extends Properties {
      * @throws IOException
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.Properties#load(java.io.InputStream)
      */
@@ -161,7 +161,7 @@ public class ReferenceableProperties extends Properties {
      * @throws IOException
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.Properties#load(java.io.Reader)
      */
@@ -190,7 +190,7 @@ public class ReferenceableProperties extends Properties {
      * @throws InvalidPropertiesFormatException
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see java.util.Properties#loadFromXML(java.io.InputStream)
      */
@@ -218,7 +218,7 @@ public class ReferenceableProperties extends Properties {
      * 
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private void readyResolveRef() {
         keyReferencing.clear();

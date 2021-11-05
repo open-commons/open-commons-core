@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import java.util.List;
 import open.commons.annotation.ComparableValue;
 
 /**
- * @author Park Jun-Hong.(mail_to:fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
  * 
  * @date
  * 
@@ -79,7 +79,7 @@ public class ComparableUtils {
      *
      * @since 2021. 8. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T extends Comparable<T>> int compare(T o1, T o2) {
         if (o1 != null && o2 != null) {

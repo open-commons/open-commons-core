@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2019 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2019. 2. 19. 오전 10:42:09
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -46,7 +46,7 @@ import java.sql.SQLException;
  * 
  * @param <T>
  * @since 2019. 2. 19.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public interface IConnectionCallbackBroker {
 
@@ -62,7 +62,7 @@ public interface IConnectionCallbackBroker {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 2. 19.
      */
     String getQuery();
@@ -84,7 +84,7 @@ public interface IConnectionCallbackBroker {
      *             TODO
      *
      * @since 2020. 10. 29.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public PreparedStatement getStatement(Connection con) throws SQLException;
 
@@ -98,7 +98,7 @@ public interface IConnectionCallbackBroker {
      * 2019. 2. 19.		박준홍			최초 작성
      * </pre>
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @param stmt
      * @since 2019. 2. 19.
      */

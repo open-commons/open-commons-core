@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2011. 06. 23. 오전 10:02:49
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons.utils;
@@ -49,7 +49,7 @@ import open.commons.prog.StrLenRvrOrderingEntry;
  * <BR>
  * 
  * @since 2011. 06. 23.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class StringUtils {
     public static final String MULTI_LINED_COMMENT_BEGIN = "^(\\s*)/\\*(.*)$";
@@ -152,7 +152,7 @@ public class StringUtils {
      * @param c
      * @return <BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] backIndiceOf(String string, char c) {
         if (string.indexOf(c) < 0) {
@@ -211,7 +211,7 @@ public class StringUtils {
      * @param searchedString
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] backIndiceOf(String sourceString, String searchedString) {
         if (searchedString.length() == 1) {
@@ -265,7 +265,7 @@ public class StringUtils {
      *                if an <code>array</code> is null.
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static void backwarding(int[] array, final int SL) {
         /**
@@ -300,7 +300,7 @@ public class StringUtils {
      *
      * @since 2020. 1. 16
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concat(List<String> strings, String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
         AssertUtils.assertNull(delimeter);
@@ -342,7 +342,7 @@ public class StringUtils {
      *
      * @since 2019. 10. 15.
      * @version
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concat(String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
         AssertUtils.assertNull(delimeter);
@@ -379,7 +379,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> String concatenate(String delimRegEx, boolean startsWithDelimeter, Collection<T> data) {
         if (data.isEmpty()) {
@@ -427,7 +427,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R> String concatenate(String delimRegEx, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
         if (data.isEmpty()) {
@@ -475,7 +475,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <K, V, R> String concatenate(String delimRegEx, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
         return concatenate(delimRegEx, startsWithDelimeter, data.entrySet(), gen);
@@ -500,7 +500,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concatenate(String delimRegEx, boolean startsWithDelimeter, Object... strings) {
         if (strings.length < 1) {
@@ -540,7 +540,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concatenate(String delimRegEx, boolean startsWithDelimeter, String... strings) {
         if (strings.length < 1) {
@@ -569,7 +569,7 @@ public class StringUtils {
      * @param data
      *            데이터
      * @return
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
      */
     public static <T> String concatenate(String delimRegEx, Collection<T> data) {
@@ -596,7 +596,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #concatenate(String, boolean, Collection, Function)
      */
@@ -624,7 +624,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <K, V, R> String concatenate(String delimRegEx, Map<K, V> data, Function<Entry<K, V>, R> gen) {
         return concatenate(delimRegEx, false, data, gen);
@@ -686,7 +686,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean contains(String string, CharSequence... strs) {
         for (CharSequence str : strs) {
@@ -700,7 +700,7 @@ public class StringUtils {
     /**
      * 문자열이 배열에 포함된 문자열을 모두 포함하고 있는지 여부를 제공한다.
      * 
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @date 2012. 1. 6.
      * 
      * @param string
@@ -738,7 +738,7 @@ public class StringUtils {
      * @param string
      * @return
      * @since 2012. 7. 7.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean containsIgnorecase(String container, String string) {
         if (container == null || string == null)
@@ -810,7 +810,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean containsWhitespace(String string) {
         for (char c : string.toCharArray()) {
@@ -1022,7 +1022,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean exists(String target, Collection<String> strings) {
         for (String str : strings) {
@@ -1049,7 +1049,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean exists(String target, String... strings) {
         return strings != null ? exists(target, Arrays.asList(strings)) : false;
@@ -1070,7 +1070,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean existsIgnoreCase(String target, Collection<String> strings) {
         for (String str : strings) {
@@ -1097,7 +1097,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean existsIgnoreCase(String target, String... strings) {
         return strings != null ? existsIgnoreCase(target, Arrays.asList(strings)) : false;
@@ -1228,7 +1228,7 @@ public class StringUtils {
      * @param ordinal
      * @return <BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int indexOf(String sourceString, char c, int ordinal) {
         int[] indice = indiceOf(sourceString, c);
@@ -1261,7 +1261,7 @@ public class StringUtils {
      * @return
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 1. 6.
      */
     public static int indexOf(String sourceString, String searchedString, int ordinal) {
@@ -1360,7 +1360,7 @@ public class StringUtils {
      * 
      * @throws NullPointerException
      *             <code>string</code>값이 <code>null</code>인 경우 <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2011. 11. 06.
      */
     public static int[] indiceOf(String string, char c) {
@@ -1379,7 +1379,7 @@ public class StringUtils {
      * @param searchedString
      * @return <BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static int[] indiceOf(String sourceString, String searchedString) {
         if (searchedString.length() == 1) {
@@ -1414,7 +1414,7 @@ public class StringUtils {
      * @param string
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean isAllLowcase(String string) {
         return !containsUppercase(string);
@@ -1426,7 +1426,7 @@ public class StringUtils {
      * @param string
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean isAllUppercase(String string) {
         return !containsLowcase(string);
@@ -1522,7 +1522,7 @@ public class StringUtils {
      * @return
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 11.
      */
     public static boolean isNullOrEmptyString(String string) {
@@ -1539,7 +1539,7 @@ public class StringUtils {
      * @param strings
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean isNullOrEmptyStringAnd(String... strings) {
         for (String string : strings) {
@@ -1557,7 +1557,7 @@ public class StringUtils {
      * @param strings
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean isNullOrEmptyStringOr(String... strings) {
         for (String string : strings) {
@@ -1595,7 +1595,7 @@ public class StringUtils {
      * @param string
      * @return
      * @since 2012. 6. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWhiteSpace(String string) {
         if (string != null) {
@@ -1709,7 +1709,7 @@ public class StringUtils {
      * @param string
      * @return <BR>
      * @since 2012. 02. 16.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String ltrimSpecific(String string, char c) {
         char[] cStr = string.toCharArray();
@@ -1735,7 +1735,7 @@ public class StringUtils {
      *            지우고자 하는 문자열
      * @return 새로운 문자열<BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String ltrimSpecific(String sourceString, String targetString) {
         if (sourceString.indexOf(targetString) != 0) {
@@ -1810,7 +1810,7 @@ public class StringUtils {
      * @param n
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2011. 6. 23.
      */
     public static String nTimesString(String string, int n) {
@@ -1901,7 +1901,7 @@ public class StringUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String replace(String string, char o, char n) {
         if (string != null) {
@@ -2128,7 +2128,7 @@ public class StringUtils {
      * @param c
      * @return <BR>
      * @since 2012. 02. 16.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String rtrimSpecific(String string, char c) {
         char[] cStr = string.toCharArray();
@@ -2156,7 +2156,7 @@ public class StringUtils {
      *            지우고자 하는 문자열
      * @return 새로운 문자열<BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String rtrimSpecific(String sourceString, String targetString) {
         if (sourceString.lastIndexOf(targetString) != sourceString.length() - targetString.length()) {
@@ -2353,7 +2353,7 @@ public class StringUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean startsWithDigit(String string) {
         if (string == null || string.trim().isEmpty()) {
@@ -2505,7 +2505,7 @@ public class StringUtils {
      * @param field
      * @return <BR>
      * @since 2012. 2. 6.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toBeanGetterName(String field) {
         return "get" + toUpperCase(field, 0);
@@ -2532,7 +2532,7 @@ public class StringUtils {
      * @param field
      * @return <BR>
      * @since 2012. 2. 6.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toBeanSetterName(String field) {
         return "set" + toUpperCase(field, 0);
@@ -2543,7 +2543,7 @@ public class StringUtils {
      * @param string
      * @return <BR>
      * @since 2011. xx. xx.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @deprecated 기존 특정한 프로젝트에서 사용하기 위해서 만든 메소드. 이후 이 클래스가 범용적으로 사용되면서 함께 유지되었던 것인데 더 이상의 지원은 없으며 기능보장을 하지 않음.
      */
@@ -2595,7 +2595,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toKebabCase(String camelCase) {
 
@@ -2623,7 +2623,7 @@ public class StringUtils {
      * @return
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 10.
      */
     public static String toLowerCamelCase(String... strings) {
@@ -2674,7 +2674,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toPascalCase(String camelCase) {
         ArrayList<String> strs = new ArrayList<>();
@@ -2734,7 +2734,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toSnakeCase(String camelCase) {
         ArrayList<String> strs = new ArrayList<>();
@@ -2762,7 +2762,7 @@ public class StringUtils {
      * 
      *         <BR>
      * @since 2012. 01. 17.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toString(String string, String defaultValue) {
         return isNullOrEmptyString(string) ? defaultValue : string;
@@ -2793,7 +2793,7 @@ public class StringUtils {
      * 
      *         <BR>
      * @since 2012. 01. 10.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toUpperCamelCase(String... strings) {
         if (strings == null || strings.length < 1) {
@@ -2842,7 +2842,7 @@ public class StringUtils {
      * <BR>
      * 
      * @since 2012. 3. 5.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static final class OneCharacterString {
         private final String string;
@@ -2861,7 +2861,7 @@ public class StringUtils {
          * @return
          * 
          * @since 2012. 3. 5.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         public String c2str() {
             return c2str;
@@ -2872,7 +2872,7 @@ public class StringUtils {
          * 
          *         <BR>
          * @since 2012. 3. 5.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         public final char getC() {
             return c;
@@ -2882,7 +2882,7 @@ public class StringUtils {
          * @return the string
          * 
          *         <BR>
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          * @since 2012. 3. 5.
          */
         public final String getString() {
@@ -2893,7 +2893,7 @@ public class StringUtils {
          * @return
          * 
          * @since 2012. 3. 5.
-         * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
          * 
          * @see java.lang.Object#toString()
          */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ import open.commons.utils.NumberUtils.IntegerType;
  * int 및 {@link Integer}에 데이타 처리를 위한 메소드 제공 클래스 <BR>
  * 
  * @since 2012. 2. 8.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class IntegerUtils {
 
@@ -46,7 +46,7 @@ public class IntegerUtils {
      * @param values
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #byteArrayToInt(byte[])
      */
@@ -115,7 +115,7 @@ public class IntegerUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String hex(String str) {
         return concat("", "0x", str);
@@ -222,7 +222,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toBinary32CharArray(int value) {
         return toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH);
@@ -238,7 +238,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toBinary32CharArray(int value, int length) {
         return toCharArray(Integer.toBinaryString(value), length);
@@ -250,7 +250,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toBinary32String(int value) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH));
@@ -265,7 +265,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toBinary32String(int value, int length) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), length));
@@ -277,7 +277,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static byte[] toByteArray(int value) {
         byte[] returnedValue = new byte[4];
@@ -296,7 +296,7 @@ public class IntegerUtils {
      * @param values
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #toByteArray(int)
      */
@@ -335,7 +335,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toCharArray(String value, int length) {
         char[] str = new char[length];
@@ -360,7 +360,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toHexCharArray(int value) {
         return toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH);
@@ -374,7 +374,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toHexCharArray(int value, int length) {
         return toCharArray(Integer.toHexString(value), length);
@@ -387,7 +387,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toHexString(int value) {
         return String.valueOf(toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH));
@@ -402,7 +402,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toHexString(int value, boolean padding) {
         String hexValue = toHexString(value);
@@ -427,7 +427,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toHexString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toHexString(value), length));
@@ -440,7 +440,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toHexString(String value) {
         return toHexString(Integer.parseInt(value));
@@ -455,7 +455,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toHexString(String value, boolean padding) {
         return toHexString(Integer.parseInt(value), padding);
@@ -469,7 +469,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toHexString(String value, int length) {
         return toHexString(Integer.parseInt(value), length);
@@ -490,7 +490,7 @@ public class IntegerUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toIPv4(int nums) {
         int[] ar = new int[4];
@@ -516,7 +516,7 @@ public class IntegerUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toIPv4(int[] nums) {
         int[] ar = new int[4];
@@ -531,7 +531,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toOctalCharArray(int value) {
         return toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH);
@@ -545,7 +545,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static char[] toOctalCharArray(int value, int length) {
         return toCharArray(Integer.toOctalString(value), length);
@@ -558,7 +558,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toOctalString(int value) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH));
@@ -573,7 +573,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toOctalString(int value, boolean padding) {
         String octValue = toOctalString(value);
@@ -598,7 +598,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toOctalString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), length));
@@ -611,7 +611,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toOctalString(String value) {
         return toOctalString(Integer.parseInt(value));
@@ -626,7 +626,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toOctalString(String value, boolean padding) {
         return toOctalString(Integer.parseInt(value), padding);
@@ -640,7 +640,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toOctalString(String value, int length) {
         return toOctalString(Integer.parseInt(value), length);
@@ -652,7 +652,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toWellFormed32bitBinaryString(int value) {
         char[] str = new char[32];

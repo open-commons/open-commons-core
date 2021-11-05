@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import open.commons.CommonProperties;
  * 
  * <BR>
  * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2012. 01. 16.
  * 
  */
@@ -80,7 +80,7 @@ public class DBUtils {
      * @return 주어진 정보로 생성된 {@link Connection} 객체
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @throws SQLException
      * @throws ClassNotFoundException
      * @since 2012. 01. 16.
@@ -106,7 +106,7 @@ public class DBUtils {
      * @return 주어진 정보로 생성된 {@link Connection} 객체
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @throws SQLException
      * @throws ClassNotFoundException
      * @since 2012. 01. 16.
@@ -133,7 +133,7 @@ public class DBUtils {
      * @return 주어진 정보로 생성된 {@link Connection} 객체
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @throws SQLException
      * @throws ClassNotFoundException
      * @since 2012. 01. 16.
@@ -165,7 +165,7 @@ public class DBUtils {
      * @return 주어진 정보로 생성된 {@link Connection} 객체
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @throws SQLException
      * @throws ClassNotFoundException
      * @since 2012. 01. 16.
@@ -195,7 +195,7 @@ public class DBUtils {
      * @return 주어진 정보로 생성된 {@link Connection} 객체
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @throws SQLException
      * @throws ClassNotFoundException
      * @since 2012. 01. 16.
@@ -225,7 +225,7 @@ public class DBUtils {
      * @return 주어진 정보로 생성된 {@link Connection} 객체
      * 
      *         <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @throws SQLException
      * @throws ClassNotFoundException
      * @since 2012. 01. 16.
@@ -256,7 +256,7 @@ public class DBUtils {
      *                테이블 명이나 데이타가 <code>null</code>인 경우
      * 
      *                <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
      */
     public static String insertQuery(String table, Map<String, ?> data) {
@@ -280,7 +280,7 @@ public class DBUtils {
      *                테이블 명이나 데이타가 <code>null</code>인 경우
      * 
      *                <BR>
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
      */
     public static String insertQuery(String table, Map<String, ?> data, String etc) {
@@ -301,7 +301,7 @@ public class DBUtils {
      * @param col
      * @return <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toColumns(Collection<String> col) {
         if (col.isEmpty()) {
@@ -331,7 +331,7 @@ public class DBUtils {
      * @param col
      * @return <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String toValues(Collection<?> col) {
         if (col.isEmpty()) {

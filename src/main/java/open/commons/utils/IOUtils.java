@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ import open.commons.util.ArrayItr;
  * 
  * <BR>
  * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2012. 01. 10.
  * 
  */
@@ -155,7 +155,7 @@ public class IOUtils {
      *
      * @since 2021. 7. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static void close(Collection<AutoCloseable> closeables) {
         for (AutoCloseable closeable : closeables) {
@@ -183,7 +183,7 @@ public class IOUtils {
      * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      * 
      * @since 2012. 01. 10.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(File file) {
         return file != null ? getReader(file.toPath(), (Charset) null) : null;
@@ -206,7 +206,7 @@ public class IOUtils {
      * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(File file, Charset cs) {
         return file != null ? getReader(file.toPath(), cs) : null;
@@ -227,7 +227,7 @@ public class IOUtils {
      * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(File file, String charsetNam) {
         return file != null ? getReader(file.toPath(), charsetNam) : null;
@@ -266,7 +266,7 @@ public class IOUtils {
      * @return {@link BufferedReader} 객체, {@link InputStream}인 <code>null</code>인 경우 <code>null</code>반환.
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(InputStream inStream, Charset cs) {
         BufferedReader reader = null;
@@ -305,7 +305,7 @@ public class IOUtils {
      * @return 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(Path path) {
         return getReader(path, (Charset) null);
@@ -328,7 +328,7 @@ public class IOUtils {
      * @return {@link Path} 가 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(Path path, Charset cs) {
         BufferedReader reader = null;
@@ -361,7 +361,7 @@ public class IOUtils {
      * @return 에러가 발생할 경우 <code>null</code>을 제공한다.
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(Path path, String charsetName) {
         return getReader(path, charsetName != null ? Charset.forName(charsetName) : (Charset) null);
@@ -374,7 +374,7 @@ public class IOUtils {
      * @return <b><code>nullable</code></b>.
      * 
      * @since 2012. 01. 10.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static BufferedReader getReader(String string) {
         BufferedReader reader = null;
@@ -392,7 +392,7 @@ public class IOUtils {
      * @param container
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getResourcePath(Class<?> container) {
         if (container != null) {
@@ -421,7 +421,7 @@ public class IOUtils {
      *            리소스 이름
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static InputStream getResourcePath(Class<?> loader, Class<?> container, String resourceName) {
         if (loader != null && container != null) {
@@ -437,7 +437,7 @@ public class IOUtils {
      * @return 예외가 발생하는 경우 <code>null</code>을 반환한다.
      * 
      * @since 2012. 01. 10.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static BufferedWriter getWriter() {
         try {
@@ -455,7 +455,7 @@ public class IOUtils {
      * @throws IOException
      * 
      * @since 2012. 01. 10.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static BufferedWriter getWriter(File file) {
         try {
@@ -493,7 +493,7 @@ public class IOUtils {
      *                if a security manager exists and its <code>checkRead</code> method denies read access to the file.
      * @see {@link FileInputStream} <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static SequenceInputStream newSequenceInputStream(Enumeration<File> e) throws FileNotFoundException {
 
@@ -518,7 +518,7 @@ public class IOUtils {
      *                if a security manager exists and its <code>checkRead</code> method denies read access to the file.
      * @see {@link FileInputStream} <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static SequenceInputStream newSequenceInputStream(File... files) throws FileNotFoundException {
 
@@ -545,7 +545,7 @@ public class IOUtils {
      * 
      *      <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     @SuppressWarnings("resource")
     public static SequenceInputStream newSequenceInputStream(File file1, File file2) throws FileNotFoundException {
@@ -567,7 +567,7 @@ public class IOUtils {
      *                if a security manager exists and its <code>checkRead</code> method denies read access to the file.
      * @see {@link FileInputStream} <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static SequenceInputStream newSequenceInputStream(InputStream... insts) throws FileNotFoundException {
 
@@ -595,7 +595,7 @@ public class IOUtils {
      * @param target
      *            <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static void open(String target) {
         try {
@@ -675,7 +675,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
         List<T> data = new ArrayList<>();
@@ -720,7 +720,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     private static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
         byte[] bs = new byte[len];
@@ -755,7 +755,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, int bufCapacity, Function<byte[], T> action, R... accessibles) throws IOException {
@@ -785,7 +785,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
         return readFile(new RandomAccessFile(file, "r"), action, accessibles);
@@ -814,7 +814,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, R... accessibles) throws IOException {
@@ -840,7 +840,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, Iterable<R> accessibles) throws IOException {
         return readFile(file, BYTE_ACTION_BYPASS, accessibles);
@@ -865,7 +865,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, R... accessibles) throws IOException {
@@ -891,7 +891,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R extends IRandomAccessible> Result<byte[]> readFile(File file, R accessible) throws IOException {
         return readFile(new RandomAccessFile(file, "r"), accessible);
@@ -920,7 +920,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
         List<T> data = null;
@@ -963,7 +963,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, R... accessibles) throws IOException {
@@ -992,7 +992,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessibles) throws IOException {
 
@@ -1035,7 +1035,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R extends IRandomAccessible> Result<byte[]> readFile(RandomAccessFile file, R accessible) throws IOException {
         return readFile(file, BYTE_ACTION_BYPASS, accessible);
@@ -1065,7 +1065,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
         return readFile(new RandomAccessFile(file, "r"), action, accessibles);
@@ -1095,7 +1095,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, R... accessibles) throws IOException {
@@ -1121,7 +1121,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, Iterable<R> accessibles) throws IOException {
         return readFile(file, BYTE_ACTION_BYPASS, accessibles);
@@ -1146,7 +1146,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     @SafeVarargs
     public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, R... accessibles) throws IOException {
@@ -1172,7 +1172,7 @@ public class IOUtils {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <R extends IRandomAccessible> Result<byte[]> readFile(String file, R accessible) throws IOException {
         return readFile(new RandomAccessFile(file, "r"), accessible);
@@ -1192,7 +1192,7 @@ public class IOUtils {
      * @param inStream
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2012. 01. 10.
      * 
      * @see <strike>sun.misc.IOUtils.readFully(InputStream, int, boolean)</strike>
@@ -1221,7 +1221,7 @@ public class IOUtils {
      *
      * @since 2019. 3. 21.
      * @version 1.6.5
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #readFully(InputStream, int, boolean)
      */
     public static byte[] readFully(InputStream inStream, final boolean close) {
@@ -1250,7 +1250,7 @@ public class IOUtils {
      *
      * @since 2019. 3. 21.
      * @version 1.6.5
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) {
         return readFully(Channels.newChannel(inStream), bufferSize, close);
@@ -1272,7 +1272,7 @@ public class IOUtils {
      * @return
      *
      * @since 2020. 9. 13.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) {
 
@@ -1329,7 +1329,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see BufferedReader
      */
@@ -1355,7 +1355,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(File file, Charset charset) throws FileNotFoundException, IOException {
         return readLines(new FileInputStream(file), charset);
@@ -1377,7 +1377,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(InputStream inStream) throws IOException {
         return readLines(inStream, Charset.defaultCharset());
@@ -1400,7 +1400,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(InputStream inStream, Charset charset) throws IOException {
         List<String> lines = new ArrayList<>();
@@ -1431,7 +1431,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(InputStream inStream, String charsetName) throws IOException {
         Charset charset = Charset.isSupported(charsetName) //
@@ -1457,7 +1457,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
         return readLines(path.toFile());
@@ -1480,7 +1480,7 @@ public class IOUtils {
      *
      * @since 2020. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
         return readLines(new File(filepath));
@@ -1594,7 +1594,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -1625,7 +1625,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -1692,7 +1692,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -1724,7 +1724,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -1753,7 +1753,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -1785,7 +1785,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -1812,7 +1812,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -1840,7 +1840,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -1870,7 +1870,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -1898,7 +1898,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -1924,7 +1924,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @since 2014. 4. 14.
@@ -1954,7 +1954,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -1984,7 +1984,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -2012,7 +2012,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -2043,7 +2043,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -2075,7 +2075,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -2105,7 +2105,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -2135,7 +2135,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @since 2021. 1. 14.
@@ -2197,7 +2197,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -2229,7 +2229,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -2294,7 +2294,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -2330,7 +2330,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -2364,7 +2364,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeInput, Writer writer, boolean closeOutput) throws IOException {
@@ -2394,7 +2394,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
@@ -2421,7 +2421,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
      * @see InputStream#close()
@@ -2453,7 +2453,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see InputStream#close()
@@ -2480,7 +2480,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2508,7 +2508,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2538,7 +2538,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2566,7 +2566,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2596,7 +2596,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2628,7 +2628,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2658,7 +2658,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2690,7 +2690,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2718,7 +2718,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      */
     public static int transfer(Reader reader, boolean closeInput, Writer writer, boolean closeOutput) throws IOException {
@@ -2746,7 +2746,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      */
     public static int transfer(Reader reader, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
@@ -2799,7 +2799,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2827,7 +2827,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2857,7 +2857,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2885,7 +2885,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2911,7 +2911,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2939,7 +2939,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2969,7 +2969,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2997,7 +2997,7 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -3022,7 +3022,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2019. 8. 7.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int transfer(Reader reader, Writer writer) throws IOException {
         return transfer(reader, true, writer, true);
@@ -3046,7 +3046,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2021. 1. 14.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static int transfer(Reader reader, Writer writer, int readBufferSize) throws IOException {
         return transfer(reader, true, writer, true, readBufferSize);

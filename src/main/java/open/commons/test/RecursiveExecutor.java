@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import open.commons.utils.FormatUtils;
  * <BR>
  * 
  * @since 2012. 02. 21.
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class RecursiveExecutor {
 
@@ -265,7 +265,7 @@ public class RecursiveExecutor {
      * @param yesLog
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     protected void test(final int count, final IExecutable exec, boolean yesLog) {
 

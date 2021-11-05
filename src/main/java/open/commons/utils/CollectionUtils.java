@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 *
 * Date  : 2011. 10. 24. 오전 10:13:26
 *
-* Author: Park Jun-Hong (fafanmama_at_naver_dot_com)
+* Author: Park Jun-Hong (parkjunhong77@gmail.com)
 * 
 */
 package open.commons.utils;
@@ -54,7 +54,7 @@ import open.commons.collection.IKeyExtractor;
 
 /**
  * 
- * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2011. 10. 24.
  * 
  */
@@ -77,7 +77,7 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <C extends Collection<E>, E> C add(C col, Class<? extends C> clazz, E elem) {
 
@@ -104,7 +104,7 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <C extends Collection<E>, E> C addAll(C col, Class<? extends C> clazz, E... elems) {
 
@@ -140,7 +140,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <C extends Collection<E>, E> C addAll(C col, E... elems) {
         for (E elem : elems) {
@@ -167,7 +167,7 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 12. 13.
      */
     public static <C extends Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, Collection<E> elems) {
@@ -199,7 +199,7 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 <code>col</code>이 <code>null</code>인 경우, 새로운 객체.
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <C extends Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, E... elems) {
 
@@ -238,7 +238,7 @@ public class CollectionUtils {
      *
      * @since 2017. 12. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> boolean addIfAbsent(List<T> list, T value) {
         if (list == null) {
@@ -271,7 +271,7 @@ public class CollectionUtils {
      * @param elem
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 12. 13.
      */
     public static <C extends Collection<E>, E> C addIfNotNull(C col, Class<? extends C> clazz, E elem) {
@@ -307,7 +307,7 @@ public class CollectionUtils {
      * 
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean containsKeyIgnoreCase(Map<String, ?> map, String keyIgnoreCase) {
         for (String key : map.keySet()) {
@@ -340,7 +340,7 @@ public class CollectionUtils {
      *
      * @since 2017. 7. 6.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K> Map<K, List<E>> elementToListValuedMap(Collection<E> col, Function<E, K> keyGen) {
         Map<K, List<E>> map = new HashMap<>();
@@ -384,7 +384,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2014. 10. 17.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @deprecated Use {@link #elementToListValuedMap(Collection, Function)}, if supports JDK 1.8 or higher.
      */
@@ -426,7 +426,7 @@ public class CollectionUtils {
      *
      * @since 2021. 7. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, C extends Collection<E>> void get(Collection<E> col, Predicate<E> p, C newCol) {
         for (E e : col) {
@@ -457,7 +457,7 @@ public class CollectionUtils {
      *
      * @since 2021. 7. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, C extends Collection<E>> C get(Collection<E> col, Predicate<E> p, Class<C> type) throws InstantiationException, IllegalAccessException {
         C ret = type.newInstance();
@@ -485,7 +485,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Collection<E> getIgnoreCase(Map<String, E> map, String keyIgnoreCase) {
         ArrayList<E> result = new ArrayList<>();
@@ -518,7 +518,7 @@ public class CollectionUtils {
      *
      * @since 2021. 7. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> boolean has(Collection<E> col, Predicate<E> p) {
         return col.parallelStream().anyMatch(p);
@@ -549,7 +549,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2017. 7. 6.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K> Map<K, List<E>> listElementToListValuedMap(Collection<List<E>> col, Function<E, K> keyGen) {
         Map<K, List<E>> map = new HashMap<>();
@@ -594,7 +594,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2014. 10. 17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @deprecated Use {@link #listElementToListValuedMap(Collection, Function)}, if supports JDK 1.8 or higher.
      */
@@ -627,7 +627,7 @@ public class CollectionUtils {
      * @param t2
      * @return <BR>
      * @since 2012. 2. 1.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see NullPointerException
      * @deprecated 2014. 6. 30. Instead of, use {@link ArrayUtils#merge(Object[], Object[])}.
@@ -656,7 +656,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Boolean> newList(boolean... elems) {
         List<Boolean> list = new ArrayList<>();
@@ -682,7 +682,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Byte> newList(byte... elems) {
         List<Byte> list = new ArrayList<>();
@@ -708,7 +708,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Character> newList(char... elems) {
         List<Character> list = new ArrayList<>();
@@ -734,7 +734,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Double> newList(double... elems) {
         List<Double> list = new ArrayList<>();
@@ -763,7 +763,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E... elems) {
         List<E> list = new ArrayList<E>();
@@ -794,7 +794,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E elem, Collection<E> col) {
         List<E> newList = newList(elem);
@@ -825,7 +825,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E elem, List<E> list) {
         List<E> newList = newList(elem);
@@ -851,7 +851,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Integer> newList(int... elems) {
         List<Integer> list = new ArrayList<>();
@@ -882,7 +882,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(List<E> list, E... elems) {
         List<E> newList = (List<E>) newList(list.toArray());
@@ -908,7 +908,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Long> newList(long... elems) {
         List<Long> list = new ArrayList<>();
@@ -934,7 +934,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Short> newList(short... elems) {
         List<Short> list = new ArrayList<>();
@@ -960,7 +960,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Boolean> newSet(boolean... elems) {
         Set<Boolean> set = new HashSet<>();
@@ -986,7 +986,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Byte> newSet(byte... elems) {
         Set<Byte> set = new HashSet<>();
@@ -1012,7 +1012,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Character> newSet(char... elems) {
         Set<Character> set = new HashSet<>();
@@ -1038,7 +1038,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Double> newSet(double... elems) {
         Set<Double> set = new HashSet<>();
@@ -1067,7 +1067,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(E... elems) {
         Set<E> set = new HashSet<E>();
@@ -1098,7 +1098,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(E elem, Collection<E> col) {
         Set<E> newSet = newSet(elem);
@@ -1129,7 +1129,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(E elem, Set<E> set) {
         Set<E> newSet = newSet(elem);
@@ -1155,7 +1155,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Integer> newSet(int... elems) {
         Set<Integer> set = new HashSet<>();
@@ -1181,7 +1181,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Long> newSet(long... elems) {
         Set<Long> set = new HashSet<>();
@@ -1212,7 +1212,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(Set<E> set, E... elems) {
         Set<E> newSet = (Set<E>) newSet(set.toArray());
@@ -1238,7 +1238,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Short> newSet(short... elems) {
         Set<Short> set = new HashSet<>();
@@ -1264,7 +1264,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Boolean> newVector(boolean... elems) {
         Vector<Boolean> vector = new Vector<>();
@@ -1290,7 +1290,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Byte> newVector(byte... elems) {
         Vector<Byte> vector = new Vector<>();
@@ -1316,7 +1316,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Character> newVector(char... elems) {
         Vector<Character> vector = new Vector<>();
@@ -1342,7 +1342,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Double> newVector(double... elems) {
         Vector<Double> vector = new Vector<>();
@@ -1371,7 +1371,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(E... elems) {
         Vector<E> vector = new Vector<E>();
@@ -1402,7 +1402,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(E elem, Collection<E> col) {
         Vector<E> newVector = newVector(elem);
@@ -1433,7 +1433,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(E elem, Vector<E> vector) {
         Vector<E> newVector = newVector(elem);
@@ -1459,7 +1459,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Integer> newVector(int... elems) {
         Vector<Integer> vector = new Vector<>();
@@ -1485,7 +1485,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Long> newVector(long... elems) {
         Vector<Long> vector = new Vector<>();
@@ -1511,7 +1511,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Short> newVector(short... elems) {
         Vector<Short> vector = new Vector<>();
@@ -1542,7 +1542,7 @@ public class CollectionUtils {
      *
      * @since 2020. 12. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(Vector<E> vector, E... elems) {
         Vector<E> newVector = (Vector<E>) newVector(vector.toArray());
@@ -1590,7 +1590,7 @@ public class CollectionUtils {
      * @return 정렬된 새로운 객체
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K extends Comparable<K>, V> Set<Entry<K, V>> orderEntrySet(Set<Entry<K, V>> set) {
         Set<Entry<K, V>> returnedSet = new ConcurrentSkipListSet<Map.Entry<K, V>>();
@@ -1608,7 +1608,7 @@ public class CollectionUtils {
      * @return 정렬된 새로운 객체
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K extends Comparable<K>, V> Map<K, V> orderMap(Map<K, V> map, boolean asc) {
         Map<K, V> returnedMap = new ConcurrentSkipListMap<K, V>(asc ? new AscComparator<K>() : new DescComparator<K>());
@@ -1626,7 +1626,7 @@ public class CollectionUtils {
      * @return 정렬된 새로운 객체
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K extends Comparable<K>, V> Map<K, V> orderMap(Map<K, V> map, Comparator<K> comparator) {
         Map<K, V> returnedMap = new ConcurrentSkipListMap<K, V>(comparator);
@@ -1669,7 +1669,7 @@ public class CollectionUtils {
      *            읽어올 개수
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 10. 18.
      */
     public static <E> List<E> read(List<E> list, int pos, int maxCount) {
@@ -1709,7 +1709,7 @@ public class CollectionUtils {
      * 
      * @return {@link List}가 <code>null</code>이거나 없는 경우
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 10. 18.
      */
     public static <E> E[] readAsArray(List<E> list, int pos, int maxCount, Class<E> type) {
@@ -1797,7 +1797,7 @@ public class CollectionUtils {
      *            데이터 타입 Class
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 4. 18.
      */
     public static <E> E[] toArray(Collection<E> col, Class<E> type) {
@@ -1932,7 +1932,7 @@ public class CollectionUtils {
      * @param transformer
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 12.
      */
     public static <E, NE> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
@@ -1955,7 +1955,7 @@ public class CollectionUtils {
      * @param mapClass
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 12.
      */
     public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Class<L> mapClass) {
@@ -1993,7 +1993,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2017. 7. 6.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      */
     public static <E, K> Map<K, E> toMap(Collection<E> col, Function<E, K> keyGen) {
@@ -2067,7 +2067,7 @@ public class CollectionUtils {
      *            a function to create a new element using an old element.
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 2. 8.
      */
     public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
@@ -2102,7 +2102,7 @@ public class CollectionUtils {
      *            the subclass of a {@link Map}.
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 2. 8.
      */
     public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
@@ -2144,7 +2144,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 11. 28.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
             Class<C> colClass) {
@@ -2192,7 +2192,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
             Class<C> colClass) {
@@ -2246,7 +2246,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, M map) {
 
@@ -2356,7 +2356,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2017. 9. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyGen) {
         return toMap(col, keyGen, HashMap.class);
@@ -2387,7 +2387,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2017. 9. 11.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, Function<E, K> keyGen, Class<M> mapClass) {
 
@@ -2429,7 +2429,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, Function<E, K> keyGen, M map) {
 
@@ -2554,7 +2554,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
@@ -2589,7 +2589,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
         M map = null;
@@ -2633,7 +2633,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
 
@@ -2673,7 +2673,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
@@ -2708,7 +2708,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
         M map = null;
@@ -2752,7 +2752,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, M map) {
 
@@ -2792,7 +2792,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
@@ -2827,7 +2827,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
         M map = null;
@@ -2873,7 +2873,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
 
@@ -2912,7 +2912,7 @@ public class CollectionUtils {
      *            a function to create a new element using an element.
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 15.
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
@@ -2947,7 +2947,7 @@ public class CollectionUtils {
      *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 15.
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
@@ -2995,7 +2995,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map) {
         for (E e : col) {
@@ -3129,7 +3129,7 @@ public class CollectionUtils {
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, S extends Set<E>> Set<E> toSet(Collection<E> col, S set) {
 
@@ -3160,7 +3160,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2018. 9. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
         return stream.map(transformer).collect(Collectors.toSet());
@@ -3189,7 +3189,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 9. 12.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Class<S> setClass) {
 
@@ -3225,7 +3225,7 @@ public class CollectionUtils {
      * @param col
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see {@link Object#toString()}, {@link AbstractCollection#toString()}
      */
@@ -3246,7 +3246,7 @@ public class CollectionUtils {
      * @param delim
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #toString(Collection, String, String, String)
      */
@@ -3264,7 +3264,7 @@ public class CollectionUtils {
      * @param suffix
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (fafanmama_at_naver_dot_com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> String toString(Collection<T> col, String delim, String prefix, String suffix) {
         StringBuffer sb = new StringBuffer();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011 Park Jun-Hong (parkjunhong77/google/com)
+ * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
  *
  * Date  : 2017. 12. 29. 오후 5:20:34
  *
- * Author: Park_Jun_Hong_(fafanmama_at_naver_com)
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 
@@ -29,7 +29,7 @@ package open.commons.database;
 /**
  * 
  * @since 2017. 12. 29.
- * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  * @deprecated Use {@link ConnectionCallbackBroker2}
  */
@@ -54,7 +54,7 @@ public class ConnectionCallbackBroker {
      *
      * @return the query
      *
-     * @auth Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @auth Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 12. 13.
      */
     public String getQuery() {
@@ -65,7 +65,7 @@ public class ConnectionCallbackBroker {
      *
      * @return the setter
      *
-     * @auth Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @auth Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 12. 13.
      */
     public IConnectionCallbackSetter getSetter() {
