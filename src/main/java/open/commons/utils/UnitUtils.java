@@ -31,7 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import open.commons.util.DataStorageUnit;
+import open.commons.util.BinaryDataUnit;
+import open.commons.util.PrefixDataUnit;
 
 /**
  * 단위 관련 기능을 제공.
@@ -65,17 +66,8 @@ public class UnitUtils {
     private UnitUtils() {
     }
 
-    private static String concat(Object... objs) {
-        StringBuffer sb = new StringBuffer();
-        for (Object o : objs) {
-            sb.append(o.toString());
-        }
-
-        return sb.toString();
-    }
-
     /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
      * 
      * <pre>
      * [개정이력]
@@ -85,7 +77,7 @@ public class UnitUtils {
      * </pre>
      *
      * @param bytes
-     *            메모리 크기 (단위: Byte)
+     *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
      * @return
@@ -94,14 +86,14 @@ public class UnitUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
-     * @see DataStorageUnit#convert(long, DataStorageUnit)
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
-    public static BigDecimal dataStorage(long bytes, DataStorageUnit unit) {
-        return DataStorageUnit.Byte.convert(bytes, unit);
+    public static BigDecimal binaryStorage(long bytes, BinaryDataUnit unit) {
+        return BinaryDataUnit.BYTE.convert(bytes, unit);
     }
 
     /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 포함) <br>
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
      * 
      * <pre>
      * [개정이력]
@@ -111,7 +103,7 @@ public class UnitUtils {
      * </pre>
      *
      * @param bytes
-     *            메모리 크기 (단위: Byte)
+     *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
      * @return
@@ -120,39 +112,14 @@ public class UnitUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
-     * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
-    public static BigDecimal[] dataStorageAlsoSubUnit(long bytes, DataStorageUnit unit) {
-        return DataStorageUnit.Byte.convert(bytes, unit, true);
+    public static BigDecimal[] binaryStorageAlsoSubUnit(long bytes, BinaryDataUnit unit) {
+        return BinaryDataUnit.BYTE.convert(bytes, unit, true);
     }
 
     /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 포함) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param bytes
-     *            메모리 크기 (단위: Byte)
-     * @param unit
-     *            변환 단위
-     * @return
-     *
-     * @since 2021. 11. 4.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @see #dataStorageAlsoSubUnitAsString(long, DataStorageUnit, boolean, boolean)
-     */
-    public static String dataStorageAlsoSubUnitAsString(long bytes, DataStorageUnit unit) {
-        return dataStorageAlsoSubUnitAsString(bytes, unit, true, true);
-    }
-
-    /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 포함) <br>
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
      * 
      * <pre>
      * [개정이력]
@@ -162,26 +129,22 @@ public class UnitUtils {
      * </pre>
      *
      * @param bytes
-     *            메모리 크기 (단위: Byte)
+     *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @param trim
-     *            사이즈 '0'인 단위 제외 여부.
      * @return
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
+     * @see #binaryStorageAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
      */
-    public static String dataStorageAlsoSubUnitAsString(long bytes, DataStorageUnit unit, boolean pretty, boolean trim) {
-        return dataStorageAlsoSubUnitAsString(bytes, DataStorageUnit.Byte, unit, pretty, trim);
+    public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit) {
+        return binaryStorageAlsoSubUnitAsString(bytes, unit, true, true);
     }
 
     /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 포함) <br>
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
      * 
      * <pre>
      * [개정이력]
@@ -191,7 +154,7 @@ public class UnitUtils {
      * </pre>
      *
      * @param size
-     *            메모리 크기
+     *            데이터 크기
      * @param srcUnit
      *            변환할 데이터 단위
      * @param dstUnit
@@ -205,13 +168,13 @@ public class UnitUtils {
      * @since 2021. 11. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @see DataStorageUnit#convert(long, DataStorageUnit, boolean)
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
-    public static String dataStorageAlsoSubUnitAsString(long size, DataStorageUnit srcUnit, DataStorageUnit dstUnit, boolean pretty, boolean trim) {
+    public static String binaryStorageAlsoSubUnitAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean trim) {
         BigDecimal[] values = srcUnit.convert(size, dstUnit, true);
         List<String> s = new ArrayList<>();
 
-        DataStorageUnit u = dstUnit;
+        BinaryDataUnit u = dstUnit;
         String val = null;
         for (int i = 0; i < values.length; i++) {
             if (!trim || values[i].compareTo(BigDecimal.ZERO) != 0) {
@@ -228,7 +191,7 @@ public class UnitUtils {
     }
 
     /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
      * 
      * <pre>
      * [개정이력]
@@ -238,51 +201,52 @@ public class UnitUtils {
      * </pre>
      *
      * @param bytes
-     *            메모리 크기 (단위: Byte)
-     * @param unit
-     *            변환 단위
-     * @return
-     *
-     * @since 2021. 11. 4.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @see DataStorageUnit#convert(long, DataStorageUnit)
-     */
-    public static String dataStorageAsString(long bytes, DataStorageUnit unit) {
-        return dataStorageAsString(bytes, DataStorageUnit.Byte, unit, true);
-    }
-
-    /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param bytes
-     *            메모리 크기 (단위: Byte)
+     *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
      * @param pretty
      *            천단위 콤마(,) 추가 여부
+     * @param trim
+     *            사이즈 '0'인 단위 제외 여부.
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
+     */
+    public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit, boolean pretty, boolean trim) {
+        return binaryStorageAlsoSubUnitAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, trim);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
      * @return
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
-     * @see DataStorageUnit#convert(long, DataStorageUnit)
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
-    public static String dataStorageAsString(long bytes, DataStorageUnit unit, boolean pretty) {
-        return dataStorageAsString(bytes, DataStorageUnit.Byte, unit, pretty);
+    public static String binaryStorageAsString(long bytes, BinaryDataUnit unit) {
+        return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, true, true);
     }
 
     /**
-     * 메모리 값을 주어진 단위로 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
      * 
      * <pre>
      * [개정이력]
@@ -292,10 +256,45 @@ public class UnitUtils {
      * </pre>
      *
      * @param size
-     *            메모리 크기
+     *            데이터 크기
      * @param srcUnit
      *            변환할 데이터 단위
      * @param dstUnit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @param attachUnitStr
+     *            단위 문자열 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
+     */
+    public static String binaryStorageAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean attachUnitStr) {
+        String val = srcUnit.convert(size, dstUnit).toString();
+        if (pretty) {
+            val = ADD_COMMA.apply(val);
+        }
+
+        return attachUnitStr ? concat(val, " ", dstUnit.get()) : val;
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
      *            변환 단위
      * @param pretty
      *            천단위 콤마(,) 추가 여부
@@ -305,56 +304,317 @@ public class UnitUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
-     * @see DataStorageUnit#convert(long, DataStorageUnit)
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
-    public static String dataStorageAsString(long size, DataStorageUnit srcUnit, DataStorageUnit dstUnit, boolean pretty) {
+    public static String binaryStorageAsString(long bytes, BinaryDataUnit unit, boolean pretty) {
+        return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, true);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위, 단이 문자열 미포함) <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 5.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String binaryStorageAsStringNoUnit(long bytes, BinaryDataUnit unit, boolean pretty) {
+        return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, false);
+    }
+
+    private static String concat(Object... objs) {
+        StringBuffer sb = new StringBuffer();
+        for (Object o : objs) {
+            sb.append(o.toString());
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see PrefixDataUnit#convert(long, PrefixDataUnit)
+     */
+    public static BigDecimal convert(long bytes, PrefixDataUnit unit) {
+        return PrefixDataUnit.BASE.convert(bytes, unit);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
+     */
+    public static BigDecimal[] convertAlsoSubUnit(long bytes, PrefixDataUnit unit) {
+        return PrefixDataUnit.BASE.convert(bytes, unit, true);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @see #convertAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
+     */
+    public static String convertAlsoSubUnitAsString(long bytes, PrefixDataUnit unit) {
+        return convertAlsoSubUnitAsString(bytes, unit, true, true);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @param trim
+     *            사이즈 '0'인 단위 제외 여부.
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
+     */
+    public static String convertAlsoSubUnitAsString(long bytes, PrefixDataUnit unit, boolean pretty, boolean trim) {
+        return convertAlsoSubUnitAsString(bytes, PrefixDataUnit.BASE, unit, pretty, trim);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param size
+     *            데이터 크기
+     * @param srcUnit
+     *            변환할 데이터 단위
+     * @param dstUnit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @param trim
+     *            사이즈 '0'인 단위 제외 여부.
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
+     */
+    public static String convertAlsoSubUnitAsString(long size, PrefixDataUnit srcUnit, PrefixDataUnit dstUnit, boolean pretty, boolean trim) {
+        BigDecimal[] values = srcUnit.convert(size, dstUnit, true);
+        List<String> s = new ArrayList<>();
+
+        PrefixDataUnit u = dstUnit;
+        String val = null;
+        for (int i = 0; i < values.length; i++) {
+            if (!trim || values[i].compareTo(BigDecimal.ZERO) != 0) {
+                val = values[i].toString();
+                if (pretty) {
+                    val = ADD_COMMA.apply(val);
+                }
+                s.add(concat(val, " ", u.get()));
+            }
+            u = u.down();
+        }
+
+        return String.join(" ", s);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
+     */
+    public static String convertAsString(long bytes, PrefixDataUnit unit) {
+        return convertAsString(bytes, PrefixDataUnit.BASE, unit, true, true);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
+     */
+    public static String convertAsString(long bytes, PrefixDataUnit unit, boolean pretty) {
+        return convertAsString(bytes, PrefixDataUnit.BASE, unit, pretty, true);
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위 미포함) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param size
+     *            데이터 크기
+     * @param srcUnit
+     *            변환할 데이터 단위
+     * @param dstUnit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @param attachUnitStr
+     *            단위 문자열 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 4.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see BinaryDataUnit#convert(long, BinaryDataUnit)
+     */
+    public static String convertAsString(long size, PrefixDataUnit srcUnit, PrefixDataUnit dstUnit, boolean pretty, boolean attachUnitStr) {
         String val = srcUnit.convert(size, dstUnit).toString();
         if (pretty) {
             val = ADD_COMMA.apply(val);
         }
-        return concat(val, " ", dstUnit.get());
+        return attachUnitStr ? concat(val, " ", dstUnit.get()) : val;
     }
 
-    public static void main(String[] args) {
-        test_memory();
-    }
-
-    static void test_memory() {
-        DataStorageUnit memUnit = DataStorageUnit.Byte;
-        long memSize = 1 * 1024 * 1024 * 1024;
-
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.Byte.get(), memUnit.convert(memSize, DataStorageUnit.Byte).toString());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.KByte.get(), memUnit.convert(memSize, DataStorageUnit.KByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.KByte.get(), memUnit.convert(memSize, DataStorageUnit.KByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.MByte.get(), memUnit.convert(memSize, DataStorageUnit.MByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.MByte.get(), memUnit.convert(memSize, DataStorageUnit.MByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.GByte.get(), memUnit.convert(memSize, DataStorageUnit.GByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.GByte.get(), memUnit.convert(memSize, DataStorageUnit.GByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.TByte.get(), memUnit.convert(memSize, DataStorageUnit.TByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.TByte.get(), memUnit.convert(memSize, DataStorageUnit.TByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.PByte.get(), memUnit.convert(memSize, DataStorageUnit.PByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.PByte.get(), memUnit.convert(memSize, DataStorageUnit.PByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.EByte.get(), memUnit.convert(memSize, DataStorageUnit.EByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.EByte.get(), memUnit.convert(memSize, DataStorageUnit.EByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.ZByte.get(), memUnit.convert(memSize, DataStorageUnit.ZByte).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", memSize, memUnit.get(), DataStorageUnit.ZByte.get(), memUnit.convert(memSize, DataStorageUnit.ZByte).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", memSize, memUnit.get(), DataStorageUnit.YByte.get(), memUnit.convert(memSize, DataStorageUnit.YByte).toString());
-        System.out.printf("%,d %s -> %s => %,.100f\n", memSize, memUnit.get(), DataStorageUnit.YByte.get(), memUnit.convert(memSize, DataStorageUnit.YByte).doubleValue());
-
-        // *--
-        memSize = DataStorageUnit.GByte.convert(32, DataStorageUnit.Byte).longValueExact();
-        System.out.printf("%,d >> %s -> %s => %,d\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.MByte.get(),
-                dataStorage(memSize, DataStorageUnit.MByte).longValueExact());
-        System.out.printf("%,d >> %s -> %s => %s\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.MByte.get(), dataStorageAsString(memSize, DataStorageUnit.MByte, true));
-        // memSize = 12345678;
-        System.out.printf("%,d >> %s -> %s => %s\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.KByte.get(),
-                dataStorageAlsoSubUnitAsString(memSize, DataStorageUnit.KByte));
-        System.out.printf("%,d >> %s -> %s => %s\n", memSize, DataStorageUnit.Byte.get(), DataStorageUnit.KByte.get(),
-                dataStorageAlsoSubUnitAsString(memSize, DataStorageUnit.KByte, true, false));
-
-        // *--
-        System.out.printf("%,d >> %s -> %s => %,.30f\n", 10, DataStorageUnit.GByte.get(), DataStorageUnit.KByte.get(),
-                DataStorageUnit.GByte.convert(10, DataStorageUnit.KByte).doubleValue());
-
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공한다. (하위 단위, 단이 문자열 미포함) <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 5.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param bytes
+     *            데이터 크기 (단위: byte)
+     * @param unit
+     *            변환 단위
+     * @param pretty
+     *            천단위 콤마(,) 추가 여부
+     * @return
+     *
+     * @since 2021. 11. 5.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String convertAsStringNoUnit(long bytes, PrefixDataUnit unit, boolean pretty) {
+        return convertAsString(bytes, PrefixDataUnit.BASE, unit, pretty, false);
     }
 }

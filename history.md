@@ -1,3 +1,22 @@
+[2021/11/05]
+- New
+  + open.commons.util.PrefixDataUnit
+- Change
+  + open.commons.util.BinaryDataUnit
+    + <strike>open.commons.util.DataStorageUnit</strike>
+      + <strike>open.commons.util.MemoryUnit</strike>
+- Add
+  + open.commons.utils.UnitUtils
+    + convert(long, PrefixDataUnit)
+    + convertAlsoSubUnit(long, PrefixDataUnit)
+    + convertAlsoSubUnitAsString(long, PrefixDataUnit)
+    + convertAlsoSubUnitAsString(long, PrefixDataUnit, boolean, boolean)
+    + convertAlsoSubUnitAsString(long, PrefixDataUnit, PrefixDataUnit, boolean, boolean)
+    + convertAsString(long, PrefixDataUnit)
+    + convertAsString(long, PrefixDataUnit, boolean)
+    + convertAsString(long, PrefixDataUnit, PrefixDataUnit, boolean, boolean)
+    + convertAsStringNoUnit(long, PrefixDataUnit, boolean)
+  
 [2021/11/04]
 - New
   + open.commons.util.DataStorageUnit
