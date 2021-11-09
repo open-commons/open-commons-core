@@ -201,6 +201,58 @@ public class ZipUtils {
     }
 
     /**
+     * Zip 파일 압축을 해제한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 9.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축(ZIP) 파일
+     * @param inCharset
+     *            압축 파일 캐릭터 셋
+     * @param outputDir
+     *            압축 해제 경로
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 9.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean unzip(String inputFile, Charset inCharset, String outputDir) throws IOException {
+        return unzip(new File(inputFile), inCharset, new File(outputDir));
+    }
+
+    /**
+     * Zip 파일 압축을 해제한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축(ZIP) 파일
+     * @param outputDir
+     *            압축 해제 경로
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 9.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean unzip(String inputFile, String outputDir) throws IOException {
+        return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
+    }
+
+    /**
      * 파일 또는 디렉토리를 압축한다. <br>
      * <br>
      * 
@@ -277,6 +329,62 @@ public class ZipUtils {
      * @since 2018. 9. 10.
      */
     public static boolean zip(File input, File output, int compressionLevel) throws IOException {
+        return zip(input, StandardCharsets.UTF_8, output, StandardCharsets.UTF_8, compressionLevel);
+    }
+
+    /**
+     * 파일 또는 디렉토리를 압축한다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param input
+     *            압축대상 디렉토리 또는 파일
+     * @param inCharset
+     *            입력파일 캐릭터셋
+     * @param output
+     *            압축파일 경로
+     * @param outCharset
+     *            압축파일 캐릭터셋
+     * @param compressionLevel
+     *            압축레벨, 0 ~ 9
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 9.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean zip(String input, Charset inCharset, String output, Charset outCharset, int compressionLevel) throws IOException {
+        return zip(new File(input), inCharset, new File(output), outCharset, compressionLevel);
+    }
+
+    /**
+     * 파일 또는 디렉토리를 압축한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param input
+     *            압축대상 디렉토리 또는 파일
+     * @param output
+     *            압축파일 경로
+     * @param compressionLevel
+     *            압축레벨, 0 ~ 9
+     * @return
+     *
+     * @since 2018. 9. 10.
+     */
+    public static boolean zip(String input, String output, int compressionLevel) throws IOException {
         return zip(input, StandardCharsets.UTF_8, output, StandardCharsets.UTF_8, compressionLevel);
     }
 

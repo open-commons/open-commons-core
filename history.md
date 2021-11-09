@@ -8,6 +8,11 @@
     + unzip(File, File)
     + unzip(Path, Charset, Path)
     + unzip(Path, Path)
+    + unzip(String, Charset, String)
+    + unzip(String, String)
+    + zip(File, File, int)
+    + zip(String, Charset, String, Charset, int)
+    + zip(String, String, int)    
 
 [2021/11/05]
 - New
