@@ -1,3 +1,14 @@
+[2021/11/09]
+- Bugfix
+  + open.commons.utils.ZipUtils
+    + zipEntry(File, String, ZipOutputStream): 단일 파일 압축시 zip-entry 추출 오류 수정
+- Add
+  + open.commons.utils.ZipUtils
+    + unzip(File, Charset, File)
+    + unzip(File, File)
+    + unzip(Path, Charset, Path)
+    + unzip(Path, Path)
+
 [2021/11/05]
 - New
   + open.commons.util.PrefixDataUnit
