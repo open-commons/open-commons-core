@@ -56,6 +56,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Vector;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1323,6 +1324,7 @@ public class IOUtils {
      * </pre>
      *
      * @param file
+     *            읽을 파일
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -1348,7 +1350,9 @@ public class IOUtils {
      * </pre>
      *
      * @param file
+     *            읽을 파일
      * @param charset
+     *            문자열 셋
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -1358,7 +1362,116 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(File file, Charset charset) throws FileNotFoundException, IOException {
-        return readLines(new FileInputStream(file), charset);
+        return readLines(file, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(File file, Charset charset, long lineCount) throws FileNotFoundException, IOException {
+        return readLines(new FileInputStream(file), charset, lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(File file, long lineCount) throws FileNotFoundException, IOException {
+        return readLines(file, Charset.defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param charsetName
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(File file, String charsetName) throws IOException {
+        return readLines(file, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(File file, String charsetName, long lineCount) throws IOException {
+        Charset charset = Charset.isSupported(charsetName) //
+                ? Charset.forName(charsetName) //
+                : Charset.defaultCharset();
+        return readLines(file, charset, lineCount);
     }
 
     /**
@@ -1380,7 +1493,7 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(InputStream inStream) throws IOException {
-        return readLines(inStream, Charset.defaultCharset());
+        return readLines(inStream, Charset.defaultCharset(), -1);
     }
 
     /**
@@ -1394,7 +1507,9 @@ public class IOUtils {
      * </pre>
      *
      * @param inStream
+     *            읽을 파일
      * @param charset
+     *            문자열 셋
      * @return
      * @throws IOException
      *
@@ -1403,15 +1518,76 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(InputStream inStream, Charset charset) throws IOException {
+        return readLines(inStream, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 10.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(InputStream inStream, Charset charset, final long lineCount) throws IOException {
         List<String> lines = new ArrayList<>();
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, charset));
         String readline = null;
-        while ((readline = reader.readLine()) != null) {
+
+        Predicate<Long> counter = lineCount < 0 //
+                ? l -> true // 0보다 작은 경우 전체
+                : l -> l < lineCount //
+        ;
+
+        long readCount = 0;
+        while (counter.test(readCount) && (readline = reader.readLine()) != null) {
             lines.add(readline);
+            readCount++;
         }
 
         return lines;
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * 
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(InputStream inStream, long lineCount) throws IOException {
+        return readLines(inStream, Charset.defaultCharset(), lineCount);
     }
 
     /**
@@ -1434,10 +1610,37 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(InputStream inStream, String charsetName) throws IOException {
+        return readLines(inStream, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(InputStream inStream, String charsetName, long lineCount) throws IOException {
         Charset charset = Charset.isSupported(charsetName) //
                 ? Charset.forName(charsetName) //
                 : Charset.defaultCharset();
-        return readLines(inStream, charset);
+        return readLines(inStream, charset, lineCount);
     }
 
     /**
@@ -1450,7 +1653,8 @@ public class IOUtils {
      * 2020. 2. 8.		박준홍			최초 작성
      * </pre>
      *
-     * @param path
+     * @param 읽을
+     *            파일.
      * @return
      * @throws FileNotFoundException
      * @throws IOException
@@ -1460,7 +1664,142 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
-        return readLines(path.toFile());
+        return readLines(path, Charset.defaultCharset(), -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(Path path, Charset charset) throws FileNotFoundException, IOException {
+        return readLines(path, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(Path path, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+        return readLines(path.toFile(), charset, lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(Path path, final long lineCount) throws FileNotFoundException, IOException {
+        return readLines(path, Charset.defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param path
+     *            읽을 파일
+     * @param charsetName
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(Path path, String charsetName) throws IOException {
+        return readLines(path, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param path
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(Path path, String charsetName, long lineCount) throws IOException {
+        Charset charset = Charset.isSupported(charsetName) //
+                ? Charset.forName(charsetName) //
+                : Charset.defaultCharset();
+        return readLines(path, charset, lineCount);
     }
 
     /**
@@ -1483,7 +1822,142 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
-        return readLines(new File(filepath));
+        return readLines(filepath, Charset.defaultCharset(), -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(String filepath, Charset charset) throws FileNotFoundException, IOException {
+        return readLines(filepath, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(String filepath, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+        return readLines(new File(filepath), charset, lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @return
+     * @throws FileNotFoundException
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(String filepath, final long lineCount) throws FileNotFoundException, IOException {
+        return readLines(filepath, Charset.defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            읽을 파일
+     * @param charsetName
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(String filepath, String charsetName) throws IOException {
+        return readLines(filepath, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> readLines(String filepath, String charsetName, long lineCount) throws IOException {
+        Charset charset = Charset.isSupported(charsetName) //
+                ? Charset.forName(charsetName) //
+                : Charset.defaultCharset();
+        return readLines(filepath, charset, lineCount);
     }
 
     /**

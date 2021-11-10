@@ -1,4 +1,22 @@
 [2021/11/09]
+- Add
+  + open.commons.utils.IOUtils
+    + readLines(File, Charset, long)
+    + readLines(File, long)
+    + readLines(File, String)
+    + readLines(File, String, long)
+    + readLines(InputStream, Charset, long)
+    + readLines(InputStream, long)
+    + readLines(InputStream, String, long)
+    + readLines(Path, Charset, long)
+    + readLines(Path, long)
+    + readLines(Path, String, long)
+    + readLines(String, Charset, long)
+    + readLines(String, long)
+    + readLines(String, String)
+    + readLines(String, String, long)
+
+[2021/11/09]
 - Bugfix
   + open.commons.utils.ZipUtils
     + zipEntry(File, String, ZipOutputStream): 단일 파일 압축시 zip-entry 추출 오류 수정
