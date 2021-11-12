@@ -44,6 +44,7 @@ import open.commons.Result;
 import open.commons.csv.CsvConfig;
 import open.commons.csv.CsvFileConfig;
 import open.commons.csv.ReadAt;
+import open.commons.test.StopWatch;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -206,8 +207,12 @@ public class CsvUtils {
      * @see ReadAt
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Function<String[], E> creator, boolean close) throws IOException {
+
+        StopWatch watch = new StopWatch();
+        watch.start();
+
+        List<E> data = new ArrayList<>();
         try {
-            List<E> data = new ArrayList<>();
             String[] readline = null;
             while ((readline = reader.readNext()) != null) {
                 data.add(creator.apply(readline));
@@ -221,6 +226,9 @@ public class CsvUtils {
             if (close) {
                 IOUtils.close(reader);
             }
+            watch.stop();
+
+            logger.trace(String.format("Data=%,d, Elasped=%s", data.size(), watch.getAsPretty()));
         }
     }
 
