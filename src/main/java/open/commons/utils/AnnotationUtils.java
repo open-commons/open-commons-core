@@ -26,7 +26,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -525,13 +527,13 @@ public class AnnotationUtils {
 
         Class<?> type = typeClass;
 
-        List<Method> fields = new ArrayList<>();
+        Set<Method> fields = new HashSet<>();
         while (type != null && !type.equals(Object.class)) {
             fields.addAll(getAnnotatedMethodsAll(type, annoClasses));
             type = type.getSuperclass();
         }
 
-        return fields;
+        return new ArrayList<>(fields);
     }
 
     /**

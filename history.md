@@ -1,4 +1,7 @@
 [2021/11/11]
+- Bugfix
+  + open.commons.utils.AnnotationUtils
+    + getAnnotatedMethodsAllHierarchy(Class&lt;?&gt;, Class&lt;? extends Annotation&gt;...): 상위 타입의 메소드와 하위 타입의 동일한 메소드가 검색되는 버그 수정
 - Add
   + open.commons.csv.CsvConfig
     + CsvConfig(char, char, char)
