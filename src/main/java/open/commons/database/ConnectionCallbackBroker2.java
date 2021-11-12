@@ -140,7 +140,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
     }
 
     /**
-     * {@link PreparedStatement}에 SQL 쿼리 파라미터를 설정한다. <br>
+     * {@link PreparedStatement}에 SQL 쿼리 파라미터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]

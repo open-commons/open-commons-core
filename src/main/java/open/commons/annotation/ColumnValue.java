@@ -38,7 +38,7 @@ import open.commons.annotation.ColumnDef.ColumnNameType;
 
 /**
  * Repository DTO 객체가 값을 제공해주는 메소드에 적용.<br>
- * 해당 메소드를 이용하여 @{link PreparedStatement} 에 파라미터를 설정한다.
+ * 해당 메소드를 이용하여 @{link PreparedStatement} 에 파라미터를 설정합니다.
  * 
  * @since 2020. 1. 22.
  * @version 1.6.17
@@ -102,7 +102,7 @@ public @interface ColumnValue {
     ColumnNameType columnNameType() default ColumnNameType.NAME;
 
     /**
-     * 컬럼명을 제공한다.<br>
+     * 컬럼명을 제공합니다.<br>
      * 이 값이 빈문자열("")인 경우 해당 메소드 이름과 반환 타입을 이용하여 컬럼명을 추출한다.<br>
      * 먼저 반환타입이 boolean/Boolean 인 경우 메소드이름이 알파벳 소문자 'is' 또는 'get'으로 시작하는지 확인하고<br>
      * 맞다면 'is' 또는 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면 {@link IllegalArgumentException} 를 발생시킨다.<br>
@@ -146,7 +146,7 @@ public @interface ColumnValue {
     String name() default "";
 
     /**
-     * 컬럼의 순서정보를 제공한다.<br>
+     * 컬럼의 순서정보를 제공합니다.<br>
      * 사용하고자 하는 컬럼정보가 없는 경우 이 데이터의 값을 기준으로 오름차순 정렬을 적용한다.<br>
      * 
      * <pre>

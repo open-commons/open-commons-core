@@ -176,7 +176,7 @@ public class Closeables implements Closeable {
     }
 
     /**
-     * {@link Closeable}를 보관하는 객체를 제공한다. <br>
+     * {@link Closeable}를 보관하는 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -201,7 +201,7 @@ public class Closeables implements Closeable {
     }
 
     /**
-     * {@link Closeable}를 보관하는 객체를 제공한다. <br>
+     * {@link Closeable}를 보관하는 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

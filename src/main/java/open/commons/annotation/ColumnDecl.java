@@ -66,7 +66,7 @@ public @interface ColumnDecl {
     boolean caseSensitive() default false;
 
     /**
-     * 컬럼명을 제공한다.
+     * 컬럼명을 제공합니다.
      * 
      * <br>
      * 

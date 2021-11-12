@@ -211,7 +211,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
     }
 
     /**
-     * 기존 데이터와 새로운 데이터의 오름차순 정렬 기준 비교 결과를 제공한다. <br>
+     * 기존 데이터와 새로운 데이터의 오름차순 정렬 기준 비교 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -252,7 +252,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
     }
 
     /**
-     * 정렬하기 위한 인덱스를 제공한다. <br>
+     * 정렬하기 위한 인덱스를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

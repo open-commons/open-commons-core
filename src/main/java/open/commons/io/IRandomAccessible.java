@@ -35,7 +35,7 @@ package open.commons.io;
 public interface IRandomAccessible {
 
     /**
-     * 현재 줄에 위치하는 데이터의 byte[] 길이를 제공한다. <br>
+     * 현재 줄에 위치하는 데이터의 byte[] 길이를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -53,7 +53,7 @@ public interface IRandomAccessible {
     int getLength();
 
     /**
-     * 다음 줄의 시작 위치를 제공한다. <br>
+     * 다음 줄의 시작 위치를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -71,7 +71,7 @@ public interface IRandomAccessible {
     int getNextPosition();
 
     /**
-     * 현재 줄의 시작 위치를 제공한다. <br>
+     * 현재 줄의 시작 위치를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

@@ -51,7 +51,7 @@ import java.sql.SQLException;
 public interface IConnectionCallbackBroker {
 
     /**
-     * SQL 쿼리를 제공한다. <br>
+     * SQL 쿼리를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -68,7 +68,7 @@ public interface IConnectionCallbackBroker {
     String getQuery();
 
     /**
-     * DBMS 연결정보와 내부 쿼리 정보를 이용하여 {@link PreparedStatement} 를 제공한다. <br>
+     * DBMS 연결정보와 내부 쿼리 정보를 이용하여 {@link PreparedStatement} 를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -89,7 +89,7 @@ public interface IConnectionCallbackBroker {
     public PreparedStatement getStatement(Connection con) throws SQLException;
 
     /**
-     * {@link PreparedStatement}에 SQL 쿼리 파라미터를 설정한다.<br>
+     * {@link PreparedStatement}에 SQL 쿼리 파라미터를 설정합니다.<br>
      * 
      * <pre>
      * [개정이력]

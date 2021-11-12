@@ -64,7 +64,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
     }
 
     /**
-     * 다중 데이터를 추가하는 쿼리를 제공한다. <br>
+     * 다중 데이터를 추가하는 쿼리를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -103,7 +103,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
     }
 
     /**
-     * 한번에 추가할 데이터 개수를 제공한다. <br>
+     * 한번에 추가할 데이터 개수를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

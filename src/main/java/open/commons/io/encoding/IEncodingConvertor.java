@@ -51,7 +51,7 @@ public interface IEncodingConvertor {
     public int convert(InputStream inStream, OutputStream outStream) throws IOException;
 
     /**
-     * 원본 데이터에 대한 인코딩을 설정한다.
+     * 원본 데이터에 대한 인코딩을 설정합니다.
      * 
      * @param charset
      * @return
@@ -59,7 +59,7 @@ public interface IEncodingConvertor {
     public String setInputEncoding(String charset);
 
     /**
-     * 결과물에 대한 인코딩을 설정한다.
+     * 결과물에 대한 인코딩을 설정합니다.
      * 
      * @param charset
      * @return

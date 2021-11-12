@@ -52,8 +52,8 @@ public class MapUtils {
     }
 
     /**
-     * {@link Map}에서 주어진 <code>key</code>에 해당하는 값을 제공한다.<br>
-     * 존재하지 않는 경우 기본값(<code>defaultValue</code>)을 제공한다. <br>
+     * {@link Map}에서 주어진 <code>key</code>에 해당하는 값을 제공합니다.<br>
+     * 존재하지 않는 경우 기본값(<code>defaultValue</code>)을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -93,8 +93,8 @@ public class MapUtils {
     }
 
     /**
-     * {@link Map}에서 주어진 <code>key</code>에 해당하는 값을 제공한다.<br>
-     * 존재하지 않는 경우 기본값(<code>defaultValue</code>)을 제공한다. <br>
+     * {@link Map}에서 주어진 <code>key</code>에 해당하는 값을 제공합니다.<br>
+     * 존재하지 않는 경우 기본값(<code>defaultValue</code>)을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -131,7 +131,7 @@ public class MapUtils {
     }
 
     /**
-     * {@link Map}에 포함된 데이터를 주어진 정보에 맞게 처리하여 새로운 {@link Map}을 제공한다. <br>
+     * {@link Map}에 포함된 데이터를 주어진 정보에 맞게 처리하여 새로운 {@link Map}을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

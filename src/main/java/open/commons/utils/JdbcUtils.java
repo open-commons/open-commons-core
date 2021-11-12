@@ -47,7 +47,7 @@ public class JdbcUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -76,7 +76,7 @@ public class JdbcUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -104,7 +104,7 @@ public class JdbcUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -132,7 +132,7 @@ public class JdbcUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -160,7 +160,7 @@ public class JdbcUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]

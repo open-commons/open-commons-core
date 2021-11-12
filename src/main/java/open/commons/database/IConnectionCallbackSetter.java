@@ -39,7 +39,7 @@ import java.sql.SQLException;
 public interface IConnectionCallbackSetter {
 
     /**
-     * {@link PreparedStatement}에 정보를 설정한다. <br>
+     * {@link PreparedStatement}에 정보를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]

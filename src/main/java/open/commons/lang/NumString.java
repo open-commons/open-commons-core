@@ -163,7 +163,7 @@ public class NumString<N extends Number> implements CharSequence {
     }
 
     /**
-     * 숫자형 데이터를 문자형 데이터를 변경하여 제공한다.<br>
+     * 숫자형 데이터를 문자형 데이터를 변경하여 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -185,7 +185,7 @@ public class NumString<N extends Number> implements CharSequence {
     }
 
     /**
-     * 숫자형 데이터를 문자형 데이터를 변경하여 제공한다.<br>
+     * 숫자형 데이터를 문자형 데이터를 변경하여 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -213,7 +213,7 @@ public class NumString<N extends Number> implements CharSequence {
     }
 
     /**
-     * 숫자형 데이터를 문자형 데이터를 변경하여 제공한다.<br>
+     * 숫자형 데이터를 문자형 데이터를 변경하여 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -237,7 +237,7 @@ public class NumString<N extends Number> implements CharSequence {
     }
 
     /**
-     * 숫자형 데이터를 문자형 데이터를 변경하여 제공한다.<br>
+     * 숫자형 데이터를 문자형 데이터를 변경하여 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]

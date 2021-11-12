@@ -39,7 +39,7 @@ import java.lang.annotation.Target;
 @Target({ FIELD, METHOD })
 /**
  * 데이터를 설정하는 대상을 기술.<br>
- * 생성되는 객체의 메소드에 설정한다.
+ * 생성되는 객체의 메소드에 설정합니다.
  * 
  * @since 2019. 6. 20.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)

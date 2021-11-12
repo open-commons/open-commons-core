@@ -38,7 +38,7 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ FIELD, METHOD })
 /**
- * 데이터를 제공하는 대상을 기술하며, 데이터를 제공하는 타입에 설정한다.
+ * 데이터를 제공하는 대상을 기술하며, 데이터를 제공하는 타입에 설정합니다.
  * 
  * @since 2019. 6. 20.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)

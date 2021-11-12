@@ -129,14 +129,14 @@ public interface ILogger {
     public ILogger setEnabled(boolean enabled);
 
     /**
-     * 에러 로그 스트림을 설정한다.
+     * 에러 로그 스트림을 설정합니다.
      * 
      * @param errOutStream
      */
     public void setErrOutStream(PrintStream errOutStream);
 
     /**
-     * 일반 로그 스트림을 설정한다.
+     * 일반 로그 스트림을 설정합니다.
      * 
      * @param stdOutStream
      */

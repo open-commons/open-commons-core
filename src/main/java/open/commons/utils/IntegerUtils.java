@@ -476,7 +476,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 값을 IPV4 주소 형태로 변환하여 제공한다. <br>
+     * int 값을 IPV4 주소 형태로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -502,7 +502,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 배열을 IPV4 주소 형태로 변환하여 제공한다. <br>
+     * int 배열을 IPV4 주소 형태로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

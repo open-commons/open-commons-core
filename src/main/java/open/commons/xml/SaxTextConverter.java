@@ -128,7 +128,7 @@ public class SaxTextConverter {
     }
 
     /**
-     * 데이터 타입을 위한 변환기를 제공한다. <br>
+     * 데이터 타입을 위한 변환기를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

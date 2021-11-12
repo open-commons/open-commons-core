@@ -249,7 +249,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * Parent Element 에 해당하는 객체를 제공한다. 기본적으로 Element 객체 스택의 최상위 객체를 제공한다.<br>
+     * Parent Element 에 해당하는 객체를 제공합니다. 기본적으로 Element 객체 스택의 최상위 객체를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -291,7 +291,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * Element에 해당하는 객체를 제공한다. (Element 객체 스택에서 제거되지 않는다.)<br>
+     * Element에 해당하는 객체를 제공합니다. (Element 객체 스택에서 제거되지 않는다.)<br>
      * 
      * <pre>
      * [개정이력]
@@ -312,7 +312,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * Element에 해당하는 객체를 제공한다. (Element 객체 스택에서 제거된다.)<br>
+     * Element에 해당하는 객체를 제공합니다. (Element 객체 스택에서 제거된다.)<br>
      * 
      * <pre>
      * [개정이력]
@@ -332,7 +332,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * SAX Element TEXT를 변환하는 도구를 제공한다.<br>
+     * SAX Element TEXT를 변환하는 도구를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -349,7 +349,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     protected abstract void registerDataConverters(SaxTextConverter converter);
 
     /**
-     * 데이터로 사용되는 Element Name을 제공한다. <br>
+     * 데이터로 사용되는 Element Name을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

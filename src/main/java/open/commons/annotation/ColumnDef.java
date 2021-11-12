@@ -84,7 +84,7 @@ public @interface ColumnDef {
     ColumnNameType columnNameType() default ColumnNameType.NAME;
 
     /**
-     * 컬럼명을 제공한다.
+     * 컬럼명을 제공합니다.
      * 
      * <br>
      * 
@@ -139,7 +139,7 @@ public @interface ColumnDef {
     boolean required() default true;
 
     /**
-     * 컬럼의 데이타 타입을 제공한다.<br>
+     * 컬럼의 데이타 타입을 제공합니다.<br>
      * 
      * 기본값: String.class
      * 

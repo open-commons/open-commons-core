@@ -48,7 +48,7 @@ public class MathUtils {
     }
 
     /**
-     * 정렬된 데이타 중에서 중앙값(media)을 구하는데 사용되는 데이타를 제공한다. <br>
+     * 정렬된 데이타 중에서 중앙값(media)을 구하는데 사용되는 데이타를 제공합니다. <br>
      * <ul>
      * 데이타의 개수(size)가
      * <li>짝수인 경우: (size / 2 - 1), size / 2 번째
@@ -100,7 +100,7 @@ public class MathUtils {
     }
 
     /**
-     * 최대값을 제공한다.
+     * 최대값을 제공합니다.
      * 
      * <br>
      * 
@@ -130,7 +130,7 @@ public class MathUtils {
     }
 
     /**
-     * 최대값을 제공한다. <br>
+     * 최대값을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -152,7 +152,7 @@ public class MathUtils {
     }
 
     /**
-     * 최소값을 제공한다.
+     * 최소값을 제공합니다.
      * 
      * <br>
      * 
@@ -183,7 +183,7 @@ public class MathUtils {
     }
 
     /**
-     * 최소값을 제공한다. <br>
+     * 최소값을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

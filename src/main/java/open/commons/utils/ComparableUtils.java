@@ -63,7 +63,7 @@ public class ComparableUtils {
     }
 
     /**
-     * 두 객체에 대한 비교 결과를 제공한다. <br>
+     * 두 객체에 대한 비교 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

@@ -44,7 +44,7 @@ public @interface AQueryIndex {
     int index() default -1;
 
     /**
-     * 이름을 설정한다. <br>
+     * 이름을 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]

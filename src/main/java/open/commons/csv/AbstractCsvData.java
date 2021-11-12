@@ -120,7 +120,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * 객체의 데이터를 CSV 문자열로 변환하여 제공한다. <br>
+     * 객체의 데이터를 CSV 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -155,7 +155,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * 객체가 포함한 데이터를 CSV 파일 문자열 형태로 제공한다. <br>
+     * 객체가 포함한 데이터를 CSV 파일 문자열 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -237,7 +237,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * 객체가 포함한 데이터를 CSV 파일 문자열 형태로 제공한다. <br>
+     * 객체가 포함한 데이터를 CSV 파일 문자열 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -479,7 +479,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * 컬럼명을 순서대로 제공한다. <br>
+     * 컬럼명을 순서대로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -507,7 +507,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * 컬럼명을 순서대로 제공한다. <br>
+     * 컬럼명을 순서대로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

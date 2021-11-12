@@ -62,7 +62,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
     }
 
     /**
-     * 작업결과 데이터를 처리하고, 연속 작업 여부를 제공한다.<br>
+     * 작업결과 데이터를 처리하고, 연속 작업 여부를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -80,7 +80,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
     protected abstract boolean fetch(E response);
 
     /**
-     * 실패한 작업 개수를 제공한다. <br>
+     * 실패한 작업 개수를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -98,7 +98,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
     }
 
     /**
-     * 전체 작업 개수를 제공한다. <br>
+     * 전체 작업 개수를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -116,7 +116,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
     }
 
     /**
-     * 성공한 작업 개수를 제공한다. <br>
+     * 성공한 작업 개수를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

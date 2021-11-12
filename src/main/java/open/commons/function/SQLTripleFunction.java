@@ -88,7 +88,7 @@ public interface SQLTripleFunction<T, U, V, R> {
 //    };
 //
 //    /**
-//     * {@link Method} 이름을 패턴 비교하여 컬럼명을 추출하여 제공한다.
+//     * {@link Method} 이름을 패턴 비교하여 컬럼명을 추출하여 제공합니다.
 //     * 
 //     * @param ptn
 //     *            {@link Method} 이름 비교 {@link Pattern}
@@ -147,7 +147,7 @@ public interface SQLTripleFunction<T, U, V, R> {
     R apply(T t, U u, V v) throws SQLException;
 
     /**
-     * 데이터를 추가하기 위해서 자동으로 {@link PreparedStatement}에 파라미터를 추가하는 함수를 제공한다. <br>
+     * 데이터를 추가하기 위해서 자동으로 {@link PreparedStatement}에 파라미터를 추가하는 함수를 제공합니다. <br>
      * 해당 데이터 모델의 {@link Method}에는 {@link ColumnValue}을 이용하여 컬럼 정보를 설정해야 한다.
      * 
      * <pre>

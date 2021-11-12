@@ -53,7 +53,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 복호화한 결과를 제공한다. <br>
+     * 복호화한 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -88,7 +88,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 복호화한 결과를 제공한다. <br>
+     * 복호화한 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -123,7 +123,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 복호화한 결과를 제공한다. <br>
+     * 복호화한 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -169,7 +169,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 암호화 결과를 제공한다. <br>
+     * 암호화 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -204,7 +204,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 암호화 결과를 제공한다. <br>
+     * 암호화 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -240,7 +240,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 암호화 결과를 제공한다. <br>
+     * 암호화 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

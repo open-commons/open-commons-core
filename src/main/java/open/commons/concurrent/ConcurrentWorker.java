@@ -74,7 +74,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * 데이터가 포함여부를 제공한다. <br>
+     * 데이터가 포함여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -117,7 +117,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * {@link Queue}의 모든 데이터를 제공한다. 기존 {@link Queue} 의 데이터는 제거된다. <br>
+     * {@link Queue}의 모든 데이터를 제공합니다. 기존 {@link Queue} 의 데이터는 제거된다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -147,7 +147,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * {@link Queue}의 첫번째 데이터를 제공한다. <br>
+     * {@link Queue}의 첫번째 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -181,7 +181,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * {@link Queue}의 첫번째 데이타를 제공한다. <br>
+     * {@link Queue}의 첫번째 데이타를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -210,7 +210,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * 현재 남아있는 작업개수를 제공한다. <br>
+     * 현재 남아있는 작업개수를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -235,7 +235,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * 데이터 큐를 위한 Mutex 객체를 제공한다. <br>
+     * 데이터 큐를 위한 Mutex 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -357,7 +357,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     protected abstract void runInternal();
 
     /**
-     * 작업큐에 남은 개수를 제공한다. <br>
+     * 작업큐에 남은 개수를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

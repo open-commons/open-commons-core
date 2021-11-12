@@ -161,7 +161,7 @@ public class NetUtils {
     }
 
     /**
-     * IPv4 주소 여부를 제공한다. <br>
+     * IPv4 주소 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -184,7 +184,7 @@ public class NetUtils {
     }
 
     /**
-     * IPv4 또는 IPv6 주소 여부를 제공한다. <br>
+     * IPv4 또는 IPv6 주소 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -207,7 +207,7 @@ public class NetUtils {
     }
 
     /**
-     * IPv6 주소 여부를 제공한다. <br>
+     * IPv6 주소 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

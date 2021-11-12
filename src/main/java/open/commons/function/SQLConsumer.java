@@ -80,7 +80,7 @@ public interface SQLConsumer<T> {
     }
 
     /**
-     * {@link PreparedStatement}에 데이터를 설정한다. <br>
+     * {@link PreparedStatement}에 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -103,7 +103,7 @@ public interface SQLConsumer<T> {
     }
 
     /**
-     * {@link PreparedStatement}에 데이터를 설정한다. <br>
+     * {@link PreparedStatement}에 데이터를 설정합니다. <br>
      * 해당 객체가 Primitive Type, Wrapper class Type 또는 {@link String} 인 경우 {@link #setParameters(Object...)} 로 전달되고,<br>
      * 그외 Reference Type인 경우 {@link ColumnValue}가 적용된 {@link Method}를 이용하여 파라미터를 추출한다. <br>
      * 
@@ -139,7 +139,7 @@ public interface SQLConsumer<T> {
     }
 
     /**
-     * {@link PreparedStatement}에 데이터를 설정한다. <br>
+     * {@link PreparedStatement}에 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]

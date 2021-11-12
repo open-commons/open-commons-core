@@ -156,7 +156,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 데이터를 제공한다. <br>
+     * 데이터를 제공합니다. <br>
      * 
      * <b>명령어</b> - select
      * 
@@ -194,7 +194,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 데이터를 제공한다. <br>
+     * 데이터를 제공합니다. <br>
      * 
      * <b>명령어</b> - select
      * 
@@ -260,7 +260,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 데이터를 제공한다. <br>
+     * 데이터를 제공합니다. <br>
      * 
      * <b>명령어</b> - select
      * 
@@ -296,7 +296,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 데이터를 제공한다. <br>
+     * 데이터를 제공합니다. <br>
      * 
      * <b>명령어</b> - select
      * 
@@ -581,7 +581,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 재접속 시도 횟수를 설정한다.
+     * 재접속 시도 횟수를 설정합니다.
      * 
      * @param retryMaxCount
      *            the retryMaxCount to set

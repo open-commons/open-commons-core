@@ -193,7 +193,7 @@ public class Result<T> {
     }
 
     /**
-     * 실패 여부를 제공한다.<br>
+     * 실패 여부를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -213,7 +213,7 @@ public class Result<T> {
     }
 
     /**
-     * 성공 여부를 제공한다.<br>
+     * 성공 여부를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -338,7 +338,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과와 메시지를 복제한 새로운 객체를 제공한다. <br>
+     * 결과와 메시지를 복제한 새로운 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -360,7 +360,7 @@ public class Result<T> {
     }
 
     /**
-     * "에러" 결과 객체를 제공한다. <br>
+     * "에러" 결과 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -382,7 +382,7 @@ public class Result<T> {
     }
 
     /**
-     * '에러' 결과 객체를 제공한다. <br>
+     * '에러' 결과 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -407,8 +407,8 @@ public class Result<T> {
     }
 
     /**
-     * {@link Result#getResult()} 가 <code>true</code> 인 경우의 메시지를 선택적으로 제공한다. <br>
-     * {@link Result#getResult()} 가 <code>false</code> 인 경우 {@link Result#getMessage()}를 제공한다.
+     * {@link Result#getResult()} 가 <code>true</code> 인 경우의 메시지를 선택적으로 제공합니다. <br>
+     * {@link Result#getResult()} 가 <code>false</code> 인 경우 {@link Result#getMessage()}를 제공합니다.
      * 
      * <pre>
      * [개정이력]
@@ -432,7 +432,7 @@ public class Result<T> {
     }
 
     /**
-     * "성공" 결과 객체를 제공한다. <br>
+     * "성공" 결과 객체를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

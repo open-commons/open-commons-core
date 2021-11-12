@@ -95,7 +95,7 @@ public class SQLUtils {
     };
 
     /**
-     * {@link Method} 이름을 패턴 비교하여 컬럼명을 추출하여 제공한다.
+     * {@link Method} 이름을 패턴 비교하여 컬럼명을 추출하여 제공합니다.
      * 
      * @param ptn
      *            {@link Method} 이름 비교 {@link Pattern}
@@ -123,7 +123,7 @@ public class SQLUtils {
     }
 
     /**
-     * Table Column 조건 중에 'null' 과 길이에 대한 조건을 확인하여 제공한다. <br>
+     * Table Column 조건 중에 'null' 과 길이에 대한 조건을 확인하여 제공합니다. <br>
      * 코드 정의
      * <ul>
      * <li>0: 정상
@@ -197,7 +197,7 @@ public class SQLUtils {
     }
 
     /**
-     * 2개의 객체에서 주어진 컬럼에 해당하는 또는 모든 컬럼 값을 비교해서 서로 다른 컬럼 정보를 제공한다. <br>
+     * 2개의 객체에서 주어진 컬럼에 해당하는 또는 모든 컬럼 값을 비교해서 서로 다른 컬럼 정보를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -418,7 +418,7 @@ public class SQLUtils {
     }
 
     /**
-     * Oracle에서 한글을 3바이트로 처리하기 때문에, 그에 맞는 문자열 길이를 제공한다. <br>
+     * Oracle에서 한글을 3바이트로 처리하기 때문에, 그에 맞는 문자열 길이를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -536,7 +536,7 @@ public class SQLUtils {
     }
 
     /**
-     * {@link PreparedStatement}에 주어진 객체에 포함된 데이터 중에서 전달받은(@param columnNames) 컬럼에 해당하는 값을 설정한다. <br>
+     * {@link PreparedStatement}에 주어진 객체에 포함된 데이터 중에서 전달받은(@param columnNames) 컬럼에 해당하는 값을 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -642,7 +642,7 @@ public class SQLUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -670,7 +670,7 @@ public class SQLUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -698,7 +698,7 @@ public class SQLUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -726,7 +726,7 @@ public class SQLUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -754,7 +754,7 @@ public class SQLUtils {
     }
 
     /**
-     * Primitive Type 에 해당하는 데이터를 설정한다. <br>
+     * Primitive Type 에 해당하는 데이터를 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]

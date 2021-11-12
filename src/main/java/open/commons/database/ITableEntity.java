@@ -151,7 +151,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createUpdateQuery(String table, int... where);
 
     /**
-     * 주어진 <b><code>index</code></b>에 해당하는 {@link Field}에 값을 설정한다.
+     * 주어진 <b><code>index</code></b>에 해당하는 {@link Field}에 값을 설정합니다.
      * 
      * @param index
      * @param value

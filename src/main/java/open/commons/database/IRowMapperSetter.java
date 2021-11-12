@@ -37,7 +37,7 @@ import java.sql.SQLException;
 public interface IRowMapperSetter<T> {
 
     /**
-     * ResultSet을 이용하여 객체를 생성해서 제공한다.<br>
+     * ResultSet을 이용하여 객체를 생성해서 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]

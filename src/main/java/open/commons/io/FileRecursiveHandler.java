@@ -319,7 +319,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 디렉토리 필터를 설정한다.
+     * 디렉토리 필터를 설정합니다.
      * 
      * @param dirfilter
      *            디렉토리 필터
@@ -333,7 +333,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 파일 필터를 설정한다.
+     * 파일 필터를 설정합니다.
      * 
      * @param filefilter
      *            파일 필터s

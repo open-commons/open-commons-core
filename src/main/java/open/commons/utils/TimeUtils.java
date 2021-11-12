@@ -376,7 +376,7 @@ public class TimeUtils {
         }
 
         /**
-         * 시간 정보를 제공한다. <br>
+         * 시간 정보를 제공합니다. <br>
          * 
          * <pre>
          * [개정이력]

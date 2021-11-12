@@ -103,7 +103,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 검사 대상 타입이 기준타입과 호환가능한지 여부를 제공한다. <br>
+     * 검사 대상 타입이 기준타입과 호환가능한지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -154,7 +154,7 @@ public class ObjectUtils {
     };
 
     /**
-     * 검사 대상 타입이 기준 타입과 호환되는지 여부를 제공한다. <br>
+     * 검사 대상 타입이 기준 타입과 호환되는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -182,7 +182,7 @@ public class ObjectUtils {
     }
 
     /**
-     * primitive 타입인지 여부를 제공한다. <br>
+     * primitive 타입인지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -203,7 +203,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 객체가 primitive 타입인지 여부를 제공한다. <br>
+     * 객체가 primitive 타입인지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -224,7 +224,7 @@ public class ObjectUtils {
     }
 
     /**
-     * wrapper class 타입인지 여부를 제공한다. <br>
+     * wrapper class 타입인지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -245,7 +245,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 객체가 wrapper class 타입인지 여부를 제공한다. <br>
+     * 객체가 wrapper class 타입인지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -328,7 +328,7 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Information}이 있는 필드 정보를 제공한다. <br>
+     * {@link Information}이 있는 필드 정보를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -412,7 +412,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Boolean Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Boolean Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -437,7 +437,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -462,7 +462,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -487,7 +487,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Float Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Float Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -512,7 +512,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Integer Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Integer Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -537,7 +537,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Long Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Long Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -562,7 +562,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -587,7 +587,7 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 String Type {@link Collection}으로 변환한여 제공한다. <br>
+     * Object Type {@link Collection}을 String Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -611,7 +611,7 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -638,7 +638,7 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -753,7 +753,7 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -780,7 +780,7 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -883,7 +883,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다.
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
      * <br>
      * 
      * <pre>
@@ -911,7 +911,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -936,7 +936,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다.
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
      * <br>
      * 
      * <pre>
@@ -964,7 +964,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공한다. <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

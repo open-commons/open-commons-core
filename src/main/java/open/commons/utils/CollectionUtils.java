@@ -437,7 +437,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}으로 제공한다. <br>
+     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}으로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -500,7 +500,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를 제공한다. <br>
+     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -642,7 +642,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -668,7 +668,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -694,7 +694,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -720,7 +720,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -837,7 +837,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -894,7 +894,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -920,7 +920,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper List 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper List 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -946,7 +946,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -972,7 +972,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -998,7 +998,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1024,7 +1024,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1141,7 +1141,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1167,7 +1167,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1224,7 +1224,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Set 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Set 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1250,7 +1250,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1276,7 +1276,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1302,7 +1302,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1328,7 +1328,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1445,7 +1445,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1471,7 +1471,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1497,7 +1497,7 @@ public class CollectionUtils {
     }
 
     /**
-     * Primitive Array 를 Wrapper Vector 형태로 제공한다. <br>
+     * Primitive Array 를 Wrapper Vector 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1780,7 +1780,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Collection}에 포함된 데이터를 Array에 넣어서 제공한다. <br>
+     * 주어진 {@link Collection}에 포함된 데이터를 Array에 넣어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]

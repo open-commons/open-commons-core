@@ -73,7 +73,7 @@ public class OrderingUtils {
     }
 
     /**
-     * 데이타의 비교 결과를 제공한다. <br>
+     * 데이타의 비교 결과를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -112,7 +112,7 @@ public class OrderingUtils {
     }
 
     /**
-     * 정렬된 리스트에서 새로운 데이터가 추가될 index를 제공한다.<br>
+     * 정렬된 리스트에서 새로운 데이터가 추가될 index를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -148,7 +148,7 @@ public class OrderingUtils {
 
     /**
      * 
-     * 데이터가 추가될 Index를 제공한다.<br>
+     * 데이터가 추가될 Index를 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]

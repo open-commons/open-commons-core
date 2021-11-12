@@ -108,7 +108,7 @@ public class IOUtils {
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     /**
-     * byte[] 데이터를 제공한다.
+     * byte[] 데이터를 제공합니다.
      * 
      * @param i
      *            줄 번호
@@ -181,7 +181,7 @@ public class IOUtils {
      * </pre>
      * 
      * @param file
-     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
+     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공합니다.
      * 
      * @since 2012. 01. 10.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -204,7 +204,7 @@ public class IOUtils {
      *            파일 객체
      * @param cs
      *            file character set
-     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
+     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공합니다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -225,7 +225,7 @@ public class IOUtils {
      *
      * @param file
      * @param charsetNam
-     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
+     * @return {@link File}이 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공합니다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -292,7 +292,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공한다. <br>
+     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -303,7 +303,7 @@ public class IOUtils {
      *
      * @param path
      *            파일 경로
-     * @return 에러가 발생할 경우 <code>null</code>을 제공한다.
+     * @return 에러가 발생할 경우 <code>null</code>을 제공합니다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -313,7 +313,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공한다. <br>
+     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공합니다. <br>
      * <br>
      * 
      * <pre>
@@ -326,7 +326,7 @@ public class IOUtils {
      * @param path
      * @param cs
      *            file character set
-     * @return {@link Path} 가 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공한다.
+     * @return {@link Path} 가 <code>null</code> 이거나 에러가 발생할 경우 <code>null</code>을 제공합니다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -346,7 +346,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공한다. <br>
+     * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공합니다. <br>
      * <br>
      * 
      * <pre>
@@ -359,7 +359,7 @@ public class IOUtils {
      * @param path
      * @param charsetName
      *            file character set name
-     * @return 에러가 발생할 경우 <code>null</code>을 제공한다.
+     * @return 에러가 발생할 경우 <code>null</code>을 제공합니다.
      *
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -656,7 +656,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -697,7 +697,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -734,7 +734,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -764,7 +764,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -793,7 +793,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -823,7 +823,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -848,7 +848,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -874,7 +874,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -899,7 +899,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -942,7 +942,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -972,7 +972,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1018,7 +1018,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 제공한다. <br>
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1043,7 +1043,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * <br>
      * 
      * <pre>
@@ -1073,7 +1073,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * <br>
      * 
      * <pre>
@@ -1104,7 +1104,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1129,7 +1129,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공한다. <br>
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1155,7 +1155,7 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공한다. <br>
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1314,7 +1314,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1340,7 +1340,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1366,7 +1366,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1394,7 +1394,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1420,7 +1420,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1445,7 +1445,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1475,7 +1475,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1497,7 +1497,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1522,7 +1522,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1565,7 +1565,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1591,7 +1591,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1614,7 +1614,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1644,7 +1644,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1668,7 +1668,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1694,7 +1694,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1722,7 +1722,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1748,7 +1748,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1773,7 +1773,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1803,7 +1803,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1826,7 +1826,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1852,7 +1852,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1880,7 +1880,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1906,7 +1906,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1931,7 +1931,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공한다. <br>
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
