@@ -148,6 +148,58 @@ public class CsvConfig {
      *            문자열로 묶어주는 문자
      * @param escape
      *            escape 문자
+     * @since 2021. 6. 25.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public CsvConfig(char separator, char quotechar, char escape) {
+        this(separator, quotechar, escape, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
+    }
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param separator
+     *            데이터를 구분하는 문자
+     * @param quotechar
+     *            문자열로 묶어주는 문자
+     * @param escape
+     *            escape 문자
+     * @param strictQuotes
+     *            무조건 문자열로 묶는 여부
+     * @param ignoreLeadingWhiteSpace
+     *            데이터 앞쪽의 whitespace 제거 여부
+     * @since 2021. 6. 25.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes) {
+        this(separator, quotechar, escape, strictQuotes, DEFAULT_IGNORE_LEADING_WHITESPACE);
+    }
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 6. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param separator
+     *            데이터를 구분하는 문자
+     * @param quotechar
+     *            문자열로 묶어주는 문자
+     * @param escape
+     *            escape 문자
      * @param strictQuotes
      *            무조건 문자열로 묶는 여부
      * @param ignoreLeadingWhiteSpace
