@@ -201,7 +201,7 @@ public class CsvUtils {
      * @throws IOException
      *
      * @since 2021. 11. 17.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, Consumer<E> afterCreation, boolean close) throws IOException {
@@ -269,7 +269,7 @@ public class CsvUtils {
      * @throws IOException
      *
      * @since 2021. 11. 17.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Function<String[], E> creator, Consumer<E> afterCreation, boolean close) throws IOException {
