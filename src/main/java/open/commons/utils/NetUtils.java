@@ -38,10 +38,10 @@ import java.net.SocketException;
  */
 public class NetUtils {
     /**
-     * IPv4 Regular Expression from
-     * 'https://mkyong.com/regular-expressions/how-to-validate-ip-address-with-regular-expression/'.
+     * Regular Expression from
+     * <a href="https://www.oreilly.com/library/view/regular-expressions-cookbook/9780596802837/ch07s16.html">here</a>.
      */
-    public static final String REGEX_IPV4 = "(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\.(?!$)|$)){4}";
+    public static final String REGEX_IPV4 = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
     /**
      * IPv6 Regular Expression from 'http://www.java2s.com/example/java/java.util.regex/is-ipv6-address-by-regex.html'.
      */
@@ -52,10 +52,38 @@ public class NetUtils {
                                                                                                              // Pattern
     ;
 
-    public static final String REGEX_IPV4_STRICT = "^" + REGEX_IPV4 + "$";
-    public static final String REGEX_IPV6_STRICT = "^" + REGEX_IPV6 + "$";
-    public static final String REGEX_IPV4_IPV6 = REGEX_IPV4 + "|" + REGEX_IPV6;
-    public static final String REGEX_IPV4_IPV6_STRICT = "^" + REGEX_IPV4_IPV6 + "$";
+    /**
+     * Vald Port Range (1 ~ 65535).<br>
+     * Regular Expression from
+     * <a href="https://github.com/cusspvz/proxywrap/blob/master/lib/proxy-protocol.regexp.js#L85">here</a>.
+     */
+    public static final String REGEX_PORT = "([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])";
+
+    /**
+     * Valid Domain Name.<br>
+     * Regular Expression from
+     * <a href="https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch08s15.html"></a>
+     */
+    public static final String REGEX_DOMAIN = "\\b((?=[a-z0-9-]{1,63}\\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,63}\\b";
+
+    /** @see #REGEX_IPV4 */
+    public static final String REGEX_IPV4_STRICT = String.join(REGEX_IPV4, "^", "S");
+    /** @see #REGEX_IPV6 */
+    public static final String REGEX_IPV6_STRICT = String.join(REGEX_IPV6, "^", "S");
+    /**
+     * @see #REGEX_IPV4
+     * @see #REGEX_IPV6
+     */
+    public static final String REGEX_IPV4_IPV6 = String.join("|", REGEX_IPV4, REGEX_IPV6);
+    /**
+     * @see #REGEX_IPV4
+     * @see #REGEX_IPV6
+     */
+    public static final String REGEX_IPV4_IPV6_STRICT = String.join(REGEX_IPV4_IPV6, "^", "$");
+    /** @see #REGEX_PORT */
+    public static final String REGEX_PORT_STRICT = String.join(REGEX_PORT, "^", "$");
+    /** @see #REGEX_DOMAIN */
+    public static final String REGEX_DOMAIN_STRICT = String.join(REGEX_DOMAIN, "^", "$");
 
     /**
      * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환한다.

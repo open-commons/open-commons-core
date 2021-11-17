@@ -1,3 +1,21 @@
+[2021/11/17]
+- Add
+  + open.commons.utils.CsvUtils: 객체 생성 후 처리 작업 지원 메소드 추가 및 메소드 관계 정리
+  
+[2021/11/15]
+- Add
+  + open.commons.utils.FunctionUtils
+    + runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)pen.comm
+    + runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;, R)
+    + runIf(T, Predicate&lt;T&gt;, Supplier&lt;U&gt;, Function&lt;U, R&gt;, R)
+  + open.commons.utils.NetUtils
+    + REGEX\_DOMAIN: 도메인명 정규식
+    + REGEX\_DOMAIN_STRICT: 
+    + REGEX\_PORT: 네트워크 포트 범위 정규식
+    + REGEX\_PORT_STRICT: 
+- Modify
+  + open.commons.utils.NetUtils.REGEX_IPV4: 다른 정규식과 혼합해서 사용할 경우 문제가 발생하여 변경.
+        
 [2021/11/11]
 - Bugfix
   + open.commons.utils.AnnotationUtils

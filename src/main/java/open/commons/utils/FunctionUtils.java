@@ -647,7 +647,36 @@ public class FunctionUtils {
 
     /**
      * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다. <br>
-     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     * @param value
+     *            데이터
+     * @param test
+     *            데이터 검증
+     * @param run
+     *            실행할 함수
+     * @param defaultValue
+     *            기본값
+     * @return
+     *
+     * @since 2021. 11. 15.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
+        return test.test(value) ? run.apply(value) : defaultValue;
+    }
+
+    /**
+     * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -732,6 +761,39 @@ public class FunctionUtils {
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run) {
         return test.test(value) ? run.apply(param.apply(value)) : null;
+    }
+
+    /**
+     * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param <R>
+     * @param value
+     *            데이터
+     * @param test
+     *            데이터 검증
+     * @param param
+     *            데이터를 이용한 실행함수 파라미터 제공자
+     * @param run
+     *            실행 함수
+     * @param defualtValue
+     *            데이터 검증에 따른 기본값
+     * @return
+     *
+     * @since 2021. 11. 15.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
+        return test.test(value) ? run.apply(param.apply(value)) : defaultValue;
     }
 
     /**
@@ -864,6 +926,39 @@ public class FunctionUtils {
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
         return test.test(value) ? run.apply(param.get()) : null;
+    }
+
+    /**
+     * 데이터를 검증한 후 함수의 실행 결과를 반환한다. 데이터 검증이 실패한 경우 기본값을 반환한다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <U>
+     * @param <R>
+     * @param value
+     *            데이터
+     * @param test
+     *            데이터 검증
+     * @param param
+     *            실행함수 파라미터 제공자
+     * @param run
+     *            실행 함수
+     * @param defaultValue
+     *            기본값.
+     * @return
+     *
+     * @since 2021. 11. 15.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {
+        return test.test(value) ? run.apply(param.get()) : defaultValue;
     }
 
     /**
