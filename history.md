@@ -1,4 +1,6 @@
 [2021/11/17]
+- Bugfix
+  + open.commons.utils.NumberUtils.LONG_TO_STR: long 데이터 포맷 문자열 버그 수정. (%,l -> %,d)
 - Add
   + open.commons.utils.CsvUtils: 객체 생성 후 처리 작업 지원 메소드 추가 및 메소드 관계 정리
   

@@ -36,7 +36,7 @@ import java.util.function.Function;
 public class NumberUtils {
 
     public static final Function<Integer, String> INT_TO_STR = i -> String.format("%,d", i);
-    public static final Function<Long, String> LONG_TO_STR = i -> String.format("%,l", i);
+    public static final Function<Long, String> LONG_TO_STR = i -> String.format("%,d", i);
 
     private static final StringBuffer HEX_SB = new StringBuffer();
     private static final ReentrantLock HEX_LOCK_SB = new ReentrantLock();
