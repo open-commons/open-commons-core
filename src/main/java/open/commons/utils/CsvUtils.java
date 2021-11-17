@@ -94,20 +94,28 @@ public class CsvUtils {
                         .forEach((m, anno) -> {
                             // 파라미터 타입
                             int index = anno.index();
+                            String value = null;
                             if (index < arr.length) {
                                 try {
                                     if (m.getParameterTypes().length != 1) {
                                         throw new UnsupportedOperationException(String.format("'%s'가 설정된 메소드는 반드시 파라미터가 1개이어야 합니다. 메소드=%s, 파라미터개수=%,d",
                                                 ReadAt.class.getCanonicalName(), m, m.getParameterTypes().length));
                                     }
+
                                     // 데이터 변환
+                                    value = FunctionUtils.runIf(arr[index], s -> s != null, (Function<String, String>) s -> s.trim(), (String) null);
                                     Class<?> argType = m.getParameterTypes()[0];
-                                    Object arg = String.class.equals(argType) //
-                                            ? arr[index] //
-                                            : ConvertUtils.toPrimitiveTypeValue(argType, arr[index]) //
-                                    ;
+                                    Object arg = null;
+                                    if (String.class.equals(argType)) {
+                                        arg = value;
+                                    } else if (!StringUtils.isNullOrEmptyString(value)) {
+                                        arg = ConvertUtils.toPrimitiveTypeValue(argType, value);
+                                    }
+
                                     // 객체에 설정
-                                    m.invoke(o, arg);
+                                    if (arg != null) {
+                                        m.invoke(o, arg);
+                                    }
                                 } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | UnsupportedOperationException e) {
                                     String errMsg = String.format("'%s' 객체의 값을 설정하는 도중 에러가 발생하였습니다. 메소드=%s, 값=%s", type.getName(), m.getName(), arr[index]);
                                     logger.error(errMsg, e);

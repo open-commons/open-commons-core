@@ -1,4 +1,6 @@
 [2021/11/17]
+- Modify
+  + open.commons.utils.CsvUtils.defaultCreator(Class<?>): 문자열 trim() 적용. 
 - Bugfix
   + open.commons.utils.NumberUtils.LONG_TO_STR: long 데이터 포맷 문자열 버그 수정. (%,l -> %,d)
 - Add
