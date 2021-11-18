@@ -1,3 +1,7 @@
+[2021/11/18]
+- Bugfix
+  + open.commons.utils.IOUtils.readChannel(FileChannel, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;):파일을 읽는 위치 누락 버그 수정.
+  
 [2021/11/17]
 - Modify
   + open.commons.utils.CsvUtils.defaultCreator(Class<?>): 문자열 trim() 적용. 

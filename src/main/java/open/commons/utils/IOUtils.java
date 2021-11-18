@@ -667,6 +667,8 @@ public class IOUtils {
      *
      * @param <T>
      *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터에 랜덤하게 접근할 수 있는 정보
      * @param channel
      *            파일에 연결된 {@link FileChannel}
      * @param action
@@ -684,16 +686,48 @@ public class IOUtils {
 
         Iterator<R> itr = accessibles.iterator();
         R access = null;
-        if (itr.hasNext()) {
+        while (itr.hasNext()) {
             access = itr.next();
-            channel.position(access.getPosition());
-            do {
-                datum = readChannel(channel, access.getLength(), ByteBuffer.allocate(access.getLength()), action);
+            if (access != null) {
+                datum = readChannel(channel, action, access);
                 data.add(datum);
-            } while (itr.hasNext() && (access = itr.next()) != null);
+            }
         }
 
         return data;
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @param accessible
+     *            파일 데이터에 랜덤하게 접근할 수 있는 정보
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 18.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {
+        channel.position(accessible.getPosition());
+        return readChannel(channel, accessible.getLength(), ByteBuffer.allocate(accessible.getLength()), action);
     }
 
     /**
@@ -745,6 +779,8 @@ public class IOUtils {
      *
      * @param <T>
      *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param channel
      *            파일에 연결된 {@link FileChannel}
      * @param bufCapacity
@@ -775,6 +811,8 @@ public class IOUtils {
      *
      * @param <T>
      *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
@@ -804,6 +842,8 @@ public class IOUtils {
      *
      * @param <T>
      *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
@@ -832,6 +872,9 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * 
      * @param file
      *            파일
      * @param accessibles
@@ -857,6 +900,8 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param accessibles
@@ -883,6 +928,8 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param accessible
@@ -910,6 +957,8 @@ public class IOUtils {
      *
      * @param <T>
      *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
@@ -953,6 +1002,8 @@ public class IOUtils {
      *
      * @param <T>
      *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
@@ -982,11 +1033,13 @@ public class IOUtils {
      * </pre>
      *
      * @param <T>
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
      *            데이터 생성 함수
-     * @param accessibles
+     * @param accessible
      *            줄단위 메타데이어
      * @return
      * @throws IOException
@@ -995,18 +1048,18 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessibles) throws IOException {
+    public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessible) throws IOException {
 
         boolean result = true;
         String message = null;
         T data = null;
 
         ByteBuffer buf = null;
-        int len = accessibles.getLength();
+        int len = accessible.getLength();
 
         try (FileChannel channel = file.getChannel()) {
             buf = ByteBuffer.allocateDirect(len);
-            channel.position(accessibles.getPosition());
+            channel.position(accessible.getPosition());
             data = readChannel(channel, len, buf, action);
         } catch (Exception e) {
             result = false;
@@ -1027,6 +1080,8 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param accessible
@@ -1055,6 +1110,8 @@ public class IOUtils {
      *
      * @param <T>
      *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
@@ -1085,6 +1142,8 @@ public class IOUtils {
      *
      * @param <T>
      *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param action
@@ -1113,6 +1172,8 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param accessibles
@@ -1138,6 +1199,8 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param accessibles
@@ -1164,6 +1227,8 @@ public class IOUtils {
      * 2020. 11. 13.		박준홍			최초 작성
      * </pre>
      *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
      * @param file
      *            파일
      * @param accessible
