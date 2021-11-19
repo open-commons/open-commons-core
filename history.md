@@ -1,3 +1,12 @@
+[2021/11/19]
+- New
+  + open.commons.io.RandomAccessConfig
+- Modify
+  + open.commons.utils.IOUtils
+    + readChannel(FileChannel, Function<byte[], T>, R): 접근제어자 변경 (private -> public)
+    + readChannel(FileChannel, int, ByteBuffer, Function<byte[], T>): 접근제어자 변경 (private -> public)
+
+
 [2021/11/18]
 - Bugfix
   + open.commons.utils.IOUtils.readChannel(FileChannel, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;):파일을 읽는 위치 누락 버그 수정.

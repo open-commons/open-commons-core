@@ -725,7 +725,7 @@ public class IOUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    private static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {
+    public static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {
         channel.position(accessible.getPosition());
         return readChannel(channel, accessible.getLength(), ByteBuffer.allocate(accessible.getLength()), action);
     }
@@ -757,7 +757,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    private static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
+    public static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
         byte[] bs = new byte[len];
         channel.read(buf);
         buf.flip();
