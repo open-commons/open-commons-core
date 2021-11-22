@@ -39,6 +39,9 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import open.commons.annotation.Getter;
 import open.commons.annotation.Information;
 import open.commons.annotation.Setter;
@@ -51,6 +54,8 @@ import open.commons.lang.Char;
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class ObjectUtils {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
 
     private static final Function<Object, Short> shortFunction = o -> Short.parseShort(o.toString());
     private static final Function<Object, Byte> byteFunction = o -> Byte.parseByte(o.toString());
@@ -948,10 +953,13 @@ public class ObjectUtils {
                 setterAccessible = setter.isAccessible();
                 setter.setAccessible(true);
 
-                setter.invoke(target, getter.invoke(src));
+                setter.invoke(target, o);
 
             } catch (Exception e) {
-                throw new IllegalArgumentException(e);
+                String errMsg = String.format("src.type=%s, src.getter=%s, target.type=%s, target.setter=%s, argument=%s, 원인=%s" //
+                        , src.getClass(), getter, target.getClass(), setter, o, e.getMessage());
+                LOGGER.error(errMsg, e);
+                throw new IllegalArgumentException(errMsg, e);
             } finally {
                 if (getter != null) {
                     getter.setAccessible(getterAccessible);
