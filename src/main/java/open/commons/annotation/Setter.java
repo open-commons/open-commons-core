@@ -34,9 +34,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Documented
-@Retention(RUNTIME)
-@Target({ FIELD, METHOD })
 /**
  * 데이터를 설정하는 대상을 기술.<br>
  * 생성되는 객체의 메소드에 설정합니다.
@@ -46,6 +43,9 @@ import java.lang.annotation.Target;
  * 
  * @see Getter
  */
+@Documented
+@Retention(RUNTIME)
+@Target({ FIELD, METHOD })
 public @interface Setter {
 
     /** 데이터 이름 */

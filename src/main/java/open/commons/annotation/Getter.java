@@ -34,9 +34,6 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-@Documented
-@Retention(RUNTIME)
-@Target({ FIELD, METHOD })
 /**
  * 데이터를 제공하는 대상을 기술하며, 데이터를 제공하는 타입에 설정합니다.
  * 
@@ -45,10 +42,15 @@ import java.lang.annotation.Target;
  * 
  * @see Setter
  */
+@Documented
+@Retention(RUNTIME)
+@Target({ FIELD, METHOD })
 public @interface Getter {
 
     /** 데이터 이름 */
-    String name() default "";
+    String name()
+
+    default "";
 
     /** 데이터 타입 */
     Class<?> type();

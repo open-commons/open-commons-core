@@ -1,3 +1,15 @@
+[2021/11/22]
+- Add
+  + open.commons.utils.ObjectUtils: 데이터 변환 함수 추가
+    + transform(S, boolean, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, boolean, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, boolean, D, boolean, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, boolean, D, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, D, boolean, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+    + transform(S, D, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
+
 [2021/11/19]
 - New
   + open.commons.io.RandomAccessConfig

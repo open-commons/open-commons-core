@@ -30,6 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ import java.util.stream.Collectors;
 import open.commons.annotation.Getter;
 import open.commons.annotation.Information;
 import open.commons.annotation.Setter;
+import open.commons.lang.Char;
 
 /**
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
@@ -98,6 +100,16 @@ public class ObjectUtils {
         // end: wrapper types
     }
 
+    private static Function<Method, String> GETTER_KEYGEN = m -> {
+        Getter annoGetter = m.getAnnotation(Getter.class);
+        return getGSMethodKey(annoGetter.name(), annoGetter.type());
+    };
+
+    private static Function<Method, String> SETTER_KEYGEN = m -> {
+        Setter annoGetter = m.getAnnotation(Setter.class);
+        return getGSMethodKey(annoGetter.name(), annoGetter.type());
+    };;
+
     // Prevent to create a new instance.
     private ObjectUtils() {
     }
@@ -151,7 +163,7 @@ public class ObjectUtils {
             default:
                 return standard.isAssignableFrom(target);
         }
-    };
+    }
 
     /**
      * 검사 대상 타입이 기준 타입과 호환되는지 여부를 제공합니다. <br>
@@ -179,6 +191,32 @@ public class ObjectUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * {@link Getter}와 {@link Setter}의 식별정보를 생성하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param name
+     *            데이터 이름
+     * @param type
+     *            데이터 타입.
+     * @return
+     * @throws NullPointerException
+     *             데이터 이름 또는 타입이 <code>null</code>인 경우.
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static final String getGSMethodKey(String name, Class<?> type) throws NullPointerException {
+        return String.join(new Char('-'), name, type.toString());
     }
 
     /**
@@ -620,6 +658,10 @@ public class ObjectUtils {
      * 2019. 7. 11.     박준홍         최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타
      * @param lookupSrcSuper
@@ -647,6 +689,10 @@ public class ObjectUtils {
      * 2019. 7. 11.		박준홍			최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타
      * @param lookupSrcSuper
@@ -661,55 +707,212 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper) {
-        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
+        try {
+            return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper);
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetType
+     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @param converter
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+        try {
+            return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper, converter);
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetType
+     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     * @param converter
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, Map<String, Function<Object, Object>> converter) {
+        return transform(src, lookupSrcSuper, targetType, false, converter);
+    }
+
+    /**
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 08.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @return
+     *
+     * @since 2020. 12. 08.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target) {
+        return transform(src, lookupSrcSuper, target, false);
+    }
+
+    /**
+     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 12. 08.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2020. 12. 08.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper) {
+        return transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 08.     박준홍         최초 작성
+     * 2021. 11. 22.		박준홍      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @param converter
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
         List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
         if (getters.size() < 1) {
             return null;
         }
 
-        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(targetType, Setter.class) : AnnotationUtils.getAnnotatedMethods(targetType, Setter.class);
+        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(target, Setter.class) : AnnotationUtils.getAnnotatedMethods(target, Setter.class);
         if (setters.size() < 1) {
-            try {
-                return targetType.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {
-                throw new IllegalStateException(e);
-            }
+            return target;
+        }
+
+        // 데이터 변환함수가 null 인 경우
+        if (converter == null) {
+            converter = new HashMap<>();
         }
 
         // #0. Setter 메소드 재정렬
-        final Map<String, Method> setterMap = CollectionUtils.toMapHSV(setters, m -> {
-            Setter annoSetter = m.getAnnotation(Setter.class);
-            return String.join("-", annoSetter.name(), annoSetter.type().toString());
-        }, m -> m);
-
-        final Function<Method, String> GetterKeyGen = m -> {
-            Getter annoGetter = m.getAnnotation(Getter.class);
-            return String.join("-", annoGetter.name(), annoGetter.type().toString());
-        };
+        // key: #getGSMethodKey(String, Class)
+        // value: Method
+        final Map<String, Method> setterMap = CollectionUtils.toMapHSV(setters, SETTER_KEYGEN, m -> m);
 
         // #1. Setter와 동일한 식별정보를 갖는 Getter 추출
         List<Method> gettersFiltered = getters.stream().filter(m -> {
-            return setterMap.containsKey(GetterKeyGen.apply(m));
+            return setterMap.containsKey(GETTER_KEYGEN.apply(m));
         }).collect(Collectors.toList());
 
         // #2. Setter와 연결되는 Getter 메소드 재정렬
-        Map<String, Method> getterMap = CollectionUtils.toMapHSV(gettersFiltered //
-                , m -> {
-                    Getter annoGetter = m.getAnnotation(Getter.class);
-                    return String.join("-", annoGetter.name(), annoGetter.type().toString());
-                }, m -> m);
+        Map<String, Method> getterMap = CollectionUtils.toMapHSV(gettersFiltered, GETTER_KEYGEN, m -> m);
 
-        // #3. 객체 생성
-        D target = null;
-        try {
-            target = targetType.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
-
-        // method name
-        String methodName = null;
+        // method key
+        String methodKey = null;
         // getter method
         Method getter = null;
         boolean getterAccessible = false;
@@ -717,20 +920,30 @@ public class ObjectUtils {
         Method setter = null;
         boolean setterAccessible = false;
 
+        Object o = null;
         for (Entry<String, Method> entry : setterMap.entrySet()) {
             try {
-                methodName = entry.getKey();
+                methodKey = entry.getKey();
 
-                getter = getterMap.get(methodName);
+                // 데이터 제공 함수
+                getter = getterMap.get(methodKey);
 
                 // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
                 if (getter == null) {
                     continue;
                 }
 
+                // 데이터 읽기
                 getterAccessible = getter.isAccessible();
                 getter.setAccessible(true);
 
+                // PATCH [2021. 11. 22.]: 데이터 변환 | Park_Jun_Hong_(fafanmama_at_naver_com)
+                o = getter.invoke(src);
+                if (converter.containsKey(methodKey)) {
+                    o = ((Function<Object, Object>) converter.get(methodKey)).apply(o);
+                }
+
+                // 데이터 쓰기
                 setter = entry.getValue();
                 setterAccessible = setter.isAccessible();
                 setter.setAccessible(true);
@@ -762,124 +975,28 @@ public class ObjectUtils {
      * 2020. 12. 08.     박준홍         최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param target
      *            데이터를 전달받은 객체.
+     * @param converter
+     *            데이터 변환 함수
      * @return
      *
      * @since 2020. 12. 08.
+     * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target) {
-        return transform(src, lookupSrcSuper, target, false);
-    }
-
-    /**
-     * {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 12. 08.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param src
-     *            입력 데이타
-     * @param lookupSrcSuper
-     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
-     * @param lookupTargetSuper
-     *            대상 객체 상위 인터페이스/클래스 확장 여부
-     * @return
-     *
-     * @since 2020. 12. 08.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper) {
-        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
-
-        List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
-        if (getters.size() < 1) {
-            return null;
-        }
-
-        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(target, Setter.class) : AnnotationUtils.getAnnotatedMethods(target, Setter.class);
-        if (setters.size() < 1) {
-            return target;
-        }
-
-        // #0. Setter 메소드 재정렬
-        final Map<String, Method> setterMap = CollectionUtils.toMapHSV(setters, m -> {
-            Setter annoSetter = m.getAnnotation(Setter.class);
-            return String.join("-", annoSetter.name(), annoSetter.type().toString());
-        }, m -> m);
-
-        final Function<Method, String> GetterKeyGen = m -> {
-            Getter annoGetter = m.getAnnotation(Getter.class);
-            return String.join("-", annoGetter.name(), annoGetter.type().toString());
-        };
-
-        // #1. Setter와 동일한 식별정보를 갖는 Getter 추출
-        List<Method> gettersFiltered = getters.stream().filter(m -> {
-            return setterMap.containsKey(GetterKeyGen.apply(m));
-        }).collect(Collectors.toList());
-
-        // #2. Setter와 연결되는 Getter 메소드 재정렬
-        Map<String, Method> getterMap = CollectionUtils.toMapHSV(gettersFiltered //
-                , m -> {
-                    Getter annoGetter = m.getAnnotation(Getter.class);
-                    return String.join("-", annoGetter.name(), annoGetter.type().toString());
-                }, m -> m);
-
-        // method name
-        String methodName = null;
-        // getter method
-        Method getter = null;
-        boolean getterAccessible = false;
-        // setter method
-        Method setter = null;
-        boolean setterAccessible = false;
-
-        for (Entry<String, Method> entry : setterMap.entrySet()) {
-            try {
-                methodName = entry.getKey();
-
-                getter = getterMap.get(methodName);
-
-                // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
-                if (getter == null) {
-                    continue;
-                }
-
-                getterAccessible = getter.isAccessible();
-                getter.setAccessible(true);
-
-                setter = entry.getValue();
-                setterAccessible = setter.isAccessible();
-                setter.setAccessible(true);
-
-                setter.invoke(target, getter.invoke(src));
-
-            } catch (Exception e) {
-                throw new IllegalArgumentException(e);
-            } finally {
-                if (getter != null) {
-                    getter.setAccessible(getterAccessible);
-                }
-                if (setter != null) {
-                    setter.setAccessible(setterAccessible);
-                }
-            }
-        }
-
-        return target;
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, Map<String, Function<Object, Object>> converter) {
+        return transform(src, lookupSrcSuper, target, false, converter);
     }
 
     /**
@@ -893,6 +1010,10 @@ public class ObjectUtils {
      * 2019. 6. 20.     박준홍         최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타
      * @param targetType
@@ -920,6 +1041,10 @@ public class ObjectUtils {
      * 2019. 7. 11.     박준홍         최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타.
      * @param targetType
@@ -936,6 +1061,72 @@ public class ObjectUtils {
     }
 
     /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타.
+     * @param targetType
+     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @param converter
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+        return transform(src, false, targetType, lookupTargetSuper, converter);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param targetType
+     *            변환 타입
+     * @param converter
+     *            데이터 변환 함수.
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see Getter
+     * @see Setter
+     */
+    public static <S, D> D transform(S src, Class<D> targetType, Map<String, Function<Object, Object>> converter) {
+        return transform(src, false, targetType, false, converter);
+    }
+
+    /**
      * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
      * <br>
      * 
@@ -946,6 +1137,10 @@ public class ObjectUtils {
      * 2020. 12. 08.     박준홍         최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타
      * @param target
@@ -973,6 +1168,10 @@ public class ObjectUtils {
      * 2019. 7. 11.     박준홍         최초 작성
      * </pre>
      *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타.
      * @param target
@@ -986,5 +1185,71 @@ public class ObjectUtils {
      */
     public static <S, D> D transform(S src, D target, boolean lookupTargetSuper) {
         return transform(src, false, target, lookupTargetSuper);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타.
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @param converter
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, D> D transform(S src, D target, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+        return transform(src, false, target, lookupTargetSuper, converter);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11.22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <D>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param converter
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2021. 11. 22.
+     * @version 1.8.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see Getter
+     * @see Setter
+     */
+    public static <S, D> D transform(S src, D target, Map<String, Function<Object, Object>> converter) {
+        return transform(src, false, target, false, converter);
     }
 }
