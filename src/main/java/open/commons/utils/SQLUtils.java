@@ -572,7 +572,7 @@ public class SQLUtils {
             final Map<String, Boolean> clmnCaseSensitive = new HashMap<>();
             // 컬럼이름/메소드
             final Map<String, Method> methodMap = CollectionUtils.toMapHSV(methods, m -> {
-                ColumnValue cv = m.getClass().getAnnotation(ColumnValue.class);
+                ColumnValue cv = m.getAnnotation(ColumnValue.class);
                 // 설정된 컬럼명이 빈 문자열이 경우 처리
                 String clmn = cv.name();
                 if (clmn.isEmpty()) {

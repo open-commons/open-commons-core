@@ -1,3 +1,7 @@
+[2021/11/26]
+- Bugfix
+  + open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...): ColumnValue 어노테이션 정보 추출 버그 수정.
+
 [2021/11/22]
 - Add
   + open.commons.utils.ObjectUtils: 데이터 변환 함수 추가

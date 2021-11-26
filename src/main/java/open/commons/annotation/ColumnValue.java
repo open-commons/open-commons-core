@@ -75,7 +75,7 @@ public @interface ColumnValue {
 
     /**
      * 컬럼명을 변환하는 방식.<br>
-     * 프로그래밍 언어와 DBMS 간 명명규칙이 상이하기
+     * 프로그래밍 언어와 DBMS 간 명명규칙이 서로 다르기 때문에 일치화 시키기 위한 정의.
      * <ul>
      * <li>{@link ColumnNameType#CAMEL_CASE}
      * <li>{@link ColumnNameType#NAME}
