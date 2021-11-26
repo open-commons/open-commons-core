@@ -273,6 +273,71 @@ public class SQLUtils {
     }
 
     /**
+     * 메소드에 설정된 {@link ColumnValue}에의 컬럼명을 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 09. 24.		박준홍     최초 작성
+     * 2021. 11. 26.        박준홍     메소드로 별도 분리.
+     * </pre>
+     *
+     * @param method
+     * @return
+     * @throws NullPointerException
+     *             메소드에 {@link ColumnValue}가 설정되지 않은 경우.
+     *
+     * @since 2020. 09. 24.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see ColumnValue
+     * @see ColumnValue#name()
+     */
+    public static final String getColumnName(Method method) throws NullPointerException {
+        ColumnValue cv = method.getAnnotation(ColumnValue.class);
+        // 설정된 컬럼명이 빈 문자열이 경우 처리
+        String clmn = cv.name();
+        if (clmn.isEmpty()) {
+            Class<?> rtnClass = method.getReturnType();
+
+            if (boolean.class.isAssignableFrom(rtnClass) //
+                    || Boolean.class.isAssignableFrom(rtnClass)) {
+                clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, method.getName());
+            } else {
+                clmn = METHOD_MATCHER.apply(METHOD_PATTERN, method.getName());
+            }
+
+            if (clmn == null) {
+                throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, method));
+            }
+
+            // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 |
+            // Park_Jun_Hong_(parkjunhong77@gmail.com)
+            switch (cv.columnNameType()) {
+                case CAMEL_CASE:
+                    clmn = StringUtils.toLowerCase(clmn, 0);
+                    break;
+                case PASCAL_CASE:
+                    clmn = StringUtils.toPascalCase(clmn);
+                    break;
+                case SNAKE_CASE:
+                    clmn = StringUtils.toSnakeCase(clmn);
+                    break;
+                case NAME:
+                    // 그대로 사용
+                    break;
+                default:
+                    throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
+            }
+            // end - Park_Jun_Hong_(parkjunhong77@gmail.com), 2020. 9. 24.
+        }
+
+        return clmn;
+    }
+
+    /**
      * 
      * <br>
      * 
@@ -572,46 +637,9 @@ public class SQLUtils {
             final Map<String, Boolean> clmnCaseSensitive = new HashMap<>();
             // 컬럼이름/메소드
             final Map<String, Method> methodMap = CollectionUtils.toMapHSV(methods, m -> {
-                ColumnValue cv = m.getAnnotation(ColumnValue.class);
-                // 설정된 컬럼명이 빈 문자열이 경우 처리
-                String clmn = cv.name();
-                if (clmn.isEmpty()) {
-                    Class<?> rtnClass = m.getReturnType();
 
-                    if (boolean.class.isAssignableFrom(rtnClass) //
-                            || Boolean.class.isAssignableFrom(rtnClass)) {
-                        clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, m.getName());
-                    } else {
-                        clmn = METHOD_MATCHER.apply(METHOD_PATTERN, m.getName());
-                    }
-
-                    if (clmn == null) {
-                        throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, m));
-                    }
-
-                    // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 |
-                    // Park_Jun_Hong_(parkjunhong77@gmail.com)
-                    switch (cv.columnNameType()) {
-                        case CAMEL_CASE:
-                            clmn = StringUtils.toLowerCase(clmn, 0);
-                            break;
-                        case PASCAL_CASE:
-                            clmn = StringUtils.toPascalCase(clmn);
-                            break;
-                        case SNAKE_CASE:
-                            clmn = StringUtils.toSnakeCase(clmn);
-                            break;
-                        case NAME:
-                            // 그대로 사용
-                            break;
-                        default:
-                            throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
-                    }
-                    // end - Park_Jun_Hong_(parkjunhong77@gmail.com), 2020. 9. 24.
-
-                }
-
-                clmnCaseSensitive.put(clmn, cv.caseSensitive());
+                String clmn = getColumnName(m);
+                clmnCaseSensitive.put(clmn, m.getAnnotation(ColumnValue.class).caseSensitive());
 
                 return clmn;
             }, m -> m);

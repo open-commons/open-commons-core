@@ -1,6 +1,9 @@
 [2021/11/26]
 - Bugfix
   + open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...): ColumnValue 어노테이션 정보 추출 버그 수정.
+- Add
+  + open.commons.utils.SQLUtils.getColumnName(Method): 컬럼 목록 제공
+
 
 [2021/11/22]
 - Add
