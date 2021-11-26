@@ -48,9 +48,7 @@ import java.lang.annotation.Target;
 public @interface Getter {
 
     /** 데이터 이름 */
-    String name()
-
-    default "";
+    String name() default "";
 
     /** 데이터 타입 */
     Class<?> type();
