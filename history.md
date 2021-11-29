@@ -1,3 +1,7 @@
+[2021/11/29]
+- Modify
+  + open.commons.annotation.ColumnValue: @Target()에 java.lang.annotation.ElementType.PARAMETER 추가
+
 [2021/11/26]
 - Bugfix
   + open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...): ColumnValue 어노테이션 정보 추출 버그 수정.

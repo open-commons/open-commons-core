@@ -27,6 +27,7 @@
 package open.commons.annotation;
 
 import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
@@ -50,7 +51,7 @@ import open.commons.annotation.ColumnDef.ColumnNameType;
  */
 @Documented
 @Retention(RUNTIME)
-@Target(METHOD)
+@Target({ METHOD, PARAMETER })
 public @interface ColumnValue {
 
     /**
