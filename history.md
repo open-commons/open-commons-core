@@ -1,6 +1,8 @@
 [2021/11/29]
 - Modify
-  + open.commons.annotation.ColumnValue: @Target()에 java.lang.annotation.ElementType.PARAMETER 추가
+  + open.commons.annotation.ColumnValue
+    + @Target()에 java.lang.annotation.ElementType.PARAMETER 추가
+    + updatable(): 추가
 
 [2021/11/26]
 - Bugfix

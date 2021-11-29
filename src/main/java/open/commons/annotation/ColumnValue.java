@@ -164,4 +164,22 @@ public @interface ColumnValue {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     int order() default Integer.MAX_VALUE;
+
+    /**
+     * 해당 컬럼이 갱신가능한지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2021. 11. 29.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    boolean updatable() default false;
 }
