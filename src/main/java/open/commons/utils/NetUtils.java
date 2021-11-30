@@ -67,23 +67,23 @@ public class NetUtils {
     public static final String REGEX_DOMAIN = "\\b((?=[a-z0-9-]{1,63}\\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,63}\\b";
 
     /** @see #REGEX_IPV4 */
-    public static final String REGEX_IPV4_STRICT = String.join(REGEX_IPV4, "^", "S");
+    public static final String REGEX_IPV4_STRICT = "^" + REGEX_IPV4 + "$";
     /** @see #REGEX_IPV6 */
-    public static final String REGEX_IPV6_STRICT = String.join(REGEX_IPV6, "^", "S");
+    public static final String REGEX_IPV6_STRICT = "^" + REGEX_IPV6 + "$";
     /**
      * @see #REGEX_IPV4
      * @see #REGEX_IPV6
      */
-    public static final String REGEX_IPV4_IPV6 = String.join("|", REGEX_IPV4, REGEX_IPV6);
+    public static final String REGEX_IPV4_IPV6 = REGEX_IPV4 + "|" + REGEX_IPV6;
     /**
      * @see #REGEX_IPV4
      * @see #REGEX_IPV6
      */
-    public static final String REGEX_IPV4_IPV6_STRICT = String.join(REGEX_IPV4_IPV6, "^", "$");
+    public static final String REGEX_IPV4_IPV6_STRICT = "^" + REGEX_IPV4_IPV6 + "$";
     /** @see #REGEX_PORT */
-    public static final String REGEX_PORT_STRICT = String.join(REGEX_PORT, "^", "$");
+    public static final String REGEX_PORT_STRICT = "^" + REGEX_PORT + "$";
     /** @see #REGEX_DOMAIN */
-    public static final String REGEX_DOMAIN_STRICT = String.join(REGEX_DOMAIN, "^", "$");
+    public static final String REGEX_DOMAIN_STRICT = "^" + REGEX_DOMAIN + "$";
 
     /**
      * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환한다.
