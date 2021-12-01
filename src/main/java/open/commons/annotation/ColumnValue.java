@@ -200,5 +200,5 @@ public @interface ColumnValue {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    String variableBinding() default "";
+    String variableBinding() default "?";
 }
