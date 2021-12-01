@@ -1,4 +1,8 @@
 [2021/11/29]
+- Add
+  + open.commons.annotation.ColumnValue.variableBinding()
+    
+[2021/11/29]
 - Modify
   + open.commons.annotation.ColumnValue
     + @Target()에 java.lang.annotation.ElementType.PARAMETER 추가
