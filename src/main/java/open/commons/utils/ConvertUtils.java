@@ -192,7 +192,7 @@ public class ConvertUtils {
 
             // 타입 변환 함수가 존재하는 경우
             if ((converter = FIELD_CONVERTERS.get(FC_KEYGEN.apply(srcType, targetType))) != null) {
-                converters.put(ObjectUtils.getGSMethodKey(entry.getKey(), entry.getValue()), converter);
+                converters.put(ObjectUtils.getPropertyKey(entry.getKey(), entry.getValue()), converter);
             }
         }
 

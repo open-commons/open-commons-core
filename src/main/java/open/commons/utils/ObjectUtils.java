@@ -45,7 +45,6 @@ import org.slf4j.LoggerFactory;
 import open.commons.annotation.Getter;
 import open.commons.annotation.Information;
 import open.commons.annotation.Setter;
-import open.commons.lang.Char;
 
 /**
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
@@ -107,12 +106,12 @@ public class ObjectUtils {
 
     private static Function<Method, String> GETTER_KEYGEN = m -> {
         Getter annoGetter = m.getAnnotation(Getter.class);
-        return getGSMethodKey(annoGetter.name(), annoGetter.type());
+        return getPropertyKey(annoGetter.name(), annoGetter.type());
     };
 
     private static Function<Method, String> SETTER_KEYGEN = m -> {
         Setter annoGetter = m.getAnnotation(Setter.class);
-        return getGSMethodKey(annoGetter.name(), annoGetter.type());
+        return getPropertyKey(annoGetter.name(), annoGetter.type());
     };;
 
     // Prevent to create a new instance.
@@ -206,6 +205,7 @@ public class ObjectUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 11. 22.		박준홍			최초 작성
+     * 2021. 12. 02.        박준홍     메소드를 찾는 키를 필드 속성명으로 고정.
      * </pre>
      *
      * @param name
@@ -220,8 +220,8 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static final String getGSMethodKey(String name, Class<?> type) throws NullPointerException {
-        return String.join(new Char('-'), name, type.toString());
+    public static final String getPropertyKey(String name, Class<?> type) throws NullPointerException {
+        return name;
     }
 
     /**
@@ -885,6 +885,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
+    @SuppressWarnings("unchecked")
     public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converter) {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
