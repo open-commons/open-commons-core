@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -106,21 +108,33 @@ public class ObjectUtils {
 
     private static Function<Method, String> GETTER_KEYGEN = m -> {
         Getter annoGetter = m.getAnnotation(Getter.class);
-        Class<?> type = annoGetter.type();
-        if (type == null) {
-            type = m.getReturnType();
-        }
-        return getPropertyKey(annoGetter.name(), type);
+        return getPropertyKey(annoGetter.name(), annoGetter.type());
     };
 
     private static Function<Method, String> SETTER_KEYGEN = m -> {
         Setter annoSetter = m.getAnnotation(Setter.class);
-        Class<?> type = annoSetter.getClass();
-        if (type == null) {
-            type = m.getParameterTypes()[0];
-        }
-        return getPropertyKey(annoSetter.name(), type);
+        return getPropertyKey(annoSetter.name(), annoSetter.type());
     };
+
+    private static final Function<Method, Class<?>> RETURN_TYPE = m -> m.getReturnType();
+    private static final Function<Method, Class<?>> PARAMETER_TYPE = m -> m.getParameterTypes()[0];
+
+    /**
+     * <ul>
+     * <li>key: Source 타입 정보와 Target 타입 정보를 이용하여 생성한 식별정보
+     * <li>value: Source 객체를 Target 객체로 변환하는데 필요한 데이터 변환 함수들.
+     * </ul>
+     */
+    private static final ConcurrentSkipListMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentSkipListMap<>();
+
+    /**
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     */
+    private static final BiFunction<Class<?>, Class<?>, String> FC_KEYGEN = (srcClass, targetClass) -> String.join(" -> ", srcClass.toGenericString(),
+            targetClass.toGenericString());
 
     // Prevent to create a new instance.
     private ObjectUtils() {
@@ -420,6 +434,40 @@ public class ObjectUtils {
         ;
 
         return info;
+    }
+
+    /**
+     * 클래스 변수 데이터 변환에 필요한 함수를 등록합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 12. 2.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <T>
+     *            Target Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param converter
+     *            속성 변환함수.
+     * @return
+     * @throws NullPointerException
+     *             TODO
+     *
+     * @since 2021. 12. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, T> Object registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> converter) throws NullPointerException {
+
+        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, converter);
+
+        return FIELD_CONVERTERS.put(FC_KEYGEN.apply(srcClass, targetClass), converter);
     }
 
     /**
@@ -749,7 +797,7 @@ public class ObjectUtils {
      *            변환 타입. 기본생성자가 반드시 있어야 한다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -757,9 +805,9 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converter) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         try {
-            return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper, converter);
+            return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper, converters);
         } catch (InstantiationException | IllegalAccessException e) {
             throw new IllegalStateException(e);
         }
@@ -785,7 +833,7 @@ public class ObjectUtils {
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetType
      *            변환 타입. 기본생성자가 반드시 있어야 한다.
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -795,8 +843,8 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, Map<String, Function<?, ?>> converter) {
-        return transform(src, lookupSrcSuper, targetType, false, converter);
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, Map<String, Function<?, ?>> converters) {
+        return transform(src, lookupSrcSuper, targetType, false, converters);
     }
 
     /**
@@ -885,7 +933,7 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -894,7 +942,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converter) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
         List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
@@ -908,8 +956,8 @@ public class ObjectUtils {
         }
 
         // 데이터 변환함수가 null 인 경우
-        if (converter == null) {
-            converter = new HashMap<>();
+        if (converters == null) {
+            converters = new HashMap<>();
         }
 
         // #0. Setter 메소드 재정렬
@@ -935,6 +983,9 @@ public class ObjectUtils {
         boolean setterAccessible = false;
 
         Object o = null;
+        Class<?> srcType = null;
+        Class<?> targetType = null;
+        Function<?, ?> converter = null;
         for (Entry<String, Method> entry : setterMap.entrySet()) {
             try {
                 methodKey = entry.getKey();
@@ -953,14 +1004,22 @@ public class ObjectUtils {
 
                 // PATCH [2021. 11. 22.]: 데이터 변환 | Park_Jun_Hong_(fafanmama_at_naver_com)
                 o = getter.invoke(src);
-                if (converter.containsKey(methodKey)) {
-                    o = ((Function<Object, ?>) converter.get(methodKey)).apply(o);
-                }
 
                 // 데이터 쓰기
                 setter = entry.getValue();
                 setterAccessible = setter.isAccessible();
                 setter.setAccessible(true);
+
+                srcType = RETURN_TYPE.apply(getter);
+                targetType = PARAMETER_TYPE.apply(setter);
+
+                // srcType과 targetType이 호환여부 확인
+                if (!checkType(srcType, targetType)) {
+                    // 타입 변환 함수가 존재하는 경우
+                    if ((converter = FIELD_CONVERTERS.get(FC_KEYGEN.apply(srcType, targetType))) != null) {
+                        o = ((Function<Object, ?>) converter).apply(o);
+                    }
+                }
 
                 setter.invoke(target, o);
 
@@ -1002,7 +1061,7 @@ public class ObjectUtils {
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param target
      *            데이터를 전달받은 객체.
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -1012,8 +1071,8 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, Map<String, Function<?, ?>> converter) {
-        return transform(src, lookupSrcSuper, target, false, converter);
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, Map<String, Function<?, ?>> converters) {
+        return transform(src, lookupSrcSuper, target, false, converters);
     }
 
     /**
@@ -1097,7 +1156,7 @@ public class ObjectUtils {
      *            변환 타입. 기본생성자가 반드시 있어야 한다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -1105,8 +1164,8 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converter) {
-        return transform(src, false, targetType, lookupTargetSuper, converter);
+    public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+        return transform(src, false, targetType, lookupTargetSuper, converters);
     }
 
     /**
@@ -1128,7 +1187,7 @@ public class ObjectUtils {
      *            입력 데이타
      * @param targetType
      *            변환 타입
-     * @param converter
+     * @param converters
      *            데이터 변환 함수.
      * @return
      *
@@ -1139,8 +1198,8 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, D> D transform(S src, Class<D> targetType, Map<String, Function<?, ?>> converter) {
-        return transform(src, false, targetType, false, converter);
+    public static <S, D> D transform(S src, Class<D> targetType, Map<String, Function<?, ?>> converters) {
+        return transform(src, false, targetType, false, converters);
     }
 
     /**
@@ -1224,7 +1283,7 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -1232,8 +1291,8 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, D target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converter) {
-        return transform(src, false, target, lookupTargetSuper, converter);
+    public static <S, D> D transform(S src, D target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+        return transform(src, false, target, lookupTargetSuper, converters);
     }
 
     /**
@@ -1255,7 +1314,7 @@ public class ObjectUtils {
      *            입력 데이타
      * @param target
      *            데이터를 전달받은 객체.
-     * @param converter
+     * @param converters
      *            데이터 변환 함수
      * @return
      *
@@ -1266,7 +1325,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, D> D transform(S src, D target, Map<String, Function<?, ?>> converter) {
-        return transform(src, false, target, false, converter);
+    public static <S, D> D transform(S src, D target, Map<String, Function<?, ?>> converters) {
+        return transform(src, false, target, false, converters);
     }
 }

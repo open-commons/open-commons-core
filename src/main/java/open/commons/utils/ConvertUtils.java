@@ -21,18 +21,10 @@
 package open.commons.utils;
 
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListMap;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
-import open.commons.annotation.Getter;
-import open.commons.annotation.Setter;
 import open.commons.io.IMarshaller;
 import open.commons.lang.JavaField;
 
@@ -93,23 +85,6 @@ public class ConvertUtils {
         primitiveTypesWrapperClass.put(double.class, Double.class);
     }
 
-    /**
-     * <ul>
-     * <li>key: Source 타입 정보와 Target 타입 정보를 이용하여 생성한 식별정보
-     * <li>value: Source 객체를 Target 객체로 변환하는데 필요한 데이터 변환 함수들.
-     * </ul>
-     */
-    private static final ConcurrentSkipListMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentSkipListMap<>();
-
-    /**
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     */
-    private static final BiFunction<Class<?>, Class<?>, String> FC_KEYGEN = (srcClass, targetClass) -> String.join(" -> ", srcClass.toGenericString(),
-            targetClass.toGenericString());
-
     public static <T> void assertValue(Object value, Class<T> class_) {
         assertValue(value, class_, IllegalArgumentException.class);
     }
@@ -140,63 +115,6 @@ public class ConvertUtils {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    /**
-     * 변환 이전/이후 데이터 타입에 맞는 함수목록을 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 12. 2.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            Source Type
-     * @param <T>
-     *            Target Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     * @return
-     *
-     * @since 2021. 12. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     */
-    public static <S, T> Map<String, Function<?, ?>> createConverter(Class<S> srcClass, Class<T> targetClass) {
-
-        Map<String, Class<?>> srcFieldsMeta = AnnotationUtils.getAnnotatedMethodsAll(srcClass, Getter.class).stream() //
-                .map(method -> method.getAnnotation(Getter.class)) //
-                .collect(Collectors.toMap(anno -> anno.name(), anno -> anno.type()));
-
-        Map<String, Class<?>> targetFieldsMeta = AnnotationUtils.getAnnotatedMethodsAll(targetClass, Setter.class).stream() //
-                .map(method -> method.getAnnotation(Setter.class)) //
-                .collect(Collectors.toMap(anno -> anno.name(), anno -> anno.type()));
-
-        Map<String, Function<?, ?>> converters = new HashMap<>();
-
-        Class<?> srcType = null;
-        Class<?> targetType = null;
-        Function<?, ?> converter = null;
-        for (Entry<String, Class<?>> entry : targetFieldsMeta.entrySet()) {
-            // srcClass에 동일한 이름을 갖는 필드가 없거나
-            if ((srcType = srcFieldsMeta.get(entry.getKey())) == null //
-                    || // targetClass 필드와 타입이 같은 경우
-                    (targetType = entry.getValue()).equals(srcType) //
-                    || // targetClass 필드 타입이 srcClass 필드 타입의 상위인 경우
-                    isAssignableFrom(targetClass, srcType)) {
-                continue;
-            }
-
-            // 타입 변환 함수가 존재하는 경우
-            if ((converter = FIELD_CONVERTERS.get(FC_KEYGEN.apply(srcType, targetType))) != null) {
-                converters.put(ObjectUtils.getPropertyKey(entry.getKey(), entry.getValue()), converter);
-            }
-        }
-
-        return converters;
     }
 
     public static JavaField defineToJavaField(String type, String string) {
@@ -368,40 +286,6 @@ public class ConvertUtils {
         for (Class<?> type : types) {
             primitiveTypesConst.put(type, typeConst);
         }
-    }
-
-    /**
-     * 클래스 변수 데이터 변환에 필요한 함수를 등록합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 12. 2.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            Source Type
-     * @param <T>
-     *            Target Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     * @param converter
-     *            속성 변환함수.
-     * @return
-     * @throws NullPointerException
-     *             TODO
-     *
-     * @since 2021. 12. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
-     */
-    public static <S, T> Object registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> converter) throws NullPointerException {
-
-        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, converter);
-
-        return FIELD_CONVERTERS.put(FC_KEYGEN.apply(srcClass, targetClass), converter);
     }
 
     /**
