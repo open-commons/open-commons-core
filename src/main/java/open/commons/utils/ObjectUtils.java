@@ -106,13 +106,21 @@ public class ObjectUtils {
 
     private static Function<Method, String> GETTER_KEYGEN = m -> {
         Getter annoGetter = m.getAnnotation(Getter.class);
-        return getPropertyKey(annoGetter.name(), annoGetter.type());
+        Class<?> type = annoGetter.type();
+        if (type == null) {
+            type = m.getReturnType();
+        }
+        return getPropertyKey(annoGetter.name(), type);
     };
 
     private static Function<Method, String> SETTER_KEYGEN = m -> {
-        Setter annoGetter = m.getAnnotation(Setter.class);
-        return getPropertyKey(annoGetter.name(), annoGetter.type());
-    };;
+        Setter annoSetter = m.getAnnotation(Setter.class);
+        Class<?> type = annoSetter.getClass();
+        if (type == null) {
+            type = m.getParameterTypes()[0];
+        }
+        return getPropertyKey(annoSetter.name(), type);
+    };
 
     // Prevent to create a new instance.
     private ObjectUtils() {
