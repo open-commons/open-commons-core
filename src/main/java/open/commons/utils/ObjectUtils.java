@@ -455,7 +455,7 @@ public class ObjectUtils {
      * @param targetClass
      *            변환 이후 데이터 타입
      * @param converter
-     *            속성 변환함수.
+     *            이전 타입 -> 이후 타입 변환 함수
      * @return
      * @throws NullPointerException
      *             TODO
@@ -468,6 +468,43 @@ public class ObjectUtils {
         AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, converter);
 
         return FIELD_CONVERTERS.put(FC_KEYGEN.apply(srcClass, targetClass), converter);
+    }
+
+    /**
+     * 클래스 변수 데이터 변환에 필요한 함수를 등록합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 12. 2.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <T>
+     *            Target Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param srcToTarget
+     *            이전 타입 -> 이후 타입 변환 함수
+     * @param targetToSrc
+     *            이후 타입 -> 이번 타입 변환 함수
+     * @throws NullPointerException
+     *
+     * @since 2021. 12. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, T> void registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> srcToTarget, Function<T, S> targetToSrc) throws NullPointerException {
+
+        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, srcToTarget, targetToSrc);
+
+        // register 'src' to 'target'
+        FIELD_CONVERTERS.put(FC_KEYGEN.apply(srcClass, targetClass), srcToTarget);
+        // register 'target' to 'src'
+        FIELD_CONVERTERS.put(FC_KEYGEN.apply(targetClass, srcClass), targetToSrc);
     }
 
     /**

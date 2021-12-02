@@ -1,6 +1,7 @@
 [2021/12/02]
 - Ad
   + open.commons.utils.ObjectUtils.registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;)
+  + open.commons.utils.ObjectUtils.registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;, Function&lt;T, S&gt;)
 
 - <strike>Add
   + open.commons.utils.ConvertUtils
