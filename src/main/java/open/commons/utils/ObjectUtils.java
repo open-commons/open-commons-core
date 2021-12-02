@@ -749,7 +749,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<Object, ?>> converter) {
         try {
             return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper, converter);
         } catch (InstantiationException | IllegalAccessException e) {
@@ -787,7 +787,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, Class<D> targetType, Map<String, Function<Object, ?>> converter) {
         return transform(src, lookupSrcSuper, targetType, false, converter);
     }
 
@@ -885,7 +885,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper, Map<String, Function<Object, ?>> converter) {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
         List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
@@ -945,7 +945,7 @@ public class ObjectUtils {
                 // PATCH [2021. 11. 22.]: 데이터 변환 | Park_Jun_Hong_(fafanmama_at_naver_com)
                 o = getter.invoke(src);
                 if (converter.containsKey(methodKey)) {
-                    o = ((Function<Object, Object>) converter.get(methodKey)).apply(o);
+                    o = ((Function<Object, ?>) converter.get(methodKey)).apply(o);
                 }
 
                 // 데이터 쓰기
@@ -1003,7 +1003,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, Map<String, Function<Object, ?>> converter) {
         return transform(src, lookupSrcSuper, target, false, converter);
     }
 
@@ -1096,7 +1096,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, Class<D> targetType, boolean lookupTargetSuper, Map<String, Function<Object, ?>> converter) {
         return transform(src, false, targetType, lookupTargetSuper, converter);
     }
 
@@ -1130,7 +1130,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, D> D transform(S src, Class<D> targetType, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, Class<D> targetType, Map<String, Function<Object, ?>> converter) {
         return transform(src, false, targetType, false, converter);
     }
 
@@ -1223,7 +1223,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, D> D transform(S src, D target, boolean lookupTargetSuper, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, D target, boolean lookupTargetSuper, Map<String, Function<Object, ?>> converter) {
         return transform(src, false, target, lookupTargetSuper, converter);
     }
 
@@ -1257,7 +1257,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, D> D transform(S src, D target, Map<String, Function<Object, Object>> converter) {
+    public static <S, D> D transform(S src, D target, Map<String, Function<Object, ?>> converter) {
         return transform(src, false, target, false, converter);
     }
 }

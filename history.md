@@ -1,3 +1,15 @@
+[2021/12/02]
+- Modify
+  + open.commons.utils.ObjectUtils: 파라미터 타입 변경. Map&lt;String, Function&lt;Object, Object&gt;&gt; -&gt; Map&lt;String, Function&lt;Object, ?&gt;&gt;
+    + transform(S, boolean, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, boolean, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, boolean, D, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, boolean, D, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, D, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+    + transform(S, D, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
+
 [2021/11/29]
 - Add
   + open.commons.annotation.ColumnValue.variableBinding()
@@ -32,8 +44,8 @@
   + open.commons.io.RandomAccessConfig
 - Modify
   + open.commons.utils.IOUtils
-    + readChannel(FileChannel, Function<byte[], T>, R): 접근제어자 변경 (private -> public)
-    + readChannel(FileChannel, int, ByteBuffer, Function<byte[], T>): 접근제어자 변경 (private -> public)
+    + readChannel(FileChannel, Function&lt;byte[], T&gt;, R): 접근제어자 변경 (private -> public)
+    + readChannel(FileChannel, int, ByteBuffer, Function&lt;byte[], T&gt;): 접근제어자 변경 (private -> public)
 
 
 [2021/11/18]
@@ -42,7 +54,7 @@
   
 [2021/11/17]
 - Modify
-  + open.commons.utils.CsvUtils.defaultCreator(Class<?>): 문자열 trim() 적용. 
+  + open.commons.utils.CsvUtils.defaultCreator(Class&lt;?&gt;): 문자열 trim() 적용. 
 - Bugfix
   + open.commons.utils.NumberUtils.LONG_TO_STR: long 데이터 포맷 문자열 버그 수정. (%,l -> %,d)
 - Add
@@ -186,7 +198,7 @@
   + open.commons.annotation.Information
 - Add
   + open.commons.utils.AnnotationUtils
-    + getAnnotatedFieldsAllAsStream(Object, Class<? extends Annotation>)
+    + getAnnotatedFieldsAllAsStream(Object, Class&lt;? extends Annotation&gt;)
   + open.commons.utils.ObjectUtils
     + readInformation(Object)
 
@@ -226,9 +238,9 @@
 
 [2021/08/19]
 - Add
-  + open.commons.utils.ArrayUtils.copyOf(T[], int, Function<T, T>)
+  + open.commons.utils.ArrayUtils.copyOf(T[], int, Function&lt;T, T&gt;)
   + open.commons.utils.ArrayUtils.copyOf(U[], int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
-  + open.commons.utils.ArrayUtils.copyOfRange(T[], int, int, Function<T, T>)
+  + open.commons.utils.ArrayUtils.copyOfRange(T[], int, int, Function&lt;T, T&gt;)
   + open.commons.utils.ArrayUtils.copyOfRange(U[], int, int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
   
 [2021/08/15]
