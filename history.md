@@ -1,6 +1,11 @@
 [2021/12/02]
+- Add
+  + open.commons.utils.ConvertUtils
+    + createConverter(Class&lt;S&gt;, Class&lt;T&gt;)
+    + isAssignableFrom(Class&lt;?&gt;, Class&lt;?&gt;)
+    + registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;)
 - Modify
-  + open.commons.utils.ObjectUtils: 파라미터 타입 변경. Map&lt;String, Function&lt;Object, Object&gt;&gt; -&gt; Map&lt;String, Function&lt;Object, ?&gt;&gt;
+  + open.commons.utils.ObjectUtils: 파라미터 타입 변경. Map&lt;String, Function&lt;Object, Object&gt;&gt; -> Map&lt;String, Function&lt;Object, ?&gt;&gt;
     + transform(S, boolean, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
     + transform(S, boolean, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
     + transform(S, boolean, D, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)

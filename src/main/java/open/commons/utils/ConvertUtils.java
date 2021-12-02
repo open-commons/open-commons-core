@@ -21,10 +21,18 @@
 package open.commons.utils;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import open.commons.annotation.Getter;
+import open.commons.annotation.Setter;
 import open.commons.io.IMarshaller;
 import open.commons.lang.JavaField;
 
@@ -48,16 +56,18 @@ public class ConvertUtils {
     public static final byte TYPE_CONST_BYTE = 0x01;
     /** char, {@link Character} */
     public static final byte TYPE_CONST_CHAR = 0x02;
+    /** short, {@link Short} */
+    public static final byte TYPE_CONST_SHORT = 0x03;
     /** int, {@link Integer} */
-    public static final byte TYPE_CONST_INT = 0x03;
+    public static final byte TYPE_CONST_INT = 0x04;
     /** long, {@link Long} */
-    public static final byte TYPE_CONST_LONG = 0x04;
+    public static final byte TYPE_CONST_LONG = 0x05;
     /** float, {@link Float} */
-    public static final byte TYPE_CONST_FLOAT = 0x05;
+    public static final byte TYPE_CONST_FLOAT = 0x06;
     /** double, {@link Double} */
-    public static final byte TYPE_CONST_DOUBLE = 0x06;
+    public static final byte TYPE_CONST_DOUBLE = 0x07;
     /** Referenced Type */
-    public static final byte TYPE_CONST_OBJECT = 0x07;
+    public static final byte TYPE_CONST_OBJECT = 0x08;
 
     private static Map<Class<?>, Byte> primitiveTypesConst = new ConcurrentHashMap<Class<?>, Byte>();
     private static Map<Class<?>, Class<?>> primitiveTypesWrapperClass = new ConcurrentHashMap<Class<?>, Class<?>>();
@@ -66,6 +76,7 @@ public class ConvertUtils {
         putTypeConsts(TYPE_CONST_BOOLEAN, boolean.class, Boolean.class);
         putTypeConsts(TYPE_CONST_BYTE, byte.class, Byte.class);
         putTypeConsts(TYPE_CONST_CHAR, char.class, Character.class);
+        putTypeConsts(TYPE_CONST_SHORT, short.class, Short.class);
         putTypeConsts(TYPE_CONST_INT, int.class, Integer.class);
         putTypeConsts(TYPE_CONST_LONG, long.class, Long.class);
         putTypeConsts(TYPE_CONST_FLOAT, float.class, Float.class);
@@ -75,11 +86,29 @@ public class ConvertUtils {
         primitiveTypesWrapperClass.put(boolean.class, Boolean.class);
         primitiveTypesWrapperClass.put(byte.class, Byte.class);
         primitiveTypesWrapperClass.put(char.class, Character.class);
+        primitiveTypesWrapperClass.put(short.class, Short.class);
         primitiveTypesWrapperClass.put(int.class, Integer.class);
         primitiveTypesWrapperClass.put(long.class, Long.class);
         primitiveTypesWrapperClass.put(float.class, Float.class);
         primitiveTypesWrapperClass.put(double.class, Double.class);
     }
+
+    /**
+     * <ul>
+     * <li>key: Source 타입 정보와 Target 타입 정보를 이용하여 생성한 식별정보
+     * <li>value: Source 객체를 Target 객체로 변환하는데 필요한 데이터 변환 함수들.
+     * </ul>
+     */
+    private static final ConcurrentSkipListMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentSkipListMap<>();
+
+    /**
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     */
+    private static final BiFunction<Class<?>, Class<?>, String> FC_KEYGEN = (srcClass, targetClass) -> String.join(" -> ", srcClass.toGenericString(),
+            targetClass.toGenericString());
 
     public static <T> void assertValue(Object value, Class<T> class_) {
         assertValue(value, class_, IllegalArgumentException.class);
@@ -111,6 +140,63 @@ public class ConvertUtils {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /**
+     * 변환 이전/이후 데이터 타입에 맞는 함수목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 12. 2.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <T>
+     *            Target Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @return
+     *
+     * @since 2021. 12. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     */
+    public static <S, T> Map<String, Function<?, ?>> createConverter(Class<S> srcClass, Class<T> targetClass) {
+
+        Map<String, Class<?>> srcFieldsMeta = AnnotationUtils.getAnnotatedFieldsAll(srcClass, Getter.class).stream() //
+                .map(field -> field.getAnnotation(Getter.class)) //
+                .collect(Collectors.toMap(anno -> anno.name(), anno -> anno.type()));
+
+        Map<String, Class<?>> targetFieldsMeta = AnnotationUtils.getAnnotatedFieldsAll(targetClass, Setter.class).stream() //
+                .map(field -> field.getAnnotation(Setter.class)) //
+                .collect(Collectors.toMap(anno -> anno.name(), anno -> anno.type()));
+
+        Map<String, Function<?, ?>> converters = new HashMap<>();
+
+        Class<?> srcType = null;
+        Class<?> targetType = null;
+        Function<?, ?> converter = null;
+        for (Entry<String, Class<?>> entry : targetFieldsMeta.entrySet()) {
+            // srcClass에 동일한 이름을 갖는 필드가 없거나
+            if ((srcType = srcFieldsMeta.get(entry.getKey())) == null //
+                    || // targetClass 필드와 타입이 같은 경우
+                    (targetType = entry.getValue()).equals(srcType) //
+                    || // targetClass 필드 타입이 srcClass 필드 타입의 상위인 경우
+                    isAssignableFrom(targetClass, srcType)) {
+                continue;
+            }
+
+            // 타입 변환 함수가 존재하는 경우
+            if ((converter = FIELD_CONVERTERS.get(FC_KEYGEN.apply(srcType, targetType))) != null) {
+                converters.put(ObjectUtils.getGSMethodKey(entry.getKey(), entry.getValue()), converter);
+            }
+        }
+
+        return converters;
     }
 
     public static JavaField defineToJavaField(String type, String string) {
@@ -160,6 +246,7 @@ public class ConvertUtils {
      *         <li>{@link #TYPE_CONST_BYTE}
      *         <li>{@link #TYPE_CONST_CHAR}
      *         <li>{@link #TYPE_CONST_INT}
+     *         <li>{@link #TYPE_CONST_SHORT}
      *         <li>{@link #TYPE_CONST_LONG}
      *         <li>{@link #TYPE_CONST_FLOAT}
      *         <li>{@link #TYPE_CONST_DOUBLE}
@@ -186,6 +273,74 @@ public class ConvertUtils {
      */
     public static Class<?> getWrapperClass(Class<?> class_) {
         return primitiveTypesWrapperClass.containsKey(class_) ? primitiveTypesWrapperClass.get(class_) : class_;
+    }
+
+    /**
+     * 입력 타입이 대상 타입과 같거나 상위 타입인지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param srcType
+     *            입력 타입.
+     * @param targetType
+     *            대상 타입.
+     * @return
+     *
+     * @since 2021. 12. 2.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean isAssignableFrom(Class<?> srcType, Class<?> targetType) {
+
+        switch (getTypeConst(srcType)) {
+            case TYPE_CONST_BOOLEAN:
+                return boolean.class.equals(targetType) || Boolean.class.equals(targetType);
+            case TYPE_CONST_BYTE:
+                return byte.class.equals(targetType) || Byte.class.equals(targetType);
+            case TYPE_CONST_CHAR:
+                return char.class.equals(targetType) || Character.class.equals(targetType);
+            case TYPE_CONST_SHORT:
+                return short.class.equals(targetType) || Short.class.equals(targetType);
+            case TYPE_CONST_INT:
+                return int.class.equals(targetType) || Integer.class.equals(targetType);
+            case TYPE_CONST_LONG:
+                return long.class.equals(targetType) || Long.class.equals(targetType);
+            case TYPE_CONST_FLOAT:
+                return float.class.equals(targetType) || Float.class.equals(targetType);
+            case TYPE_CONST_DOUBLE:
+                return double.class.equals(targetType) || Double.class.equals(targetType);
+            default:
+                return srcType.isAssignableFrom(targetType);
+        }
+    }
+
+    /**
+     * 입력 객체의 타입이 대상 객체의 타입과 같거나 상위 타입 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param srcObject
+     *            입력 타입.
+     * @param targetObject
+     *            대상 타입.
+     * @return
+     *
+     * @since 2021. 12. 2.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T> boolean isAssignableFrom(S srcObject, T targetObject) {
+        return isAssignableFrom(srcObject.getClass(), targetObject.getClass());
     }
 
     public static boolean isDefineInteger(String string) {
@@ -216,51 +371,37 @@ public class ConvertUtils {
     }
 
     /**
+     * 클래스 변수 데이터 변환에 필요한 함수를 등록합니다. <br>
      * 
-     * @param arr
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 12. 2.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <T>
+     *            Target Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param converter
+     *            속성 변환함수.
      * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(Object)}, instead of.
+     * @throws NullPointerException
+     *             TODO
+     *
+     * @since 2021. 12. 2.
+     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
      */
-    public static <T> T[] toArray(Object array) {
+    public static <S, T> Object registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> converter) throws NullPointerException {
 
-        Class<?> componentType = array.getClass().getComponentType();
+        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, converter);
 
-        if (componentType.isPrimitive()) {
-
-            if (boolean.class.equals(componentType)) {
-                return (T[]) toArray((boolean[]) array);
-            }
-
-            if (byte.class.equals(componentType)) {
-                return (T[]) toArray((byte[]) array);
-            }
-
-            if (char.class.equals(componentType)) {
-                return (T[]) toArray((char[]) array);
-            }
-
-            if (int.class.equals(componentType)) {
-                return (T[]) toArray((int[]) array);
-            }
-
-            if (long.class.equals(componentType)) {
-                return (T[]) toArray((long[]) array);
-            }
-
-            if (float.class.equals(componentType)) {
-                return (T[]) toArray((float[]) array);
-            }
-
-            if (double.class.equals(componentType)) {
-                return (T[]) toArray((double[]) array);
-            }
-
-            return null;
-
-        } else {
-            return (T[]) array;
-        }
+        return FIELD_CONVERTERS.put(FC_KEYGEN.apply(srcClass, targetClass), converter);
     }
 
     /**
@@ -382,6 +523,75 @@ public class ConvertUtils {
         return array;
     }
 
+    /**
+     * 
+     * @param arr
+     * @return
+     * 
+     * @deprecated Use {@link ArrayUtils#toWrapperArray(Object)}, instead of.
+     */
+    public static <T> T[] toArray(Object array) {
+
+        Class<?> componentType = array.getClass().getComponentType();
+
+        if (componentType.isPrimitive()) {
+
+            if (boolean.class.equals(componentType)) {
+                return (T[]) toArray((boolean[]) array);
+            }
+
+            if (byte.class.equals(componentType)) {
+                return (T[]) toArray((byte[]) array);
+            }
+
+            if (char.class.equals(componentType)) {
+                return (T[]) toArray((char[]) array);
+            }
+
+            if (short.class.equals(componentType)) {
+                return (T[]) toArray((short[]) array);
+            }
+
+            if (int.class.equals(componentType)) {
+                return (T[]) toArray((int[]) array);
+            }
+
+            if (long.class.equals(componentType)) {
+                return (T[]) toArray((long[]) array);
+            }
+
+            if (float.class.equals(componentType)) {
+                return (T[]) toArray((float[]) array);
+            }
+
+            if (double.class.equals(componentType)) {
+                return (T[]) toArray((double[]) array);
+            }
+
+            return null;
+
+        } else {
+            return (T[]) array;
+        }
+    }
+
+    /**
+     * 
+     * @param arr
+     * @return
+     * 
+     * @deprecated Use {@link ArrayUtils#toWrapperArray(short[])}, instead of.
+     */
+    public static Short[] toArray(short[] arr) {
+        Short[] array = new Short[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            array[i] = arr[i];
+        }
+
+        return array;
+    }
+
     public static String toJavaDocSingleLineComment(String string) {
         return "/** " + string + " */";
     }
@@ -403,6 +613,8 @@ public class ConvertUtils {
                 return (T) Byte.valueOf(value);
             case TYPE_CONST_CHAR:
                 return (T) Character.valueOf(value.charAt(0));
+            case TYPE_CONST_SHORT:
+                return (T) Short.valueOf(value);
             case TYPE_CONST_INT:
                 return (T) Integer.valueOf(value);
             case TYPE_CONST_LONG:
@@ -424,32 +636,36 @@ public class ConvertUtils {
      */
     public static Class<?> translateToWrapper(Class<?> primitiveType) {
 
-        if (primitiveType.equals(boolean.class)) {
+        if (boolean.class.equals(primitiveType)) {
             return Boolean.class;
         }
 
-        if (primitiveType.equals(byte.class)) {
+        if (byte.class.equals(primitiveType)) {
             return Byte.class;
         }
 
-        if (primitiveType.equals(char.class)) {
+        if (char.class.equals(primitiveType)) {
             return Character.class;
         }
 
-        if (primitiveType.equals(int.class)) {
+        if (int.class.equals(primitiveType)) {
             return Integer.class;
         }
 
-        if (primitiveType.equals(long.class)) {
+        if (long.class.equals(primitiveType)) {
             return Long.class;
         }
 
-        if (primitiveType.equals(float.class)) {
+        if (float.class.equals(primitiveType)) {
             return Float.class;
         }
 
-        if (primitiveType.equals(double.class)) {
+        if (double.class.equals(primitiveType)) {
             return Double.class;
+        }
+
+        if (short.class.equals(primitiveType)) {
+            return Short.class;
         }
 
         return primitiveType;
@@ -478,25 +694,28 @@ public class ConvertUtils {
 
         T[] wrapperClassArray = null;
 
-        if (componentType.equals(boolean.class)) {
+        if (boolean.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((boolean[]) array);
         } else //
-        if (componentType.equals(char.class)) {
+        if (char.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((char[]) array);
         } else //
-        if (componentType.equals(byte.class)) {
+        if (byte.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((byte[]) array);
         } else //
-        if (componentType.equals(int.class)) {
+        if (short.class.equals(componentType)) {
+            wrapperClassArray = (T[]) toArray((short[]) array);
+        } else //
+        if (int.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((int[]) array);
         } else //
-        if (componentType.equals(long.class)) {
+        if (long.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((long[]) array);
         } else //
-        if (componentType.equals(float.class)) {
+        if (float.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((float[]) array);
         } else //
-        if (componentType.equals(double.class)) {
+        if (double.class.equals(componentType)) {
             wrapperClassArray = (T[]) toArray((double[]) array);
         } else {
             wrapperClassArray = (T[]) array;
