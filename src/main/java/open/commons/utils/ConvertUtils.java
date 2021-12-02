@@ -167,12 +167,12 @@ public class ConvertUtils {
      */
     public static <S, T> Map<String, Function<?, ?>> createConverter(Class<S> srcClass, Class<T> targetClass) {
 
-        Map<String, Class<?>> srcFieldsMeta = AnnotationUtils.getAnnotatedFieldsAll(srcClass, Getter.class).stream() //
-                .map(field -> field.getAnnotation(Getter.class)) //
+        Map<String, Class<?>> srcFieldsMeta = AnnotationUtils.getAnnotatedMethodsAll(srcClass, Getter.class).stream() //
+                .map(method -> method.getAnnotation(Getter.class)) //
                 .collect(Collectors.toMap(anno -> anno.name(), anno -> anno.type()));
 
-        Map<String, Class<?>> targetFieldsMeta = AnnotationUtils.getAnnotatedFieldsAll(targetClass, Setter.class).stream() //
-                .map(field -> field.getAnnotation(Setter.class)) //
+        Map<String, Class<?>> targetFieldsMeta = AnnotationUtils.getAnnotatedMethodsAll(targetClass, Setter.class).stream() //
+                .map(method -> method.getAnnotation(Setter.class)) //
                 .collect(Collectors.toMap(anno -> anno.name(), anno -> anno.type()));
 
         Map<String, Function<?, ?>> converters = new HashMap<>();
