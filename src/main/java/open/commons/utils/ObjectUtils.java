@@ -29,6 +29,7 @@ package open.commons.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,8 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +49,7 @@ import org.slf4j.LoggerFactory;
 import open.commons.annotation.Getter;
 import open.commons.annotation.Information;
 import open.commons.annotation.Setter;
+import open.commons.stream.ClassSpliterator;
 
 /**
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
@@ -221,6 +225,120 @@ public class ObjectUtils {
     }
 
     /**
+     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param visitValue
+     *            배열에 포함된 데이터가 {@link Collection} 또는 배열인 경우 확인 여부
+     * @param data
+     *            배열
+     *
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean containsNull(boolean visitValue, Collection<?> data) {
+        for (Object value : data) {
+            if (value == null) {
+                return true;
+            } else if (visitValue) {
+                boolean contains = false;
+                if (Collection.class.isAssignableFrom(value.getClass())) {
+                    contains = containsNull(visitValue, (Collection<?>) value);
+                } //
+                else if (value.getClass().isArray()) {
+                    contains = containsNull(visitValue, (Object[]) value);
+                }
+
+                if (contains) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param visitValue
+     *            배열에 포함된 데이터가 {@link Collection} 또는 배열인 경우 확인 여부
+     * @param array
+     *            배열
+     *
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean containsNull(boolean visitValue, Object... array) {
+        return containsNull(visitValue, Arrays.asList(array));
+    }
+
+    /**
+     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param data
+     *            배열
+     *
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean containsNull(Collection<?> data) {
+        return containsNull(false, data);
+    }
+
+    /**
+     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param array
+     *            배열
+     *
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean containsNull(Object... array) {
+        return containsNull(false, array);
+    }
+
+    /**
      * {@link Getter}와 {@link Setter}의 식별정보를 생성하여 제공합니다. <br>
      * 
      * <pre>
@@ -391,6 +509,71 @@ public class ObjectUtils {
         }
 
         return obj;
+    }
+
+    /**
+     * 주어진 객체의 {@link Class} 정보를 배열로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Class<?>[] readClasses(Object... objects) {
+        return readClassesAsStream(objects) //
+                .toArray(Class<?>[]::new);
+    }
+
+    /**
+     * 주어진 객체의 {@link Class} 정보를 {@link List} 로 제공합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Class<?>> readClassesAsList(Object... objects) {
+        return readClassesAsStream(objects) //
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 주어진 객체의 {@link Class}정보를 {@link Stream}으로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Stream<Class<?>> readClassesAsStream(Object... objects) {
+        return StreamSupport.stream(new ClassSpliterator(objects), false);
     }
 
     /**

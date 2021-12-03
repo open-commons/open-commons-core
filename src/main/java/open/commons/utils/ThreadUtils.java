@@ -35,6 +35,47 @@ import java.util.List;
 
 public class ThreadUtils {
 
+    /**
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #getMethodName(int)
+     */
+    public static String getCurrentMethodName() {
+        // Thread thread = Thread.currentThread();
+        // StackTraceElement[] stacks = thread.getStackTrace();
+        // return stacks.length < 3 ? "Oops... I DO NOT know where here is." : stacks[2].getMethodName();
+        return getMethodName(1);
+
+    }
+
+    /**
+     * {@link StackTraceElement} 정보를 이용하여 메소드 이름을 제공한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param distance
+     *            이 메소드를 호출한 메소드로부터 거리.<br>
+     *            자신의 메소드 이름을 얻기 위해서는 '0'.
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String getMethodName(int distance) {
+
+        Thread thread = Thread.currentThread();
+
+        StackTraceElement[] stacks = thread.getStackTrace();
+
+        return stacks.length < 3 + distance ? "Oops... I DO NOT know where here is." : stacks[2 + distance].getMethodName();
+    }
+
     public static String getStackTrace(Exception e) {
 
         StringWriter writer = new StringWriter();
@@ -88,13 +129,5 @@ public class ThreadUtils {
         }
 
         return threads;
-    }
-
-    public static String getCurrentMethodName() {
-        Thread thread = Thread.currentThread();
-
-        StackTraceElement[] stacks = thread.getStackTrace();
-
-        return stacks.length < 3 ? "Oops... I DO NOT know where here is." : stacks[2].getMethodName();
     }
 }

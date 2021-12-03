@@ -1,5 +1,19 @@
+[2021/12/03]
+- New
+  + open.commons.stream.ClassSpliterator
+- Add
+  + open.commons.utils.ObjectUtils
+    + containsNull(boolean, Collection&lt;?&gt;)
+    + containsNull(boolean, Object...)
+    + containsNull(Collection&lt;?&gt;)
+    + containsNull(Object...)
+    + readClasses(Object...)
+    + readClassesAsList(Object...)
+    + readClassesAsStream(Object...)
+  + open.commons.utils.ThreadUtils.getMethodName(int)
+  
 [2021/12/02]
-- Ad
+- Add
   + open.commons.utils.ObjectUtils.registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;)
   + open.commons.utils.ObjectUtils.registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;, Function&lt;T, S&gt;)
 
