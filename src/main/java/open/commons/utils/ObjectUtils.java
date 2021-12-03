@@ -30,7 +30,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -128,12 +127,14 @@ public class ObjectUtils {
     private static final ConcurrentSkipListMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentSkipListMap<>();
 
     /**
+     * 기본 데이터 변환 키 생성 함수.
+     * 
      * @param srcClass
      *            변환 이전 데이터 타입
      * @param targetClass
      *            변환 이후 데이터 타입
      */
-    private static final BiFunction<Class<?>, Class<?>, String> FC_KEYGEN = (srcClass, targetClass) -> String.join(" -> ", srcClass.toGenericString(),
+    public static final BiFunction<Class<?>, Class<?>, String> FC_KEYGEN = (srcClass, targetClass) -> String.join(" -> ", srcClass.toGenericString(),
             targetClass.toGenericString());
 
     // Prevent to create a new instance.
@@ -941,9 +942,11 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 08.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #FIELD_CONVERTERS
      */
     public static <S, D> D transform(S src, boolean lookupSrcSuper, D target, boolean lookupTargetSuper) {
-        return transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
+        return transform(src, lookupSrcSuper, target, lookupTargetSuper, FIELD_CONVERTERS);
     }
 
     /**
@@ -971,7 +974,8 @@ public class ObjectUtils {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
-     *            데이터 변환 함수
+     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용한다.
+     * 
      * @return
      *
      * @since 2021. 11. 22.
@@ -994,7 +998,7 @@ public class ObjectUtils {
 
         // 데이터 변환함수가 null 인 경우
         if (converters == null) {
-            converters = new HashMap<>();
+            converters = FIELD_CONVERTERS;
         }
 
         // #0. Setter 메소드 재정렬
@@ -1053,7 +1057,7 @@ public class ObjectUtils {
                 // srcType과 targetType이 호환여부 확인
                 if (!checkType(srcType, targetType)) {
                     // 타입 변환 함수가 존재하는 경우
-                    if ((converter = FIELD_CONVERTERS.get(FC_KEYGEN.apply(srcType, targetType))) != null) {
+                    if ((converter = converters.get(FC_KEYGEN.apply(srcType, targetType))) != null) {
                         o = ((Function<Object, ?>) converter).apply(o);
                     }
                 }
