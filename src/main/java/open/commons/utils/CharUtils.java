@@ -92,7 +92,7 @@ public class CharUtils {
     }
 
     /**
-     * char[]을 byte[]로 변환해서 반환한다.
+     * char[]을 byte[]로 변환해서 반환합니다.
      * 
      * @param cs
      * @return

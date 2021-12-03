@@ -68,7 +68,7 @@ public class CollectionUtils {
     };
 
     /**
-     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 새로운 데이터를 {@link Collection}에 추가합니다.
      * 
      * @param col
      * @param clazz
@@ -95,7 +95,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 새로운 데이터를 {@link Collection}에 추가합니다.
      * 
      * @param col
      * @param clazz
@@ -124,7 +124,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 새로운 데이터를 {@link Collection}에 추가합니다.
      * 
      * <br>
      * 
@@ -151,7 +151,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 새로운 데이터를 {@link Collection}에 추가합니다.
      * 
      * <pre>
      * [개정이력]
@@ -190,7 +190,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 새로운 데이터를 {@link Collection}에 추가한다.
+     * 새로운 데이터를 {@link Collection}에 추가합니다.
      * 
      * @param col
      * @param clazz
@@ -255,7 +255,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 추가하려는 데이터가 <code>null</code>이 아닌 경우 추가한다.
+     * 추가하려는 데이터가 <code>null</code>이 아닌 경우 추가합니다.
      * 
      * <br>
      * 
@@ -300,7 +300,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 문자열을 키로 하는 맵에서 문자열의 대/소문자를 여부에 관계없이 키의 존재 여부를 반환한다.
+     * 문자열을 키로 하는 맵에서 문자열의 대/소문자를 여부에 관계없이 키의 존재 여부를 반환합니다.
      * 
      * @param map
      * @param keyIgnoreCase
@@ -409,7 +409,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}에 추가한다. <br>
+     * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}에 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -621,7 +621,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 2개의 배열을 합쳐서 하나의 배열로 반환한다.
+     * 2개의 배열을 합쳐서 하나의 배열로 반환합니다.
      * 
      * @param t1
      * @param t2
@@ -746,7 +746,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 배열에 포함된 데이터를 {@link List} 로 반환한다. <br>
+     * 배열에 포함된 데이터를 {@link List} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -775,7 +775,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link List} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link List} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -806,7 +806,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link List} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link List} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -863,7 +863,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link List} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link List} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1050,7 +1050,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 배열 데이터를 새로운 {@link Set} 로 반환한다. <br>
+     * 배열 데이터를 새로운 {@link Set} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1079,7 +1079,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link Set} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link Set} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1110,7 +1110,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link Set} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link Set} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1193,7 +1193,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link Set} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link Set} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1354,7 +1354,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 배열 데이터를 새로운 {@link Vector} 로 반환한다. <br>
+     * 배열 데이터를 새로운 {@link Vector} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1383,7 +1383,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link Vector} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link Vector} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1414,7 +1414,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link Vector} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link Vector} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1523,7 +1523,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 데이터를 추가하여 새로운 {@link Vector} 로 반환한다. <br>
+     * 데이터를 추가하여 새로운 {@link Vector} 로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1554,7 +1554,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Collection}을 정렬해서 {@link Set}으로 반환한다.
+     * 주어진 {@link Collection}을 정렬해서 {@link Set}으로 반환합니다.
      * 
      * @param col
      * @param asc
@@ -1569,7 +1569,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Collection}을 정렬해서 {@link Set}으로 반환한다.
+     * 주어진 {@link Collection}을 정렬해서 {@link Set}으로 반환합니다.
      * 
      * @param col
      * @param asc
@@ -1584,7 +1584,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Set}을 정렬한 후 새로운 {@link Set}을 반환한다.
+     * 주어진 {@link Set}을 정렬한 후 새로운 {@link Set}을 반환합니다.
      * 
      * @param set
      * @return 정렬된 새로운 객체
@@ -1600,7 +1600,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Map}을 정렬한 후 새로운 {@link Map}을 반환한다.
+     * 주어진 {@link Map}을 정렬한 후 새로운 {@link Map}을 반환합니다.
      * 
      * @param map
      * @param asc
@@ -1618,7 +1618,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Map}을 정렬한 후 새로운 {@link Map}을 반환한다.
+     * 주어진 {@link Map}을 정렬한 후 새로운 {@link Map}을 반환합니다.
      * 
      * @param map
      * @param asc
@@ -1636,7 +1636,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link Collection}에 포함된 첫번째 데이터를 반환한다.
+     * 주어진 {@link Collection}에 포함된 첫번째 데이터를 반환합니다.
      * 
      * @param col
      * @return 첫번째 데이터. 없는 경우 <code>null</code>.
@@ -1653,7 +1653,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환한다. <br>
+     * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1690,7 +1690,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환한다. <br>
+     * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1732,7 +1732,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환한다.
+     * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환합니다.
      * 
      * @param <E>
      * @param list
@@ -1755,7 +1755,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 범위(<code>s</code> ~ <code>e</code>) 내의 원소들을 포함하는 새로운 {@link List}를 반환한다.
+     * {@link List}에서 주어진 범위(<code>s</code> ~ <code>e</code>) 내의 원소들을 포함하는 새로운 {@link List}를 반환합니다.
      * 
      * @param <E>
      * @param list
@@ -3207,7 +3207,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection} 내부의 원소들을 표현하는 하나의 문자열을 반환한다.
+     * {@link Collection} 내부의 원소들을 표현하는 하나의 문자열을 반환합니다.
      * 
      * <pre>
      * Collection<String> col = new ArrayList<String>();
@@ -3240,7 +3240,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection} 내부의 원소들을 주어진 구분자를 이용해서 표현한 하나의 문자열을 반환한다.
+     * {@link Collection} 내부의 원소들을 주어진 구분자를 이용해서 표현한 하나의 문자열을 반환합니다.
      * 
      * @param col
      * @param delim
@@ -3255,7 +3255,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection} 내부의 원소들을 주어진 구분자를 이용해서 표현한 하나의 문자열을 반환한다.<br>
+     * {@link Collection} 내부의 원소들을 주어진 구분자를 이용해서 표현한 하나의 문자열을 반환합니다.<br>
      * 각 원소는 <code>prefix</code> 및 <code>suffix</code>로 둘러싸여진다.
      * 
      * @param col

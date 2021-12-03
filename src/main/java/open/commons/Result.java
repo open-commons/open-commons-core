@@ -53,7 +53,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과 데이타를 가지고 객체를 생성한다.<br>
+     * 결과 데이타를 가지고 객체를 생성합니다.<br>
      * {@link #result}에 대한 값은 <code>false</code>로 설정된다.
      * 
      * @param data
@@ -68,7 +68,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과 데이타와 <code>true</code>/<code>false</code>를 가지고 객체를 생성한다.<br>
+     * 결과 데이타와 <code>true</code>/<code>false</code>를 가지고 객체를 생성합니다.<br>
      * 
      * @param data
      * @param result
@@ -86,7 +86,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과를 <code>false</code>로 설정한 후 객체를 반환한다.
+     * 결과를 <code>false</code>로 설정한 후 객체를 반환합니다.
      * 
      * @return
      * @since 2012. 05. 30.
@@ -99,7 +99,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과를 <code>true</code>로 설정한 후 객체를 반환한다.
+     * 결과를 <code>true</code>로 설정한 후 객체를 반환합니다.
      * 
      * @return
      * @since 2012. 05. 30.
@@ -140,7 +140,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과 데이타를 반환한다.
+     * 결과 데이타를 반환합니다.
      * 
      * @return
      * 
@@ -162,13 +162,13 @@ public class Result<T> {
     }
 
     /**
-     * 결과를 반환한다.<br>
+     * 결과를 반환합니다.<br>
      * 좀 더 명확한 의미를 얻고자 한다면,
      * <ul>
      * <li>{@link #isFail()}: 실패/에러
      * <li>{@link #isSuccess()}: 성공
      * </ul>
-     * 을 사용한다.
+     * 을 사용합니다.
      * 
      * @return
      * 
@@ -234,7 +234,7 @@ public class Result<T> {
     }
 
     /**
-     * 데이타를 설정하고, 이전 데이타를 반환한다.
+     * 데이타를 설정하고, 이전 데이타를 반환합니다.
      * 
      * @param data
      * @return
@@ -288,7 +288,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과값을 설정하고, 이전 결과값을 반환한다.
+     * 결과값을 설정하고, 이전 결과값을 반환합니다.
      * 
      * @param result
      * @return

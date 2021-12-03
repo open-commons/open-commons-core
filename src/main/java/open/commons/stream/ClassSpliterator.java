@@ -30,6 +30,8 @@ import java.util.Arrays;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import open.commons.utils.ConvertUtils;
+
 /**
  * Object의 {@link Class}를 제공하는 객체.
  * 
@@ -39,7 +41,8 @@ import java.util.function.Consumer;
  */
 public class ClassSpliterator implements Spliterator<Class<?>> {
 
-    private Object[] data;
+    private final boolean forceToPrimitive;
+    private final Object[] data;
     private int pos = 0;
 
     /**
@@ -52,17 +55,40 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * 2021. 12. 3.		박준홍			최초 작성
      * </pre>
      * 
+     * @param forceToPrimitive
+     *            Wrapper {@link Class}를 강제로 Primitive 타입으로 변경할지 여부.
      * @param data
-     *            TODO
-     *
-     *
+     *            데이터
+     * 
+     * @since 2021. 12. 3.
+     * @version 0.3.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public ClassSpliterator(boolean forceToPrimitive, Object... data) {
+        assert data == null;
+        this.forceToPrimitive = forceToPrimitive;
+        this.data = data;
+    }
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param data
+     *            데이터
+     * 
      * @since 2021. 12. 3.
      * @version 0.3.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ClassSpliterator(Object... data) {
-        assert data == null;
-        this.data = data;
+        this(false, data);
     }
 
     /**
@@ -101,9 +127,12 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      */
     @Override
     public boolean tryAdvance(Consumer<? super Class<?>> action) {
+
         if (pos < this.data.length) {
             action.accept(this.data[pos] != null //
-                    ? this.data[pos].getClass() //
+                    ? forceToPrimitive //
+                            ? ConvertUtils.translateToPrimitive(this.data[pos].getClass()) //
+                            : this.data[pos].getClass() //
                     : null);
             pos++;
             return true;

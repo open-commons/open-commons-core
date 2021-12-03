@@ -44,7 +44,7 @@ public class CommonProperties {
     }
 
     /**
-     * 주어진 키값에 해당하는 프로퍼티 설정값을 반환한다.
+     * 주어진 키값에 해당하는 프로퍼티 설정값을 반환합니다.
      * 
      * @param key
      * @return <BR>

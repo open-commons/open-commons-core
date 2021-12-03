@@ -450,7 +450,7 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Setter} 어노테이션이 기술된 메소드를 이용하여 {@link Map}으로부터 데이터를 읽어 새로운 객체를 생성한다. <br>
+     * {@link Setter} 어노테이션이 기술된 메소드를 이용하여 {@link Map}으로부터 데이터를 읽어 새로운 객체를 생성합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -521,6 +521,29 @@ public class ObjectUtils {
      * 2021. 12. 3.		박준홍			최초 작성
      * </pre>
      *
+     * @param forceToPrimitive
+     * @param objects
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Class<?>[] readClasses(boolean forceToPrimitive, Object... objects) {
+        return readClassesAsStream(forceToPrimitive, objects) //
+                .toArray(Class<?>[]::new);
+    }
+
+    /**
+     * 주어진 객체의 {@link Class} 정보를 배열로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
      * @param objects
      * @return
      *
@@ -529,8 +552,29 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Class<?>[] readClasses(Object... objects) {
-        return readClassesAsStream(objects) //
-                .toArray(Class<?>[]::new);
+        return readClasses(false, objects);
+    }
+
+    /**
+     * 주어진 객체의 {@link Class} 정보를 {@link List} 로 제공합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Class<?>> readClassesAsList(boolean forceToPrimitive, Object... objects) {
+        return readClassesAsStream(forceToPrimitive, objects) //
+                .collect(Collectors.toList());
     }
 
     /**
@@ -551,8 +595,28 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static List<Class<?>> readClassesAsList(Object... objects) {
-        return readClassesAsStream(objects) //
-                .collect(Collectors.toList());
+        return readClassesAsList(false, objects);
+    }
+
+    /**
+     * 주어진 객체의 {@link Class}정보를 {@link Stream}으로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Stream<Class<?>> readClassesAsStream(boolean forceToPrimitive, Object... objects) {
+        return StreamSupport.stream(new ClassSpliterator(forceToPrimitive, objects), false);
     }
 
     /**
@@ -573,7 +637,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Stream<Class<?>> readClassesAsStream(Object... objects) {
-        return StreamSupport.stream(new ClassSpliterator(objects), false);
+        return readClassesAsStream(false, objects);
     }
 
     /**
@@ -949,7 +1013,7 @@ public class ObjectUtils {
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetType
-     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @return
      *
      * @since 2019. 7. 11.
@@ -980,7 +1044,7 @@ public class ObjectUtils {
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetType
-     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
      * @return
@@ -1015,7 +1079,7 @@ public class ObjectUtils {
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetType
-     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
      * @param converters
@@ -1053,7 +1117,7 @@ public class ObjectUtils {
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetType
-     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param converters
      *            데이터 변환 함수
      * @return
@@ -1157,7 +1221,7 @@ public class ObjectUtils {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
-     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용한다.
+     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      * 
      * @return
      *
@@ -1348,7 +1412,7 @@ public class ObjectUtils {
      * @param src
      *            입력 데이타.
      * @param targetType
-     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
      * @return
@@ -1377,7 +1441,7 @@ public class ObjectUtils {
      * @param src
      *            입력 데이타.
      * @param targetType
-     *            변환 타입. 기본생성자가 반드시 있어야 한다.
+     *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
      * @param converters

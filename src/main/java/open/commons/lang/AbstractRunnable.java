@@ -95,7 +95,7 @@ public abstract class AbstractRunnable implements IRunnable {
     }
 
     /**
-     * 현재 작업이 종료될 때까지 대기한다. <br>
+     * 현재 작업이 종료될 때까지 대기합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -113,7 +113,7 @@ public abstract class AbstractRunnable implements IRunnable {
     }
 
     /**
-     * 현재 작업이 종료될 때까지 대기한다. <br>
+     * 현재 작업이 종료될 때까지 대기합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -132,7 +132,7 @@ public abstract class AbstractRunnable implements IRunnable {
     }
 
     /**
-     * 현재 작업이 종료될 때까지 대기한다. <br>
+     * 현재 작업이 종료될 때까지 대기합니다. <br>
      * 
      * <pre>
      * [개정이력]

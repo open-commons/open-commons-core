@@ -329,7 +329,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * CSV 데이터 헤더 제공자를 반환한다. <br>
+     * CSV 데이터 헤더 제공자를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -368,7 +368,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * CSV 데이터 제공자를 반환한다. <br>
+     * CSV 데이터 제공자를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -428,7 +428,7 @@ public abstract class AbstractCsvData {
     }
 
     /**
-     * 특수한 경우의 문자열을 처리한다. <br>
+     * 특수한 경우의 문자열을 처리합니다. <br>
      * 
      * <pre>
      * [개정이력]

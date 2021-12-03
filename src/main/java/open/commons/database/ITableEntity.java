@@ -38,21 +38,21 @@ import java.util.Collection;
 public interface ITableEntity extends Comparable<ITableEntity> {
 
     /**
-     * 컬럼 개수를 반환한다.
+     * 컬럼 개수를 반환합니다.
      * 
      * @return 컬럼 개수
      */
     public int count();
 
     /**
-     * <b><b><code>insert</code></b> 쿼리를 생성한다.
+     * <b><b><code>insert</code></b> 쿼리를 생성합니다.
      * 
      * @return
      */
     public String createInsertQuery();
 
     /**
-     * <b><b><code>insert</code></b> 쿼리를 생성한다.
+     * <b><b><code>insert</code></b> 쿼리를 생성합니다.
      * 
      * @param table
      * 
@@ -61,7 +61,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createInsertQuery(String table);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성한다.
+     * <b><code>select</code></b> 쿼리를 생성합니다.
      * 
      * @param selects
      *            가져올 컬럼명
@@ -72,7 +72,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createSelectQuery(Collection<Integer> selects, int... where);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성한다.
+     * <b><code>select</code></b> 쿼리를 생성합니다.
      * 
      * @param where
      *            <b><code>where</code></b> clause에 사용될 컬럼
@@ -82,7 +82,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createSelectQuery(int... where);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성한다.
+     * <b><code>select</code></b> 쿼리를 생성합니다.
      * 
      * @param table
      * @param selects
@@ -94,7 +94,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createSelectQuery(String table, Collection<Integer> selects, int... where);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성한다.
+     * <b><code>select</code></b> 쿼리를 생성합니다.
      * 
      * @param table
      * @param where
@@ -116,7 +116,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createUpdateQuery(Collection<Integer> updates, int... where);
 
     /**
-     * <b><code>update</code></b> 쿼리를 생성한다.
+     * <b><code>update</code></b> 쿼리를 생성합니다.
      * 
      * @param where
      *            <b><code>where</code></b>clause에 사용될 컬럼
@@ -126,7 +126,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createUpdateQuery(int... where);
 
     /**
-     * <b><code>Update</code></b> 쿼리를 생성한다.
+     * <b><code>Update</code></b> 쿼리를 생성합니다.
      * 
      * @param table
      * 
@@ -140,7 +140,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createUpdateQuery(String table, Collection<Integer> updates, int... where);
 
     /**
-     * <b><b><code>update</code></b> 쿼리를 생성한다.
+     * <b><b><code>update</code></b> 쿼리를 생성합니다.
      * 
      * @param table
      * @param where
@@ -160,7 +160,7 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public boolean setValue(int index, Object value);
 
     /**
-     * 컬럼 데이터를 문자열 배열로 반환한다.
+     * 컬럼 데이터를 문자열 배열로 반환합니다.
      * 
      * @return
      */

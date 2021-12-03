@@ -68,7 +68,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
     }
 
     /**
-     * {@link #runInternal()} 메소드 실행 전에 수행되는 기능을 구현한다.<br>
+     * {@link #runInternal()} 메소드 실행 전에 수행되는 기능을 구현합니다.<br>
      * 
      * <br>
      * 

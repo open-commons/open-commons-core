@@ -29,7 +29,7 @@ public class WebUtils {
 
     /**
      * 
-     * HTTP URL 문자열에서 파라미터에 해당하는 부분의 내용을 맵으로 전환해서 반환한다.<br>
+     * HTTP URL 문자열에서 파라미터에 해당하는 부분의 내용을 맵으로 전환해서 반환합니다.<br>
      * 
      * @param urlLocation
      *            HTTP URL에서 파라미터에 해당하는 부분

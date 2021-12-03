@@ -86,7 +86,7 @@ public class NetUtils {
     public static final String REGEX_DOMAIN_STRICT = "^" + REGEX_DOMAIN + "$";
 
     /**
-     * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환한다.
+     * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환합니다.
      * 
      * @param ni
      * @return <b><code>nullable</code></b>.
@@ -104,7 +104,7 @@ public class NetUtils {
     }
 
     /**
-     * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환한다.
+     * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환합니다.
      * 
      * @param name
      * @return <b><code>nullable</code></b>.
@@ -126,7 +126,7 @@ public class NetUtils {
     }
 
     /**
-     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경한다. <br>
+     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -158,7 +158,7 @@ public class NetUtils {
     }
 
     /**
-     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경한다. <br>
+     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경합니다. <br>
      * 
      * <pre>
      * [개정이력]

@@ -266,8 +266,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     /**
-     * 시간정보 차이 값을 반환한다.<br>
-     * 대소 여부는 {@link #ge(TimeInfo)} 또는 {@link #lt(TimeInfo)}를 이용한다.
+     * 시간정보 차이 값을 반환합니다.<br>
+     * 대소 여부는 {@link #ge(TimeInfo)} 또는 {@link #lt(TimeInfo)}를 이용합니다.
      * 
      * @param other
      * @return
@@ -290,7 +290,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     /**
-     * 2자리 길이를 맞추어 반환한다.
+     * 2자리 길이를 맞추어 반환합니다.
      * 
      * @param v
      * @return
@@ -423,7 +423,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     /**
-     * 숫자 형태의 값을 반환한다.
+     * 숫자 형태의 값을 반환합니다.
      * 
      * @return
      */
@@ -511,7 +511,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     /**
-     * 시간 정보를 밀리세컨드로 반환한다.
+     * 시간 정보를 밀리세컨드로 반환합니다.
      * 
      * @return
      */
@@ -536,7 +536,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     /**
-     * 문자열 형태의 값을 반환한다.
+     * 문자열 형태의 값을 반환합니다.
      * 
      * @return
      */
@@ -553,7 +553,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     /**
-     * 밀리세컨드 정보를 입력받아 객체를 생성한다.<br>
+     * 밀리세컨드 정보를 입력받아 객체를 생성합니다.<br>
      * 
      * @param ms
      * @return

@@ -94,8 +94,8 @@ public class ComparableUtils {
     }
 
     /**
-     * {@link ComparableValue}이 사용된 필드만 이용해서 비교 결과를 반환한다. 단, {@link ComparableValue}가 사용된 필드는 {@link Comparable}를
-     * implement 해야만 한다.
+     * {@link ComparableValue}이 사용된 필드만 이용해서 비교 결과를 반환합니다. 단, {@link ComparableValue}가 사용된 필드는 {@link Comparable}를
+     * implement 해야만 합니다.
      * 
      * Example.
      * 

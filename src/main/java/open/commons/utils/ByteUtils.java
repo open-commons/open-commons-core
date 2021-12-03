@@ -72,7 +72,7 @@ public class ByteUtils {
     }
 
     /**
-     * byte 배열을 Hexa 문자열로 반환한다.
+     * byte 배열을 Hexa 문자열로 반환합니다.
      * 
      * @param data
      * @return
@@ -128,7 +128,7 @@ public class ByteUtils {
     }
 
     /**
-     * byte 배열을 Hex 문자열로 반환한다. <br>
+     * byte 배열을 Hex 문자열로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -202,7 +202,7 @@ public class ByteUtils {
     }
 
     /**
-     * byte[]를 {@link ByteBuffer}로 변환해서 반환한다.
+     * byte[]를 {@link ByteBuffer}로 변환해서 반환합니다.
      * 
      * @param bytes
      * @return <b><code>flip mode</code></b> instance.
@@ -221,7 +221,7 @@ public class ByteUtils {
     }
 
     /**
-     * byte[]을 char[]로 변환해서 반환한다.
+     * byte[]을 char[]로 변환해서 반환합니다.
      * 
      * @param bytes
      * @return
@@ -243,7 +243,7 @@ public class ByteUtils {
     }
 
     /**
-     * byte 값을 int 로 변환해 반환한다.
+     * byte 값을 int 로 변환해 반환합니다.
      * 
      * @param b
      * @return
@@ -253,7 +253,7 @@ public class ByteUtils {
     }
 
     /**
-     * 길이가 4인 byte 배열(byte-4 배열)을 int 타입의 값으로 변환한 후 반환한다.
+     * 길이가 4인 byte 배열(byte-4 배열)을 int 타입의 값으로 변환한 후 반환합니다.
      * 
      * @param value
      * @return
@@ -351,7 +351,7 @@ public class ByteUtils {
     }
 
     /**
-     * 주어진 배열에 포함된 byte 내부의 bit 값 위치를 뒤집은 후 새로운 배열로 반환한다.<br>
+     * 주어진 배열에 포함된 byte 내부의 bit 값 위치를 뒤집은 후 새로운 배열로 반환합니다.<br>
      * 
      * <ul>
      * <li>1 <-> 8
@@ -405,7 +405,7 @@ public class ByteUtils {
     }
 
     /**
-     * 두 개의 배열에서 동일한 인덱스에 존재하는 데이터의 XOR(Exclusive OR)값을 하나의 배열로 반환한다.
+     * 두 개의 배열에서 동일한 인덱스에 존재하는 데이터의 XOR(Exclusive OR)값을 하나의 배열로 반환합니다.
      * 
      * @param b1
      * @param b2

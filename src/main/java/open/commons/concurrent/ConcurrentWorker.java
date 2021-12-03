@@ -97,7 +97,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * 작업큐에서 꺼낸 작업이 완료되어 작업개수를 감소한다. <br>
+     * 작업큐에서 꺼낸 작업이 완료되어 작업개수를 감소합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -270,7 +270,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * 데이터를 추가한다.<br>
+     * 데이터를 추가합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -326,7 +326,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * 데이터를 삭제한다. <br>
+     * 데이터를 삭제합니다. <br>
      * 
      * <pre>
      * [개정이력]

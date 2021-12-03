@@ -50,7 +50,7 @@ import open.commons.collection.IContainer;
 public class ArrayUtils {
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -77,7 +77,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -98,7 +98,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -124,7 +124,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -145,7 +145,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -171,7 +171,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -193,7 +193,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -219,7 +219,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -241,7 +241,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -267,7 +267,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -289,7 +289,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -315,7 +315,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -337,7 +337,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -363,7 +363,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -385,7 +385,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -411,7 +411,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -433,7 +433,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -469,7 +469,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * <br>
      * 
      * <pre>
@@ -491,7 +491,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -510,7 +510,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -529,7 +529,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -561,7 +561,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -580,7 +580,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -612,7 +612,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -631,7 +631,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -663,7 +663,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -682,7 +682,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -714,7 +714,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -733,7 +733,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -765,7 +765,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -784,7 +784,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -816,7 +816,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -835,7 +835,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다. <br>
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -867,7 +867,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환한다.
+     * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -892,7 +892,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 길이(<b><code>length</code></b>)만큼 주어진 배열(<b><code>classes</code></b>) 로부터 데이터를 복사하여 새로운 배열을 반환한다.<br>
+     * 주어진 길이(<b><code>length</code></b>)만큼 주어진 배열(<b><code>classes</code></b>) 로부터 데이터를 복사하여 새로운 배열을 반환합니다.<br>
      * 주어진 배열(<b><code>classes</code></b>)의 길이가 주어진 길이(<b><code>length</code></b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
      * 
      * @param length
@@ -1260,7 +1260,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1281,7 +1281,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1302,7 +1302,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1323,7 +1323,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1344,7 +1344,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1365,7 +1365,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1386,7 +1386,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1407,7 +1407,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1428,7 +1428,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환한다.
+     * 주어진 배열에 찾고자 하는 값이 있는지 여부를 반환합니다.
      * 
      * @param array
      * @param value
@@ -1448,7 +1448,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열 내의 원소들과 주어진 원소사이의 포함관계여부를 반환한다.<br>
+     * 주어진 배열 내의 원소들과 주어진 원소사이의 포함관계여부를 반환합니다.<br>
      * 
      * @param array
      * @param t
@@ -2264,7 +2264,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2290,7 +2290,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2316,7 +2316,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2342,7 +2342,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2368,7 +2368,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2394,7 +2394,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2420,7 +2420,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2446,7 +2446,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2472,7 +2472,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2485,7 +2485,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에 주어진 값이 포함되어 있는 개수를 반환한다.
+     * 배열에 주어진 값이 포함되어 있는 개수를 반환합니다.
      * 
      * @param array
      * @param value
@@ -2560,7 +2560,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열이 동일한지 여부를 확인한다.
+     * 2개의 배열이 동일한지 여부를 확인합니다.
      * 
      * @param array1
      * @param array2
@@ -2578,7 +2578,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열이 동일한지 여부를 확인한다.
+     * 2개의 배열이 동일한지 여부를 확인합니다.
      * 
      * 예제:
      * 
@@ -2731,7 +2731,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열들 중에서 첫번째 배열의 마지막번째부터 마지막 배열의 0번째 값의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환한다.<br>
+     * 주어진 배열들 중에서 첫번째 배열의 마지막번째부터 마지막 배열의 0번째 값의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환합니다.<br>
      * 
      * <pre>
      * byte[] b1 = {1,2,3};
@@ -2758,7 +2758,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열들 중에서 첫번째 배열의 0번째부터 마지막 배열의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환한다.<br>
+     * 주어진 배열들 중에서 첫번째 배열의 0번째부터 마지막 배열의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환합니다.<br>
      * 
      * <pre>
      * byte[] b1 = {1,2,3};
@@ -2785,7 +2785,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열에서 찾고자하는 데이터의 인덱스를 반환한다.
+     * 배열에서 찾고자하는 데이터의 인덱스를 반환합니다.
      * 
      * @param objs
      * @param obj
@@ -2808,7 +2808,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열들 중에서 인덱스에 해당하는 값들만 추출해 하나의 배열로 반환한다.
+     * 주어진 배열들 중에서 인덱스에 해당하는 값들만 추출해 하나의 배열로 반환합니다.
      * 
      * @param bytes
      * @param index
@@ -2826,7 +2826,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2855,7 +2855,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2884,7 +2884,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2913,7 +2913,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2942,7 +2942,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2971,7 +2971,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3000,7 +3000,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3029,7 +3029,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3058,7 +3058,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환한다. 없는 경우 -1을 반환한다. <br>
+     * 조건에 맞는 데이터가 처음 발생하는 위치(index)를 반환합니다. 없는 경우 -1을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3087,8 +3087,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3120,7 +3120,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3178,8 +3178,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3211,7 +3211,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3269,8 +3269,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3302,7 +3302,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3360,8 +3360,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3393,7 +3393,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3451,8 +3451,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3484,7 +3484,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3542,8 +3542,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3575,7 +3575,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3633,8 +3633,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3666,7 +3666,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3724,8 +3724,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3757,7 +3757,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3815,8 +3815,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3831,8 +3831,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      * @param array
      * @param value
@@ -3872,7 +3872,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3893,7 +3893,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현한다.
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
      * 
      * @param array
      *            대상 배열
@@ -3952,7 +3952,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -3971,7 +3971,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -3990,7 +3990,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4009,7 +4009,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4028,7 +4028,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4047,7 +4047,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4066,7 +4066,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4085,7 +4085,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4104,7 +4104,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성한다.
+     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4123,7 +4123,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4161,7 +4161,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4211,7 +4211,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4249,7 +4249,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4299,7 +4299,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4337,7 +4337,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4387,7 +4387,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4425,7 +4425,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4475,7 +4475,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4513,7 +4513,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4563,7 +4563,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4601,7 +4601,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4651,7 +4651,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4689,7 +4689,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4739,7 +4739,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4789,7 +4789,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4827,7 +4827,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 위치에 삽입한다.
+     * 새로운 값을 원하는 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4865,7 +4865,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 새로운 값을 원하는 여러 위치에 삽입한다.
+     * 새로운 값을 원하는 여러 위치에 삽입합니다.
      * 
      * @param array
      * @param value
@@ -4915,10 +4915,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -4930,7 +4930,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -4960,7 +4960,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -4991,10 +4991,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5006,7 +5006,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5036,7 +5036,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5067,7 +5067,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5100,10 +5100,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5115,7 +5115,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5145,7 +5145,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5176,10 +5176,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5191,7 +5191,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5221,7 +5221,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5251,10 +5251,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5266,7 +5266,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5296,7 +5296,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5326,10 +5326,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5341,7 +5341,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5371,7 +5371,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5401,10 +5401,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5416,7 +5416,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5446,7 +5446,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5476,10 +5476,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5491,7 +5491,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5521,7 +5521,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5551,10 +5551,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 여러 개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환한다.
+     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
@@ -5566,7 +5566,7 @@ public class ArrayUtils {
         int[] evalArr = new int[arrays.length];
 
         int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관한다.
+        // null이 아닌 배열의 인덱스를 보관합니다.
         for (int i = 0; i < arrays.length; i++) {
             if (arrays[i] != null) {
                 evalArr[evalIndex++] = i;
@@ -5596,7 +5596,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 2개의 배열을 하나의 배열로 합쳐서 반환한다.
+     * 2개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arr1
      * @param arr2
@@ -5629,8 +5629,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5655,8 +5655,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5681,8 +5681,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5707,8 +5707,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5733,8 +5733,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5759,8 +5759,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5785,8 +5785,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5811,8 +5811,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5837,8 +5837,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환한다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가한다.
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
@@ -5863,7 +5863,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -5919,7 +5919,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -5975,7 +5975,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6031,7 +6031,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6087,7 +6087,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6143,7 +6143,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6199,7 +6199,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6255,7 +6255,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6311,7 +6311,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6330,7 +6330,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6391,7 +6391,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6413,7 +6413,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6435,7 +6435,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6457,7 +6457,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6479,7 +6479,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6501,7 +6501,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6523,7 +6523,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6545,7 +6545,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6567,7 +6567,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환한다.
+     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
@@ -6590,7 +6590,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6620,7 +6620,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6650,7 +6650,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6680,7 +6680,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6710,7 +6710,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6740,7 +6740,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6770,7 +6770,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6800,7 +6800,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6830,7 +6830,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6853,7 +6853,7 @@ public class ArrayUtils {
      */
 
     /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6888,7 +6888,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6918,7 +6918,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6948,7 +6948,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -6978,7 +6978,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7008,7 +7008,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7038,7 +7038,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7068,7 +7068,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7098,7 +7098,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7128,7 +7128,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7147,7 +7147,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환한다.
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
      * @param value
@@ -7182,7 +7182,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7235,7 +7235,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7255,7 +7255,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7314,7 +7314,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7367,7 +7367,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7386,7 +7386,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7445,7 +7445,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7500,7 +7500,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7520,7 +7520,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7580,7 +7580,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7633,7 +7633,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7653,7 +7653,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7712,7 +7712,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7765,7 +7765,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7785,7 +7785,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7844,7 +7844,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7897,7 +7897,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7916,7 +7916,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -7975,7 +7975,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8028,7 +8028,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8047,7 +8047,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8106,7 +8106,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8159,7 +8159,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8179,7 +8179,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8238,7 +8238,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8255,7 +8255,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8270,7 +8270,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8285,7 +8285,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8344,7 +8344,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8399,7 +8399,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환한다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
      * @param array
      * @param target
@@ -8456,7 +8456,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>boolean</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>boolean</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8480,7 +8480,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>byte</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>byte</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8504,7 +8504,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>char</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>char</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8528,7 +8528,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>double</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>double</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8552,7 +8552,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>float</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>float</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8576,7 +8576,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>int</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>int</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8600,7 +8600,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>long</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>long</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8624,7 +8624,7 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>long</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환한다.
+     * <code><b>long</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8648,7 +8648,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열의 순서를 변경한 후 반환한다.
+     * 배열의 순서를 변경한 후 반환합니다.
      * 
      * @param array
      * @return <BR>
@@ -8788,7 +8788,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -8845,7 +8845,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -8902,7 +8902,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -8959,7 +8959,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -9016,7 +9016,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -9073,7 +9073,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -9130,7 +9130,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -9187,7 +9187,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다.
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
      * 
      * @param array
      * @param value
@@ -9203,7 +9203,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환한다. <br>
+     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다. <br>
      * 
      * <pre>
      * -- begin of code
@@ -9432,7 +9432,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9475,7 +9475,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9519,7 +9519,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9563,7 +9563,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9607,7 +9607,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9651,7 +9651,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9695,7 +9695,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9739,7 +9739,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param array
      *            분리할 배열
@@ -9783,7 +9783,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환한다.
+     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
      * 
      * @param T
      *            배열의 원소 타입.

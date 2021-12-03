@@ -36,7 +36,7 @@ import open.commons.IEquivalent;
 public class CheckUtils {
 
     /**
-     * 파라미터들에 대한 <code>null</code> 확인을 한다.
+     * 파라미터들에 대한 <code>null</code> 확인을 합니다.
      * 
      * @param col
      *            확인하고자 하는 데이타 <BR>
@@ -67,7 +67,7 @@ public class CheckUtils {
     }
 
     /**
-     * 파라미터들에 대한 <code>null</code> 확인을 한다.
+     * 파라미터들에 대한 <code>null</code> 확인을 합니다.
      * 
      * @param objs
      *            확인하고자 하는 데이타 <BR>

@@ -170,7 +170,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다. <br>
+     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -191,7 +191,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다. <br>
+     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -214,7 +214,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환한다. <br>
+     * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -235,7 +235,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환한다.<br>
+     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -253,7 +253,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환한다. <br>
+     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -280,7 +280,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환한다.
+     * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다.
      * 
      * @param inStream
      * @return {@link BufferedReader} 객체, {@link InputStream}인 <code>null</code>인 경우 <code>null</code>반환.
@@ -369,7 +369,7 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 문자열({@link String})을 읽어오는 {@link BufferedReader}를 반환한다.
+     * 주어진 문자열({@link String})을 읽어오는 {@link BufferedReader}를 반환합니다.
      * 
      * @param string
      * @return <b><code>nullable</code></b>.
@@ -388,7 +388,7 @@ public class IOUtils {
     }
 
     /**
-     * 클래스가 포함되어 있는 리소스 경로를 반환한다.
+     * 클래스가 포함되어 있는 리소스 경로를 반환합니다.
      * 
      * @param container
      * @return <BR>
@@ -412,7 +412,7 @@ public class IOUtils {
     }
 
     /**
-     * <code>container</code>와 같은 패키지에 존재하는 리소스에 대한 {@link InputStream}를 반환한다.
+     * <code>container</code>와 같은 패키지에 존재하는 리소스에 대한 {@link InputStream}를 반환합니다.
      * 
      * @param loader
      *            클래스 로더를 선택하는 클래스
@@ -433,9 +433,9 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 문자열({@link String})에 저장하는 {@link BufferedWriter}를 반환한다.
+     * 주어진 문자열({@link String})에 저장하는 {@link BufferedWriter}를 반환합니다.
      * 
-     * @return 예외가 발생하는 경우 <code>null</code>을 반환한다.
+     * @return 예외가 발생하는 경우 <code>null</code>을 반환합니다.
      * 
      * @since 2012. 01. 10.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -449,10 +449,10 @@ public class IOUtils {
     }
 
     /**
-     * 주어진 {@link File}에 저장하는 {@link BufferedWriter}를 반환한다.
+     * 주어진 {@link File}에 저장하는 {@link BufferedWriter}를 반환합니다.
      * 
      * @param file
-     * @return 예외가 발생하는 경우 <code>null</code>을 반환한다.
+     * @return 예외가 발생하는 경우 <code>null</code>을 반환합니다.
      * @throws IOException
      * 
      * @since 2012. 01. 10.
@@ -467,7 +467,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link OutputStream}을 가지고 {@link BufferedWriter}를 생성해서 반환한다.
+     * {@link OutputStream}을 가지고 {@link BufferedWriter}를 생성해서 반환합니다.
      * 
      * @param inStream
      * @return {@link BufferedWriter} 객체, {@link OutputStream}인 <code>null</code>인 경우 <code>null</code>반환.
@@ -1270,7 +1270,7 @@ public class IOUtils {
     }
 
     /**
-     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환한다. <br>
+     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1295,7 +1295,7 @@ public class IOUtils {
     }
 
     /**
-     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환한다. <br>
+     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1323,7 +1323,7 @@ public class IOUtils {
     }
 
     /**
-     * 채널에 있는 데이터를 읽어 byte 배열로 반환한다. <br>
+     * 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2026,7 +2026,7 @@ public class IOUtils {
     }
 
     /**
-     * 입력받은 InputStream에서 주어진 길이만큼 데이터를 읽어서 반환한다.
+     * 입력받은 InputStream에서 주어진 길이만큼 데이터를 읽어서 반환합니다.
      * 
      * @param inStream
      * @param length
@@ -2115,7 +2115,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2144,7 +2144,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2211,7 +2211,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2241,7 +2241,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2273,7 +2273,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
      * <pre>
@@ -2303,7 +2303,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
      * <pre>
@@ -2335,7 +2335,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2361,7 +2361,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2389,7 +2389,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2419,7 +2419,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2447,7 +2447,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -2477,7 +2477,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2505,7 +2505,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2535,7 +2535,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -2564,7 +2564,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2594,7 +2594,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2626,7 +2626,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -2657,7 +2657,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -2688,7 +2688,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -2718,7 +2718,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2748,7 +2748,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2780,7 +2780,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
      * 
      * <pre>
@@ -2811,7 +2811,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2845,7 +2845,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2883,7 +2883,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2911,7 +2911,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2941,7 +2941,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
      * <pre>
@@ -2971,7 +2971,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송한다.<br>
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
      * 
      * <pre>
@@ -3003,7 +3003,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3029,7 +3029,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3057,7 +3057,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3087,7 +3087,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3115,7 +3115,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3145,7 +3145,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3177,7 +3177,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3207,7 +3207,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3239,7 +3239,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3265,7 +3265,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3322,7 +3322,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3348,7 +3348,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3376,7 +3376,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3406,7 +3406,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3434,7 +3434,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3460,7 +3460,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3488,7 +3488,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3518,7 +3518,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달한다. <br>
+     * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3546,7 +3546,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3568,7 +3568,7 @@ public class IOUtils {
     }
 
     /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달한다. <br>
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]

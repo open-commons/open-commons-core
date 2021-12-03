@@ -125,7 +125,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * qName에 해당하는 객체를 저장한다. <br>
+     * qName에 해당하는 객체를 저장합니다. <br>
      * 
      * <pre>
      * [개정이력]

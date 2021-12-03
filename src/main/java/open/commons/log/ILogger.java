@@ -39,33 +39,33 @@ public interface ILogger {
     public static final String TYPE_LOG = "LOG";
 
     /**
-     * 메소드의 진입 로그를 출력한다.
+     * 메소드의 진입 로그를 출력합니다.
      */
     public void entry();
 
     /**
-     * 메소드의 진입 로그를 출력한다.
+     * 메소드의 진입 로그를 출력합니다.
      * 
      * @param log
      */
     public void entry(Object log);
 
     /**
-     * 메소드의 진입 로그를 출력한다.
+     * 메소드의 진입 로그를 출력합니다.
      * 
      * @param log
      */
     public void entry(String log);
 
     /**
-     * 에러 로그를 출력한다.
+     * 에러 로그를 출력합니다.
      * 
      * @param log
      */
     public void error(Object log);
 
     /**
-     * 에러 로그를 출력한다.
+     * 에러 로그를 출력합니다.
      * 
      * @param log
      * @param e
@@ -73,14 +73,14 @@ public interface ILogger {
     public void error(Object log, Exception e);
 
     /**
-     * 에러 로그를 출력한다.
+     * 에러 로그를 출력합니다.
      * 
      * @param log
      */
     public void error(String log);
 
     /**
-     * 에러 로그를 출력한다.
+     * 에러 로그를 출력합니다.
      * 
      * @param log
      * @param e
@@ -88,40 +88,40 @@ public interface ILogger {
     public void error(String log, Exception e);
 
     /**
-     * 메소드 종료 로그를 출력한다.
+     * 메소드 종료 로그를 출력합니다.
      */
     public void leave();
 
     /**
-     * 메소드 종료 로그를 출력한다.
+     * 메소드 종료 로그를 출력합니다.
      * 
      * @param log
      */
     public void leave(Object log);
 
     /**
-     * 메소드 종료 로그를 출력한다.
+     * 메소드 종료 로그를 출력합니다.
      * 
      * @param log
      */
     public void leave(String log);
 
     /**
-     * 일반 로그를 출력한다.
+     * 일반 로그를 출력합니다.
      * 
      * @param log
      */
     public void log(Object log);
 
     /**
-     * 일반 로그를 출력한다.
+     * 일반 로그를 출력합니다.
      * 
      * @param log
      */
     public void log(String log);
 
     /**
-     * 로그 출력 여부를 설졍한다.
+     * 로그 출력 여부를 설졍합니다.
      * 
      * @param enabled
      * @return TODO

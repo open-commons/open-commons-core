@@ -49,7 +49,7 @@ public class ThreadUtils {
     }
 
     /**
-     * {@link StackTraceElement} 정보를 이용하여 메소드 이름을 제공한다. <br>
+     * {@link StackTraceElement} 정보를 이용하여 메소드 이름을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -88,7 +88,7 @@ public class ThreadUtils {
     }
 
     /**
-     * 현재 {@link Thread}에 이름을 지정하고, 이전 이름을 반환한다.
+     * 현재 {@link Thread}에 이름을 지정하고, 이전 이름을 반환합니다.
      * 
      * @param name
      * @return

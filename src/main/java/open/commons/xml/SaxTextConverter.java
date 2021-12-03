@@ -80,7 +80,7 @@ public class SaxTextConverter {
     }
 
     /**
-     * SAX Element의 정보를 주어진 객체에 추가한다. <br>
+     * SAX Element의 정보를 주어진 객체에 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -155,7 +155,7 @@ public class SaxTextConverter {
     }
 
     /**
-     * 데이타 타입에 따른 변환기를 등록한다. <br>
+     * 데이타 타입에 따른 변환기를 등록합니다. <br>
      * 
      * <pre>
      * [개정이력]

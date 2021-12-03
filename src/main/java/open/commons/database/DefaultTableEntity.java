@@ -266,7 +266,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * 모든 컬럼에 해당하는 값을 반환한다.<br>
+     * 모든 컬럼에 해당하는 값을 반환합니다.<br>
      * 
      * @return e.g. col1, col2, col3, ...
      */

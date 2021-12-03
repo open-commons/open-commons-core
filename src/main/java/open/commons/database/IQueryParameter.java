@@ -33,14 +33,14 @@ package open.commons.database;
 public interface IQueryParameter {
 
     /**
-     * 컬럼 개수를 반환한다.
+     * 컬럼 개수를 반환합니다.
      * 
      * @return 컬럼 개수
      */
     public int count();
 
     /**
-     * 컬럼 데이터를 문자열 배열로 반환한다.
+     * 컬럼 데이터를 문자열 배열로 반환합니다.
      * 
      * @return
      * @throws IllegalArgumentException

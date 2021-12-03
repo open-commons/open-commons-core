@@ -117,7 +117,7 @@ public class Closeables implements Closeable {
     }
 
     /**
-     * 데이터를 배열의 앞쪽에 추가한다. <br>
+     * 데이터를 배열의 앞쪽에 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]

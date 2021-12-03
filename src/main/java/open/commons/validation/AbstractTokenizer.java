@@ -61,7 +61,7 @@ public abstract class AbstractTokenizer<D, T> implements ITokenizer<D, T> {
     }
 
     /**
-     * 데이터를 위한 토큰을 생성한다.
+     * 데이터를 위한 토큰을 생성합니다.
      * 
      *
      * @since 2014. 9. 17.

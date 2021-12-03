@@ -505,7 +505,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 상위 클래스에서 정의된 메소드까지 확인한다. <br>
+     * 상위 클래스에서 정의된 메소드까지 확인합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -537,7 +537,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 상위 클래스에서 정의된 메소드까지 확인한다. <br>
+     * 상위 클래스에서 정의된 메소드까지 확인합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -561,7 +561,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 객체에서 어노테이션 타입에 맞는 객체를 반환한다.
+     * 객체에서 어노테이션 타입에 맞는 객체를 반환합니다.
      * 
      * @param accessObj
      * @param annotationClass
@@ -614,7 +614,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환한다.
+     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환합니다.
      * 
      * @param field
      * @param instance
@@ -636,7 +636,7 @@ public class AnnotationUtils {
 
     /**
      * 
-     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환한다.
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환합니다.
      * 
      * <br>
      * 
@@ -660,7 +660,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환한다.
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환합니다.
      * 
      * @param obj
      * @param annotationClass
@@ -676,7 +676,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 주어진 객체가 {@link Annotation}의 sub-class 인지 여부를 반환한다.
+     * 주어진 객체가 {@link Annotation}의 sub-class 인지 여부를 반환합니다.
      * 
      * @param obj
      * @return
@@ -721,7 +721,7 @@ public class AnnotationUtils {
     }
 
     /**
-     * 주어진 객체에 {@link Annotation}이 존재하는지 여부를 반환한다.
+     * 주어진 객체에 {@link Annotation}이 존재하는지 여부를 반환합니다.
      * 
      * @param obj
      *            {@link Annotation}이 존재하는지 확인하고자 하는 객체

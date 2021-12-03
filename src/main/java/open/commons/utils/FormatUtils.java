@@ -72,7 +72,7 @@ public class FormatUtils {
     }
 
     /**
-     * 포맷에 포함된 길이에 맞도록 내용을 줄임표시를 해서 반환한다.
+     * 포맷에 포함된 길이에 맞도록 내용을 줄임표시를 해서 반환합니다.
      * 
      * @param format
      * @param arguments
@@ -195,7 +195,7 @@ public class FormatUtils {
     }
 
     /**
-     * 세자리로 끊어서 콤마(,)로 구분할 때 추가되는 콤마의 개수를 반환한다.
+     * 세자리로 끊어서 콤마(,)로 구분할 때 추가되는 콤마의 개수를 반환합니다.
      * 
      * @param digit
      * @return <BR>
@@ -219,7 +219,7 @@ public class FormatUtils {
     }
 
     /**
-     * {@link #DATE_FORMAT_NUMERIC}를 사용하여 현재 시간을 포맷팅하여 반환한다.
+     * {@link #DATE_FORMAT_NUMERIC}를 사용하여 현재 시간을 포맷팅하여 반환합니다.
      * 
      * @return
      * 
@@ -229,7 +229,7 @@ public class FormatUtils {
     }
 
     /**
-     * 주어진 포맷을 사용하여 현재 시간을 포맷팅하여 반환한다.
+     * 주어진 포맷을 사용하여 현재 시간을 포맷팅하여 반환합니다.
      * 
      * @param format
      * @return
@@ -247,7 +247,7 @@ public class FormatUtils {
     }
 
     /**
-     * 주어진 문자열에서 찾고자하는 문자들 중 처음 발생하는 위치를 반환한다.
+     * 주어진 문자열에서 찾고자하는 문자들 중 처음 발생하는 위치를 반환합니다.
      * 
      * @param string
      * @param fromIndex

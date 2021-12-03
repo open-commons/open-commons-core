@@ -85,7 +85,7 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     private Date date;
 
     /**
-     * 현재 날짜 정보를 가지고 객체를 생성한다.
+     * 현재 날짜 정보를 가지고 객체를 생성합니다.
      */
     public Timestamp14L() {
         this(Calendar.getInstance().getTime());
@@ -146,7 +146,7 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     }
 
     /**
-     * 현재 값과 입력받은 값의 차이를 반환한다.<br>
+     * 현재 값과 입력받은 값의 차이를 반환합니다.<br>
      * 
      * @param other
      * @return
@@ -229,7 +229,7 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     }
 
     /**
-     * 현재 시간정보를 {@link Calendar} 객체로 반환한다.
+     * 현재 시간정보를 {@link Calendar} 객체로 반환합니다.
      * 
      * @return
      */
@@ -582,7 +582,7 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
         }
 
         /**
-         * 부호를 반환한다.
+         * 부호를 반환합니다.
          * 
          * @return
          */

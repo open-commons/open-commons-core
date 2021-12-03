@@ -68,7 +68,7 @@ public class AsyncJobManager<K, V> {
     private ReentrantLock LOCK = new ReentrantLock();
 
     /**
-     * 비동기 작업을 등록한다. <br>
+     * 비동기 작업을 등록합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -83,7 +83,7 @@ public class AsyncJobManager<K, V> {
     }
 
     /**
-     * <K>에 해당하는 <V> 를 반환한다. <br>
+     * <K>에 해당하는 <V> 를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -118,7 +118,7 @@ public class AsyncJobManager<K, V> {
     }
 
     /**
-     * 식별정보에 해당하는 비동기 작업이 있는지 확인한다. <br>
+     * 식별정보에 해당하는 비동기 작업이 있는지 확인합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -151,7 +151,7 @@ public class AsyncJobManager<K, V> {
     }
 
     /**
-     * 비동기 작업을 등록한다. <br>
+     * 비동기 작업을 등록합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -194,7 +194,7 @@ public class AsyncJobManager<K, V> {
     }
 
     /**
-     * 식별정보에 해당하는 비동기 작업을 반환한다. <br>
+     * 식별정보에 해당하는 비동기 작업을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -243,8 +243,8 @@ public class AsyncJobManager<K, V> {
         private static ReentrantLock LOCK = new ReentrantLock();
 
         /**
-         * 주어진 key에 해당하는 {@link AsyncJobManager} 객체를 반환한다. <br>
-         * 존재하지 않는 새로운 객체를 생성/등록 후 반환한다. <br>
+         * 주어진 key에 해당하는 {@link AsyncJobManager} 객체를 반환합니다. <br>
+         * 존재하지 않는 새로운 객체를 생성/등록 후 반환합니다. <br>
          * 
          * <pre>
          * [개정이력]

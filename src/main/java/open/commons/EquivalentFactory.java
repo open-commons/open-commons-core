@@ -265,7 +265,7 @@ public class EquivalentFactory {
     };
 
     /**
-     * boolean 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * boolean 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -277,7 +277,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * byte 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * byte 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -289,7 +289,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * char 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * char 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -301,7 +301,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * double 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * double 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -313,7 +313,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * float 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * float 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -325,7 +325,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * 주어진 파라미터에 연결된 비교자를 반환한다.
+     * 주어진 파라미터에 연결된 비교자를 반환합니다.
      * 
      * @param key
      * @return
@@ -340,7 +340,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * 기본 비교자를 반환한다.
+     * 기본 비교자를 반환합니다.
      * 
      * @return
      * 
@@ -353,7 +353,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * int 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * int 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -365,7 +365,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * long 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * long 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.
@@ -377,7 +377,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * 새로운 비교자를 등록한다.
+     * 새로운 비교자를 등록합니다.
      * 
      * @param key
      * @param equivalent
@@ -397,7 +397,7 @@ public class EquivalentFactory {
     }
 
     /**
-     * short 타입 배열을 비교하는 {@link IEquivalent}객체를 반환한다.
+     * short 타입 배열을 비교하는 {@link IEquivalent}객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 22.

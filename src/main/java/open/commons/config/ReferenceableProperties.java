@@ -110,7 +110,7 @@ public class ReferenceableProperties extends Properties {
     }
 
     /**
-     * {@link Properties#entrySet()}를 {@link Set}&lt;{@link Entry}&lt;{@link String}, {@link String}&gt;&gt;로 반환한다.
+     * {@link Properties#entrySet()}를 {@link Set}&lt;{@link Entry}&lt;{@link String}, {@link String}&gt;&gt;로 반환합니다.
      * 
      * @return
      */
@@ -214,7 +214,7 @@ public class ReferenceableProperties extends Properties {
     }
 
     /**
-     * 다른 값들을 참조하는 것과 그렇지 않은 것들을 초기화 한다.
+     * 다른 값들을 참조하는 것과 그렇지 않은 것들을 초기화 합니다.
      * 
      * 
      * @since 2012. 02. 15.

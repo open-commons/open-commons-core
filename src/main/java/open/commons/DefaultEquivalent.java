@@ -54,7 +54,7 @@ public class DefaultEquivalent<T> implements IEquivalent<T> {
 
     /**
      * 주어진 객체가 모두 <code>null</code>이 아닌 경우를 제외한 경우 비교하는 기능성 메소드<br>
-     * 결과는 모두 <code>null</code>이면 <code>true</code>, 그렇지 않으면 <code>false</code> 를 반환한다.
+     * 결과는 모두 <code>null</code>이면 <code>true</code>, 그렇지 않으면 <code>false</code> 를 반환합니다.
      * 
      * @param t1
      * @param t2

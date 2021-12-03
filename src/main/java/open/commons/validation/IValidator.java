@@ -72,7 +72,7 @@ public interface IValidator<D, T> {
      * 
      * @param fully
      *            구성데이터 전체 확인 여부.<br>
-     *            false 인 경우 부적합한 경우가 발견되는 즉시 종료한다.
+     *            false 인 경우 부적합한 경우가 발견되는 즉시 종료합니다.
      * @return
      * 
      * @since 2014. 4. 11.

@@ -98,7 +98,7 @@ public class FileLogger extends AbstractLogger {
     }
 
     /**
-     * 파일이 존재하는지 확인하며, 없는 경우 파일이 속한 디렉터리를 생성한다.
+     * 파일이 존재하는지 확인하며, 없는 경우 파일이 속한 디렉터리를 생성합니다.
      */
     private File checkLogFile() {
 

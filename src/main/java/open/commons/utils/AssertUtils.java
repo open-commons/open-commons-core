@@ -61,7 +61,7 @@ public class AssertUtils {
      * @param descendant
      * @param ancestor
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertClass(Class<?> descendant, Class<?> ancestor) {
         assertClass(null, descendant, ancestor, AssertionException.class);
@@ -72,7 +72,7 @@ public class AssertUtils {
      * @param descendant
      * @param ancestor
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertClass(Class<?> descendant, Class<?> ancestor, Class<? extends RuntimeException> occurExeption) {
         assertClass(null, descendant, ancestor, occurExeption);
@@ -83,7 +83,7 @@ public class AssertUtils {
      * @param descendant
      * @param ancestor
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertClass(String assertMsg, Class<?> descendant, Class<?> ancestor) {
         assertClass(assertMsg, descendant, ancestor, AssertionException.class);
@@ -94,7 +94,7 @@ public class AssertUtils {
      * @param descendant
      * @param ancestor
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertClass(String assertMsg, Class<?> descendant, Class<?> ancestor, Class<? extends RuntimeException> occurExeption) {
 
@@ -110,7 +110,7 @@ public class AssertUtils {
      * @param arg1
      * @param arg2
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertEqual(Object arg1, Object arg2) {
         assertEqual(null, arg1, arg2, AssertionException.class);
@@ -121,7 +121,7 @@ public class AssertUtils {
      * @param arg1
      * @param arg2
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertEqual(Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
         assertEqual(null, arg1, arg2, occurExeption);
@@ -132,7 +132,7 @@ public class AssertUtils {
      * @param arg1
      * @param arg2
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertEqual(String assertMsg, Object arg1, Object arg2) {
         assertEqual(assertMsg, arg1, arg2, AssertionException.class);
@@ -143,7 +143,7 @@ public class AssertUtils {
      * @param arg1
      * @param arg2
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertEqual(String assertMsg, Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
 
@@ -162,7 +162,7 @@ public class AssertUtils {
      * 
      * @param bool
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertFalse(boolean bool, Class<? extends RuntimeException> occurExeption) {
         assertFalse(null, bool, occurExeption);
@@ -176,7 +176,7 @@ public class AssertUtils {
      * 
      * @param bool
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertFalse(String assertMsg, boolean bool, Class<? extends RuntimeException> occurExeption) {
         try {
@@ -284,7 +284,7 @@ public class AssertUtils {
      * 
      * @param bool
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertTrue(boolean bool, Class<? extends RuntimeException> occurExeption) {
         assertTrue(null, bool, occurExeption);
@@ -298,7 +298,7 @@ public class AssertUtils {
      * 
      * @param bool
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void assertTrue(String assertMsg, boolean bool, Class<? extends RuntimeException> occurExeption) {
         try {

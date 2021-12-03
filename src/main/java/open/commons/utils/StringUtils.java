@@ -78,7 +78,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열 뒤에 빈칸을 추가한다.
+     * 문자열 뒤에 빈칸을 추가합니다.
      * 
      * @param string
      * @return
@@ -92,7 +92,7 @@ public class StringUtils {
     }
 
     /**
-     * 각각의 문자열들 뒤에 빈칸을 추가한다.
+     * 각각의 문자열들 뒤에 빈칸을 추가합니다.
      * 
      * @param strings
      * @return
@@ -105,7 +105,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에 포함되어 있는 캐릭터의 뒤로부터의 첫번째 발생 인덱스값을 반환한다.
+     * 문자열에 포함되어 있는 캐릭터의 뒤로부터의 첫번째 발생 인덱스값을 반환합니다.
      * 
      * @param string
      * @param ch
@@ -124,8 +124,8 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열 안에 찾고자하는 문자의 인덱스들을 반환한다. 인덱스들은 뒤에서부터 나타나는 첫문자의 순서이다.<br>
-     * 문자가 존재하지 않는 경우 길이가 0인 배열을 반환한다.
+     * 주어진 문자열 안에 찾고자하는 문자의 인덱스들을 반환합니다. 인덱스들은 뒤에서부터 나타나는 첫문자의 순서이다.<br>
+     * 문자가 존재하지 않는 경우 길이가 0인 배열을 반환합니다.
      * 
      * <pre>
      * 예: 
@@ -170,7 +170,7 @@ public class StringUtils {
 
             /**
              * <pre>
-             * 최초 배열의 길이는 주어진 문자열의 길이와 동일함으로 역순화하기 위해서 실제 데이타가 존재하는 길이의 새로운 배열을 생성한다. 여기에서 'index'의 값을 길이로 사용할 수 있는 이유는
+             * 최초 배열의 길이는 주어진 문자열의 길이와 동일함으로 역순화하기 위해서 실제 데이타가 존재하는 길이의 새로운 배열을 생성합니다. 여기에서 'index'의 값을 길이로 사용할 수 있는 이유는
              * 'index'가 찾고자 하는 문자가 존재하는 경우만 증가되었기 때문이다.
              * 
              */
@@ -183,8 +183,8 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열 안에 찾고자하는 문자열의 첫문자 인덱스들을 반환한다. 인덱스들은 뒤에서부터 첫문자의 순서이다.<br>
-     * 찾고자 하는 문자열이 존재하지 않는 경우 길이가 0인 배열을 반환한다.
+     * 주어진 문자열 안에 찾고자하는 문자열의 첫문자 인덱스들을 반환합니다. 인덱스들은 뒤에서부터 첫문자의 순서이다.<br>
+     * 찾고자 하는 문자열이 존재하지 않는 경우 길이가 0인 배열을 반환합니다.
      * 
      * <pre>
      * 예: 
@@ -361,7 +361,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -406,7 +406,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -454,7 +454,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -482,7 +482,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -522,7 +522,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -562,7 +562,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다.
      * 
      * @param delimRegEx
      *            구분자
@@ -577,7 +577,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -605,7 +605,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -631,7 +631,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다.
      * 
      * @param delimRegEx
      *            구분자
@@ -656,7 +656,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가한다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다.
      * 
      * @param delimRegEx
      *            구분자
@@ -670,7 +670,7 @@ public class StringUtils {
 
     /**
      * 대상 문자열에 주어진 문자열이 포함되어 있는지 여부를 제공합니다. <br>
-     * 단 하나의 문자열만 포함되어 있어도 <code>true</code>를 반환한다.
+     * 단 하나의 문자열만 포함되어 있어도 <code>true</code>를 반환합니다.
      * 
      * <pre>
      * [개정이력]
@@ -716,7 +716,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 숫자를 포함하고 있는지 여부를 반환한다.
+     * 문자열이 숫자를 포함하고 있는지 여부를 반환합니다.
      * 
      * @param string
      * @return
@@ -732,7 +732,7 @@ public class StringUtils {
     }
 
     /**
-     * 첫번째 문자열이 두번째 문자열을 대소문자 구분 없이 포함하고 있는지 여부를 반환한다.
+     * 첫번째 문자열이 두번째 문자열을 대소문자 구분 없이 포함하고 있는지 여부를 반환합니다.
      * 
      * @param container
      * @param string
@@ -748,7 +748,7 @@ public class StringUtils {
     }
 
     /**
-     * 소문자가 있는지 여부를 반환한다.
+     * 소문자가 있는지 여부를 반환합니다.
      * 
      * @param string
      * @return
@@ -762,7 +762,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 {@code chs}에 포함된 캐릭터들 중에 1개인지 여부를 반환한다. 당근 길이는 1 인 문자열이다.
+     * 문자열이 {@code chs}에 포함된 캐릭터들 중에 1개인지 여부를 반환합니다. 당근 길이는 1 인 문자열이다.
      * 
      * @param string
      * @param chs
@@ -783,7 +783,7 @@ public class StringUtils {
     }
 
     /**
-     * 대문자를 포함하고 있는지 여부를 반환한다.
+     * 대문자를 포함하고 있는지 여부를 반환합니다.
      * 
      * @param string
      * @return
@@ -797,7 +797,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에 Whitespace가 포함되어 있는지 확인한다. <br>
+     * 주어진 문자열에 Whitespace가 포함되어 있는지 확인합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -822,7 +822,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})에 포함되어 있는 캐릭터({@code ch}) 개수를 반환한다.
+     * 문자열({@code string})에 포함되어 있는 캐릭터({@code ch}) 개수를 반환합니다.
      * 
      * @param string
      * @param ch
@@ -839,7 +839,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})에 포함되어 있는 문자열({@code target}) 개수를 반환한다.
+     * 문자열({@code string})에 포함되어 있는 문자열({@code target}) 개수를 반환합니다.
      * 
      * @param string
      * @param target
@@ -857,7 +857,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 길이만큼 문자열을 자르고, 뒤에 " ..." 을 붙어 반환한다.
+     * 주어진 길이만큼 문자열을 자르고, 뒤에 " ..." 을 붙어 반환합니다.
      * 
      * @param string
      * @param length
@@ -887,7 +887,7 @@ public class StringUtils {
     }
 
     /**
-     * {@code pre}와 {@code suf}로 둘어싸인 제일 큰 문자열을 반환한다.
+     * {@code pre}와 {@code suf}로 둘어싸인 제일 큰 문자열을 반환합니다.
      * 
      * @param string
      * @param pre
@@ -917,7 +917,7 @@ public class StringUtils {
     }
 
     /**
-     * {@code pre}와 {@code suf}로 둘어싸인 제일 작은 문자열을 반환한다.
+     * {@code pre}와 {@code suf}로 둘어싸인 제일 작은 문자열을 반환합니다.
      * 
      * @param string
      * @param pre
@@ -950,7 +950,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 주어진 <b><code>suffix</code></b>로 끝나는지 여부를 반환한다. (대소문자 관계없이)
+     * 문자열이 주어진 <b><code>suffix</code></b>로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      * @param suffix
@@ -972,7 +972,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환한다. (대소문자 관계없이)
+     * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      * @param suffixes
@@ -990,7 +990,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환한다.
+     * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다.
      * 
      * @param string
      * @param suffixes
@@ -1113,7 +1113,7 @@ public class StringUtils {
     }
 
     /**
-     * 다수의 문자열 값을 하나의 byte 배열로 반환한다.
+     * 다수의 문자열 값을 하나의 byte 배열로 반환합니다.
      * 
      * @param strings
      * @return
@@ -1129,7 +1129,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열 중에서 자바 및 C/C++ 코멘트 부분을 추출한다.<br>
+     * 문자열 중에서 자바 및 C/C++ 코멘트 부분을 추출합니다.<br>
      * 
      * @param string
      * @return
@@ -1179,7 +1179,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 큰따옴표로 묶인 문자열을 반환한다.
+     * 문자열에서 큰따옴표로 묶인 문자열을 반환합니다.
      * 
      * @param string
      * @return 큰따옴표로 묶인 문자열. 없는 경우 {@code null} 반환.
@@ -1198,11 +1198,11 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 구분자로 나눈 후 제일 마지막 값을 반환한다.
+     * 문자열을 구분자로 나눈 후 제일 마지막 값을 반환합니다.
      * 
      * @param string
      * @param delimiter
-     * @return 마지막 문자열. 구분자가 존재하지 않는 경우 <code>null</code>을 반환한다.
+     * @return 마지막 문자열. 구분자가 존재하지 않는 경우 <code>null</code>을 반환합니다.
      */
     public static String getLast(String string, String delimiter) {
         String rtnString = null;
@@ -1214,8 +1214,8 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 찾고 싶은 문자열이 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환한다.<br>
-     * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환한다. <br>
+     * 문자열에서 찾고 싶은 문자열이 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환합니다.<br>
+     * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환합니다. <br>
      * 
      * <pre>
      * e.g.
@@ -1241,8 +1241,8 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 찾고 싶은 문자열이 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환한다.<br>
-     * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환한다.
+     * 문자열에서 찾고 싶은 문자열이 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환합니다.<br>
+     * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환합니다.
      * 
      * <pre>
      * e.g.
@@ -1274,7 +1274,7 @@ public class StringUtils {
     }
 
     /**
-     * {@code pre}와 {@code suf}로 둘어싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환한다.
+     * {@code pre}와 {@code suf}로 둘어싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환합니다.
      * 
      * @param string
      * @param pre
@@ -1296,13 +1296,13 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 2개의 문자열이 서로 다른 시작부분의 인덱스를 반환한다.
+     * 주어진 2개의 문자열이 서로 다른 시작부분의 인덱스를 반환합니다.
      * 
      * @param str1
      * @param str2
      * @param begin
      *            비교 시작 위치
-     * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생한다.
+     * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생합니다.
      *         <ul>
      *         <li>주어진 문자열이 <code>null</code>
      *         <li>비교 시작 값이 음수
@@ -1334,11 +1334,11 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 2개의 문자열이 서로 다른 시작부분의 인덱스를 반환한다.
+     * 주어진 2개의 문자열이 서로 다른 시작부분의 인덱스를 반환합니다.
      * 
      * @param str1
      * @param str2
-     * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생한다.
+     * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생합니다.
      *         <ul>
      *         <li>주어진 문자열이 <code>null</code>
      *         <li>주어진 문자열의 길이가 0
@@ -1351,8 +1351,8 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열 안에 찾고자하는 문자의 인덱스들을 반환한다.<br>
-     * 캐릭터가 존재하지 않는 경우 길이가 0 인 배열을 반환한다.
+     * 주어진 문자열 안에 찾고자하는 문자의 인덱스들을 반환합니다.<br>
+     * 캐릭터가 존재하지 않는 경우 길이가 0 인 배열을 반환합니다.
      * 
      * @param string
      * @param c
@@ -1372,8 +1372,8 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열 안에 찾고자 하는 문자열의 인덱스들을 반환한다.<br>
-     * 찾고자 하는 문자열이 존재하지 않는 경우 길이가 0인 배열을 반환한다.
+     * 주어진 문자열 안에 찾고자 하는 문자열의 인덱스들을 반환합니다.<br>
+     * 찾고자 하는 문자열이 존재하지 않는 경우 길이가 0인 배열을 반환합니다.
      * 
      * @param sourceString
      * @param searchedString
@@ -1409,7 +1409,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 모두 소문자인지 여부를 반환한다.
+     * 주어진 문자열이 모두 소문자인지 여부를 반환합니다.
      * 
      * @param string
      * @return <BR>
@@ -1421,7 +1421,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 모두 대문자인지 여부를 반환한다.
+     * 주어진 문자열이 모두 대문자인지 여부를 반환합니다.
      * 
      * @param string
      * @return <BR>
@@ -1433,7 +1433,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 10진수 숫자인지 여부를 반환한다.
+     * 주어진 문자열이 10진수 숫자인지 여부를 반환합니다.
      * 
      * @param str
      * @return
@@ -1468,7 +1468,7 @@ public class StringUtils {
     }
 
     /**
-     * 빈 문자열인지 코멘트인지 여부를 반환한다.
+     * 빈 문자열인지 코멘트인지 여부를 반환합니다.
      * 
      * @param string
      * @return
@@ -1479,7 +1479,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 자바변수인지 여부를 반환한다.
+     * 문자열이 자바변수인지 여부를 반환합니다.
      * 
      * @param string
      * @return
@@ -1516,7 +1516,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환한다.
+     * 주어진 문자열이 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
      * 
      * @param string
      * @return
@@ -1534,7 +1534,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들 모두 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환한다.
+     * 주어진 문자열들 모두 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
      * 
      * @param strings
      * @return <BR>
@@ -1552,7 +1552,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들 중에 <code>null</code>이거나 trim() 처리후 빈 문자열인지 포함되어 있는지 여부를 반환한다.
+     * 주어진 문자열들 중에 <code>null</code>이거나 trim() 처리후 빈 문자열인지 포함되어 있는지 여부를 반환합니다.
      * 
      * @param strings
      * @return <BR>
@@ -1612,7 +1612,7 @@ public class StringUtils {
 
     /**
      * <b><code>long</code></b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
-     * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환한다.
+     * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
      * 
      * @param l
      * @param length
@@ -1634,8 +1634,8 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 주어진 길이만큼 Left Zero-Padding 을 적용시켜 반환한다.<br>
-     * 단, 문자열의 길이가 길이보다 긴 경우 원본 데이터를 반환한다.
+     * 문자열을 주어진 길이만큼 Left Zero-Padding 을 적용시켜 반환합니다.<br>
+     * 단, 문자열의 길이가 길이보다 긴 경우 원본 데이터를 반환합니다.
      * 
      * @param str
      * @param length
@@ -1659,7 +1659,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 주어진 길이만큼 Left Zero-Padding 을 적용시켜 반환한다.<br>
+     * 문자열을 주어진 길이만큼 Left Zero-Padding 을 적용시켜 반환합니다.<br>
      * 
      * @param str
      * @param length
@@ -1685,7 +1685,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에 대해서 왼쪽 trim 결과를 반환한다.
+     * 주어진 문자열에 대해서 왼쪽 trim 결과를 반환합니다.
      * 
      * @param string
      * @return
@@ -1704,7 +1704,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열의 앞에서부터 지우고자 하는 문자가 제거된 문자열을 반환한다.
+     * 주어진 문자열의 앞에서부터 지우고자 하는 문자가 제거된 문자열을 반환합니다.
      * 
      * @param string
      * @return <BR>
@@ -1725,7 +1725,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열의 앞에서부터 지우고자하는 문자열이 제거된 문자열을 반환한다.<br>
+     * 주어진 문자열의 앞에서부터 지우고자하는 문자열이 제거된 문자열을 반환합니다.<br>
      * <br>
      * ltrimSpecific("안녕하세요안녕하세요방갑습니다", "안녕하세요") -> 방갑습니다
      * 
@@ -1826,7 +1826,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 코멘트 부분을 삭제한 문자열을 반환한다.
+     * 문자열에서 코멘트 부분을 삭제한 문자열을 반환합니다.
      * 
      * @param string
      * @return
@@ -1890,7 +1890,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에서 문자를 변경한다.
+     * 주어진 문자열에서 문자를 변경합니다.
      * 
      * @param string
      *            변경할 대상 문자열
@@ -1920,7 +1920,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에서 인덱스 배열에 해당하는 위치의 문자를 변경한다.
+     * 주어진 문자열에서 인덱스 배열에 해당하는 위치의 문자를 변경합니다.
      * 
      * @param string
      * @param t
@@ -1940,7 +1940,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에 포함된 문자를 새로운 문자열로 변경한다.
+     * 주어진 문자열에 포함된 문자를 새로운 문자열로 변경합니다.
      * 
      * @param string
      * @param o
@@ -2001,12 +2001,12 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 {@code olds}의 내용들을 {@code news}의 내용들로 순서대로 변환한 문자열을 반환한다.
+     * 문자열에서 {@code olds}의 내용들을 {@code news}의 내용들로 순서대로 변환한 문자열을 반환합니다.
      * 
      * @param string
      * @param olds
      * @param news
-     * @return 2개의 {@link Collection}의 길이가 다르면 문자열을 그대로 반환한다.
+     * @return 2개의 {@link Collection}의 길이가 다르면 문자열을 그대로 반환합니다.
      */
     public static String replace(String string, Collection<String> olds, Collection<String> news) {
         if (string != null && olds != null && news != null && olds.size() == news.size()) {
@@ -2023,11 +2023,11 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 {@code map}의 내용에 맞추어 변환한 후 반환한다.
+     * 문자열을 {@code map}의 내용에 맞추어 변환한 후 반환합니다.
      * 
      * @param string
      * @param map
-     * @return {@code map}이 {@code null}이거나 문자열이 {@code null}인 경우 문자열을 그대로 반환한다.
+     * @return {@code map}이 {@code null}이거나 문자열이 {@code null}인 경우 문자열을 그대로 반환합니다.
      */
     public static String replace(String string, Map<String, String> map) {
         if (string != null && map != null) {
@@ -2051,7 +2051,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열의 내용을 변경한 후, 구분자로 나눈 문자열 배열을 반환한다.
+     * 문자열의 내용을 변경한 후, 구분자로 나눈 문자열 배열을 반환합니다.
      * 
      * @param string
      *            작업 대상 문자열
@@ -2080,7 +2080,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에서 정해진 문자열들을 모두 빈칸으로 변환한 후 반환한다.
+     * 주어진 문자열에서 정해진 문자열들을 모두 빈칸으로 변환한 후 반환합니다.
      * <p>
      * <b> 단, 변경할 문자열들은 입력되는 순서대로 처리된다. </b>
      * </p>
@@ -2101,7 +2101,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열에 대해서 오른쪽 trim 결과를 반환한다.
+     * 주어진 문자열에 대해서 오른쪽 trim 결과를 반환합니다.
      * 
      * @param string
      * @return
@@ -2122,7 +2122,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열의 끝에서부터 지우고자하는 문자가 제거된 문자열을 반환한다.
+     * 주어진 문자열의 끝에서부터 지우고자하는 문자가 제거된 문자열을 반환합니다.
      * 
      * @param string
      * @param c
@@ -2146,7 +2146,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열의 끝에서부터 지우고자하는 문자열이 제거된 문자열을 반환한다.<br>
+     * 주어진 문자열의 끝에서부터 지우고자하는 문자열이 제거된 문자열을 반환합니다.<br>
      * <br>
      * ltrimSpecific("안녕하세요안녕하세요방갑습니다", "방갑습니다") -> 안녕하세요안녕하세요
      * 
@@ -2182,7 +2182,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환한다.
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2197,7 +2197,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환한다.
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2220,7 +2220,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 {@code splitRegEx}에 맞추어 배열로 만든 후, 구분자를 나누어진 문자들 사이에 추가한 후 반환한다.
+     * 문자열을 {@code splitRegEx}에 맞추어 배열로 만든 후, 구분자를 나누어진 문자들 사이에 추가한 후 반환합니다.
      * 
      * @param string
      * @param splitRegEx
@@ -2255,7 +2255,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환한다.
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2278,7 +2278,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 {@link Set}을 반환한다.
+     * 주어진 문자열을 구분자로 분리한 후 {@link Set}을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2301,7 +2301,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환한다.
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2316,7 +2316,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환한다.
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2365,7 +2365,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 주어진 <b><code>prefix</code></b>로 시작하는지 여부를 반환한다. (대소문자 관계없이)
+     * 문자열이 주어진 <b><code>prefix</code></b>로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      * @param prefix
@@ -2385,7 +2385,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환한다. (대소문자 관계없이)
+     * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      *            문자열
@@ -2405,7 +2405,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환한다.
+     * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다.
      * 
      * @param string
      *            문자열
@@ -2425,7 +2425,7 @@ public class StringUtils {
     }
 
     /**
-     * 파라미터로 받은 문자열 중에서 sIndex와 eIndex에 사이에 해당하는 부분을 제외한 나머지 문자열을 반환한다.
+     * 파라미터로 받은 문자열 중에서 sIndex와 eIndex에 사이에 해당하는 부분을 제외한 나머지 문자열을 반환합니다.
      * 
      * @param string
      *            대상 문자열
@@ -2448,7 +2448,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 {@code boundary} 문자열 다음부터 시작하는 문자열을 반환한다.
+     * 문자열에서 {@code boundary} 문자열 다음부터 시작하는 문자열을 반환합니다.
      * 
      * @param string
      * @param boundary
@@ -2469,7 +2469,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 {@code boundary} 문자열 직전까지 문자열을 반환한다.
+     * 문자열에서 {@code boundary} 문자열 직전까지 문자열을 반환합니다.
      * 
      * @param string
      * @param boundary
@@ -2581,7 +2581,7 @@ public class StringUtils {
     };
 
     /**
-     * camelCase 문자열을 kebab_case 문자열로 변경한다.<br>
+     * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
      * 예) camelCase -> camel_Case <br>
      * 
      * <pre>
@@ -2616,7 +2616,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들을 가지고 LCC(Lower Camel Case)형태로 표현한 하나의 문자열을 반환한다.<br>
+     * 주어진 문자열들을 가지고 LCC(Lower Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
      * 예: TO, lOwER, camel, casE -> toLowerCamelCase
      * 
      * @param strings
@@ -2640,7 +2640,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 {@code index}에 해당하는 캐릭터를 소문자로 변경한 후 반환한다.
+     * 문자열에서 {@code index}에 해당하는 캐릭터를 소문자로 변경한 후 반환합니다.
      * 
      * @param string
      * @param index
@@ -2660,7 +2660,7 @@ public class StringUtils {
     }
 
     /**
-     * camelCase 문자열을 PascalCase 문자열로 변경한다.<br>
+     * camelCase 문자열을 PascalCase 문자열로 변경합니다.<br>
      * 예) camelCase -> CamelCase <br>
      * 
      * <pre>
@@ -2694,7 +2694,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열을 정규식에 사용할 수 있도록 변환한 후 반환한다.
+     * 문자열을 정규식에 사용할 수 있도록 변환한 후 반환합니다.
      * 
      * @param string
      * @return
@@ -2720,7 +2720,7 @@ public class StringUtils {
     }
 
     /**
-     * camelCase 문자열을 snake_case 문자열로 변경한다.<br>
+     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
      * 예) camelCase -> camel_case<br>
      * 
      * <pre>
@@ -2754,7 +2754,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 <code>null</code>이거나 빈문자열인 경우<code>defaultValue</code>에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환한다.
+     * 주어진 문자열이 <code>null</code>이거나 빈문자열인 경우<code>defaultValue</code>에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
      * 
      * @param string
      * @param defaultValue
@@ -2785,7 +2785,7 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들을 가지고 UCC(Upper Camel Case)형태로 표현한 하나의 문자열을 반환한다.<br>
+     * 주어진 문자열들을 가지고 UCC(Upper Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
      * 예: upper, camel, case -> UpperCamelCase
      * 
      * @param strings
@@ -2808,7 +2808,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열에서 {@code index}에 해당하는 캐릭터를 대문자로 변경한 후 반환한다.
+     * 문자열에서 {@code index}에 해당하는 캐릭터를 대문자로 변경한 후 반환합니다.
      * 
      * @param string
      * @param index
@@ -2827,7 +2827,7 @@ public class StringUtils {
     }
 
     /**
-     * VO 클래스 이름으로 변환한 결과를 반환한다.
+     * VO 클래스 이름으로 변환한 결과를 반환합니다.
      * 
      * @param string
      * @return
@@ -2856,7 +2856,7 @@ public class StringUtils {
         }
 
         /**
-         * 문자열을 이루는 캐릭터를 문자열로 반환한다.
+         * 문자열을 이루는 캐릭터를 문자열로 반환합니다.
          * 
          * @return
          * 

@@ -102,7 +102,7 @@ public class SQLUtils {
      * @param str
      *            메소드 이름
      * 
-     * @return 패턴과 매칭되지 않는 경우 <code>null</code>을 반환한다.
+     * @return 패턴과 매칭되지 않는 경우 <code>null</code>을 반환합니다.
      */
     public static final BiFunction<Pattern, String, String> METHOD_MATCHER = (ptn, str) -> {
         Matcher m = ptn.matcher(str);
@@ -519,7 +519,7 @@ public class SQLUtils {
      * </pre>
      *
      * @param objectType
-     *            생성할 데이터 타입. 파라미터를 받지 않는 기본 생성자가 반드시 있어야 한다.
+     *            생성할 데이터 타입. 파라미터를 받지 않는 기본 생성자가 반드시 있어야 합니다.
      * 
      * @param rs
      *            {@link ResultSet} 객체

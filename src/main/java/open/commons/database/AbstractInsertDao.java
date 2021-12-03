@@ -119,7 +119,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
     protected abstract int getMaxCountPerInsert();
 
     /**
-     * 다중 데이터를 추가한다. <br>
+     * 다중 데이터를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -287,7 +287,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
 
     /**
      * 
-     * 데이터 목록에서 최대개수만큼 읽어 반환한다. <br>
+     * 데이터 목록에서 최대개수만큼 읽어 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]

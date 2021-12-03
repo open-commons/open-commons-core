@@ -61,7 +61,7 @@ public class NumberUtils {
     }
 
     /**
-     * 문자열 앞에 '0x'를 붙여 반환한다. <br>
+     * 문자열 앞에 '0x'를 붙여 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]

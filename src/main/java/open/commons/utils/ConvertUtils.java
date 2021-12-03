@@ -94,7 +94,7 @@ public class ConvertUtils {
      * @param value
      * @param class_
      * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 한다.
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static <T> void assertValue(Object value, Class<T> class_, Class<? extends RuntimeException> occurExeption) {
 
@@ -210,7 +210,7 @@ public class ConvertUtils {
      * @return
      *
      * @since 2021. 12. 2.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean isAssignableFrom(Class<?> srcType, Class<?> targetType) {
@@ -254,7 +254,7 @@ public class ConvertUtils {
      * @return
      *
      * @since 2021. 12. 2.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> boolean isAssignableFrom(S srcObject, T targetObject) {
@@ -513,7 +513,60 @@ public class ConvertUtils {
     }
 
     /**
-     * Primitive 데이터 타입에 맞는 Wrapper 클래스 타입을 반환한다.
+     * 주어진 {@link Class}가 Wrapper 클래스인 경우 대응하는 Primitive 타입을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param srcType
+     * @return
+     *
+     * @since 2021. 12. 3.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Class<?> translateToPrimitive(Class<?> srcType) {
+        if (Boolean.class.equals(srcType)) {
+            return boolean.class;
+        }
+
+        if (Byte.class.equals(srcType)) {
+            return byte.class;
+        }
+
+        if (Character.class.equals(srcType)) {
+            return char.class;
+        }
+
+        if (Integer.class.equals(srcType)) {
+            return int.class;
+        }
+
+        if (Long.class.equals(srcType)) {
+            return long.class;
+        }
+
+        if (Float.class.equals(srcType)) {
+            return float.class;
+        }
+
+        if (Double.class.equals(srcType)) {
+            return double.class;
+        }
+
+        if (Short.class.equals(srcType)) {
+            return short.class;
+        }
+
+        return srcType;
+    }
+
+    /**
+     * Primitive 데이터 타입에 맞는 Wrapper 클래스 타입을 반환합니다.
      * 
      * @param primitiveType
      * @return
@@ -567,7 +620,7 @@ public class ConvertUtils {
     }
 
     /**
-     * Primitive 타입 배열을 Wrapper 클래스 배열로 반환한다.
+     * Primitive 타입 배열을 Wrapper 클래스 배열로 반환합니다.
      * 
      * @param componentType
      * @param array

@@ -31,9 +31,9 @@ import java.io.File;
 public interface IFileHandler {
 
     /**
-     * 파일명을 표현하는 패턴 문자열을 반환한다.
+     * 파일명을 표현하는 패턴 문자열을 반환합니다.
      * 
-     * @return {@link IFileHandler}가 처리할 파일 확장자. <code>null</code>인 경우는 모든 파일을 처리한다.
+     * @return {@link IFileHandler}가 처리할 파일 확장자. <code>null</code>인 경우는 모든 파일을 처리합니다.
      * @throws Exception
      * 
      *             <BR>
@@ -43,7 +43,7 @@ public interface IFileHandler {
     public String getFilenamePattern() throws Exception;
 
     /**
-     * 주어진 파일을 처리한다.
+     * 주어진 파일을 처리합니다.
      * 
      * @param file
      * @throws Exception

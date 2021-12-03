@@ -57,7 +57,7 @@ public class ZipUtils {
     }
 
     /**
-     * Zip 파일 압축을 해제한다. <br>
+     * Zip 파일 압축을 해제합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -84,7 +84,7 @@ public class ZipUtils {
     }
 
     /**
-     * Zip 파일 압축을 해제한다. <br>
+     * Zip 파일 압축을 해제합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -109,7 +109,7 @@ public class ZipUtils {
     }
 
     /**
-     * Zip 파일 압축을 해제한다. <br>
+     * Zip 파일 압축을 해제합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -176,7 +176,7 @@ public class ZipUtils {
     }
 
     /**
-     * Zip 파일 압축을 해제한다. <br>
+     * Zip 파일 압축을 해제합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -201,7 +201,7 @@ public class ZipUtils {
     }
 
     /**
-     * Zip 파일 압축을 해제한다. <br>
+     * Zip 파일 압축을 해제합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -228,7 +228,7 @@ public class ZipUtils {
     }
 
     /**
-     * Zip 파일 압축을 해제한다. <br>
+     * Zip 파일 압축을 해제합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -253,7 +253,7 @@ public class ZipUtils {
     }
 
     /**
-     * 파일 또는 디렉토리를 압축한다. <br>
+     * 파일 또는 디렉토리를 압축합니다. <br>
      * <br>
      * 
      * <pre>
@@ -309,7 +309,7 @@ public class ZipUtils {
     }
 
     /**
-     * 파일 또는 디렉토리를 압축한다. <br>
+     * 파일 또는 디렉토리를 압축합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -333,7 +333,7 @@ public class ZipUtils {
     }
 
     /**
-     * 파일 또는 디렉토리를 압축한다. <br>
+     * 파일 또는 디렉토리를 압축합니다. <br>
      * <br>
      * 
      * <pre>
@@ -365,7 +365,7 @@ public class ZipUtils {
     }
 
     /**
-     * 파일 또는 디렉토리를 압축한다. <br>
+     * 파일 또는 디렉토리를 압축합니다. <br>
      * 
      * <pre>
      * [개정이력]

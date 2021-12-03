@@ -71,7 +71,7 @@ public class FileRecursiveHandler {
     private Mutex mutexDirCount = new Mutex("mutex for 'Directory Count'");
 
     /**
-     * 최상위 위치 (절대경로)를 가지고 객체를 생성한다.
+     * 최상위 위치 (절대경로)를 가지고 객체를 생성합니다.
      * 
      * @param rootpath
      *            검색을 위한 최상위 위치의 절대 경로 문자열
@@ -86,7 +86,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 절대 경로, 파일 필터, 디렉토리 필터를 가지고 객체를 생성한다.
+     * 절대 경로, 파일 필터, 디렉토리 필터를 가지고 객체를 생성합니다.
      * 
      * @param rootpath
      *            검색을 위한 최상위 위치의 절대 경로 문자열
@@ -118,7 +118,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 파일 처리 핸들러를 추가한다.
+     * 파일 처리 핸들러를 추가합니다.
      * 
      * @param handle
      * 
@@ -163,7 +163,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 최상위 절대경로에서부터 하위 구조를 탐색하면서 등록된 파일 처리 핸들러를 통해서 작업을 시작한다.
+     * 최상위 절대경로에서부터 하위 구조를 탐색하면서 등록된 파일 처리 핸들러를 통해서 작업을 시작합니다.
      * 
      * <BR>
      * 
@@ -276,14 +276,14 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 등록되어 있는 모든 {@link IFileHandler}를 제거한다.
+     * 등록되어 있는 모든 {@link IFileHandler}를 제거합니다.
      */
     public void removeAllHandlers() {
         filehandlers.clear();
     }
 
     /**
-     * 등록되어 있던 파일 처리 핸드러를 제거한다.
+     * 등록되어 있던 파일 처리 핸드러를 제거합니다.
      * 
      * @param handle
      * 
@@ -306,7 +306,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 에러 내용을 모두 삭제한다.
+     * 에러 내용을 모두 삭제합니다.
      * 
      * 
      * <BR>
@@ -347,7 +347,7 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * 새로운 최상위 절대 경로를 설정한 후, 기존 경로를 반환한다.<br>
+     * 새로운 최상위 절대 경로를 설정한 후, 기존 경로를 반환합니다.<br>
      * 
      * @param rootpath
      * @return 기존 최상위 절대 경로

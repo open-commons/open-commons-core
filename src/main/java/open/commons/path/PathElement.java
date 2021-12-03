@@ -82,7 +82,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 주어진 문자를 구분자로 사용해서 새로운 객체를 생성한다.
+     * 주어진 문자를 구분자로 사용해서 새로운 객체를 생성합니다.
      * 
      * @param delimiter
      *            경로 구분자 <BR>
@@ -110,7 +110,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 기본 경로 구분자와 주어진 문자열을 경로값으로 하는 객체를 생성한다.
+     * 기본 경로 구분자와 주어진 문자열을 경로값으로 하는 객체를 생성합니다.
      * 
      * @param elems
      *            경로를 구성하는 문자열들 <BR>
@@ -190,7 +190,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 새로운 경로를 추가한다.
+     * 새로운 경로를 추가합니다.
      * 
      * @param path
      *            <BR>
@@ -205,7 +205,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 새로운 경로를 추가한다.
+     * 새로운 경로를 추가합니다.
      * 
      * @param path
      *            <BR>
@@ -222,7 +222,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 새로운 경로들을 추가한다.
+     * 새로운 경로들을 추가합니다.
      * 
      * @param paths
      *            <BR>
@@ -244,7 +244,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 새로운 경로들을 추가한다.
+     * 새로운 경로들을 추가합니다.
      * 
      * @param paths
      *            <BR>
@@ -266,7 +266,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 새로운 경로들을 추가한다.
+     * 새로운 경로들을 추가합니다.
      * 
      * @param paths
      *            <BR>
@@ -345,7 +345,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 주어진 경로를 포함하고 있는지 여부를 반환한다.
+     * 주어진 경로를 포함하고 있는지 여부를 반환합니다.
      * 
      * @param path
      * @return <BR>
@@ -452,7 +452,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 길이가 동일한 char 배열이 동일한지를 판단한다.
+     * 길이가 동일한 char 배열이 동일한지를 판단합니다.
      * 
      * @param c1
      * @param c2
@@ -470,7 +470,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로 개수를 반환한다.
+     * 경로 개수를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 12.
@@ -483,7 +483,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로 정보에 관한 인덱스 정보를 반환한다.
+     * 경로 정보에 관한 인덱스 정보를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 12.
@@ -496,7 +496,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로 정보 문자열 배열을 반환한다.
+     * 경로 정보 문자열 배열을 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 12.
@@ -509,7 +509,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 인덱스에 해당하는 구분자를 반환한다.
+     * 인덱스에 해당하는 구분자를 반환합니다.
      * 
      * @param index
      * @return <BR>
@@ -531,7 +531,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 전체 경로값을 문자열 배열로 반환한다.
+     * 전체 경로값을 문자열 배열로 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 14.
@@ -554,7 +554,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 주어진 인덱스까지의 경로값을 반환한다.
+     * 주어진 인덱스까지의 경로값을 반환합니다.
      * 
      * @param index
      *            inclusive
@@ -575,7 +575,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 주어진 개수만큼의 경로값을 배열로 반환한다.
+     * 주어진 개수만큼의 경로값을 배열로 반환합니다.
      * 
      * @param count
      * @return <BR>
@@ -595,7 +595,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로 구분자를 문자열로 반환한다.
+     * 경로 구분자를 문자열로 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 03. 14.
@@ -625,7 +625,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로값들을 {@link Iterator}객체로 반환한다.
+     * 경로값들을 {@link Iterator}객체로 반환합니다.
      * 
      * @return
      * 
@@ -639,7 +639,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 맨 마지막 경로 값을 반환한다.
+     * 맨 마지막 경로 값을 반환합니다.
      * 
      * @return
      * 
@@ -673,7 +673,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로 구분자를 변경한 후, 이전 구분자를 반환한다. <br>
+     * 경로 구분자를 변경한 후, 이전 구분자를 반환합니다. <br>
      * 구분자는 <code>null</code>이 될 수 없다.
      * 
      * @param delimiter
@@ -693,7 +693,7 @@ public class PathElement implements Iterable<String> {
     }
 
     /**
-     * 경로 구분자를 변경한 후, 이전 구분자를 반환한다. <br>
+     * 경로 구분자를 변경한 후, 이전 구분자를 반환합니다. <br>
      * 구분자는 <code>null</code>이 될 수 없다.
      * 
      * @param delimiter

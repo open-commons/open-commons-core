@@ -70,7 +70,7 @@ public class DBUtils {
     }
 
     /**
-     * 주어진 정보를 가지고 DB 연결 객체를 생성해서 반환한다.
+     * 주어진 정보를 가지고 DB 연결 객체를 생성해서 반환합니다.
      * 
      * @param driver
      *            DB 접속 드라이버 제공 클래스 전체 경로
@@ -94,7 +94,7 @@ public class DBUtils {
     }
 
     /**
-     * 주어진 정보를 가지고 DB 연결 객체를 생성해서 반환한다.
+     * 주어진 정보를 가지고 DB 연결 객체를 생성해서 반환합니다.
      * 
      * @param driver
      *            DB 접속 드라이버 제공 클래스 전체 경로
@@ -120,7 +120,7 @@ public class DBUtils {
     }
 
     /**
-     * 주어진 정보를 가지고 DB 연결 객체를 생성해서 반환한다.
+     * 주어진 정보를 가지고 DB 연결 객체를 생성해서 반환합니다.
      * 
      * @param driver
      *            DB 접속 드라이버 제공 클래스 전체 경로
@@ -147,7 +147,7 @@ public class DBUtils {
     }
 
     /**
-     * MSSQL DB 접속 객체를 반환한다.
+     * MSSQL DB 접속 객체를 반환합니다.
      * 
      * 
      * @param driver
@@ -177,7 +177,7 @@ public class DBUtils {
     }
 
     /**
-     * MySql DB 접속 객체를 반환한다.
+     * MySql DB 접속 객체를 반환합니다.
      * 
      * 
      * @param driver
@@ -207,7 +207,7 @@ public class DBUtils {
     }
 
     /**
-     * ORACLE DB 접속 객체를 반환한다.
+     * ORACLE DB 접속 객체를 반환합니다.
      * 
      * 
      * @param driver
@@ -243,7 +243,7 @@ public class DBUtils {
     }
 
     /**
-     * Nested 되지 않은 insert 쿼리 문자열을 생성해서 반환한다.
+     * Nested 되지 않은 insert 쿼리 문자열을 생성해서 반환합니다.
      * <p>
      * <b>주의: binaray 형태의 데이타를 처리하지는 않는다.</b>
      * 
@@ -264,7 +264,7 @@ public class DBUtils {
     }
 
     /**
-     * Nested 되지 않은 insert 쿼리 문자열을 생성해서 반환한다.
+     * Nested 되지 않은 insert 쿼리 문자열을 생성해서 반환합니다.
      * <p>
      * <b>주의: binaray 형태의 데이타를 처리하지는 않는다.</b>
      * 
@@ -296,7 +296,7 @@ public class DBUtils {
     }
 
     /**
-     * 주어진 데이터로 이루어진 컬럼명 문자열을 생성해서 반환한다.
+     * 주어진 데이터로 이루어진 컬럼명 문자열을 생성해서 반환합니다.
      * 
      * @param col
      * @return <BR>
@@ -324,7 +324,7 @@ public class DBUtils {
     }
 
     /**
-     * 주어진 데이터로이루어진 데이타 값 문자열을 반환한다.
+     * 주어진 데이터로이루어진 데이타 값 문자열을 반환합니다.
      * <p>
      * <b>주의: binary 형태의 데이터를 처리하지는 않는다.</b>
      * 

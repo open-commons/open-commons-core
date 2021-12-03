@@ -522,7 +522,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     }
 
     /**
-     * 디렉토리에 포함된 파일을 감시한다.
+     * 디렉토리에 포함된 파일을 감시합니다.
      * 
      * @param dir
      *            등록할 디렉토리
@@ -1025,7 +1025,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     }
 
     /**
-     * 디렉토리에 포함된 파일을 감시한다.
+     * 디렉토리에 포함된 파일을 감시합니다.
      * 
      * @param dir
      *            등록할 디렉토리

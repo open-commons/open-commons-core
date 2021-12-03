@@ -166,7 +166,7 @@ public class GenericTypeVariable implements Cloneable {
     }
 
     /**
-     * 주어진 클래스에 맞는 {@link GenericTypeVariable} 객체를 반환한다.
+     * 주어진 클래스에 맞는 {@link GenericTypeVariable} 객체를 반환합니다.
      * 
      * @param class_
      * @return
@@ -178,7 +178,7 @@ public class GenericTypeVariable implements Cloneable {
     }
 
     /**
-     * 주어진 클래스에 맞는 {@link GenericTypeVariable} 객체를 반환한다.
+     * 주어진 클래스에 맞는 {@link GenericTypeVariable} 객체를 반환합니다.
      * 
      * @param typeVarName
      *            TypeVariable Literal

@@ -95,7 +95,7 @@ public interface SQLTripleFunction<T, U, V, R> {
 //     * @param str
 //     *            메소드 이름
 //     * 
-//     * @return 패턴과 매칭되지 않는 경우 <code>null</code>을 반환한다.
+//     * @return 패턴과 매칭되지 않는 경우 <code>null</code>을 반환합니다.
 //     */
 //    final BiFunction<Pattern, String, String> METHOD_MATCHER = (ptn, str) -> {
 //        Matcher m = ptn.matcher(str);
@@ -148,7 +148,7 @@ public interface SQLTripleFunction<T, U, V, R> {
 
     /**
      * 데이터를 추가하기 위해서 자동으로 {@link PreparedStatement}에 파라미터를 추가하는 함수를 제공합니다. <br>
-     * 해당 데이터 모델의 {@link Method}에는 {@link ColumnValue}을 이용하여 컬럼 정보를 설정해야 한다.
+     * 해당 데이터 모델의 {@link Method}에는 {@link ColumnValue}을 이용하여 컬럼 정보를 설정해야 합니다.
      * 
      * <pre>
      * [개정이력]

@@ -152,7 +152,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
     }
 
     /**
-     * 작업이 완료할 때가지 대기한다. <br>
+     * 작업이 완료할 때가지 대기합니다. <br>
      * 
      * <pre>
      * [개정이력]

@@ -192,7 +192,7 @@ public class MapUtils {
     }
 
     /**
-     * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환한다. <br>
+     * 주어진 {@link List}에서 정해진 개수만큼 데이터를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]

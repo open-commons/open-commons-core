@@ -118,7 +118,7 @@ public class FixedThreadPoolService implements ExecutorService {
     }
 
     /**
-     * 실제 서비스 객체를 반환한다.
+     * 실제 서비스 객체를 반환합니다.
      * 
      * @return <BR>
      * @since 2012. 01. 20.

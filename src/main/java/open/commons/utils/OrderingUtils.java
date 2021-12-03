@@ -31,7 +31,7 @@ import java.util.List;
 public class OrderingUtils {
 
     /**
-     * 주어진 데이터를 정렬된 리스트에 추가한다.<br>
+     * 주어진 데이터를 정렬된 리스트에 추가합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -214,7 +214,7 @@ public class OrderingUtils {
     }
 
     /**
-     * 숫자를 순서표현으로 변환한다. <br>
+     * 숫자를 순서표현으로 변환합니다. <br>
      * 
      * <pre>
      * [개정이력]

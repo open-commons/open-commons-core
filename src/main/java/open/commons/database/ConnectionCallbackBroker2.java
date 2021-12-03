@@ -50,7 +50,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
 
     /**
      * 실행 쿼리가 Stored Procedure를 실행하는지 여부<br>
-     * 기본설정은 {@link PreparedStatement} 를 기반으로 동작하지만, <code>true</code> 인 경우 {@link CallableStatement} 를 기반으로 동작한다.
+     * 기본설정은 {@link PreparedStatement} 를 기반으로 동작하지만, <code>true</code> 인 경우 {@link CallableStatement} 를 기반으로 동작합니다.
      */
     private boolean forStoredProcedure;
 

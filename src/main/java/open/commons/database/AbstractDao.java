@@ -357,7 +357,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 데이터를 추가/삭제/변경한다. <br>
+     * 데이터를 추가/삭제/변경합니다. <br>
      * 
      * <b>명령어</b> - insert, update, delete
      * 
@@ -428,7 +428,7 @@ public abstract class AbstractDao implements AutoCloseable {
     }
 
     /**
-     * 데이터를 추가/삭제/변경한다. <br>
+     * 데이터를 추가/삭제/변경합니다. <br>
      * 
      * <b>명령어</b> - insert, update, delete
      * 

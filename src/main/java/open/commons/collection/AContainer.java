@@ -31,7 +31,7 @@ package open.commons.collection;
 public abstract class AContainer<T> implements IContainer<T> {
 
     /**
-     * 두 객체에 대한 <code>null</code> 확인 결과를 반환한다.<br>
+     * 두 객체에 대한 <code>null</code> 확인 결과를 반환합니다.<br>
      * 
      * @param container
      * @param contained

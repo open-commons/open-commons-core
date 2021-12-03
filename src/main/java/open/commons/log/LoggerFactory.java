@@ -120,7 +120,7 @@ public class LoggerFactory {
     }
 
     /**
-     * 새로운 {@link ILogger}를 등록한다.
+     * 새로운 {@link ILogger}를 등록합니다.
      * 
      * @param name
      *            {@link ILogger} 이름.

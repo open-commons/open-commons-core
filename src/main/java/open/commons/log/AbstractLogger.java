@@ -151,7 +151,7 @@ public abstract class AbstractLogger implements ILogger {
     }
 
     /**
-     * 로그를 기록한 이후에 진행되어야 하는 부분을 정의한다.
+     * 로그를 기록한 이후에 진행되어야 하는 부분을 정의합니다.
      * 
      * @param stream
      */
@@ -284,7 +284,7 @@ public abstract class AbstractLogger implements ILogger {
     }
 
     /**
-     * 포맷화된 로그를 반영한다. <br>
+     * 포맷화된 로그를 반영합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -330,7 +330,7 @@ public abstract class AbstractLogger implements ILogger {
     }
 
     /**
-     * 포맷화된 로그를 반환한다. <br>
+     * 포맷화된 로그를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -504,7 +504,7 @@ public abstract class AbstractLogger implements ILogger {
     }
 
     /**
-     * 하위 클래스에서 생성한 {@link PrintStream}에 로그 내용을 기록한다. <b>
+     * 하위 클래스에서 생성한 {@link PrintStream}에 로그 내용을 기록합니다. <b>
      * 
      * 이 메소드를 이용하는 이유는 동일한 {@link ILogger}를 이용하는 대상들이 {@link Thread}로 구분되어 별도의 들여쓰기(Indentation)를 적용받기 위해서이다.
      * 

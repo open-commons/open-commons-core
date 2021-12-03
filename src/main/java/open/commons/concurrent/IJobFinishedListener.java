@@ -39,7 +39,7 @@ package open.commons.concurrent;
 public interface IJobFinishedListener<E> {
 
     /**
-     * 종료된 작업의 결과 데이타를 처리한다.<br>
+     * 종료된 작업의 결과 데이타를 처리합니다.<br>
      * 
      * <pre>
      * [개정이력]

@@ -74,7 +74,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 {@link Class} 타입에 해당 변수 이름의 존재여부를 반환한다.
+     * 주어진 {@link Class} 타입에 해당 변수 이름의 존재여부를 반환합니다.
      * 
      * @param clazz
      * @param fieldname
@@ -94,7 +94,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 {@link Class} 타입에 해당 변수 이름의 존재여부를 반환한다.
+     * 주어진 {@link Class} 타입에 해당 변수 이름의 존재여부를 반환합니다.
      * 
      * @param clazz
      * @param fieldname
@@ -114,7 +114,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 대상 Class의 {@link TypeVariable} 정보와 실제로 사용될 {@link Class} 정보를 조합해서 반환한다.
+     * 대상 Class의 {@link TypeVariable} 정보와 실제로 사용될 {@link Class} 정보를 조합해서 반환합니다.
      * 
      * @param targetClass
      *            {@link TypeVariable}이 사용된 클래스.
@@ -148,7 +148,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 대상 Class의 {@link TypeVariable} 정보와 실제로 사용될 {@link Class} 정보를 조합해서 반환한다.
+     * 대상 Class의 {@link TypeVariable} 정보와 실제로 사용될 {@link Class} 정보를 조합해서 반환합니다.
      * 
      * @param targetClass
      *            {@link TypeVariable}이 사용된 클래스.
@@ -223,7 +223,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * Generic이 사용된 메소드에서 실제로 사용된 타입 정보를 반환한다.
+     * Generic이 사용된 메소드에서 실제로 사용된 타입 정보를 반환합니다.
      * 
      * @param method
      * @param paramIndex
@@ -253,7 +253,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환한다.
+     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
      * 
      * @param object
      * @param annotationClass
@@ -286,7 +286,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Constructor}와 어노테이션 객체를 반환한다.
+     * 주어진 어노테이션이 설정된 {@link Constructor}와 어노테이션 객체를 반환합니다.
      * 
      * @param object
      * @param annotationClass
@@ -322,7 +322,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환한다.
+     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
      * 
      * @param object
      * @param annotationClass
@@ -333,7 +333,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환한다.
+     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
      * 
      * @param object
      * @param annotationClass
@@ -435,7 +435,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 객체에서 주어진 타입에 맞는 {@link Field} 목록을 반환한다.
+     * 객체에서 주어진 타입에 맞는 {@link Field} 목록을 반환합니다.
      * 
      * @param instance
      *            객체
@@ -497,7 +497,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 클래스에 선언된 Generic Type Variable Literal 을 반환한다.
+     * 클래스에 선언된 Generic Type Variable Literal 을 반환합니다.
      * 
      * @param classClass
      * @return
@@ -515,7 +515,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환한다.
+     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환합니다.
      * 
      * @param field
      * @param instance
@@ -541,7 +541,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환한다.
+     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환합니다.
      * 
      * @param field
      * @param instance

@@ -41,7 +41,7 @@ public class IntegerUtils {
     private static final ReentrantLock HEX_LOCK_SB = new ReentrantLock();
 
     /**
-     * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로 이루어진 int 배열을 반환한다.
+     * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로 이루어진 int 배열을 반환합니다.
      * 
      * @param values
      * @return <BR>
@@ -66,7 +66,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 길이가 4인 byte 배열(byte-4 배열)을 int 타입의 값으로 변환한 후 반환한다.
+     * 길이가 4인 byte 배열(byte-4 배열)을 int 타입의 값으로 변환한 후 반환합니다.
      * 
      * @param value
      * @return
@@ -101,7 +101,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 문자열 앞에 '0x'를 붙여 반환한다. <br>
+     * 문자열 앞에 '0x'를 붙여 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -217,7 +217,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 데이타를 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환한다.
+     * int 타입의 데이타를 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환합니다.
      * 
      * @param value
      * @return <BR>
@@ -229,7 +229,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 데이타를 원하는 길이의 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환한다.<br>
+     * int 타입의 데이타를 원하는 길이의 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환합니다.<br>
      * 단, 반환되는 배열은 이진법 표기의 오른쪽값에서부터 채워진다.
      * 
      * @param value
@@ -245,7 +245,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 데이타를 32단위의 이진법 표기로 변환한 문자열로 반환한다.
+     * int 타입의 데이타를 32단위의 이진법 표기로 변환한 문자열로 반환합니다.
      * 
      * @param value
      * @return <BR>
@@ -257,7 +257,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 데이타를 원하는 길이의 32단위의 이진법 표기로 변환한 문자열로 반환한다.<br>
+     * int 타입의 데이타를 원하는 길이의 32단위의 이진법 표기로 변환한 문자열로 반환합니다.<br>
      * 단, 반환되는 문자열은 이진법 표기의 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
@@ -272,7 +272,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 값을 길이가 4인 byte 배열로 변환해서 반환한다.
+     * int 타입의 값을 길이가 4인 byte 배열로 변환해서 반환합니다.
      * 
      * @param value
      * @return <BR>
@@ -291,7 +291,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 값으로 이루어진 배열의 각 데이타들을 길이가 4인 byte 배열로 변환한 후 반환한다.
+     * int 타입의 값으로 이루어진 배열의 각 데이타들을 길이가 4인 byte 배열로 변환한 후 반환합니다.
      * 
      * @param values
      * @return <BR>
@@ -326,7 +326,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 <code><b>char</b></code> 배열로 변환한 후 반환한다.
+     * 정수형 데이타를 원하는 길이의 <code><b>char</b></code> 배열로 변환한 후 반환합니다.
      * 
      * @param value
      *            문자열로 표현된 정수형 데이타
@@ -354,7 +354,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 16진수형태의 8자리 <code><b>char</b></code> 배열로 반환한다. 접두어인 '0x'는 포함하지 않는다.
+     * 정수형 데이타를 16진수형태의 8자리 <code><b>char</b></code> 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      * 
      * @param value
      * @return
@@ -367,7 +367,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 <code><b>char</b></code> 배열로 반환한다. 접두어인 '0x'는 포함하지 않는다.<br>
+     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 <code><b>char</b></code> 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.<br>
      * 단, 반환되는 배열은 16진수표기의 오른쪽값에서부터 채워진다.
      * 
      * @param value
@@ -381,7 +381,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 16진수형태의 8자리 문자열로 반환한다. 접두어인 '0x'는 포함하지 않는다.
+     * 정수형 데이타를 16진수형태의 8자리 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      * 
      * @param value
      * @return
@@ -394,7 +394,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 16진수형태의 문자열로 반환한다. 접두어인 '0x'는 포함하지 않는다.
+     * 정수형 데이타를 16진수형태의 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      * 
      * @param value
      * @param padding
@@ -420,7 +420,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 문자열로 반환한다. 접두어인 '0x'는 포함하지 않는다.<br>
+     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.<br>
      * 단, 반환되는 문자열은 16진수표기의 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
@@ -434,7 +434,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 16진수형태의 8자리 문자열로 반환한다. 접두어인 '0x'는 포함하지 않는다.
+     * 정수형 데이타를 16진수형태의 8자리 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      * 
      * @param value
      * @return
@@ -447,7 +447,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 16진수형태의 문자열로 반환한다. 접두어인 '0x'는 포함하지 않는다.
+     * 정수형 데이타를 16진수형태의 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      * 
      * @param value
      * @param padding
@@ -462,7 +462,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 문자열로 반환한다. 접두어인 '0x'는 포함하지 않는다.<br>
+     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.<br>
      * 단, 반환되는 문자열은 16진수표기의 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
@@ -525,7 +525,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 8진수 형태의 <code><b>char</b></code> 배열로 반환한다.
+     * 정수형 데이타를 8진수 형태의 <code><b>char</b></code> 배열로 반환합니다.
      * 
      * @param value
      * @return
@@ -538,7 +538,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 8진수 형태의 <code><b>char</b></code> 배열로 반환한다.<br>
+     * 정수형 데이타를 원하는 길이의 8진수 형태의 <code><b>char</b></code> 배열로 반환합니다.<br>
      * 단, 반환되는 배열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
@@ -552,7 +552,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 8진수 형태의 문자열로 반환한다.
+     * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      * 
      * @param value
      * @return
@@ -565,7 +565,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 8진수 형태의 문자열로 반환한다.
+     * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      * 
      * @param value
      * @param padding
@@ -591,7 +591,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 8진수 형태의 문자열로 반환한다.<br>
+     * 정수형 데이타를 원하는 길이의 8진수 형태의 문자열로 반환합니다.<br>
      * 단, 반환되는 문자열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
@@ -605,7 +605,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 8진수 형태의 문자열로 반환한다.
+     * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      * 
      * @param value
      * @return
@@ -618,7 +618,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 8진수 형태의 문자열로 반환한다.
+     * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      * 
      * @param value
      * @param padding
@@ -633,7 +633,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 8진수 형태의 문자열로 반환한다.<br>
+     * 정수형 데이타를 원하는 길이의 8진수 형태의 문자열로 반환합니다.<br>
      * 단, 반환되는 문자열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
@@ -647,7 +647,7 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 데이타를 보기 좋은 32단위의 이진법 표기로 변환한 문자열로 반환한다.
+     * int 타입의 데이타를 보기 좋은 32단위의 이진법 표기로 변환한 문자열로 반환합니다.
      * 
      * @param value
      * @return <BR>

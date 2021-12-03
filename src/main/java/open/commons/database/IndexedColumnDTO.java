@@ -92,7 +92,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
     }
 
     /**
-     * CSV 데이터 제공자를 반환한다. <br>
+     * CSV 데이터 제공자를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]

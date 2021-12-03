@@ -74,7 +74,7 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
     private Date date;
 
     /**
-     * 현재 날짜 정보를 가지고 객체를 생성한다.
+     * 현재 날짜 정보를 가지고 객체를 생성합니다.
      */
     public Timestamp8L() {
         this(Calendar.getInstance().getTime());
@@ -177,7 +177,7 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
     }
 
     /**
-     * 현재 시간정보를 {@link Calendar} 객체로 반환한다.
+     * 현재 시간정보를 {@link Calendar} 객체로 반환합니다.
      * 
      * @return
      */

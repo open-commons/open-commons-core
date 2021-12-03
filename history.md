@@ -1,4 +1,6 @@
 [2021/12/03]
+- Add
+  + open.commons.utils.ConvertUtils.translateToPrimitive(Class&lt;?&gt;)
 - New
   + open.commons.stream.ClassSpliterator
 - Add
@@ -8,8 +10,11 @@
     + containsNull(Collection&lt;?&gt;)
     + containsNull(Object...)
     + readClasses(Object...)
+    + readClasses(boolean, Object...)
     + readClassesAsList(Object...)
+    + readClassesAsList(boolean, Object...)
     + readClassesAsStream(Object...)
+    + readClassesAsStream(boolean, Object...)
   + open.commons.utils.ThreadUtils.getMethodName(int)
   
 [2021/12/02]

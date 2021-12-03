@@ -57,7 +57,7 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 <code>true</code> 인 경우, 데이타를 {@link Consumer}에게 전달한다. <br>
+     * {@link Predicate} 가 <code>true</code> 인 경우, 데이타를 {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -82,7 +82,7 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 <code>true</code> 인 경우 데이타를, <code>false</code>인 경우 기본값을 {@link Consumer}에게 전달한다. <br>
+     * {@link Predicate} 가 <code>true</code> 인 경우 데이타를, <code>false</code>인 경우 기본값을 {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -111,7 +111,7 @@ public class LangUtils {
     }
 
     /**
-     * 데이타가 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달한다. <br>
+     * 데이타가 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -132,8 +132,8 @@ public class LangUtils {
     }
 
     /**
-     * 데이타가 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달한다. <br>
-     * <code>null</code>인 경우 기본값을 전달한다.
+     * 데이타가 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
+     * <code>null</code>인 경우 기본값을 전달합니다.
      * 
      * <pre>
      * [개정이력]
@@ -156,7 +156,7 @@ public class LangUtils {
     }
 
     /**
-     * 문자열이 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달한다. <br>
+     * 문자열이 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -177,8 +177,8 @@ public class LangUtils {
     }
 
     /**
-     * 문자열이 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달한다.<br>
-     * <code>null</code> 인 경우 기본값을 전달한다.
+     * 문자열이 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다.<br>
+     * <code>null</code> 인 경우 기본값을 전달합니다.
      * 
      * <pre>
      * [개정이력]
@@ -201,8 +201,8 @@ public class LangUtils {
     }
 
     /**
-     * 데이타가 <code>null</code> 인 경우, 기본값을 전달한다. <br>
-     * <code>null</code>이 아닌 경우 기본값을 전달한다.
+     * 데이타가 <code>null</code> 인 경우, 기본값을 전달합니다. <br>
+     * <code>null</code>이 아닌 경우 기본값을 전달합니다.
      * 
      * <pre>
      * [개정이력]
@@ -242,7 +242,7 @@ public class LangUtils {
     }
 
     /**
-     * 캐릭터형 타입 여부를 반환한다. <br>
+     * 캐릭터형 타입 여부를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -261,7 +261,7 @@ public class LangUtils {
     }
 
     /**
-     * 숫자형 타입 여부를 반환한다. <br>
+     * 숫자형 타입 여부를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
