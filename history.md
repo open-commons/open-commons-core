@@ -1,3 +1,13 @@
+[2021/12/06]
+- Add
+  + open.commons.utils.ObjectUtils
+    + getTransformer(Class&lt;S&gt;, boolean, Class&lt;T&gt;, boolean)
+    + getTransformer(Class&lt;S&gt;, Class&lt;T&gt;)
+    + getTransformer(Collection&lt;S&gt;, boolean, Class&lt;T&gt;, boolean)
+    + getTransformer(Collection&lt;S&gt;, Class&lt;T&gt;)
+    + getTransformer(S, boolean, Class&lt;T&gt;, boolean)
+    + getTransformer(S, Class&lt;T&gt;)
+  
 [2021/12/03]
 - Add
   + open.commons.utils.ConvertUtils.translateToPrimitive(Class&lt;?&gt;)
