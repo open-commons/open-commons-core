@@ -459,7 +459,7 @@ public class ObjectUtils {
      * @author parkjunhong77@gmail.com
      */
     public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> target) throws NullPointerException {
-        return getTransformer(srcType, true, target, true);
+        return getTransformer(srcType, false, target, false);
     }
 
     /**
@@ -533,7 +533,7 @@ public class ObjectUtils {
         AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
         AssertUtils.assertTrue("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
 
-        return getTransformer(src, true, target, true);
+        return getTransformer(src, false, target, false);
     }
 
     /**
@@ -602,7 +602,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> Function<S, T> getTransformer(S src, Class<T> target) {
-        return getTransformer(src, true, target, true);
+        return getTransformer(src, false, target, false);
     }
 
     /**
@@ -1490,7 +1490,7 @@ public class ObjectUtils {
 
         List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
         if (getters.size() < 1) {
-            return null;
+            return target;
         }
 
         List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(target, Setter.class) : AnnotationUtils.getAnnotatedMethods(target, Setter.class);
