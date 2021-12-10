@@ -16,7 +16,7 @@
 
 		<!-- >>> begin: dependencies -->
 		<slf4j-api.version>1.7.26</slf4j-api.version>
-		<org.apache.logging.lo4j-core.version>[2.13.2]</org.apache.logging.lo4j-core.version>
+		<org.apache.logging.lo4j-core.version>[2.15.0]</org.apache.logging.lo4j-core.version>
 		<org.apache.logging.lo4j-api.version>[2.13.2]</org.apache.logging.lo4j-api.version>
 		<!-- <<< end: dependencies -->
 
