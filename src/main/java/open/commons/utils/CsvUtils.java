@@ -2149,6 +2149,44 @@ public class CsvUtils {
      *            데이터 구분자
      * @param quotechar
      *            문자열 묶음 문자
+     * @param type
+     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     * @param afterCreation
+     *            객체 생성 후 작업.
+     * @param close
+     *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 11. 12.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, Consumer<E> afterCreation, boolean close)
+            throws IOException {
+        return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
+                type, afterCreation, close);
+    }
+
+    /**
+     * CSV 파일을 읽어서 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 11. 12.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param reader
+     *            데이터 입력
+     * @param skip
+     *            생략할 라인 개수
+     * @param separator
+     *            데이터 구분자
+     * @param quotechar
+     *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
      *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
@@ -2270,43 +2308,5 @@ public class CsvUtils {
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
                 CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, close);
-    }
-
-    /**
-     * CSV 파일을 읽어서 객체로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 12.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     * @param reader
-     *            데이터 입력
-     * @param skip
-     *            생략할 라인 개수
-     * @param separator
-     *            데이터 구분자
-     * @param quotechar
-     *            문자열 묶음 문자
-     * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
-     * @param afterCreation
-     *            객체 생성 후 작업.
-     * @param close
-     *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 12.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <E> Result<List<E>> readAsList1(Reader reader, int skip, char separator, char quotechar, Class<E> type, Consumer<E> afterCreation, boolean close)
-            throws IOException {
-        return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
-                type, afterCreation, close);
     }
 }
