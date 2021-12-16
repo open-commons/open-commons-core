@@ -1,5 +1,9 @@
 [2021/12/06]
 - Add
+  + open.commons.utils.CollectionUtils.concatenate(Collection&lt;S&gt;, Function&lt;S, T&gt;, Consumer&lt;T&gt;)
+  
+[2021/12/06]
+- Add
   + open.commons.utils.ObjectUtils
     + getTransformer(Class&lt;S&gt;, boolean, Class&lt;T&gt;, boolean)
     + getTransformer(Class&lt;S&gt;, Class&lt;T&gt;)

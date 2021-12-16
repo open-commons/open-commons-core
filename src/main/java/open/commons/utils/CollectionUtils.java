@@ -45,6 +45,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -297,6 +298,33 @@ public class CollectionUtils {
                 col.clear();
             }
         }
+    }
+
+    /**
+     * 여러 개의 데이터를 하나의 형태로 취합합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     * @param <T>
+     * @param data
+     *            데이터
+     * @param transformer
+     *            데이터 변환 함수
+     * @param aggregator
+     *            데이터 취합함수
+     *
+     * @since 2021. 12. 14.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T> void concatenate(Collection<S> data, Function<S, T> transformer, Consumer<T> aggregator) {
+        data.stream().map(transformer).forEach(aggregator);
     }
 
     /**
