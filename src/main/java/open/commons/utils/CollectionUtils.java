@@ -328,6 +328,36 @@ public class CollectionUtils {
     }
 
     /**
+     * 여러 개의 데이터를 하나의 형태로 취합합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     * @param <T>
+     * @param <U>
+     * @param data
+     *            데이터
+     * @param transformer
+     *            데이터 변환 함수
+     * @param aggregator
+     *            데이터 취합함수
+     * @return
+     *
+     * @since 2021. 12. 20.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T, U> U concatenate(Collection<S> data, Function<S, T> transformer, Function<List<T>, U> aggregator) {
+        return aggregator.apply(data.stream().map(transformer).collect(Collectors.toList()));
+    }
+
+    /**
      * 문자열을 키로 하는 맵에서 문자열의 대/소문자를 여부에 관계없이 키의 존재 여부를 반환합니다.
      * 
      * @param map

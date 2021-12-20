@@ -1,3 +1,7 @@
+[2021/12/20]
+- Add
+  + open.commons.utils.CollectionUtils.concatenate(Collection&lt;S&gt;, Function&lt;S, T&gt;, Function&lt;List&lt;T&gt;, U&gt;)
+
 [2021/12/06]
 - Add
   + open.commons.utils.CollectionUtils.concatenate(Collection&lt;S&gt;, Function&lt;S, T&gt;, Consumer&lt;T&gt;)
