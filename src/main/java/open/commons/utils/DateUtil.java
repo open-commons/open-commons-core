@@ -68,6 +68,20 @@ public class DateUtil {
     public static final SimpleDateFormat ISO_FORMAT_NO_TZ = new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ);
 
     /**
+     * ISO 8601 표기
+     * 
+     * @since 1.8.0
+     */
+    public static final String REGEX_ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    /**
+     * 
+     * ISO 8601 표기
+     * 
+     * @since 1.8.0
+     */
+    public static final SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat(REGEX_ISO_8601_FORMAT);
+
+    /**
      * 포맷: {@value #REGEX_yyyyMMDD}
      * 
      * @see #REGEX_yyyyMMDD

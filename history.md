@@ -1,5 +1,11 @@
 [2021/12/20]
 - Add
+  + open.commons.utils.DateUtil
+    - ISO_8601_FORMAT
+    - REGEX_ISO_8601_FORMAT
+  + open.commons.utils.DateUtil2
+    - ISO_8601_FORMAT
+    - REGEX_ISO_8601_FORMAT
   + open.commons.utils.CollectionUtils.concatenate(Collection&lt;S&gt;, Function&lt;S, T&gt;, Function&lt;List&lt;T&gt;, U&gt;)
 
 [2021/12/06]
