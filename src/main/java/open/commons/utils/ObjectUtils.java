@@ -949,7 +949,7 @@ public class ObjectUtils {
      *             TODO
      *
      * @since 2021. 12. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> Object registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> converter) throws NullPointerException {
 
@@ -983,7 +983,7 @@ public class ObjectUtils {
      * @throws NullPointerException
      *
      * @since 2021. 12. 2.
-     * @author Park_Jun_Hong_(fafanmama_at_naver_com)
+     * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> void registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> srcToTarget, Function<T, S> targetToSrc) throws NullPointerException {
 

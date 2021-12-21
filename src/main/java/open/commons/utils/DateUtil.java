@@ -72,7 +72,7 @@ public class DateUtil {
      * 
      * @since 1.8.0
      */
-    public static final String REGEX_ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    public static final String REGEX_ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
     /**
      * 
      * ISO 8601 표기
