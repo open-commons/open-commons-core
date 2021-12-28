@@ -450,21 +450,25 @@ public class ArrayUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] add(T[] array, T value) {
+
         T[] newArray = null;
 
-        if (array != null && array.length > 0) {
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+        if (array != null && value != null) {
 
+            assertComponentType(array, value.getClass());
+
+            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
             System.arraycopy(array, 0, newArray, 0, array.length);
+            newArray[newArray.length - 1] = value;
+        } else if (array != null) {
+            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
+        } else if (value != null) {
+            newArray = (T[]) Array.newInstance(value.getClass(), 1);
+            newArray[0] = value;
         } else {
-            if (value != null) {
-                newArray = (T[]) Array.newInstance(value.getClass(), 1);
-            } else {
-                return null;
-            }
+            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null"));
         }
 
-        newArray[newArray.length - 1] = value;
         return newArray;
     }
 
@@ -923,6 +927,20 @@ public class ArrayUtils {
         }
 
         return list;
+    }
+
+    private static <T> void assertComponentType(Class<?> arr1, Class<?> arr2) {
+        if (!arr1.isAssignableFrom(arr2)) {
+            throw ExceptionUtils.newException(ArrayStoreException.class, "두 개의 데이터가 상호적이지 않습니다. array.component-type=%s, value.type=%s", arr1, arr2);
+        }
+    }
+
+    private static <T> void assertComponentType(T[] arr1, Class<?> valueType) {
+        assertComponentType(arr1.getClass().getComponentType(), valueType);
+    }
+
+    private static <T> void assertComponentType(T[] arr1, T[] arr2) {
+        assertComponentType(arr1.getClass().getComponentType(), arr2.getClass().getComponentType());
     }
 
     /**
@@ -5613,6 +5631,9 @@ public class ArrayUtils {
     public static <T> T[] merge(T[] arr1, T[] arr2) {
 
         if (arr1 != null && arr2 != null) {
+
+            assertComponentType(arr1, arr2);
+
             T[] merged = ((T[]) Array.newInstance(arr1.getClass().getComponentType(), arr1.length + arr2.length));
 
             System.arraycopy(arr1, 0, merged, 0, arr1.length);
@@ -5633,12 +5654,12 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 28.		박준홍			최초 작성
+     * 2021. 12. 28.        박준홍         최초 작성
      * </pre>
      *
-     * @param arr
+     * @param array
      * @param values
      * @return
      * @exception NullPointerException
@@ -5649,22 +5670,59 @@ public class ArrayUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      */
-    public static Object[] objectArray(Object[] arr, Object... values) {
+    public static Object[] objectArray(Object value, Object[] array) {
 
-        if (arr != null && values != null) {
-            Object[] newarr = new Object[arr.length + values.length];
-            System.arraycopy(arr, 0, newarr, 0, arr.length);
-            System.arraycopy(values, arr.length, newarr, 0, values.length);
+        if (array != null && value != null) {
+            Object[] newarr = new Object[array.length + 1];
+            newarr[0] = value;
+            System.arraycopy(array, 0, newarr, 1, array.length);
 
-        } else if (arr != null) {
-            return arr;
+            return newarr;
+        } else if (array != null) {
+            return array;
+        } else if (value != null) {
+            return new Object[] { value };
+        } else {
+            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null"));
+        }
+    }
+
+    /**
+     * 타입이 서로 다른 2개의 배열을 하나의 배열로 합쳐서 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     * @exception NullPointerException
+     *                Either of parameters is null
+     *
+     * @since 2021. 12. 28.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     */
+    public static Object[] objectArray(Object[] array, Object... values) {
+
+        if (array != null && values != null) {
+            Object[] newarr = new Object[array.length + values.length];
+            System.arraycopy(array, 0, newarr, 0, array.length);
+            System.arraycopy(values, 0, newarr, array.length, values.length);
+
+            return newarr;
+        } else if (array != null) {
+            return array;
         } else if (values != null) {
             return values;
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null"));
         }
-
-        return null;
     }
 
     /**
@@ -5887,17 +5945,25 @@ public class ArrayUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> T[] prepend(T[] array, T value) {
+
         T[] newArray = null;
 
-        if (array != null && array.length > 0) {
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+        if (array != null && value != null) {
 
+            assertComponentType(array, value.getClass());
+
+            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
             System.arraycopy(array, 0, newArray, 1, array.length);
-        } else {
+            newArray[0] = value;
+        } else if (array != null) {
             newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
+        } else if (value != null) {
+            newArray = (T[]) Array.newInstance(value.getClass(), 1);
+            newArray[0] = value;
+        } else {
+            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null"));
         }
 
-        newArray[0] = value;
         return newArray;
     }
 
