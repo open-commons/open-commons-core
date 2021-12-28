@@ -5629,6 +5629,45 @@ public class ArrayUtils {
     }
 
     /**
+     * 타입이 서로 다른 2개의 배열을 하나의 배열로 합쳐서 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 12. 28.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     * @param values
+     * @return
+     * @exception NullPointerException
+     *                Either of parameters is null
+     *
+     * @since 2021. 12. 28.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     */
+    public static Object[] objectArray(Object[] arr, Object... values) {
+
+        if (arr != null && values != null) {
+            Object[] newarr = new Object[arr.length + values.length];
+            System.arraycopy(arr, 0, newarr, 0, arr.length);
+            System.arraycopy(values, arr.length, newarr, 0, values.length);
+
+        } else if (arr != null) {
+            return arr;
+        } else if (values != null) {
+            return values;
+        } else {
+            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null"));
+        }
+
+        return null;
+    }
+
+    /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
      * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 

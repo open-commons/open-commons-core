@@ -1,3 +1,7 @@
+[2021/12/28]
+- Add
+  + open.commons.utils.ArrayUtils.objectArray(Object[], Object...)
+  
 [2021/12/20]
 - Add
   + open.commons.utils.DateUtil
