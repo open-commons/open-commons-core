@@ -537,6 +537,81 @@ public class ObjectUtils {
     }
 
     /**
+     * 주어진 식별정보 맞는 데이터 변환 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 12. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * 
+     * @param typeConverterKey
+     *            데이터 변환함수 식별정보
+     * @return
+     * @throws IllegalArgumentException
+     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *
+     * @since 2021. 12. 30.
+     * @version 1.8.0
+     * @author parkjunhong77@gmail.com
+     * 
+     * @see #TYPE_CONVERTER_KEYGEN
+     */
+    @SuppressWarnings("unchecked")
+    public static <S, T> Function<S, T> getTransformer(int typeConverterKey) throws NullPointerException {
+        return (Function<S, T>) TYPE_CONVERTERS.get(typeConverterKey);
+    }
+
+    /**
+     * 주어진 타입 및 조건에 맞는 데이터 변환 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 12. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * 
+     * @param typeConverterKey
+     *            데이터 변환함수 식별정보
+     * @param srcType
+     *            입력 데이타 타입
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @return
+     * @throws IllegalArgumentException
+     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *
+     * @since 2021. 12. 30.
+     * @version 1.8.0
+     * @author parkjunhong77@gmail.com
+     */
+    @SuppressWarnings("unchecked")
+    public static <S, T> Function<S, T> getTransformer(int typeConverterKey, Class<S> srcType, boolean lookupSrcSuper, Class<T> target, boolean lookupTargetSuper)
+            throws NullPointerException {
+
+        AssertUtils.assertNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, target);
+
+        return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, typeConverterKey,
+                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, target, lookupTargetSuper), true);
+    }
+
+    /**
      * 주어진 타입 및 조건에 맞는 데이터 변환 함수를 제공합니다. <br>
      * 
      * <pre>

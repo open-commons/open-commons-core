@@ -1,3 +1,9 @@
+[2021/12/30]
+- Add
+  + open.commons.utils.ObjectUtils
+    + getTransformer(int)
+    + getTransformer(int, Class&lt;S&gt;, boolean, Class&lt;S&gt;, boolean)
+
 [2021/12/28]
 - Add
   + open.commons.utils.ArrayUtils.objectArray(Object, Object[])
