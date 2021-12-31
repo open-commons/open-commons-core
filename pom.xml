@@ -16,7 +16,7 @@
 
 		<!-- >>> begin: dependencies -->
 		<slf4j-api.version>1.7.32</slf4j-api.version>
-		<org.apache.logging.log4j-api.version>2.17.0</org.apache.logging.log4j-api.version>
+		<org.apache.logging.log4j-api.version>2.17.1</org.apache.logging.log4j-api.version>
 		<!-- <<< end: dependencies -->
 
 		<!-- >>> begin: plugin dependencies -->
@@ -54,6 +54,7 @@
 
 	<dependencies>
 
+		<!-- ********************** -->
 		<!-- >>> begin: logging -->
 		<!-- https://mvnrepository.com/artifact/com.lmax/disruptor -->
 		<!-- for llog4j-2.x: making all asynchronous loggers -->
@@ -73,8 +74,12 @@
 			<artifactId>log4j-api</artifactId>
 			<version>${org.apache.logging.log4j-api.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>${org.apache.logging.log4j-api.version}</version>
+		</dependency>
 
-		<!-- ********************** -->
 		<!-- begin: slf4j -->
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
 		<dependency>
@@ -83,8 +88,8 @@
 			<version>${slf4j-api.version}</version>
 		</dependency>
 		<!-- end: slf4j -->
-		<!-- ********************** -->
 		<!-- <<< end: logging -->
+		<!-- ********************** -->
 
 		<!-- ************** -->
 		<!-- begin: OpenCSV -->
