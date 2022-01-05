@@ -1,6 +1,7 @@
 [2022/01/05]
 - Add
   + open.commons.test.StopWatch
+    + getPercentage(String): 전체 소요기간 대비 비율을 제공
     + stats(): 전체 기록 정보를 제공
     + stats(boolean): 전체 기록 정보를 제공
   

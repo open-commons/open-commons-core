@@ -216,6 +216,37 @@ public class StopWatch {
     }
 
     /**
+     * 전체 소유시간 중에 해당기록의 경과 시간이 차지하는 비율을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param name
+     * @return
+     *
+     * @since 2022. 1. 5.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public Double getPercentage(String name) {
+        this.lock.lock();
+        try {
+            if (!expect(State.STOPPED)) {
+                throw new IllegalStateException("StopWatch is not stopped. state=" + toString());
+            }
+
+            Record r = records.get(name);
+            return r == null ? 0.0 : (double) r.get() / get();
+        } finally {
+            this.lock.unlock();
+        }
+    }
+
+    /**
      * 주어진 이름에 해당하는 기록 존재여부를 제공합니다. <br>
      * 
      * <pre>
@@ -501,7 +532,7 @@ public class StopWatch {
                 long t = get(rn);
                 buf.append(String.format(fmt //
                 , StringUtils.compact(LAST.equals(rn) ? "마지막" : rn, 10) // 작업이름
-                , (double) t / total * 100 // 전체 소유시간 대비 비율
+                , getPercentage(rn) * 100 // 전체 소유시간 대비 비율
                 , t // 경과 시간 (단위: nano seconds)
                 , getAsPretty(rn).trim().replaceAll("\\s{2,}", " ")));
             });
