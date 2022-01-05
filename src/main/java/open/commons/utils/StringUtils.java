@@ -277,6 +277,38 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열의 길이가 제한길이보다 긴 경우 (...)으로 표현된 문자열을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param str
+     *            문자열
+     * @param len
+     *            제한길이
+     * @return
+     *
+     * @since 2022. 1. 5.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String compact(String str, int len) {
+        AssertUtils.assertNull(str);
+        AssertUtils.assertTrue(len < 1);
+
+        str = str.trim();
+        if (str.length() <= len) {
+            return str;
+        } else {
+            return new StringBuilder().append(str.substring(0, len - 3)).append("...").toString();
+        }
+    }
+
+    /**
      * 주어진 문자열을 하나의 문자열로 연결하여 제공합니다. <br>
      * 
      * <pre>

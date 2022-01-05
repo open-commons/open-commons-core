@@ -28,10 +28,12 @@ package open.commons.test;
 
 import java.util.Map;
 import java.util.UUID;
+import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
+import open.commons.utils.StringUtils;
 import open.commons.utils.TimeUtils;
 
 /**
@@ -55,6 +57,8 @@ public class StopWatch {
     private final ReentrantLock lock = new ReentrantLock();
     /** 경과시간 기록 */
     private final ConcurrentSkipListMap<String, Record> records = new ConcurrentSkipListMap<>();
+    /** 기록된 순서대로 이름을 저장 */
+    private final Vector<String> recordNames = new Vector<>();
     /** 상태 */
     private State state = State.READY;
     /** 시작 시간 */
@@ -320,12 +324,18 @@ public class StopWatch {
     }
 
     private Long record(String name, long cur) {
+        assert name == null;
+        assert cur < 1;
+
         // 현재 시간 - 이전 기록 시간 - 일시정지된 만큼.
         Long r = cur - this.record - this.paused;
-        records.put(name, new Record(this.record, cur, this.paused, this.pausedAcc));
+        this.records.put(name, new Record(this.record, cur, this.paused, this.pausedAcc));
 
         this.record = cur;
         this.paused = 0;
+
+        // 기록이름 저장. 2022.01.05
+        this.recordNames.add(name);
 
         return r;
     }
@@ -382,6 +392,7 @@ public class StopWatch {
             this.state = State.READY;
 
             this.records.clear();
+            this.recordNames.clear();
         } finally {
             this.lock.unlock();
         }
@@ -427,6 +438,81 @@ public class StopWatch {
             this.lock.unlock();
         }
     }
+
+    /**
+     * 모든 기록내용을 보여줍니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 5.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @return
+     *
+     * @since 2022. 1. 5.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #stats(boolean)
+     */
+    public String stats() {
+        return stats(false);
+    }
+
+    /**
+     * 모든 기록내용을 보여줍니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 5.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param alsoLast
+     *            마지막 작업 포함 여부
+     *
+     * @return
+     *
+     * @since 2022. 1. 5.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public String stats(boolean alsoLast) {
+        this.lock.lock();
+        try {
+            if (!expect(State.STOPPED)) {
+                throw new IllegalStateException("StopWatch is not stopped. state=" + toString());
+            }
+
+            StringBuilder buf = new StringBuilder();
+            buf.append(String.format("%-10s\t%4s\t%s", "작업이름", "비율(%)", "경과시간(ns)"));
+            buf.append("\n--------------------------------------------------");
+            String fmt = "%-10s\t%3.1f%%\t%d (%s)";
+            final long total = this.get();
+            this.recordNames.forEach(rn -> {
+                if (!alsoLast && LAST.equals(rn)) {
+                    return;
+                }
+
+                buf.append("\n");
+                long t = get(rn);
+                buf.append(String.format(fmt //
+                , StringUtils.compact(LAST.equals(rn) ? "마지막" : rn, 10) // 작업이름
+                , (double) t / total * 100 // 전체 소유시간 대비 비율
+                , t // 경과 시간 (단위: nano seconds)
+                , getAsPretty(rn).trim().replaceAll("\\s{2,}", " ")));
+            });
+
+            return buf.toString();
+        } finally {
+            this.lock.unlock();
+        }
+    }
+
+    // private static final
 
     /**
      * 기록측정을 종료합니다. <br>

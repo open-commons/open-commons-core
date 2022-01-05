@@ -1,3 +1,9 @@
+[2022/01/05]
+- Add
+  + open.commons.test.StopWatch
+    + stats(): 전체 기록 정보를 제공
+    + stats(boolean): 전체 기록 정보를 제공
+  
 [2021/12/30]
 - Add
   + open.commons.utils.ObjectUtils
