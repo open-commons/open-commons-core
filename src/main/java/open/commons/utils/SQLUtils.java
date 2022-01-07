@@ -52,6 +52,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -62,6 +63,7 @@ import open.commons.annotation.ColumnDef;
 import open.commons.annotation.ColumnDef.ColumnNameType;
 import open.commons.annotation.ColumnValue;
 import open.commons.database.annotation.ColumnConstraint;
+import open.commons.database.annotation.TableDef;
 import open.commons.function.TripleFunction;
 
 /**
@@ -483,6 +485,31 @@ public class SQLUtils {
     }
 
     /**
+     * 주어진 DB Table Entity의 컬럼명 정렬 여부를 제공합니다. <br>
+     * 컬럼명을 정렬하는 경우, 반드시 컬럼에 대응하는 메소드에 {@link ColumnValue#order()} 를 설정해야 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param entityType
+     * @return
+     *
+     * @since 2022. 1. 7.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean isSortedColumns(Class<?> entityType) {
+        TableDef anno = AnnotationUtils.getAnnotation(entityType, TableDef.class);
+        return anno != null //
+                ? anno.sortedColumns() //
+                : false;
+    }
+
+    /**
      * Oracle에서 한글을 3바이트로 처리하기 때문에, 그에 맞는 문자열 길이를 제공합니다. <br>
      * 
      * <pre>
@@ -628,10 +655,8 @@ public class SQLUtils {
 
         // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
         if (columnNames == null || columnNames.length < 1) {
-            // ColumnValue#order() 값에 대한 오름차순 정렬 적용
-            methods.sort(Comparator.comparing(m -> {
-                return m.getAnnotation(ColumnValue.class).order();
-            }));
+            // DB Entity 객체의 컬럼 정렬 여부 적용 - 2022. 1. 7. 오전 11:43:25 / Park_Jun_Hong (jhpark@ymtech.co.kr)
+            sortColumns(type, methods);
         } else {
             // 메소드별 컬럼명 대/소문자 비교 여부
             final Map<String, Boolean> clmnCaseSensitive = new HashMap<>();
@@ -807,5 +832,39 @@ public class SQLUtils {
         } else {
             stmt.setObject(index, null);
         }
+    }
+
+    /**
+     * DB Table entity의 컬럼을 정렬합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param entityType
+     *            DB Table Entity 타입
+     * @param columnBindingMethods
+     *            DB Table Column과 연결된 {@link Method}
+     *
+     * @since 2022. 1. 7.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void sortColumns(Class<?> entityType, List<Method> columnBindingMethods) {
+
+        Function<Method, Integer> keyExtractor = null;
+
+        if (isSortedColumns(entityType)) {
+            // ColumnValue#order() 값에 대한 오름차순 정렬 적용
+            keyExtractor = m -> m.getAnnotation(ColumnValue.class).order();
+        } else {
+            // 컬럼이름의 hash값을 이용한 임의 정렬
+            keyExtractor = m -> m.getAnnotation(ColumnValue.class).name().hashCode();
+        }
+
+        columnBindingMethods.sort(Comparator.comparing(keyExtractor));
     }
 }

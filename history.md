@@ -1,3 +1,11 @@
+[2022/01/07]
+- Add
+  + open.commons.database.annotation.TableDef
+    + sortedColumns(): 컬럼 정렬 여부
+  + open.commons.utils.SQLUtils
+    + isSortedColumns(Class&lt;?&gt;): 컬럼 정렬 여부 확인
+    + sortColumns(Class&lt;?&gt;, List&lt;Method&gt;): 컬럼 정렬
+    
 [2022/01/05]
 - Add
   + open.commons.test.StopWatch
