@@ -126,7 +126,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
         }
 
         // begin - PATCH [2019. 10. 17.]: Process ID를 ThreadContext에 'pid' 라는 이름으로 설정<br>
-        // Log4j(1/2) 사용지 Pattern에 %X{pid} 라는 설정으로 사용할 수 있다.
+        // Log4j(1/2) 사용지 Pattern에 %X{pid} 라는 설정으로 사용할 수 있습니다.
         // Park_Jun_Hong_(parkjunhong77@gmail.com)
         RuntimeMXBean rt = ManagementFactory.getRuntimeMXBean();
         StringBuffer buf = new StringBuffer();
@@ -154,7 +154,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
     /**
      * {@link Thread}에 Process ID 정보를 설정하기 위해서, {@link Runnable#run()} 를 final 로 정의하였다.<br>
      * 이를 대체하기 위해서 실제 기능 구현을 하는 메소드이다. <br>
-     * Log4j(1,2)에서 Pattern에 %X{pid} 로 설정함으로써 로그메시지에 Process ID 를 출력할 수 있다.<br>
+     * Log4j(1,2)에서 Pattern에 %X{pid} 로 설정함으로써 로그메시지에 Process ID 를 출력할 수 있습니다.<br>
      * 
      * <pre>
      * [개정이력]

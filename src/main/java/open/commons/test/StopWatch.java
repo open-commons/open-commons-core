@@ -355,8 +355,8 @@ public class StopWatch {
     }
 
     private Long record(String name, long cur) {
-        assert name == null;
-        assert cur < 1;
+        assert name != null;
+        assert cur > 0;
 
         // 현재 시간 - 이전 기록 시간 - 일시정지된 만큼.
         Long r = cur - this.record - this.paused;

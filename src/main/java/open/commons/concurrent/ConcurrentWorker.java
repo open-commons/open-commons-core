@@ -349,7 +349,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
     }
 
     /**
-     * {@link #run()} 메소드를 구현하여 {@link #queue}에서 꺼낸 데이터를 처리한 후, 작업완료를 명시적으로 기록하기 위해서 {@link #doneJob()}를 사용할 수 있다.<br>
+     * {@link #run()} 메소드를 구현하여 {@link #queue}에서 꺼낸 데이터를 처리한 후, 작업완료를 명시적으로 기록하기 위해서 {@link #doneJob()}를 사용할 수 있습니다.<br>
      * 
      * @see open.commons.lang.DefaultRunnable#runInternal()
      */
