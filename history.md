@@ -1,3 +1,9 @@
+[2022/01/26]
+- Add
+  + open.commons.utils.ObjectUtils
+    + getTransformer(S, boolean, T, boolean)
+    + getTransformer(S, T)
+
 [2022/01/07]
 - Add
   + open.commons.database.annotation.TableDef

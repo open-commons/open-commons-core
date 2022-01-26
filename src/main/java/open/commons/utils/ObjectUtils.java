@@ -410,8 +410,8 @@ public class ObjectUtils {
      *            입력 데이타 타입
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받은 객체 타입.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
@@ -423,13 +423,13 @@ public class ObjectUtils {
      * @author parkjunhong77@gmail.com
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> target, boolean lookupTargetSuper) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws IllegalArgumentException {
 
-        AssertUtils.assertNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, target);
+        AssertUtils.assertNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
-        int key = TYPE_CONVERTER_KEYGEN.apply(srcType, lookupSrcSuper, target, lookupTargetSuper);
+        int key = TYPE_CONVERTER_KEYGEN.apply(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
         return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, key,
-                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, target, lookupTargetSuper), true);
+                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
     }
 
     /**
@@ -480,8 +480,8 @@ public class ObjectUtils {
      *            입력 데이타
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받은 객체 타입
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
@@ -493,12 +493,12 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> Function<S, T> getTransformer(Collection<S> src, boolean lookupSrcSuper, Class<T> target, boolean lookupTargetSuper) {
+    public static <S, T> Function<S, T> getTransformer(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
 
-        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
         AssertUtils.assertTrue("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
 
-        return getTransformer(src.iterator().next(), lookupSrcSuper, target, lookupTargetSuper);
+        return getTransformer(src.iterator().next(), lookupSrcSuper, targetType, lookupTargetSuper);
     }
 
     /**
@@ -589,7 +589,7 @@ public class ObjectUtils {
      *            입력 데이타 타입
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
+     * @param targetType
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -602,13 +602,13 @@ public class ObjectUtils {
      * @author parkjunhong77@gmail.com
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(int typeConverterKey, Class<S> srcType, boolean lookupSrcSuper, Class<T> target, boolean lookupTargetSuper)
+    public static <S, T> Function<S, T> getTransformer(int typeConverterKey, Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper)
             throws NullPointerException {
 
-        AssertUtils.assertNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, target);
+        AssertUtils.assertNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
         return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, typeConverterKey,
-                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, target, lookupTargetSuper), true);
+                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
     }
 
     /**
@@ -629,7 +629,7 @@ public class ObjectUtils {
      *            입력 데이타
      * @param lookupSrcSuper
      *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
+     * @param targetType
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -642,11 +642,51 @@ public class ObjectUtils {
      * @author parkjunhong77@gmail.com
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> target, boolean lookupTargetSuper) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws NullPointerException {
 
-        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+        AssertUtils.assertNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
 
-        return (Function<S, T>) getTransformer(src.getClass(), lookupSrcSuper, target, lookupTargetSuper);
+        return (Function<S, T>) getTransformer(src.getClass(), lookupSrcSuper, targetType, lookupTargetSuper);
+    }
+
+    /**
+     * 주어진 타입 및 조건에 맞는 데이터 변환 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * *
+     * 
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param srcType
+     *            입력 데이타 타입
+     * @param lookupSrcSuper
+     *            입력 데이타 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetType
+     *            데이터를 전달받은 객체 타입.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @return
+     * @throws IllegalArgumentException
+     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *
+     * @since 2022. 1. 26.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unchecked")
+    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) throws IllegalArgumentException {
+
+        AssertUtils.assertNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+
+        return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, (Class<T>) target.getClass(), lookupTargetSuper);
     }
 
     /**
@@ -665,8 +705,8 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이타
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받은 객체 타입.
      * @return
      * 
      * @throws IllegalArgumentException
@@ -676,7 +716,39 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> Function<S, T> getTransformer(S src, Class<T> target) {
+    public static <S, T> Function<S, T> getTransformer(S src, Class<T> targetType) {
+        return getTransformer(src, false, targetType, false);
+    }
+
+    /**
+     * 주어진 타입 및 조건에 맞는 데이터 변환 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     *      * 
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 1. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이타
+     * @param target
+     *            데이터를 전달받은 객체.
+     * @return
+     * 
+     * @throws IllegalArgumentException
+     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *
+     * @since 2022. 1. 26.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T> Function<S, T> getTransformer(S src, T target) {
         return getTransformer(src, false, target, false);
     }
 
