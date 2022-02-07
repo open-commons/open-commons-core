@@ -760,6 +760,7 @@ public class ObjectUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2020. 12. 22.		박준홍			최초 작성
+     * 2022. 02. 07.        박준홍     버그 수정.
      * </pre>
      *
      * @param type
@@ -770,7 +771,8 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isPrimitive(Class<?> type) {
-        return PRIMITIVES.contains(type.getClass());
+        AssertUtils.assertNull(type);
+        return PRIMITIVES.contains(type);
     }
 
     /**
@@ -789,8 +791,11 @@ public class ObjectUtils {
      * @since 2020. 12. 22.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated DO NOT USE. 잘못 정의된 메소드.
      */
     public static boolean isPrimitive(Object obj) {
+        AssertUtils.assertNull(obj);
         return PRIMITIVES.contains(obj.getClass());
     }
 
@@ -802,6 +807,7 @@ public class ObjectUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2020. 12. 22.		박준홍			최초 작성
+     * 2022. 02. 07.        박준홍     버그 수정.
      * </pre>
      *
      * @param type
@@ -812,7 +818,8 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWrapper(Class<?> type) {
-        return WRAPPER_TYPES.contains(type.getClass());
+        AssertUtils.assertNull(type);
+        return WRAPPER_TYPES.contains(type);
     }
 
     /**
@@ -833,6 +840,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWrapper(Object obj) {
+        AssertUtils.assertNull(obj);
         return WRAPPER_TYPES.contains(obj.getClass());
     }
 
@@ -1168,7 +1176,7 @@ public class ObjectUtils {
 
         if (classType.isInterface()) {
             throw new UnsupportedOperationException(
-                    "Only support a class type not interface type!!! at " + Number.class.getName() + "." + ThreadUtils.getCurrentMethodName() + "()");
+                    "Only support a class type not interface type!!! at " + ObjectUtils.class.getName() + "." + ThreadUtils.getCurrentMethodName() + "()");
         }
 
         R r = classType.newInstance();

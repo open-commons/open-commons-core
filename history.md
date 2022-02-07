@@ -1,3 +1,13 @@
+[2022/02/07]
+- Bugfix
+  + open.commons.utils.ObjectUtils
+    + isPrimitive(Class<?>): 구현 버그 수정
+    + isWrapper(Class<?>): 구현 버그 수정
+- Deleted
+  + open.commons.utils.ObjectUtils
+    + isPrimitive(Object): 잘못 정의된 메소드.
+
+
 [2022/01/26]
 - Add
   + open.commons.utils.ObjectUtils
