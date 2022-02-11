@@ -124,8 +124,7 @@ public interface SQLConsumer<T> {
      * @see SQLUtils#setParameters(PreparedStatement, int, Object, String...)
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object param, String... columnNames) {
-        if (ObjectUtils.isPrimitive(param) //
-                || ObjectUtils.isWrapper(param) //
+        if (ObjectUtils.isWrapper(param) //
                 || String.class.equals(param.getClass()) //
         ) {
             return setParameters( //
