@@ -35,9 +35,11 @@ import java.util.List;
  * @since 2022. 2. 11.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
+ * @see <a href=
+ *      "https://en.wikipedia.org/wiki/List_of_DNS_record_types">https://en.wikipedia.org/wiki/List_of_DNS_record_types</a>
  */
 public enum DnsRecordType {
-
     /**
      * 구분: 리소스 레코드<br>
      * 타입: A<br>
@@ -45,7 +47,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: Address record<br>
      */
-    A("A", 1), //
+    A("A", 1, "Address record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: AAAA<br>
@@ -53,7 +55,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC3596">RFC 3596</a><br>
      * 설명: IPv6 address record<br>
      */
-    AAAA("AAAA", 28), //
+    AAAA("AAAA", 28, "IPv6 address record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: AFSDB<br>
@@ -61,7 +63,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1183">RFC 1183</a><br>
      * 설명: AFS database record<br>
      */
-    AFSDB("AFSDB", 18), //
+    AFSDB("AFSDB", 18, "AFS database record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: APL<br>
@@ -69,7 +71,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC3123">RFC 3123</a><br>
      * 설명: Address Prefix List<br>
      */
-    APL("APL", 42), //
+    APL("APL", 42, "Address Prefix List"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: CAA<br>
@@ -77,7 +79,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6844">RFC 6844</a><br>
      * 설명: Certification Authority Authorization<br>
      */
-    CAA("CAA", 257), //
+    CAA("CAA", 257, "Certification Authority Authorization"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: CDNSKEY<br>
@@ -85,7 +87,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7344">RFC 7344</a><br>
      * 설명: -<br>
      */
-    CDNSKEY("CDNSKEY", 60), //
+    CDNSKEY("CDNSKEY", 60, ""), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: CDS<br>
@@ -93,7 +95,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7344">RFC 7344</a><br>
      * 설명: Child DS<br>
      */
-    CDS("CDS", 59), //
+    CDS("CDS", 59, "Child DS"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: CERT<br>
@@ -101,7 +103,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4398">RFC 4398</a><br>
      * 설명: Certificate record<br>
      */
-    CERT("CERT", 37), //
+    CERT("CERT", 37, "Certificate record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: CNAME<br>
@@ -109,7 +111,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: Canonical name record<br>
      */
-    CNAME("CNAME", 5), //
+    CNAME("CNAME", 5, "Canonical name record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: CSYNC<br>
@@ -117,7 +119,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7477">RFC 7477</a><br>
      * 설명: Child-to-Parent Synchronization<br>
      */
-    CSYNC("CSYNC", 62), //
+    CSYNC("CSYNC", 62, "Child-to-Parent Synchronization"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: DHCID<br>
@@ -125,7 +127,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4701">RFC 4701</a><br>
      * 설명: DHCP identifier<br>
      */
-    DHCID("DHCID", 49), //
+    DHCID("DHCID", 49, "DHCP identifier"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: DLV<br>
@@ -133,7 +135,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4431">RFC 4431</a><br>
      * 설명: DNSSEC Lookaside Validation record<br>
      */
-    DLV("DLV", 32769), //
+    DLV("DLV", 32769, "DNSSEC Lookaside Validation record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: DNAME<br>
@@ -141,7 +143,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6672">RFC 6672</a><br>
      * 설명: -<br>
      */
-    DNAME("DNAME", 39), //
+    DNAME("DNAME", 39, ""), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: DNSKEY<br>
@@ -149,7 +151,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4034">RFC 4034</a><br>
      * 설명: DNS Key record<br>
      */
-    DNSKEY("DNSKEY", 48), //
+    DNSKEY("DNSKEY", 48, "DNS Key record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: DS<br>
@@ -157,7 +159,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4034">RFC 4034</a><br>
      * 설명: Delegation signer<br>
      */
-    DS("DS", 43), //
+    DS("DS", 43, "Delegation signer"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: EUI48<br>
@@ -165,7 +167,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7043">RFC 7043</a><br>
      * 설명: MAC address (EUI-48)<br>
      */
-    EUI48("EUI48", 108), //
+    EUI48("EUI48", 108, "MAC address (EUI-48)"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: EUI64<br>
@@ -173,7 +175,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7043">RFC 7043</a><br>
      * 설명: MAC address (EUI-64)<br>
      */
-    EUI64("EUI64", 109), //
+    EUI64("EUI64", 109, "MAC address (EUI-64)"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: HINFO<br>
@@ -181,7 +183,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC8482">RFC 8482</a><br>
      * 설명: Host Information<br>
      */
-    HINFO("HINFO", 13), //
+    HINFO("HINFO", 13, "Host Information"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: HIP<br>
@@ -189,7 +191,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC8005">RFC 8005</a><br>
      * 설명: Host Identity Protocol<br>
      */
-    HIP("HIP", 55), //
+    HIP("HIP", 55, "Host Identity Protocol"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: IPSECKEY<br>
@@ -197,7 +199,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4025">RFC 4025</a><br>
      * 설명: IPsec Key<br>
      */
-    IPSECKEY("IPSECKEY", 45), //
+    IPSECKEY("IPSECKEY", 45, "IPsec Key"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: KEY<br>
@@ -206,7 +208,7 @@ public enum DnsRecordType {
      * <a href="https://datatracker.ietf.org/doc/html/RFC2930">RFC 2930</a><br>
      * 설명: Key record<br>
      */
-    KEY("KEY", 25), //
+    KEY("KEY", 25, "Key record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: KX<br>
@@ -214,7 +216,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2230">RFC 2230</a><br>
      * 설명: Key Exchanger record<br>
      */
-    KX("KX", 36), //
+    KX("KX", 36, "Key Exchanger record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: LOC<br>
@@ -222,7 +224,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1876">RFC 1876</a><br>
      * 설명: Location record<br>
      */
-    LOC("LOC", 29), //
+    LOC("LOC", 29, "Location record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: MX<br>
@@ -231,7 +233,7 @@ public enum DnsRecordType {
      * <a href="https://datatracker.ietf.org/doc/html/RFC7505">RFC 7505</a><br>
      * 설명: Mail exchange record<br>
      */
-    MX("MX", 15), //
+    MX("MX", 15, "Mail exchange record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: NAPTR<br>
@@ -239,7 +241,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC3403">RFC 3403</a><br>
      * 설명: Naming Authority Pointer<br>
      */
-    NAPTR("NAPTR", 35), //
+    NAPTR("NAPTR", 35, "Naming Authority Pointer"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: NS<br>
@@ -247,7 +249,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: Name server record<br>
      */
-    NS("NS", 2), //
+    NS("NS", 2, "Name server record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: NSEC<br>
@@ -255,7 +257,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4034">RFC 4034</a><br>
      * 설명: Next Secure record<br>
      */
-    NSEC("NSEC", 47), //
+    NSEC("NSEC", 47, "Next Secure record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: NSEC3<br>
@@ -263,7 +265,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC5155">RFC 5155</a><br>
      * 설명: Next Secure record version 3<br>
      */
-    NSEC3("NSEC3", 50), //
+    NSEC3("NSEC3", 50, "Next Secure record version 3"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: NSEC3PARAM<br>
@@ -271,7 +273,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC5155">RFC 5155</a><br>
      * 설명: NSEC3 parameters<br>
      */
-    NSEC3PARAM("NSEC3PARAM", 51), //
+    NSEC3PARAM("NSEC3PARAM", 51, "NSEC3 parameters"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: OPENPGPKEY<br>
@@ -279,7 +281,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7929">RFC 7929</a><br>
      * 설명: OpenPGP public key record<br>
      */
-    OPENPGPKEY("OPENPGPKEY", 61), //
+    OPENPGPKEY("OPENPGPKEY", 61, "OpenPGP public key record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: PTR<br>
@@ -287,7 +289,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: PTR Resource Record<br>
      */
-    PTR("PTR", 12), //
+    PTR("PTR", 12, "PTR Resource Record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: RRSIG<br>
@@ -295,7 +297,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4034">RFC 4034</a><br>
      * 설명: DNSSEC signature<br>
      */
-    RRSIG("RRSIG", 46), //
+    RRSIG("RRSIG", 46, "DNSSEC signature"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: RP<br>
@@ -303,7 +305,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1183">RFC 1183</a><br>
      * 설명: Responsible Person<br>
      */
-    RP("RP", 17), //
+    RP("RP", 17, "Responsible Person"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: SIG<br>
@@ -311,15 +313,15 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2535">RFC 2535</a><br>
      * 설명: Signature<br>
      */
-    SIG("SIG", 24), //
+    SIG("SIG", 24, "Signature"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: SMIMEA<br>
      * 타입id(이진): 53<br>
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC8162">RFC 8162</a><br>
-     * 설명: S/MIME cert association[6]<br>
+     * 설명: S/MIME cert association<br>
      */
-    SMIMEA("SMIMEA", 53), //
+    SMIMEA("SMIMEA", 53, "S/MIME cert association"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: SOA<br>
@@ -329,7 +331,8 @@ public enum DnsRecordType {
      * 설명: Specifies authoritative information about a DNS zone, including the primary name server, the email of the
      * domain administrator, the domain serial number, and several timers relating to refreshing the zone.<br>
      */
-    SOA("SOA", 6), //
+    SOA("SOA", 6,
+            "Specifies authoritative information about a DNS zone, including the primary name server, the email of the domain administrator, the domain serial number, and several timers relating to refreshing the zone."), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: SRV<br>
@@ -337,7 +340,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2782">RFC 2782</a><br>
      * 설명: Service locator<br>
      */
-    SRV("SRV", 33), //
+    SRV("SRV", 33, "Service locator"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: SSHFP<br>
@@ -345,7 +348,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4255">RFC 4255</a><br>
      * 설명: SSH Public Key Fingerprint<br>
      */
-    SSHFP("SSHFP", 44), //
+    SSHFP("SSHFP", 44, "SSH Public Key Fingerprint"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: TA<br>
@@ -353,7 +356,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: DNSSEC Trust Authorities<br>
      */
-    TA("TA", 32768), //
+    TA("TA", 32768, "DNSSEC Trust Authorities"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: TKEY<br>
@@ -361,7 +364,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2930">RFC 2930</a><br>
      * 설명: Transaction Key record<br>
      */
-    TKEY("TKEY", 249), //
+    TKEY("TKEY", 249, "Transaction Key record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: TLSA<br>
@@ -369,7 +372,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6698">RFC 6698</a><br>
      * 설명: TLSA certificate association<br>
      */
-    TLSA("TLSA", 52), //
+    TLSA("TLSA", 52, "TLSA certificate association"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: TSIG<br>
@@ -377,7 +380,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2845">RFC 2845</a><br>
      * 설명: Transaction Signature<br>
      */
-    TSIG("TSIG", 250), //
+    TSIG("TSIG", 250, "Transaction Signature"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: TXT<br>
@@ -385,7 +388,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: Text record<br>
      */
-    TXT("TXT", 16), //
+    TXT("TXT", 16, "Text record"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: URI<br>
@@ -393,7 +396,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC7553">RFC 7553</a><br>
      * 설명: Uniform Resource Identifier<br>
      */
-    URI("URI", 256), //
+    URI("URI", 256, "Uniform Resource Identifier"), //
     /**
      * 구분: 리소스 레코드<br>
      * 타입: ZONEMD<br>
@@ -401,7 +404,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/TBA">TBA</a><br>
      * 설명: -<br>
      */
-    ZONEMD("ZONEMD", 63), //
+    ZONEMD("ZONEMD", 63, ""), //
     /**
      * 구분: 기타 유형 및 의사 리소스 레코드<br>
      * 타입: *<br>
@@ -409,7 +412,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: All cached records<br>
      */
-    ASTERIK("*", 255), //
+    ASTERIK("*", 255, "All cached records"), //
     /**
      * 구분: 기타 유형 및 의사 리소스 레코드<br>
      * 타입: AXFR<br>
@@ -417,7 +420,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: Authoritative Zone Transfer<br>
      */
-    AXFR("AXFR", 252), //
+    AXFR("AXFR", 252, "Authoritative Zone Transfer"), //
     /**
      * 구분: 기타 유형 및 의사 리소스 레코드<br>
      * 타입: IXFR<br>
@@ -425,7 +428,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1996">RFC 1996</a><br>
      * 설명: Incremental Zone Transfer<br>
      */
-    IXFR("IXFR", 251), //
+    IXFR("IXFR", 251, "Incremental Zone Transfer"), //
     /**
      * 구분: 기타 유형 및 의사 리소스 레코드<br>
      * 타입: OPT<br>
@@ -433,7 +436,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6891">RFC 6891</a><br>
      * 설명: Option<br>
      */
-    OPT("OPT", 41), //
+    OPT("OPT", 41, "Option"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MD<br>
@@ -441,7 +444,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: RFC 973<br>
      */
-    MD("MD", 3), //
+    MD("MD", 3, "RFC 973"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MF<br>
@@ -449,7 +452,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: RFC 973<br>
      */
-    MF("MF", 4), //
+    MF("MF", 4, "RFC 973"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MAILA<br>
@@ -457,7 +460,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: RFC 973<br>
      */
-    MAILA("MAILA", 254), //
+    MAILA("MAILA", 254, "RFC 973"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MB<br>
@@ -465,7 +468,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: Not formally obsoleted. Unlikely to be ever adopted (RFC 2505).<br>
      */
-    MB("MB", 7), //
+    MB("MB", 7, "Not formally obsoleted. Unlikely to be ever adopted (RFC 2505)."), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MG<br>
@@ -473,7 +476,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: Not formally obsoleted. Unlikely to be ever adopted (RFC 2505).<br>
      */
-    MG("MG", 8), //
+    MG("MG", 8, "Not formally obsoleted. Unlikely to be ever adopted (RFC 2505)."), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MR<br>
@@ -481,7 +484,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: Not formally obsoleted. Unlikely to be ever adopted (RFC 2505).<br>
      */
-    MR("MR", 9), //
+    MR("MR", 9, "Not formally obsoleted. Unlikely to be ever adopted (RFC 2505)."), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MINFO<br>
@@ -489,7 +492,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: Not formally obsoleted. Unlikely to be ever adopted (RFC 2505).<br>
      */
-    MINFO("MINFO", 14), //
+    MINFO("MINFO", 14, "Not formally obsoleted. Unlikely to be ever adopted (RFC 2505)."), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: MAILB<br>
@@ -497,7 +500,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: Not formally obsoleted. Unlikely to be ever adopted (RFC 2505).<br>
      */
-    MAILB("MAILB", 253), //
+    MAILB("MAILB", 253, "Not formally obsoleted. Unlikely to be ever adopted (RFC 2505)."), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: WKS<br>
@@ -506,7 +509,7 @@ public enum DnsRecordType {
      * <a href="https://datatracker.ietf.org/doc/html/RFC1035">RFC 1035</a><br>
      * 설명: Declared as "not to be relied upon" by RFC 1123 (more in RFC 1127).<br>
      */
-    WKS("WKS", 11), //
+    WKS("WKS", 11, "Declared as not to be relied upon by RFC 1123 (more in RFC 1127)."), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NB<br>
@@ -514,7 +517,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1002">RFC 1002</a><br>
      * 설명: -<br>
      */
-    NB("NB", 32), //
+    NB("NB", 32, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NBSTAT<br>
@@ -522,7 +525,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1002">RFC 1002</a><br>
      * 설명: -<br>
      */
-    NBSTAT("NBSTAT", 33), //
+    NBSTAT("NBSTAT", 33, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NULL<br>
@@ -530,7 +533,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
      * 설명: RFC 1035<br>
      */
-    NULL("NULL", 10), //
+    NULL("NULL", 10, "RFC 1035"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: A6<br>
@@ -538,7 +541,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2874">RFC 2874</a><br>
      * 설명: RFC 6563<br>
      */
-    A6("A6", 38), //
+    A6("A6", 38, "RFC 6563"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NXT<br>
@@ -546,7 +549,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2065">RFC 2065</a><br>
      * 설명: RFC 3755<br>
      */
-    NXT("NXT", 30), //
+    NXT("NXT", 30, "RFC 3755"), //
     // /**
     // * 구분: 구식 레코드 타입<br>
     // * 타입: KEY<br>
@@ -554,7 +557,7 @@ public enum DnsRecordType {
     // * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2065">RFC 2065</a><br>
     // * 설명: RFC 3755<br>
     // */
-    // KEY("KEY", 25), //
+    // KEY("KEY", 25, "RFC 3755"), //
     // /**
     // * 구분: 구식 레코드 타입<br>
     // * 타입: SIG<br>
@@ -562,7 +565,7 @@ public enum DnsRecordType {
     // * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2065">RFC 2065</a><br>
     // * 설명: RFC 3755<br>
     // */
-    // SIG("SIG", 24), //
+    // SIG("SIG", 24, "RFC 3755"), //
     // /**
     // * 구분: 구식 레코드 타입<br>
     // * 타입: HINFO<br>
@@ -570,7 +573,8 @@ public enum DnsRecordType {
     // * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC883">RFC 883</a><br>
     // * 설명: Unobsoleted by RFC 8482. Currently used by Cloudflare in response to queries of the type ANY.<br>
     // */
-    // HINFO("HINFO", 13), //
+    // HINFO("HINFO", 13, "Unobsoleted by RFC 8482. Currently used by Cloudflare in response to queries of the type
+    // ANY."), //
     // /**
     // * 구분: 구식 레코드 타입<br>
     // * 타입: RP<br>
@@ -578,7 +582,7 @@ public enum DnsRecordType {
     // * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1183">RFC 1183</a><br>
     // * 설명: -<br>
     // */
-    // RP("RP", 17), //
+    // RP("RP", 17, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: X25<br>
@@ -586,7 +590,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1183">RFC 1183</a><br>
      * 설명: -<br>
      */
-    X25("X25", 19), //
+    X25("X25", 19, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: ISDN<br>
@@ -594,7 +598,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1183">RFC 1183</a><br>
      * 설명: -<br>
      */
-    ISDN("ISDN", 20), //
+    ISDN("ISDN", 20, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: RT<br>
@@ -602,7 +606,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1183">RFC 1183</a><br>
      * 설명: -<br>
      */
-    RT("RT", 21), //
+    RT("RT", 21, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NSAP<br>
@@ -610,7 +614,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1706">RFC 1706</a><br>
      * 설명: -<br>
      */
-    NSAP("NSAP", 22), //
+    NSAP("NSAP", 22, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NSAP-PTR<br>
@@ -618,7 +622,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1706">RFC 1706</a><br>
      * 설명: -<br>
      */
-    NSAP_PTR("NSAP-PTR", 23), //
+    NSAP_PTR("NSAP-PTR", 23, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: PX<br>
@@ -626,7 +630,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC2163">RFC 2163</a><br>
      * 설명: -<br>
      */
-    PX("PX", 26), //
+    PX("PX", 26, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: EID<br>
@@ -634,7 +638,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    EID("EID", 31), //
+    EID("EID", 31, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NIMLOC<br>
@@ -642,7 +646,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    NIMLOC("NIMLOC", 32), //
+    NIMLOC("NIMLOC", 32, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: ATMA<br>
@@ -650,7 +654,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    ATMA("ATMA", 34), //
+    ATMA("ATMA", 34, ""), //
     // /**
     // * 구분: 구식 레코드 타입<br>
     // * 타입: APL<br>
@@ -658,7 +662,7 @@ public enum DnsRecordType {
     // * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC3123">RFC 3123</a><br>
     // * 설명: -<br>
     // */
-    // APL("APL", 42), //
+    // APL("APL", 42, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: SINK<br>
@@ -666,7 +670,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    SINK("SINK", 40), //
+    SINK("SINK", 40, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: GPOS<br>
@@ -674,7 +678,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC1712">RFC 1712</a><br>
      * 설명: -<br>
      */
-    GPOS("GPOS", 27), //
+    GPOS("GPOS", 27, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: UINFO<br>
@@ -682,7 +686,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    UINFO("UINFO", 100), //
+    UINFO("UINFO", 100, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: UID<br>
@@ -690,7 +694,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    UID("UID", 101), //
+    UID("UID", 101, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: GID<br>
@@ -698,7 +702,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    GID("GID", 102), //
+    GID("GID", 102, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: UNSPEC<br>
@@ -706,7 +710,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    UNSPEC("UNSPEC", 103), //
+    UNSPEC("UNSPEC", 103, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: SPF<br>
@@ -714,7 +718,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC4408">RFC 4408</a><br>
      * 설명: RFC 7208<br>
      */
-    SPF("SPF", 99), //
+    SPF("SPF", 99, "RFC 7208"), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NINFO<br>
@@ -722,7 +726,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    NINFO("NINFO", 56), //
+    NINFO("NINFO", 56, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: RKEY<br>
@@ -730,7 +734,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    RKEY("RKEY", 57), //
+    RKEY("RKEY", 57, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: TALINK<br>
@@ -738,7 +742,7 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    TALINK("TALINK", 58), //
+    TALINK("TALINK", 58, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: NID<br>
@@ -746,7 +750,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6742">RFC 6742</a><br>
      * 설명: -<br>
      */
-    NID("NID", 104), //
+    NID("NID", 104, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: L32<br>
@@ -754,7 +758,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6742">RFC 6742</a><br>
      * 설명: -<br>
      */
-    L32("L32", 105), //
+    L32("L32", 105, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: L64<br>
@@ -762,7 +766,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6742">RFC 6742</a><br>
      * 설명: -<br>
      */
-    L64("L64", 106), //
+    L64("L64", 106, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: LP<br>
@@ -770,7 +774,7 @@ public enum DnsRecordType {
      * RFC: <a href="https://datatracker.ietf.org/doc/html/RFC6742">RFC 6742</a><br>
      * 설명: -<br>
      */
-    LP("LP", 107), //
+    LP("LP", 107, ""), //
     /**
      * 구분: 구식 레코드 타입<br>
      * 타입: DOA<br>
@@ -778,16 +782,20 @@ public enum DnsRecordType {
      * RFC: -<br>
      * 설명: -<br>
      */
-    DOA("DOA", 259), //
+    DOA("DOA", 259, ""), //
+
     ;
 
     private String type;
 
     private int id;
 
-    private DnsRecordType(String type, int id) {
+    private String desc;
+
+    private DnsRecordType(String type, int id, String desc) {
         this.type = type;
         this.id = id;
+        this.desc = desc;
     }
 
     /**
@@ -799,6 +807,26 @@ public enum DnsRecordType {
      */
     public String get() {
         return this.type;
+    }
+
+    /**
+     * @return
+     *
+     * @since 2022. 2. 14.
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public String getDesc() {
+        return this.desc;
+    }
+
+    /**
+     * @return type id
+     *
+     * @since 2022. 2. 14.
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public int getId() {
+        return this.id;
     }
 
     /**
