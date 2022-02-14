@@ -2192,7 +2192,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2021. 8. 19.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
@@ -2264,7 +2264,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2021. 8. 19.
-     * @version _._._
+     * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType, Function<U, T> clone) {

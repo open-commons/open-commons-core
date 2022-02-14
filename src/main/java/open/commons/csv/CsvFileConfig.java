@@ -511,7 +511,7 @@ public class CsvFileConfig extends CsvConfig {
      * @return the charset
      *
      * @since 2021. 6. 25.
-     * @version _._._
+     * @version 1.8.0
      * @see #charset
      */
 
@@ -532,7 +532,7 @@ public class CsvFileConfig extends CsvConfig {
      * @return the charsetName
      *
      * @since 2021. 6. 25.
-     * @version _._._
+     * @version 1.8.0
      * @see #charsetName
      */
 
@@ -575,7 +575,7 @@ public class CsvFileConfig extends CsvConfig {
      *            the charset to set
      *
      * @since 2021. 6. 25.
-     * @version _._._
+     * @version 1.8.0
      * @see #charset
      */
     public void setCharset(Charset charset) {
@@ -597,7 +597,7 @@ public class CsvFileConfig extends CsvConfig {
      *            the charsetName to set
      *
      * @since 2021. 6. 25.
-     * @version _._._
+     * @version 1.8.0
      * @see #charsetName
      */
     public void setCharsetName(String charsetName) {

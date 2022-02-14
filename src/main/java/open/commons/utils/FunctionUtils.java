@@ -668,7 +668,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2021. 11. 15.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
@@ -789,7 +789,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2021. 11. 15.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
@@ -954,7 +954,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2021. 11. 15.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {

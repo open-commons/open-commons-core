@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  * DNS(Domain Name System) 관련 기능을 제공하는 클래스.
  * 
  * @since 2022. 2. 11.
- * @version _._._
+ * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class DnsUtils {
@@ -42,7 +42,7 @@ public class DnsUtils {
      * Reference: <a href=
      * "https://mkyong.com/regular-expressions/domain-name-regular-expression-example/">https://mkyong.com/regular-expressions/domain-name-regular-expression-example/</a>
      */
-    public static final String REGEX_DOMAIN_NAME = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\\\.)+[A-Za-z]{2,6}";
+    public static final String REGEX_DOMAIN_NAME = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}";
 
     /**
      * '도메인 이름'만을 위한 정규식. <br>
@@ -68,7 +68,7 @@ public class DnsUtils {
      * @return
      *
      * @since 2022. 2. 11.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean isValid(String domainName) {

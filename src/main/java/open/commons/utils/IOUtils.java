@@ -722,7 +722,7 @@ public class IOUtils {
      * @throws IOException
      *
      * @since 2021. 11. 18.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {

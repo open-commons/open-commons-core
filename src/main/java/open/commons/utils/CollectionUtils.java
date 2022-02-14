@@ -350,7 +350,7 @@ public class CollectionUtils {
      * @return
      *
      * @since 2021. 12. 20.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T, U> U concatenate(Collection<S> data, Function<S, T> transformer, Function<List<T>, U> aggregator) {

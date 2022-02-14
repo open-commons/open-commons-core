@@ -33,7 +33,7 @@ import java.util.List;
  * DNS Record Type
  * 
  * @since 2022. 2. 11.
- * @version _._._
+ * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public enum DnsRecordType {

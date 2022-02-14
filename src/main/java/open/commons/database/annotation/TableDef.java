@@ -79,7 +79,7 @@ public @interface TableDef {
      * @return
      *
      * @since 2013. 7. 12.
-     * @version _._._
+     * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     String table();
