@@ -42,7 +42,7 @@ public class DnsUtils {
      * Reference: <a href=
      * "https://mkyong.com/regular-expressions/domain-name-regular-expression-example/">https://mkyong.com/regular-expressions/domain-name-regular-expression-example/</a>
      */
-    public static final String REGEX_DOMAIN_NAME = "((?!-)[A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}";
+    public static final String REGEX_DOMAIN_NAME = "((?!-)[_A-Za-z0-9-]{1,63}(?<!-)\\.)+[A-Za-z]{2,6}";
 
     /**
      * '도메인 이름'만을 위한 정규식. <br>
