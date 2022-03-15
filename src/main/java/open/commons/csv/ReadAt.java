@@ -96,4 +96,22 @@ public @interface ReadAt {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     boolean skippable() default false;
+
+    /**
+     * 데이터 타입이 int ({@link Integer}), long ({@link Long})인 경우 <b><code>unsigned</code></b>를 지원하기 위함. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2022. 3. 15.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    boolean unsigned() default false;
 }

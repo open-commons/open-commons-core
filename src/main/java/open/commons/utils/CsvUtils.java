@@ -109,7 +109,7 @@ public class CsvUtils {
                                     if (String.class.equals(argType)) {
                                         arg = value;
                                     } else if (!StringUtils.isNullOrEmptyString(value)) {
-                                        arg = ConvertUtils.toPrimitiveTypeValue(argType, value);
+                                        arg = ConvertUtils.toPrimitiveTypeValue(argType, value, anno.unsigned());
                                     }
 
                                     // 객체에 설정

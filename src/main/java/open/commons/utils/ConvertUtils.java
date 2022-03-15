@@ -481,6 +481,7 @@ public class ConvertUtils {
     }
 
     /**
+     * 문자열 데이터를 Primitive Type 에 해당하는 값으로 변환한다. <br>
      * 
      * @param primitiveType
      * @param value
@@ -507,6 +508,48 @@ public class ConvertUtils {
                 return (T) Float.valueOf(value);
             case TYPE_CONST_DOUBLE:
                 return (T) Double.valueOf(value);
+            default:
+                throw new IllegalArgumentException("The 'valus' must be a primitive value or its wrapper class instance.");
+        }
+    }
+
+    /**
+     * 문자열 데이터를 Primitive Type 에 해당하는 값으로 변환한다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param primitiveType
+     *            데이터 타입
+     * @param value
+     *            데이터 문자열
+     * @param unsigned
+     *            <b><code>primitiveType</code></b>이 int ({@link Integer}), long ({@link Long})인 경우 unsigned 여부
+     * @return
+     *
+     * @since 2022. 3. 15.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T toPrimitiveTypeValue(Class<T> primitiveType, String value, boolean unsigned) {
+
+        switch (getTypeConst(primitiveType)) {
+            case TYPE_CONST_BOOLEAN:
+            case TYPE_CONST_BYTE:
+            case TYPE_CONST_CHAR:
+            case TYPE_CONST_SHORT:
+            case TYPE_CONST_FLOAT:
+            case TYPE_CONST_DOUBLE:
+                return toPrimitiveTypeValue(primitiveType, value);
+            case TYPE_CONST_INT:
+                return unsigned ? (T) ((Integer) Integer.parseUnsignedInt(value)) : toPrimitiveTypeValue(primitiveType, value);
+            case TYPE_CONST_LONG:
+                return unsigned ? (T) ((Long) Long.parseUnsignedLong(value)) : toPrimitiveTypeValue(primitiveType, value);
             default:
                 throw new IllegalArgumentException("The 'valus' must be a primitive value or its wrapper class instance.");
         }
