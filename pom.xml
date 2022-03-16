@@ -15,8 +15,8 @@
 		<compile.target.version>1.8</compile.target.version>
 
 		<!-- >>> begin: dependencies -->
-		<slf4j-api.version>1.7.32</slf4j-api.version>
-		<org.apache.logging.log4j-api.version>2.17.1</org.apache.logging.log4j-api.version>
+		<org.apache.logging.log4j-api.version>2.17.2</org.apache.logging.log4j-api.version>
+		<slf4j-api.version>1.7.36</slf4j-api.version>
 		<!-- <<< end: dependencies -->
 
 		<!-- >>> begin: plugin dependencies -->

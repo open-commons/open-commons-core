@@ -1,3 +1,10 @@
+[2022/03/16]
+- Dependencies
+  + org.apache.logging.log4j:log4j-core:1.7.2
+  + org.apache.logging.log4j:log4j-api:1.7.2
+  + org.apache.logging.log4j:log4j-slf4j-impl:1.7.2
+  + org.slf4j:slf4j-api:1.7.36
+
 [2022/03/07]
 - Add
   + open.commons.utils.ConvertUtils
