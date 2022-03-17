@@ -31,9 +31,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -45,6 +49,7 @@ import open.commons.Result;
 import open.commons.csv.CsvConfig;
 import open.commons.csv.CsvFileConfig;
 import open.commons.csv.ReadAt;
+import open.commons.csv.WriteAt;
 import open.commons.test.StopWatch;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -61,6 +66,67 @@ public class CsvUtils {
 
     // prevent to create an instance.
     private CsvUtils() {
+    }
+
+    /**
+     * 객체를 {@link String}[]로 변환하는 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static final <E> Function<E, String[]> defaultCreator() {
+        return object -> {
+            if (object == null) {
+                throw new NullPointerException("객체는 null 일 수 없습니다.");
+            }
+
+            Class<?> type = object.getClass();
+            @SuppressWarnings("unchecked")
+            List<Method> methods = AnnotationUtils.getAnnotatedMethodsAllHierarchy(type, WriteAt.class);
+
+            // 반환할 데이터
+            String[] data = ArrayUtils.initArray(methods.size(), "");
+
+            methods.stream() //
+                    .forEach(m -> {
+                        WriteAt anno = m.getAnnotation(WriteAt.class);
+                        final int index = anno.index();
+                        boolean accessible = m.isAccessible();
+                        try {
+                            // 접근 허용
+                            m.setAccessible(true);
+
+                            Object value = m.invoke(object);
+
+                            if (value != null) {
+                                data[index] = value.toString();
+                            } else if (anno.nullIsEmpty()) {
+                                data[index] = "";
+                            } else {
+                                data[index] = null;
+                            }
+                        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IndexOutOfBoundsException e) {
+                            String errMsg = String.format("'%s' 객체의 값을 배열로 변환하는 도중 에러가 발생하였습니다. 배열크기: %s, 메소드=%s, 위치=%s", type.getName(), data.length, m.getName(), index);
+                            logger.error(errMsg, e);
+                            throw ExceptionUtils.newException(RuntimeException.class, e, errMsg);
+                        } finally {
+                            // 접근성 복구
+                            m.setAccessible(accessible);
+                        }
+                    });
+
+            return data;
+        };
     }
 
     /**
@@ -96,11 +162,15 @@ public class CsvUtils {
                             int index = anno.index();
                             String value = null;
                             if (index < arr.length) {
+                                boolean accessible = m.isAccessible();
                                 try {
                                     if (m.getParameterTypes().length != 1) {
                                         throw new UnsupportedOperationException(String.format("'%s'가 설정된 메소드는 반드시 파라미터가 1개이어야 합니다. 메소드=%s, 파라미터개수=%,d",
                                                 ReadAt.class.getCanonicalName(), m, m.getParameterTypes().length));
                                     }
+
+                                    // 접근허용
+                                    m.setAccessible(true);
 
                                     // 데이터 변환
                                     value = FunctionUtils.runIf(arr[index], s -> s != null, (Function<String, String>) s -> s.trim(), (String) null);
@@ -120,6 +190,9 @@ public class CsvUtils {
                                     String errMsg = String.format("'%s' 객체의 값을 설정하는 도중 에러가 발생하였습니다. 메소드=%s, 값=%s", type.getName(), m.getName(), arr[index]);
                                     logger.error(errMsg, e);
                                     throw ExceptionUtils.newException(RuntimeException.class, e, errMsg);
+                                } finally {
+                                    // 접근성 복구
+                                    m.setAccessible(accessible);
                                 }
                             }
                         });
@@ -155,6 +228,163 @@ public class CsvUtils {
     private static CSVReader newCSVReader(Reader reader, CsvFileConfig config) {
         return new CSVReader(reader, config.getSeparator(), config.getQuotechar(), config.getEscape(), config.getSkip(), config.isStrictQuotes(),
                 config.isIgnoreLeadingWhiteSpace());
+    }
+
+    /**
+     * 여러 개의 객체의 데이터를 {@link String}[][]로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param objects
+     *            데이터
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * @see #objectsToArray(Collection, Function)
+     */
+    public static <E> String[][] objectsToArray(Collection<E> objects) {
+        return objectsToArray((Collection<E>) objects, defaultCreator());
+    }
+
+    /**
+     * 여러 개의 객체의 데이터를 {@link String}[][]로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param objects
+     *            데이터
+     * @param creator
+     *            {@link String}[] 생성 함수
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> String[][] objectsToArray(Collection<E> objects, Function<E, String[]> creator) {
+        String[][] array2d = new String[objects.size()][];
+        AtomicInteger idx = new AtomicInteger(0);
+        objects.forEach(object -> {
+            array2d[idx.getAndIncrement()] = objectToArray(object, creator);
+        });
+
+        return array2d;
+    }
+
+    /**
+     * 여러 객체의 데이터를 {@link String}[][]로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param objects
+     *            데이터
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unchecked")
+    public static <E> String[][] objectsToArray(E... objects) {
+        return objectsToArray(Arrays.asList(objects), defaultCreator());
+    }
+
+    /**
+     * 여러 개의 객체의 데이터를 {@link String}[][]로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param creator
+     *            {@link String}[] 생성 함수
+     * @param objects
+     *            데이터
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #objectsToArray(Collection, Function)
+     */
+    @SuppressWarnings("unchecked")
+    public static <E> String[][] objectsToArray(Function<E, String[]> creator, E... objects) {
+        return objectsToArray(Arrays.asList(objects), creator);
+    }
+
+    /**
+     * 주어진 객체의 데이터를 {@link String}[]로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param object
+     *            데이터
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #objectToArray(Object, Function)
+     */
+    public static <E> String[] objectToArray(E object) {
+        return objectToArray(object, defaultCreator());
+    }
+
+    /**
+     * 주어진 객체의 데이터를 {@link String}[]로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 17.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param object
+     *            데이터
+     * @param creator
+     *            {@link String}[] 생성 함수
+     * @return
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> String[] objectToArray(E object, Function<E, String[]> creator) {
+        return creator.apply(object);
     }
 
     /**

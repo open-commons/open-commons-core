@@ -4131,7 +4131,8 @@ public class ArrayUtils {
      * @return
      */
     public static <T> T[] initArray(int length, T initValue) {
-        T[] array = (T[]) Array.newInstance(initValue.getClass().getComponentType(), length);
+        Class<?> _class = initValue.getClass();
+        T[] array = (T[]) Array.newInstance(String.class.isAssignableFrom(_class) ? _class : _class.getComponentType(), length);
 
         for (int i = 0; i < length; i++) {
             array[i] = initValue;
