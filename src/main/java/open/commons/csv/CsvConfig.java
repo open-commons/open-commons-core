@@ -27,26 +27,25 @@
 package open.commons.csv;
 
 /**
- * CSV 데이터 설정 클래스.
+ * CSV 데이터 설정 클래스.<br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜      | 작성자   |   내용
+ * ------------------------------------------
+ * 2021. 6. 25.      박준홍     최초 작성
+ * 2022. 3. 17.     박준홍     {@link CsvWriteConfig}와 공통 정보 상위 클래스로 추출
+ * </pre>
  * 
  * @since 2021. 6. 25.
  * @version 1.8.0
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
-public class CsvConfig {
+public class CsvConfig extends CsvCommon {
 
-    public static final char DEFAULT_SEPARATOR = ',';
-    public static final char DEFAULT_QUOTE_CHARACTER = '"';
-    public static final char DEFAULT_ESCAPE_CHARACTER = '\\';
     public static final boolean DEFAULT_STRICT_QUOTES = false;
     public static final boolean DEFAULT_IGNORE_LEADING_WHITESPACE = true;
 
-    /** 데이터를 구분하는 문자 */
-    protected char separator;
-    /** 문자열로 묶어주는 문자 */
-    protected char quotechar;
-    /** escape 문자 */
-    protected char escape;
     /** 무조건 문자열로 묶는 여부 */
     protected boolean strictQuotes;
     /** 데이터 앞쪽의 whitespace 제거 여부 */
@@ -209,74 +208,9 @@ public class CsvConfig {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace) {
-        this.separator = separator;
-        this.quotechar = quotechar;
-        this.escape = escape;
+        super(separator, quotechar, escape);
         this.strictQuotes = strictQuotes;
         this.ignoreLeadingWhiteSpace = ignoreLeadingWhiteSpace;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
-     * </pre>
-     * 
-     * @return the escape
-     *
-     * @since 2021. 6. 25.
-     * @version 1.8.0
-     * @see #escape
-     */
-
-    public char getEscape() {
-        return escape;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
-     * </pre>
-     * 
-     * @return the quotechar
-     *
-     * @since 2021. 6. 25.
-     * @version 1.8.0
-     * @see #quotechar
-     */
-
-    public char getQuotechar() {
-        return quotechar;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
-     * </pre>
-     * 
-     * @return the separator
-     *
-     * @since 2021. 6. 25.
-     * @version 1.8.0
-     * @see #separator
-     */
-
-    public char getSeparator() {
-        return separator;
     }
 
     /**
@@ -331,27 +265,6 @@ public class CsvConfig {
      * 2021. 6. 25.		박준홍			최초 작성
      * </pre>
      *
-     * @param escape
-     *            the escape to set
-     *
-     * @since 2021. 6. 25.
-     * @version 1.8.0
-     * @see #escape
-     */
-    public void setEscape(char escape) {
-        this.escape = escape;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
-     * </pre>
-     *
      * @param ignoreLeadingWhiteSpace
      *            the ignoreLeadingWhiteSpace to set
      *
@@ -361,48 +274,6 @@ public class CsvConfig {
      */
     public void setIgnoreLeadingWhiteSpace(boolean ignoreLeadingWhiteSpace) {
         this.ignoreLeadingWhiteSpace = ignoreLeadingWhiteSpace;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param quotechar
-     *            the quotechar to set
-     *
-     * @since 2021. 6. 25.
-     * @version 1.8.0
-     * @see #quotechar
-     */
-    public void setQuotechar(char quotechar) {
-        this.quotechar = quotechar;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param separator
-     *            the separator to set
-     *
-     * @since 2021. 6. 25.
-     * @version 1.8.0
-     * @see #separator
-     */
-    public void setSeparator(char separator) {
-        this.separator = separator;
     }
 
     /**

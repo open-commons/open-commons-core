@@ -31,7 +31,14 @@ import java.nio.charset.Charset;
 import open.commons.utils.ExceptionUtils;
 
 /**
- * CSV 파일 설정 클래스.
+ * CSV 파일 설정 클래스. <br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자	|	내용
+ * ------------------------------------------
+ * 2021. 6. 25.      박준홍     최초 작성
+ * </pre>
  * 
  * @since 2021. 6. 25.
  * @version 1.8.0
