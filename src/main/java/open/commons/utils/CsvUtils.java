@@ -38,6 +38,9 @@ import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -3286,6 +3289,293 @@ public class CsvUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, boolean close, OpenOption... options) throws IOException {
+        return write(data, path, config, defaultCreator(), close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param beforeCreation
+     *            객체 변환하기 전 실행할 함수
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Consumer<E> beforeCreation, boolean close, OpenOption... options)
+            throws IOException {
+        return write(data, path, config, defaultCreator(), beforeCreation, close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param creator
+     *            객체를 {@link String}[]로 변환하는 함수
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Function<E, String[]> creator, boolean close, OpenOption... options)
+            throws IOException {
+        return write(data, path, config, null, creator, null, close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param creator
+     *            객체를 {@link String}[]로 변환하는 함수
+     * @param beforeCreation
+     *            객체 변환하기 전 실행할 함수
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close,
+            OpenOption... options) throws IOException {
+        return write(data, path, config, null, creator, beforeCreation, close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param header
+     *            CSV 파일 헤더
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, boolean close, OpenOption... options) throws IOException {
+        return write(data, path, config, header, defaultCreator(), close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param header
+     *            CSV 파일 헤더
+     * @param beforeCreation
+     *            객체 변환하기 전 실행할 함수
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, Consumer<E> beforeCreation, boolean close, OpenOption... options)
+            throws IOException {
+        return write(data, path, config, header, defaultCreator(), beforeCreation, close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param header
+     *            CSV 파일 헤더
+     * @param creator
+     *            객체를 {@link String}[]로 변환하는 함수
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, Function<E, String[]> creator, boolean close, OpenOption... options)
+            throws IOException {
+        return write(data, path, config, header, creator, null, close, options);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 03. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     * @param data
+     *            데이터
+     * @param path
+     *            CSV 파일
+     * @param config
+     *            CSV 파일 쓰기 설정
+     * @param header
+     *            CSV 파일 헤더
+     * @param creator
+     *            객체를 {@link String}[]로 변환하는 함수
+     * @param beforeCreation
+     *            객체 변환하기 전 실행할 함수
+     * @param close
+     *            CSV 파일 자동 Close 여부
+     * @param options
+     *            파일 생성 Option
+     * @return
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 03. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
+            boolean close, OpenOption... options) throws IOException {
+        return write(data, Files.newOutputStream(path, options), config, header, creator, beforeCreation, close);
+    }
+
+    /**
+     * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
      * 2022. 3. 17.     박준홍         최초 작성
      * </pre>
      *
@@ -3813,5 +4103,4 @@ public class CsvUtils {
             boolean close) throws IOException {
         return write(data, newCSVWriter(writer, config), header, creator, beforeCreation, close);
     }
-
 }

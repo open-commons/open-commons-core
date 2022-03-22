@@ -1,3 +1,15 @@
+[2022/03/22]
+- Add
+  + open.commons.utils.CsvUtils
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, Consumer&lt;E&gt;, boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, Function&lt;E, String[]&gt;, boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, Function&lt;E, String[]&gt;, Consumer&lt;E&gt;, boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], Consumer&lt;E&gt;, boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], Function&lt;E, String[]&gt;, boolean, OpenOption...)
+    + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], Function&lt;E, String[]&gt;, Consumer&lt;E&gt;, boolean, OpenOption...)
+
 [2022/03/17]
 - New
   + open.commons.csv.CsvCommon  
