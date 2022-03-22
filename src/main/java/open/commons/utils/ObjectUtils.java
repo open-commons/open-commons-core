@@ -1272,13 +1272,12 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)
      */
     public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc)
             throws NullPointerException {
-        // register 'src' to 'target'
-        registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget);
-        // register 'target' to 'src'
-        registerPropertyConverter(null, targetFieldClass, null, null, srcFieldClass, targetToSrc);
+        registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget, targetToSrc);
     }
 
     /**
