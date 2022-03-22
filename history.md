@@ -9,6 +9,14 @@
     + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], Consumer&lt;E&gt;, boolean, OpenOption...)
     + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], Function&lt;E, String[]&gt;, boolean, OpenOption...)
     + write(Collection&lt;E&gt;, Path, CsvWriteConfig, String[], Function&lt;E, String[]&gt;, Consumer&lt;E&gt;, boolean, OpenOption...)
+  + open.commons.utils.ObjectUtils
+    + getPropertyConvertedTypes(Class&lt;?&gt;)
+    + isPrimitiveOrWrapper(Class&lt;?&gt;)
+    + registerPropertyConverter(Class&lt;S&gt;, Class&lt;SF&gt;, String, Class&lt;T&gt;, Class&lt;TF&gt;, Function&lt;SF, TF&gt;)
+    + registerPropertyConverter(Class&lt;S&gt;, Class&lt;SF&gt;, String, Class&lt;T&gt;, Class&lt;TF&gt;, Function&lt;SF, TF&gt;, Function&lt;TF, SF&gt;)
+- Modify
+  + open.commons.utils.ObjectUtils
+    + transform(S, boolean, T, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;): 클래스간 속성값 변환 기능 개선 적용
 
 [2022/03/17]
 - New

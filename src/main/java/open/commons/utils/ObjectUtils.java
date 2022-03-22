@@ -35,9 +35,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
 import open.commons.annotation.Getter;
 import open.commons.annotation.Information;
 import open.commons.annotation.Setter;
+import open.commons.function.PentagonFunction;
 import open.commons.function.QuadFunction;
 import open.commons.stream.ClassSpliterator;
 
@@ -113,12 +114,14 @@ public class ObjectUtils {
 
     private static Function<Method, String> GETTER_KEYGEN = m -> {
         Getter annoGetter = m.getAnnotation(Getter.class);
-        return getPropertyKey(annoGetter.name(), annoGetter.type());
+        // return getPropertyKey(annoGetter.name(), annoGetter.type());
+        return annoGetter.name();
     };
 
     private static Function<Method, String> SETTER_KEYGEN = m -> {
         Setter annoSetter = m.getAnnotation(Setter.class);
-        return getPropertyKey(annoSetter.name(), annoSetter.type());
+        // return getPropertyKey(annoSetter.name(), annoSetter.type());
+        return annoSetter.name();
     };
 
     private static final Function<Method, Class<?>> RETURN_TYPE = m -> m.getReturnType();
@@ -135,13 +138,35 @@ public class ObjectUtils {
     /**
      * 기본 데이터 변환 키 생성 함수.
      * 
+     * @param srcFieldClass
+     *            변환 이전 속성 데이터 타입
+     * @param targetFieldClass
+     *            변환 이후 속성 데이터 타입
+     */
+    // public static final BiFunction<Class<?>, Class<?>, String> FIELD_CONVERTER_KEYGEN = (srcFieldClass,
+    // targetFieldClass) -> String.join(" -> ", srcFieldClass.toGenericString(),
+    // targetFieldClass.toGenericString());
+    /**
+     * 기본 데이터 변환 키 생성 함수.
+     * 
      * @param srcClass
      *            변환 이전 데이터 타입
+     * @param srcPropertyClass
+     *            변환 이전 속성 데이터 타입
+     * @param property
+     *            속성명
      * @param targetClass
      *            변환 이후 데이터 타입
+     * @param targetPropertyClass
+     *            변환 이후 속성 데이터 타입
      */
-    public static final BiFunction<Class<?>, Class<?>, String> FIELD_CONVERTER_KEYGEN = (srcClass, targetClass) -> String.join(" -> ", srcClass.toGenericString(),
-            targetClass.toGenericString());
+    public static final PentagonFunction<Class<?>, Class<?>, String, Class<?>, Class<?>, String> FIELD_CONVERTER_KEYGEN = //
+            (srcClass, srcPropertyClass, property, targetClass, targetPropertyClass) //
+            -> String.join(" -> " //
+                    , String.join("#", Objects.toString(srcClass, "null"), Objects.toString(srcPropertyClass, "null")) //
+                    , property //
+                    , String.join("#", Objects.toString(targetClass, "null"), Objects.toString(targetPropertyClass, "null")) //
+            );
 
     /**
      * <ul>
@@ -366,6 +391,85 @@ public class ObjectUtils {
     }
 
     /**
+     * 주어진 정보에 맞는 데이터 변환 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <SF>
+     *            Source Field Type
+     * @param <T>
+     *            Target Type
+     * @param <TF>
+     *            Target Field Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param srcPropertyClass
+     *            변환 이전 속성 데이터 타입
+     * @param property
+     *            속성명
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param targetPropertyClass
+     *            변환 이후 속성 데이터 타입
+     * @param converters
+     *            변환 함수들
+     * @return
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static <S, SF, T, TF> Function<?, ?> getFieldConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
+            Class<TF> targetPropertyClass, Map<String, Function<?, ?>> converters) {
+
+        Function<?, ?> converter = null;
+        String funcKey = FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass);
+        if ((converter = converters.get(funcKey)) != null) {
+            return converter;
+        }
+
+        return converters.get(FIELD_CONVERTER_KEYGEN.apply(null, srcPropertyClass, null, null, targetPropertyClass));
+    }
+
+    /**
+     * 주어진 타입에 대한 추가 타입을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param type
+     * @return
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static Set<Class<?>> getPropertyConvertedTypes(Class<?> type) {
+        Set<Class<?>> types = new HashSet<>();
+        types.add(type);
+
+        int is = isPrimitiveOrWrapper(type);
+        if (is > 0) {
+            types.add(ConvertUtils.translateToWrapper(type));
+        } else if (is < 0) {
+            types.add(ConvertUtils.translateToPrimitive(type));
+        }
+
+        return types;
+    }
+
+    /**
      * {@link Getter}와 {@link Setter}의 식별정보를 생성하여 제공합니다. <br>
      * 
      * <pre>
@@ -374,6 +478,7 @@ public class ObjectUtils {
      * ------------------------------------------
      * 2021. 11. 22.		박준홍			최초 작성
      * 2021. 12. 02.        박준홍     메소드를 찾는 키를 필드 속성명으로 고정.
+     * 2022. 3. 22.         박준홍     더 이상 사용하지 않음.
      * </pre>
      *
      * @param name
@@ -387,6 +492,8 @@ public class ObjectUtils {
      * @since 2021. 11. 22.
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @deprecated No Use since 2022.03.22.
      */
     public static final String getPropertyKey(String name, Class<?> type) throws NullPointerException {
         return name;
@@ -800,6 +907,35 @@ public class ObjectUtils {
     }
 
     /**
+     * 주어진 타입이 primitive 또는 Wrapper 타입인지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param type
+     * @return
+     *         <ul>
+     *         <li>> 0: Primitive type
+     *         <li>= 0: Reference type
+     *         <li>< 0: Wrapper type
+     *         </ul>
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int isPrimitiveOrWrapper(Class<?> type) {
+        return isPrimitive(type) //
+                ? 1 //
+                : isWrapper(type) ? -1 //
+                        : 0;
+    }
+
+    /**
      * wrapper class 타입인지 여부를 제공합니다. <br>
      * 
      * <pre>
@@ -1089,28 +1225,25 @@ public class ObjectUtils {
      * 2021. 12. 2.     박준홍         최초 작성
      * </pre>
      *
-     * @param <S>
-     *            Source Type
-     * @param <T>
-     *            Target Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param targetClass
-     *            변환 이후 데이터 타입
+     * @param <SF>
+     *            Source Field Type
+     * @param <TF>
+     *            Target Field Type
+     * @param srcFieldClass
+     *            변환 이전 속성 데이터 타입
+     * @param targetFieldClass
+     *            변환 이후 속성 데이터 타입
      * @param converter
-     *            이전 타입 -> 이후 타입 변환 함수
+     *            '이전 타입 -> 이후 타입' 변환 함수
      * @return
      * @throws NullPointerException
-     *             TODO
      *
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
+     * @see #registerPropertyConverter(Class, Class, String, Class, Class, Function)
      */
-    public static <S, T> Object registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> converter) throws NullPointerException {
-
-        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, converter);
-
-        return FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, targetClass), converter);
+    public static <SF, TF> Object registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> converter) throws NullPointerException {
+        return registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, converter);
     }
 
     /**
@@ -1123,31 +1256,132 @@ public class ObjectUtils {
      * 2021. 12. 2.     박준홍         최초 작성
      * </pre>
      *
-     * @param <S>
-     *            Source Type
-     * @param <T>
-     *            Target Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param targetClass
-     *            변환 이후 데이터 타입
+     * @param <SF>
+     *            Source Field Type
+     * @param <TF>
+     *            Target Field Type
+     * @param srcFieldClass
+     *            변환 이전 속성 데이터 타입
+     * @param targetFieldClass
+     *            변환 이후 속성 데이터 타입
      * @param srcToTarget
-     *            이전 타입 -> 이후 타입 변환 함수
+     *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
      * @param targetToSrc
-     *            이후 타입 -> 이번 타입 변환 함수
+     *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
      * @throws NullPointerException
      *
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> void registerFieldConverter(Class<S> srcClass, Class<T> targetClass, Function<S, T> srcToTarget, Function<T, S> targetToSrc) throws NullPointerException {
-
-        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcClass, targetClass, srcToTarget, targetToSrc);
-
+    public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc)
+            throws NullPointerException {
         // register 'src' to 'target'
-        FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, targetClass), srcToTarget);
+        registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget);
         // register 'target' to 'src'
-        FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(targetClass, srcClass), targetToSrc);
+        registerPropertyConverter(null, targetFieldClass, null, null, srcFieldClass, targetToSrc);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <SF>
+     *            Source Field Type
+     * @param <T>
+     *            Target Type
+     * @param <TF>
+     *            Target Field Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param srcPropertyClass
+     *            변환 이전 속성 데이터 타입
+     * @param property
+     *            속성명
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param targetPropertyClass
+     *            변환 이후 속성 데이터 타입
+     * @param converter
+     *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
+     * @return
+     * @throws NullPointerException
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
+            Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
+
+        AssertUtils.assertNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
+
+        // primitive 타입, wrapper 타입인 경우 추가 자동 등록
+        Set<Class<?>> srcPropertyTypes = getPropertyConvertedTypes(srcPropertyClass);
+        Set<Class<?>> targetPropertyTypes = getPropertyConvertedTypes(targetPropertyClass);
+
+        for (Class<?> srcPropType : srcPropertyTypes) {
+            for (Class<?> targetPropType : targetPropertyTypes) {
+                FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropType, property, targetClass, targetPropType), converter);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 3. 22.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <SF>
+     *            Source Field Type
+     * @param <T>
+     *            Target Type
+     * @param <TF>
+     *            Target Field Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param srcPropertyClass
+     *            변환 이전 속성 데이터 타입
+     * @param property
+     *            속성명
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param targetPropertyClass
+     *            변환 이후 속성 데이터 타입
+     * @param srcToTarget
+     *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
+     * @param targetToSrc
+     *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
+     * @throws NullPointerException
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
+            Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
+        // register 'src' to 'target'
+        registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget);
+        // register 'target' to 'src'
+        registerPropertyConverter(targetClass, targetPropertyClass, property, srcClass, srcPropertyClass, targetToSrc);
     }
 
     /**
@@ -1659,7 +1893,7 @@ public class ObjectUtils {
         }
 
         // #0. Setter 메소드 재정렬
-        // key: #getGSMethodKey(String, Class)
+        // key: Setter#name()
         // value: Method
         final Map<String, Method> setterMap = CollectionUtils.toMapHSV(setters, SETTER_KEYGEN, m -> m);
 
@@ -1672,7 +1906,7 @@ public class ObjectUtils {
         Map<String, Method> getterMap = CollectionUtils.toMapHSV(gettersFiltered, GETTER_KEYGEN, m -> m);
 
         // method key
-        String methodKey = null;
+        String property = null;
         // getter method
         Method getter = null;
         boolean getterAccessible = false;
@@ -1681,15 +1915,17 @@ public class ObjectUtils {
         boolean setterAccessible = false;
 
         Object o = null;
-        Class<?> srcType = null;
-        Class<?> targetType = null;
+        Class<?> srcClass = src.getClass();
+        Class<?> srcPropertyClass = null;
+        Class<?> targetClass = target.getClass();
+        Class<?> targetPropertyClass = null;
         Function<?, ?> converter = null;
         for (Entry<String, Method> entry : setterMap.entrySet()) {
             try {
-                methodKey = entry.getKey();
+                property = entry.getKey();
 
                 // 데이터 제공 함수
-                getter = getterMap.get(methodKey);
+                getter = getterMap.get(property);
 
                 // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
                 if (getter == null) {
@@ -1708,13 +1944,13 @@ public class ObjectUtils {
                 setterAccessible = setter.isAccessible();
                 setter.setAccessible(true);
 
-                srcType = RETURN_TYPE.apply(getter);
-                targetType = PARAMETER_TYPE.apply(setter);
+                srcPropertyClass = RETURN_TYPE.apply(getter);
+                targetPropertyClass = PARAMETER_TYPE.apply(setter);
 
                 // srcType과 targetType이 호환여부 확인
-                if (!checkType(srcType, targetType)) {
+                if (!checkType(srcPropertyClass, targetPropertyClass)) {
                     // 타입 변환 함수가 존재하는 경우
-                    if ((converter = converters.get(FIELD_CONVERTER_KEYGEN.apply(srcType, targetType))) != null) {
+                    if ((converter = getFieldConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converters)) != null) {
                         o = ((Function<Object, ?>) converter).apply(o);
                     }
                 }
