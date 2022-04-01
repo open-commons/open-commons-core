@@ -1,3 +1,71 @@
+[2022/04/01]
+- Add
+  + open.commons.utils.StringUtils
+    + startswithHangul(String)
+    + startswithHangul(String, boolean)
+  
+[2022/03/30]
+- Add
+  + open.commons.utils.CsvUtils
+    + readAsList(CSVReader, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(CSVReader, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(CSVReader, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(CSVReader, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, char, boolean, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, char, boolean, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, char, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, char, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, boolean, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, boolean, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, boolean, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, Charset, int, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, CsvFileConfig, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, CsvFileConfig, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(InputStream, CsvFileConfig, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, char, boolean, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, char, boolean, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, char, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, char, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(InputStream, int, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, CsvFileConfig, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, CsvFileConfig, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(Reader, CsvFileConfig, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, boolean, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, boolean, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, boolean, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, boolean, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, boolean, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
+    + readAsList(Reader, int, char, Function&lt;String[], E&gt;, Predicate&lt;E&gt;, boolean)
+  + open.commons.utils.SQLUtils
+    + isSortedColumns(Class&lt;?&gt;): 내부 처리 변경
+  
 [2022/03/22]
 - Add
   + open.commons.utils.CsvUtils

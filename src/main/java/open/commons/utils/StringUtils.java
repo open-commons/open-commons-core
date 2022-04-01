@@ -2397,6 +2397,63 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열이 한글로 시작하는지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 4. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @return
+     *
+     * @since 2022. 4. 1.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean startswithHangul(String string) {
+        if (string == null) {
+            return false;
+        }
+        return string.isEmpty() //
+                ? false //
+                : CharUtils.isKorean(string.charAt(0));
+    }
+
+    /**
+     * 주어진 문자열이 한글로 시작하는지 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 4. 1.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param 문자열
+     *            trime 여부
+     * @return
+     *
+     * @since 2022. 4. 1.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean startswithHangul(String string, boolean trim) {
+        if (string == null) {
+            return false;
+        } else if (trim) {
+            string = string.trim();
+        }
+
+        return startswithHangul(string);
+    }
+
+    /**
      * 문자열이 주어진 <b><code>prefix</code></b>로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string

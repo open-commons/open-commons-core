@@ -391,97 +391,104 @@ public class SQLUtils {
                 throw new IllegalArgumentException();
         }
 
+        Object v = null;
+
         if (Array.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getArray(columnName));
+            v = rs.getArray(columnName);
         } //
         else if (ByteArrayInputStream.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getAsciiStream(columnName));
+            v = rs.getAsciiStream(columnName);
         } //
         else if (BigDecimal.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getBigDecimal(columnName));
+            v = rs.getBigDecimal(columnName);
         } //
         else if (ByteArrayInputStream.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getBinaryStream(columnName));
+            v = rs.getBinaryStream(columnName);
         } //
         else if (Blob.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getBlob(columnName));
+            v = rs.getBlob(columnName);
         } //
         else if (boolean.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getBoolean(columnName));
+            v = rs.getBoolean(columnName);
         } //
         else if (Boolean.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getBoolean(columnName));
+            v = rs.getBoolean(columnName);
         } //
         else if (Byte.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getByte(columnName));
+            v = rs.getByte(columnName);
         } //
         else if (byte[].class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getBytes(columnName));
+            v = rs.getBytes(columnName);
         } //
         else if (Reader.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getCharacterStream(columnName));
+            v = rs.getCharacterStream(columnName);
         } //
         else if (Clob.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getClob(columnName));
+            v = rs.getClob(columnName);
         } //
         else if (Date.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getDate(columnName));
+            v = rs.getDate(columnName);
         } //
         else if (double.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getDouble(columnName));
+            v = rs.getDouble(columnName);
         } //
         else if (Double.class.isAssignableFrom(columnType)) {
-            BigDecimal v = rs.getBigDecimal(columnName);
-            m.invoke(object, v != null ? v.doubleValue() : null);
+            BigDecimal d = rs.getBigDecimal(columnName);
+            v = d != null ? d.doubleValue() : null;
         } //
         else if (float.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getFloat(columnName));
+            v = rs.getFloat(columnName);
         } //
         else if (Float.class.isAssignableFrom(columnType)) {
-            BigDecimal v = rs.getBigDecimal(columnName);
-            m.invoke(object, v != null ? v.floatValue() : null);
+            BigDecimal d = rs.getBigDecimal(columnName);
+            v = d != null ? d.floatValue() : null;
         } //
         else if (int.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getInt(columnName));
+            v = rs.getInt(columnName);
         } //
         else if (Integer.class.isAssignableFrom(columnType)) {
-            BigDecimal v = rs.getBigDecimal(columnName);
-            m.invoke(object, v != null ? v.intValue() : null);
+            BigDecimal d = rs.getBigDecimal(columnName);
+            v = d != null ? d.intValue() : null;
         } //
         else if (long.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getLong(columnName));
+            v = rs.getLong(columnName);
         } //
         else if (Long.class.isAssignableFrom(columnType)) {
-            BigDecimal v = rs.getBigDecimal(columnName);
-            m.invoke(object, v != null ? v.longValue() : null);
+            BigDecimal d = rs.getBigDecimal(columnName);
+            v = d != null ? d.longValue() : null;
         } //
         else if (NClob.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getNClob(columnName));
+            v = rs.getNClob(columnName);
         } //
         else if (short.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getShort(columnName));
+            v = rs.getShort(columnName);
         } //
         else if (Short.class.isAssignableFrom(columnType)) {
-            BigDecimal v = rs.getBigDecimal(columnName);
-            m.invoke(object, v != null ? v.shortValue() : null);
+            BigDecimal d = rs.getBigDecimal(columnName);
+            v = d != null ? d.shortValue() : null;
         } //
         else if (String.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getString(columnName));
+            v = rs.getString(columnName);
         } //
         else if (Time.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getTime(columnName));
+            v = rs.getTime(columnName);
         } //
         else if (Timestamp.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getTimestamp(columnName));
+            v = rs.getTimestamp(columnName);
         } //
         else if (URL.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getURL(columnName));
+            v = rs.getURL(columnName);
         } //
         else if (Object.class.isAssignableFrom(columnType)) {
-            m.invoke(object, rs.getObject(columnName));
+            v = rs.getObject(columnName);
         } else {
             throw new SQLException("지원하지 않는 데이터 타입입니다.");
         }
+
+        if (cdef.nullable() && v == null) {
+            return;
+        }
+        m.invoke(object, v);
     }
 
     /**
@@ -493,6 +500,7 @@ public class SQLUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 1. 7.		박준홍			최초 작성
+     * 2022. 3. 30.     박준홍         Entity 클래스애 {@link TableDef}가 설정되지 않은 경우 무조건 정렬하도록 수정
      * </pre>
      *
      * @param entityType
@@ -506,7 +514,7 @@ public class SQLUtils {
         TableDef anno = AnnotationUtils.getAnnotation(entityType, TableDef.class);
         return anno != null //
                 ? anno.sortedColumns() //
-                : false;
+                : true;
     }
 
     /**
@@ -623,7 +631,7 @@ public class SQLUtils {
                 | IllegalArgumentException //
                 | InvocationTargetException //
                 | SQLException e) {
-            throw new SQLException("annotation: " + cdef + ", value: " + value, e);
+            throw ExceptionUtils.newException(SQLException.class, e, "class: %s, annotation: %s, value: %s", objectType, cdef, value);
         }
     }
 
@@ -687,10 +695,9 @@ public class SQLUtils {
             try {
                 stmt.setObject(++index, m.invoke(obj));
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                throw new SQLException("파라미터 설정 도중  에러가 발생하였습니다. 원인: " + e.getMessage(), e);
+                throw ExceptionUtils.newException(SQLException.class, e, "파라미터 설정 도중  에러가 발생하였습니다. 원인: %s", e.getMessage());
             }
         }
-
         return index;
     }
 
