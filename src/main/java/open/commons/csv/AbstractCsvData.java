@@ -80,15 +80,15 @@ public abstract class AbstractCsvData {
      * 2021. 6. 18.     박준홍         최초 작성
      * </pre>
      *
-     * @param delimiter
+     * @param separator
      *            데이터 구분자
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public AbstractCsvData(char delimiter) {
-        this(delimiter, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
+    public AbstractCsvData(char separator) {
+        this(separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
     }
 
     /**
@@ -102,7 +102,7 @@ public abstract class AbstractCsvData {
      * 2021. 6. 18.     박준홍         최초 작성
      * </pre>
      *
-     * @param delimiter
+     * @param separator
      *            데이터 구분자
      * @param quote
      *            Quotaion 문자
@@ -113,8 +113,8 @@ public abstract class AbstractCsvData {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public AbstractCsvData(char delimiter, char quote, char escape) {
-        this.delimiter = delimiter;
+    public AbstractCsvData(char separator, char quote, char escape) {
+        this.delimiter = separator;
         this.quote = quote;
         this.escape = escape;
     }

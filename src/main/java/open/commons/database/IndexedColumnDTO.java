@@ -53,7 +53,56 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
      */
     public IndexedColumnDTO() {
-        super();
+        this(CsvConfig.DEFAULT_SEPARATOR, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 4. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param separator
+     *
+     * @since 2022. 4. 7.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see CsvConfig.DEFAULT_QUOTE_CHARACTER
+     * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
+     */
+    public IndexedColumnDTO(char separator) {
+        this(separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 4. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param separator
+     * @param quote
+     * @param escape
+     *
+     * @since 2022. 4. 7.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
+     */
+    public IndexedColumnDTO(char separator, char quote, char escape) {
+        super(separator, quote, escape);
     }
 
     /**

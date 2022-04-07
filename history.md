@@ -1,3 +1,9 @@
+[2022/04/07]
+- Add
+  + open.commons.database.IndexedColumnDTO
+    + IndexedColumnDTO(char)
+    + IndexedColumnDTO(char, char, char)
+
 [2022/04/01]
 - Add
   + open.commons.utils.StringUtils
