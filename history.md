@@ -1,4 +1,7 @@
 [2022/04/07]
+- Release: 1.8.0
+
+[2022/04/07]
 - Add
   + open.commons.database.IndexedColumnDTO
     + IndexedColumnDTO(char)
