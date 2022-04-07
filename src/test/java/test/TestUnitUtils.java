@@ -26,9 +26,9 @@
 
 package test;
 
-import open.commons.util.BinaryDataUnit;
-import open.commons.util.PrefixDataUnit;
-import open.commons.utils.UnitUtils;
+import open.commons.core.util.BinaryDataUnit;
+import open.commons.core.util.PrefixDataUnit;
+import open.commons.core.utils.UnitUtils;
 
 /**
  * 

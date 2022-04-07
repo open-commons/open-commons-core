@@ -28,8 +28,8 @@ package test;
 
 import java.util.Arrays;
 
-import open.commons.csv.WriteAt;
-import open.commons.utils.CsvUtils;
+import open.commons.core.csv.WriteAt;
+import open.commons.core.utils.CsvUtils;
 
 /**
  * 

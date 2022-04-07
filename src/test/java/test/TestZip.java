@@ -29,7 +29,7 @@ package test;
 import java.io.File;
 import java.io.IOException;
 
-import open.commons.utils.ZipUtils;
+import open.commons.core.utils.ZipUtils;
 
 /**
  * 

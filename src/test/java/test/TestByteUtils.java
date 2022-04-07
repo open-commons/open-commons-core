@@ -29,8 +29,8 @@ package test;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 
-import open.commons.utils.ByteUtils;
-import open.commons.utils.IntegerUtils;
+import open.commons.core.utils.ByteUtils;
+import open.commons.core.utils.IntegerUtils;
 
 /**
  * 

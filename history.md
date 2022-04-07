@@ -1,4 +1,10 @@
 [2022/04/07]
+- Release: 2.0.0-SNAPSHOT
+- Tag: 1.8.0
+- Modify
+  + default package 변경: open.commons -> open.commons.core
+
+[2022/04/07]
 - Release: 1.8.0
 
 [2022/04/07]

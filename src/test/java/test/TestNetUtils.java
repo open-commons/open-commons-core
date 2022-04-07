@@ -26,7 +26,7 @@
 
 package test;
 
-import open.commons.utils.NetUtils;
+import open.commons.core.utils.NetUtils;
 
 /**
  * 

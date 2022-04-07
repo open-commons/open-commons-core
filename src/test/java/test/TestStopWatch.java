@@ -26,8 +26,8 @@
 
 package test;
 
-import open.commons.test.StopWatch;
-import open.commons.utils.ThreadUtils;
+import open.commons.core.test.StopWatch;
+import open.commons.core.utils.ThreadUtils;
 
 /**
  * 
