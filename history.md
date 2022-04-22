@@ -1,3 +1,12 @@
+[2022/04/20]
+- Add
+  + open.commons.core.log.LogUtils
+    + entryLog(Logger, Level)
+    + entryLog(Logger, Level, Object)
+    + leaveLog(Logger, Level)
+    + leaveLog(Logger, Level, Object)
+    + log(Logger, Level, Object)
+
 [2022/04/07]
 - Release: 2.0.0-SNAPSHOT
 - Tag: 1.8.0

@@ -20,6 +20,9 @@ import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
+
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.StringUtils;
 
@@ -240,6 +243,51 @@ public class LogUtils {
         log(System.out, emMsg(1));
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 4. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param logger
+     * @param level
+     *
+     * @since 2022. 4. 20.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void entryLog(Logger logger, Level level) {
+        log(logger, level, emMsg(1));
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 4. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param logger
+     * @param level
+     * @param message
+     *
+     * @since 2022. 4. 20.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void entryLog(Logger logger, Level level, Object message) {
+        log(logger, level, emMsg(message, 1));
+    }
+
     public static void entryLog(Object log) {
         log(System.out, emMsg(log, 1));
     }
@@ -283,6 +331,51 @@ public class LogUtils {
 
     public static void leaveLog() {
         log(System.out, lmMsg(1));
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 4. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param logger
+     * @param level
+     *
+     * @since 2022. 4. 20.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void leaveLog(Logger logger, Level level) {
+        log(logger, level, lmMsg(1));
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 4. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param logger
+     * @param level
+     * @param message
+     *
+     * @since 2022. 4. 20.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void leaveLog(Logger logger, Level level, Object message) {
+        log(logger, level, lmMsg(message, 1));
     }
 
     public static void leaveLog(Object log) {
@@ -362,6 +455,32 @@ public class LogUtils {
                 , comment != null ? comment : "" // message
                 , ste.getClassName() + ".java:" + ste.getLineNumber() // source trace info
         );
+    }
+
+    private static void log(Logger logger, Level level, Object log) {
+        if (!enabled) {
+            return;
+        }
+
+        switch (level) {
+            case ERROR:
+                logger.error("{}", log);
+                break;
+            case WARN:
+                logger.warn("{}", log);
+                break;
+            case INFO:
+                logger.info("{}", log);
+                break;
+            case DEBUG:
+                logger.debug("{}", log);
+                break;
+            case TRACE:
+                logger.trace("{}", log);
+                break;
+            default:
+                throw new UnsupportedOperationException("지원하지 않는 레벨입니다. 입력=" + level);
+        }
     }
 
     public static void log(Object obj) {
