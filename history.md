@@ -1,3 +1,8 @@
+[2022/05/13]
+- Add
+  + open.commons.core.log4j.appender.ProcessRollingFileAppender: 동일한 실행파일의 프로세스별로 서로 다른 로그파일을 생성할 수 있도록 지원.
+  
+
 [2022/04/20]
 - Add
   + open.commons.core.log.LogUtils
