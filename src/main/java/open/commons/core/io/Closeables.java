@@ -27,7 +27,6 @@
 package open.commons.core.io;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -37,23 +36,24 @@ import javax.annotation.Resource;
 import open.commons.core.utils.ArrayUtils;
 
 /**
- * 다수 개의 {@link Closeable}를 한번에 {@link #close()} 할 수 있도록 지원하는 클래스.
+ * 다수 개의 {@link AutoCloseable}를 한번에 {@link #close()} 할 수 있도록 지원하는 클래스.
  * 
  * <pre>
  * [개정이력]
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
  * 2018. 9. 10.     박준홍     최초 작성
- * 2019. 2. 19      박준홍     {@link Resource} 추가
+ * 2019. 2. 19.     박준홍     {@link Resource} 추가
+ * 2022. 5. 31.     박준홍     implements interface 변경 (Closeable -> AutoCloseable)
  * </pre>
  * 
  * @since 2018. 9. 10.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 @Resource
-public class Closeables implements Closeable {
+public class Closeables implements AutoCloseable {
 
-    private ArrayList<Closeable> closeables = new ArrayList<>();
+    private ArrayList<AutoCloseable> closeables = new ArrayList<>();
 
     /** 예외 발생 여부 */
     private final boolean quietly;
@@ -74,7 +74,7 @@ public class Closeables implements Closeable {
         this.quietly = quietly;
     }
 
-    public void addAll(Closeable... closeables) {
+    public void addAll(AutoCloseable... closeables) {
         if (closeables == null) {
             return;
         }
@@ -87,15 +87,15 @@ public class Closeables implements Closeable {
     }
 
     /**
-     * @see java.io.Closeable#close()
+     * @see java.lang.AutoCloseable#close()
      */
     @Override
-    public void close() throws IOException {
+    public void close() throws Exception {
 
         if (quietly) {
             closeQuietly();
         } else {
-            for (Closeable c : closeables) {
+            for (AutoCloseable c : closeables) {
                 if (c != null) {
                     c.close();
                 }
@@ -106,11 +106,11 @@ public class Closeables implements Closeable {
     }
 
     private void closeQuietly() {
-        for (Closeable c : closeables) {
+        for (AutoCloseable c : closeables) {
             if (c != null) {
                 try {
                     c.close();
-                } catch (IOException ignored) {
+                } catch (Exception ignored) {
                 }
             }
         }
@@ -130,7 +130,7 @@ public class Closeables implements Closeable {
      *
      * @since 2018. 9. 10.
      */
-    public void prepend(Closeable... closeables) {
+    public void prepend(AutoCloseable... closeables) {
         if (closeables == null) {
             return;
         }
@@ -171,8 +171,31 @@ public class Closeables implements Closeable {
      *
      * @since 2018. 9. 11.
      */
-    public static Closeable closeable(Closeable closeable, boolean quiet) {
+    public static AutoCloseable closeable(AutoCloseable closeable, boolean quiet) {
         return new ThrowableCloseable(closeable, quiet);
+    }
+
+    /**
+     * {@link Closeable}를 보관하는 객체를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param closeables
+     *            {@link Closeable} ...
+     * @return
+     *
+     * @since 2018. 9. 10.
+     */
+    public static Closeables list(AutoCloseable... closeables) {
+        Closeables c = new Closeables(false);
+        c.addAll(closeables);
+
+        return c;
     }
 
     /**
@@ -193,39 +216,16 @@ public class Closeables implements Closeable {
      *
      * @since 2018. 9. 10.
      */
-    public static Closeables list(boolean quietly, Closeable... closeables) {
+    public static Closeables list(boolean quietly, AutoCloseable... closeables) {
         Closeables c = new Closeables(quietly);
         c.addAll(closeables);
 
         return c;
     }
 
-    /**
-     * {@link Closeable}를 보관하는 객체를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 10.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param closeables
-     *            {@link Closeable} ...
-     * @return
-     *
-     * @since 2018. 9. 10.
-     */
-    public static Closeables list(Closeable... closeables) {
-        Closeables c = new Closeables(false);
-        c.addAll(closeables);
+    public static class ThrowableCloseable implements AutoCloseable {
 
-        return c;
-    }
-
-    public static class ThrowableCloseable implements Closeable {
-
-        private final Closeable closeable;
+        private final AutoCloseable closeable;
 
         private final boolean quiet;
 
@@ -241,9 +241,9 @@ public class Closeables implements Closeable {
          *
          * @since 2018. 9. 11.
          */
-        private ThrowableCloseable(Closeable closeable, boolean quiet) {
+        private ThrowableCloseable(AutoCloseable closeable, boolean quiet) {
             if (closeable == null) {
-                throw new IllegalArgumentException("Closeable instance MUST NOT be null.");
+                throw new IllegalArgumentException("AutoCloseable instance MUST NOT be null.");
             }
 
             this.closeable = closeable;
@@ -251,10 +251,10 @@ public class Closeables implements Closeable {
         }
 
         /**
-         * @see java.io.Closeable#close()
+         * @see java.io.AutoCloseable#close()
          */
         @Override
-        public void close() throws IOException {
+        public void close() throws Exception {
 
             try {
                 closeable.close();

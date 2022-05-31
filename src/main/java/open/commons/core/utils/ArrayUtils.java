@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import open.commons.core.DefaultEquivalent;
 import open.commons.core.EquivalentFactory;
@@ -5984,44 +5985,44 @@ public class ArrayUtils {
      */
     public static boolean[] removeAll(boolean[] array, boolean value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            boolean[] newArray = new boolean[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        boolean[] newArray = new boolean[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
+
     }
 
     /**
@@ -6040,44 +6041,44 @@ public class ArrayUtils {
      */
     public static byte[] removeAll(byte[] array, byte value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            byte[] newArray = new byte[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        byte[] newArray = new byte[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
+
     }
 
     /**
@@ -6096,44 +6097,43 @@ public class ArrayUtils {
      */
     public static char[] removeAll(char[] array, char value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            char[] newArray = new char[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        char[] newArray = new char[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**
@@ -6152,44 +6152,43 @@ public class ArrayUtils {
      */
     public static double[] removeAll(double[] array, double value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            double[] newArray = new double[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        double[] newArray = new double[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**
@@ -6208,44 +6207,43 @@ public class ArrayUtils {
      */
     public static float[] removeAll(float[] array, float value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            float[] newArray = new float[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        float[] newArray = new float[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**
@@ -6264,44 +6262,43 @@ public class ArrayUtils {
      */
     public static int[] removeAll(int[] array, int value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            int[] newArray = new int[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        int[] newArray = new int[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**
@@ -6320,44 +6317,43 @@ public class ArrayUtils {
      */
     public static long[] removeAll(long[] array, long value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            long[] newArray = new long[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        long[] newArray = new long[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**
@@ -6376,44 +6372,87 @@ public class ArrayUtils {
      */
     public static short[] removeAll(short[] array, short value) {
 
-        if (array != null) {
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            short[] newArray = new short[array.length - delCount];
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(short[] array) must not be 'null': array=null"));
         }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        short[] newArray = new short[array.length - delCount];
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
+    }
+
+    public static <T> T[] removeAll(T[] array, Predicate<T> filter) {
+        if (array == null) {
+            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
+        }
+
+        if (filter == null) {
+            throw new IllegalArgumentException(new NullPointerException("A parameter(Function<T, Boolean> filter ) must not be 'null': filter=null"));
+        }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (filter.test(array[i])) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**
@@ -6453,47 +6492,47 @@ public class ArrayUtils {
      */
     public static <T> T[] removeAll(T[] array, T value, IEquivalent<T> equivalent) {
 
-        if (array != null) {
-            if (equivalent == null) {
-                equivalent = new DefaultEquivalent<T>();
-            }
-
-            int[] delIndice = new int[array.length];
-            int delCount = 0;
-
-            for (int i = 0; i < array.length; i++) {
-                if (equivalent.equals(array[i], value)) {
-                    delIndice[delCount++] = i;
-                }
-            }
-
-            if (delCount < 1) {
-                return array;
-            }
-
-            delIndice = copyOf(delIndice, delCount);
-
-            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
-
-            int si = 0;
-            int bi = -1;
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < delCount; i++) {
-                System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-                si = delIndice[i] + 1;
-                copiedLength += delIndice[i] - bi - 1;
-                bi = delIndice[i];
-            }
-
-            if (delIndice[delCount - 1] < array.length - 1) {
-                System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-            }
-
-            return newArray;
-        } else {
+        if (array == null) {
             throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
         }
+
+        if (equivalent == null) {
+            equivalent = new DefaultEquivalent<T>();
+        }
+
+        int[] delIndice = new int[array.length];
+        int delCount = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (equivalent.equals(array[i], value)) {
+                delIndice[delCount++] = i;
+            }
+        }
+
+        if (delCount < 1) {
+            return array;
+        }
+
+        delIndice = copyOf(delIndice, delCount);
+
+        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
+
+        int si = 0;
+        int bi = -1;
+        int copiedLength = 0;
+        int i = 0;
+        for (; i < delCount; i++) {
+            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
+            si = delIndice[i] + 1;
+            copiedLength += delIndice[i] - bi - 1;
+            bi = delIndice[i];
+        }
+
+        if (delIndice[delCount - 1] < array.length - 1) {
+            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        }
+
+        return newArray;
     }
 
     /**

@@ -32,6 +32,7 @@ package open.commons.core;
  * @since 2012. 03. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
+@FunctionalInterface
 public interface IEquivalent<T> {
 
     public boolean equals(T t1, T t2);

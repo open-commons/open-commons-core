@@ -1,3 +1,7 @@
+[2022/05/31]
+- Modify
+  + open.commons.core.io.Closeables: 구현 interface를 변경 (java.io.Closeable -> java.lang.AutoCloseable)
+
 [2022/05/13]
 - Add
   + open.commons.core.log4j.appender.ProcessRollingFileAppender: 동일한 실행파일의 프로세스별로 서로 다른 로그파일을 생성할 수 있도록 지원.
