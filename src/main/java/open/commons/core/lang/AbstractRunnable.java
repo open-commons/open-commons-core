@@ -64,7 +64,7 @@ public abstract class AbstractRunnable implements IRunnable {
     protected Thread executor;
     protected Mutex mutexExecutor = new Mutex("executor");
 
-    protected boolean isRunning = true;
+    protected boolean isRunning = false;
 
     /**
      * 서비스 구동 후에 실행된다.
@@ -192,6 +192,8 @@ public abstract class AbstractRunnable implements IRunnable {
     @Override
     public void start(boolean daemon) {
         beforeStartup();
+
+        this.isRunning = true;
 
         if (startedExternally) {
             executor = Thread.currentThread();

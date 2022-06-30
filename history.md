@@ -1,3 +1,7 @@
+[2022/06/30]
+- Modify
+  + open.commons.core.lang.AbstractRunnable: 내부 isRunnable 초기값 변경 및 설정 단계 추가.
+
 [2022/05/31]
 - Modify
   + open.commons.core.io.Closeables: 구현 interface를 변경 (java.io.Closeable -> java.lang.AutoCloseable)
