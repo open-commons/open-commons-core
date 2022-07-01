@@ -1,3 +1,8 @@
+[2022/07/01]
+- Modify
+  + open.commons.core.log4j.appender.ProcessRollingFileAppender.PROCESS_CONTEXT_HOLDER 문자열 변경
+    + %process-context-holder% -> #process-context-holder#
+
 [2022/06/30]
 - Modify
   + open.commons.core.lang.AbstractRunnable: 내부 isRunnable 초기값 변경 및 설정 단계 추가.

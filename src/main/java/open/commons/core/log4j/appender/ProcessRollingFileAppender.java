@@ -85,7 +85,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
     /**
      * 로그 파일명과 로그 파일패턴에 적용되는 실제 값에 매칭하는 속성명
      */
-    public static final String PROCESS_CONTEXT_HOLDER = "%process-context-holder%";
+    public static final String PROCESS_CONTEXT_HOLDER = "#process-context-holder#";
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
 
