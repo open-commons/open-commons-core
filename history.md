@@ -1,3 +1,8 @@
+[2022/07/12]
+- Add
+  + open.commons.core.concurrent.AsyncWorker&lt;E&gt;
+    + Thread-safe collection을 사용하여 구현한 비동기 메시지 처리 모듈.
+
 [2022/07/01]
 - Modify
   + open.commons.core.log4j.appender.ProcessRollingFileAppender.PROCESS_CONTEXT_HOLDER 문자열 변경
