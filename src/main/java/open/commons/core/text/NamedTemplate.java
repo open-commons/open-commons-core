@@ -45,7 +45,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  *  values.put("my name", "Young Su");
  *  values.put("your_name", "Cheol Su");
  *  
- *  System.out.println(NamedFormat.format(pattern, values));
+ *  System.out.println(NamedTemplate.format(pattern, values));
  *  ------------------
  *  (result): 
  *  Young Su: Hi~. My is Young Su. What's your name?
@@ -53,7 +53,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
  *  Young Su: Me too!
  *  
  *  ---------------------
- *  NamedFormat getter = new NamedFormat("public {returnType} get{name}() ${\n\treturn this.{var};\n$}", true);
+ *  NamedTemplate getter = new NamedTemplate("public {returnType} get{name}() ${\n\treturn this.{var};\n$}", true);
  *  getter.addValue("returnType", "String");
  *  getter.addValue("name", "Birth");
  *  getter.addValue("var", "birdh");
