@@ -114,10 +114,22 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
     }
 
     /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * xxxx.xx.xx.      박준홍     최초 작성
+     * 2022. 9. 1.		박준홍     final 제거. 아래 내용을지 원하기 위함.
+     *                              - Unable to proxy interface-implementing method [public final void open.commons.core.lang.DefaultRunnable.run()] 
+     *                                because it is marked as final: Consider using interface-based JDK proxies instead! (CglibAopProxy.java)
+     * </pre>
+     *
      * @see open.commons.core.lang.AbstractRunnable#run()
      */
     @Override
-    public final void run() {
+    public void run() {
 
         String OTN = Thread.currentThread().getName();
         String tn = getThreadName();
