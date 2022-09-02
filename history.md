@@ -1,3 +1,8 @@
+[2022/09/02]
+- Add
+  + open.commons.core.utils.AnnotationUtils.getAnnotatedFieldsAllHierarchy(Class&lt;?&gt;, Class&lt;? extends Annotation&gt;...)
+  + open.commons.core.utils.AnnotationUtils.getAnnotatedFieldsAllHierarchy(Object, Class&lt;? extends Annotation&gt;...)
+
 [2022/07/12]
 - Add
   + open.commons.core.concurrent.AsyncWorker&lt;E&gt;
@@ -203,8 +208,8 @@
 [2022/02/07]
 - Bugfix
   + open.commons.utils.ObjectUtils
-    + isPrimitive(Class<?>): 구현 버그 수정
-    + isWrapper(Class<?>): 구현 버그 수정
+    + isPrimitive(Class&lt;?&gt;): 구현 버그 수정
+    + isWrapper(Class&lt;?&gt;): 구현 버그 수정
 - Deleted
   + open.commons.utils.ObjectUtils
     + isPrimitive(Object): 잘못 정의된 메소드.

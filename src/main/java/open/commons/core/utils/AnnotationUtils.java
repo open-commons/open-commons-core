@@ -290,6 +290,62 @@ public class AnnotationUtils {
     }
 
     /**
+     * 대상 클래스에 정의된 {@link Field}와 상위 클래스에 정의된 {@link Field}까지 제공합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 9. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param typeClass
+     * @param annoClasses
+     * @return
+     *
+     * @since 2022. 9. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+
+        Class<?> type = typeClass;
+
+        Set<Field> fields = new HashSet<>();
+        while (type != null && !type.equals(Object.class)) {
+            fields.addAll(getAnnotatedFieldsAll(type, annoClasses));
+            type = type.getSuperclass();
+        }
+
+        return new ArrayList<>(fields);
+    }
+
+    /**
+     * 대상 객체에 정의된 {@link Field}와 상위 클래스에 정의된 {@link Field}까지 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 9. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param obj
+     * @param annoClasses
+     * @return
+     *
+     * @since 2022. 9. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unchecked")
+    public static List<Field> getAnnotatedFieldsAllHierarchy(Object obj, Class<? extends Annotation>... annoClasses) {
+        return getAnnotatedFieldsAllHierarchy(obj.getClass(), annoClasses);
+    }
+
+    /**
      * 대상 클래스의 "public" {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공합니다. <br>
      * 
      * <pre>
@@ -527,13 +583,13 @@ public class AnnotationUtils {
 
         Class<?> type = typeClass;
 
-        Set<Method> fields = new HashSet<>();
+        Set<Method> methods = new HashSet<>();
         while (type != null && !type.equals(Object.class)) {
-            fields.addAll(getAnnotatedMethodsAll(type, annoClasses));
+            methods.addAll(getAnnotatedMethodsAll(type, annoClasses));
             type = type.getSuperclass();
         }
 
-        return new ArrayList<>(fields);
+        return new ArrayList<>(methods);
     }
 
     /**
