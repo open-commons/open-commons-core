@@ -274,7 +274,7 @@ public class DateUtil {
      * @return
      */
     public static String getDateString() {
-        return new SimpleDateFormat("yyyyMMdd").format(new Date());
+        return getDateString(new Date());
     }
 
     /**
@@ -294,7 +294,7 @@ public class DateUtil {
      * @return
      */
     public static String getDateTimeString() {
-        return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        return getDateTimeString(new Date());
     }
 
     /**
@@ -309,17 +309,17 @@ public class DateUtil {
 
     /**
      * 현재 날짜의 년월일 정보를 반환합니다.<br>
-     * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
+     * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
      */
     public static String getDay() {
-        return new SimpleDateFormat("dd").format(new Date());
+        return getDay(new Date());
     }
 
     /**
      * 현재 날짜의 년월일 정보를 반환합니다.<br>
-     * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
+     * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
      */
@@ -554,17 +554,17 @@ public class DateUtil {
 
     /**
      * 현재 날짜의 년월일 정보를 반환합니다.<br>
-     * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
+     * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
      */
     public static String getMonth() {
-        return new SimpleDateFormat("MM").format(new Date());
+        return getMonth(new Date());
     }
 
     /**
      * 현재 날짜의 년월일 정보를 반환합니다.<br>
-     * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
+     * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
      */

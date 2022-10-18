@@ -1,3 +1,9 @@
+[2022/10/18]
+- Add
+  + open.commons.core.log4j.appender.ProcessRollingFileAppender
+    + ConcurrentSkipListMap&lt;String, String&gt; CUSTOM_CONTEXT_CONFIG 
+    + registerContext(String, String, String): 로그파일명과 로그파일패턴에 적용되는 속성과 값을 설정
+  
 [2022/09/02]
 - Add
   + open.commons.core.utils.AnnotationUtils.getAnnotatedFieldsAllHierarchy(Class&lt;?&gt;, Class&lt;? extends Annotation&gt;...)

@@ -29,6 +29,7 @@ package open.commons.core.log4j.appender;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.Deflater;
 
@@ -86,11 +87,15 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * 로그 파일명과 로그 파일패턴에 적용되는 실제 값에 매칭하는 속성명
      */
     public static final String PROCESS_CONTEXT_HOLDER = "#process-context-holder#";
+    /** 동적으로 로그파일명과 로그 파일패턴에 적용되는 속성명과 실제 값 */
+    private static final ConcurrentSkipListMap<String, String> CUSTOM_CONTEXT_CONFIG = new ConcurrentSkipListMap<>();
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
 
     private final String fileName;
+
     private final String filePattern;
+
     private Object advertisement;
     private final Advertiser advertiser;
 
@@ -227,6 +232,39 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
     }
 
     /**
+     * 로그파일명과 로그파일패턴에 적용되는 속성과 값을 설정합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 18.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param contextName
+     *            속성 이름
+     * @param contextHolder
+     *            로그파일명/파일패턴에서 대체될 값
+     * @param context
+     *            속성값
+     * @return
+     *
+     * @since 2022. 10. 18.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean registerContext(String contextName, String contextHolder, String context) {
+        if (CUSTOM_CONTEXT_CONFIG.containsKey(contextName) || CUSTOM_CONTEXT_CONFIG.containsValue(contextHolder)) {
+            return false;
+        } else {
+            ThreadContext.put(contextName, context);
+            CUSTOM_CONTEXT_CONFIG.put(contextName, contextHolder);
+            return true;
+        }
+    }
+
+    /**
      * Builds FileAppender instances.
      * 
      * @param <B>
@@ -311,18 +349,14 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
                 return null;
             }
 
-            if (this.fileName != null && this.fileName.contains(PROCESS_CONTEXT_HOLDER)) {
-                String context = ThreadContext.get(PROCESS_CONTEXT);
-                if (context != null) {
-                    this.fileName = this.fileName.replace(PROCESS_CONTEXT_HOLDER, context);
-                }
-            }
-            if (this.filePattern != null && this.filePattern.contains(PROCESS_CONTEXT_HOLDER)) {
-                String context = ThreadContext.get(PROCESS_CONTEXT);
-                if (context != null) {
-                    this.filePattern = this.filePattern.replace(PROCESS_CONTEXT_HOLDER, context);
-                }
-            }
+            updateFilename(PROCESS_CONTEXT, PROCESS_CONTEXT_HOLDER);
+            updateFilePattern(PROCESS_CONTEXT, PROCESS_CONTEXT_HOLDER);
+            // start - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
+            CUSTOM_CONTEXT_CONFIG.forEach((ctx, holder) -> {
+                updateFilename(ctx, holder);
+                updateFilePattern(ctx, holder);
+            });
+            // end - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
 
             final Layout<? extends Serializable> layout = getOrCreateLayout();
             final RollingFileManager manager = RollingFileManager.getFileManager(fileName, filePattern, append, isBufferedIo, policy, strategy, advertiseUri, layout, bufferSize,
@@ -383,6 +417,24 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
 
         public boolean isLocking() {
             return locking;
+        }
+
+        private void updateFilename(String contextName, String contextHolder) {
+            if (this.fileName != null && this.fileName.contains(contextHolder)) {
+                String context = ThreadContext.get(contextName);
+                if (context != null) {
+                    this.fileName = this.fileName.replace(contextHolder, context);
+                }
+            }
+        }
+
+        private void updateFilePattern(String contextName, String contextHolder) {
+            if (this.filePattern != null && this.filePattern.contains(contextHolder)) {
+                String context = ThreadContext.get(contextName);
+                if (context != null) {
+                    this.filePattern = this.filePattern.replace(contextHolder, context);
+                }
+            }
         }
 
         public B withAdvertise(final boolean advertise) {
