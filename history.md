@@ -1,3 +1,9 @@
+[2022/10/26]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    + getFirst(T[])
+    + getLast(T[])
+
 [2022/10/18]
 - Add
   + open.commons.core.log4j.appender.ProcessRollingFileAppender

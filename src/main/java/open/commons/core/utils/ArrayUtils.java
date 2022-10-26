@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -2777,6 +2778,39 @@ public class ArrayUtils {
     }
 
     /**
+     * 주어진 배열에서 첫번째 데이터를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @return
+     * @throws NullPointerException
+     *             배열이 null 인 경우
+     * @throws ArrayIndexOutOfBoundsException
+     *             배열의 길이가 0인 경우
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T getFirst(T[] array) {
+        Objects.requireNonNull(array);
+
+        int count = array.length;
+        if (count < 1) {
+            throw new ArrayIndexOutOfBoundsException("주어진 배열의 길이가 0 입니다.");
+        } else {
+            return array[0];
+        }
+    }
+
+    /**
      * 주어진 배열들 중에서 첫번째 배열의 0번째부터 마지막 배열의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환합니다.<br>
      * 
      * <pre>
@@ -2824,6 +2858,39 @@ public class ArrayUtils {
         }
 
         return rtnValue;
+    }
+
+    /**
+     * 주어진 배열에서 마지막 데이터를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param array
+     * @return
+     * @throws NullPointerException
+     *             배열이 null 인 경우
+     * @throws ArrayIndexOutOfBoundsException
+     *             배열의 길이가 0인 경우
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T getLast(T[] array) throws NullPointerException, ArrayIndexOutOfBoundsException {
+        Objects.requireNonNull(array);
+
+        int count = array.length;
+        if (count < 1) {
+            throw new ArrayIndexOutOfBoundsException("주어진 배열의 길이가 0 입니다.");
+        } else {
+            return array[count - 1];
+        }
     }
 
     /**
