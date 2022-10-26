@@ -3,6 +3,13 @@
   + open.commons.core.utils.ArrayUtils
     + getFirst(T[])
     + getLast(T[])
+  + open.commons.core.utils.DateUtil
+    + diffDay(Date, Date)
+    + diffDayToNow(Calendar)
+    + diffDayToNow(Date)
+    + diffDay0(Calendar, Calendar)
+    + diffDay(int, int, int, int, int, int)
+    + diffDay(String, String, String, String, String, String)  
 
 [2022/10/18]
 - Add

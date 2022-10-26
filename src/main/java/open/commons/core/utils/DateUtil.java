@@ -189,7 +189,7 @@ public class DateUtil {
     }
 
     /**
-     * 날짜수 차이를 반환합니다.
+     * 날짜수 차이를 반환합니다. <br>
      * 
      * @param cal1
      * @param cal2
@@ -198,10 +198,101 @@ public class DateUtil {
      * @since 2014. 4. 2.
      */
     public static int diffDay(Calendar cal1, Calendar cal2) {
+        return diffDay0(newCalendar(cal1, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH), newCalendar(cal2, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH));
 
-        Calendar c1 = newCalendar(cal1, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
-        Calendar c2 = newCalendar(cal2, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH);
+    }
 
+    /**
+     * 날짜수 차이를 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param date1
+     * @param date2
+     * @return
+     *
+     * @since 2014. 4. 2.
+     */
+    public static int diffDay(Date date1, Date date2) {
+        return diffDay0(newCalendar(date1), newCalendar(date2));
+    }
+
+    /**
+     * 주어진 시간과 오늘과의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param y1
+     * @param m1
+     * @param d1
+     * @param y2
+     * @param m2
+     * @param d2
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int diffDay(int y1, int m1, int d1, int y2, int m2, int d2) {
+        return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
+    }
+
+    /**
+     * 주어진 시간과 오늘과의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param y1
+     * @param m1
+     * @param d1
+     * @param y2
+     * @param m2
+     * @param d2
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int diffDay(String y1, String m1, String d1, String y2, String m2, String d2) {
+        return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
+    }
+
+    /**
+     * 두 날짜의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param c1
+     * @param c2
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static int diffDay0(Calendar c1, Calendar c2) {
         long time1 = c1.getTimeInMillis();
         long time2 = c2.getTimeInMillis();
 
@@ -216,8 +307,46 @@ public class DateUtil {
         return (int) ((sig ? 1 : -1) * TimeUnit.MILLISECONDS.toDays(diff));
     }
 
-    public static int diffDay(Date date1, Date date2) {
-        return diffDay(newCalendar(date1), newCalendar(date2));
+    /**
+     * 주어진 시간과 오늘과의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param cal
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int diffDayToNow(Calendar cal) {
+        return diffDay(cal, Calendar.getInstance());
+    }
+
+    /**
+     * 주어진 시간과 오늘과의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param date
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int diffDayToNow(Date date) {
+        return diffDay0(newCalendar(date), Calendar.getInstance());
     }
 
     /**
