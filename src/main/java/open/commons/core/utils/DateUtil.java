@@ -234,9 +234,11 @@ public class DateUtil {
      *
      * @param y1
      * @param m1
+     *            월 (0 ~ 11)
      * @param d1
      * @param y2
      * @param m2
+     *            월 (0 ~ 11)
      * @param d2
      * @return
      *
@@ -260,9 +262,11 @@ public class DateUtil {
      *
      * @param y1
      * @param m1
+     *            월 (0 ~ 11)
      * @param d1
      * @param y2
      * @param m2
+     *            월 (0 ~ 11)
      * @param d2
      * @return
      *
@@ -284,17 +288,18 @@ public class DateUtil {
      * 2022. 10. 26.		박준홍			최초 작성
      * </pre>
      *
-     * @param c1
-     * @param c2
-     * @return
+     * @param cal1
+     * @param cal2
+     * 
+     * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    private static int diffDay0(Calendar c1, Calendar c2) {
-        long time1 = c1.getTimeInMillis();
-        long time2 = c2.getTimeInMillis();
+    private static int diffDay0(Calendar cal1, Calendar cal2) {
+        long time1 = cal1.getTimeInMillis();
+        long time2 = cal2.getTimeInMillis();
 
         if (time1 == time2) {
             return 0;
@@ -361,6 +366,7 @@ public class DateUtil {
      *
      * @param year
      * @param month
+     *            월 (0 ~ 11)
      * @param day
      * @return
      *
@@ -384,6 +390,7 @@ public class DateUtil {
      *
      * @param year
      * @param month
+     *            월 (0 ~ 11)
      * @param day
      * @return
      *
