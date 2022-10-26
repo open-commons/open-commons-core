@@ -350,6 +350,52 @@ public class DateUtil {
     }
 
     /**
+     * 주어진 시간과 오늘과의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int diffDayToNow(int year, int month, int day) {
+        return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
+    }
+
+    /**
+     * 주어진 시간과 오늘과의 일수 차이를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 10. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     *
+     * @since 2022. 10. 26.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int diffDayToNow(String year, String month, String day) {
+        return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
+    }
+
+    /**
      * 현재 시간을 기준으로 주어진 정보에 맞게 변경된 정보를 제공합니다. <br>
      * 
      * <pre>
