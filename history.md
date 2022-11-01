@@ -1,3 +1,11 @@
+[2022/11/03]
+- Add
+  + open.commons.core.annotation.ColumnValue
+    + defaultColumn()
+    + primaryKey()
+  + open.commons.spring.jdbc.repository.AbstractGenericRepository&lt;T&gt;
+    + getColumnMethods(): open.commons.core.annotation.ColumnValue.defaultColumn() 처리 적용
+
 [2022/10/26]
 - Add
   + open.commons.core.utils.ArrayUtils

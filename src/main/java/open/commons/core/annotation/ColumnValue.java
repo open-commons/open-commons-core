@@ -103,6 +103,25 @@ public @interface ColumnValue {
     ColumnNameType columnNameType() default ColumnNameType.NAME;
 
     /**
+     * 컬럼 정의시 'DEFAULT' 설정에 따라서 생성되는 데이터 여부 <br>
+     * 이 값이 <code>true</code>인 경우, 쿼리 생성에 포함되지 않습니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 11. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2022. 11. 1.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    boolean defaultColumn() default false;
+
+    /**
      * 컬럼명을 제공합니다.<br>
      * 이 값이 빈문자열("")인 경우 해당 메소드 이름과 반환 타입을 이용하여 컬럼명을 추출합니다.<br>
      * 먼저 반환타입이 boolean/Boolean 인 경우 메소드이름이 알파벳 소문자 'is' 또는 'get'으로 시작하는지 확인하고<br>
@@ -164,6 +183,24 @@ public @interface ColumnValue {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     int order() default Integer.MAX_VALUE;
+
+    /**
+     * Primary Key에 속하는지 여부. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 11. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2022. 11. 1.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    boolean primaryKey() default false;
 
     /**
      * 해당 컬럼이 갱신가능한지 여부를 제공합니다. <br>

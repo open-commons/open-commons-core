@@ -60,8 +60,8 @@ import java.util.stream.Collectors;
 import open.commons.core.TwoValueObject;
 import open.commons.core.annotation.ColumnDecl;
 import open.commons.core.annotation.ColumnDef;
-import open.commons.core.annotation.ColumnValue;
 import open.commons.core.annotation.ColumnDef.ColumnNameType;
+import open.commons.core.annotation.ColumnValue;
 import open.commons.core.database.annotation.ColumnConstraint;
 import open.commons.core.database.annotation.TableDef;
 import open.commons.core.function.TripleFunction;
@@ -115,7 +115,17 @@ public class SQLUtils {
         }
     };
 
-    public static final BiFunction<Class<?>, Class<ColumnValue>, List<Method>> COLUMN_VALUE_METHOD_PROVIDER = AnnotationUtils::getAnnotatedMethodsAll;
+    public static final Function<Class<?>, List<Method>> COLUMN_VALUE_METHOD_PROVIDER = typeClass -> {
+        return Arrays.stream(typeClass.getMethods()) // create methods stream
+                .filter(m -> {
+                    ColumnValue annoCv = m.getAnnotation(ColumnValue.class);
+                    // start - 컬럼 생성시 정의된 'default' 속성에 따라서 생성되는 컬럼을 제외 : 2022. 11. 1. 오후 2:28:00
+                    return annoCv != null && !annoCv.defaultColumn();
+                    // end - 컬럼 생성시 정의된 'default' 속성에 따라서 생성되는 컬럼을 제외 : 2022. 11. 1. 오후 2:28:00
+
+                }) // check annotation
+                .collect(Collectors.toList());
+    };
 
     /**
      * 
@@ -659,7 +669,7 @@ public class SQLUtils {
     public static int setParameters(PreparedStatement stmt, int index, Object obj, String... columnNames) throws SQLException {
         // #1. @ColumnValue 어노테이션이 설정된 Method 조회
         Class<?> type = obj.getClass();
-        List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(type, ColumnValue.class);
+        List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(type);
 
         // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
         if (columnNames == null || columnNames.length < 1) {
