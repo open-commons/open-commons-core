@@ -3,8 +3,10 @@
   + open.commons.core.annotation.ColumnValue
     + defaultColumn()
     + primaryKey()
-  + open.commons.spring.jdbc.repository.AbstractGenericRepository&lt;T&gt;
-    + getColumnMethods(): open.commons.core.annotation.ColumnValue.defaultColumn() 처리 적용
+  + open.commons.core.utils.ObjectUtils
+    + GETTER_KEYGEN: Getter.name()이 ""인 경우 Method 이름에서 '속성'이름 추출 적용
+    + SETTER_KEYGEN: Setter.name()이 ""인 경우 Method 이름에서 '속성'이름 추출 적용
+    
 
 [2022/10/26]
 - Add

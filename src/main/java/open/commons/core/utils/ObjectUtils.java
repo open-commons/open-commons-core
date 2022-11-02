@@ -37,9 +37,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -112,16 +115,62 @@ public class ObjectUtils {
         // end: wrapper types
     }
 
-    private static Function<Method, String> GETTER_KEYGEN = m -> {
-        Getter annoGetter = m.getAnnotation(Getter.class);
+    private static final Pattern METHOD_GETTER = Pattern.compile("^(is|get)(.+)$");
+    private static final Pattern METHOD_SETTER = Pattern.compile("^(set)(.+)$");
+
+    /**
+     * Method에 설정된 {@link Setter} 어노테이션 값을 이용해서 "속성" 이름을 제공합니다.<br>
+     * 
+     * @param method
+     *            {@link Method}
+     * 
+     * @return 속성 이름
+     */
+    private static Function<Method, String> GETTER_KEYGEN = method -> {
+        Getter annoGetter = method.getAnnotation(Getter.class);
+        String name = annoGetter.name();
+        if (name.trim().isEmpty()) {
+            name = method.getName();
+            Matcher m = METHOD_GETTER.matcher(name);
+            if (m.matches()) {
+                if ("is".equals(m.group(1))) {
+                    name = StringUtils.toLowerCase(name.substring(2), 0);
+                } else /* if ("get".equals(m.group(1))) { */
+                {
+                    name = StringUtils.toLowerCase(name.substring(3), 0);
+                }
+            } else {
+                // 지원하지 않는 메소드
+                name = UUID.randomUUID().toString();
+            }
+        }
         // return getPropertyKey(annoGetter.name(), annoGetter.type());
-        return annoGetter.name();
+        return name;
     };
 
-    private static Function<Method, String> SETTER_KEYGEN = m -> {
-        Setter annoSetter = m.getAnnotation(Setter.class);
+    /**
+     * Method에 설정된 {@link Setter} 어노테이션 값을 이용해서 "속성" 이름을 제공합니다.<br>
+     * 
+     * @param method
+     *            {@link Method}
+     * 
+     * @return 속성 이름
+     */
+    private static Function<Method, String> SETTER_KEYGEN = method -> {
+        Setter annoSetter = method.getAnnotation(Setter.class);
+        String name = annoSetter.name();
+        if (name.trim().isEmpty()) {
+            name = method.getName();
+            Matcher m = METHOD_SETTER.matcher(name);
+            if (m.matches()) {
+                name = name.substring(3);
+            } else {
+                // 지원하지 않는 메소드
+                name = UUID.randomUUID().toString();
+            }
+        }
         // return getPropertyKey(annoSetter.name(), annoSetter.type());
-        return annoSetter.name();
+        return name;
     };
 
     private static final Function<Method, Class<?>> RETURN_TYPE = m -> m.getReturnType();
