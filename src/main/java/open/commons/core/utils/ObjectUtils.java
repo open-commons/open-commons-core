@@ -163,7 +163,7 @@ public class ObjectUtils {
             name = method.getName();
             Matcher m = METHOD_SETTER.matcher(name);
             if (m.matches()) {
-                name = name.substring(3);
+                name = StringUtils.toLowerCase(name.substring(3), 0);
             } else {
                 // 지원하지 않는 메소드
                 name = UUID.randomUUID().toString();
