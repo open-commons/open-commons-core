@@ -30,6 +30,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
 
 /**
@@ -141,13 +142,14 @@ public @interface ColumnDef {
     /**
      * 컬럼의 데이타 타입을 제공합니다.<br>
      * 
-     * 기본값: String.class
+     * 기본값: {@link Class}.class
      * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2017. 9. 5.      박준홍         최초 작성
+     * 2022. 11. 03.    박준홍     default 값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드를 적용함. {@link Class}.class 인 경우 {@link Method#getParameterTypes()} 를 이용.
      * </pre>
      *
      * @return
@@ -155,7 +157,7 @@ public @interface ColumnDef {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 9. 5.
      */
-    Class<?> type() default String.class;
+    Class<?> type() default Class.class;
 
     /**
      * DBMS 컬럼명 표기 타입

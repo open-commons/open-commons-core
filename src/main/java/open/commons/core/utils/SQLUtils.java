@@ -379,6 +379,9 @@ public class SQLUtils {
             throws SQLException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
         Class<?> columnType = cdef.type();
+        if (Class.class.equals(columnType)) {
+            columnType = m.getParameterTypes()[0];
+        }
         String clmnName = cdef.name();
         String columnName = null;
         switch (cdef.columnNameType()) {

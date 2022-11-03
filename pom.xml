@@ -1,10 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>open.commons</groupId>
 	<artifactId>open-commons-core</artifactId>
 	<version>2.0.0-SNAPSHOT</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<properties>
 		<encoding>UTF-8</encoding>
@@ -29,28 +36,36 @@
 		<!-- >>> end: plugin dependencies -->
 	</properties>
 
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
 	<distributionManagement>
 		<repository>
 			<id>releases</id>
 			<name>Release Repository</name>
 			<url>http://nexus3.ymtech.co.kr/repository/maven-releases/</url>
-			<!-- <url>http://maven.ymtech.co.kr/nexus/content/repositories/releases/</url> -->
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Snapshot Repository</name>
 			<url>http://nexus3.ymtech.co.kr/repository/maven-snapshots/</url>
-			<!-- <url>http://maven.ymtech.co.kr/nexus/content/repositories/snapshots/</url> -->
 		</snapshotRepository>
 	</distributionManagement>
+
+	<repositories>
+		<!-- ===== -->
+		<repository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo1.maven.org/maven2/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>ymtech-maven-repo</id>
+			<name>YMTECH Maven Repository</name>
+			<url>http://nexus3.ymtech.co.kr/repository/maven-public/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 
 	<dependencies>
 
