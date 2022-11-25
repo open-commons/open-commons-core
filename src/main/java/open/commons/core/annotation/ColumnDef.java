@@ -94,6 +94,7 @@ public @interface ColumnDef {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2017. 9. 5.      박준홍         최초 작성
+     * 2022. 11. 24.    박준홍     기본값 빈 문자열("") 적용
      * </pre>
      *
      * @return
@@ -101,7 +102,7 @@ public @interface ColumnDef {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 9. 5.
      */
-    String name();
+    String name() default "";
 
     /**
      * 데이타의 NULL 여부. <br>

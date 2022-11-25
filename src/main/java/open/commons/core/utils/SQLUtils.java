@@ -53,6 +53,7 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -75,6 +76,7 @@ public class SQLUtils {
 
     public static final Pattern METHOD_BOOLEAN_PATTERN = Pattern.compile("^(is|get)(.+)$");
     public static final Pattern METHOD_PATTERN = Pattern.compile("^(get)(.+)$");
+    public static final Pattern METHOD_SETTER_PATTERN = Pattern.compile("^(set)(.+)$");
 
     /**
      * 2개의 문자열을 대/소문자 비교여부에 따라서 비교
@@ -310,43 +312,112 @@ public class SQLUtils {
     public static final String getColumnName(Method method) throws NullPointerException {
         ColumnValue cv = method.getAnnotation(ColumnValue.class);
         // 설정된 컬럼명이 빈 문자열이 경우 처리
-        String clmn = cv.name();
-        if (clmn.isEmpty()) {
+        return getColumnName(cv.name(), cv.columnNameType(), () -> {
+
             Class<?> rtnClass = method.getReturnType();
 
+            String clmnName = null;
             if (boolean.class.isAssignableFrom(rtnClass) //
                     || Boolean.class.isAssignableFrom(rtnClass)) {
-                clmn = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, method.getName());
+                clmnName = METHOD_MATCHER.apply(METHOD_BOOLEAN_PATTERN, method.getName());
             } else {
-                clmn = METHOD_MATCHER.apply(METHOD_PATTERN, method.getName());
+                clmnName = METHOD_MATCHER.apply(METHOD_PATTERN, method.getName());
             }
 
-            if (clmn == null) {
+            if (clmnName != null) {
+                return clmnName;
+            } else {
                 throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, method));
             }
+        });
+    }
 
-            // begin - PATCH [2020. 9. 24.]: 컬럼명 타입에 따라 자동 변경 적용 |
-            // Park_Jun_Hong_(parkjunhong77@gmail.com)
-            switch (cv.columnNameType()) {
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 11. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param clmnName
+     * @param clmnNameType
+     *            <code>NOT Null</code>
+     * @param defaultClmnName
+     *            <code>NOT Empty</code>
+     * @return
+     *
+     * @since 2022. 11. 25.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String getColumnName(String clmnName, ColumnNameType clmnNameType, String defaultClmnName) {
+        return getColumnName(defaultClmnName, clmnNameType, () -> defaultClmnName);
+    }
+
+    public static String getColumnName(ColumnValue clmnValue, Method method) {
+        return getColumnName(clmnValue.name(), clmnValue.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
+    }
+
+    public static String getColumnName(ColumnDef clmnDef, Method method) {
+        return getColumnName(clmnDef.name(), clmnDef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
+    }
+
+    public static String getColumnNameByColumnValue(Method method) {
+        return getColumnName(method.getAnnotation(ColumnValue.class), method);
+    }
+
+    public static String getColumnNameByColumnDef(Method method) {
+        return getColumnName(method.getAnnotation(ColumnDef.class), method);
+    }
+
+    /**
+     * 컬럼이름을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 11. 24.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param clmnName
+     *            설정된 컬럼명
+     * @param clmnNameType
+     *            컬럼이름 타입.
+     * @param defaultClmnName
+     *            설정된 컬럼명({clmnName})이 빈 문자열일 경우 컬럼명 제공 함수.
+     * @return
+     *
+     * @since 2022. 11. 24.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static String getColumnName(String clmnName, ColumnNameType clmnNameType, Supplier<String> defaultClmnName) {
+        // 설정된 컬럼명이 빈 문자열이 경우 처리
+        if (clmnName.isEmpty()) {
+            clmnName = defaultClmnName.get();
+            switch (clmnNameType) {
                 case CAMEL_CASE:
-                    clmn = StringUtils.toLowerCase(clmn, 0);
-                    break;
+                    return StringUtils.toLowerCase(clmnName, 0);
                 case PASCAL_CASE:
-                    clmn = StringUtils.toPascalCase(clmn);
-                    break;
+                    return StringUtils.toPascalCase(clmnName);
                 case SNAKE_CASE:
-                    clmn = StringUtils.toSnakeCase(clmn);
-                    break;
+                    return StringUtils.toSnakeCase(clmnName);
+                case KEBAB_CASE:
+                    return StringUtils.toKebabCase(clmnName);
                 case NAME:
                     // 그대로 사용
-                    break;
+                    return clmnName;
                 default:
-                    throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), cv.columnNameType()));
+                    throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), clmnNameType));
             }
-            // end - Park_Jun_Hong_(parkjunhong77@gmail.com), 2020. 9. 24.
+        } else {
+            return clmnName;
         }
-
-        return clmn;
     }
 
     /**
@@ -382,27 +453,9 @@ public class SQLUtils {
         if (Class.class.equals(columnType)) {
             columnType = m.getParameterTypes()[0];
         }
-        String clmnName = cdef.name();
-        String columnName = null;
-        switch (cdef.columnNameType()) {
-            case CAMEL_CASE:
-                columnName = clmnName;
-                break;
-            case KEBAB_CASE:
-                columnName = StringUtils.toKebabCase(clmnName);
-                break;
-            case NAME:
-                columnName = clmnName;
-                break;
-            case PASCAL_CASE:
-                columnName = StringUtils.toPascalCase(clmnName);
-                break;
-            case SNAKE_CASE:
-                columnName = StringUtils.toSnakeCase(clmnName);
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
+
+        // 컬럼명 설정
+        String columnName = getColumnName(cdef.name(), cdef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, m.getName()));
 
         Object v = null;
 
@@ -600,9 +653,11 @@ public class SQLUtils {
                     boolean accessible = m.isAccessible();
                     try {
                         ColumnDef def = m.getAnnotation(ColumnDef.class);
-
+                        String clmnName = getColumnName(def.name(), def.columnNameType(), () -> {
+                            return METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, m.getName());
+                        });
                         filtered = def != null // 컬럼 정의 어노테이션이 있는지
-                                && (isTagged ? caseSensitiveColumnsList.contains(def.name()) : true);
+                                && (isTagged ? caseSensitiveColumnsList.contains(clmnName) : true);
                     } catch (Throwable t) {
                         System.err.println("objectType: " + objectType + ", rs: " + rs + ", columns: " + columns == null ? null : Arrays.toString(columns));
                         t.printStackTrace();

@@ -1,5 +1,16 @@
 [2022/11/03]
 - Add
+  + open.commons.core.utils.SQLUtils
+    + getColumnName(String, ColumnNameType, Supplier&lt;String&gt;)
+- Update
+  + open.commons.core.annotation.ColumnDef
+    + name(): 기본값 빈 문자열("") 적용
+  + open.commons.core.utils.SQLUtils
+    + invoke(ResultSet, ColumnDef, Method, Object): 컬럼명 정의 로직에 기본값 빈문자열("") 처리 적용
+    + newInstance(Class&lt;T&gt;, ResultSet, String...): 컬럼명 정의 로직에 기본값 빈문자열("") 처리 적용
+
+[2022/11/03]
+- Add
   + open.commons.core.annotation.ColumnValue
     + defaultColumn()
     + primaryKey()
