@@ -286,6 +286,14 @@ public class SQLUtils {
         return diff;
     }
 
+    public static String getColumnName(ColumnDef clmnDef, Method method) {
+        return getColumnName(clmnDef.name(), clmnDef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
+    }
+
+    public static String getColumnName(ColumnValue clmnValue, Method method) {
+        return getColumnName(clmnValue.name(), clmnValue.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
+    }
+
     /**
      * 메소드에 설정된 {@link ColumnValue}에의 컬럼명을 제공합니다.<br>
      * 
@@ -358,22 +366,6 @@ public class SQLUtils {
         return getColumnName(defaultClmnName, clmnNameType, () -> defaultClmnName);
     }
 
-    public static String getColumnName(ColumnValue clmnValue, Method method) {
-        return getColumnName(clmnValue.name(), clmnValue.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
-    }
-
-    public static String getColumnName(ColumnDef clmnDef, Method method) {
-        return getColumnName(clmnDef.name(), clmnDef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
-    }
-
-    public static String getColumnNameByColumnValue(Method method) {
-        return getColumnName(method.getAnnotation(ColumnValue.class), method);
-    }
-
-    public static String getColumnNameByColumnDef(Method method) {
-        return getColumnName(method.getAnnotation(ColumnDef.class), method);
-    }
-
     /**
      * 컬럼이름을 제공합니다. <br>
      * 
@@ -418,6 +410,14 @@ public class SQLUtils {
         } else {
             return clmnName;
         }
+    }
+
+    public static String getColumnNameByColumnDef(Method method) {
+        return getColumnName(method.getAnnotation(ColumnDef.class), method);
+    }
+
+    public static String getColumnNameByColumnValue(Method method) {
+        return getColumnName(method.getAnnotation(ColumnValue.class), method);
     }
 
     /**
@@ -653,11 +653,15 @@ public class SQLUtils {
                     boolean accessible = m.isAccessible();
                     try {
                         ColumnDef def = m.getAnnotation(ColumnDef.class);
-                        String clmnName = getColumnName(def.name(), def.columnNameType(), () -> {
-                            return METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, m.getName());
-                        });
-                        filtered = def != null // 컬럼 정의 어노테이션이 있는지
-                                && (isTagged ? caseSensitiveColumnsList.contains(clmnName) : true);
+
+                        if (def != null) {
+                            String clmnName = getColumnName(def.name(), def.columnNameType(), () -> {
+                                return METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, m.getName());
+                            });
+                            filtered = isTagged ? caseSensitiveColumnsList.contains(clmnName) : true;
+                        } else {
+                            filtered = false;
+                        }
                     } catch (Throwable t) {
                         System.err.println("objectType: " + objectType + ", rs: " + rs + ", columns: " + columns == null ? null : Arrays.toString(columns));
                         t.printStackTrace();
