@@ -1,3 +1,16 @@
+[2022/12/30]
+- Add
+  + open.commons.core.utils.CollectionUtils
+    + newList(Collection&lt;E&gt;, E)
+    + newList(Collection&lt;E&gt;, E, boolean)
+    + newList(List&lt;E&gt;, E)
+    + newSet(Collection&lt;E&gt;, E)
+    + newSet(Collection&lt;E&gt;, E, boolean)
+    + newSet(Set&lt;E&gt;, E)
+    + newVector(Collection&lt;E&gt;, E)
+    + newVector(Collection&lt;E&gt;, E, boolean)
+    + newVector(Vector&lt;E&gt;, E)
+
 [2022/11/03]
 - Add
   + open.commons.core.utils.SQLUtils

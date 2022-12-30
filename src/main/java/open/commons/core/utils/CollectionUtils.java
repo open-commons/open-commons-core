@@ -29,7 +29,6 @@ package open.commons.core.utils;
 import java.lang.reflect.Array;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -718,8 +717,10 @@ public class CollectionUtils {
      */
     public static List<Boolean> newList(boolean... elems) {
         List<Boolean> list = new ArrayList<>();
-        for (boolean e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (boolean e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
@@ -744,8 +745,10 @@ public class CollectionUtils {
      */
     public static List<Byte> newList(byte... elems) {
         List<Byte> list = new ArrayList<>();
-        for (byte e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (byte e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
@@ -770,11 +773,81 @@ public class CollectionUtils {
      */
     public static List<Character> newList(char... elems) {
         List<Character> list = new ArrayList<>();
-        for (char e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (char e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link List}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 12. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param list
+     *            기존 {@link Collection}
+     * @param elem
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> List<E> newList(Collection<E> col, E elem) {
+        return newList(col, elem, true);
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link List}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 12. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param col
+     *            기존 {@link Collection}
+     * @param elem
+     *            새로운 데이터
+     * @param addIfNull
+     *            새로운 데이터(elem)이 <code>null</code>인 경우 추가 여부.
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> List<E> newList(Collection<E> col, E elem, boolean addIfNull) {
+        if (elem == null && !addIfNull) {
+            if (col != null) {
+                return new ArrayList<>(col);
+            } else {
+                return new ArrayList<>();
+            }
+        } else {
+            if (col != null) {
+                List<E> newList = new ArrayList<>(col);
+                newList.add(elem);
+                return newList;
+            } else {
+                return newList(elem);
+            }
+        }
     }
 
     /**
@@ -796,8 +869,10 @@ public class CollectionUtils {
      */
     public static List<Double> newList(double... elems) {
         List<Double> list = new ArrayList<>();
-        for (double e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (double e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
@@ -824,9 +899,11 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E... elems) {
-        List<E> list = new ArrayList<E>();
+        List<E> list = new ArrayList<>();
         if (elems != null) {
-            list.addAll(Arrays.asList(elems));
+            for (E e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
@@ -840,6 +917,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 12. 21.        박준홍         최초 작성
+     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -855,12 +933,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E elem, Collection<E> col) {
-        List<E> newList = newList(elem);
-        if (col != null) {
-            newList.addAll(col);
-        }
-
-        return newList;
+        return newList(col, elem, true);
     }
 
     /**
@@ -871,6 +944,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 12. 21.        박준홍         최초 작성
+     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -886,12 +960,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E elem, List<E> list) {
-        List<E> newList = newList(elem);
-        if (list != null) {
-            newList.addAll(list);
-        }
-
-        return newList;
+        return newList(list, elem, true);
     }
 
     /**
@@ -913,11 +982,39 @@ public class CollectionUtils {
      */
     public static List<Integer> newList(int... elems) {
         List<Integer> list = new ArrayList<>();
-        for (int e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (int e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link List}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 12. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param list
+     *            기존 {@link List}
+     * @param elem
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> List<E> newList(List<E> list, E elem) {
+        return newList(list, elem, true);
     }
 
     /**
@@ -943,12 +1040,19 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(List<E> list, E... elems) {
-        List<E> newList = (List<E>) newList(list.toArray());
-        if (elems != null) {
-            newList.addAll(Arrays.asList(elems));
+        if (list == null && elems == null) {
+            return new ArrayList<>();
+        } else if (elems == null) {
+            return new ArrayList<>(list);
+        } else if (list == null) {
+            return newList(elems);
+        } else {
+            List<E> newList = new ArrayList<>(list);
+            for (E e : elems) {
+                newList.add(e);
+            }
+            return newList;
         }
-
-        return newList;
     }
 
     /**
@@ -970,8 +1074,10 @@ public class CollectionUtils {
      */
     public static List<Long> newList(long... elems) {
         List<Long> list = new ArrayList<>();
-        for (long e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (long e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
@@ -996,8 +1102,10 @@ public class CollectionUtils {
      */
     public static List<Short> newList(short... elems) {
         List<Short> list = new ArrayList<>();
-        for (short e : elems) {
-            list.add(e);
+        if (elems != null) {
+            for (short e : elems) {
+                list.add(e);
+            }
         }
 
         return list;
@@ -1022,8 +1130,10 @@ public class CollectionUtils {
      */
     public static Set<Boolean> newSet(boolean... elems) {
         Set<Boolean> set = new HashSet<>();
-        for (boolean e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (boolean e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
@@ -1048,8 +1158,10 @@ public class CollectionUtils {
      */
     public static Set<Byte> newSet(byte... elems) {
         Set<Byte> set = new HashSet<>();
-        for (byte e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (byte e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
@@ -1074,11 +1186,80 @@ public class CollectionUtils {
      */
     public static Set<Character> newSet(char... elems) {
         Set<Character> set = new HashSet<>();
-        for (char e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (char e : elems) {
+                set.add(e);
+            }
         }
-
         return set;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Set}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 12. 30.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param list
+     *            기존 {@link Collection}
+     * @param elem
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Set<E> newSet(Collection<E> col, E elem) {
+        return newSet(col, elem, true);
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Set}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 12. 30.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param col
+     *            기존 {@link Collection}
+     * @param elem
+     *            새로운 데이터
+     * @param addIfNull
+     *            새로운 데이터(elem)이 <code>null</code>인 경우 추가 여부.
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Set<E> newSet(Collection<E> col, E elem, boolean addIfNull) {
+        if (elem == null && !addIfNull) {
+            if (col != null) {
+                return new HashSet<>(col);
+            } else {
+                return new HashSet<>();
+            }
+        } else {
+            if (col != null) {
+                Set<E> set = new HashSet<>(col);
+                set.add(elem);
+                return set;
+            } else {
+                return newSet(elem);
+            }
+        }
     }
 
     /**
@@ -1100,8 +1281,10 @@ public class CollectionUtils {
      */
     public static Set<Double> newSet(double... elems) {
         Set<Double> set = new HashSet<>();
-        for (double e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (double e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
@@ -1130,7 +1313,9 @@ public class CollectionUtils {
     public static <E> Set<E> newSet(E... elems) {
         Set<E> set = new HashSet<E>();
         if (elems != null) {
-            set.addAll(Arrays.asList(elems));
+            for (E e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
@@ -1144,6 +1329,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 12. 21.        박준홍         최초 작성
+     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
      * </pre>
      *
      * @param <E>
@@ -1159,12 +1345,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(E elem, Collection<E> col) {
-        Set<E> newSet = newSet(elem);
-        if (col != null) {
-            newSet.addAll(col);
-        }
-
-        return newSet;
+        return newSet(col, elem, true);
     }
 
     /**
@@ -1175,6 +1356,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 12. 21.        박준홍         최초 작성
+     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
      * </pre>
      *
      * @param <E>
@@ -1190,12 +1372,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(E elem, Set<E> set) {
-        Set<E> newSet = newSet(elem);
-        if (set != null) {
-            newSet.addAll(set);
-        }
-
-        return newSet;
+        return newSet(set, elem, true);
     }
 
     /**
@@ -1217,8 +1394,10 @@ public class CollectionUtils {
      */
     public static Set<Integer> newSet(int... elems) {
         Set<Integer> set = new HashSet<>();
-        for (int e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (int e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
@@ -1243,11 +1422,39 @@ public class CollectionUtils {
      */
     public static Set<Long> newSet(long... elems) {
         Set<Long> set = new HashSet<>();
-        for (long e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (long e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Set}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 12. 30.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param set
+     *            기존 {@link Set}
+     * @param elem
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Set<E> newSet(Set<E> set, E elem) {
+        return newSet(set, elem, true);
     }
 
     /**
@@ -1273,12 +1480,19 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(Set<E> set, E... elems) {
-        Set<E> newSet = (Set<E>) newSet(set.toArray());
-        if (elems != null) {
-            newSet.addAll(Arrays.asList(elems));
+        if (set == null && elems == null) {
+            return new HashSet<>();
+        } else if (elems == null) {
+            return new HashSet<>(set);
+        } else if (set == null) {
+            return newSet(elems);
+        } else {
+            Set<E> newList = new HashSet<>(set);
+            for (E e : elems) {
+                newList.add(e);
+            }
+            return newList;
         }
-
-        return newSet;
     }
 
     /**
@@ -1300,8 +1514,10 @@ public class CollectionUtils {
      */
     public static Set<Short> newSet(short... elems) {
         Set<Short> set = new HashSet<>();
-        for (short e : elems) {
-            set.add(e);
+        if (elems != null) {
+            for (short e : elems) {
+                set.add(e);
+            }
         }
 
         return set;
@@ -1326,8 +1542,10 @@ public class CollectionUtils {
      */
     public static Vector<Boolean> newVector(boolean... elems) {
         Vector<Boolean> vector = new Vector<>();
-        for (boolean e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (boolean e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
@@ -1352,8 +1570,10 @@ public class CollectionUtils {
      */
     public static Vector<Byte> newVector(byte... elems) {
         Vector<Byte> vector = new Vector<>();
-        for (byte e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (byte e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
@@ -1378,11 +1598,81 @@ public class CollectionUtils {
      */
     public static Vector<Character> newVector(char... elems) {
         Vector<Character> vector = new Vector<>();
-        for (char e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (char e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Vector}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 12. 30.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param list
+     *            기존 {@link Collection}
+     * @param elem
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Vector<E> newVector(Collection<E> col, E elem) {
+        return newVector(col, elem, true);
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Vector}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 12. 30.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param col
+     *            기존 {@link Collection}
+     * @param elem
+     *            새로운 데이터
+     * @param addIfNull
+     *            새로운 데이터(elem)이 <code>null</code>인 경우 추가 여부.
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Vector<E> newVector(Collection<E> col, E elem, boolean addIfNull) {
+        if (elem == null && !addIfNull) {
+            if (col != null) {
+                return new Vector<>(col);
+            } else {
+                return new Vector<>();
+            }
+        } else {
+            if (col != null) {
+                Vector<E> newList = new Vector<>(col);
+                newList.add(elem);
+                return newList;
+            } else {
+                return newVector(elem);
+            }
+        }
     }
 
     /**
@@ -1404,8 +1694,10 @@ public class CollectionUtils {
      */
     public static Vector<Double> newVector(double... elems) {
         Vector<Double> vector = new Vector<>();
-        for (double e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (double e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
@@ -1434,7 +1726,9 @@ public class CollectionUtils {
     public static <E> Vector<E> newVector(E... elems) {
         Vector<E> vector = new Vector<E>();
         if (elems != null) {
-            vector.addAll(Arrays.asList(elems));
+            for (E e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
@@ -1448,6 +1742,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 12. 21.        박준홍         최초 작성
+     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newVector(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -1463,12 +1758,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(E elem, Collection<E> col) {
-        Vector<E> newVector = newVector(elem);
-        if (col != null) {
-            newVector.addAll(col);
-        }
-
-        return newVector;
+        return newVector(col, elem, true);
     }
 
     /**
@@ -1494,12 +1784,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(E elem, Vector<E> vector) {
-        Vector<E> newVector = newVector(elem);
-        if (vector != null) {
-            newVector.addAll(vector);
-        }
-
-        return newVector;
+        return newVector(vector, elem, true);
     }
 
     /**
@@ -1521,8 +1806,10 @@ public class CollectionUtils {
      */
     public static Vector<Integer> newVector(int... elems) {
         Vector<Integer> vector = new Vector<>();
-        for (int e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (int e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
@@ -1547,8 +1834,10 @@ public class CollectionUtils {
      */
     public static Vector<Long> newVector(long... elems) {
         Vector<Long> vector = new Vector<>();
-        for (long e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (long e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
@@ -1573,11 +1862,39 @@ public class CollectionUtils {
      */
     public static Vector<Short> newVector(short... elems) {
         Vector<Short> vector = new Vector<>();
-        for (short e : elems) {
-            vector.add(e);
+        if (elems != null) {
+            for (short e : elems) {
+                vector.add(e);
+            }
         }
 
         return vector;
+    }
+
+    /**
+     * 데이터를 추가하여 새로운 {@link Vector}를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 12. 30.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 타입
+     * @param vector
+     *            기존 {@link Vector}
+     * @param elem
+     *            새로운 데이터
+     * @return
+     *
+     * @since 2022. 12. 30.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Vector<E> newVector(Vector<E> vector, E elem) {
+        return newVector(vector, elem, true);
     }
 
     /**
@@ -1603,12 +1920,19 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(Vector<E> vector, E... elems) {
-        Vector<E> newVector = (Vector<E>) newVector(vector.toArray());
-        if (elems != null) {
-            newVector.addAll(Arrays.asList(elems));
+        if (vector == null && elems == null) {
+            return new Vector<>();
+        } else if (elems == null) {
+            return new Vector<>(vector);
+        } else if (vector == null) {
+            return newVector(elems);
+        } else {
+            Vector<E> newVector = new Vector<>(vector);
+            for (E e : elems) {
+                newVector.add(e);
+            }
+            return newVector;
         }
-
-        return newVector;
     }
 
     /**
