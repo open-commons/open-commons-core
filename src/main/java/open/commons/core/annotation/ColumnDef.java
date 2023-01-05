@@ -44,9 +44,8 @@ import java.sql.ResultSet;
 public @interface ColumnDef {
 
     /**
-     * 컬럼명의 대소문자를 구분하는지 여부 <br>
-     * 
-     * 기본값: false
+     * 컬럼명의 대소문자를 구분하는지 여부.<br>
+     * <b>기본값: false</b>
      * 
      * <pre>
      * [개정이력]
@@ -64,9 +63,8 @@ public @interface ColumnDef {
 
     /**
      * 컬럼명을 변환하는 방식.<br>
-     * 프로그래밍 언어와 DBMS 간 명명규칙이 상이하기
-     * 
-     * <br>
+     * 프로그래밍 언어와 DBMS 간 명명규칙이 상이하기 때문에 필요. <br>
+     * <b>기본값: {@link ColumnNameType#NAME}</b>
      * 
      * <pre>
      * [개정이력]
@@ -85,9 +83,8 @@ public @interface ColumnDef {
     ColumnNameType columnNameType() default ColumnNameType.NAME;
 
     /**
-     * 컬럼명을 제공합니다.
-     * 
-     * <br>
+     * 컬럼명을 제공합니다.<br>
+     * <b>기본값: 빈문자열("")</b>
      * 
      * <pre>
      * [개정이력]
@@ -105,7 +102,8 @@ public @interface ColumnDef {
     String name() default "";
 
     /**
-     * 데이타의 NULL 여부. <br>
+     * 데이타의 NULL 여부.<br>
+     * <b>기본값: true</b>
      * 
      * <pre>
      * [개정이력]
@@ -122,9 +120,8 @@ public @interface ColumnDef {
     boolean nullable() default true;
 
     /**
-     * 반드시 있어야하는지 여부.
-     * 
-     * <br>
+     * 반드시 있어야하는지 여부.<br>
+     * <b>기본값: true</b>
      * 
      * <pre>
      * [개정이력]
@@ -142,8 +139,7 @@ public @interface ColumnDef {
 
     /**
      * 컬럼의 데이타 타입을 제공합니다.<br>
-     * 
-     * 기본값: {@link Class}.class
+     * <b>기본값: {@link Class}.class</b>
      * 
      * <pre>
      * [개정이력]

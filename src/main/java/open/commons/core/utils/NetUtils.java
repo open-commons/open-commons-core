@@ -315,4 +315,31 @@ public class NetUtils {
     public static String toString(byte[] mac) {
         return ByteUtils.hexBinString(mac);
     }
+
+    /**
+     * 주어진 IP 버전을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 1. 5.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param ipAddr
+     * @return
+     *
+     * @since 2023. 1. 5.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String typeOf(String ipAddr) {
+        return ipAddr == null //
+                ? null //
+                : isIPv4(ipAddr) //
+                        ? "IPv4" //
+                        : isIPv6(ipAddr) //
+                                ? "IPv6" //
+                                : null;
+    }
 }

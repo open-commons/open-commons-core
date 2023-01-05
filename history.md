@@ -1,3 +1,8 @@
+[2023/01/05]
+- Add
+  + open.commons.core.utils.NetUtils
+    + typeOf(String)
+
 [2022/12/30]
 - Add
   + open.commons.core.utils.CollectionUtils
