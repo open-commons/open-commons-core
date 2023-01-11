@@ -286,10 +286,50 @@ public class SQLUtils {
         return diff;
     }
 
+    /**
+     * 컬럼이름을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 11. 24.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param clmnDef
+     *            데이터를 제공할 DB 컬럼 정의 정보
+     * @param method
+     *            DB 조회 결과 설정 함수
+     * @return
+     *
+     * @since 2022. 11. 24.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public static String getColumnName(ColumnDef clmnDef, Method method) {
         return getColumnName(clmnDef.name(), clmnDef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
     }
 
+    /**
+     * 컬럼이름을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2022. 11. 24.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param clmnValue
+     *            변경할 DB 컬럼 정의 정보
+     * @param method
+     *            변경할 데이터 제공 함수
+     * @return
+     *
+     * @since 2022. 11. 24.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public static String getColumnName(ColumnValue clmnValue, Method method) {
         return getColumnName(clmnValue.name(), clmnValue.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
     }
