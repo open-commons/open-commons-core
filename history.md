@@ -1,3 +1,9 @@
+[2023/05/22]
+- Add
+  + open.commons.core.utils.MathUtils
+    + combination(long, long)
+    + permutation(long, long)  
+
 [2023/01/05]
 - Add
   + open.commons.core.utils.NetUtils

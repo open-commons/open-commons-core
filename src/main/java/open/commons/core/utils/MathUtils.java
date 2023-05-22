@@ -48,6 +48,36 @@ public class MathUtils {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 5. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param n
+     *            전체 데이터 개수 (n > 0)
+     * @param r
+     *            선택할 데이터 개수 (r > 0, n >= r)
+     * @return
+     *
+     * @since 2023. 5. 22.
+     * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
+     */
+    public static long combination(long n, long r) {
+        long p = permutation(n, r);
+        long v = 1L;
+        for (long i = r; i > 0; i--) {
+            v *= i;
+        }
+
+        return p / v;
+    }
+
+    /**
      * 정렬된 데이타 중에서 중앙값(media)을 구하는데 사용되는 데이타를 제공합니다. <br>
      * <ul>
      * 데이타의 개수(size)가
@@ -202,5 +232,37 @@ public class MathUtils {
     @SafeVarargs
     public static <T extends Comparable<T>> T min(T... values) {
         return max(Arrays.asList(values));
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 5. 22.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param n
+     *            전체 데이터 개수 (n > 0)
+     * @param r
+     *            선택할 데이터 개수 (r > 0, n >= r)
+     * @return
+     *
+     * @since 2023. 5. 22.
+     * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
+     */
+    public static long permutation(long n, long r) {
+        if (n < 1 || r < 1 || n < r) {
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "n과 r은 반드시 양수이고, n은 r보다 크거나 같아야 한다. n=%d, r=%d", n, r);
+        }
+
+        long v = 1L;
+        for (int i = 0; i < r; i++) {
+            v *= (n - i);
+        }
+        return v;
     }
 }
