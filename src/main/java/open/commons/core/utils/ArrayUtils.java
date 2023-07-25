@@ -10041,6 +10041,28 @@ public class ArrayUtils {
         }
     }
 
+    /**
+     * 배열을 {@link List}로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 7. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param arr
+     * @return {@link List} 또는 <code>null</code>.
+     *
+     * @since 2023. 7. 25.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> asList(T[] arr) {
+        return arr != null ? Arrays.asList(arr) : null;
+    }
+
     public static boolean[] toPrimitiveArray(Boolean[] arr) {
         boolean[] array = new boolean[arr.length];
 

@@ -1,3 +1,8 @@
+[2023/07/25]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    + asList(T[])
+
 [2023/05/22]
 - Add
   + open.commons.core.utils.MathUtils
