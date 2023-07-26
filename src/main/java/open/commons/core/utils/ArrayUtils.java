@@ -34,6 +34,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import open.commons.core.DefaultEquivalent;
 import open.commons.core.EquivalentFactory;
@@ -926,6 +927,63 @@ public class ArrayUtils {
 
         for (boolean value : array) {
             list.add(value);
+        }
+
+        return list;
+    }
+
+    /**
+     * 배열을 {@link List}로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 7. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param arr
+     * @return {@link List} 또는 <code>null</code>.
+     *
+     * @since 2023. 7. 25.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> asList(T[] arr) {
+        return arr != null ? Arrays.asList(arr) : null;
+    }
+
+    /**
+     * 데이터를 변환하여 {@link List}로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 7. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     * @param arr
+     *            데이터 배열
+     * @param f
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2023. 7. 25.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, R> List<R> asList(T[] arr, Function<T, R> f) {
+        if (arr == null) {
+            return null;
+        }
+
+        List<R> list = new ArrayList<>();
+        for (T t : arr) {
+            list.add(f.apply(t));
         }
 
         return list;
@@ -7042,6 +7100,10 @@ public class ArrayUtils {
     }
 
     /**
+     * 추가할 메소드의 제네닉 메소드
+     */
+
+    /**
      * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
      * 
      * @param array
@@ -7059,10 +7121,6 @@ public class ArrayUtils {
     public static <T> T[] removeFirst(T[] array, T value) {
         return removeFirst(array, value, null);
     }
-
-    /**
-     * 추가할 메소드의 제네닉 메소드
-     */
 
     /**
      * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
@@ -10041,28 +10099,6 @@ public class ArrayUtils {
         }
     }
 
-    /**
-     * 배열을 {@link List}로 변환하여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 7. 25.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param arr
-     * @return {@link List} 또는 <code>null</code>.
-     *
-     * @since 2023. 7. 25.
-     * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <T> List<T> asList(T[] arr) {
-        return arr != null ? Arrays.asList(arr) : null;
-    }
-
     public static boolean[] toPrimitiveArray(Boolean[] arr) {
         boolean[] array = new boolean[arr.length];
 
@@ -10318,6 +10354,36 @@ public class ArrayUtils {
         }
 
         return array;
+    }
+
+    /**
+     * 데이터를 변환하여 배열로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 7. 25.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     * @param arr
+     *            데이터 배열
+     * @param f
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2023. 7. 25.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, R> R[] transform(T[] arr, Function<T, R> f) {
+        if (arr == null) {
+            return null;
+        }
+
+        return (R[]) Stream.of(arr).map(f).toArray();
     }
 
     public static class EntryValue<K, V> implements Entry<K, V> {

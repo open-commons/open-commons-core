@@ -2,6 +2,8 @@
 - Add
   + open.commons.core.utils.ArrayUtils
     + asList(T[])
+    + asList(T[], Function&lt;T, R&gt;)
+    + transform(T[], Function&lt;T, R&gt;)
 
 [2023/05/22]
 - Add
