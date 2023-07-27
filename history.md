@@ -1,3 +1,9 @@
+[2023/07/27]
+- Patch
+  + open.commons.core.utils.CollectionUtils
+    + toSet(Collection&lt;E&gt;, Class&lt;S&gt;): Return Type 변경. Set&lt;E&gt; -> S
+    + toSet(Collection&lt;E&gt;, S): Return Type 변경. Set&lt;E&gt; -> S
+
 [2023/07/25]
 - Add
   + open.commons.core.utils.ArrayUtils

@@ -3402,7 +3402,15 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Set} to extension of a {@link Set}.
+     * Transform {@link Set} to extension of a {@link Set}.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 10. 17.        박준홍     최초 작성
+     * 2023. 7. 27.         박준홍     Return Type 변경. Set&lt;E&gt; -> S
+     * </pre>
      * 
      * @param <E>
      *            a type of an element.
@@ -3416,7 +3424,7 @@ public class CollectionUtils {
      *
      * @since 2014. 10. 17.
      */
-    public static <E, S extends Set<E>> Set<E> toSet(Collection<E> col, Class<S> setClass) {
+    public static <E, S extends Set<E>> S toSet(Collection<E> col, Class<S> setClass) {
         Set<E> set = null;
 
         if (setClass == null) {
@@ -3429,7 +3437,7 @@ public class CollectionUtils {
             }
         }
 
-        return toSet(col, set);
+        return (S) toSet(col, set);
     }
 
     /**
@@ -3497,6 +3505,7 @@ public class CollectionUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2020. 1. 30.		박준홍			최초 작성
+     * 2023. 7. 27.         박준홍     Return Type 변경. Set&lt;E&gt; -> S
      * </pre>
      *
      * @param <E>
@@ -3513,7 +3522,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, S extends Set<E>> Set<E> toSet(Collection<E> col, S set) {
+    public static <E, S extends Set<E>> S toSet(Collection<E> col, S set) {
 
         if (col != null) {
             set.addAll(col);
