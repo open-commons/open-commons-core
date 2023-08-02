@@ -1551,6 +1551,285 @@ public class ArrayUtils {
     }
 
     /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean[] copy(boolean[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        boolean[] newArr = new boolean[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static byte[] copy(byte[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        byte[] newArr = new byte[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static char[] copy(char[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        char[] newArr = new char[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static double[] copy(double[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        double[] newArr = new double[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static float[] copy(float[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        float[] newArr = new float[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int[] copy(int[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        int[] newArr = new int[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static long[] copy(long[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        long[] newArr = new long[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static short[] copy(short[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        short[] newArr = new short[indice.length];
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
+     * 배열에서 원하는 index에 해당하는 데이터로 이루어진 배열을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param arr
+     *            복사할 배열
+     * @param indice
+     *            복사할 데이터의 index.
+     * @return
+     * @throws ArrayIndexOutOfBoundsException
+     * 
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T[] copy(T[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType().getComponentType(), indice.length);
+
+        for (int i = 0; i < indice.length; i++) {
+            newArr[i] = arr[indice[i]];
+        }
+
+        return newArr;
+    }
+
+    /**
      * <p>
      * <b><font color="RED">free against JDK 1.6 </font></b>
      * </p>

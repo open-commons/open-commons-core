@@ -1,5 +1,15 @@
 [2023/08/02]
 - Add
+  + open.commons.core.utils.ArrayUtils
+    + copy(boolean[], int...)
+    + copy(byte[], int...)
+    + copy(char[], int...)
+    + copy(double[], int...)
+    + copy(float[], int...)
+    + copy(int[], int...)
+    + copy(long[], int...)
+    + copy(short[], int...)
+    + copy(T[], int...)
   + open.commons.core.utils.ZipUtils
     + decompress(Path, Charset, Path, IOTripleFunction&lt;Path, Charset, Path, Boolean&gt;)
     + ungzip(File, Charset, File)
