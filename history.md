@@ -1,3 +1,17 @@
+[2023/08/02]
+- Add
+  + open.commons.core.utils.ZipUtils
+    + decompress(Path, Charset, Path, IOTripleFunction&lt;Path, Charset, Path, Boolean&gt;)
+    + ungzip(File, Charset, File)
+    + ungzip(File, File)
+    + ungzip(Path, Charset, Path)
+    + ungzip(Path, Path)
+    + ungzip(String, Charset, String)
+    + ungzip(String, String) 
+- Modify
+  + open.commons.core.utils.ZipUtils
+    + unzip(Path, Charset, Path): 내부 구현 변경. decompress(...) 호출
+
 [2023/07/27]
 - Patch
   + open.commons.core.utils.CollectionUtils

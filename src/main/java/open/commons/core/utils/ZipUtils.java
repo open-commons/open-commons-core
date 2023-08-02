@@ -38,10 +38,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+
+import open.commons.core.function.IOTripleFunction;
 
 /**
  * 
@@ -54,6 +57,230 @@ public class ZipUtils {
 
     // prevent to create an instance.
     private ZipUtils() {
+    }
+
+    /**
+     * 압축 파일을 해제합니다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param inCharset
+     *            압축 파일 캐릭터 셋
+     * @param output
+     *            압축 해제 파일 또는 디렉토리
+     * @param decompressor
+     *            압축 해제 함수.
+     *            <ul>
+     *            <li>Path: 압축 파일
+     *            <li>Charset: 파일 캐릭터 셋
+     *            <li>Path: 압축 해제 파일
+     *            </ul>
+     * @return
+     * @throws IOException
+     *             압축 파일이 존재하지 않거나, 압축해제정보에 해당하는 파일이 존재하는 경우
+     *
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static boolean decompress(Path inputFile, Charset inCharset, Path output, IOTripleFunction<Path, Charset, Path, Boolean> decompressor) throws IOException {
+
+        // #1. 입력 파일 확인
+        if (!Files.exists(inputFile) || !Files.isRegularFile(inputFile)) {
+            throw new FileNotFoundException(inputFile.toString());
+        }
+
+        // #2. 압축해제파일 검증
+        if (Files.exists(output) && !Files.isDirectory(output)) {
+            throw new FileNotFoundException(String.format("'%s' 정보가 올바르지 않습니다.", inputFile.toAbsolutePath()));
+        }
+
+        return decompressor.apply(inputFile, inCharset, output);
+    }
+
+    /**
+     * GZ 파일 압축을 해제 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param inCharset
+     *            압축 파일 캐릭터 셋
+     * @param outputFile
+     *            압축 해제 파일
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean ungzip(File inputFile, Charset inCharset, File outputFile) throws IOException {
+        return ungzip(inputFile.toPath(), inCharset, outputFile.toPath());
+    }
+
+    /**
+     * GZ 파일 압축을 해제 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param outputFile
+     *            압축 해제 파일
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean ungzip(File inputFile, File outputFile) throws IOException {
+        return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param inCharset
+     *            압축 파일 캐릭터 셋
+     * @param outputFile
+     *            압축 해제 파일
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean ungzip(Path inputFile, Charset inCharset, Path outputFile) throws IOException {
+        return decompress(inputFile, inCharset, outputFile, (inPath, cs, outPath) -> {
+            // GZip 파일 입력
+            GZIPInputStream gzipInStream = null;
+            BufferedOutputStream outputStream = null;
+            try {
+                // 압축해제 파일 객체 생성
+                Files.createFile(outPath);
+                outputStream = new BufferedOutputStream(new FileOutputStream(outPath.toFile()));
+                gzipInStream = new GZIPInputStream(new FileInputStream(inPath.toFile()));
+
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int readCnt = -1;
+                while ((readCnt = gzipInStream.read(buffer, 0, BUFFER_SIZE)) != -1) {
+                    outputStream.write(buffer, 0, readCnt);
+                }
+                return true;
+            } finally {
+                IOUtils.close(gzipInStream, outputStream);
+            }
+        });
+    }
+
+    /**
+     * GZ 파일 압축을 해제 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 2.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param outputFile
+     *            압축 해제 파일
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean ungzip(Path inputFile, Path outputFile) throws IOException {
+        return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
+    }
+
+    /**
+     * GZ 파일 압축을 해제 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 2.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param inCharset
+     *            압축 파일 캐릭터 셋
+     * @param outputFile
+     *            압축 해제 파일
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 8. 2.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean ungzip(String inputFile, Charset inCharset, String outputFile) throws IOException {
+        return ungzip(new File(inputFile), inCharset, new File(outputFile));
+    }
+
+    /**
+     * GZ 파일 압축을 해제 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 2.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param inputFile
+     *            압축 파일
+     * @param outputFile
+     *            압축 해제 파일
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 8. 2.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean ungzip(String inputFile, String outputFile) throws IOException {
+        return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
     }
 
     /**
@@ -132,47 +359,39 @@ public class ZipUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean unzip(Path inputFile, Charset inCharset, Path outputDir) throws IOException {
+        return decompress(inputFile, inCharset, outputDir, (infile, cs, outdir) -> {
 
-        // #1. 입력 파일 확인
-        if (!Files.exists(inputFile) || !Files.isRegularFile(inputFile)) {
-            throw new FileNotFoundException(inputFile.toString());
-        }
-
-        // #2. 압축해제 디렉토리 검증
-        if (Files.exists(outputDir) && !Files.isDirectory(outputDir)) {
-            throw new FileNotFoundException(String.format("'%s'은 올바른 디렉토리 정보가 아닙니다.", inputFile.toAbsolutePath()));
-        }
-
-        // #3. 압축해제 디렉토리 생성
-        if (!Files.exists(outputDir)) {
-            Files.createDirectories(outputDir);
-        }
-
-        // Zip 파일 입력
-        ZipInputStream zipInStream = null;
-        // Zip 파일 내부 데이터
-        ZipEntry entry = null;
-        try {
-            zipInStream = new ZipInputStream(new FileInputStream(inputFile.toFile()), inCharset);
-            Path normalized = null;
-            while ((entry = zipInStream.getNextEntry()) != null) {
-                // entry.getName()값이 상대경로(../../..) 표기인 경우 검증
-                normalized = outputDir.resolve(entry.getName()).normalize();
-                if (!normalized.startsWith(outputDir)) {
-                    throw new ZipException(String.format("올바르지 않은 entry 입니다. entry=%s, normailzed=%s, output.dir=%s", entry.getName(), normalized, outputDir));
-                }
-                // entry의 상위 디렉토리 생성
-                if (normalized.getParent() != null && !Files.exists(normalized.getParent())) {
-                    Files.createDirectories(normalized.getParent());
-                }
-
-                // 파일 생성
-                Files.copy(zipInStream, normalized, StandardCopyOption.REPLACE_EXISTING);
+            // #3. 압축해제 디렉토리 생성
+            if (!Files.exists(outdir)) {
+                Files.createDirectories(outdir);
             }
-            return true;
-        } finally {
-            IOUtils.close(zipInStream);
-        }
+
+            // Zip 파일 입력
+            ZipInputStream zipInStream = null;
+            // Zip 파일 내부 데이터
+            ZipEntry entry = null;
+            try {
+                zipInStream = new ZipInputStream(new FileInputStream(infile.toFile()), cs);
+                Path normalized = null;
+                while ((entry = zipInStream.getNextEntry()) != null) {
+                    // entry.getName()값이 상대경로(../../..) 표기인 경우 검증
+                    normalized = outdir.resolve(entry.getName()).normalize();
+                    if (!normalized.startsWith(outdir)) {
+                        throw new ZipException(String.format("올바르지 않은 entry 입니다. entry=%s, normailzed=%s, output.dir=%s", entry.getName(), normalized, outdir));
+                    }
+                    // entry의 상위 디렉토리 생성
+                    if (normalized.getParent() != null && !Files.exists(normalized.getParent())) {
+                        Files.createDirectories(normalized.getParent());
+                    }
+
+                    // 파일 생성
+                    Files.copy(zipInStream, normalized, StandardCopyOption.REPLACE_EXISTING);
+                }
+                return true;
+            } finally {
+                IOUtils.close(zipInStream);
+            }
+        });
     }
 
     /**
@@ -441,5 +660,4 @@ public class ZipUtils {
             }
         }
     }
-
 }
