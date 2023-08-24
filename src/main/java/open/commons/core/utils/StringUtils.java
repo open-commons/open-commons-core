@@ -81,6 +81,7 @@ public class StringUtils {
      * 문자열 뒤에 빈칸을 추가합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String appendBlank(String string) {
@@ -108,6 +109,7 @@ public class StringUtils {
      * 문자열에 포함되어 있는 캐릭터의 뒤로부터의 첫번째 발생 인덱스값을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param ch
      * @return
      */
@@ -149,6 +151,7 @@ public class StringUtils {
      * </pre>
      * 
      * @param string
+     *            문자열
      * @param c
      * @return <BR>
      * @since 2012. 02. 21.
@@ -393,7 +396,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -402,7 +405,7 @@ public class StringUtils {
      * 2019. 6. 21.		박준홍			최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -413,7 +416,7 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <T> String concatenate(String delimRegEx, boolean startsWithDelimeter, Collection<T> data) {
+    public static <T> String concatenate(String delimeter, boolean startsWithDelimeter, Collection<T> data) {
         if (data.isEmpty()) {
             return "";
         } else {
@@ -422,14 +425,14 @@ public class StringUtils {
 
             Object datum = itr.next();
             if (startsWithDelimeter) {
-                sb.append(delimRegEx);
+                sb.append(delimeter);
             }
             sb.append(datum);
 
             while (itr.hasNext()) {
                 datum = itr.next();
 
-                sb.append(delimRegEx);
+                sb.append(delimeter);
                 sb.append(datum);
             }
 
@@ -438,7 +441,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -448,7 +451,7 @@ public class StringUtils {
      * 2019. 6. 21.		박준홍			최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -461,7 +464,7 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <T, R> String concatenate(String delimRegEx, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
+    public static <T, R> String concatenate(String delimeter, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
         if (data.isEmpty()) {
             return "";
         } else {
@@ -470,14 +473,14 @@ public class StringUtils {
 
             T datum = itr.next();
             if (startsWithDelimeter) {
-                sb.append(delimRegEx);
+                sb.append(delimeter);
             }
             sb.append(gen.apply(datum));
 
             while (itr.hasNext()) {
                 datum = itr.next();
 
-                sb.append(delimRegEx);
+                sb.append(delimeter);
                 sb.append(gen.apply(datum));
             }
 
@@ -486,7 +489,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -496,7 +499,7 @@ public class StringUtils {
      * 2019. 6. 21.		박준홍			최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -509,12 +512,12 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <K, V, R> String concatenate(String delimRegEx, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
-        return concatenate(delimRegEx, startsWithDelimeter, data.entrySet(), gen);
+    public static <K, V, R> String concatenate(String delimeter, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+        return concatenate(delimeter, startsWithDelimeter, data.entrySet(), gen);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -523,7 +526,7 @@ public class StringUtils {
      * 2019. 6. 21.		박준홍			최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -534,19 +537,19 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static String concatenate(String delimRegEx, boolean startsWithDelimeter, Object... strings) {
+    public static String concatenate(String delimeter, boolean startsWithDelimeter, Object... strings) {
         if (strings.length < 1) {
             return "";
         }
 
         StringBuffer sb = new StringBuffer();
         if (startsWithDelimeter) {
-            sb.append(delimRegEx);
+            sb.append(delimeter);
         }
         sb.append(strings[0]);
 
         for (int i = 1; i < strings.length; i++) {
-            sb.append(delimRegEx);
+            sb.append(delimeter);
             sb.append(strings[i]);
         }
 
@@ -554,7 +557,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -563,7 +566,7 @@ public class StringUtils {
      * 2019. 6. 21.		박준홍			최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -574,19 +577,19 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static String concatenate(String delimRegEx, boolean startsWithDelimeter, String... strings) {
+    public static String concatenate(String delimeter, boolean startsWithDelimeter, String... strings) {
         if (strings.length < 1) {
             return "";
         }
 
         StringBuffer sb = new StringBuffer();
         if (startsWithDelimeter) {
-            sb.append(delimRegEx);
+            sb.append(delimeter);
         }
         sb.append(strings[0]);
 
         for (int i = 1; i < strings.length; i++) {
-            sb.append(delimRegEx);
+            sb.append(delimeter);
             sb.append(strings[i]);
         }
 
@@ -594,9 +597,9 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다.
      * 
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param data
      *            데이터
@@ -604,12 +607,12 @@ public class StringUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
      */
-    public static <T> String concatenate(String delimRegEx, Collection<T> data) {
-        return concatenate(delimRegEx, false, data);
+    public static <T> String concatenate(String delimeter, Collection<T> data) {
+        return concatenate(delimeter, false, data);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -619,7 +622,7 @@ public class StringUtils {
      * 2019. 6. 21.     박준홍         최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param data
      *            데이터
@@ -632,12 +635,12 @@ public class StringUtils {
      * 
      * @see #concatenate(String, boolean, Collection, Function)
      */
-    public static <T, R> String concatenate(String delimRegEx, Collection<T> strings, Function<T, R> gen) {
-        return concatenate(delimRegEx, false, strings, gen);
+    public static <T, R> String concatenate(String delimeter, Collection<T> strings, Function<T, R> gen) {
+        return concatenate(delimeter, false, strings, gen);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
      * <br>
      * 
      * <pre>
@@ -647,7 +650,7 @@ public class StringUtils {
      * 2019. 6. 21.		박준홍			최초 작성
      * </pre>
      *
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param data
      *            데이터
@@ -658,20 +661,20 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <K, V, R> String concatenate(String delimRegEx, Map<K, V> data, Function<Entry<K, V>, R> gen) {
-        return concatenate(delimRegEx, false, data, gen);
+    public static <K, V, R> String concatenate(String delimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+        return concatenate(delimeter, false, data, gen);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다.
      * 
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param data
      *            데이터
      * @return
      */
-    public static String concatenate(String delimRegEx, Object... data) {
+    public static String concatenate(String delimeter, Object... data) {
         if (data.length < 1) {
             return "";
         }
@@ -680,7 +683,7 @@ public class StringUtils {
         sb.append(data[0]);
 
         for (int i = 1; i < data.length; i++) {
-            sb.append(delimRegEx);
+            sb.append(delimeter);
             sb.append(data[i]);
         }
 
@@ -688,16 +691,16 @@ public class StringUtils {
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimRegEx})를 추가합니다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다.
      * 
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @param strings
      *            데이터
      * @return
      */
-    public static String concatenate(String delimRegEx, String... strings) {
-        return concatenate(delimRegEx, false, strings);
+    public static String concatenate(String delimeter, String... strings) {
+        return concatenate(delimeter, false, strings);
     }
 
     /**
@@ -736,6 +739,7 @@ public class StringUtils {
      * @date 2012. 1. 6.
      * 
      * @param string
+     *            문자열
      * @param strs
      * @return
      */
@@ -768,6 +772,7 @@ public class StringUtils {
      * 
      * @param container
      * @param string
+     *            문자열
      * @return
      * @since 2012. 7. 7.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -783,6 +788,7 @@ public class StringUtils {
      * 소문자가 있는지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static boolean containsLowcase(String string) {
@@ -797,6 +803,7 @@ public class StringUtils {
      * 문자열이 {@code chs}에 포함된 캐릭터들 중에 1개인지 여부를 반환합니다. 당근 길이는 1 인 문자열이다.
      * 
      * @param string
+     *            문자열
      * @param chs
      * @return
      */
@@ -818,6 +825,7 @@ public class StringUtils {
      * 대문자를 포함하고 있는지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static boolean containsUppercase(String string) {
@@ -839,6 +847,7 @@ public class StringUtils {
      * </pre>
      *
      * @param string
+     *            문자열
      * @return
      *
      * @since 2019. 6. 28.
@@ -857,6 +866,7 @@ public class StringUtils {
      * 문자열({@code string})에 포함되어 있는 캐릭터({@code ch}) 개수를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param ch
      * @return
      */
@@ -874,6 +884,7 @@ public class StringUtils {
      * 문자열({@code string})에 포함되어 있는 문자열({@code target}) 개수를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param target
      * @return
      */
@@ -892,6 +903,7 @@ public class StringUtils {
      * 주어진 길이만큼 문자열을 자르고, 뒤에 " ..." 을 붙어 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param length
      *            (... 포함된 길이)
      * @return
@@ -922,6 +934,7 @@ public class StringUtils {
      * {@code pre}와 {@code suf}로 둘어싸인 제일 큰 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param pre
      * @param suf
      * @return
@@ -952,6 +965,7 @@ public class StringUtils {
      * {@code pre}와 {@code suf}로 둘어싸인 제일 작은 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param pre
      * @param suf
      * @return 길이 2인 배열. 만족하지 않는 경우 {@code null} 반환
@@ -985,6 +999,7 @@ public class StringUtils {
      * 문자열이 주어진 <b><code>suffix</code></b>로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
+     *            문자열
      * @param suffix
      * @return
      * 
@@ -1007,6 +1022,7 @@ public class StringUtils {
      * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
+     *            문자열
      * @param suffixes
      * @return
      */
@@ -1025,6 +1041,7 @@ public class StringUtils {
      * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param suffixes
      * @return
      */
@@ -1164,6 +1181,7 @@ public class StringUtils {
      * 문자열 중에서 자바 및 C/C++ 코멘트 부분을 추출합니다.<br>
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String getComment(String string) {
@@ -1214,6 +1232,7 @@ public class StringUtils {
      * 문자열에서 큰따옴표로 묶인 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return 큰따옴표로 묶인 문자열. 없는 경우 {@code null} 반환.
      */
     public static String getDoubleQuotationString(String string) {
@@ -1233,6 +1252,7 @@ public class StringUtils {
      * 문자열을 구분자로 나눈 후 제일 마지막 값을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param delimiter
      * @return 마지막 문자열. 구분자가 존재하지 않는 경우 <code>null</code>을 반환합니다.
      */
@@ -1309,6 +1329,7 @@ public class StringUtils {
      * {@code pre}와 {@code suf}로 둘어싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param pre
      * @param suf
      * @return 길이 2인 배열. 만족하지 않는 경우 {@code null} 반환
@@ -1387,6 +1408,7 @@ public class StringUtils {
      * 캐릭터가 존재하지 않는 경우 길이가 0 인 배열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param c
      * @return
      * 
@@ -1444,6 +1466,7 @@ public class StringUtils {
      * 주어진 문자열이 모두 소문자인지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return <BR>
      * @since 2012. 01. 19.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -1456,6 +1479,7 @@ public class StringUtils {
      * 주어진 문자열이 모두 대문자인지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return <BR>
      * @since 2012. 01. 19.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -1503,6 +1527,7 @@ public class StringUtils {
      * 빈 문자열인지 코멘트인지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static boolean isEmptyOrComment(String string) {
@@ -1514,6 +1539,7 @@ public class StringUtils {
      * 문자열이 자바변수인지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static boolean isJavaIdentifier(String string) {
@@ -1551,6 +1577,7 @@ public class StringUtils {
      * 주어진 문자열이 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      * 
      *         <BR>
@@ -1625,6 +1652,7 @@ public class StringUtils {
      * Returns whether <b><code>string</code></b> is a whitespace or not.
      * 
      * @param string
+     *            문자열
      * @return
      * @since 2012. 6. 28.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -1720,6 +1748,7 @@ public class StringUtils {
      * 주어진 문자열에 대해서 왼쪽 trim 결과를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String ltrim(String string) {
@@ -1739,6 +1768,7 @@ public class StringUtils {
      * 주어진 문자열의 앞에서부터 지우고자 하는 문자가 제거된 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return <BR>
      * @since 2012. 02. 16.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -1811,6 +1841,8 @@ public class StringUtils {
         System.out.println("[P] " + camelCase + " -> " + toPascalCase(camelCase));
         System.out.println("[S] " + camelCase + " -> " + toSnakeCase(camelCase));
 
+        System.out.println(splitAndDelimiter("aabbccddeeff", 4, "."));
+
     }
 
     private static Optional<String> next(String str, boolean trim, boolean addNulpty) {
@@ -1839,6 +1871,7 @@ public class StringUtils {
      * </pre>
      *
      * @param string
+     *            문자열
      * @param n
      * @return
      *
@@ -1861,6 +1894,7 @@ public class StringUtils {
      * 문자열에서 코멘트 부분을 삭제한 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String removeComment(String string) {
@@ -1891,6 +1925,7 @@ public class StringUtils {
      * 예: {@code rk_disapp_info -> RkDisappInfo}
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String removeUnderlineAndNextUppercase(String string) {
@@ -1915,6 +1950,7 @@ public class StringUtils {
      * 예: {@code INT_VALUE -> IntValue}
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String removeUnderlineAndNextUppercaseOtherLowcase(String string) {
@@ -1955,6 +1991,7 @@ public class StringUtils {
      * 주어진 문자열에서 인덱스 배열에 해당하는 위치의 문자를 변경합니다.
      * 
      * @param string
+     *            문자열
      * @param t
      * @param indice
      * @return
@@ -1975,6 +2012,7 @@ public class StringUtils {
      * 주어진 문자열에 포함된 문자를 새로운 문자열로 변경합니다.
      * 
      * @param string
+     *            문자열
      * @param o
      *            변경될 문자
      * @param n
@@ -2036,6 +2074,7 @@ public class StringUtils {
      * 문자열에서 {@code olds}의 내용들을 {@code news}의 내용들로 순서대로 변환한 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param olds
      * @param news
      * @return 2개의 {@link Collection}의 길이가 다르면 문자열을 그대로 반환합니다.
@@ -2058,6 +2097,7 @@ public class StringUtils {
      * 문자열을 {@code map}의 내용에 맞추어 변환한 후 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param map
      * @return {@code map}이 {@code null}이거나 문자열이 {@code null}인 경우 문자열을 그대로 반환합니다.
      */
@@ -2091,24 +2131,25 @@ public class StringUtils {
      *            이전 문자열
      * @param newString
      *            새로운 문자열
-     * @param delimRegEx
+     * @param delimeter
      *            구분자
      * @return
      */
-    public static String[] replaceAndSplit(String string, String oldString, String newString, String delimRegEx) {
-        return string.replace(oldString, newString).split(delimRegEx);
+    public static String[] replaceAndSplit(String string, String oldString, String newString, String delimeter) {
+        return string.replace(oldString, newString).split(delimeter);
     }
 
     /**
      * @param string
+     *            문자열
      * @param oldString
      * @param newString
-     * @param delimRegEx
+     * @param delimeter
      * @return
      */
-    public static String replaceAndSplitAndToString(String string, String oldString, String newString, String delimRegEx) {
-        String[] strings = replaceAndSplit(string, oldString, newString, delimRegEx);
-        return concatenate(delimRegEx, strings);
+    public static String replaceAndSplitAndToString(String string, String oldString, String newString, String delimeter) {
+        String[] strings = replaceAndSplit(string, oldString, newString, delimeter);
+        return concatenate(delimeter, strings);
     }
 
     /**
@@ -2136,6 +2177,7 @@ public class StringUtils {
      * 주어진 문자열에 대해서 오른쪽 trim 결과를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String rtrim(String string) {
@@ -2157,6 +2199,7 @@ public class StringUtils {
      * 주어진 문자열의 끝에서부터 지우고자하는 문자가 제거된 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param c
      * @return <BR>
      * @since 2012. 02. 16.
@@ -2252,22 +2295,59 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열을 일정크기로 나눈 후, 구분자로 연결한 결과를 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 24.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param size
+     * @param delimeter
+     *            구분자
+     * @return
+     *
+     * @since 2023. 8. 24.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String splitAndDelimiter(String string, int size, String delimeter) {
+        List<String> splited = new ArrayList<>();
+        int len = string.length();
+        int begin = 0;
+        int end = Math.min(size, len);
+        while (begin < len) {
+            splited.add(string.substring(begin, end));
+            begin = end;
+            end = Math.min(end + size, len);
+        }
+
+        return concatenate(delimeter, splited);
+    }
+
+    /**
      * 문자열을 {@code splitRegEx}에 맞추어 배열로 만든 후, 구분자를 나누어진 문자들 사이에 추가한 후 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param splitRegEx
-     * @param delimRegEx
+     * @param delimeter
      * @return
      */
-    public static String splitAndDelimiter(String string, String splitRegEx, String delimRegEx) {
+    public static String splitAndDelimiter(String string, String splitRegEx, String delimeter) {
         String[] strings = string.split(splitRegEx);
-        return concatenate(delimRegEx, strings);
+        return concatenate(delimeter, strings);
     }
 
     /**
      * 파라미터 문자열을 주어진 정규식 표현으로 나눈 후에, 주어진 인덱스에 해당하는 순서의 값을 반복적으로 나눈다.<br>
      * 
      * @param string
+     *            문자열
      * @param regExs
      *            String.split(String) 메소드의 파라미터로 쓰일 정규식들의 배열
      * @param selectedIndice
@@ -2381,6 +2461,7 @@ public class StringUtils {
      * </pre>
      *
      * @param string
+     *            문자열
      * @return
      *
      * @since 2021. 6. 21.
@@ -2540,6 +2621,7 @@ public class StringUtils {
      * 문자열에서 {@code boundary} 문자열 다음부터 시작하는 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param boundary
      *            <i>exclusive</i>
      * @return {@code null} 은 {@code cutter}이 문자열에 포함되어 있지 않은 경우.
@@ -2561,6 +2643,7 @@ public class StringUtils {
      * 문자열에서 {@code boundary} 문자열 직전까지 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param boundary
      *            <i>exclusive</i>
      * @return {@code null} 은 {@code cutter}이 문자열에 포함되어 있지 않은 경우.
@@ -2630,6 +2713,7 @@ public class StringUtils {
     /**
      * 
      * @param string
+     *            문자열
      * @return <BR>
      * @since 2011. xx. xx.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -2732,6 +2816,7 @@ public class StringUtils {
      * 문자열에서 {@code index}에 해당하는 캐릭터를 소문자로 변경한 후 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param index
      * @return
      */
@@ -2786,6 +2871,7 @@ public class StringUtils {
      * 문자열을 정규식에 사용할 수 있도록 변환한 후 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String toRegExString(String string) {
@@ -2846,6 +2932,7 @@ public class StringUtils {
      * 주어진 문자열이 <code>null</code>이거나 빈문자열인 경우<code>defaultValue</code>에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param defaultValue
      * @return
      * 
@@ -2900,6 +2987,7 @@ public class StringUtils {
      * 문자열에서 {@code index}에 해당하는 캐릭터를 대문자로 변경한 후 반환합니다.
      * 
      * @param string
+     *            문자열
      * @param index
      * @return
      */
@@ -2919,6 +3007,7 @@ public class StringUtils {
      * VO 클래스 이름으로 변환한 결과를 반환합니다.
      * 
      * @param string
+     *            문자열
      * @return
      */
     public static String toVoClassName(String string) {

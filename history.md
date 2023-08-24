@@ -1,3 +1,8 @@
+[2023/08/24]
+- Add
+  + open.commons.core.utils.StringUtils
+    + splitAndDelimiter(String, int, String)
+  
 [2023/08/02]
 - Add
   + open.commons.core.utils.ArrayUtils
