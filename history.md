@@ -1,3 +1,16 @@
+[2023/08/29]
+- Add
+  + open.commons.core.utils.ArrayUtils
+    + prepend(boolean[], boolean...)
+    + prepend(byte[], byte...)
+    + prepend(char[], char...)
+    + prepend(double[], double...)
+    + prepend(float[], float...)
+    + prepend(int[], int...)
+    + prepend(long[], long...)
+    + prepend(short[], short...)
+    + prepend(T[], T...)
+
 [2023/08/24]
 - Add
   + open.commons.core.utils.StringUtils

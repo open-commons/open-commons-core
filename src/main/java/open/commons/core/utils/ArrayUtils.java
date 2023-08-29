@@ -5406,9 +5406,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(boolean[] arr1, boolean[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5482,9 +5482,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5515,9 +5515,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, length);
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5591,9 +5591,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(char[] arr1, char[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5666,9 +5666,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(double[] arr1, double[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5741,9 +5741,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(float[] arr1, float[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5816,9 +5816,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(int[] arr1, int[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5891,9 +5891,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(long[] arr1, long[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5966,9 +5966,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(short[] arr1, short[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -6047,9 +6047,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return arr1;
+            return copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return arr2;
+            return copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr1, T[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -6161,6 +6161,31 @@ public class ArrayUtils {
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
      * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean[] prepend(boolean[] array, boolean... values) {
+        return merge(values, array);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 
      * @param array
      * @param value
      * 
@@ -6181,6 +6206,29 @@ public class ArrayUtils {
 
         newArray[0] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 8. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static byte[] prepend(byte[] array, byte... values) {
+        return merge(values, array);
     }
 
     /**
@@ -6211,6 +6259,29 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static char[] prepend(char[] array, char... values) {
+        return merge(values, array);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
      * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
@@ -6233,6 +6304,29 @@ public class ArrayUtils {
 
         newArray[0] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static double[] prepend(double[] array, double... values) {
+        return merge(values, array);
     }
 
     /**
@@ -6263,6 +6357,29 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static float[] prepend(float[] array, float... values) {
+        return merge(values, array);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
      * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
@@ -6285,6 +6402,29 @@ public class ArrayUtils {
 
         newArray[0] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int[] prepend(int[] array, int... values) {
+        return merge(values, array);
     }
 
     /**
@@ -6315,6 +6455,29 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static long[] prepend(long[] array, long... values) {
+        return merge(values, array);
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
      * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
@@ -6337,6 +6500,29 @@ public class ArrayUtils {
 
         newArray[0] = value;
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static short[] prepend(short[] array, short... values) {
+        return merge(values, array);
     }
 
     /**
@@ -6371,6 +6557,29 @@ public class ArrayUtils {
         }
 
         return newArray;
+    }
+
+    /**
+     * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
+     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 8. 29.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param array
+     * @param values
+     * @return
+     *
+     * @since 2023. 8. 29.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T[] prepend(T[] array, T... values) {
+        return merge(values, array);
     }
 
     /**
