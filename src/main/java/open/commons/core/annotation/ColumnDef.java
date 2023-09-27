@@ -169,10 +169,15 @@ public @interface ColumnDef {
          */
         CAMEL_CASE,
         /**
-         * kebab-case: 하이픈으로 단어를 연결하는 표기법<br>
-         * 예) backgroud-color, type-name, i-phone
+         * kebab-case: 단어를 하이픈으로 연결하는 표기법<br>
+         * 예) backgroud-color, type-name1, i2-phone
          */
         KEBAB_CASE,
+        /**
+         * kebab-case: 단어와 숫자를 하이픈으로 연결하는 표기법<br>
+         * 예) backgroud-color, type-name-1, i-2-phone
+         */
+        KEBAB_CASE_NUM,
         /**
          * 설정된 컬럼명과 동일하게 사용
          * 
@@ -186,9 +191,14 @@ public @interface ColumnDef {
         PASCAL_CASE,
         /**
          * snake_case: 단어를 밑줄문자로 구분하는 표기법<br>
-         * 예) backgroud_color, type_name, power_point
+         * 예) backgroud_color, type1-name, power_point2
          */
         SNAKE_CASE,
+        /**
+         * snake_case: 단어와 숫자를 밑줄문자로 구분하는 표기법<br>
+         * 예) backgroud_color, type_1_name, power_point_2
+         */
+        SNAKE_CASE_NUM,
         //
         ;
     }

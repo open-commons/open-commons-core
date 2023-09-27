@@ -2755,7 +2755,12 @@ public class StringUtils {
 
     /**
      * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
-     * 예) camelCase -> camel_Case <br>
+     * 예)
+     * <ul>
+     * <li>camelCase -> camel-case
+     * <li>camelCase1 -> camel-case1
+     * <li>camel1Case -> camel1-case
+     * </ul>
      * 
      * <pre>
      * [개정이력]
@@ -2771,21 +2776,90 @@ public class StringUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toKebabCase(String camelCase) {
+        return toKebabCase0(camelCase, false);
+    }
+
+    /**
+     * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
+     * 
+     * 예)
+     * <ul>
+     * 숫자 별도처리: false
+     * <li>camelCase -> camel-case
+     * <li>camelCase1 -> camel-case1
+     * <li>camel1Case -> camel1-case
+     * </ul>
+     * <ul>
+     * 숫자 별도처리: true
+     * <li>camelCase -> camel-case
+     * <li>camelCase1 -> camel-case-1
+     * <li>camel1Case -> camel-1-case
+     * </ul>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 9. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     *            문자열
+     * @param isSplitNum
+     *            숫자 별도 처리 여부
+     * @return
+     *
+     * @since 2023. 9. 27.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static String toKebabCase0(String camelCase, boolean isSplitNum) {
 
         ArrayList<String> strs = new ArrayList<>();
 
         StringBuffer buf = new StringBuffer();
         for (char c : camelCase.toCharArray()) {
-            if (Character.isUpperCase(c)) {
+            if (Character.isUpperCase(c) // 문자가 대문자인 경우
+                    || (isSplitNum && Character.isDigit(c)) // 숫자별도처리이고 문자가 숫자인 경우
+            ) {
                 flushBuffer(buf, strs);
             }
 
-            buf.append(c);
+            buf.append(Character.toLowerCase(c));
         }
 
         flushBuffer(buf, strs);
 
         return StringUtils.concat(strs, "-", false, false, false);
+    }
+
+    /**
+     * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
+     * 예)
+     * <ul>
+     * <li>camelCase -> camel-Case
+     * <li>camelCase1 -> camel-Case-1
+     * <li>camel1Case -> camel-1-Case
+     * </ul>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 9. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     * @return
+     *
+     * @since 2023. 9. 27.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String toKebabCaseNum(String camelCase) {
+        return toKebabCase0(camelCase, true);
     }
 
     /**
@@ -2896,7 +2970,12 @@ public class StringUtils {
 
     /**
      * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
-     * 예) camelCase -> camel_case<br>
+     * 예)
+     * <ul>
+     * <li>camelCase -> camel_case
+     * <li>camel1Case -> camel1_case
+     * <li>camelCase1 -> camel_case1
+     * </ul>
      * 
      * <pre>
      * [개정이력]
@@ -2912,11 +2991,38 @@ public class StringUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toSnakeCase(String camelCase) {
+        return toSnakeCase0(camelCase, false);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 9. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     *            문자열
+     * @param isSplitNum
+     *            숫자 별도 처리 여부
+     * @return
+     *
+     * @since 2023. 9. 27.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static String toSnakeCase0(String camelCase, boolean isSplitNum) {
         ArrayList<String> strs = new ArrayList<>();
 
         StringBuffer buf = new StringBuffer();
         for (char c : camelCase.toCharArray()) {
-            if (Character.isUpperCase(c)) {
+            if (Character.isUpperCase(c) // 문자가 대문자인 경우
+                    || (isSplitNum && Character.isDigit(c)) // 숫자별도처리이고 문자가 숫자인 경우
+            ) {
                 flushBuffer(buf, strs);
             }
 
@@ -2926,6 +3032,33 @@ public class StringUtils {
         flushBuffer(buf, strs);
 
         return StringUtils.concat(strs, "_", false, false, false);
+    }
+
+    /**
+     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
+     * 예)
+     * <ul>
+     * <li>camelCase -> camel_case
+     * <li>camel1Case -> camel_1_case
+     * <li>camelCase1 -> camel_case_1
+     * </ul>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 9. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     * @return
+     *
+     * @since 2023. 9. 27.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String toSnakeCaseNum(String camelCase) {
+        return toSnakeCase0(camelCase, true);
     }
 
     /**

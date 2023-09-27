@@ -435,15 +435,19 @@ public class SQLUtils {
             switch (clmnNameType) {
                 case CAMEL_CASE:
                     return StringUtils.toLowerCase(clmnName, 0);
-                case PASCAL_CASE:
-                    return StringUtils.toPascalCase(clmnName);
-                case SNAKE_CASE:
-                    return StringUtils.toSnakeCase(clmnName);
-                case KEBAB_CASE:
-                    return StringUtils.toKebabCase(clmnName);
                 case NAME:
                     // 그대로 사용
                     return clmnName;
+                case PASCAL_CASE:
+                    return StringUtils.toPascalCase(clmnName);
+                case KEBAB_CASE:
+                    return StringUtils.toKebabCase(clmnName);
+                case KEBAB_CASE_NUM:
+                    return StringUtils.toKebabCase(clmnName);
+                case SNAKE_CASE:
+                    return StringUtils.toSnakeCase(clmnName);
+                case SNAKE_CASE_NUM:
+                    return StringUtils.toSnakeCase(clmnName);
                 default:
                     throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), clmnNameType));
             }

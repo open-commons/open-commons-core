@@ -1,3 +1,19 @@
+[2023/09/27]
+- Modify
+  + open.commons.core.utils.SQLUtils  
+    + getColumnName(String, ColumnNameType, Supplier&lt;String&gt;): 컬럼타입 분류 추가
+        - open.commons.core.annotation.ColumnDef.ColumnNameType.KEBAB_CASE_NUM
+        - open.commons.core.annotation.ColumnDef.ColumnNameType.SNAKE_CASE_NUM
+  + open.commons.core.utils.StringUtils
+    + toKebabCase(String): 내부 구현을 신규 추가 메소드(toKebabCase0(String, boolean))로 전환
+    + toSnakeCase(String): 내부 구현을 신규 추가 메소드(toSnakeCase0(String, boolean)로 전환
+- Add
+  + open.commons.core.utils.StringUtils
+    + toKebabCase0(String, boolean)
+    + toKebabCaseNum(String)
+    + toSnakeCase0(String, boolean)
+    + toSnakeCaseNum(String)
+
 [2023/08/29]
 - Add
   + open.commons.core.utils.ArrayUtils
