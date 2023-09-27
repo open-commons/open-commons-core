@@ -443,11 +443,11 @@ public class SQLUtils {
                 case KEBAB_CASE:
                     return StringUtils.toKebabCase(clmnName);
                 case KEBAB_CASE_NUM:
-                    return StringUtils.toKebabCase(clmnName);
+                    return StringUtils.toKebabCaseNum(clmnName);
                 case SNAKE_CASE:
                     return StringUtils.toSnakeCase(clmnName);
                 case SNAKE_CASE_NUM:
-                    return StringUtils.toSnakeCase(clmnName);
+                    return StringUtils.toSnakeCaseNum(clmnName);
                 default:
                     throw new IllegalArgumentException(String.format("지원하지 않는 컬럼명 타입입니다. 지원: %s, 입력: %s", Arrays.toString(ColumnNameType.values()), clmnNameType));
             }
