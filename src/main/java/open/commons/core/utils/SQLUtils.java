@@ -389,6 +389,7 @@ public class SQLUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 11. 25.		박준홍			최초 작성
+     * 2023. 10. 19.        박준홍         파라미터 전달 버그 수정.
      * </pre>
      *
      * @param clmnName
@@ -403,7 +404,7 @@ public class SQLUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getColumnName(String clmnName, ColumnNameType clmnNameType, String defaultClmnName) {
-        return getColumnName(defaultClmnName, clmnNameType, () -> defaultClmnName);
+        return getColumnName(clmnName, clmnNameType, () -> defaultClmnName);
     }
 
     /**
@@ -430,7 +431,7 @@ public class SQLUtils {
      */
     private static String getColumnName(String clmnName, ColumnNameType clmnNameType, Supplier<String> defaultClmnName) {
         // 설정된 컬럼명이 빈 문자열이 경우 처리
-        if (clmnName.isEmpty()) {
+        if (StringUtils.isNullOrEmptyString(clmnName)) {
             clmnName = defaultClmnName.get();
             switch (clmnNameType) {
                 case CAMEL_CASE:
