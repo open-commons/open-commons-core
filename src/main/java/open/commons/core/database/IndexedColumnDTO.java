@@ -13,6 +13,7 @@ package open.commons.core.database;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -124,18 +125,26 @@ public class IndexedColumnDTO extends AbstractCsvData {
      */
     @Override
     public List<String> getHeaders() {
-        Map<Integer, String> fieldMap = new TreeMap<>();
+        Map<String, Field> headerFields = new HashMap<>();
         Class<?> cls = getClass();
         List<Field> fields = null;
         while (!cls.equals(Object.class)) {
             fields = AnnotationUtils.getAnnotatedFieldsAll(cls, AQueryIndex.class);
             fields.forEach(f -> {
-                AQueryIndex index = f.getAnnotation(AQueryIndex.class);
-                fieldMap.put(index.index(), StringUtils.toSnakeCase(f.getName()));
+                Field of = headerFields.get(f.getName());
+                if (of == null || of.getDeclaringClass().isAssignableFrom(f.getDeclaringClass())) {
+                    headerFields.put(f.getName(), f);
+                }
             });
 
             cls = cls.getSuperclass();
         }
+
+        Map<Integer, String> fieldMap = new TreeMap<>();
+        headerFields.forEach((n, f) -> {
+            AQueryIndex index = f.getAnnotation(AQueryIndex.class);
+            fieldMap.put(index.index(), StringUtils.toSnakeCase(f.getName()));
+        });
 
         return new ArrayList<>(fieldMap.values());
     }
@@ -148,6 +157,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 6. 18.		박준홍			최초 작성
+     * 2023. 10. 26.    박준홍         메소드 검색 버그 수정.
      * </pre>
      *
      * @return
@@ -159,16 +169,11 @@ public class IndexedColumnDTO extends AbstractCsvData {
     public List<Supplier<String>> getValues() {
         Map<Integer, Supplier<String>> orderedValues = new TreeMap<>();
         Class<?> cls = getClass();
-        List<Method> methods = null;
-        while (!cls.equals(Object.class)) {
-            methods = AnnotationUtils.getAnnotatedMethodsAll(cls, AQueryIndex.class);
-            methods.forEach(m -> {
-                AQueryIndex index = m.getAnnotation(AQueryIndex.class);
-                orderedValues.put(index.index(), new MethodBase(this, m));
-            });
-
-            cls = cls.getSuperclass();
-        }
+        List<Method> methods = AnnotationUtils.getAnnotatedMethodsAll(cls, AQueryIndex.class);
+        methods.forEach(m -> {
+            AQueryIndex index = m.getAnnotation(AQueryIndex.class);
+            orderedValues.put(index.index(), new MethodBase(this, m));
+        });
 
         return new ArrayList<>(orderedValues.values());
     }

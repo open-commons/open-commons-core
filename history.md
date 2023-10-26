@@ -1,3 +1,9 @@
+[2023/10/26]
+- Bugfix
+  + open.commons.core.database.IndexedColumnDTO
+    + getHeaders(): 상속받은 클래스에서 CSV 헤더 컬럼 조회 버그 수정
+    + getValues(): 상속받은 클래스에서 CSV 데이터 제공 메소드 조회 버그 수정
+
 [2023/09/27]
 - Modify
   + open.commons.core.utils.SQLUtils  
