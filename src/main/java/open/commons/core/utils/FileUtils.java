@@ -35,13 +35,17 @@ import java.nio.file.CopyOption;
 import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.function.BiFunction;
 
@@ -872,5 +876,152 @@ public class FileUtils {
         } else {
             return "";
         }
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dirpath
+     *            디렉토리 경로
+     * @param filename
+     *            파일이름
+     * @param data
+     *            저장할 데이터
+     * @param append
+     *            데이터 추가 여부
+     * @throws IOException
+     *
+     * @since 2023. 11. 7.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void write(String dirpath, String filename, String data, boolean append) throws IOException {
+        // 디렉토리 검증
+        Path dir = Paths.get(dirpath);
+        if (!Files.exists(dir)) {
+            Files.createDirectories(dir);
+        }
+
+        // 파일 검증
+        Path file = Paths.get(dirpath, filename);
+        if (!Files.exists(file)) {
+            Files.createFile(file);
+        }
+
+        List<OpenOption> options = new ArrayList<>();
+        options.add(StandardOpenOption.CREATE);
+        options.add(StandardOpenOption.WRITE);
+        if (append) {
+            options.add(StandardOpenOption.APPEND);
+        }
+
+        Files.write(file, data.getBytes(), options.toArray(new OpenOption[0]));
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            파일 경로
+     * @param data
+     *            저장할 데이터
+     * @throws IOException
+     *
+     * @since 2023. 11. 7.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void writeAppend(String filepath, String data) throws IOException {
+        writeAppend(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dirpath
+     *            디렉토리 경로
+     * @param filename
+     *            파일이름
+     * @param data
+     *            저장할 데이터
+     * @throws IOException
+     *
+     * @since 2023. 11. 7.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void writeAppend(String dirpath, String filename, String data) throws IOException {
+        write(dirpath, filename, data, true);
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            파일 경로
+     * @param data
+     *            저장할 데이터
+     * @throws IOException
+     *
+     * @since 2023. 11. 7.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void writeNew(String filepath, String data) throws IOException {
+        writeNew(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 7.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param dirpath
+     *            디렉토리 경로
+     * @param filename
+     *            파일이름
+     * @param data
+     *            저장할 데이터
+     * @throws IOException
+     *
+     * @since 2023. 11. 7.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void writeNew(String dirpath, String filename, String data) throws IOException {
+        write(dirpath, filename, data, false);
     }
 }

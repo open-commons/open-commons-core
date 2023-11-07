@@ -1,3 +1,12 @@
+[2023/11/07]
+- Add
+  + open.commons.core.utils.FileUtils
+    + write(String, String, String, boolean)
+    + writeAppend(String, String)
+    + writeAppend(String, String, String)
+    + writeNew(String, String)
+    + writeNew(String, String, String)
+
 [2023/10/26]
 - Bugfix
   + open.commons.core.database.IndexedColumnDTO
