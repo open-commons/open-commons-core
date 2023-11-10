@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -35,25 +34,20 @@ import open.commons.core.TwoValueObject;
 import open.commons.core.date.YearMonthDay;
 
 /**
- * [클래스 개요]
- * <p>
- * <b>NOTE:</b> [설명 및 주의사항]
+ * <br>
  * 
- * @author Park Jun-Hong
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자	|	내용
+ * ------------------------------------------
+ * 2011. 7. 12.         박준홍        최초 작성
+ * 2023. 11. 10.		박준홍			static 으로 사용하던 {@link SimpleDateFormat} 제거
+ * </pre>
+ * 
  * @since 2011. 07. 12.
- * @see
- * 
- *      <pre>
- * == 개정이력(Modification Information) ==
- * 
- * 수정일                		수정자 	 			수정내용
- * ------------		---------------		---------------------------
- * 2011. 07. 12.      Park Jun-Hong	           최초 생성
- *      </pre>
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class DateUtil {
-
-    private static ConcurrentSkipListMap<String, SimpleDateFormat> formats = new ConcurrentSkipListMap<String, SimpleDateFormat>();
 
     public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*\\s?\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
     public static final String REGEX_yyyyMMDD_HHmm = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
@@ -63,9 +57,6 @@ public class DateUtil {
     public static final String REGEX_ISO_FORMAT_NO_TZ = "yyyy-MM-dd'T'HH:mm:ss";
 
     public static final String MESSAGE_ISO_FORMAT_NO_TZ = "{0}-{1}-{3}T{4}:{5}:{6}";
-
-    public static final SimpleDateFormat ISO_FORMAT = new SimpleDateFormat(REGEX_ISO_FORMAT);
-    public static final SimpleDateFormat ISO_FORMAT_NO_TZ = new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ);
 
     /**
      * ISO 8601 표기
@@ -1421,8 +1412,7 @@ public class DateUtil {
      */
     public static String toISOFormat(Calendar calendar) {
         AssertUtils.assertNull(calendar);
-
-        return ISO_FORMAT.format(calendar.getTime());
+        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(calendar.getTime());
     }
 
     /**
@@ -1444,8 +1434,7 @@ public class DateUtil {
      */
     public static String toISOFormat(Long timestamp) {
         AssertUtils.assertNull(timestamp);
-
-        return ISO_FORMAT.format(newCalendar(timestamp).getTime());
+        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(newCalendar(timestamp).getTime());
     }
 
     /**
@@ -1458,8 +1447,7 @@ public class DateUtil {
      */
     public static String toISOFormatNoTZ(Calendar calendar) {
         AssertUtils.assertNull(calendar);
-
-        return ISO_FORMAT_NO_TZ.format(calendar.getTime());
+        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(calendar.getTime());
     }
 
     /**
@@ -1511,8 +1499,7 @@ public class DateUtil {
      */
     public static String toISOFormatNoTZ(Long timestamp) {
         AssertUtils.assertNull(timestamp);
-
-        return ISO_FORMAT_NO_TZ.format(newCalendar(timestamp).getTime());
+        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(newCalendar(timestamp).getTime());
     }
 
     /**
@@ -1629,14 +1616,7 @@ public class DateUtil {
      * @return
      */
     public static String toString(Date date, String pattern) {
-        SimpleDateFormat format = formats.get(pattern);
-        if (format == null) {
-            format = new SimpleDateFormat(pattern);
-
-            formats.put(pattern, format);
-        }
-
-        return format.format(date);
+        return new SimpleDateFormat(pattern).format(date);
     }
 
     /**
@@ -1658,14 +1638,7 @@ public class DateUtil {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toString(Long timestamp, String pattern) {
-        SimpleDateFormat format = formats.get(pattern);
-        if (format == null) {
-            format = new SimpleDateFormat(pattern);
-
-            formats.put(pattern, format);
-        }
-
-        return format.format(new Date(timestamp));
+        return new SimpleDateFormat(pattern).format(new Date(timestamp));
     }
 
     /**
@@ -1736,14 +1709,7 @@ public class DateUtil {
      * @return
      */
     public static String toString(String pattern) {
-        SimpleDateFormat format = formats.get(pattern);
-        if (format == null) {
-            format = new SimpleDateFormat(pattern);
-
-            formats.put(pattern, format);
-        }
-
-        return format.format(new Date());
+        return new SimpleDateFormat(pattern).format(new Date());
     }
 
     public static String toTimeString(int time) {
