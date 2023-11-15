@@ -1,3 +1,14 @@
+[2023/11/15]
+- Add
+  + open.commons.core.utils.FileUtils
+    + listFiles(Path, Predicate&lt;Path&gt;, Function&lt;Stream&lt;Path&gt;, T&gt;)
+    + listFilesAsArray(Path)
+    + listFilesAsArray(Path, Predicate&lt;Path&gt;)
+    + listFilesAsList(Path)
+    + listFilesAsList(Path, Predicate&lt;Path&gt;)
+    + listFilesAsSet(Path)
+    + listFilesAsSet(Path, Predicate&lt;Path&gt;)
+
 [2023/11/07]
 - Add
   + open.commons.core.utils.FileUtils

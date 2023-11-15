@@ -48,6 +48,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -540,6 +544,194 @@ public class FileUtils {
         return files;
     }
 
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해새 OS에서 IO 객체를 유지합니다.<br>
+     * 이에 대한 IO 를 제거하기 위해서 {@link Stream#close()}을 호출합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param directory
+     *            조회할 디렉토리
+     * @param filter
+     *            파일 필터 조건
+     * @param collector
+     *            결과 데이터 생성 함수
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector) throws IOException {
+        try (Stream<Path> stream = Files.list(directory).filter(filter)) {
+            return collector.apply(stream);
+        }
+    }
+
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 11. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            조회할 디렉토리
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #listFiles(Path, Predicate, Function)
+     */
+    public static Path[] listFilesAsArray(Path directory) throws IOException {
+        return listFilesAsArray(directory, p -> true);
+    }
+
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 11. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            조회할 디렉토리
+     * @param filter
+     *            파일 필터 조건
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #listFiles(Path, Predicate, Function)
+     */
+    public static Path[] listFilesAsArray(Path directory, Predicate<Path> filter) throws IOException {
+        return listFiles(directory, filter, stream -> stream.toArray(Path[]::new));
+    }
+
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            조회할 디렉토리
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #listFiles(Path, Predicate, Function)
+     */
+    public static List<Path> listFilesAsList(Path directory) throws IOException {
+        return listFilesAsList(directory, p -> true);
+    }
+
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            조회할 디렉토리
+     * @param filter
+     *            파일 필터 조건
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #listFiles(Path, Predicate, Function)
+     */
+    public static List<Path> listFilesAsList(Path directory, Predicate<Path> filter) throws IOException {
+        return listFiles(directory, filter, stream -> stream.collect(Collectors.toList()));
+    }
+
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 11. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            조회할 디렉토리
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #listFiles(Path, Predicate, Function)
+     */
+    public static Set<Path> listFilesAsSet(Path directory) throws IOException {
+        return listFilesAsSet(directory, p -> true);
+    }
+
+    /**
+     * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 11. 15.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param directory
+     *            조회할 디렉토리
+     * @param filter
+     *            파일 필터 조건
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #listFiles(Path, Predicate, Function)
+     */
+    public static Set<Path> listFilesAsSet(Path directory, Predicate<Path> filter) throws IOException {
+        return listFiles(directory, filter, stream -> stream.collect(Collectors.toSet()));
+    }
+
     public static void main(String[] args) {
         // File src = new File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src\\open\\commons");
         // for (File file : src.listFiles()) {
@@ -879,6 +1071,30 @@ public class FileUtils {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param path
+     * @param data
+     * @param options
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Path write(Path path, String data, OpenOption... options) throws IOException {
+        return Files.write(path, data.getBytes(), options);
+    }
+
+    /**
      * 지정된 경로에 데이터를 저장합니다. <br>
      * 
      * <pre>
@@ -902,7 +1118,7 @@ public class FileUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static void write(String dirpath, String filename, String data, boolean append) throws IOException {
+    public static Path write(String dirpath, String filename, String data, boolean append) throws IOException {
         // 디렉토리 검증
         Path dir = Paths.get(dirpath);
         if (!Files.exists(dir)) {
@@ -922,7 +1138,7 @@ public class FileUtils {
             options.add(StandardOpenOption.APPEND);
         }
 
-        Files.write(file, data.getBytes(), options.toArray(new OpenOption[0]));
+        return write(file, data, options.toArray(new OpenOption[0]));
     }
 
     /**
@@ -945,8 +1161,8 @@ public class FileUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static void writeAppend(String filepath, String data) throws IOException {
-        writeAppend(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
+    public static Path writeAppend(String filepath, String data) throws IOException {
+        return writeAppend(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
     }
 
     /**
@@ -971,8 +1187,8 @@ public class FileUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static void writeAppend(String dirpath, String filename, String data) throws IOException {
-        write(dirpath, filename, data, true);
+    public static Path writeAppend(String dirpath, String filename, String data) throws IOException {
+        return write(dirpath, filename, data, true);
     }
 
     /**
@@ -995,8 +1211,8 @@ public class FileUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static void writeNew(String filepath, String data) throws IOException {
-        writeNew(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
+    public static Path writeNew(String filepath, String data) throws IOException {
+        return writeNew(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
     }
 
     /**
@@ -1021,7 +1237,7 @@ public class FileUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static void writeNew(String dirpath, String filename, String data) throws IOException {
-        write(dirpath, filename, data, false);
+    public static Path writeNew(String dirpath, String filename, String data) throws IOException {
+        return write(dirpath, filename, data, false);
     }
 }
