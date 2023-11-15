@@ -732,32 +732,6 @@ public class FileUtils {
         return listFiles(directory, filter, stream -> stream.collect(Collectors.toSet()));
     }
 
-    public static void main(String[] args) {
-        // File src = new File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src\\open\\commons");
-        // for (File file : src.listFiles()) {
-        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory", file.getAbsolutePath());
-        // }
-        // System.out.println("-------------------------------------------------------------------------------");
-        // for (File file : listFiles(src)) {
-        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory", file.getAbsolutePath());
-        // }
-        // System.out.println("-------------------------------------------------------------------------------");
-        // for (File file : listDirectories(src)) {
-        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory", file.getAbsolutePath());
-        // }
-        //
-        // File dir = new File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src - 복사본 (2)");
-        // emptyDir(dir);
-        //
-        // String filepath = "D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\.classpath";
-        // System.out.println("path: " + getFilePath(filepath));
-        // System.out.println("name: " + getFileName(filepath));
-        // System.out.println("ext : " + getFileExtension(filepath));
-
-        System.out.println("abc.de".lastIndexOf('.'));
-        System.out.println(StringUtils.backIndexOf("abc.de", '.'));
-    }
-
     /**
      * 파일을 이동시키거나 이름을 변경합니다.<br>
      * 
@@ -1071,8 +1045,54 @@ public class FileUtils {
     }
 
     /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
      * 
-     * <br>
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            절대경로 파일
+     * @param data
+     *            데이터
+     * @param append
+     *            기존 파일에 추가 여부
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Path write(Path filepath, String data, boolean append) throws IOException {
+        // 디렉토리 검증
+        Path dir = filepath.getParent();
+        if (!Files.exists(dir)) {
+            Files.createDirectories(dir);
+        }
+
+        // 파일 검증
+        if (!Files.exists(filepath)) {
+            Files.createFile(filepath);
+        }
+
+        List<OpenOption> options = new ArrayList<>();
+        options.add(StandardOpenOption.CREATE);
+        options.add(StandardOpenOption.WRITE);
+        if (append) {
+            options.add(StandardOpenOption.APPEND);
+        } else {
+            options.add(StandardOpenOption.TRUNCATE_EXISTING);
+        }
+
+        return write(filepath, data, options.toArray(new OpenOption[0]));
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1119,26 +1139,7 @@ public class FileUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Path write(String dirpath, String filename, String data, boolean append) throws IOException {
-        // 디렉토리 검증
-        Path dir = Paths.get(dirpath);
-        if (!Files.exists(dir)) {
-            Files.createDirectories(dir);
-        }
-
-        // 파일 검증
-        Path file = Paths.get(dirpath, filename);
-        if (!Files.exists(file)) {
-            Files.createFile(file);
-        }
-
-        List<OpenOption> options = new ArrayList<>();
-        options.add(StandardOpenOption.CREATE);
-        options.add(StandardOpenOption.WRITE);
-        if (append) {
-            options.add(StandardOpenOption.APPEND);
-        }
-
-        return write(file, data, options.toArray(new OpenOption[0]));
+        return write(Paths.get(dirpath, filename), data, append);
     }
 
     /**
