@@ -1149,6 +1149,31 @@ public class FileUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
+     * 2023. 11. 15.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            파일 경로
+     * @param data
+     *            저장할 데이터
+     * @return
+     * @throws IOException
+     *
+     * @since 2023. 11. 15.
+     * @version _._._
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Path writeAppend(Path filepath, String data) throws IOException {
+        return write(filepath, data, true);
+    }
+
+    /**
+     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
      * 2023. 11. 7.		박준홍			최초 작성
      * </pre>
      *
@@ -1163,7 +1188,7 @@ public class FileUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Path writeAppend(String filepath, String data) throws IOException {
-        return writeAppend(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
+        return write(Paths.get(filepath), data, true);
     }
 
     /**
@@ -1213,7 +1238,7 @@ public class FileUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Path writeNew(String filepath, String data) throws IOException {
-        return writeNew(new File(filepath).getParent(), FileUtils.getFileName(filepath), data);
+        return write(Paths.get(filepath), data, false);
     }
 
     /**
