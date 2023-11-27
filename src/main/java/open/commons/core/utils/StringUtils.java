@@ -1671,6 +1671,39 @@ public class StringUtils {
     }
 
     /**
+     * 문자열에서 찾고자하는 문자의 가장 마지막 위치를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 11. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     * @param c
+     * @return 문자의 가장 마지막 위치. 없는 경우 -1.
+     *
+     * @since 2023. 11. 27.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static int lastIndexOf(String string, char c) {
+
+        if (string == null || string.isEmpty()) {
+            return -1;
+        }
+
+        for (int idx = string.length() - 1; idx > -1; idx--) {
+            if (string.charAt(idx) == c) {
+                return idx;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
      * <b><code>long</code></b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
      * 

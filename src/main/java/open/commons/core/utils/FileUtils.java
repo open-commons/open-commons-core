@@ -1160,7 +1160,7 @@ public class FileUtils {
      * @throws IOException
      *
      * @since 2023. 11. 15.
-     * @version _._._
+     * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Path writeAppend(Path filepath, String data) throws IOException {

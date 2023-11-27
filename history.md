@@ -1,3 +1,8 @@
+[2023/11/27]
+- Add
+  + open.commons.core.utils.StringUtils
+    + lastIndexOf(String, char)
+
 [2023/11/15]
 - Add
   + open.commons.core.utils.FileUtils
