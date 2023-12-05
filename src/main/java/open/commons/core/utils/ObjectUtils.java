@@ -116,7 +116,16 @@ public class ObjectUtils {
     }
 
     private static final Pattern METHOD_GETTER = Pattern.compile("^(is|get)(.+)$");
-    private static final Pattern METHOD_SETTER = Pattern.compile("^(set)(.+)$");
+    /**
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 12. 22.        Park_Jun_Hong (parkjunhong77@gmail.com) 최초 작성
+     * 2023. 12. 5.		Park_Jun_Hong (parkjunhong77@gmail.com)			데이터 설정함수 prefix 추가 (addXXX 지원)
+     * </pre>
+     */
+    private static final Pattern METHOD_SETTER = Pattern.compile("^(set|add)(.+)$");
 
     /**
      * Method에 설정된 {@link Setter} 어노테이션 값을 이용해서 "속성" 이름을 제공합니다.<br>
