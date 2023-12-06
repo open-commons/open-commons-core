@@ -210,7 +210,7 @@ public class MapUtils {
      *            새로운 값의 이터 타입
      * @param bucket
      *            기존 {@link Map}
-     * @param data
+     * @param newData
      *            새로운 데이터 {@link Map}
      * @param aggrValue
      *            값 병합 함수
@@ -228,11 +228,15 @@ public class MapUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NV> Map<K, NV> merge(Map<K, V> bucket, Map<K, V> data, BiFunction<V, V, NV> aggrValue, Map<K, NV> newBucket) {
+    public static <K, V, NV> Map<K, NV> merge(Map<K, V> bucket, Map<K, V> newData, BiFunction<V, V, NV> aggrValue, Map<K, NV> newBucket) {
+        if (newBucket == null) {
+            newBucket = new HashMap<K, NV>();
+        }
+
         K k = null;
         V o = null;
         V n = null;
-        for (Entry<K, V> entry : data.entrySet()) {
+        for (Entry<K, V> entry : newData.entrySet()) {
             // 키
             k = entry.getKey();
             // 새로운 값
@@ -242,8 +246,7 @@ public class MapUtils {
             // 데이터 갱신
             newBucket.put(k, aggrValue.apply(o, n));
         }
-
-        return null;
+        return newBucket;
     }
 
     /**
@@ -262,7 +265,7 @@ public class MapUtils {
      *            값 데이터 타입
      * @param bucket
      *            기존 {@link Map}
-     * @param data
+     * @param newData
      *            새로운 데이터 {@link Map}
      * @param aggrValue
      *            값 병합 함수
@@ -276,8 +279,8 @@ public class MapUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> void merge(Map<K, V> bucket, Map<K, V> data, BiFunction<V, V, V> aggrValue) {
-        merge(bucket, data, aggrValue, bucket);
+    public static <K, V> void merge(Map<K, V> bucket, Map<K, V> newData, BiFunction<V, V, V> aggrValue) {
+        merge(bucket, newData, aggrValue, bucket);
     }
 
     /**

@@ -432,6 +432,31 @@ public class Result<T> {
     }
 
     /**
+     * '성공' 결과 객체를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 12. 6.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param format
+     *            메시지 포맷
+     * @param args
+     *            메시지 정보
+     * @return
+     *
+     * @since 2023. 12. 6.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> Result<T> success(String format, Object... args) {
+        return success((T) null, format, args);
+    }
+
+    /**
      * "성공" 결과 객체를 제공합니다. <br>
      * 
      * <pre>
@@ -451,6 +476,33 @@ public class Result<T> {
      */
     public static <T> Result<T> success(T data) {
         return new Result<T>(data, true);
+    }
+
+    /**
+     * '성공' 결과 객체를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 12. 6.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param data
+     *            결과 데이터
+     * @param format
+     *            메시지 포맷
+     * @param args
+     *            메시지 정보
+     * @return
+     *
+     * @since 2023. 12. 6.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> Result<T> success(T data, String format, Object... args) {
+        return Result.success(data).setMessage(format, args);
     }
 
 }
