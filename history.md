@@ -1,3 +1,9 @@
+[2023/12/06]
+- Add
+  + open.commons.core.utils.MapUtils
+    + merge(Map&lt;K, V&gt;, Map&lt;K, V&gt;, BiFunction&lt;V, V, NV&gt;, Map&lt;K, NV&gt;)
+    + merge(Map&lt;K, V&gt;, Map&lt;K, V&gt;, BiFunction&lt;V, V, V&gt;)
+
 [2023/11/27]
 - Add
   + open.commons.core.utils.StringUtils

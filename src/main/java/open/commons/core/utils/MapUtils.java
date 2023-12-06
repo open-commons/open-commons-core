@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -189,6 +190,94 @@ public class MapUtils {
         } catch (InstantiationException | IllegalAccessException e) {
             throw ExceptionUtils.newException(RuntimeException.class, e, "Map 객체 생성 중 에러가 발생하였습니다.");
         }
+    }
+
+    /**
+     * 2개의 {@link Map}을 동일한 키를 값는 값을 새로운 형태의 데이터로 변환하여 새로운 {@link Map}을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 12. 6.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            키 데이터 타입
+     * @param <V>
+     *            값 데이터 타입
+     * @param <NV>
+     *            새로운 값의 이터 타입
+     * @param bucket
+     *            기존 {@link Map}
+     * @param data
+     *            새로운 데이터 {@link Map}
+     * @param aggrValue
+     *            값 병합 함수
+     * 
+     *            <ul>
+     *            <li>@param o 기존 값
+     *            <li>@param n 새로운 값
+     *            <li>@return 병합결과
+     *            </ul>
+     * @param newBucket
+     *            새로운 {@link Map}
+     * @return
+     *
+     * @since 2023. 12. 6.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, NV> Map<K, NV> merge(Map<K, V> bucket, Map<K, V> data, BiFunction<V, V, NV> aggrValue, Map<K, NV> newBucket) {
+        K k = null;
+        V o = null;
+        V n = null;
+        for (Entry<K, V> entry : data.entrySet()) {
+            // 키
+            k = entry.getKey();
+            // 새로운 값
+            n = entry.getValue();
+            // 기존 값
+            o = bucket.get(k);
+            // 데이터 갱신
+            newBucket.put(k, aggrValue.apply(o, n));
+        }
+
+        return null;
+    }
+
+    /**
+     * 기존 {@link Map}에 새로운 {@link Map} 데이터를 병합합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 12. 6.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            키 데이터 타입
+     * @param <V>
+     *            값 데이터 타입
+     * @param bucket
+     *            기존 {@link Map}
+     * @param data
+     *            새로운 데이터 {@link Map}
+     * @param aggrValue
+     *            값 병합 함수
+     * 
+     *            <ul>
+     *            <li>@param o 기존 값
+     *            <li>@param n 새로운 값
+     *            <li>@return 병합결과
+     *            </ul>
+     * @since 2023. 12. 6.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> void merge(Map<K, V> bucket, Map<K, V> data, BiFunction<V, V, V> aggrValue) {
+        merge(bucket, data, aggrValue, bucket);
     }
 
     /**
