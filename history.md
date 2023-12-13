@@ -1,6 +1,14 @@
+[2023/12/13]
+- Add
+  + open.commons.core.utils.CollectionUtils
+    + sort(Collection&lt;T&gt;, Comparator&lt;T&gt;)
+    + sort(Collection&lt;T&gt;, Comparator&lt;T&gt;, int)
+    + sort(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;)
+    + sort(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
+
 [2023/12/06]
 - Add
-  + open.commons.core.Result<T>
+  + open.commons.core.Result&lt;T&gt;
     + success(String, Object...)
     + success(T, String, Object...)
   + open.commons.core.utils.MapUtils

@@ -2114,6 +2114,130 @@ public class CollectionUtils {
     }
 
     /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 12. 13.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param sorter
+     *            정렬 함수
+     * @return
+     *
+     * @since 2023. 12. 13.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> sort(Collection<T> data, Comparator<T> sorter) {
+        return data.stream() //
+                .sorted(sorter)//
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 12. 13.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2023. 12. 13.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> sort(Collection<T> data, Comparator<T> sorter, int limit) {
+        return data.stream() //
+                .sorted(sorter)//
+                .limit(limit) //
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 12. 13.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @return
+     *
+     * @since 2023. 12. 13.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
+        return data.stream() //
+                .filter(filter) // 필터 적용
+                .sorted(sorter)// 정렬
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 12. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2023. 12. 13.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
+        return data.stream() //
+                .filter(filter) // 필터 적용
+                .sorted(sorter)// 정렬
+                .limit(limit) // 개수 제한
+                .collect(Collectors.toList());
+    }
+
+    /**
      * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환합니다.
      * 
      * @param <E>
