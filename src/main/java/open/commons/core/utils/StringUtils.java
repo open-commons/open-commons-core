@@ -1152,7 +1152,26 @@ public class StringUtils {
         return strings != null ? existsIgnoreCase(target, Arrays.asList(strings)) : false;
     }
 
-    private static void flushBuffer(StringBuffer buf, ArrayList<String> list) {
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 9. 27.     	박준홍			최초 작성
+     * 2023. 12. 15.		박준홍			접근자 변경 (private -> public)
+     * </pre>
+     *
+     * @param buf
+     * @param list
+     *
+     * @since 2023. 9. 27.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static void flushBuffer(StringBuffer buf, ArrayList<String> list) {
         if (buf.length() < 1) {
             return;
         }

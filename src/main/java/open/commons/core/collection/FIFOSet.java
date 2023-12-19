@@ -58,9 +58,9 @@ public class FIFOSet<E> implements Set<E> {
             Integer sequence = null;
             try {
                 sequence = seqSeed.getAndIncrement();
-                orderedValues.put(sequence, e);
+                this.orderedValues.put(sequence, e);
 
-                values.add(e);
+                this.values.add(e);
 
                 added = true;
             } catch (Exception ex) {
@@ -85,18 +85,18 @@ public class FIFOSet<E> implements Set<E> {
 
     @Override
     public synchronized void clear() {
-        values.clear();
-        orderedValues.clear();
+        this.values.clear();
+        this.orderedValues.clear();
     }
 
     @Override
     public synchronized boolean contains(Object o) {
-        return values.contains(o);
+        return this.values.contains(o);
     }
 
     @Override
     public synchronized boolean containsAll(Collection<?> c) {
-        return values.containsAll(c);
+        return this.values.containsAll(c);
     }
 
     private boolean eq(E e, Object o) {
@@ -111,12 +111,12 @@ public class FIFOSet<E> implements Set<E> {
 
     @Override
     public synchronized boolean isEmpty() {
-        return values.isEmpty();
+        return this.values.isEmpty();
     }
 
     @Override
     public synchronized Iterator<E> iterator() {
-        return orderedValues.values().iterator();
+        return this.orderedValues.values().iterator();
     }
 
     @Override
@@ -127,7 +127,7 @@ public class FIFOSet<E> implements Set<E> {
         if (values.contains(o)) {
             Integer sequence = null;
 
-            for (Entry<Integer, E> entry : orderedValues.entrySet()) {
+            for (Entry<Integer, E> entry : this.orderedValues.entrySet()) {
                 if (eq(entry.getValue(), o)) {
                     sequence = entry.getKey();
 
@@ -136,7 +136,8 @@ public class FIFOSet<E> implements Set<E> {
             }
 
             if (sequence != null) {
-                orderedValues.remove(sequence);
+                this.orderedValues.remove(sequence);
+                this.values.remove(sequence);
 
                 removed = true;
             }
@@ -157,27 +158,27 @@ public class FIFOSet<E> implements Set<E> {
 
     @Override
     public synchronized boolean retainAll(Collection<?> c) {
-        return values.retainAll(c);
+        return this.values.retainAll(c);
     }
 
     @Override
     public synchronized int size() {
-        return values.size();
+        return this.values.size();
     }
 
     @Override
     public synchronized Object[] toArray() {
-        return orderedValues.values().toArray();
+        return this.orderedValues.values().toArray();
     }
 
     @Override
     public synchronized <T> T[] toArray(T[] a) {
-        return orderedValues.values().toArray(a);
+        return this.orderedValues.values().toArray(a);
     }
 
     @Override
     public String toString() {
-        return orderedValues.values().toString();
+        return this.orderedValues.values().toString();
     }
 
 }

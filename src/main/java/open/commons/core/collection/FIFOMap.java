@@ -79,20 +79,20 @@ public class FIFOMap<K, V> implements Map<K, V> {
      */
     @Override
     public synchronized void clear() {
-        seqSeed.set(0);
-        keys.clear();
-        orderedKeys.clear();
-        orderedValues.clear();
+        this.seqSeed.set(0);
+        this.keys.clear();
+        this.orderedKeys.clear();
+        this.orderedValues.clear();
     }
 
     @Override
     public synchronized boolean containsKey(Object key) {
-        return orderedKeys.containsValue(key);
+        return this.orderedKeys.containsValue(key);
     }
 
     @Override
     public synchronized boolean containsValue(Object value) {
-        return orderedValues.containsValue(value);
+        return this.orderedValues.containsValue(value);
     }
 
     @Override
@@ -101,9 +101,9 @@ public class FIFOMap<K, V> implements Map<K, V> {
 
         K key = null;
         V value = null;
-        for (Entry<Integer, K> keyEntry : orderedKeys.entrySet()) {
+        for (Entry<Integer, K> keyEntry : this.orderedKeys.entrySet()) {
             key = keyEntry.getValue();
-            value = orderedValues.get(keyEntry.getKey());
+            value = this.orderedValues.get(keyEntry.getKey());
 
             entrySet.add(new FIFOEntry(key, value));
         }
@@ -113,14 +113,14 @@ public class FIFOMap<K, V> implements Map<K, V> {
 
     @Override
     public synchronized V get(Object key) {
-        Integer sequence = keys.get(key);
+        Integer sequence = this.keys.get(key);
 
-        return sequence != null ? orderedValues.get(sequence) : null;
+        return sequence != null ? this.orderedValues.get(sequence) : null;
     }
 
     @Override
     public synchronized boolean isEmpty() {
-        return orderedKeys.isEmpty();
+        return this.orderedKeys.isEmpty();
     }
 
     @Override
@@ -139,18 +139,18 @@ public class FIFOMap<K, V> implements Map<K, V> {
         if (key != null) {
             Integer sequence = null;
             if (keys.containsKey(key)) {
-                sequence = keys.get(key);
-                oldValue = orderedValues.put(sequence, value);
+                sequence = this.keys.get(key);
+                oldValue = this.orderedValues.put(sequence, value);
             } else {
                 try {
-                    sequence = seqSeed.getAndIncrement();
+                    sequence = this.seqSeed.getAndIncrement();
 
-                    keys.put(key, sequence);
-                    orderedKeys.put(sequence, key);
-                    oldValue = orderedValues.put(sequence, value);
+                    this.keys.put(key, sequence);
+                    this.orderedKeys.put(sequence, key);
+                    oldValue = this.orderedValues.put(sequence, value);
                 } catch (Exception e) {
                     if (sequence != null) {
-                        seqSeed.set(sequence);
+                        this.seqSeed.set(sequence);
                     }
                 }
             }
@@ -173,11 +173,11 @@ public class FIFOMap<K, V> implements Map<K, V> {
         V value = null;
 
         if (key != null) {
-            Integer sequence = keys.remove(key);
+            Integer sequence = this.keys.remove(key);
 
             if (sequence != null) {
-                orderedKeys.remove(sequence);
-                value = orderedValues.remove(sequence);
+                this.orderedKeys.remove(sequence);
+                value = this.orderedValues.remove(sequence);
             }
         }
 
@@ -186,7 +186,7 @@ public class FIFOMap<K, V> implements Map<K, V> {
 
     @Override
     public synchronized int size() {
-        return orderedKeys.size();
+        return this.orderedKeys.size();
     }
 
     @Override
@@ -227,7 +227,7 @@ public class FIFOMap<K, V> implements Map<K, V> {
 
     @Override
     public synchronized Collection<V> values() {
-        return orderedValues.values();
+        return this.orderedValues.values();
     }
 
     public class FIFOEntry implements Entry<K, V> {

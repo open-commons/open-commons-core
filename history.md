@@ -1,3 +1,8 @@
+[2023/12/19]
+- Bugfix
+  + open.commons.core.collection.FIFOSet&gt;E&lt;
+    + remove(Object): 데이터 미삭제 버그 수정
+
 [2023/12/13]
 - Add
   + open.commons.core.utils.CollectionUtils
