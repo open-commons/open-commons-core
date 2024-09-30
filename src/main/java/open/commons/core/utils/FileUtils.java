@@ -43,9 +43,11 @@ import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -468,6 +470,94 @@ public class FileUtils {
 
         int backIndex = StringUtils.backIndexOf(file, File.separatorChar);
         return file.substring(0, backIndex);
+    }
+
+    /**
+     * 지정된 경로 내의 조건에 맞는 파일 중에 가장 최근에 수정된 파일을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2024. 8. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param absoluteDirPath
+     *            디렉토리 경로
+     * @param fileFilters
+     *            파일 필터 조건
+     * @return <b><code>nullable</code></b>
+     *
+     * @since 2024. 8. 14.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see File#lastModified()
+     */
+    @SafeVarargs
+    public static Path getLatestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
+        Path dir = Paths.get(absoluteDirPath);
+        try {
+            Optional<Path> latestFilepath = Files.list(dir) //
+                    .filter(path -> {
+                        for (Predicate<Path> filter : fileFilters) {
+                            if (!filter.test(path)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }) //
+                    .max(Comparator.comparingLong(f -> f.toFile().lastModified()));
+
+            return latestFilepath.isPresent() ? latestFilepath.get() : null;
+        } catch (IOException e) {
+            logger.warn("전달받은 디렉토리({})에 파일이 존재하지 않습니다.", absoluteDirPath);
+            return null;
+        }
+    }
+
+    /**
+     * 지정된 경로 내의 조건에 맞는 파일 중에 가장 오래 전에 수정된 파일을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2024. 8. 14.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param absoluteDirPath
+     *            디렉토리 경로
+     * @param fileFilters
+     *            파일 필터 조건
+     * @return <b><code>nullable</code></b>
+     *
+     * @since 2024. 8. 14.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see File#lastModified()
+     */
+    @SafeVarargs
+    public static Path getOldestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
+        Path dir = Paths.get(absoluteDirPath);
+        try {
+            Optional<Path> latestFilepath = Files.list(dir) //
+                    .filter(path -> {
+                        for (Predicate<Path> filter : fileFilters) {
+                            if (!filter.test(path)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }) //
+                    .min(Comparator.comparingLong(f -> f.toFile().lastModified()));
+
+            return latestFilepath.isPresent() ? latestFilepath.get() : null;
+        } catch (IOException e) {
+            logger.warn("전달받은 디렉토리({})에 파일이 존재하지 않습니다.", absoluteDirPath);
+            return null;
+        }
     }
 
     /**

@@ -1,3 +1,14 @@
+[2024/08/14]
+- Add
+  + open.commons.core.utils.FileUtils
+    + getLatestFilepath(String, Predicate&lt;Path&gt;...)
+    + getOldestFilepath(String, Predicate&lt;Path&gt;...)
+  
+[2024/05/09]
+- Add
+  + open.commons.core.concurrent.AsyncJobManager&lt;K, V&gt;
+    + getJobs()
+
 [2023/12/19]
 - Bugfix
   + open.commons.core.collection.FIFOSet&gt;E&lt;

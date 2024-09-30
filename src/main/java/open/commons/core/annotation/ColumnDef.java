@@ -191,7 +191,7 @@ public @interface ColumnDef {
         PASCAL_CASE,
         /**
          * snake_case: 단어를 밑줄문자로 구분하는 표기법<br>
-         * 예) backgroud_color, type1-name, power_point2
+         * 예) backgroud_color, type1_name, power_point2
          */
         SNAKE_CASE,
         /**

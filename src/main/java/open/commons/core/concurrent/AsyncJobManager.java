@@ -26,6 +26,7 @@
 
 package open.commons.core.concurrent;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -115,6 +116,35 @@ public class AsyncJobManager<K, V> {
         } finally {
             lock.unlock();
         }
+    }
+
+    /**
+     * 현재 작업 정보를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2024. 5. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2024. 5. 9.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public Map<K, Future<?>> getJobs() {
+        ReentrantLock lock = LOCK;
+        lock.lock();
+        try {
+            return Collections.unmodifiableMap(this.ASYNC_JOBS);
+        } catch (Exception e) {
+            return null;
+        } finally {
+            lock.unlock();
+        }
+
     }
 
     /**
