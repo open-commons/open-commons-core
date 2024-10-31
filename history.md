@@ -1,3 +1,7 @@
+[2024/10/31]
+- ETC
+  + Maven Repository 주소 변경 (http -> https)
+  
 [2024/08/14]
 - Add
   + open.commons.core.utils.FileUtils

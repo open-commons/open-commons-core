@@ -14,13 +14,13 @@ See [wiki](https://github.com/parkjunhong/open-commons-core/wiki)
 
 ---
 # Repository
-maven (**[Go to LATEST](http://nexus3.ymtech.co.kr/#browse/browse:maven-public:open%2Fcommons%2Fopen-commons-core)**)
+maven (**[Go to LATEST](https://nexus3.ymtech.co.kr/#browse/browse:maven-public:open%2Fcommons%2Fopen-commons-core)**)
 ``` xml
 <repositories>
   <repository>
     <id>ymtech.kr</id>
     <name>YMTECH Maven Repository</name>
-    <url>http://nexus3.ymtech.co.kr/repository/maven-public/</url>
+    <url>https://nexus3.ymtech.co.kr/repository/maven-public/</url>
     <layout>default</layout>
   </repository>
 </repositories>
