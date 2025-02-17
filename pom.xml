@@ -81,23 +81,19 @@
 		<dependency>
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
-			<version>${com.lmax.disruptor-version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>${org.apache.logging.log4j-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
-			<version>${org.apache.logging.log4j-api.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${org.apache.logging.log4j-api.version}</version>
 		</dependency>
 
 		<!-- begin: slf4j -->
@@ -105,7 +101,6 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j-api.version}</version>
 		</dependency>
 		<!-- end: slf4j -->
 		<!-- <<< end: logging -->
@@ -117,7 +112,6 @@
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>${net.sf.opencsv-version}</version>
 		</dependency>
 		<!-- end: OpenCSV -->
 		<!-- ************** -->
