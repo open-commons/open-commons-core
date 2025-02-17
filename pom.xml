@@ -36,11 +36,6 @@
 		<compile.source.version>1.8</compile.source.version>
 		<compile.target.version>1.8</compile.target.version>
 
-		<!-- >>> begin: dependencies -->
-		<org.apache.logging.log4j-api.version>2.17.2</org.apache.logging.log4j-api.version>
-		<slf4j-api.version>1.7.36</slf4j-api.version>
-		<!-- <<< end: dependencies -->
-
 		<!-- >>> begin: plugin dependencies -->
 		<build.finalName>open-commons-core-${project.version}</build.finalName>
 		<!-- >>> end: plugin dependencies -->
@@ -86,7 +81,7 @@
 		<dependency>
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
-			<version>3.3.6</version>
+			<version>${com.lmax.disruptor-version}</version>
 		</dependency>
 
 		<dependency>
@@ -122,7 +117,7 @@
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>2.3</version>
+			<version>${net.sf.opencsv-version}</version>
 		</dependency>
 		<!-- end: OpenCSV -->
 		<!-- ************** -->
