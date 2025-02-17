@@ -13,6 +13,17 @@
 		</license>
 	</licenses>
 
+	<developers>
+		<developer>
+			<name>Park, Jun-Hong</name>
+			<email>parkjunhong77@gmail.com</email>
+		</developer>
+	</developers>
+	<scm>
+		<url>https://github.com/parkjunhong/open-commons-core</url>
+		<developerConnection>parkjunhong77@gmail.com</developerConnection>
+	</scm>
+
 	<properties>
 		<encoding>UTF-8</encoding>
 		<java.version>1.8</java.version>
