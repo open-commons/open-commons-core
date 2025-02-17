@@ -1,8 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>open.commons</groupId>
+	<parent>
+		<groupId>open.commons</groupId>
+		<artifactId>open-commons-core-dependencies</artifactId>
+		<version>2.1.0-SNAPSHOT</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 	<artifactId>open-commons-core</artifactId>
-	<version>2.1.0-SNAPSHOT</version>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
 
 	<licenses>
@@ -39,11 +43,6 @@
 
 		<!-- >>> begin: plugin dependencies -->
 		<build.finalName>open-commons-core-${project.version}</build.finalName>
-
-		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
-		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-		<maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
 		<!-- >>> end: plugin dependencies -->
 	</properties>
 
