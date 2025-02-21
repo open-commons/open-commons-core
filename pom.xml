@@ -8,7 +8,6 @@
 	</parent>
 	<artifactId>open-commons-core</artifactId>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
-	<version>2.1.0</version>
 	<description>Open Commons Core Project</description>
 	<url>https://github.com/open-commons/open-commons-core</url>
 
