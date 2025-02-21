@@ -1,13 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>open.commons</groupId>
+		<groupId>io.github.open-commons</groupId>
 		<artifactId>open-commons-core-dependencies</artifactId>
 		<version>2.1.0-SNAPSHOT</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<artifactId>open-commons-core</artifactId>
 	<name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
+	<version>2.1.0</version>
+	<description>Open Commons Core Project</description>
+	<url>https://github.com/open-commons/open-commons-core</url>
 
 	<licenses>
 		<license>
@@ -17,16 +20,20 @@
 		</license>
 	</licenses>
 
+	<scm>
+		<connection>scm:git:https://github.com/open-commons/open-commons-core.git</connection>
+		<developerConnection>scm:git:https://github.com/open-commons/open-commons-core.git</developerConnection>
+		<url>https://github.com/open-commons/open-commons-core</url>
+	</scm>
+
 	<developers>
 		<developer>
 			<name>Park, Jun-Hong</name>
 			<email>parkjunhong77@gmail.com</email>
+			<organization>https://github.com/open-commons</organization>
+			<organizationUrl>https://github.com/open-commons</organizationUrl>
 		</developer>
 	</developers>
-	<scm>
-		<url>https://github.com/parkjunhong/open-commons-core</url>
-		<developerConnection>parkjunhong77@gmail.com</developerConnection>
-	</scm>
 
 	<properties>
 		<encoding>UTF-8</encoding>
@@ -43,12 +50,11 @@
 
 	<distributionManagement>
 		<repository>
-			<id>releases</id>
-			<name>Release Repository</name>
-			<url>https://nexus3.ymtech.co.kr/repository/maven-releases/</url>
+			<id>maven-central</id>
+			<url>https://central.sonatype.com</url>
 		</repository>
 		<snapshotRepository>
-			<id>snapshots</id>
+			<id>ymtech-maven-repo</id>
 			<name>Snapshot Repository</name>
 			<url>https://nexus3.ymtech.co.kr/repository/maven-snapshots/</url>
 		</snapshotRepository>
@@ -150,30 +156,10 @@
 			</plugin>
 			<!-- <<< end: compile -->
 
-			<!-- >>> begin: jar -->
-			<!-- <plugin> -->
-			<!-- <groupId>org.apache.maven.plugins</groupId> -->
-			<!-- <artifactId>maven-jar-plugin</artifactId> -->
-			<!-- <version>${maven-jar-plugin.version}</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <phase>deploy</phase> -->
-			<!-- <goals> -->
-			<!-- <goal>jar</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <classifier>RELEASE</classifier> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
-			<!-- <<< end: jar -->
-
 			<!-- >>> begin: source -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>${maven-source-plugin.version}</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
 				</configuration>
@@ -191,7 +177,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>${maven-javadoc-plugin.version}</version>
 				<configuration>
 					<goal>deploy</goal>
 					<show>private</show>
@@ -214,39 +199,33 @@
 			</plugin>
 			<!-- <<< end: javadoc -->
 
-			<!-- <plugin> -->
-			<!-- <artifactId>maven-antrun-plugin</artifactId> -->
-			<!-- <version>${java.version}</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <phase>compile</phase> -->
-			<!-- <configuration> -->
-			<!-- <target> -->
-			<!-- <ant antfile="${basedir}/build.xml"> -->
-			<!-- <target name="deploy" /> -->
-			<!-- </ant> -->
-			<!-- </target> -->
-			<!-- </configuration> -->
-			<!-- <goals> -->
-			<!-- <goal>run</goal> -->
-			<!-- </goals> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-
-			<!-- <dependencies> -->
-			<!-- <dependency> -->
-			<!-- <groupId>ant-contrib</groupId> -->
-			<!-- <artifactId>ant-contrib</artifactId> -->
-			<!-- <version>1.0b3</version> -->
-			<!-- <exclusions> -->
-			<!-- <exclusion> -->
-			<!-- <groupId>ant</groupId> -->
-			<!-- <artifactId>ant</artifactId> -->
-			<!-- </exclusion> -->
-			<!-- </exclusions> -->
-			<!-- </dependency> -->
-			<!-- </dependencies> -->
-			<!-- </plugin> -->
+			<!-- Maven Central Deployment plugin -->
+			<plugin>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.7.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<publishingServerId>maven-central</publishingServerId>
+					<!-- autoPublish>true</autoPublish>
+             		<waitUntil>published</waitUntil -->
+				</configuration>
+			</plugin>
+			<!-- GPG signature plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 		</plugins>
 	</build>

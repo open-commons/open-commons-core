@@ -1,3 +1,12 @@
+[2025/02/21]
+- Update
+  + <deploymentManagement>
+    + Release: Maven Central (https://central.sonatype.com)
+- Add
+  + <build>
+    + org.sonatype.central:central-publishing-maven-plugin
+    + org.apache.maven.plugins:maven-gpg-plugin
+
 [2025/02/17]
 - Release: 2.0.0
 - Snapshot: 2.1.0-SNAPSHOT
