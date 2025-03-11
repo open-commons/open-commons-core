@@ -24,7 +24,7 @@
  * 
  */
 
-package open.commons.core.util;
+package open.commons.core.collection;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -33,10 +33,8 @@ import java.util.Vector;
 /**
  * List using Binary Sort.
  * 
- * @since 2019. 1. 22.
+ * @since 2025. 03. 11 from {@link open.commons.core.util.BinarySortedList}
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
- * 
- * @deprecated Use {@link open.commons.core.collection.BinarySortedList}
  */
 public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
 

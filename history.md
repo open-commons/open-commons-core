@@ -1,3 +1,9 @@
+[2025/03/11]
+- Update
+  + open.commons.core.util.BinarySortedList: 기능 개선 후 이관
+    +  신규 위치: open.commons.core.collection.BinarySortedList
+
+
 [2025/02/21]
 - Update
   + <deploymentManagement>
