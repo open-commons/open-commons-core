@@ -2324,6 +2324,32 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param post
+     *            문자열 후처리 함수.
+     * @return
+     *
+     * @since 2025. 4. 2.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String[] split(String string, String delim, Function<String, String> post) {
+        return split(string, delim, post, 0);
+    }
+
+    /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
@@ -2343,6 +2369,42 @@ public class StringUtils {
             }
         }
 
+        return rtnStrings;
+    }
+
+    /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param post
+     *            문자열 후처리 함수.
+     * @param limit
+     *            최대 데이터 개수
+     * @return
+     *
+     * @since 2025. 4. 2.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String[] split(String string, String delim, Function<String, String> post, int limit) {
+
+        String[] rtnStrings = string.split("[" + delim + "]", limit);
+
+        if (post != null) {
+            for (int i = 0; i < rtnStrings.length; i++) {
+                rtnStrings[i] = post.apply(rtnStrings[i]);
+            }
+        }
         return rtnStrings;
     }
 
@@ -2442,6 +2504,40 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자@param string
+     * @param post
+     *            문자열 후처리 함수.
+     * @return
+     *
+     * @since 2025. 4. 2.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Collection<String> splitAsCollection(String string, String delim, Function<String, String> post) {
+        Collection<String> col = new ArrayList<String>();
+
+        String[] rtnStrings = split(string, delim, post);
+
+        for (String str : rtnStrings) {
+            col.add(str);
+        }
+
+        return col;
+    }
+
+    /**
      * 주어진 문자열을 구분자로 분리한 후 {@link Set}을 반환합니다.
      * 
      * @param string
@@ -2456,6 +2552,40 @@ public class StringUtils {
         HashSet<String> set = new HashSet<String>();
 
         String[] rtnStrings = split(string, delim, trim);
+
+        for (String str : rtnStrings) {
+            set.add(str);
+        }
+
+        return set;
+    }
+
+    /**
+     * 주어진 문자열을 구분자로 분리한 후 {@link Set}을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param post
+     *            문자열 후처리 함수
+     * @return
+     *
+     * @since 2025. 4. 2.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Set<String> splitAsSet(String string, String delim, Function<String, String> post) {
+        HashSet<String> set = new HashSet<String>();
+
+        String[] rtnStrings = split(string, delim, post);
 
         for (String str : rtnStrings) {
             set.add(str);
@@ -2480,6 +2610,32 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param post
+     *            문자열 후처리 함수
+     * @return
+     *
+     * @since 2025. 4. 2.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post) {
+        return splitWithoutBracket(string, delim, post, 0);
+    }
+
+    /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
      * 
      * @param string
@@ -2491,11 +2647,47 @@ public class StringUtils {
      * @return
      */
     public static String[] splitWithoutBracket(String string, String delim, boolean trim, int limit) {
-        String[] rtnStrings = string.split(delim);
+        String[] rtnStrings = string.split("[" + delim + "]", limit);
 
         if (trim) {
             for (int i = 0; i < rtnStrings.length; i++) {
                 rtnStrings[i] = rtnStrings[i].trim();
+            }
+        }
+
+        return rtnStrings;
+    }
+
+    /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 2.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param post
+     *            문자열 후처리 함수
+     * @param limit
+     *            데이터 최대 개수
+     * @return
+     *
+     * @since 2025. 4. 2.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post, int limit) {
+        String[] rtnStrings = string.split("[" + delim + "]", limit);
+
+        if (post != null) {
+            for (int i = 0; i < rtnStrings.length; i++) {
+                rtnStrings[i] = post.apply(rtnStrings[i]);
             }
         }
 

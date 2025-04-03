@@ -1,3 +1,13 @@
+[2025/04/03]
+- Add
+  + open.commons.core.utils.StringUtils
+    + split(String, String, Function&lt;String, String&gt;)
+    + split(String, String, Function&lt;String, String&gt;, int)
+    + splitAsCollection(String, String, Function&lt;String, String&gt;)
+    + splitAsSet(String, String, Function&lt;String, String&gt;)
+    + splitWithoutBracket(String, String, Function&lt;String, String&gt;)
+    + splitWithoutBracket(String, String, Function&lt;String, String&gt;, int)
+
 [2025/03/11]
 - Update
   + open.commons.core.util.BinarySortedList: 기능 개선 후 이관
