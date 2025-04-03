@@ -7,6 +7,15 @@
     + splitAsSet(String, String, Function&lt;String, String&gt;)
     + splitWithoutBracket(String, String, Function&lt;String, String&gt;)
     + splitWithoutBracket(String, String, Function&lt;String, String&gt;, int)
+  + open.commons.core.utils.ObjectUtils
+    + transform(Collection&lt;S&gt;, boolean, Class&lt;T&gt;, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, boolean, Class&lt;T&gt;, boolean, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, boolean, Class&lt;T&gt;, Map&lt;String, Function&lt;?, ?&gt;&gt;, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, boolean, Class&lt;T&gt;, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, Class&lt;T&gt;, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, Class&lt;T&gt;, boolean, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, Class&lt;T&gt;, Map&lt;String, Function&lt;?, ?&gt;&gt;, Supplier&lt;C&gt;)
+    + transform(Collection&lt;S&gt;, Class&lt;T&gt;, Supplier&lt;C&gt;)
 
 [2025/03/11]
 - Update
