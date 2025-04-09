@@ -1,5 +1,10 @@
 [2025/04/03]
 - Add
+  + open.commons.core.annotation.ColumnValue
+    + columnType() 추가: <span style="color:red; font-weight:bold;">목적: H2 DBMS 의 '? AS {column}' 구문해석 오류에 대응하기 위함.</span>
+
+[2025/04/03]
+- Add
   + open.commons.core.utils.StringUtils
     + split(String, String, Function&lt;String, String&gt;)
     + split(String, String, Function&lt;String, String&gt;, int)

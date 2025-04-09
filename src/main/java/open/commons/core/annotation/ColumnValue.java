@@ -103,6 +103,25 @@ public @interface ColumnValue {
     ColumnNameType columnNameType() default ColumnNameType.NAME;
 
     /**
+     * 컬럼의 데이터 유형. <br>
+     * <span style="color:red; font-weight:bold;">목적: H2 DBMS 의 '? AS {column}' 구문해석 오류에 대응하기 위함.</span>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 4. 9.		박준홍			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2025. 4. 9.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    String columnType() default "";
+
+    /**
      * 컬럼 정의시 'DEFAULT' 설정에 따라서 생성되는 데이터 여부 <br>
      * 이 값이 <code>true</code>인 경우, 쿼리 생성에 포함되지 않습니다.
      * 
