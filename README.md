@@ -1,20 +1,21 @@
 # open-commons-core
 Open Commons for Core
 
-**Additional directories.**
-ant-contrib: for ant build on eclipse.
-
 ---
 # History
 See [history.md](./history.md).
 
 ---
 # HOWTO
-See [wiki](https://github.com/parkjunhong/open-commons-core/wiki)
+See [wiki](https://github.com/open-commons/open-commons-core/wiki)
 
 ---
-# Repository
-maven (**[Go to LATEST](https://nexus3.ymtech.co.kr/#browse/browse:maven-public:open%2Fcommons%2Fopen-commons-core)**)
+# 'release' Repository
+Not yet.
+
+
+# 'snapshot' Repository
+maven (**[Go to LATEST](https://nexus3.ymtech.co.kr/#browse/browse:maven-public:io%2Fgithub%2Fopen-commons%2Fopen-commons-core)**)
 ``` xml
 <repositories>
   <repository>
