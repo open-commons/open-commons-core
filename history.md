@@ -1,3 +1,7 @@
+[2025/04/16]
+- Deprecated
+  + open.commons.core.utils.WebUtils: None of use.
+
 [2025/04/03]
 - Add
   + open.commons.core.annotation.ColumnValue
