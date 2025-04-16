@@ -2321,12 +2321,12 @@ public class ObjectUtils {
                 targetPropertyClass = PARAMETER_TYPE.apply(setter);
 
                 // srcType과 targetType이 호환여부 확인
-                if (!checkType(srcPropertyClass, targetPropertyClass)) {
-                    // 타입 변환 함수가 존재하는 경우
-                    if ((converter = getFieldConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converters)) != null) {
-                        o = ((Function<Object, ?>) converter).apply(o);
-                    }
+                // if (!checkType(srcPropertyClass, targetPropertyClass)) {
+                // 타입 변환 함수가 존재하는 경우
+                if ((converter = getFieldConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converters)) != null) {
+                    o = ((Function<Object, ?>) converter).apply(o);
                 }
+                // }
 
                 setter.invoke(target, o);
 
