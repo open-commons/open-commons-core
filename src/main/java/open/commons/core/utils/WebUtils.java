@@ -39,7 +39,7 @@ public class WebUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 1. 4.
      * @deprecated Use a class <a href=
-     *             "https://github.com/open-commons/open-commons-spring-web/blob/main/src/main/java/open/commons/spring/web/utils/WebUtils.java">WebUtils</a>
+     *             "https://github.com/open-commons/open-commons-spring-web/blob/main/src/main/java/open/commons/spring/web/utils/WebUtils.java">WebUtils</a>#getParameters(String)
      */
     public static Map<String, String> getParams(String urlLocation) {
         String[] url_param = urlLocation.split("[?]");
