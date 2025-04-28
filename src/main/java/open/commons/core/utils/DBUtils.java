@@ -39,6 +39,7 @@ import open.commons.core.CommonProperties;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2012. 01. 16.
  * 
+ * @deprecated DO NOT USE. SHOULD BE REMOVED next version.
  */
 @SuppressWarnings("unused")
 public class DBUtils {
@@ -247,6 +248,14 @@ public class DBUtils {
      * <p>
      * <b>주의: binaray 형태의 데이타를 처리하지는 않는다.</b>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자           |   내용
+     * ------------------------------------------
+     * 2012. 1. 17.     parkjunhong             최초작성
+     * 2025. 4. 25. parkjunhong                 Deprecated.
+     * </pre>
+     * 
      * @param table
      *            테이블 명
      * @param data
@@ -258,6 +267,8 @@ public class DBUtils {
      *                <BR>
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
+     * 
+     * @deprecated SQL Injection에 취약함
      */
     public static String insertQuery(String table, Map<String, ?> data) {
         return insertQuery(table, data, null);
@@ -267,6 +278,14 @@ public class DBUtils {
      * Nested 되지 않은 insert 쿼리 문자열을 생성해서 반환합니다.
      * <p>
      * <b>주의: binaray 형태의 데이타를 처리하지는 않는다.</b>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자			|	내용
+     * ------------------------------------------
+     * 2012. 1. 17.     parkjunhong             최초작성
+     * 2025. 4. 25.	parkjunhong					Deprecated.
+     * </pre>
      * 
      * @param table
      *            테이블 명
@@ -282,6 +301,8 @@ public class DBUtils {
      *                <BR>
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
+     * 
+     * @deprecated SQL Injection에 취약함
      */
     public static String insertQuery(String table, Map<String, ?> data, String etc) {
         Set<String> colSet = data.keySet();
@@ -328,10 +349,20 @@ public class DBUtils {
      * <p>
      * <b>주의: binary 형태의 데이터를 처리하지는 않는다.</b>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자           |   내용
+     * ------------------------------------------
+     * 2012. 1. 30.     parkjunhong             최초작성
+     * 2025. 4. 25. parkjunhong                 Deprecated.
+     * </pre>
+     * 
      * @param col
      * @return <BR>
      * @since 2012. 01. 30.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @deprecated SQL Injection에 취약함
      */
     public static String toValues(Collection<?> col) {
         if (col.isEmpty()) {

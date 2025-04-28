@@ -1,3 +1,7 @@
+[2025/04/28]
+- Deprecated
+  + open.commons.core.utils.DBUtils: DO NOT USE. SHOULD BE REMOVED next version.
+
 [2025/04/16]
 - Update
   + open.commons.core.utils.ObjectUtils.transform(S, boolean, T, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;) : 프로퍼티 변환 조건 변경 (타입이 다른 경우 -> 타입 무관하게 변환함수가 존재한다면 적용)
