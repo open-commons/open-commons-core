@@ -1,3 +1,13 @@
+[2025/06/24]
+- New
+  + ThreadLocal 기능 추가
+    + open.commons.core.lang.IThreadLocalContext&lt;K, V&gt;
+    + open.commons.core.lang.ThreadLocalContext&lt;K, V&gt;
+    + open.commons.core.lang.ThreadLocalContextService
+  + open.commons.core.utils.AssertUtils2: 'assert'의 단어적 의미에 부합되는 기능 제공. (open.commons.core.utils.AssertUtils 대체)
+- Deprecated
+  + open.commons.core.utils.AssertUtils: 'assert'의 단어적 의미와 상반되는 기능 제공으로 사용하지 않음.
+
 [2025/04/28]
 - Deprecated
   + open.commons.core.utils.DBUtils: DO NOT USE. SHOULD BE REMOVED next version.
