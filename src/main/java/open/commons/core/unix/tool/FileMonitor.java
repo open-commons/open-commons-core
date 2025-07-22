@@ -135,11 +135,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         HELP_MESSAGE = sb.toString();
     }
 
-    private final HashMap<String, Object> configs = new HashMap<String, Object>();
+    static String vfLength = "";
 
+    private final HashMap<String, Object> configs = new HashMap<String, Object>();
     private boolean verboseTimestamp = false;
     private boolean verboseFilename = false;
-    static String vfLength = "";
     private boolean verboseDirectory = false;
 
     // -------------
@@ -655,9 +655,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
                 watchServices.put(directory, service);
                 wsRecursive.put(directory, recursive);
 
-                if (service != null) {
-                    new Thread(service).start();
-                }
+                new Thread(service).start();
 
                 LogUtils.log("(new 'Service')", "service: " + service + ", directory: " + directory + ", recursive: " + recursive);
             }

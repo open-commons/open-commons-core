@@ -74,7 +74,7 @@ public class RecursiveExecutor {
         }
     }
 
-    @SuppressWarnings("unchecked")
+//    @SuppressWarnings("unchecked")
     private Set<Comparable<?>> getGraphData(Object key) {
         for (Comparable<?> rKey : graphData.keySet()) {
             if (((OrderingKey<Long>) rKey).getValue().equals(key)) {
@@ -208,7 +208,7 @@ public class RecursiveExecutor {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "unused" })
     private Set<Comparable<?>> removeGraphData(Object key) {
         for (Comparable<?> rKey : graphData.keySet()) {
             if (((OrderingKey<Long>) rKey).getValue().equals(key)) {

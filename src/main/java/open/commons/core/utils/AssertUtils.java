@@ -43,6 +43,7 @@ import open.commons.core.exception.AssertionException;
 
 public class AssertUtils {
 
+    @SuppressWarnings("unused")
     private static void assert0(Class<? extends RuntimeException> class_, String msg) throws RuntimeException {
         try {
             Constructor<? extends RuntimeException> cons = class_ != null ? class_.getConstructor(String.class) : AssertionException.class.getConstructor(String.class);

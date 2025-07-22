@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.function.Function;
 
 import open.commons.core.utils.AnnotationUtils;
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.CollectionUtils;
 
 /**
@@ -145,11 +145,11 @@ public class SaxTextConverter {
      */
     @SuppressWarnings("unchecked")
     public <R> Function<String, R> getConverter(String fqcn) {
-        AssertUtils.assertNull("Full Qualified Class Name MUST NOT BE NULL !!!", fqcn, NullPointerException.class);
+        AssertUtils2.assertNotNull("Full Qualified Class Name MUST NOT BE NULL !!!", fqcn, NullPointerException.class);
 
         Function<String, R> c = (Function<String, R>) CONVERTERS.get(fqcn);
 
-        AssertUtils.assertNull("No converter for " + fqcn, c, NullPointerException.class);
+        AssertUtils2.assertNotNull("No converter for " + fqcn, c, NullPointerException.class);
 
         return c;
     }
@@ -175,7 +175,7 @@ public class SaxTextConverter {
      */
     @SuppressWarnings("unchecked")
     public <R> Function<String, R> registerConverter(String fqcn, Function<String, R> converter) {
-        AssertUtils.assertNulls("Class<?> or Converter MUST NOT BE NULL !!!", NullPointerException.class, fqcn, converter);
+        AssertUtils2.assertNotNulls("Class<?> or Converter MUST NOT BE NULL !!!", NullPointerException.class, fqcn, converter);
 
         return (Function<String, R>) CONVERTERS.put(fqcn, converter);
     }

@@ -32,7 +32,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -55,7 +55,7 @@ public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
      */
     @Override
     public void addValidToken(T token) {
-        AssertUtils.assertNull(token);
+        AssertUtils2.assertNotNull(token);
 
         synchronized (mutexValidTokens) {
             validTokens.add(token);

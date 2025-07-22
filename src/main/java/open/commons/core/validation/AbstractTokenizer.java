@@ -29,7 +29,7 @@ package open.commons.core.validation;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 
 public abstract class AbstractTokenizer<D, T> implements ITokenizer<D, T> {
 
@@ -38,7 +38,7 @@ public abstract class AbstractTokenizer<D, T> implements ITokenizer<D, T> {
     protected Iterator<T> tokens;
 
     public AbstractTokenizer(D data) throws NullPointerException {
-        AssertUtils.assertNull("A data MUST NOT BE null", data, NullPointerException.class);
+        AssertUtils2.assertNotNull("A data MUST NOT BE null", data, NullPointerException.class);
 
         this.data = data;
 

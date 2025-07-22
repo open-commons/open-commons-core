@@ -61,7 +61,7 @@ public class AnnotationUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
         for (Class<? extends Annotation> annoClass : annoClasses) {
             if (!accObj.isAnnotationPresent(annoClass)) {
@@ -181,7 +181,7 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
@@ -260,7 +260,7 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
@@ -308,7 +308,7 @@ public class AnnotationUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
 
         Class<?> type = typeClass;
@@ -340,7 +340,7 @@ public class AnnotationUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Object obj, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedFieldsAllHierarchy(obj.getClass(), annoClasses);
     }
@@ -454,7 +454,7 @@ public class AnnotationUtils {
      * @see Class#getMethods()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
@@ -503,7 +503,7 @@ public class AnnotationUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see Class#getMethods()
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedMethodsAll(object.getClass(), annoClasses);
     }
@@ -528,7 +528,7 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
@@ -578,7 +578,7 @@ public class AnnotationUtils {
      * @since 2020. 11. 9.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
 
         Class<?> type = typeClass;
@@ -611,7 +611,7 @@ public class AnnotationUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedMethodsAllHierarchy(object.getClass(), annoClasses);
     }

@@ -522,7 +522,6 @@ public class StopWatch {
             buf.append(String.format("%-10s\t%4s\t%s", "작업이름", "비율(%)", "경과시간(ns)"));
             buf.append("\n--------------------------------------------------");
             String fmt = "%-10s\t%3.1f%%\t%d (%s)";
-            final long total = this.get();
             this.recordNames.forEach(rn -> {
                 if (!alsoLast && LAST.equals(rn)) {
                     return;
@@ -531,10 +530,10 @@ public class StopWatch {
                 buf.append("\n");
                 long t = get(rn);
                 buf.append(String.format(fmt //
-                , StringUtils.compact(LAST.equals(rn) ? "마지막" : rn, 10) // 작업이름
-                , getPercentage(rn) * 100 // 전체 소유시간 대비 비율
-                , t // 경과 시간 (단위: nano seconds)
-                , getAsPretty(rn).trim().replaceAll("\\s{2,}", " ")));
+                        , StringUtils.compact(LAST.equals(rn) ? "마지막" : rn, 10) // 작업이름
+                        , getPercentage(rn) * 100 // 전체 소유시간 대비 비율
+                        , t // 경과 시간 (단위: nano seconds)
+                        , getAsPretty(rn).trim().replaceAll("\\s{2,}", " ")));
             });
 
             return buf.toString();

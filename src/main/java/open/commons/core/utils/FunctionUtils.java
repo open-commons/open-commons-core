@@ -1080,7 +1080,7 @@ public class FunctionUtils {
      * @version
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <R> Optional<R> runOnAsync(Predicate<R> filterIn, Supplier<R>... actions) {
         if (actions == null) {
             throw new NullPointerException();
@@ -1117,7 +1117,7 @@ public class FunctionUtils {
      * @version
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <R> Optional<R> runOnSync(Predicate<R> filterIn, Supplier<R>... actions) {
         if (actions == null) {
             throw new NullPointerException();

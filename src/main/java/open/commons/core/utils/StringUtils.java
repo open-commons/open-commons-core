@@ -300,8 +300,8 @@ public class StringUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String compact(String str, int len) {
-        AssertUtils.assertNull(str);
-        AssertUtils.assertTrue(len < 1);
+        AssertUtils2.assertNotNull(str);
+        AssertUtils2.assertFalse(len < 1);
 
         str = str.trim();
         if (str.length() <= len) {
@@ -338,8 +338,8 @@ public class StringUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concat(List<String> strings, String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
-        AssertUtils.assertNull(delimeter);
-        AssertUtils.assertNull(strings);
+        AssertUtils2.assertNotNull(delimeter);
+        AssertUtils2.assertNotNull(strings);
 
         StringBuilder buf = new StringBuilder();
 
@@ -380,8 +380,8 @@ public class StringUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concat(String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
-        AssertUtils.assertNull(delimeter);
-        AssertUtils.assertNull(strings);
+        AssertUtils2.assertNotNull(delimeter);
+        AssertUtils2.assertNotNull(strings);
 
         StringBuilder buf = new StringBuilder();
 
@@ -1899,7 +1899,7 @@ public class StringUtils {
 
     private static Optional<String> next(String str, boolean trim, boolean addNulpty) {
         // null 확인
-        if (str == null && addNulpty) {
+        if (str == null) {
             return Optional.ofNullable(addNulpty ? "null" : null);
         } else
         // 빈 문자열 확인
@@ -2324,6 +2324,29 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
+     * 
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param trim
+     *            문자열 {@link String#trim()} 여부
+     * @return
+     */
+    public static String[] split(String string, String delim, boolean trim, int limit) {
+        String[] rtnStrings = string.split("[" + delim + "]", limit);
+
+        if (trim) {
+            for (int i = 0; i < rtnStrings.length; i++) {
+                rtnStrings[i] = rtnStrings[i].trim();
+            }
+        }
+
+        return rtnStrings;
+    }
+
+    /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
      * 
      * <pre>
@@ -2347,29 +2370,6 @@ public class StringUtils {
      */
     public static String[] split(String string, String delim, Function<String, String> post) {
         return split(string, delim, post, 0);
-    }
-
-    /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @param delim
-     *            문자열 구분자
-     * @param trim
-     *            문자열 {@link String#trim()} 여부
-     * @return
-     */
-    public static String[] split(String string, String delim, boolean trim, int limit) {
-        String[] rtnStrings = string.split("[" + delim + "]", limit);
-
-        if (trim) {
-            for (int i = 0; i < rtnStrings.length; i++) {
-                rtnStrings[i] = rtnStrings[i].trim();
-            }
-        }
-
-        return rtnStrings;
     }
 
     /**
@@ -2610,6 +2610,29 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
+     * 
+     * @param string
+     *            문자열
+     * @param delim
+     *            문자열 구분자
+     * @param trim
+     *            문자열 {@link String#trim()} 여부
+     * @return
+     */
+    public static String[] splitWithoutBracket(String string, String delim, boolean trim, int limit) {
+        String[] rtnStrings = string.split("[" + delim + "]", limit);
+
+        if (trim) {
+            for (int i = 0; i < rtnStrings.length; i++) {
+                rtnStrings[i] = rtnStrings[i].trim();
+            }
+        }
+
+        return rtnStrings;
+    }
+
+    /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
      * 
      * <pre>
@@ -2633,29 +2656,6 @@ public class StringUtils {
      */
     public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post) {
         return splitWithoutBracket(string, delim, post, 0);
-    }
-
-    /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @param delim
-     *            문자열 구분자
-     * @param trim
-     *            문자열 {@link String#trim()} 여부
-     * @return
-     */
-    public static String[] splitWithoutBracket(String string, String delim, boolean trim, int limit) {
-        String[] rtnStrings = string.split("[" + delim + "]", limit);
-
-        if (trim) {
-            for (int i = 0; i < rtnStrings.length; i++) {
-                rtnStrings[i] = rtnStrings[i].trim();
-            }
-        }
-
-        return rtnStrings;
     }
 
     /**

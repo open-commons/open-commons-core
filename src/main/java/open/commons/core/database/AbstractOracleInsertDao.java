@@ -30,6 +30,7 @@ package open.commons.core.database;
  * 
  * @since 2019. 11. 26.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @deprecated 다음 버전을 배포할 때 삭제될 예정.
  */
 public class AbstractOracleInsertDao extends AbstractInsertDao {
 

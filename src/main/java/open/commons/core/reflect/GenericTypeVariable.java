@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.ConvertUtils;
 
 /**
@@ -66,14 +66,14 @@ public class GenericTypeVariable implements Cloneable {
     }
 
     public GenericTypeVariable(Class<?> paramClass, String typeVarName) {
-        AssertUtils.assertNull("paramClass MUST NOT be null. paramClass: null", paramClass);
+        AssertUtils2.assertNotNull("paramClass MUST NOT be null. paramClass: null", paramClass, null);
 
         this.typeClass = paramClass;
         this.typeVarName = typeVarName;
     }
 
     public void addGenericParamType(GenericTypeVariable typeVar) {
-        AssertUtils.assertNull("paramType MUST NOT be null. typeVar: null", typeVar);
+        AssertUtils2.assertNotNull("paramType MUST NOT be null. typeVar: null", typeVar);
 
         synchronized (mutex) {
             genericTypeVars.add(typeVar);
@@ -87,7 +87,7 @@ public class GenericTypeVariable implements Cloneable {
      * @since 2014. 6. 18.
      */
     public void addGenericParamType(GenericTypeVariable... typeVars) {
-        AssertUtils.assertNulls("paramType MUST NOT be null. paramType: null", (Object[]) typeVars);
+        AssertUtils2.assertNotNulls("paramType MUST NOT be null. paramType: null", (Object[]) typeVars);
 
         synchronized (mutex) {
             genericTypeVars.addAll(Arrays.asList(typeVars));
@@ -138,7 +138,7 @@ public class GenericTypeVariable implements Cloneable {
     }
 
     public void reset(Class<?> paramClass) {
-        AssertUtils.assertNull("paramClass MUST NOT be null. paramClass: null", paramClass);
+        AssertUtils2.assertNotNull("paramClass MUST NOT be null. paramClass: null", paramClass);
 
         synchronized (mutex) {
             this.typeClass = paramClass;

@@ -26,7 +26,6 @@
 
 package open.commons.core.utils;
 
-import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
@@ -68,7 +67,9 @@ public class DataUtils {
                 } catch (Exception e) {
 
                 } finally {
-                    field.setAccessible(accessible);
+                    if (field != null) {
+                        field.setAccessible(accessible);
+                    }
                 }
 
                 return Void.TYPE;
@@ -79,16 +80,14 @@ public class DataUtils {
 
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T extends AccessibleObject> Object resolve(Class<?> _class_, Object instance, IAccessibleObjectAction<T> action)
-            throws IllegalArgumentException, IllegalAccessException {
+    private static Object resolve(Class<?> _class_, Object instance, IAccessibleObjectAction<Field> action) throws IllegalArgumentException, IllegalAccessException {
 
         Class<?> superClass = _class_.getSuperclass();
         if (superClass != null && !superClass.isInterface() && !Object.class.equals(superClass)) {
             resolve(superClass, instance, action);
         }
 
-        return action.act(instance, (Iterator<T>) Arrays.asList(_class_.getDeclaredFields()).iterator());
+        return action.act(instance, Arrays.asList(_class_.getDeclaredFields()).iterator());
     }
 
 }

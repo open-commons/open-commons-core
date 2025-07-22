@@ -60,6 +60,7 @@ import open.commons.core.utils.SQLUtils;
  * 
  * @since 2018. 5. 23.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @deprecated 다음 버전을 배포할 때 삭제될 예정.
  */
 public abstract class AbstractDao implements AutoCloseable {
 

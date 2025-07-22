@@ -95,8 +95,8 @@ public class Consumers<T> implements Closeable {
         this.resources.addAll(removables);
     }
 
-    @SuppressWarnings("unchecked")
-    public void addAll(T... removables) {
+    @SafeVarargs
+    public final void addAll(T... removables) {
         if (removables == null) {
             return;
         }

@@ -39,7 +39,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.CollectionUtils;
 
 /**
@@ -54,11 +54,11 @@ import open.commons.core.utils.CollectionUtils;
 public class AbstractValidator<D, T> implements IValidator<D, T> {
 
     protected static final int INIT_VALID = 0xFFFFFFFF;
-    private int valid = INIT_VALID;
-
     protected static final int MAX_FEATURE_COUNT = 31;
+
     protected static final int INIT_FEATURES = 0x00;
     protected static final int UNKNOWN_TOKEN_FEATURE = 31;
+    private int valid = INIT_VALID;
 
     private final AtomicInteger featureHolder = new AtomicInteger(0);
     private int featureCount = 0;
@@ -99,7 +99,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     }
 
     public int addTokenValidator(ITokenValidator<T> tokenValidator) {
-        AssertUtils.assertNulls(tokenValidator);
+        AssertUtils2.assertNotNulls(tokenValidator);
 
         int feature = getFeature(tokenValidator.isPositive());
 
@@ -108,7 +108,8 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
         return feature;
     }
 
-    public List<Integer> addTokenValidators(ITokenValidator<T>... tokenValidators) {
+    @SafeVarargs
+    public final List<Integer> addTokenValidators(ITokenValidator<T>... tokenValidators) {
         List<Integer> features = new ArrayList<Integer>();
         for (ITokenValidator<T> tokenValidator : tokenValidators) {
             features.add(addTokenValidator(tokenValidator));
@@ -141,7 +142,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
 
     protected final int getFeature(boolean positive) {
 
-        AssertUtils.assertTrue("Oops! The count of features is over the MAX.", featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class);
+        AssertUtils2.assertFalse("Oops! The count of features is over the MAX.", featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class);
 
         int feature = featureHolder.intValue();
 

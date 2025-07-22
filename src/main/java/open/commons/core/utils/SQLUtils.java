@@ -58,6 +58,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import open.commons.core.TwoValueObject;
 import open.commons.core.annotation.ColumnDecl;
 import open.commons.core.annotation.ColumnDef;
@@ -73,6 +76,8 @@ import open.commons.core.function.TripleFunction;
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class SQLUtils {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SQLUtils.class);
 
     public static final Pattern METHOD_BOOLEAN_PATTERN = Pattern.compile("^(is|get)(.+)$");
     public static final Pattern METHOD_PATTERN = Pattern.compile("^(get)(.+)$");
@@ -238,7 +243,7 @@ public class SQLUtils {
      * @see ColumnDecl
      */
     public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns) throws RuntimeException {
-        AssertUtils.assertNulls(obj1, obj2);
+        AssertUtils2.assertNotNulls(obj1, obj2);
 
         Class<?> dataType = obj1.getClass();
         // #0. @ColumnDecl 어노테이션이 있는 메소드 조회
@@ -684,7 +689,6 @@ public class SQLUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 9. 5.
      */
-    @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
 
         boolean isTagged = columns != null && columns.length > 0;
@@ -708,8 +712,7 @@ public class SQLUtils {
                             filtered = false;
                         }
                     } catch (Throwable t) {
-                        System.err.println("objectType: " + objectType + ", rs: " + rs + ", columns: " + columns == null ? null : Arrays.toString(columns));
-                        t.printStackTrace();
+                        LOGGER.error("objectType: {}, rs: {}, column: {}", objectType, rs, columns == null ? null : Arrays.toString(columns), t);
                     } finally {
                         m.setAccessible(accessible);
                     }
@@ -717,7 +720,7 @@ public class SQLUtils {
                     return filtered;
                 }).collect(Collectors.toList());
 
-        Object object = null;
+        T object = null;
         ColumnDef cdef = null;
         Object value = null;
 

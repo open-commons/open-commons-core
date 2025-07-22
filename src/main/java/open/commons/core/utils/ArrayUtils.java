@@ -3556,7 +3556,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(boolean[] array, boolean[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -3595,8 +3595,8 @@ public class ArrayUtils {
                 return new int[0];
             }
         } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(boolean[] array, boolean[] values) must not be 'null': array=" + array.toString() + ", values=" + values.toString()));
+            throw new IllegalArgumentException(
+                    new NullPointerException("One of parameters(boolean[] array, boolean[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -3647,7 +3647,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(byte[] array, byte[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -3687,7 +3687,7 @@ public class ArrayUtils {
             }
         } else {
             throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(byte[] array, byte[] values) must not be 'null': array=" + array + ", values=" + values.toString()));
+                    new NullPointerException("One of parameters(byte[] array, byte[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -3738,7 +3738,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(char[] array, char[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -3829,7 +3829,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(double[] array, double[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -3869,7 +3869,7 @@ public class ArrayUtils {
             }
         } else {
             throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(double[] array, double[] values) must not be 'null': array=" + array + ", values=" + values.toString()));
+                    new NullPointerException("One of parameters(double[] array, double[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -3920,7 +3920,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(float[] array, float[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -3960,7 +3960,7 @@ public class ArrayUtils {
             }
         } else {
             throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(float[] array, float[] values) must not be 'null': array=" + array + ", values=" + values.toString()));
+                    new NullPointerException("One of parameters(float[] array, float[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -4011,7 +4011,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(int[] array, int[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -4050,8 +4050,7 @@ public class ArrayUtils {
                 return new int[0];
             }
         } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(int[] array, int[] values) must not be 'null': array=" + array + ", values=" + values.toString()));
+            throw new IllegalArgumentException(new NullPointerException("One of parameters(int[] array, int[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -4102,7 +4101,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(long[] array, long[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -4142,7 +4141,7 @@ public class ArrayUtils {
             }
         } else {
             throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(long[] array, long[] values) must not be 'null': array=" + array + ", values=" + values.toString()));
+                    new NullPointerException("One of parameters(long[] array, long[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -4193,7 +4192,7 @@ public class ArrayUtils {
      */
     public static int[] indiceOf(short[] array, short[] values) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -4233,7 +4232,7 @@ public class ArrayUtils {
             }
         } else {
             throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(short[] array, short[] values) must not be 'null': array=" + array + ", values=" + values.toString()));
+                    new NullPointerException("One of parameters(short[] array, short[] values) must not be 'null': array=" + array + ", values=" + values));
         }
     }
 
@@ -4329,7 +4328,7 @@ public class ArrayUtils {
      */
     public static <T> int[] indiceOfArray(T[] array, T[] values, IEquivalent<T[]> equi) {
         if (array != null && values != null) {
-            if (values != null && array.length >= values.length) {
+            if (array.length >= values.length) {
 
                 int[] indice = new int[array.length / values.length * 2];
                 int indicePos = 0;
@@ -9096,8 +9095,8 @@ public class ArrayUtils {
                 return array;
             }
         } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(T[] array, T[] target, T[] data) must not be 'null': array=" + array + ", target=" + target.toString() + ", data=" + data));
+            throw new IllegalArgumentException(
+                    new NullPointerException("One of parameters(T[] array, T[] target, T[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
         }
     }
 

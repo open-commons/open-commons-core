@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.ConvertUtils;
 
 /**
@@ -66,7 +66,7 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ClassSpliterator(boolean forceToPrimitive, Object... data) {
-        AssertUtils.assertNulls(data);
+        AssertUtils2.assertNotNulls(data);
         this.forceToPrimitive = forceToPrimitive;
         this.data = data;
     }

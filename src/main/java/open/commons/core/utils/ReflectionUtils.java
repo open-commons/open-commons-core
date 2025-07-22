@@ -136,7 +136,7 @@ public class ReflectionUtils {
 
         TypeVariable<?>[] typeVars = targetClass.getTypeParameters();
 
-        AssertUtils.assertTrue("The number of TypeVariable MUST be equal to the number of classes used ", !lastCopy && typeVars.length > typeVarClasses.length);
+        AssertUtils2.assertFalse("The number of TypeVariable MUST be equal to the number of classes used ", !lastCopy && typeVars.length > typeVarClasses.length);
 
         typeVarClasses = ArrayUtils.adjustByLength(typeVars.length, typeVarClasses);
 
@@ -160,7 +160,7 @@ public class ReflectionUtils {
      */
     public static GenericTypeVariable createGenericTypeVariables(Class<?> targetClass, Class<?> typeVarClass) {
 
-        AssertUtils.assertNulls(targetClass, typeVarClass);
+        AssertUtils2.assertNotNulls(targetClass, typeVarClass);
 
         TypeVariable<?>[] typeVars = targetClass.getTypeParameters();
 
@@ -180,13 +180,13 @@ public class ReflectionUtils {
      * @since 2014. 6. 19.
      */
     public static boolean equalsName(Member m1, Member m2) {
-        AssertUtils.assertNulls("Neither m1 and m2 Class MUST be null. m1: " + m1 + ", m2: " + m2, m1, m2);
+        AssertUtils2.assertNotNulls("Neither m1 and m2 Class MUST be null. m1: " + m1 + ", m2: " + m2, m1, m2);
 
         return m1.getName().equals(m2.getName());
     }
 
     public static boolean equalsOneOfClasses(Class<?> target, Class<?>... candidates) {
-        AssertUtils.assertNull("target MUST NOT be null. target: " + target);
+        AssertUtils2.assertNotNull("target MUST NOT be null. target: " + target);
 
         for (Class<?> candidate : candidates) {
             if (target.equals(candidate)) {
@@ -263,7 +263,7 @@ public class ReflectionUtils {
      * @see Class#getDeclaredFields()
      */
     public static final <T extends Annotation> Map<Field, T> getAllAnnodatedFields(Object object, Class<T> annotationClass, IFilter<T> filter) {
-        AssertUtils.assertNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
+        AssertUtils2.assertNotNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
 
         Map<Field, T> annotatedFields = new HashMap<Field, T>();
 
@@ -309,7 +309,7 @@ public class ReflectionUtils {
      *
      */
     public static final <T extends Annotation> Map<Constructor<?>, T> getAnnotatedConstructors(Object object, Class<T> annotationClass) {
-        AssertUtils.assertNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
+        AssertUtils2.assertNotNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
 
         Map<Constructor<?>, T> annoConstructors = new HashMap<Constructor<?>, T>();
 
@@ -361,7 +361,7 @@ public class ReflectionUtils {
      * @see Class#getDeclaredFields()
      */
     public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass, IFilter<T> filter) {
-        AssertUtils.assertNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
+        AssertUtils2.assertNotNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
 
         Map<Field, T> annotatedFields = new HashMap<Field, T>();
 
@@ -421,7 +421,7 @@ public class ReflectionUtils {
      */
     public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annoType, Class<?> dataType) {
 
-        AssertUtils.assertNulls(annoType, dataType);
+        AssertUtils2.assertNotNulls(annoType, dataType);
 
         return Arrays.stream(dataType.getMethods()) //
                 .filter(m -> m.getAnnotation(annoType) != null) //
@@ -437,7 +437,7 @@ public class ReflectionUtils {
      * @return <b><code>nullable</code></b>.
      */
     public static <T extends Annotation> T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
-        AssertUtils.assertNulls("Neither accessObj and annotationClass MUST be null. accessObj: " + accessObj + ", annotationClass: " + annotationClass, accessObj,
+        AssertUtils2.assertNotNulls("Neither accessObj and annotationClass MUST be null. accessObj: " + accessObj + ", annotationClass: " + annotationClass, accessObj,
                 annotationClass);
 
         return accessObj.getAnnotation(annotationClass);
@@ -453,7 +453,7 @@ public class ReflectionUtils {
      * @return
      */
     public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annotationClass) {
-        AssertUtils.assertNulls("Neither clazz and annotationClass MUST be null. clazz: " + clazz + ", annotationClass: " + annotationClass, clazz, annotationClass);
+        AssertUtils2.assertNotNulls("Neither clazz and annotationClass MUST be null. clazz: " + clazz + ", annotationClass: " + annotationClass, clazz, annotationClass);
 
         return clazz.getAnnotation(annotationClass);
     }
@@ -608,7 +608,7 @@ public class ReflectionUtils {
      */
     public static void resetField(Object object, Field field) throws IllegalArgumentException, IllegalAccessException, NullPointerException, ExceptionInInitializerError {
 
-        AssertUtils.assertNulls("Neither object and field MUST be null. object: " + object + ", field: " + field, object, field);
+        AssertUtils2.assertNotNulls("Neither object and field MUST be null. object: " + object + ", field: " + field, object, field);
 
         Type type = field.getGenericType();
 
@@ -661,7 +661,7 @@ public class ReflectionUtils {
     public static void resetFieldForced(Object object, Field field)
             throws IllegalArgumentException, IllegalAccessException, SecurityException, NullPointerException, ExceptionInInitializerError {
 
-        AssertUtils.assertNulls("Neither object and field MUST be null. object: " + object + ", field: " + field, object, field);
+        AssertUtils2.assertNotNulls("Neither object and field MUST be null. object: " + object + ", field: " + field, object, field);
 
         boolean accessible = field.isAccessible();
 
@@ -681,7 +681,7 @@ public class ReflectionUtils {
      * @return
      */
     public static boolean subclassOneOf(Class<?> target, Class<?>... candidates) {
-        AssertUtils.assertNulls("Neither target and candidates MUST be null. target=null, candidates: " + candidates, target, candidates);
+        AssertUtils2.assertNotNulls("Neither target and candidates MUST be null. target=null, candidates: " + candidates, target, candidates);
 
         for (Class<?> candidate : candidates) {
             if (candidate.isAssignableFrom(target)) {
@@ -700,7 +700,7 @@ public class ReflectionUtils {
      * @return
      */
     public static boolean subclassOneOf(Object object, Class<?>... candidates) {
-        AssertUtils.assertNulls("Neither object and candidates MUST be null. object: " + object + ", candidates: " + candidates, object, candidates);
+        AssertUtils2.assertNotNulls("Neither object and candidates MUST be null. object: " + object + ", candidates: " + candidates, object, candidates);
 
         Class<?> target = object.getClass();
 
@@ -723,7 +723,7 @@ public class ReflectionUtils {
      * @since 2014. 5. 2.
      */
     public static List<Class<?>> superclasses(Object object, Class<?>... candidates) {
-        AssertUtils.assertNulls("Neither object and candidates MUST be null. object: " + object + ", candidates: " + candidates, object, candidates);
+        AssertUtils2.assertNotNulls("Neither object and candidates MUST be null. object: " + object + ", candidates: " + candidates, object, candidates);
 
         List<Class<?>> superclasses = new ArrayList<Class<?>>();
 

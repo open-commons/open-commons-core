@@ -206,7 +206,7 @@ public class LogStringFactory {
 
             elems.clear();
 
-            return String.format(String.valueOf(formatsCharArray), lseCharArray);
+            return String.format(String.valueOf(formatsCharArray), (Object[]) lseCharArray);
         }
 
         /**

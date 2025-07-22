@@ -39,6 +39,7 @@ import open.commons.core.function.TripleFunction;
  * 
  * @since 2019. 1. 14.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @deprecated 다음 버전을 배포할 때 삭제될 예정.
  */
 public abstract class AbstractInsertDao extends AbstractDao {
 

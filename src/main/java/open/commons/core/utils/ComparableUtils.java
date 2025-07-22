@@ -256,8 +256,12 @@ public class ComparableUtils {
                         break;
                     }
                 } finally {
-                    field1.setAccessible(accessible1);
-                    field2.setAccessible(accessible2);
+                    if (field1 != null) {
+                        field1.setAccessible(accessible1);
+                    }
+                    if (field2 != null) {
+                        field2.setAccessible(accessible2);
+                    }
                 }
             }
         } catch (Exception e) {

@@ -102,7 +102,6 @@ public class CsvUtils {
             }
 
             Class<?> type = object.getClass();
-            @SuppressWarnings("unchecked")
             List<Method> methods = AnnotationUtils.getAnnotatedMethodsAllHierarchy(type, WriteAt.class);
 
             // 반환할 데이터
@@ -160,7 +159,6 @@ public class CsvUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @see ReadAt
      */
-    @SuppressWarnings("unchecked")
     public static final <E> Function<String[], E> defaultCreator(Class<E> type) {
         return arr -> {
             try {
@@ -339,7 +337,7 @@ public class CsvUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <E> String[][] objectsToArray(E... objects) {
         return objectsToArray(Arrays.asList(objects), defaultCreator());
     }
@@ -367,7 +365,7 @@ public class CsvUtils {
      * 
      * @see #objectsToArray(Collection, Function)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <E> String[][] objectsToArray(Function<E, String[]> creator, E... objects) {
         return objectsToArray(Arrays.asList(objects), creator);
     }

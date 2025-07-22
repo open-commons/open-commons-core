@@ -149,8 +149,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      */
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        if (logger.isDebugEnabled() //
-                && dataQNames.contains(getCurrentQName())) {
+        if (dataQNames.contains(getCurrentQName())) {
             logger.debug(String.format("%s[ELEMENT::characters] start: %,4d, length: %,4d, value: %s" //
                     , indentation(), start, length, new String(ArrayUtils.copyOfRange(ch, start, start + length))));
         }
@@ -184,7 +183,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
         }
 
         if (logger.isDebugEnabled()) {
-            logger.debug(String.format("%s(Object) %s.%s = %s", indentation(), parentObj.getClass().getSimpleName(), qname, strValue));
+            logger.debug(String.format("%s(Object) %s.%s = %s", indentation(), parentObj != null ? parentObj.getClass().getSimpleName() : null, qname, strValue));
         }
     }
 

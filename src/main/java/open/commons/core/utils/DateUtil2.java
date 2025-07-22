@@ -113,7 +113,7 @@ public class DateUtil2 {
     public static Calendar toCalendar(String date) {
         Matcher m = yyyyMMDD_HHmmss.matcher(date);
 
-        AssertUtils.assertFalse("날짜 정보가 잘못되었습니다. 값: " + date, m.matches(), IllegalArgumentException.class);
+        AssertUtils2.assertTrue("날짜 정보가 잘못되었습니다. 값: " + date, m.matches(), IllegalArgumentException.class);
 
         int year = Integer.parseInt(m.group(1));
         int month = Integer.parseInt(m.group(2));
@@ -144,7 +144,7 @@ public class DateUtil2 {
      * @see {@value #REGEX_ISO_FORMAT}
      */
     public static String toISOFormat(Calendar calendar) {
-        AssertUtils.assertNull(calendar);
+        AssertUtils2.assertNotNull(calendar);
 
         return ISO_FORMAT.format(calendar.getTime());
     }
@@ -158,7 +158,7 @@ public class DateUtil2 {
      * @see {@value #REGEX_ISO_FORMAT_NO_TZ}
      */
     public static String toISOFormatNoTZ(Calendar calendar) {
-        AssertUtils.assertNull(calendar);
+        AssertUtils2.assertNotNull(calendar);
 
         return ISO_FORMAT_NO_TZ.format(calendar.getTime());
     }
@@ -203,7 +203,7 @@ public class DateUtil2 {
      */
     public static String toISOFormatNoTZ(String dateStr) {
         Matcher m = yyyyMMDD.matcher(dateStr);
-        AssertUtils.assertFalse("날짜 정보가 잘못되었습니다. 값: " + dateStr, m.matches(), IllegalArgumentException.class);
+        AssertUtils2.assertTrue("날짜 정보가 잘못되었습니다. 값: " + dateStr, m.matches(), IllegalArgumentException.class);
 
         return toISOFormatNoTZ(m.group(1), m.group(2), m.group(3));
     }

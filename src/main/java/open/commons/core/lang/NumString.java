@@ -31,7 +31,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
-import open.commons.core.utils.AssertUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.CollectionUtils;
 
 /**
@@ -53,7 +53,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @since 2020. 12. 17.
      */
     public NumString(N number) {
-        AssertUtils.assertNull(number);
+        AssertUtils2.assertNotNull(null, number, null);
         this.number = number;
     }
 
@@ -231,7 +231,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, T... nums) {
         return sequence(f, CollectionUtils.newList(nums));
     }
@@ -254,7 +254,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
+    @SafeVarargs
     public static <N extends Number> List<NumString<N>> sequence(N... nums) {
         return sequence(CollectionUtils.newList(nums));
     }
