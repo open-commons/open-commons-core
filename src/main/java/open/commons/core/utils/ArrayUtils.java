@@ -493,6 +493,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
+    @SafeVarargs
     public static <T> T[] add(T[] array, T... values) {
         return merge(array, values);
     }
@@ -552,6 +553,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
+
     public static byte[] addIfAbsent(byte[] array, byte... values) {
         if (values == null || values.length < 1) {
             return copyOf(array, array.length);
@@ -6577,6 +6579,7 @@ public class ArrayUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
+    @SafeVarargs
     public static <T> T[] prepend(T[] array, T... values) {
         return merge(values, array);
     }
