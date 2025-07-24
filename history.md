@@ -1,3 +1,9 @@
+[2025/07/24]
+- Dependencies
+  + Add
+    + jakarta.validation:jakarata.validation-api:${managed-version}
+    + com.google.code.findbugs:jsr305:${managed-version}
+    
 [2025/06/24]
 - New
   + ThreadLocal 기능 추가

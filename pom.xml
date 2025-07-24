@@ -120,6 +120,21 @@
 		</dependency>
 		<!-- end: OpenCSV -->
 		<!-- ************** -->
+
+    <!-- ************** -->
+    <!-- >>> begin: Validation -->    
+    <!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305 -->
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
+    </dependency>
+    <!-- <<< end: Validation -->
+    <!-- ************** -->
 	</dependencies>
 
 	<build>
@@ -142,7 +157,7 @@
 			</resource>
 		</resources>
 		<plugins>
-			<!-- >>> begin: compile -->
+      <!-- >>> begin: compile -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -152,9 +167,9 @@
 					<target>${compile.target.version}</target>
 				</configuration>
 			</plugin>
-			<!-- <<< end: compile -->
+      <!-- <<< end: compile -->
 
-			<!-- >>> begin: source -->
+      <!-- >>> begin: source -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
@@ -170,8 +185,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <<< end: source -->
-			<!-- >>> begin: javadoc -->
+      <!-- <<< end: source -->
+      <!-- >>> begin: javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -195,9 +210,9 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <<< end: javadoc -->
+      <!-- <<< end: javadoc -->
 
-			<!-- Maven Central Deployment plugin -->
+      <!-- Maven Central Deployment plugin -->
 			<plugin>
 				<groupId>org.sonatype.central</groupId>
 				<artifactId>central-publishing-maven-plugin</artifactId>
@@ -205,11 +220,11 @@
 				<extensions>true</extensions>
 				<configuration>
 					<publishingServerId>maven-central</publishingServerId>
-					<!-- autoPublish>true</autoPublish>
+          <!-- autoPublish>true</autoPublish>
              		<waitUntil>published</waitUntil -->
 				</configuration>
 			</plugin>
-			<!-- GPG signature plugin -->
+      <!-- GPG signature plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
