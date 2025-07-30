@@ -1,3 +1,9 @@
+[2025/07/30]
+- Add
+  + open.commons.core.utils.StringUtils
+    + startsWithIgnoreCaseOneOf(String, Collection<String>)
+    + startsWithOneOf(String, Collection<String>)
+
 [2025/07/24]
 - Dependencies
   + Add

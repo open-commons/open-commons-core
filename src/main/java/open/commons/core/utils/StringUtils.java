@@ -41,6 +41,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 
+import javax.annotation.Nonnull;
+
 import open.commons.core.log.LogUtils;
 import open.commons.core.prog.StrLenRvrOrderingEntry;
 
@@ -2799,6 +2801,38 @@ public class StringUtils {
     }
 
     /**
+     * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. (대소문자 관계없이) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 7. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * 
+     * @param prefixes
+     *            접두어들
+     * @return
+     *
+     * @since 2025. 7. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean startsWithIgnoreCaseOneOf(String string, @Nonnull Collection<String> prefixes) {
+
+        for (String prefix : prefixes) {
+            if (startsWithIgnoreCase(string, prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
@@ -2807,10 +2841,41 @@ public class StringUtils {
      *            접두어들
      * @return
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, String... prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, @Nonnull String... prefixes) {
 
         for (String prefix : prefixes) {
             if (startsWithIgnoreCase(string, prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 7. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            문자열
+     * @param prefixes
+     *            접두어들
+     * @return
+     *
+     * @since 2025. 7. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static boolean startsWithOneOf(String string, @Nonnull Collection<String> prefixes) {
+
+        for (String prefix : prefixes) {
+            if (string.startsWith(prefix)) {
                 return true;
             }
         }
@@ -2827,7 +2892,7 @@ public class StringUtils {
      *            접두어들
      * @return
      */
-    public static boolean startsWithOneOf(String string, String... prefixes) {
+    public static boolean startsWithOneOf(String string, @Nonnull String... prefixes) {
 
         for (String prefix : prefixes) {
             if (string.startsWith(prefix)) {
