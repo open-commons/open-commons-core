@@ -1,3 +1,7 @@
+[2025/07/31]
+- Modify
+  + open.commons.core.utils.AssertUtils2: 메소드 이름에서 'assert' 제거.
+
 [2025/07/30]
 - Add
   + open.commons.core.utils.StringUtils

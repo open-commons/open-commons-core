@@ -1380,7 +1380,7 @@ public class DateUtil {
     public static Calendar toCalendar(String date) {
         Matcher m = yyyyMMDD_HHmmss.matcher(date);
 
-        AssertUtils2.assertTrue("날짜 정보가 잘못되었습니다. 값: " + date, m.matches(), IllegalArgumentException.class);
+        AssertUtils2.isTrue("날짜 정보가 잘못되었습니다. 값: " + date, m.matches(), IllegalArgumentException.class);
 
         int year = Integer.parseInt(m.group(1));
         int month = Integer.parseInt(m.group(2));
@@ -1411,7 +1411,7 @@ public class DateUtil {
      * @see {@value #REGEX_ISO_FORMAT}
      */
     public static String toISOFormat(Calendar calendar) {
-        AssertUtils2.assertNotNull(calendar);
+        AssertUtils2.notNull(calendar);
         return new SimpleDateFormat(REGEX_ISO_FORMAT).format(calendar.getTime());
     }
 
@@ -1433,7 +1433,7 @@ public class DateUtil {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toISOFormat(Long timestamp) {
-        AssertUtils2.assertNotNull(timestamp);
+        AssertUtils2.notNull(timestamp);
         return new SimpleDateFormat(REGEX_ISO_FORMAT).format(newCalendar(timestamp).getTime());
     }
 
@@ -1446,7 +1446,7 @@ public class DateUtil {
      * @see {@value #REGEX_ISO_FORMAT_NO_TZ}
      */
     public static String toISOFormatNoTZ(Calendar calendar) {
-        AssertUtils2.assertNotNull(calendar);
+        AssertUtils2.notNull(calendar);
         return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(calendar.getTime());
     }
 
@@ -1498,7 +1498,7 @@ public class DateUtil {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String toISOFormatNoTZ(Long timestamp) {
-        AssertUtils2.assertNotNull(timestamp);
+        AssertUtils2.notNull(timestamp);
         return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(newCalendar(timestamp).getTime());
     }
 
@@ -1512,7 +1512,7 @@ public class DateUtil {
      */
     public static String toISOFormatNoTZ(String dateStr) {
         Matcher m = yyyyMMDD.matcher(dateStr);
-        AssertUtils2.assertTrue("날짜 정보가 잘못되었습니다. 값: " + dateStr, m.matches(), IllegalArgumentException.class);
+        AssertUtils2.isTrue("날짜 정보가 잘못되었습니다. 값: " + dateStr, m.matches(), IllegalArgumentException.class);
 
         return toISOFormatNoTZ(m.group(1), m.group(2), m.group(3));
     }

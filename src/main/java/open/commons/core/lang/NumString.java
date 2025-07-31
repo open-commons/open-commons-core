@@ -53,7 +53,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @since 2020. 12. 17.
      */
     public NumString(N number) {
-        AssertUtils2.assertNotNull(null, number, null);
+        AssertUtils2.notNull(null, number, null);
         this.number = number;
     }
 

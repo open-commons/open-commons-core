@@ -66,7 +66,7 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ClassSpliterator(boolean forceToPrimitive, Object... data) {
-        AssertUtils2.assertNotNulls(data);
+        AssertUtils2.notNulls(data);
         this.forceToPrimitive = forceToPrimitive;
         this.data = data;
     }

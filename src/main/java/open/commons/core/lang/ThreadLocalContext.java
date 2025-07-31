@@ -63,7 +63,7 @@ public class ThreadLocalContext implements IThreadLocalContext {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public ThreadLocalContext(ThreadLocal<Map<Object, Object>> context) {
-        AssertUtils2.assertNotNull(context);
+        AssertUtils2.notNull(context);
         this.context = context;
     }
 

@@ -27,7 +27,6 @@
 package open.commons.core.lang;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
@@ -44,7 +43,7 @@ import open.commons.core.utils.MapUtils;
  */
 public class ThreadLocalContextService {
 
-    private static final Map<Object, IThreadLocalContext> CONTEXTS = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Object, IThreadLocalContext> CONTEXTS = new ConcurrentHashMap<>();
     private static final Mutex mutex = new Mutex("thread-context-service");
 
     private ThreadLocalContextService() {
@@ -67,9 +66,9 @@ public class ThreadLocalContextService {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static void clear(Object type) {
-        AssertUtils2.assertNotNull("Thread Context 의 식별정보는 null 일 수 없습니다.", type);
+        AssertUtils2.notNull("Thread Context 의 식별정보는 null 일 수 없습니다.", type);
         synchronized (mutex) {
-            IThreadLocalContext tc = CONTEXTS.get(type);
+            IThreadLocalContext tc = CONTEXTS.remove(type);
             if (tc != null) {
                 tc.clear();
             }
@@ -93,7 +92,10 @@ public class ThreadLocalContextService {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static void clearAll() {
-        CONTEXTS.values().forEach(c -> c.clear());
+        synchronized (mutex) {
+            CONTEXTS.values().forEach(c -> c.clear());
+            CONTEXTS.clear();
+        }
     }
 
     /**
@@ -115,7 +117,7 @@ public class ThreadLocalContextService {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static IThreadLocalContext context(Object type) {
-        AssertUtils2.assertNotNull("Thread Context 의 식별정보는 null 일 수 없습니다.", type);
+        AssertUtils2.notNull("Thread Context 의 식별정보는 null 일 수 없습니다.", type);
         synchronized (mutex) {
             Supplier<IThreadLocalContext> s = () -> new ThreadLocalContext(ThreadLocal.withInitial(HashMap::new));
             return MapUtils.getOrDefault(CONTEXTS, type, s, true);

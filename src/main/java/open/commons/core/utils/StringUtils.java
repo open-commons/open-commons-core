@@ -302,8 +302,8 @@ public class StringUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String compact(String str, int len) {
-        AssertUtils2.assertNotNull(str);
-        AssertUtils2.assertFalse(len < 1);
+        AssertUtils2.notNull(str);
+        AssertUtils2.isFalse(len < 1);
 
         str = str.trim();
         if (str.length() <= len) {
@@ -340,8 +340,8 @@ public class StringUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concat(List<String> strings, String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
-        AssertUtils2.assertNotNull(delimeter);
-        AssertUtils2.assertNotNull(strings);
+        AssertUtils2.notNull(delimeter);
+        AssertUtils2.notNull(strings);
 
         StringBuilder buf = new StringBuilder();
 
@@ -382,8 +382,8 @@ public class StringUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String concat(String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
-        AssertUtils2.assertNotNull(delimeter);
-        AssertUtils2.assertNotNull(strings);
+        AssertUtils2.notNull(delimeter);
+        AssertUtils2.notNull(strings);
 
         StringBuilder buf = new StringBuilder();
 

@@ -412,7 +412,7 @@ public class TimeUtils {
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder set(TimeUnit unit, String expr) {
-            AssertUtils2.assertNotNulls(IllegalArgumentException.class, unit, expr);
+            AssertUtils2.notNulls(IllegalArgumentException.class, unit, expr);
 
             switch (unit) {
                 case NANOSECONDS:

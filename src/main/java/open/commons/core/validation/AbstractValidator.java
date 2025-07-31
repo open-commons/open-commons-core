@@ -99,7 +99,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     }
 
     public int addTokenValidator(ITokenValidator<T> tokenValidator) {
-        AssertUtils2.assertNotNulls(tokenValidator);
+        AssertUtils2.notNulls(tokenValidator);
 
         int feature = getFeature(tokenValidator.isPositive());
 
@@ -142,7 +142,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
 
     protected final int getFeature(boolean positive) {
 
-        AssertUtils2.assertFalse("Oops! The count of features is over the MAX.", featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class);
+        AssertUtils2.isFalse("Oops! The count of features is over the MAX.", featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class);
 
         int feature = featureHolder.intValue();
 

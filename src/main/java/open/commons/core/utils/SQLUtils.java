@@ -243,7 +243,7 @@ public class SQLUtils {
      * @see ColumnDecl
      */
     public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns) throws RuntimeException {
-        AssertUtils2.assertNotNulls(obj1, obj2);
+        AssertUtils2.notNulls(obj1, obj2);
 
         Class<?> dataType = obj1.getClass();
         // #0. @ColumnDecl 어노테이션이 있는 메소드 조회

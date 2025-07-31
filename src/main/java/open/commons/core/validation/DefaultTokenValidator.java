@@ -55,7 +55,7 @@ public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
      */
     @Override
     public void addValidToken(T token) {
-        AssertUtils2.assertNotNull(token);
+        AssertUtils2.notNull(token);
 
         synchronized (mutexValidTokens) {
             validTokens.add(token);

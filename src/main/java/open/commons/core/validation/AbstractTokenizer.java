@@ -38,7 +38,7 @@ public abstract class AbstractTokenizer<D, T> implements ITokenizer<D, T> {
     protected Iterator<T> tokens;
 
     public AbstractTokenizer(D data) throws NullPointerException {
-        AssertUtils2.assertNotNull("A data MUST NOT BE null", data, NullPointerException.class);
+        AssertUtils2.notNull("A data MUST NOT BE null", data, NullPointerException.class);
 
         this.data = data;
 

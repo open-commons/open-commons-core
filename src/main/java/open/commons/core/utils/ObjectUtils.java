@@ -590,7 +590,7 @@ public class ObjectUtils {
     @SuppressWarnings("unchecked")
     public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws IllegalArgumentException {
 
-        AssertUtils2.assertNotNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
+        AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
         int key = TYPE_CONVERTER_KEYGEN.apply(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
         return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, key,
@@ -660,8 +660,8 @@ public class ObjectUtils {
      */
     public static <S, T> Function<S, T> getTransformer(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
 
-        AssertUtils2.assertNotNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
-        AssertUtils2.assertFalse("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
+        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
 
         return getTransformer(src.iterator().next(), lookupSrcSuper, targetType, lookupTargetSuper);
     }
@@ -695,8 +695,8 @@ public class ObjectUtils {
      */
     public static <S, T> Function<S, T> getTransformer(Collection<S> src, Class<T> target) {
 
-        AssertUtils2.assertNotNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
-        AssertUtils2.assertFalse("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
 
         return getTransformer(src, false, target, false);
     }
@@ -770,7 +770,7 @@ public class ObjectUtils {
     public static <S, T> Function<S, T> getTransformer(int typeConverterKey, Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper)
             throws NullPointerException {
 
-        AssertUtils2.assertNotNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
+        AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
         return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, typeConverterKey,
                 (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
@@ -809,7 +809,7 @@ public class ObjectUtils {
     @SuppressWarnings("unchecked")
     public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws NullPointerException {
 
-        AssertUtils2.assertNotNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
 
         return (Function<S, T>) getTransformer(src.getClass(), lookupSrcSuper, targetType, lookupTargetSuper);
     }
@@ -849,7 +849,7 @@ public class ObjectUtils {
     @SuppressWarnings("unchecked")
     public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) throws IllegalArgumentException {
 
-        AssertUtils2.assertNotNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+        AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
         return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, (Class<T>) target.getClass(), lookupTargetSuper);
     }
@@ -936,7 +936,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isPrimitive(Class<?> type) {
-        AssertUtils2.assertNotNull(type);
+        AssertUtils2.notNull(type);
         return PRIMITIVES.contains(type);
     }
 
@@ -960,7 +960,7 @@ public class ObjectUtils {
      * @deprecated DO NOT USE. 잘못 정의된 메소드.
      */
     public static boolean isPrimitive(Object obj) {
-        AssertUtils2.assertNotNull(obj);
+        AssertUtils2.notNull(obj);
         return PRIMITIVES.contains(obj.getClass());
     }
 
@@ -1012,7 +1012,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWrapper(Class<?> type) {
-        AssertUtils2.assertNotNull(type);
+        AssertUtils2.notNull(type);
         return WRAPPER_TYPES.contains(type);
     }
 
@@ -1034,7 +1034,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static boolean isWrapper(Object obj) {
-        AssertUtils2.assertNotNull(obj);
+        AssertUtils2.notNull(obj);
         return WRAPPER_TYPES.contains(obj.getClass());
     }
 
@@ -1380,7 +1380,7 @@ public class ObjectUtils {
     public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
             Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
 
-        AssertUtils2.assertNotNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
+        AssertUtils2.notNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
 
         // primitive 타입, wrapper 타입인 경우 추가 자동 등록
         Set<Class<?>> srcPropertyTypes = getPropertyConvertedTypes(srcPropertyClass);
@@ -2249,7 +2249,7 @@ public class ObjectUtils {
     @SuppressWarnings("unchecked")
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
 
-        AssertUtils2.assertNotNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
         List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
         if (getters.size() < 1) {

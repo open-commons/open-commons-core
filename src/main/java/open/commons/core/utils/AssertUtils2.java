@@ -64,13 +64,56 @@ public class AssertUtils2 {
 
     /**
      * 
-     * @param descendant
-     * @param ancestor
+     * @param arg1
+     * @param arg2
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertClass(Class<?> descendant, Class<?> ancestor) {
-        assertClass(null, descendant, ancestor, AssertionException.class);
+    public static void equals(Object arg1, Object arg2) {
+        equals(null, arg1, arg2, AssertionException.class);
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void equals(Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
+        equals(null, arg1, arg2, occurExeption);
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void equals(String assertMsg, Object arg1, Object arg2) {
+        equals(assertMsg, arg1, arg2, AssertionException.class);
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void equals(String assertMsg, Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
+        if (equals_(arg1, arg2)) {
+            assert0(occurExeption, "The result MUST be 'equal'." + msg0(assertMsg));
+        }
+    }
+
+    private static boolean equals_(Object arg1, Object arg2) {
+        if (arg1 != null && arg2 != null) {
+            return arg1.equals(arg2);
+        } else {
+            return arg1 == null && arg2 == null;
+        }
     }
 
     /**
@@ -80,8 +123,8 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertClass(Class<?> descendant, Class<?> ancestor, Class<? extends RuntimeException> occurExeption) {
-        assertClass(null, descendant, ancestor, occurExeption);
+    public static void isClass(Class<?> descendant, Class<?> ancestor) {
+        isClass(null, descendant, ancestor, AssertionException.class);
     }
 
     /**
@@ -91,8 +134,8 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertClass(String assertMsg, Class<?> descendant, Class<?> ancestor) {
-        assertClass(assertMsg, descendant, ancestor, AssertionException.class);
+    public static void isClass(Class<?> descendant, Class<?> ancestor, Class<? extends RuntimeException> occurExeption) {
+        isClass(null, descendant, ancestor, occurExeption);
     }
 
     /**
@@ -102,63 +145,28 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertClass(String assertMsg, Class<?> descendant, Class<?> ancestor, Class<? extends RuntimeException> occurExeption) {
+    public static void isClass(String assertMsg, Class<?> descendant, Class<?> ancestor) {
+        isClass(assertMsg, descendant, ancestor, AssertionException.class);
+    }
 
-        assertNotNulls("Neither ancestor and descendant MUST be null.", ancestor, descendant);
+    /**
+     * 
+     * @param descendant
+     * @param ancestor
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void isClass(String assertMsg, Class<?> descendant, Class<?> ancestor, Class<? extends RuntimeException> occurExeption) {
+
+        notNulls("Neither ancestor and descendant MUST be null.", ancestor, descendant);
 
         if (!ancestor.isAssignableFrom(descendant.getClass())) {
             assert0(occurExeption, "descendant's type MUST be " + ancestor + " or impelemt " + ancestor + msg0(assertMsg));
         }
     }
 
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertEqual(Object arg1, Object arg2) {
-        assertEqual(null, arg1, arg2, AssertionException.class);
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertEqual(Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
-        assertEqual(null, arg1, arg2, occurExeption);
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertEqual(String assertMsg, Object arg1, Object arg2) {
-        assertEqual(assertMsg, arg1, arg2, AssertionException.class);
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertEqual(String assertMsg, Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
-        if (isEquals(arg1, arg2)) {
-            assert0(occurExeption, "The result MUST be 'equal'." + msg0(assertMsg));
-        }
-    }
-
-    public static void assertFalse(boolean bool) {
-        assertFalse(null, bool, AssertionException.class);
+    public static void isFalse(boolean bool) {
+        isFalse(null, bool, AssertionException.class);
     }
 
     /**
@@ -167,12 +175,12 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertFalse(boolean bool, Class<? extends RuntimeException> occurExeption) {
-        assertFalse(null, bool, occurExeption);
+    public static void isFalse(boolean bool, Class<? extends RuntimeException> occurExeption) {
+        isFalse(null, bool, occurExeption);
     }
 
-    public static void assertFalse(String assertMsg, boolean bool) {
-        assertFalse(assertMsg, bool, AssertionException.class);
+    public static void isFalse(String assertMsg, boolean bool) {
+        isFalse(assertMsg, bool, AssertionException.class);
     }
 
     /**
@@ -181,7 +189,7 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertFalse(String assertMsg, boolean bool, Class<? extends RuntimeException> occurExeption) {
+    public static void isFalse(String assertMsg, boolean bool, Class<? extends RuntimeException> occurExeption) {
         try {
             if (bool) {
                 assert0(occurExeption, "The result MUST be false." + msg0(assertMsg));
@@ -192,223 +200,77 @@ public class AssertUtils2 {
         }
     }
 
-    public static void assertInterface(Object object) {
-        assertInterface(null, object, AssertionException.class);
+    public static void isInterface(Object object) {
+        isInterface(null, object, AssertionException.class);
     }
 
-    public static void assertInterface(Object object, Class<? extends RuntimeException> occurExeption) {
-        assertInterface(null, object, occurExeption);
+    public static void isInterface(Object object, Class<? extends RuntimeException> occurExeption) {
+        isInterface(null, object, occurExeption);
     }
 
-    public static void assertInterface(String assertMsg, Object object) {
-        assertInterface(assertMsg, object, AssertionException.class);
+    public static void isInterface(String assertMsg, Object object) {
+        isInterface(assertMsg, object, AssertionException.class);
     }
 
-    public static void assertInterface(String assertMsg, Object object, Class<? extends RuntimeException> occurExeption) {
-        assertNotNull("The object MUST NOT be null. object: null", object);
+    public static void isInterface(String assertMsg, Object object, Class<? extends RuntimeException> occurExeption) {
+        notNull("The object MUST NOT be null. object: null", object);
 
-        if (!isInterface(object)) {
+        if (!isInterface_(object)) {
             assert0(occurExeption, "The object is MUST be interface." + msg0(assertMsg));
         }
     }
 
-    public static void assertMapNotNull(Map<?, ?> map) {
-        assertMapNotNull(null, map, null);
+    private static boolean isInterface_(Object object) {
+        Class<?> class_ = object instanceof Class ? (Class<?>) object : object.getClass();
+        return class_.isInterface();
     }
 
-    public static void assertMapNotNull(Map<?, ?> map, Class<? extends RuntimeException> occurException) {
-        assertMapNotNull(null, map, occurException);
+    public static void isNull(Object object) {
+        isNull(null, object, null);
     }
 
-    public static void assertMapNotNull(String assertMsg, Map<?, ?> map) {
-        assertMapNotNull(assertMsg, map, null);
+    public static void isNull(Object object, Class<? extends RuntimeException> occurException) {
+        isNull(null, object, occurException);
     }
 
-    public static void assertMapNotNull(String assertMsg, Map<?, ?> map, Class<? extends RuntimeException> occurException) {
-        assertNotNull("The map MUST NOT be null. map: null", map);
-
-        Object key = null;
-        Object value = null;
-        for (Entry<?, ?> entry : map.entrySet()) {
-            key = entry.getKey();
-            value = entry.getValue();
-            assertNotNulls("Neither key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(assertMsg), key, value);
-        }
+    public static void isNull(String assertMsg, Object object) {
+        isNull(assertMsg, object, null);
     }
 
-    public static void assertMapNull(Map<?, ?> map) {
-        assertMapNull(null, map, null);
-    }
-
-    public static void assertMapNull(Map<?, ?> map, Class<? extends RuntimeException> occurException) {
-        assertMapNull(null, map, occurException);
-    }
-
-    public static void assertMapNull(String assertMsg, Map<?, ?> map) {
-        assertMapNull(assertMsg, map, null);
-    }
-
-    public static void assertMapNull(String assertMsg, Map<?, ?> map, Class<? extends RuntimeException> occurException) {
-        assertNotNull("The map MUST NOT be null. map: null", map);
-
-        Object key = null;
-        Object value = null;
-        for (Entry<?, ?> entry : map.entrySet()) {
-            key = entry.getKey();
-            value = entry.getValue();
-            assertNulls("key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(assertMsg), key, value);
-        }
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertNotEqual(Object arg1, Object arg2) {
-        assertNotEqual(null, arg1, arg2, AssertionException.class);
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertNotEqual(Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
-        assertNotEqual(null, arg1, arg2, occurExeption);
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertNotEqual(String assertMsg, Object arg1, Object arg2) {
-        assertNotEqual(assertMsg, arg1, arg2, AssertionException.class);
-    }
-
-    /**
-     * 
-     * @param arg1
-     * @param arg2
-     * @param occurExeption
-     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     */
-    public static void assertNotEqual(String assertMsg, Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
-        if (!isEquals(arg1, arg2)) {
-            assert0(occurExeption, "The result MUST be NOT 'equal'." + msg0(assertMsg));
-        }
-    }
-
-    public static void assertNotInterface(Object object) {
-        assertNotInterface(null, object, AssertionException.class);
-    }
-
-    public static void assertNotInterface(Object object, Class<? extends RuntimeException> occurExeption) {
-        assertNotInterface(null, object, occurExeption);
-    }
-
-    public static void assertNotInterface(String assertMsg, Object object) {
-        assertNotInterface(assertMsg, object, AssertionException.class);
-    }
-
-    public static void assertNotInterface(String assertMsg, Object object, Class<? extends RuntimeException> occurExeption) {
-        assertNotNull("The object MUST NOT be null. object: null", object);
-
-        if (isInterface(object)) {
-            assert0(occurExeption, "The object is MUST NOT be interface." + msg0(assertMsg));
-
-        }
-    }
-
-    public static void assertNotNull(Object object) {
-        assertNotNull(null, object, null);
-    }
-
-    public static void assertNotNull(Object object, Class<? extends RuntimeException> occurException) {
-        assertNotNull(null, object, occurException);
-    }
-
-    public static void assertNotNull(String assertMsg, Object object) {
-        assertNotNull(assertMsg, object, null);
-    }
-
-    public static void assertNotNull(String assertMsg, Object object, Class<? extends RuntimeException> occurException) {
-        if (isNull(object)) {
+    public static void isNull(String assertMsg, Object object, Class<? extends RuntimeException> occurException) {
+        if (!isNull_(object)) {
             assert0(occurException == null ? NullPointerException.class : occurException, msg0(assertMsg));
         }
     }
 
-    public static void assertNotNulls(Class<? extends RuntimeException> occurException, Object... objects) {
-        assertNotNulls(null, occurException, objects);
+    private static boolean isNull_(Object object) {
+        return object == null;
     }
 
-    public static void assertNotNulls(Object... objects) {
-        assertNotNulls(null, null, objects);
+    public static void isNulls(Class<? extends RuntimeException> occurException, Object... objects) {
+        isNulls(null, occurException, objects);
     }
 
-    public static void assertNotNulls(String assertMsg, Class<? extends RuntimeException> occurException, Object... objects) {
-        assertNotNull(assertMsg, objects, occurException);
+    public static void isNulls(Object... objects) {
+        isNulls(null, null, objects);
+    }
+
+    public static void isNulls(String assertMsg, Class<? extends RuntimeException> occurException, Object... objects) {
+        isNull(null, objects, null);
 
         for (Object object : objects) {
-            if (isNull(object)) {
+            if (!isNull_(object)) {
                 assert0(occurException == null ? NullPointerException.class : occurException, "objects: " + Arrays.toString(objects) + msg0(assertMsg));
             }
         }
     }
 
-    public static void assertNotNulls(String assertMsg, Object... objects) {
-        assertNotNulls(assertMsg, null, objects);
+    public static void isNulls(String assertMsg, Object... objects) {
+        isNulls(assertMsg, null, objects);
     }
 
-    public static void assertNull(Object object) {
-        assertNull(null, object, null);
-    }
-
-    public static void assertNull(Object object, Class<? extends RuntimeException> occurException) {
-        assertNull(null, object, occurException);
-    }
-
-    public static void assertNull(String assertMsg, Object object) {
-        assertNull(assertMsg, object, null);
-    }
-
-    public static void assertNull(String assertMsg, Object object, Class<? extends RuntimeException> occurException) {
-        if (!isNull(object)) {
-            assert0(occurException == null ? NullPointerException.class : occurException, msg0(assertMsg));
-        }
-    }
-
-    public static void assertNulls(Class<? extends RuntimeException> occurException, Object... objects) {
-        assertNulls(null, occurException, objects);
-    }
-
-    public static void assertNulls(Object... objects) {
-        assertNulls(null, null, objects);
-    }
-
-    public static void assertNulls(String assertMsg, Class<? extends RuntimeException> occurException, Object... objects) {
-        assertNull(null, objects, null);
-
-        for (Object object : objects) {
-            if (!isNull(object)) {
-                assert0(occurException == null ? NullPointerException.class : occurException, "objects: " + Arrays.toString(objects) + msg0(assertMsg));
-            }
-        }
-    }
-
-    public static void assertNulls(String assertMsg, Object... objects) {
-        assertNulls(assertMsg, null, objects);
-    }
-
-    public static void assertTrue(boolean bool) {
-        assertTrue(null, bool, AssertionException.class);
+    public static void isTrue(boolean bool) {
+        isTrue(null, bool, AssertionException.class);
     }
 
     /**
@@ -417,12 +279,12 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertTrue(boolean bool, Class<? extends RuntimeException> occurExeption) {
-        assertTrue(null, bool, occurExeption);
+    public static void isTrue(boolean bool, Class<? extends RuntimeException> occurExeption) {
+        isTrue(null, bool, occurExeption);
     }
 
-    public static void assertTrue(String assertMsg, boolean bool) {
-        assertTrue(assertMsg, bool, AssertionException.class);
+    public static void isTrue(String assertMsg, boolean bool) {
+        isTrue(assertMsg, bool, AssertionException.class);
     }
 
     /**
@@ -431,7 +293,7 @@ public class AssertUtils2 {
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
-    public static void assertTrue(String assertMsg, boolean bool, Class<? extends RuntimeException> occurExeption) {
+    public static void isTrue(String assertMsg, boolean bool, Class<? extends RuntimeException> occurExeption) {
         try {
             if (!bool) {
                 assert0(occurExeption, "The result MUST be true." + msg0(assertMsg));
@@ -442,24 +304,162 @@ public class AssertUtils2 {
         }
     }
 
-    private static boolean isEquals(Object arg1, Object arg2) {
-        if (arg1 != null && arg2 != null) {
-            return arg1.equals(arg2);
-        } else {
-            return arg1 == null && arg2 == null;
+    public static void mapNotNull(Map<?, ?> map) {
+        mapNotNull(null, map, null);
+    }
+
+    public static void mapNotNull(Map<?, ?> map, Class<? extends RuntimeException> occurException) {
+        mapNotNull(null, map, occurException);
+    }
+
+    public static void mapNotNull(String assertMsg, Map<?, ?> map) {
+        mapNotNull(assertMsg, map, null);
+    }
+
+    public static void mapNotNull(String assertMsg, Map<?, ?> map, Class<? extends RuntimeException> occurException) {
+        notNull("The map MUST NOT be null. map: null", map);
+
+        Object key = null;
+        Object value = null;
+        for (Entry<?, ?> entry : map.entrySet()) {
+            key = entry.getKey();
+            value = entry.getValue();
+            notNulls("Neither key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(assertMsg), key, value);
         }
     }
 
-    private static boolean isInterface(Object object) {
-        Class<?> class_ = object instanceof Class ? (Class<?>) object : object.getClass();
-        return class_.isInterface();
+    public static void mapNull(Map<?, ?> map) {
+        mapNull(null, map, null);
     }
 
-    private static boolean isNull(Object object) {
-        return object == null;
+    public static void mapNull(Map<?, ?> map, Class<? extends RuntimeException> occurException) {
+        mapNull(null, map, occurException);
+    }
+
+    public static void mapNull(String assertMsg, Map<?, ?> map) {
+        mapNull(assertMsg, map, null);
+    }
+
+    public static void mapNull(String assertMsg, Map<?, ?> map, Class<? extends RuntimeException> occurException) {
+        notNull("The map MUST NOT be null. map: null", map);
+
+        Object key = null;
+        Object value = null;
+        for (Entry<?, ?> entry : map.entrySet()) {
+            key = entry.getKey();
+            value = entry.getValue();
+            isNulls("key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(assertMsg), key, value);
+        }
     }
 
     private static String msg0(String assertMsg) {
         return assertMsg != null ? " (" + assertMsg + ")" : "";
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void notEquals(Object arg1, Object arg2) {
+        notEquals(null, arg1, arg2, AssertionException.class);
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void notEquals(Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
+        notEquals(null, arg1, arg2, occurExeption);
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void notEquals(String assertMsg, Object arg1, Object arg2) {
+        notEquals(assertMsg, arg1, arg2, AssertionException.class);
+    }
+
+    /**
+     * 
+     * @param arg1
+     * @param arg2
+     * @param occurExeption
+     *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     */
+    public static void notEquals(String assertMsg, Object arg1, Object arg2, Class<? extends RuntimeException> occurExeption) {
+        if (!equals_(arg1, arg2)) {
+            assert0(occurExeption, "The result MUST be NOT 'equal'." + msg0(assertMsg));
+        }
+    }
+
+    public static void notInterface(Object object) {
+        notInterface(null, object, AssertionException.class);
+    }
+
+    public static void notInterface(Object object, Class<? extends RuntimeException> occurExeption) {
+        notInterface(null, object, occurExeption);
+    }
+
+    public static void notInterface(String assertMsg, Object object) {
+        notInterface(assertMsg, object, AssertionException.class);
+    }
+
+    public static void notInterface(String assertMsg, Object object, Class<? extends RuntimeException> occurExeption) {
+        notNull("The object MUST NOT be null. object: null", object);
+
+        if (isInterface_(object)) {
+            assert0(occurExeption, "The object is MUST NOT be interface." + msg0(assertMsg));
+
+        }
+    }
+
+    public static void notNull(Object object) {
+        notNull(null, object, null);
+    }
+
+    public static void notNull(Object object, Class<? extends RuntimeException> occurException) {
+        notNull(null, object, occurException);
+    }
+
+    public static void notNull(String assertMsg, Object object) {
+        notNull(assertMsg, object, null);
+    }
+
+    public static void notNull(String assertMsg, Object object, Class<? extends RuntimeException> occurException) {
+        if (isNull_(object)) {
+            assert0(occurException == null ? NullPointerException.class : occurException, msg0(assertMsg));
+        }
+    }
+
+    public static void notNulls(Class<? extends RuntimeException> occurException, Object... objects) {
+        notNulls(null, occurException, objects);
+    }
+
+    public static void notNulls(Object... objects) {
+        notNulls(null, null, objects);
+    }
+
+    public static void notNulls(String assertMsg, Class<? extends RuntimeException> occurException, Object... objects) {
+        notNull(assertMsg, objects, occurException);
+
+        for (Object object : objects) {
+            if (isNull_(object)) {
+                assert0(occurException == null ? NullPointerException.class : occurException, "objects: " + Arrays.toString(objects) + msg0(assertMsg));
+            }
+        }
+    }
+
+    public static void notNulls(String assertMsg, Object... objects) {
+        notNulls(assertMsg, null, objects);
     }
 }

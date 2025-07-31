@@ -98,7 +98,7 @@ public class ConvertUtils {
      */
     public static <T> void assertValue(Object value, Class<T> class_, Class<? extends RuntimeException> occurExeption) {
 
-        AssertUtils2.assertNotNulls("Neither value and class_ MUST be null.", value, class_);
+        AssertUtils2.notNulls("Neither value and class_ MUST be null.", value, class_);
 
         Class<?> translatedClass = translateToWrapper(class_);
 
