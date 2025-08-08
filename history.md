@@ -1,3 +1,7 @@
+[2025/08/08]
+- Add
+  + open.commons.core.utils.MapUtils.isNullOrEmpty(Map&lt;K, V&gt;)
+
 [2025/07/31]
 - Add
   + 예외 발생 Supplier<T> 추가

@@ -132,6 +132,29 @@ public class MapUtils {
     }
 
     /**
+     * 주어진 {@link Map} 객체가 <code>null</code>이거나 비어 있는지 ({@link Map#isEmpty()}) 여부를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param map
+     * @return
+     *
+     * @since 2025. 8. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> boolean isNullOrEmpty(Map<K, V> map) {
+        return map == null || map.size() < 1;
+    }
+
+    /**
      * {@link Map}에 포함된 데이터를 주어진 정보에 맞게 처리하여 새로운 {@link Map}을 제공합니다. <br>
      * 
      * <pre>
