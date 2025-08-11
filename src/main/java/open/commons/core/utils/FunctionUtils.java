@@ -590,12 +590,48 @@ public class FunctionUtils {
         return () -> value == null;
     }
 
+    /**
+     * 전달받은 값('value')이 <code>null</code>이 아닌 경우 {@link Runner}('then') 를 실행합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param value
+     * @param then
+     *
+     * @since 2021. 11. 15.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public static void runIf(Object value, Runner then) {
         if (value != null) {
             then.run();
         }
     }
 
+    /**
+     * 전달받은 값('value')이 <code>null</code>이 아닌 경우 {@link Runner}('then'), <code>null</code>인 경우 {@link Runner}('elze')를
+     * 실행합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param value
+     * @param then
+     * @param elze
+     *
+     * @since 2021. 11. 15.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public static void runIf(Object value, Runner then, Runner elze) {
         if (value != null) {
             then.run();
@@ -604,12 +640,76 @@ public class FunctionUtils {
         }
     }
 
+    /**
+     * 전달받은 값('value')이 <code>null</code>이 아닌 경우 {@link Consumer}('then')가 처리합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param value
+     * @param then
+     *
+     * @since 2025. 8. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> void runIf(T value, Consumer<T> then) {
+        if (value != null) {
+            then.accept(value);
+        }
+    }
+
+    /**
+     * 전달받은 값('value')에 대한 검증결과({@link Predicate}) 값이 <code>true</code> 경우 {@link Consumer}('then')가 처리합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param value
+     * @param p
+     * @param then
+     *
+     * @since 2021. 11. 15.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public static <T> void runIf(T value, Predicate<T> p, Consumer<T> then) {
         if (p.test(value)) {
             then.accept(value);
         }
     }
 
+    /**
+     * 전달받은 값('value')에 대한 검증결과({@link Predicate}) 값이 <code>true</code> 경우 {@link Consumer}('then'), <code>false</code>인
+     * 경우 {@link Consumer}('elze')가 처리합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param value
+     * @param p
+     * @param then
+     * @param elze
+     *
+     * @since 2021. 11. 15.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public static <T> void runIf(T value, Predicate<T> p, Consumer<T> then, Consumer<T> elze) {
         if (p.test(value)) {
             then.accept(value);
