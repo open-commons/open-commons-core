@@ -1,3 +1,7 @@
+[2025/08/12]
+- New
+  + open.commons.core.function.ThrowableRunner
+
 [2025/08/08]
 - Add
   + open.commons.core.utils.MapUtils.isNullOrEmpty(Map&lt;K, V&gt;)
