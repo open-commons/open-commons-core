@@ -32,6 +32,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * <BR>
@@ -42,8 +44,7 @@ import java.util.stream.Stream;
 public class AnnotationUtils {
 
     /**
-     * 
-     * <br>
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 모두 설정되어 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -62,7 +63,9 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     @SafeVarargs
-    public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
+    public static boolean existAllAnnotations(@Nonnull AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
+        AssertUtils2.notNull("대상 객체는 'null'일 수 없습니다", accObj);
+
         for (Class<? extends Annotation> annoClass : annoClasses) {
             if (!accObj.isAnnotationPresent(annoClass)) {
                 return false;
@@ -73,6 +76,9 @@ public class AnnotationUtils {
 
     /**
      * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 
+     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를
+     * 포함하지 않습니다.
      * 
      * <pre>
      * [개정이력]
@@ -90,15 +96,17 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation> annotationClass) {
+    public static List<Field> getAnnotatedFields(@Nonnull Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+        AssertUtils2.notNull("클래스는 'null'일 수 없습니다", typeClass);
+        AssertUtils2.notNull("어노테이션 클래스는 'null'일 수 없습니다", annotationClass);
+
         ArrayList<Field> fields = new ArrayList<>();
 
         Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .forEach(f -> {
-                    boolean accessible = false;
+                    boolean accessible = f.isAccessible();
                     try {
-                        accessible = f.isAccessible();
-
+                        f.setAccessible(true);
                         if (f.isAnnotationPresent(annotationClass)) {
                             fields.add(f);
                         }
@@ -113,8 +121,10 @@ public class AnnotationUtils {
     }
 
     /**
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
      * 
-     * <br>
+     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를
+     * 포함하지 않습니다.
      * 
      * <pre>
      * [개정이력]

@@ -1,3 +1,7 @@
+[2025/08/18]
+- Modify
+  + open.commons.core.lang.IThreadLocalContext.remove(Object): 반환 데이터 타입 변경 (void -&gt; Object)
+
 [2025/08/12]
 - New
   + open.commons.core.function.ThrowableRunner

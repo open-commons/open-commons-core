@@ -184,7 +184,7 @@ public interface IThreadLocalContext {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public void remove(Object key);
+    public Object remove(Object key);
 
     /**
      * 새로운 데이터를 설정합니다. <br>

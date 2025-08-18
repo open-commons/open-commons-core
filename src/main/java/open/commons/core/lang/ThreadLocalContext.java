@@ -132,8 +132,8 @@ public class ThreadLocalContext implements IThreadLocalContext {
      * @see open.commons.core.lang.IThreadLocalContext#remove(java.lang.Object)
      */
     @Override
-    public void remove(Object key) {
-        get0().remove(key);
+    public Object remove(Object key) {
+        return get0().remove(key);
     }
 
     /**
