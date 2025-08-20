@@ -26,22 +26,58 @@
 
 package open.commons.core.utils;
 
-import java.util.Arrays;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-
-import open.commons.core.Result;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
+ * 'deprecated' 된 메소드들은 {@link FunctionUtils}를 통해서 제공됩니다.
+ * 
+ * <pre>
+ * open.commons.core.utils.StreamUtils.build(BiFunction&lt;S, T, U&gt;, S, T, BiFunction&lt;V, W, X&gt;, V, Function&lt;U, W&gt;, Function&lt;Throwable, X&gt;): {@link FunctionUtils#build(BiFunction, Object, Object, BiFunction, Object, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;): {@link FunctionUtils#build(BiFunction, Object, Object, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(Function&lt;S, T&gt;, S, Function&lt;U, X&gt;, Function&lt;T, U&gt;, Function&lt;Throwable, X&gt;): {@link FunctionUtils#build(Function, Object, Function, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(Function&lt;T, R&gt;, T, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;): {@link FunctionUtils#build(Function, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(Function&lt;T, Result&lt;R&gt;&gt;, T, Consumer&lt;R&gt;): {@link FunctionUtils#build(Function, Object, Consumer)}
+ * open.commons.core.utils.StreamUtils.build(Function&lt;T, Result&lt;R&gt;&gt;, T, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;): {@link FunctionUtils#build(Function, Object, Consumer, Function)}
+ * open.commons.core.utils.StreamUtils.build(Supplier&lt;R&gt;, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;): {@link FunctionUtils#build(Supplier, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(Supplier&lt;Result&lt;R&gt;&gt;, Consumer&lt;R&gt;): {@link FunctionUtils#build(Supplier, Consumer)}
+ * open.commons.core.utils.StreamUtils.build(Supplier&lt;Result&lt;R&gt;&gt;, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;): {@link FunctionUtils#build(Supplier, Consumer, Function)}
+ * open.commons.core.utils.StreamUtils.build(T, Function&lt;T, R&gt;, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;): {@link #build(Function, Object, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(T, Function&lt;T, Result&lt;R&gt;&gt;, Consumer&lt;R&gt;): {@link #build(Function, Object, Consumer)}
+ * open.commons.core.utils.StreamUtils.build(T, Function&lt;T, Result&lt;R&gt;&gt;, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;): {@link #build(Function, Object, Consumer, Function)}
+ * open.commons.core.utils.StreamUtils.build(T, U, BiFunction&lt;T, U, R&gt;, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;): {@link #build(BiFunction, Object, Object, Function, Function)}
+ * open.commons.core.utils.StreamUtils.build(T, U, BiFunction&lt;T, U, Result&lt;R&gt;&gt;, Consumer&lt;R&gt;): {@link FunctionUtils#build(Object, Object, BiFunction, Consumer)}
+ * open.commons.core.utils.StreamUtils.build(T, U, BiFunction&lt;T, U, Result&lt;R&gt;&gt;, Consumer&lt;R&gt;, Function&lt;Throwable, String&gt;): {@link FunctionUtils#build(Object, Object, BiFunction, Consumer, Function)}
+ * open.commons.core.utils.StreamUtils.getOnAsync(Future&lt;Result&lt;R&gt;&gt;): {@link FunctionUtils#getOnAsync(Future)}
+ * open.commons.core.utils.StreamUtils.runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;): {@link FunctionUtils#runIf(Object, Predicate, Function)}
+ * open.commons.core.utils.StreamUtils.runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, Supplier&lt;R&gt;): {@link FunctionUtils#runIf(Object, Predicate, Function, Supplier)}
+ * open.commons.core.utils.StreamUtils.runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;): {@link FunctionUtils#runIf(Object, Predicate, Function, Function)}
+ * open.commons.core.utils.StreamUtils.runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;, Supplier&lt;R&gt;): {@link FunctionUtils#runIf(Object, Predicate, Function, Function, Supplier)}
+ * open.commons.core.utils.StreamUtils.runIf(T, Predicate&lt;T&gt;, Supplier&lt;U&gt;, Function&lt;U, R&gt;): {@link FunctionUtils#runIf(Object, Predicate, Supplier, Function)}
+ * open.commons.core.utils.StreamUtils.runIf(T, Predicate&lt;T&gt;, Supplier&lt;U&gt;, Function&lt;U, R&gt;, Supplier&lt;R&gt;): {@link FunctionUtils#runIf(Object, Predicate, Supplier, Function, Supplier)}
+ * open.commons.core.utils.StreamUtils.runOnAsync(Predicate&lt;R&gt;, Supplier&lt;R&gt;...): {@link FunctionUtils#runOnAsync(Predicate, Supplier...)}
+ * open.commons.core.utils.StreamUtils.runOnSync(Predicate&lt;R&gt;, Supplier&lt;R&gt;...): {@link FunctionUtils#runOnSync(Predicate, Supplier...)}
+ * </pre>
+ * 
  * 
  * @since 2020. 4. 10.
  * @version 1.8.0
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class StreamUtils {
 
@@ -50,103 +86,354 @@ public class StreamUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 2개이 {@link Map}을 하나의 {@link List}로 병합하여 {@link Stream} 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 6. 12.		박준홍			최초 작성
+     * 2025. 8. 20.		박준홍			최초 작성
      * </pre>
      *
-     * @param <S>
-     * @param <T>
-     * @param <U>
      * @param <V>
-     * @param <W>
-     * @param <X>
-     * @param action
-     *            실행 함수
-     * @param param1
-     *            1st 파라미터
-     * @param param2
-     *            2nd 파라미터
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param osParam1
-     *            성공함수 1st 파라미터.
-     * @param osParam2
-     *            성공함수 2nd 파라미터.
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
+     * @param single
+     * @param multi
      * @return
      *
-     * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated Use {@link FunctionUtils#build(BiFunction, Object, Object, BiFunction, Object, Function, Function)}
-     * 
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T, U, V, W, X> Supplier<X> build(BiFunction<S, T, U> action, S param1, T param2 //
-            , BiFunction<V, W, X> onSuccess, V osParam1, Function<U, W> osParam2 //
-            , Function<Throwable, X> onError) {
-        return () -> {
-            try {
-                U r = action.apply(param1, param2);
-                return onSuccess.apply(osParam1, osParam2.apply(r));
-            } catch (Throwable t) {
-                t.printStackTrace();
-                return onError.apply(t);
-            }
+    public static <V> Stream<V> flat(Map<String, V> single, Map<String, List<V>> multi) {
+        return Stream //
+                .of(single.values().stream() //
+                        , multi.values().stream().flatMap(List::stream) //
+                ) //
+                .flatMap(s -> s);
+    }
+
+    /**
+     * Returns a merge function, suitable for use in {@link Map#merge(Object, Object, BiFunction) Map.merge()} or
+     * {@link #toMap(Function, Function, BinaryOperator) toMap()}, which always throws {@code IllegalStateException}.
+     * This can be used to enforce the assumption that the elements being collected are distinct.
+     *
+     * @param <T>
+     *            the type of input arguments to the merge function
+     * @return a merge function which always throw {@code IllegalStateException}
+     * 
+     * @see Collectors#throwingMerger()
+     */
+    private static <T> BinaryOperator<T> throwingMerger() {
+        return (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
         };
     }
 
     /**
-     * 파라미터 2개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
+     * 2개의 {@link Map}에 포함된 값을 하나의 {@link Collection} 구현체로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 4. 7.      박준홍         최초 작성
+     * 2025. 8. 20.		박준홍			최초 작성
      * </pre>
      *
-     * @param <T>
-     *            1st parameter.
-     * @param <U>
-     *            2nd parameter.
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param action
-     *            실행 함수
-     * @param param1
-     * @param param2
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
+     * @param <K>
+     * @param <V>
+     * @param <C>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     * @param mergeFunction
+     * @param collectionFactory
      * @return
      *
-     * @since 2020. 6. 12.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(BiFunction, Object, Object, Function, Function)}
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T, U, R, X> Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2 //
-            , Function<R, X> onSuccess //
-            , Function<Throwable, X> onError) {
-        return () -> {
-            try {
-                R r = action.apply(param1, param2);
-                return onSuccess.apply(r);
-            } catch (Throwable t) {
-                t.printStackTrace();
-                return onError.apply(t);
-            }
-        };
+    public static <K, V, C extends Collection<V>> C toCollection(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Supplier<C> collectionFactory) {
+        return flat(single, multi) //
+                .collect( //
+                        Collectors.toMap( //
+                                keyMapper //
+                                , Function.identity() //
+                                , mergeFunction //
+                                , HashMap::new) //
+                ) //
+                .values().stream() //
+                .collect(Collectors.toCollection(collectionFactory));
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 하나의 {@link Collection} 구현체로 묶어서 제공합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <V>
+     * @param <C>
+     * @param single
+     * @param multi
+     * @param collectionFactory
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <V, C extends Collection<V>> C toCollection(Map<String, V> single, Map<String, List<V>> multi, Supplier<C> collectionFactory) {
+        return flat(single, multi).collect(Collectors.toCollection(collectionFactory));
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <V>
+     * @param single
+     * @param multi
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <V> List<V> toList(Map<String, V> single, Map<String, List<V>> multi) {
+        return toCollection(single, multi, ArrayList<V>::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> List<V> toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return toCollection(single, multi, keyMapper, mergeFunction, ArrayList<V>::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <M>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> Map<K, V> toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return toMap(single, multi, keyMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U> Map<K, U> toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer) {
+        return toMap(single, multi, keyMapper, mergeFunction, transformer, HashMap::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M extends Map<K, U>> M toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer, Supplier<M> mapSupplier) {
+        return flat(single, multi) //
+                .collect( //
+                        Collectors.toMap( //
+                                keyMapper //
+                                , Function.identity() //
+                                , mergeFunction // V + V => V
+                                , HashMap::new) //
+                ) //
+                .entrySet().stream() //
+                .collect(Collectors.toMap(Map.Entry::getKey //
+                        , entry -> transformer.apply(entry.getValue()) // V => U
+                        , throwingMerger() //
+                        , mapSupplier //
+                ));
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <M>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, M extends Map<K, V>> M toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Supplier<M> mapSupplier) {
+        return flat(single, multi) //
+                .collect( //
+                        Collectors.toMap( //
+                                keyMapper //
+                                , Function.identity() //
+                                , mergeFunction //
+                                , mapSupplier) //
+                );
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V => U' + U => U) 합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 20.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueFunction
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( U + U => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M> Map<K, U> toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction) {
+        return toMap(single, multi, keyMapper, valueFunction, mergeFunction, HashMap::new);
     }
 
     /**
@@ -155,877 +442,92 @@ public class StreamUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 6. 12.		박준홍			최초 작성
+     * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
-     * 
-     * @param <S>
-     * @param <T>
+     *
+     * @param <K>
+     * @param <V>
      * @param <U>
-     * @param <X>
-     * @param action
-     *            실행 함수
-     * @param param
-     *            실행 함수 파라미터.
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param osParam
-     *            성공함수 파라미터.
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     *
+     * @param <M>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueFunction
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
      * @return
      *
-     * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Function, Object, Function, Function, Function)}
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T, U, X> Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam, Function<Throwable, X> onError) {
-        return () -> {
-            try {
-                T r = action.apply(param);
-                return onSuccess.apply(osParam.apply(r));
-            } catch (Throwable t) {
-                return onError.apply(t);
-            }
-        };
+    public static <K, V, U, M extends Map<K, U>> M toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+        return flat(single, multi) //
+                .collect( //
+                        Collectors.toMap( //
+                                keyMapper //
+                                , valueFunction //
+                                , mergeFunction //
+                                , mapSupplier) //
+                );
     }
 
     /**
-     * 파라미터 1개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 6. 12.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            parameter.
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param action
-     *            실행 함수
-     * @param param
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     * @return
-     *
-     * @since 2020. 6. 12.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Function, Function, Function)}
-     */
-    public static <T, R, X> Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        return () -> {
-            try {
-                R r = action.apply(param);
-                return onSuccess.apply(r);
-            } catch (Throwable t) {
-                return onError.apply(t);
-            }
-        };
-    }
-
-    /**
-     * 파라미터 1개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 6. 12.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     * @param <T>
-     * @param <U>
-     * @param action
-     *            기능 정의 함수
-     * @param param
-     *            파라미터
-     * @param onSuccess
-     *            함수 실행이 성공한 경우
-     * @param onError
-     *            함수 실행이 실패한 경우
-     * @return
-     *
-     * @since 2020. 6. 11.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Function, Object, Consumer)}
-     */
-    public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
-        return build(action, param, onSuccess, t -> t.getMessage());
-    }
-
-    /**
-     * 파라미터 1개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 6. 12.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     * @param <T>
-     * @param <U>
-     * @param action
-     *            기능 정의 함수
-     * @param param
-     *            파라미터
-     * @param onSuccess
-     *            함수 실행이 성공한 경우
-     * @param onError
-     *            함수 실행이 실패한 경우
-     * @return
-     *
-     * @since 2020. 6. 12.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Function, Object, Consumer, Function)}
-     */
-    public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        return () -> {
-            try {
-                Result<R> r = action.apply(param);
-                if (r.getResult()) {
-                    onSuccess.accept(r.getData());
-                    return null;
-                } else {
-                    return r.getMessage();
-                }
-            } catch (Throwable t) {
-                return onError.apply(t);
-            }
-        };
-    }
-
-    /**
-     * 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 11.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param action
-     *            실행 함수
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     * @param onError
-     * @return
-     *
-     * @since 2020. 4. 11.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Supplier, Function, Function)}
-     */
-    public static <R, X> Supplier<X> build(Supplier<R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        return () -> {
-            try {
-                R r = action.get();
-                return onSuccess.apply(r);
-            } catch (Throwable t) {
-                return onError.apply(t);
-            }
-        };
-    }
-
-    /**
-     * 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 11.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param action
-     *            실행 함수
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     * @param onError
-     * @return
-     *
-     * @since 2020. 4. 11.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Supplier, Consumer)}
-     */
-    public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess) {
-        return build(action, onSuccess, t -> t.getMessage());
-    }
-
-    /**
-     * 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 11.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param action
-     *            실행 함수
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     * @param onError
-     * @return
-     *
-     * @since 2020. 4. 11.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Supplier, Consumer, Function)}
-     */
-    public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        return () -> {
-            try {
-                Result<R> r = action.get();
-                if (r.getResult()) {
-                    onSuccess.accept(r.getData());
-                    return null;
-                } else {
-                    return r.getMessage();
-                }
-            } catch (Throwable t) {
-                return onError.apply(t);
-            }
-        };
-    }
-
-    /**
-     * 파라미터 1개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 10.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            parameter.
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param param
-     * @param action
-     *            실행 함수
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     * @return
-     *
-     * @since 2020. 4. 10.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link #build(Function, Object, Function, Function)}
-     */
-    public static <T, R, X> Supplier<X> build(T param, Function<T, R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        return build(action, param, onSuccess, onError);
-    }
-
-    /**
-     * 파라미터 1개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 10.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     * @param <T>
-     * @param <U>
-     * @param param
-     *            파라미터
-     * @param action
-     *            기능 정의 함수
-     * @param onSuccess
-     *            함수 실행이 성공한 경우
-     * @param onError
-     *            함수 실행이 실패한 경우
-     * @return
-     *
-     * @since 2020. 4. 10.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated Use {@link #build(Function, Object, Consumer)}
-     */
-    public static <T, R> Supplier<String> build(T param, Function<T, Result<R>> action, Consumer<R> onSuccess) {
-        return build(action, param, onSuccess);
-    }
-
-    /**
-     * 파라미터 1개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 10.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     * @param <T>
-     * @param <U>
-     * @param param
-     *            파라미터
-     * @param action
-     *            기능 정의 함수
-     * @param onSuccess
-     *            함수 실행이 성공한 경우
-     * @param onError
-     *            함수 실행이 실패한 경우
-     * @return
-     *
-     * @since 2020. 4. 10.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated Use {@link #build(Function, Object, Consumer, Function)}
-     */
-    public static <T, R> Supplier<String> build(T param, Function<T, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        return build(action, param, onSuccess, onError);
-    }
-
-    /**
-     * 파라미터 2개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 7.      박준홍         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            1st parameter.
-     * @param <U>
-     *            2nd parameter.
-     * @param <R>
-     *            실행 함수 반환 데이터
-     * @param <X>
-     *            최종 반환 데이터
-     * @param param1
-     * @param param2
-     * @param action
-     *            실행 함수
-     * @param onSuccess
-     *            실행 함수가 올바르게 수행된 경우 실행
-     * @param onError
-     *            실행 함수 실행시 에러가 발생한 경우 실행
-     * @return
-     *
-     * @since 2020. 4. 7.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated Use {@link #build(BiFunction, Object, Object, Function, Function)}
-     */
-    public static <T, U, R, X> Supplier<X> build(T param1, U param2, BiFunction<T, U, R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        return build(action, param1, param2, onSuccess, onError);
-    }
-
-    /**
-     * 파라미터 2개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 7.      박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     * @param <T>
-     * @param <U>
-     * @param param1
-     * @param param2
-     * @param action
-     *            기능 실행 함수
-     * @param onSuccess
-     *            실행이 성공한 경우
-     * @return
-     *
-     * @since 2020. 4. 7.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Object, Object, BiFunction, Consumer)}
-     */
-    public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess) {
-        return build(param1, param2, action, onSuccess, t -> t.getMessage());
-    }
-
-    /**
-     * 파라미터 2개를 받아 정의된 기능을 실행하고 에러 결과를 반환하는 객체를 제공합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 10.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     * @param <T>
-     * @param <U>
-     * @param param1
-     *            1st 파라미터
-     * @param param2
-     *            2nd 파라미터
-     * @param action
-     *            기능 정의 함수
-     * @param onSuccess
-     *            함수 실행이 성공한 경우
-     * @param onError
-     *            함수 실행이 실패한 경우
-     * @return
-     *
-     * @since 2020. 4. 10.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#build(Object, Object, BiFunction, Consumer, Function)}
-     */
-    public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        return () -> {
-            try {
-                Result<R> r = action.apply(param1, param2);
-                if (r.getResult()) {
-                    onSuccess.accept(r.getData());
-                    return null;
-                } else {
-                    return r.getMessage();
-                }
-            } catch (Throwable t) {
-                return onError.apply(t);
-            }
-        };
-    }
-
-    /**
-     * {@link Future}를 실행한 결과를 제공합니다. <br>
+     * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 6. 14.		박준홍			최초 작성
+     * 2025. 8. 20.		박준홍			최초 작성
      * </pre>
      *
-     * @param <R>
-     *            반환할 데이터 타입
-     * @param future
-     *            실행 객체
+     * @param <V>
+     * @param single
+     * @param multi
      * @return
      *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#getOnAsync(Future)}
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <R> Result<R> getOnAsync(Future<Result<R>> future) {
-        if (future == null) {
-            return null;
-        }
-
-        try {
-            return future.get();
-        } catch (Exception e) {
-            return new Result<R>().setMessage(e.getMessage());
-        }
+    public static <V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi) {
+        return toCollection(single, multi, HashSet<V>::new);
     }
 
     /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. <br>
+     * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다.
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 6. 14.		박준홍			최초 작성
+     * 2025. 8. 20.		박준홍			최초 작성
      * </pre>
      *
-     * @param <T>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param run
-     *            실행할 함수
+     * @param <K>
+     * @param <V>
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
      * @return
      *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function)}
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run) {
-        return test.test(value) ? run.apply(value) : null;
+    public static <K, V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return toCollection(single, multi, keyMapper, mergeFunction, HashSet<V>::new);
     }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. 데이터 검증이 실패한 경우 기본값을 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 6. 14.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param run
-     *            실행할 함수
-     * @param defaultValue
-     * @return
-     *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    // public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
-    // return test.test(value) ? run.apply(value) : defaultValue;
-    // }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. 데이터 검증이 실패한 경우 기본값을 반환합니다. <br>
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 7. 21.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param run
-     *            실행할 함수
-     * @param defaultValue
-     *            기본값 제공자
-     * @return
-     *
-     * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function, Supplier)}
-     */
-    public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
-        return test.test(value) ? run.apply(value) : defaultValue.get();
-    }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. <br>
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 6. 14.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <U>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param param
-     *            데이터를 이용한 실행함수 파라미터 제공자
-     * @param run
-     *            실행 함수
-     * @return
-     *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function, Function)}
-     */
-    public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run) {
-        return test.test(value) ? run.apply(param.apply(value)) : null;
-    }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. 데이터 검증이 실패한 경우 기본값을 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 6. 14.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <U>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param param
-     *            데이터를 이용한 실행함수 파라미터 제공자
-     * @param run
-     *            실행 함수
-     * @param defualtValue
-     *            데이터 검증에 따른 기본값
-     * @return
-     *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    // public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R
-    // defaultValue) {
-    // return test.test(value) ? run.apply(param.apply(value)) : defaultValue;
-    // }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. 데이터 검증이 실패한 경우 기본값을 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 7. 22.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <U>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param param
-     *            데이터를 이용한 실행함수 파라미터 제공자
-     * @param run
-     *            실행 함수
-     * @param defualtValue
-     *            데이터 검증에 따른 기본값
-     * @return
-     *
-     * @since 2020. 7. 22.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Function, Function, Supplier)}
-     */
-    public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
-        return test.test(value) ? run.apply(param.apply(value)) : defaultValue.get();
-    }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 6. 14.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <U>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param param
-     *            실행함수 파라미터 제공자
-     * @param run
-     *            실행 함수
-     * @return
-     *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Supplier, Function)}
-     */
-    public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
-        return test.test(value) ? run.apply(param.get()) : null;
-    }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. 데이터 검증이 실패한 경우 기본값을 반환합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 6. 14.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <U>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param param
-     *            실행함수 파라미터 제공자
-     * @param run
-     *            실행 함수
-     * @param defaultValue
-     *            기본값.
-     * @return
-     *
-     * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    // public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R
-    // defaultValue) {
-    // return test.test(value) ? run.apply(param.get()) : defaultValue;
-    // }
-
-    /**
-     * 데이터를 검증한 후 함수의 실행 결과를 반환합니다. 데이터 검증이 실패한 경우 기본값을 반환합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 7. 21.		박준홍			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <U>
-     * @param <R>
-     * @param value
-     *            데이터
-     * @param test
-     *            데이터 검증
-     * @param param
-     *            실행함수 파라미터 제공자
-     * @param run
-     *            실행 함수
-     * @param defaultValue
-     *            기본값.
-     * @return
-     *
-     * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runIf(Object, Predicate, Supplier, Function, Supplier)}
-     */
-    public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
-        return test.test(value) ? run.apply(param.get()) : defaultValue.get();
-    }
-
-    /**
-     * 기능 실행 후 반환 데이터의 존재 유무를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 7.      박준홍         최초 작성
-     * </pre>
-     * 
-     * @param filterIn
-     *            (positive) 데이터 검증. <code>true</code>인 경우 포함된다.
-     * @param actions
-     *            기능 정의
-     *
-     * @param <R>
-     *            반환 데이터
-     * @return
-     *
-     * @since 2020. 4. 7.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runOnAsync(Predicate, Supplier...)}
-     */
-    @SuppressWarnings("unchecked")
-    public static <R> Optional<R> runOnAsync(Predicate<R> filterIn, Supplier<R>... actions) {
-        if (actions == null) {
-            throw new NullPointerException();
-        }
-
-        return Arrays.asList(actions).parallelStream() //
-                // 실행
-                .map(s -> s.get()) //
-                // 반환 데이터 확인
-                .filter(filterIn) //
-                .findAny();
-    }
-
-    /**
-     * 기능 실행 후 반환 데이터의 존재 유무를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 4. 7.      박준홍         최초 작성
-     * </pre>
-     * 
-     * @param filterIn
-     *            (positive) 데이터 검증. <code>true</code>인 경우 포함된다.
-     * @param actions
-     *            기능 정의
-     *
-     * @param <R>
-     *            반환 데이터
-     * @return
-     *
-     * @since 2020. 4. 7.
-     * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link FunctionUtils#runOnSync(Predicate, Supplier...)}
-     */
-    @SuppressWarnings("unchecked")
-    public static <R> Optional<R> runOnSync(Predicate<R> filterIn, Supplier<R>... actions) {
-        if (actions == null) {
-            throw new NullPointerException();
-        }
-
-        return Arrays.asList(actions).stream() //
-                // 실행
-                .map(s -> s.get()) //
-                // 데이터 확인
-                .filter(filterIn) //
-                .findAny();
-    }
-
 }

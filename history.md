@@ -1,3 +1,20 @@
+[2025/08/20]
+- New
+  + open.commons.core.utils.StreamUtils
+    + flat(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;)
+    + toCollection(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;C&gt;)
+    + toCollection(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Supplier&lt;C&gt;)
+    + toList(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;)
+    + toList(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;)
+    + toMap(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;)
+    + toMap(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;, Function&lt;V, U&gt;)
+    + toMap(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;, Function&lt;V, U&gt;, Supplier&lt;M&gt;)
+    + toMap(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;M&gt;)
+    + toMap(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, Function&lt;V, U&gt;, BinaryOperator&lt;U&gt;)
+    + toMap(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, Function&lt;V, U&gt;, BinaryOperator&lt;U&gt;, Supplier&lt;M&gt;)
+    + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;)
+    + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;)
+
 [2025/08/18]
 - Modify
   + open.commons.core.lang.IThreadLocalContext.remove(Object): 반환 데이터 타입 변경 (void -&gt; Object)
