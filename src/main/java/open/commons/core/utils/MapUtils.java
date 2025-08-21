@@ -68,6 +68,7 @@ public class MapUtils {
      * </pre>
      *
      * @param <V>
+     *            데이터 유형
      * @param single
      * @param multi
      * @return
@@ -97,7 +98,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param map
      * @param key
      *            찾고자하는 데이터 키
@@ -138,7 +141,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param map
      * @param key
      *            찾고자하는 데이터 키
@@ -175,7 +180,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param map
      * @return
      *
@@ -198,11 +205,17 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <NK>
+     *            새로운 데이터 식별정보
      * @param <NV>
+     *            새로운 데이터 유형
      * @param <C>
+     *            새로운 데이터를 담는 {@link Collection} 유형
      * @param <M>
+     *            결과 {@link Map} 유형 결과 {@link Map} 유형
      * @param src
      *            원본 데이터
      * @param keyGen
@@ -216,6 +229,9 @@ public class MapUtils {
      * @since 2021. 6. 16.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 대체 메소드: {@link #map(Map, Function, Function, Supplier, Supplier)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(Map<K, V> src, Function<Entry<K, V>, NK> keyGen, Function<Entry<K, V>, NV> valueGen,
             Class<M> mapClass, Class<C> colClass) throws RuntimeException {
@@ -249,6 +265,394 @@ public class MapUtils {
     }
 
     /**
+     * {@link Map} 데이터를 새로운 식별정보(<code>keyMapper</code>), 새로운 유형(<code>valueFunction</code>)로 변환하여 새로운 {@link Map}를
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <NK>
+     *            새로운 데이터 식별정보
+     * @param <NV>
+     *            새로운 데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형 결과 {@link Map} 유형
+     * @param map
+     *            데이터 객체
+     * @param keyMapper
+     *            데이터 식별정보 제공 함수. (K => NK)
+     * @param valueFunction
+     *            데이터 변환 함수. (V => NV)
+     * @param mapSupplier
+     *            결과 {@link Map} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, NK, NV, M extends Map<NK, List<NV>>> M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction,
+            Supplier<M> mapSupplier) {
+        return map(map, keyMapper, valueFunction, mapSupplier, (Supplier<List<NV>>) ArrayList::new);
+    }
+
+    /**
+     * {@link Map} 데이터를 새로운 식별정보(<code>keyMapper</code>), 새로운 유형(<code>valueFunction</code>)로 변환하여 새로운 {@link Map}를
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <NK>
+     *            새로운 데이터 식별정보
+     * @param <NV>
+     *            새로운 데이터 유형
+     * @param <C>
+     *            새로운 데이터를 담는 {@link Collection} 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param map
+     *            데이터 객체
+     * @param keyMapper
+     *            데이터 식별정보 제공 함수. (K => NK)
+     * @param valueFunction
+     *            데이터 변환 함수. (V => NV)
+     * @param mapSupplier
+     *            결과 {@link Map} 객체 제공 함수.
+     * @param colSupplier
+     *            동일한 식별정보(NK)에 해당하는 데이터(NK)를 담는 {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction,
+            Supplier<M> mapSupplier, Supplier<C> colSupplier) {
+        AssertUtils2.notNulls(map, keyMapper, valueFunction, mapSupplier, colSupplier);
+        return map.entrySet().stream() //
+                .collect(Collectors.groupingBy( //
+                        entry -> keyMapper.apply(entry) //
+                        , mapSupplier //
+                        , Collectors.mapping( //
+                                entry -> valueFunction.apply(entry), Collectors.toCollection(colSupplier)) //
+                ) //
+                );
+    }
+
+    /**
+     * {@link Map} 데이터를 <code>값(V)</code> 데이터만 새로운 유형으로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param map
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U> Map<K, U> map(Map<K, V> map, Function<V, U> transformer) {
+        return map(map, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
+    }
+
+    /**
+     * {@link Map} 데이터를 <code>값(V)</code> 데이터만 새로운 유형으로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param map
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M extends Map<K, U>> M map(Map<K, V> map, Function<V, U> transformer, Supplier<M> mapSupplier) {
+        return map.entrySet().stream() //
+                .collect(Collectors.toMap( //
+                        Map.Entry::getKey //
+                        , entry -> transformer.apply(entry.getValue()) // V => U
+                        , StreamUtils.throwingMerger() //
+                        , mapSupplier //
+                ));
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> Map<K, V> map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return StreamUtils.toMap(flat(single, multi), keyMapper, d -> d, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U> Map<K, U> map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer) {
+        return map(single, multi, keyMapper, mergeFunction, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M extends Map<K, U>> M map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer, Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(flat(single, multi), keyMapper, mergeFunction, transformer, mapSupplier);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, M extends Map<K, V>> M map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Supplier<M> mapSupplier) {
+        return map(single, multi, keyMapper, d -> d, mergeFunction, mapSupplier);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V => U' + U => U) 합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueFunction
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( U + U => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M> Map<K, U> map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction) {
+        return map(single, multi, keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
+    }
+
+    /**
+     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
+     * <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param single
+     * @param multi
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueFunction
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M extends Map<K, U>> M map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(flat(single, multi), keyMapper, valueFunction, mergeFunction, mapSupplier);
+    }
+
+    /**
      * 2개의 {@link Map}을 동일한 키를 값는 값을 새로운 형태의 데이터로 변환하여 새로운 {@link Map}을 제공합니다. <br>
      * 
      * <pre>
@@ -259,11 +663,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
-     *            키 데이터 타입
+     *            데이터 식별정보 유형
      * @param <V>
-     *            값 데이터 타입
+     *            데이터 유형
      * @param <NV>
-     *            새로운 값의 이터 타입
+     *            새로운 값의 데이터 타입
      * @param bucket
      *            기존 {@link Map}
      * @param newData
@@ -316,9 +720,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
-     *            키 데이터 타입
+     *            데이터 식별정보 유형
      * @param <V>
-     *            값 데이터 타입
+     *            데이터 유형
      * @param bucket
      *            기존 {@link Map}
      * @param newData
@@ -349,6 +753,10 @@ public class MapUtils {
      * 2017. 10. 18.        박준홍         최초 작성
      * </pre>
      *
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <V>
+     *            데이터 유형
      * @param map
      * @param readCount
      *            읽어올 개수
@@ -396,23 +804,6 @@ public class MapUtils {
     }
 
     /**
-     * Returns a merge function, suitable for use in {@link Map#merge(Object, Object, BiFunction) Map.merge()} or
-     * {@link #toMap(Function, Function, BinaryOperator) toMap()}, which always throws {@code IllegalStateException}.
-     * This can be used to enforce the assumption that the elements being collected are distinct.
-     *
-     * @param <T>
-     *            the type of input arguments to the merge function
-     * @return a merge function which always throw {@code IllegalStateException}
-     * 
-     * @see Collectors#throwingMerger()
-     */
-    private static <T> BinaryOperator<T> throwingMerger() {
-        return (u, v) -> {
-            throw new IllegalStateException(String.format("Duplicate key %s", u));
-        };
-    }
-
-    /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다.
      * 
@@ -426,8 +817,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <COL>
+     *            결과 {@link Collection} 유형
      * @param single
      * @param multi
      * @param keyMapper
@@ -444,7 +838,7 @@ public class MapUtils {
      */
     public static <K, V, COL extends Collection<V>> COL toCollection(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<COL> collectionFactory) {
-        return toCollection(single, multi, keyMapper, Function.identity(), mergeFunction, collectionFactory);
+        return toCollection(single, multi, keyMapper, d -> d, mergeFunction, collectionFactory);
     }
 
     /**
@@ -459,8 +853,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <COL>
+     *            결과 {@link Collection} 유형
      * @param single
      * @param multi
      * @param keyMapper
@@ -494,7 +891,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <V>
+     *            데이터 유형
      * @param <COL>
+     *            결과 {@link Collection} 유형
      * @param single
      * @param multi
      * @param collectionFactory
@@ -520,6 +919,7 @@ public class MapUtils {
      * </pre>
      *
      * @param <V>
+     *            데이터 유형
      * @param single
      * @param multi
      * @return
@@ -544,7 +944,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param single
      * @param multi
      * @param keyMapper
@@ -558,7 +960,7 @@ public class MapUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> List<V> toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(single, multi, keyMapper, Function.identity(), mergeFunction, ArrayList<V>::new);
+        return toCollection(single, multi, keyMapper, d -> d, mergeFunction, ArrayList<V>::new);
     }
 
     /**
@@ -573,8 +975,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <LIST>
+     *            결과 {@link List} 유형
      * @param single
      * @param multi
      * @param keyMapper
@@ -591,7 +996,7 @@ public class MapUtils {
      */
     public static <K, V, LIST extends List<V>> LIST toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<LIST> listFactory) {
-        return toCollection(single, multi, keyMapper, Function.identity(), mergeFunction, listFactory);
+        return toCollection(single, multi, keyMapper, d -> d, mergeFunction, listFactory);
     }
 
     /**
@@ -607,8 +1012,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <LIST>
+     *            결과 {@link List} 유형
      * @param single
      * @param multi
      *            * @param keyMapper 객체의 식별정보를 제공하는 함수.
@@ -639,8 +1047,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <LIST>
+     *            결과 {@link List} 유형
      * @param single
      * @param multi
      *            * @param keyMapper 객체의 식별정보를 제공하는 함수.
@@ -662,273 +1073,6 @@ public class MapUtils {
     }
 
     /**
-     * {@link Map} 데이터를 <code>값(V)</code> 데이터만 새로운 유형으로 변환하여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <U>
-     * @param <M>
-     * @param map
-     * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, U> Map<K, U> toMap(Map<K, V> map, Function<V, U> transformer) {
-        return toMap(map, transformer, HashMap<K, U>::new);
-    }
-
-    /**
-     * {@link Map} 데이터를 <code>값(V)</code> 데이터만 새로운 유형으로 변환하여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <U>
-     * @param <M>
-     * @param map
-     * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
-     * @param mapSupplier
-     *            {@link Map} 제공함수.
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Map<K, V> map, Function<V, U> transformer, Supplier<M> mapSupplier) {
-        return map.entrySet().stream() //
-                .collect(Collectors.toMap(Map.Entry::getKey //
-                        , entry -> transformer.apply(entry.getValue()) // V => U
-                        , throwingMerger() //
-                        , mapSupplier //
-                ));
-    }
-
-    /**
-     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <M>
-     * @param single
-     * @param multi
-     * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
-     * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V> Map<K, V> toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(flat(single, multi), keyMapper, Function.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
-    }
-
-    /**
-     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <U>
-     * @param <M>
-     * @param single
-     * @param multi
-     * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
-     * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
-     * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, U> Map<K, U> toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer) {
-        return toMap(single, multi, keyMapper, mergeFunction, transformer, HashMap<K, U>::new);
-    }
-
-    /**
-     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <U>
-     * @param <M>
-     * @param single
-     * @param multi
-     * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
-     * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
-     * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
-     * @param mapSupplier
-     *            {@link Map} 제공함수.
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(flat(single, multi), keyMapper, mergeFunction, transformer, mapSupplier);
-    }
-
-    /**
-     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <M>
-     * @param single
-     * @param multi
-     * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
-     * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
-     * @param mapSupplier
-     *            {@link Map} 제공함수.
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, M extends Map<K, V>> M toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<M> mapSupplier) {
-        return toMap(single, multi, keyMapper, Function.identity(), mergeFunction, mapSupplier);
-    }
-
-    /**
-     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V => U' + U => U) 합니다.
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <U>
-     * @param <M>
-     * @param single
-     * @param multi
-     * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
-     * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
-     * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( U + U => U)
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, U, M> Map<K, U> toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction) {
-        return toMap(single, multi, keyMapper, valueFunction, mergeFunction, HashMap<K, U>::new);
-    }
-
-    /**
-     * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
-     * <br>
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <K>
-     * @param <V>
-     * @param <U>
-     * @param <M>
-     * @param single
-     * @param multi
-     * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
-     * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
-     * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
-     * @param mapSupplier
-     *            {@link Map} 제공함수.
-     * @return
-     *
-     * @since 2025. 8. 20.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(flat(single, multi), keyMapper, valueFunction, mergeFunction, mapSupplier);
-    }
-
-    /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
      * 
      * <pre>
@@ -939,6 +1083,7 @@ public class MapUtils {
      * </pre>
      *
      * @param <V>
+     *            데이터 유형
      * @param single
      * @param multi
      * @return
@@ -948,7 +1093,7 @@ public class MapUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi) {
-        return toCollection(single, multi, HashSet<V>::new);
+        return toCollection(single, multi, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
@@ -963,7 +1108,9 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param single
      * @param multi
      * @param keyMapper
@@ -977,7 +1124,7 @@ public class MapUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(single, multi, keyMapper, Function.identity(), mergeFunction, HashSet<V>::new);
+        return toCollection(single, multi, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
@@ -992,8 +1139,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <SET>
+     *            결과 {@link Set} 유형
      * @param single
      * @param multi
      * @param keyMapper
@@ -1010,7 +1160,7 @@ public class MapUtils {
      */
     public static <K, V, SET extends Set<V>> SET toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<SET> setFactory) {
-        return toCollection(single, multi, keyMapper, Function.identity(), mergeFunction, setFactory);
+        return toCollection(single, multi, keyMapper, d -> d, mergeFunction, setFactory);
     }
 
     /**
@@ -1026,8 +1176,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <SET>
+     *            결과 {@link Set} 유형
      * @param single
      * @param multi
      *            * @param keyMapper 객체의 식별정보를 제공하는 함수.
@@ -1042,7 +1195,7 @@ public class MapUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, HashSet<V>::new);
+        return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
@@ -1058,8 +1211,11 @@ public class MapUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <SET>
+     *            결과 {@link Set} 유형
      * @param single
      * @param multi
      * @param keyMapper

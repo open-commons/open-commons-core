@@ -303,19 +303,19 @@ public class AssertUtils2 {
         }
     }
 
-    public static void mapNotNull(Map<?, ?> map) {
-        mapNotNull(null, map, null);
+    public static Object mapNotNull(Map<?, ?> map) {
+        return mapNotNull(null, map, null);
     }
 
-    public static void mapNotNull(Map<?, ?> map, Class<? extends RuntimeException> exClass) {
-        mapNotNull(null, map, exClass);
+    public static Object mapNotNull(Map<?, ?> map, Class<? extends RuntimeException> exClass) {
+        return mapNotNull(null, map, exClass);
     }
 
-    public static void mapNotNull(String msg, Map<?, ?> map) {
-        mapNotNull(msg, map, null);
+    public static Object mapNotNull(String msg, Map<?, ?> map) {
+        return mapNotNull(msg, map, null);
     }
 
-    public static void mapNotNull(String msg, Map<?, ?> map, Class<? extends RuntimeException> exClass) {
+    public static Object mapNotNull(String msg, Map<?, ?> map, Class<? extends RuntimeException> exClass) {
         notNull("The map MUST NOT be null. map: null", map);
 
         Object key = null;
@@ -325,6 +325,8 @@ public class AssertUtils2 {
             value = entry.getValue();
             notNulls("Neither key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(msg), key, value);
         }
+
+        return map;
     }
 
     public static void mapNull(Map<?, ?> map) {
@@ -422,12 +424,12 @@ public class AssertUtils2 {
         }
     }
 
-    public static void notNull(Object object) {
-        notNull(null, object, null);
+    public static Object notNull(Object object) {
+        return notNull(null, object, null);
     }
 
-    public static void notNull(Object object, Class<? extends RuntimeException> exClass) {
-        notNull(null, object, exClass);
+    public static Object notNull(Object object, Class<? extends RuntimeException> exClass) {
+        return notNull(null, object, exClass);
     }
 
     /**
@@ -453,29 +455,31 @@ public class AssertUtils2 {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static void notNull(Object object, Class<? extends RuntimeException> exClass, String msgFormat, Object... msgArgs) {
+    public static Object notNull(Object object, Class<? extends RuntimeException> exClass, String msgFormat, Object... msgArgs) {
         if (isNull_(object)) {
             assert0(exClass == null ? NullPointerException.class : exClass, msg0(String.format(msgFormat, msgArgs)));
         }
+
+        return object;
     }
 
-    public static void notNull(String msg, Object object) {
-        notNull(msg, object, null);
+    public static Object notNull(String msg, Object object) {
+        return notNull(msg, object, null);
     }
 
-    public static void notNull(String msg, Object object, Class<? extends RuntimeException> exClass) {
-        notNull(object, exClass, msg);
+    public static Object notNull(String msg, Object object, Class<? extends RuntimeException> exClass) {
+        return notNull(object, exClass, msg);
     }
 
-    public static void notNulls(Class<? extends RuntimeException> exClass, Object... objects) {
-        notNulls(null, exClass, objects);
+    public static Object notNulls(Class<? extends RuntimeException> exClass, Object... objects) {
+        return notNulls(null, exClass, objects);
     }
 
-    public static void notNulls(Object... objects) {
-        notNulls(null, null, objects);
+    public static Object notNulls(Object... objects) {
+        return notNulls(null, null, objects);
     }
 
-    public static void notNulls(String msg, Class<? extends RuntimeException> exClass, Object... objects) {
+    public static Object notNulls(String msg, Class<? extends RuntimeException> exClass, Object... objects) {
         notNull(msg, objects, exClass);
 
         for (Object object : objects) {
@@ -483,9 +487,11 @@ public class AssertUtils2 {
                 assert0(exClass == null ? NullPointerException.class : exClass, "objects: " + Arrays.toString(objects) + msg0(msg));
             }
         }
+
+        return objects;
     }
 
-    public static void notNulls(String msg, Object... objects) {
-        notNulls(msg, null, objects);
+    public static Object notNulls(String msg, Object... objects) {
+        return notNulls(msg, null, objects);
     }
 }

@@ -30,6 +30,7 @@ import java.lang.reflect.Array;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -390,11 +391,11 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param col
      *            elements
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @return
      *
      * @since 2017. 7. 6.
@@ -435,7 +436,7 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param col
      *            elements
      * @param extractor
@@ -600,11 +601,11 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param col
      *            elements
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @return
      *
      * @since 2017. 7. 6.
@@ -645,7 +646,7 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param col
      *            elements
      * @param extractor
@@ -689,7 +690,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see NullPointerException
-     * @deprecated 2014. 6. 30. Instead of, use {@link ArrayUtils#merge(Object[], Object[])}.
+     * @deprecated 2014. 6. 30., 대체 메소드: {@link ArrayUtils#merge(Object[], Object[])}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E> E[] merge(E[] t1, E[] t2) {
         E[] t3 = (E[]) Array.newInstance(t1.getClass(), t1.length + t2.length);
@@ -2325,6 +2327,39 @@ public class CollectionUtils {
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <NE>
+     *            새로운 데이터 유형
+     * @param <COL>
+     *            결과 {@link Collection} 유형
+     * @param col
+     *            데이터
+     * @param transformer
+     *            데이터 변환 함수
+     * @param collectionSupplier
+     *            결과 {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, NE, COL extends Collection<NE>> COL toCollection(Collection<E> col, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+        return col.stream().map(transformer).collect(Collectors.toCollection(collectionSupplier));
+    }
+
+    /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
      * 
@@ -2336,7 +2371,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <COL>
      * @param col
      * @param keyMapper
@@ -2359,33 +2396,68 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to {@link ArrayList} that has an another element type.
      * 
+     * Transform {@link Collection} to extension of {@link List}.
+     * 
+     * @param <E>
+     *            type of an element
+     * @param <L>
+     *            type of extension of {@link List}
      * @param col
+     * @param listClass
+     *            MUST be class. Not allow an interface.
      * @return
      *
      * @since 2014. 10. 17.
+     * 
+     * @see Class#newInstance()
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toList(Collection, Supplier)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E> List<E> toList(Collection<E> col) {
-        return toList(col, ArrayList.class);
+    public static <E, L extends List<E>> List<E> toList(Collection<E> col, Class<L> listClass) {
+
+        List<E> list = null;
+
+        try {
+            list = listClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        if (col != null) {
+            list.addAll(col);
+        }
+
+        return list;
     }
 
     /**
-     * Transform {@link Collection} to {@link ArrayList} that has an another element type.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 21.     박준홍         최초 작성
+     * </pre>
+     *
      * @param <E>
+     *            데이터 유형
      * @param <NE>
-     * @param <L>
+     *            새로운 데이터 유형
      * @param col
+     *            데이터
      * @param transformer
+     *            데이터 변환 함수
      * @return
      *
-     * @since 2017. 7. 6.
-     * 
-     * @see #toList(Collection, Function, Class)
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, NE> List<NE> toList(Collection<E> col, Function<E, NE> transformer) {
-        return toList(col, transformer, ArrayList.class);
+        return toCollection(col, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
@@ -2406,6 +2478,9 @@ public class CollectionUtils {
      * @since 2017. 7. 27.
      * 
      * @see Class#newInstance()
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toList(Collection, Function, Supplier)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, NE, L extends List<NE>> L toList(Collection<E> col, Function<E, NE> transformer, Class<L> listClass) {
 
@@ -2427,36 +2502,87 @@ public class CollectionUtils {
 
     /**
      * 
-     * Transform {@link Collection} to extension of {@link List}.
+     * <br>
      * 
-     * @param <T>
-     *            type of an element
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 21.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <NE>
+     *            새로운 데이터 유형
      * @param <L>
-     *            type of extension of {@link List}
+     *            결과 {@link List} 유형
      * @param col
-     * @param listClass
-     *            MUST be class. Not allow an interface.
+     *            데이터
+     * @param transformer
+     *            데이터 변환 함수
+     * @param listSupplier
+     *            결과 {@link Listr} 객체 제공 함수.
      * @return
      *
-     * @since 2014. 10. 17.
-     * 
-     * @see Class#newInstance()
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T, L extends List<T>> List<T> toList(Collection<T> col, Class<L> listClass) {
+    public static <E, NE, L extends List<NE>> L toList(Collection<E> col, Function<E, NE> transformer, Supplier<L> listSupplier) {
+        return toCollection(col, transformer, listSupplier);
+    }
 
-        List<T> list = null;
+    /**
+     * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 유형
+     * @param <LIST>
+     *            결과 {@link List} 유형
+     * @param col
+     * @param listSupplier
+     * @return
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> toList(Collection<T> col) {
+        return toList(col, (Supplier<List<T>>) ArrayList::new);
+    }
 
-        try {
-            list = listClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        if (col != null) {
-            list.addAll(col);
-        }
-
-        return list;
+    /**
+     * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 유형
+     * @param <COL>
+     *            결과 {@link List} 유형
+     * @param col
+     * @param collectionSupplier
+     * @return
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, COL extends Collection<T>> COL toList(Collection<T> col, Supplier<COL> collectionSupplier) {
+        return toCollection(col, d -> d, collectionSupplier);
     }
 
     /**
@@ -2471,7 +2597,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param col
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
@@ -2484,7 +2612,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, Function.identity(), mergeFunction, ArrayList<V>::new);
+        return toCollection(col, keyMapper, d -> d, mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
 
     /**
@@ -2499,8 +2627,11 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <LIST>
+     *            결과 {@link List} 유형
      * @param col
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
@@ -2515,7 +2646,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V, LIST extends List<V>> LIST toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
-        return toCollection(col, keyMapper, Function.identity(), mergeFunction, listFactory);
+        return toCollection(col, keyMapper, d -> d, mergeFunction, listFactory);
     }
 
     /**
@@ -2531,7 +2662,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <LIST>
      * @param col
      * @param valueMapper
@@ -2545,7 +2678,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, valueMapper, mergeFunction, ArrayList<V>::new);
+        return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
 
     /**
@@ -2561,7 +2694,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <LIST>
      * @param col
      * @param valueMapper
@@ -2600,7 +2735,7 @@ public class CollectionUtils {
      * @since 2018. 9. 12.
      */
     public static <E, NE> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
-        return stream.map(transformer).collect(Collectors.toList());
+        return StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
@@ -2616,17 +2751,32 @@ public class CollectionUtils {
      *
      * @param stream
      * @param transformer
-     * @param mapClass
+     * @param listClass
      * @return
      *
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 12.
+     * 
+     * @deprecated 2025. 8. 21.<br>
+     *             대체 메소드: {@link StreamUtils#toCollection(Stream, Function, Supplier)}.
+     * 
+     *             <pre>
+     *            // '코드 전환' 예시
+     *            toList(stream, transformaer, ArrayList.class)
+     *             => StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
+     *             : stream -> stream
+     *             : transformer -> transfomer
+     *             : ArrayList.class ->  (Supplier<List<NE>>) ArrayList<NE>::new) // '(Supplier&lt;List&lt;NE&gt;&gt;)'는 Generic 정보를 명확하게 전달하기 위함.
+     *             </pre>
+     * 
+     *             <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Class<L> mapClass) {
+    public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Class<L> listClass) {
         L list = null;
 
         try {
-            list = mapClass.newInstance();
+            list = listClass.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -2637,31 +2787,42 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to {@link Map}. <br>
+     * {@link Collection} 데이터를 <code>keyMapper</code>로 구분되는 {@link Map} 형테로 제공합니다.<br>
+     * 단, <code>keyMapper</code> 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
+     * <code>keyMapper</code> 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기 바랍니다.<br>
+     * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * 
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2017. 7. 60.		박준홍			최초 작성
+     * 2025. 8. 21.     박준홍         {@link Stream} API로 변환. 
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            데이터 유형
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형
      * @param col
-     *            elements.
-     * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 제공 객체.
+     * @param keyMapper
+     *            데이터 식별정보 제공 함수.
      * @return
      *
      * @since 2017. 7. 6.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      */
-    public static <E, K> Map<K, E> toMap(Collection<E> col, Function<E, K> keyGen) {
-        return toMap(col, keyGen, HashMap.class);
+    public static <E, K> Map<K, E> toMap(Collection<E> col, Function<E, K> keyMapper) {
+        return toMap(col, keyMapper, (Supplier<Map<K, E>>) HashMap<K, E>::new);
     }
 
     /**
@@ -2679,18 +2840,21 @@ public class CollectionUtils {
      * @param <E>
      *            입력 데이터 타입
      * @param <K>
-     *            key로 사용될 데이터 타입
+     *            데이터 식별정보 유형
      * @param <M>
      *            새로운 {@link Map} 타입
      * @param col
      *            elements
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param mapClass
      *            a subclass of {@link Map}
      * @return
      *
      * @since 2017. 9. 11.
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, K, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, Class<M> mapClass) {
 
@@ -2716,17 +2880,17 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            입력 데이터 타입
+     *            데이터 유형
      * @param <K>
-     *            key로 사용될 데이터 타입
+     *            데이터 식별정보 유형
      * @param <V>
-     *            새로운 value로 사용될 데이터 타입
+     *            새로운 데이터 유형
      * @param <M>
      *            새로운 {@link Map} 타입
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
      *            a function to create a new element using an old element.
      * @return
@@ -2751,15 +2915,15 @@ public class CollectionUtils {
      * @param <E>
      *            입력 데이터 타입
      * @param <K>
-     *            key로 사용될 데이터 타입
+     *            데이터 식별정보 유형
      * @param <V>
-     *            새로운 value로 사용될 데이터 타입
+     *            데이터 유형 새로운 value로 사용될 데이터 타입
      * @param <M>
      *            새로운 {@link Map} 타입
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
      *            a function to create a new element using an old element.
      * @param mapClass
@@ -2768,6 +2932,28 @@ public class CollectionUtils {
      *
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 2. 8.
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드 목록은 아래와 같습니다.
+     *             <ul>
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function)}
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier)}
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
+     *             </ul>
+     * 
+     *             <code>
+     *            // '코드 전환' 예시<br>
+     *            toMap(col, keyGen, valueGen, map, mapClass)<br>
+     *             => StreamUtils.toMap(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);<br>
+     *             : col => col.stream() ->  stream<br>
+     *             : keyGen -> keyMapper<br>
+     *             : valueGen -> valueFunction<br>
+     *             : mapClass => (Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;) HashMap&lt;K, List&lt;V&gt;&gt;::new 또는 (Supplier&lt;Map&lt;K, Set&lt;V&gt;&gt;&gt;) HashMap&lt;K, Set&lt;V&gt;&gt;::new, ...<br>
+     *               -> mapSupplier // 'Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             :  X => (Supplier&lt;List&lt;V&gt;&gt;) ArrayList&lt;V&gt;::new 또는 (Supplier&lt;Set&lt;V&gt;&gt;) HashSet&lt;V&gt;::new, ...<br>
+     *               -> collectionSupplier // 'Supplier&lt;List&lt;V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
         return (M) toMap(col, keyGen, valueGen, mapClass, ArrayList.class);
@@ -2786,9 +2972,9 @@ public class CollectionUtils {
      * @param <E>
      *            입력 데이터 타입
      * @param <K>
-     *            key로 사용될 데이터 타입
+     *            데이터 식별정보 유형
      * @param <V>
-     *            새로운 value로 사용될 데이터 타입
+     *            데이터 유형 새로운 value로 사용될 데이터 타입
      * @param <C>
      *            {@link Collection} 타입
      * @param <M>
@@ -2797,7 +2983,7 @@ public class CollectionUtils {
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
      *            a function to create a new element using an old element.
      * @param mapClass
@@ -2809,6 +2995,28 @@ public class CollectionUtils {
      *
      * @since 2019. 11. 28.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드 목록은 아래와 같습니다.
+     *             <ul>
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function)}
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier)}
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
+     *             </ul>
+     * 
+     *             <code>
+     *            // '코드 전환' 예시<br>
+     *            toMap(col, keyGen, valueGen, map, mapClass, colClass)<br>
+     *             => StreamUtils.toMap(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);<br>
+     *             : col => col.stream() ->  stream<br>
+     *             : keyGen -> keyMapper<br>
+     *             : valueGen -> valueFunction<br>
+     *             : mapClass => (Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;) HashMap&lt;K, List&lt;V&gt;&gt;::new 또는 (Supplier&lt;Map&lt;K, Set&lt;V&gt;&gt;&gt;) HashMap&lt;K, Set&lt;V&gt;&gt;::new, ...<br>
+     *               -> mapSupplier // 'Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             : colClass => (Supplier&lt;List&lt;V&gt;&gt;) ArrayList&lt;V&gt;::new 또는 (Supplier&lt;Set&lt;V&gt;&gt;) HashSet&lt;V&gt;::new, ...<br>
+     *               -> collectionSupplier // 'Supplier&lt;List&lt;V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass,
             Class<C> colClass) {
@@ -2837,17 +3045,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수. ( E =@=> K)
      * @param valueGen
-     *            a function to create a new element using an old element.
+     *            새로운 데이터 제공 함수 (E => V)
      * @param map
      *            an instance of {@link Map}.
      * @param colClass
@@ -2857,6 +3065,27 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드 목록은 아래와 같습니다.
+     *             <ul>
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function)}
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier)}
+     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
+     *             </ul>
+     * 
+     *             <code>
+     *             // '코드 전환' 예시<br>
+     *             toMap(col, keyGen, valueGen, map, colClass)<br>
+     *             => StreamUtils.toMap(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);<br>
+     *             : col => col.stream() -> stream<br>
+     *             : keyGen -> keyMapper<br>
+     *             : valueGen -> valueFunction<br>
+     *             : map => () -> map -> mapSupplier<br>
+     *             : colClass => (Supplier&lt;List&lt;V&gt;&gt;) ArrayList&lt;V&gt;::new 또는 (Supplier&lt;Set&lt;V&gt;&gt;) HashSet&lt;V&gt;::new, ...<br>
+     *             -> collectionSupplier // 'Supplier&lt;List&lt;V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map,
             Class<C> colClass) {
@@ -2898,13 +3127,13 @@ public class CollectionUtils {
      * @param <E>
      *            a type of a value.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <M>
      *            a type of a {@link Map}.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param map
      * @return
      *
@@ -2919,6 +3148,48 @@ public class CollectionUtils {
         }
 
         return map;
+    }
+
+    /**
+     * {@link Collection} 데이터를 <code>keyMapper</code>로 구분되는 {@link Map} 형테로 제공합니다.<br>
+     * 단, <code>keyMapper</code> 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
+     * <code>keyMapper</code> 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기 바랍니다.<br>
+     * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2017. 7. 60.     박준홍         최초 작성
+     * 2025. 8. 21.     박준홍         {@link Stream} API로 변환. 
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <K>
+     *            데이터 식별정보 유형
+     * @param <M>
+     *            결과 {@link Map} 유형
+     * @param col
+     *            데이터 제공 객체.
+     * @param keyMapper
+     *            데이터 식별정보 제공 함수.
+     * @param mapSupplier
+     *            결과 {@link Map} 객체 제공함수.
+     * @return
+     *
+     * @since 2017. 7. 6.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     */
+    public static <E, K, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(col.stream(), keyMapper, d -> d, (d1, d2) -> d2, (Supplier<M>) mapSupplier);
     }
 
     /**
@@ -2937,11 +3208,11 @@ public class CollectionUtils {
      * 
      * @ppram <E> a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @return {@link HashMap}
      *
      * @since 2014. 10. 17.
@@ -2969,7 +3240,7 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <M>
      *            a type of a {@link Map}.
      * @param col
@@ -3011,7 +3282,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <M>
      * @param col
      * @param keyMapper
@@ -3025,7 +3298,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(col.stream(), keyMapper, Function.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+        return StreamUtils.toMap(col.stream(), keyMapper, d -> d, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
@@ -3040,7 +3313,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <U>
      * @param <M>
      * @param col
@@ -3057,7 +3332,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V, U> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
-        return toMap(col, keyMapper, mergeFunction, transformer, HashMap<K, U>::new);
+        return toMap(col, keyMapper, mergeFunction, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
     /**
@@ -3072,7 +3347,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <U>
      * @param <M>
      * @param single
@@ -3107,7 +3384,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <M>
      * @param col
      * @param keyMapper
@@ -3123,7 +3402,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(col.stream(), keyMapper, Function.identity(), mergeFunction, mapSupplier);
+        return StreamUtils.toMap(col.stream(), keyMapper, d -> d, mergeFunction, mapSupplier);
     }
 
     /**
@@ -3139,7 +3418,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <U>
      * @param <M>
      * @param col
@@ -3156,7 +3437,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V, U, M> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
-        return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, HashMap<K, U>::new);
+        return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
     /**
@@ -3173,7 +3454,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <U>
      * @param <M>
      * @param col
@@ -3197,7 +3480,17 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Enumeration} to {@link Map}. <br>
+     * {@link Enumera} 데이터를 <code>keyGen</code>로 구분되는 {@link Map} 형테로 제공합니다.<br>
+     * 단, <code>keyMapper</code> 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
+     * <code>keyMapper</code> 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기 바랍니다.<br>
+     * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * 
      * 
      * <pre>
      * [개정이력]
@@ -3207,20 +3500,22 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            데이터 유형
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형
      * @param col
-     *            elements.
+     *            ㄷ이터 제공 객체
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @return
      *
      * @since 2017. 9. 11.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #toMap(Collection, Function)
      */
     public static <E, K> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyGen) {
-        return toMap(col, keyGen, HashMap.class);
+        return toMap(Collections.list(col), keyGen);
     }
 
     /**
@@ -3236,19 +3531,32 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param mapClass
      *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
      * @since 2017. 9. 11.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
+     *             <code>
+     *              // '코드 전환' 예시<br>
+     *             toMap(col, keyGen, mapClass)<br>
+     *             => toMap(col, keyMapper, mapSupplier);<br>
+     *             : col => col.stream() -> stream<br>
+     *             : keyGen -> keyMapper<br>
+     *             : mapClass => (Supplier&lt;Map&lt;K, V&gt;&gt;) HashMap&lt;K, V&gt;::new <br>
+     *               -> mapSupplier // 'Supplier&lt;Map&lt;K, V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, Function<E, K> keyGen, Class<M> mapClass) {
 
@@ -3276,13 +3584,13 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param map
      *            an instance of a {@link Map}.
      * 
@@ -3291,6 +3599,18 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
+     *             <code>
+     *             // '코드 전환' 예시<br>
+     *             toMap(col, keyGen, valueGen, map)<br>
+     *             => toMap(stream, keyMapper, mapSupplier);<br>
+     *             : col => col.stream() -> stream<br>
+     *             : keyGen -> keyMapper<br>
+     *             : map => () -> map -> mapSupplier<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, Function<E, K> keyGen, M map) {
 
@@ -3321,11 +3641,11 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @return
      *
      * @since 2017. 9. 11.
@@ -3352,13 +3672,13 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param mapClass
      *            a sub-{@link Class} of a {@link Map}.
      * @return
@@ -3399,19 +3719,19 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            데이터 유형
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형
      * @param <V>
-     *            a type of a new element.
+     *            새로운 데이터 유형
      * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
+     *            결과 데이터 {@link Map} 유형
      * @param col
-     *            elements.
+     *            데이터 제공 객체
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @return
      *
      * @since 2019. 8. 8.
@@ -3434,17 +3754,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param mapClass
      *            a sub-{@link Class} of a {@link Map}.
      * @return
@@ -3477,17 +3797,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param map
      *            an instance of a {@link Map}.
      * @return
@@ -3520,17 +3840,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @return
      *
      * @since 2019. 8. 8.
@@ -3553,17 +3873,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param mapClass
      *            a sub-{@link Class} of a {@link Map}.
      * @return
@@ -3596,17 +3916,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param map
      *            an instance of a {@link Map}.
      * @return
@@ -3639,17 +3959,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @return
      *
      * @since 2019. 8. 8.
@@ -3672,17 +3992,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param mapClass
      *            a sub-{@link Class} of a {@link Map}.
      * @return
@@ -3717,17 +4037,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param map
      *            an instance of a {@link Map}.
      * @return
@@ -3760,17 +4080,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @return
      *
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -3793,17 +4113,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param mapClass
      *            a sub-{@link Class} of a {@link Map}.
      * @return
@@ -3839,17 +4159,17 @@ public class CollectionUtils {
      * @param <E>
      *            a type of an element.
      * @param <K>
-     *            a type of a key.
+     *            데이터 식별정보 유형 a type of a key.
      * @param <V>
-     *            a type of a new element.
+     *            데이터 유형 a type of a new element.
      * @param <M>
      *            a type of subclass of {@link Map}, not interface.
      * @param col
      *            elements.
      * @param keyGen
-     *            a function to create a key using an element.
+     *            데이터 식별정보 제공 함수.
      * @param valueGen
-     *            a function to create a new element using an element.
+     *            새로운 데이터 변환 함수
      * @param map
      *            an instance of a {@link Map}.
      * @return
@@ -3866,18 +4186,28 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Set} to {@link Set} that has an another element type.
+     * {@link Collection}에 포함된 데이터를 {@link Set}에 담아 제공합니다. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 10. 17.		박준홍			최초 작성
+     * 2025. 8. 21.         박준홍         내부 구현 개선. (Stream API 적용)
+     * </pre>
+     *
      * @param <E>
-     *            a type of an element.
+     *            데이터 유형
      * @param col
-     *            elements.
+     *            데이터 제공 객체
      * @return
      *
      * @since 2014. 10. 17.
+     * @version 1.6.17
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E> Set<E> toSet(Collection<E> col) {
-        return toSet(col, HashSet.class);
+        return toSet(col, (Supplier<Set<E>>) HashSet<E>::new);
     }
 
     /**
@@ -3902,6 +4232,17 @@ public class CollectionUtils {
      * @return
      *
      * @since 2014. 10. 17.
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toSet(Collection, Supplier)}.<br>
+     *             <code>
+     *            // '코드 전환' 예시<br>
+     *            toSet(col, setClass)<br>
+     *             => toSet(col, setSupplier);<br>
+     *             : col -> col<br>
+     *             : setClass => (Supplier&lt;Set&lt;E&gt;&gt;) Set&lt;E&gt;::new -> setSupplier // 'Supplier&lt;Set&lt;E&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, S extends Set<E>> S toSet(Collection<E> col, Class<S> setClass) {
         Set<E> set = null;
@@ -3920,44 +4261,65 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Set} to {@link Set} that has an another element type.
+     * {@link Collection}에 포함된 데이터를 변환(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
      * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2017. 7. 6.		박준홍			최초 작성
+     * 2025. 8. 21.     박준홍         내구 구현 개선 (Stream API 적용)
+     * </pre>
+     *
      * @param <E>
+     *            데이터 유형
      * @param <NE>
+     *            새로운 데이터 유형
      * @param col
+     *            데이터 제공 객체
      * @param transformer
+     *            새로운 데이터 제공 함수
      * @return
      *
      * @since 2017. 7. 6.
+     * @version
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, NE> Set<NE> toSet(Collection<E> col, Function<E, NE> transformer) {
-
-        Set<NE> set = toSet(null, HashSet.class);
-
-        for (E c : col) {
-            set.add(transformer.apply(c));
-        }
-
-        return set;
+        return StreamUtils.toCollection(col.stream(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
     /**
-     * Transform {@link Collection} to extended {@link Set} that has an another element type.
+     * {@link Collection}에 포함된 데이터를 변환(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
      * 
      * @param <E>
-     *            Element type
+     *            데이터 유형
      * @param <NE>
-     *            new Element Type
+     *            새로운 데이터 유형
      * @param <NS>
-     *            new Set type
+     *            결과 {@link Set} 유형
      * 
      * @param col
+     *            데이터 제공 함수
      * @param transformer
+     *            새로운 데이터 제공 함수
      * @param setClass
-     *            MUST be class. Not allow an interface.
+     *            결과 {@link Set} 유형.
      * @return
      *
      * @since 2017. 7. 27.
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link StreamUtils#toCollection(Stream, Function, Supplier)}.<br>
+     *             <code>
+     *            // '코드 전환' 예시<br>
+     *            toSet(col, transformer, setClass)<br>
+     *             => StreamUtils.toCollection(stream, transformer, collectionSupplier);<br>
+     *             : col => col.stream() ->  stream<br>
+     *             : transformer -> transformer<br>
+     *             : setClass => (Supplier&lt;Set&lt;E&gt;&gt;) Set&lt;E&gt;::new -> setSupplier // 'Supplier&lt;Set&lt;E&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code>
+     * 
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, NE, NS extends Set<NE>> NS toSet(Collection<E> col, Function<E, NE> transformer, Class<NS> setClass) {
 
@@ -3988,18 +4350,21 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            데이터 유형
      * @param <S>
-     *            a type of subclass of {@link Set}, not interface.
+     * 
      * @param col
-     *            elements.
+     *            데이터 제공 객체
      * @param set
-     *            a instance of of a {@link Set}.
+     *            데이터가 모아지는 {@link Set} 객체.
      * @return
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link Collection#addAll(Collection)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, S extends Set<E>> S toSet(Collection<E> col, S set) {
 
@@ -4008,6 +4373,34 @@ public class CollectionUtils {
         }
 
         return set;
+    }
+
+    /**
+     * {@link Collection}에 포함된 데이터를 {@link Set}에 담아 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 21.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <SET>
+     *            결과 {@link Set} 유형
+     * @param col
+     *            데이터 제공 객체
+     * @param setSupplier
+     *            결과 {@link Set} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, SET extends Set<E>> SET toSet(Collection<E> col, Supplier<SET> setSupplier) {
+        return StreamUtils.toCollection(col.stream(), setSupplier);
     }
 
     /**
@@ -4022,7 +4415,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param col
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
@@ -4035,7 +4430,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, Function.identity(), mergeFunction, HashSet<V>::new);
+        return toCollection(col, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
@@ -4050,7 +4445,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <SET>
      * @param col
      * @param keyMapper
@@ -4066,7 +4463,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V, SET extends Set<V>> SET toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
-        return toCollection(col, keyMapper, Function.identity(), mergeFunction, setFactory);
+        return toCollection(col, keyMapper, d -> d, mergeFunction, setFactory);
     }
 
     /**
@@ -4082,7 +4479,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <SET>
      * @param col
      * @param keyMapper
@@ -4098,7 +4497,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, valueMapper, mergeFunction, HashSet<V>::new);
+        return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
@@ -4114,7 +4513,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
+     *            데이터 식별정보 유형
      * @param <V>
+     *            데이터 유형
      * @param <SET>
      * @param col
      * @param keyMapper
@@ -4157,6 +4558,9 @@ public class CollectionUtils {
      *
      * @since 2018. 9. 12.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link StreamUtils#toSet(Stream, Function)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
         return stream.map(transformer).collect(Collectors.toSet());
@@ -4186,6 +4590,17 @@ public class CollectionUtils {
      *
      * @since 2019. 9. 12.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * 
+     * @deprecated 2025. 8. 21., 대체 메소드: {@link StreamUtils#toSet(Stream, Function, Supplier)}.<br>
+     *             <code>
+     *            // '코드 전환' 예시<br>
+     *            toSet(stream, transformer, setClass)<br>
+     *             => StreamUtils.toSet(col, transformer, setSupplier);<br>
+     *             : col -> col<br>
+     *             : transformer -> transformer<br>
+     *             : setClass => (Supplier&lt;Set&lt;E&gt;&gt;) Set&lt;E&gt;::new -> setSupplier // 'Supplier&lt;Set&lt;E&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
+     *             </code> <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Class<S> setClass) {
 

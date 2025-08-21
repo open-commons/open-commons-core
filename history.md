@@ -1,10 +1,10 @@
 [2025/08/21]
 - Modify
   + open.commons.core.utils.StreamUtils: 파라미터 타입에 따라서 Utility 클래스로 이관.
-    + Collection&lt;E&gt;: open.commons.core.utils.CollectionUtils
-    + Map&lt;K,V&gt;: open.commons.core.utils.MapUtils
+    + Collection&lt;E&gt;: open.commons.core.utils.CollectionUtils: 신규 메소드 추가 및 기존 메소드 개선 (Stream API 적용)
+    + Map&lt;K,V&gt;: open.commons.core.utils.MapUtils: 신규 메소드 추가 및 기존 메소드 개선 (Stream API 적용)
 - Add
-  + open.commons.core.utils.CollectionUtils
+  + open.commons.core.utils.CollectionUtils:
     + toCollection(Collection&lt;V&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;COL&gt;)
     + toList(Collection&lt;V&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;)
     + toList(Collection&lt;V&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;LIST&gt;)
