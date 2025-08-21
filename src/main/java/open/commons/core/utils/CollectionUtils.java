@@ -44,9 +44,11 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -2323,6 +2325,40 @@ public class CollectionUtils {
     }
 
     /**
+     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <COL>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueMapper
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param collectionFactory
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, COL extends Collection<V>> COL toCollection(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
+            Supplier<COL> collectionFactory) {
+        return StreamUtils.toCollection(col.stream(), keyMapper, valueMapper, mergeFunction, collectionFactory);
+    }
+
+    /**
      * Transform {@link Collection} to {@link ArrayList} that has an another element type.
      * 
      * @param col
@@ -2421,6 +2457,128 @@ public class CollectionUtils {
         }
 
         return list;
+    }
+
+    /**
+     * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return toCollection(col, keyMapper, Function.identity(), mergeFunction, ArrayList<V>::new);
+    }
+
+    /**
+     * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <LIST>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @param listFactory
+     *            {@link List} 객체를 제공하는 함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, LIST extends List<V>> LIST toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
+        return toCollection(col, keyMapper, Function.identity(), mergeFunction, listFactory);
+    }
+
+    /**
+     * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <LIST>
+     * @param col
+     * @param valueMapper
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+        return toCollection(col, keyMapper, valueMapper, mergeFunction, ArrayList<V>::new);
+    }
+
+    /**
+     * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <LIST>
+     * @param col
+     * @param valueMapper
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param listFactory
+     *            {@link List} 객체를 제공하는 함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, LIST extends List<V>> LIST toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
+            Supplier<LIST> listFactory) {
+        return toCollection(col, keyMapper, valueMapper, mergeFunction, listFactory);
     }
 
     /**
@@ -2839,6 +2997,203 @@ public class CollectionUtils {
         }
 
         return map;
+    }
+
+    /**
+     * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <M>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return StreamUtils.toMap(col.stream(), keyMapper, Function.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+    }
+
+    /**
+     * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜 | 작성자 | 내용
+     * ------------------------------------------
+     * 2025. 8. 20. 박준홍 최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
+        return toMap(col, keyMapper, mergeFunction, transformer, HashMap<K, U>::new);
+    }
+
+    /**
+     * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param single
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param transformer
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M extends Map<K, U>> M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
+            Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(col.stream(), keyMapper, mergeFunction, transformer, mapSupplier);
+    }
+
+    /**
+     * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <M>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(col.stream(), keyMapper, Function.identity(), mergeFunction, mapSupplier);
+    }
+
+    /**
+     * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V => U' + U => U) 합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueFunction
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( U + U => U)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
+        return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, HashMap<K, U>::new);
+    }
+
+    /**
+     * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
+     * <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <U>
+     * @param <M>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueFunction
+     *            새로운 객체를 제공하는 함수. (V => U)
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
+     * @param mapSupplier
+     *            {@link Map} 제공함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, U, M extends Map<K, U>> M toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction,
+            Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
     /**
@@ -3656,6 +4011,132 @@ public class CollectionUtils {
     }
 
     /**
+     * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return toCollection(col, keyMapper, Function.identity(), mergeFunction, HashSet<V>::new);
+    }
+
+    /**
+     * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <SET>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     * @param setFactory
+     *            {@link Set} 객체를 제공하는 함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, SET extends Set<V>> SET toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
+        return toCollection(col, keyMapper, Function.identity(), mergeFunction, setFactory);
+    }
+
+    /**
+     * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <SET>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueMapper
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+        return toCollection(col, keyMapper, valueMapper, mergeFunction, HashSet<V>::new);
+    }
+
+    /**
+     * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 20.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param <SET>
+     * @param col
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수.
+     * @param valueMapper
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     * @param mergeFunction
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     * @param setFactory
+     *            {@link Set} 객체를 제공하는 함수.
+     * @return
+     *
+     * @since 2025. 8. 20.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V, SET extends Set<V>> SET toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
+            Supplier<SET> setFactory) {
+        return toCollection(col, keyMapper, valueMapper, mergeFunction, setFactory);
+    }
+
+    /**
      * 
      * <br>
      * 
@@ -3815,5 +4296,4 @@ public class CollectionUtils {
 
         }
     }
-
 }
