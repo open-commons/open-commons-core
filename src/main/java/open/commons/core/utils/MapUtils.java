@@ -77,7 +77,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <V> Stream<V> flat(Map<String, V> single, Map<String, List<V>> multi) {
+    public static <K, V> Stream<V> flat(Map<K, V> single, Map<K, List<V>> multi) {
         AssertUtils2.notNulls(single, multi);
         return Stream //
                 .of(single.values().stream() //
@@ -435,7 +435,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -453,8 +453,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Map<K, V> map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(flat(single, multi), keyMapper, d -> d, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+    public static <K, V, NK> Map<NK, V> map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
+        return StreamUtils.toMap(flat(single, multi), keyMapper, d -> d, mergeFunction, (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
     }
 
     /**
@@ -468,7 +468,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -490,9 +490,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U> Map<K, U> map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer) {
-        return map(single, multi, keyMapper, mergeFunction, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
+    public static <K, V, NK, U> Map<NK, U> map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
+        return map(single, multi, keyMapper, mergeFunction, transformer, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
     }
 
     /**
@@ -506,7 +505,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -530,7 +529,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+    public static <K, V, NK, U, M extends Map<NK, U>> M map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
             Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, mergeFunction, transformer, mapSupplier);
     }
@@ -546,7 +545,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -566,7 +565,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, M extends Map<K, V>> M map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+    public static <K, V, NK, M extends Map<NK, V>> M map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<M> mapSupplier) {
         return map(single, multi, keyMapper, d -> d, mergeFunction, mapSupplier);
     }
@@ -583,7 +582,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -605,9 +604,9 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M> Map<K, U> map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
+    public static <K, V, NK, U, M> Map<NK, U> map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction,
             BinaryOperator<U> mergeFunction) {
-        return map(single, multi, keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
+        return map(single, multi, keyMapper, valueFunction, mergeFunction, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
     }
 
     /**
@@ -623,7 +622,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -647,7 +646,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M map(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, U> valueFunction,
+    public static <K, V, NK, U, M extends Map<NK, U>> M map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction,
             BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
@@ -816,7 +815,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -836,7 +835,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+    public static <K, V, NK, COL extends Collection<V>> COL toCollection(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<COL> collectionFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, collectionFactory);
     }
@@ -852,7 +851,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -874,7 +873,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, V> valueMapper,
+    public static <K, V, NK, COL extends Collection<V>> COL toCollection(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
             BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
         return StreamUtils.toCollection(flat(single, multi), keyMapper, valueMapper, mergeFunction, collectionFactory);
     }
@@ -903,7 +902,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <V, COL extends Collection<V>> COL toCollection(Map<String, V> single, Map<String, List<V>> multi, Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>> COL toCollection(Map<K, V> single, Map<K, List<V>> multi, Supplier<COL> collectionFactory) {
         AssertUtils2.notNulls(single, multi, collectionFactory);
         return flat(single, multi).collect(Collectors.toCollection(collectionFactory));
     }
@@ -928,7 +927,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <V> List<V> toList(Map<String, V> single, Map<String, List<V>> multi) {
+    public static <K, V> List<V> toList(Map<K, V> single, Map<K, List<V>> multi) {
         return toCollection(single, multi, ArrayList<V>::new);
     }
 
@@ -943,7 +942,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -959,7 +958,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> List<V> toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> List<V> toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, ArrayList<V>::new);
     }
 
@@ -974,7 +973,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -994,7 +993,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, LIST extends List<V>> LIST toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+    public static <K, V, NK, LIST extends List<V>> LIST toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<LIST> listFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, listFactory);
     }
@@ -1011,7 +1010,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -1030,7 +1029,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> List<V> toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> List<V> toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, ArrayList<V>::new);
     }
 
@@ -1046,7 +1045,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -1067,7 +1066,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, LIST extends List<V>> LIST toList(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, V> valueMapper,
+    public static <K, V, NK, LIST extends List<V>> LIST toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
             BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, listFactory);
     }
@@ -1092,7 +1091,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi) {
+    public static <K, V> Set<V> toSet(Map<K, V> single, Map<K, List<V>> multi) {
         return toCollection(single, multi, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -1107,7 +1106,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -1123,7 +1122,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> Set<V> toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -1138,7 +1137,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -1158,7 +1157,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, SET extends Set<V>> SET toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+    public static <K, V, NK, SET extends Set<V>> SET toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<SET> setFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, setFactory);
     }
@@ -1175,7 +1174,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -1194,7 +1193,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Set<V> toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> Set<V> toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -1210,7 +1209,7 @@ public class MapUtils {
      * 2025. 8. 20.     박준홍         최초 작성
      * </pre>
      *
-     * @param <K>
+     * @param <NK>
      *            데이터 식별정보 유형
      * @param <V>
      *            데이터 유형
@@ -1232,7 +1231,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, SET extends Set<V>> SET toSet(Map<String, V> single, Map<String, List<V>> multi, Function<V, K> keyMapper, Function<V, V> valueMapper,
+    public static <K, V, NK, SET extends Set<V>> SET toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
             BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, setFactory);
     }
