@@ -31,9 +31,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+
+import open.commons.core.TwoValueObject;
+import open.commons.core.text.NamedTemplate.NamingParser.NamedToken;
+import open.commons.core.utils.StreamUtils;
 
 /**
  * The escape character is <b><code>$</code></b>.
@@ -230,6 +236,29 @@ public class NamedTemplate {
         return format(pattern, values, true);
     }
 
+    /**
+     * 주어진 패턴에 설정된 '이름' 값을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 26.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param pattern
+     * @return
+     *
+     * @since 2025. 8. 26.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static Set<TwoValueObject<String, Boolean>> getNames(String pattern) {
+        NamingParser parser = new NamingParser(pattern, true);
+        parser.parse();
+        return StreamUtils.toSet(parser.tokens.stream(), NamedToken::isName, t -> new TwoValueObject<>(t.value(), t.isMandatory()));
+    }
+
     static class NamingParser {
         String pattern;
 
@@ -277,7 +306,7 @@ public class NamedTemplate {
 
                 if (token.isName()) {
                     buf.append(value(name, values //
-                            , token.mandatory ? new StringBuffer().append('{').append(name).append('}').toString() : ""));
+                            , token.isMandatory ? new StringBuffer().append('{').append(name).append('}').toString() : ""));
                 } else {
                     buf.append(name);
                 }
@@ -395,16 +424,21 @@ public class NamedTemplate {
         class NamedToken {
             String value;
             boolean isName;
-            boolean mandatory;
+            boolean isMandatory;
 
             NamedToken(String name, boolean isName) {
                 this.value = name;
                 this.isName = isName;
 
-                this.mandatory = name.startsWith("?") ? false : true;
+                this.isMandatory = name.startsWith("?") ? false : true;
             }
 
             /**
+             *
+             * @since 2025. 8. 26.
+             * @version 2.1.0
+             * @author Park Jun-Hong (parkjunhong77@gmail.com)
+             *
              * @see java.lang.Object#equals(java.lang.Object)
              */
             @Override
@@ -416,33 +450,39 @@ public class NamedTemplate {
                 if (getClass() != obj.getClass())
                     return false;
                 NamedToken other = (NamedToken) obj;
-                if (!getOuterType().equals(other.getOuterType()))
+                if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
                     return false;
-                if (isName != other.isName)
-                    return false;
-                if (value == null) {
-                    if (other.value != null)
-                        return false;
-                } else if (!value.equals(other.value))
-                    return false;
-                return true;
+                return isName == other.isName && Objects.equals(value, other.value);
             }
 
-            private NamingParser getOuterType() {
+            private NamingParser getEnclosingInstance() {
                 return NamingParser.this;
             }
 
             /**
+             *
+             * @since 2025. 8. 26.
+             * @version 2.1.0
+             * @author Park Jun-Hong (parkjunhong77@gmail.com)
+             *
              * @see java.lang.Object#hashCode()
              */
             @Override
             public int hashCode() {
                 final int prime = 31;
                 int result = 1;
-                result = prime * result + getOuterType().hashCode();
-                result = prime * result + (isName ? 1231 : 1237);
-                result = prime * result + ((value == null) ? 0 : value.hashCode());
+                result = prime * result + getEnclosingInstance().hashCode();
+                result = prime * result + Objects.hash(isName, value);
                 return result;
+            }
+
+            /**
+             * @since 2025. 8. 26.
+             * @version 2.1.0
+             * @author Park Jun-Hong (parkjunhong77@gmail.com)
+             */
+            public boolean isMandatory() {
+                return isMandatory;
             }
 
             /**

@@ -2327,8 +2327,7 @@ public class CollectionUtils {
     }
 
     /**
-     * 
-     * <br>
+     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2356,7 +2355,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, NE, COL extends Collection<NE>> COL toCollection(Collection<E> col, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
-        return col.stream().map(transformer).collect(Collectors.toCollection(collectionSupplier));
+        return StreamUtils.toCollection(col.stream(), transformer, collectionSupplier);
     }
 
     /**

@@ -1,3 +1,8 @@
+[2025/08/27]
+- Add
+  + open.commons.core.text.NamedTemplate.getNames(String)
+  + open.commons.core.utils.StringUtils.notBlank(String)
+
 [2025/08/21]
 - Modify
   + open.commons.core.utils.StreamUtils: 파라미터 타입에 따라서 Utility 클래스로 이관.

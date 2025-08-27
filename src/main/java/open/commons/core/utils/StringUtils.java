@@ -42,6 +42,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
+import javax.validation.constraints.NotBlank;
 
 import open.commons.core.log.LogUtils;
 import open.commons.core.prog.StrLenRvrOrderingEntry;
@@ -1910,6 +1911,30 @@ public class StringUtils {
         } else {
             return Optional.of(trim ? str.trim() : str);
         }
+    }
+
+    /**
+     * 주어진 문자열이 {@link NotBlank}인지를 검증합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 27.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param string
+     *            {@link String#trim()} 처리된 문자열.
+     * @return
+     *
+     * @since 2025. 8. 27.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String notBlank(String string) {
+        AssertUtils2.notNull(string);
+        AssertUtils2.isFalse(string.trim().length() < 1);
+        return string.trim();
     }
 
     /**

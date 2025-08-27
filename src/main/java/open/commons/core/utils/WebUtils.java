@@ -24,6 +24,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2012. 1. 4.
  * 
+ * @deprecated 2025. 8. 27. <a href=
+ *             "https://github.com/open-commons/open-commons-spring-web/blob/main/src/main/java/open/commons/spring/web/utils/WebUtils.java">open.commons.spring.web.utils.WebUtils</a>를
+ *             사용하기 바랍니다. <br>
+ *             <font color="red">다음 배포시 삭제 예정</font>
  */
 public class WebUtils {
 
