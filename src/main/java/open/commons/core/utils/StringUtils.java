@@ -40,6 +40,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.validation.constraints.NotBlank;
@@ -1935,6 +1936,31 @@ public class StringUtils {
         AssertUtils2.notNull(string);
         AssertUtils2.isFalse(string.trim().length() < 1);
         return string.trim();
+    }
+
+    /**
+     * 주어진 문자열이 모두 {@link NotBlank} 인지를 검증합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 29.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param strings
+     * @return
+     *
+     * @since 2025. 8. 29.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String[] notBlanks(String... strings) {
+        for (String string : strings) {
+            AssertUtils2.notNull(string);
+            AssertUtils2.isFalse(string.trim().length() < 1);
+        }
+        return Stream.of(strings).map(s -> s.trim()).toArray(String[]::new);
     }
 
     /**

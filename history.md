@@ -1,3 +1,11 @@
+[2025/08/30]
+- New
+  + open.commons.core.exception.CreateInstanceFailedException
+- Add
+  + open.commons.core.utils.ObjectUtils: transform(...) 메소드들에서 새로운 객체 생성 방식 추가.
+    + Supplier<?> 추가
+  + open.commons.core.utils.StringUtils.notBlanks(...)
+
 [2025/08/27]
 - Add
   + open.commons.core.text.NamedTemplate.getNames(String)

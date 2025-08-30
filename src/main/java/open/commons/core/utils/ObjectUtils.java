@@ -53,6 +53,7 @@ import org.slf4j.LoggerFactory;
 import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Information;
 import open.commons.core.annotation.Setter;
+import open.commons.core.exception.CreateInstanceFailedException;
 import open.commons.core.function.PentagonFunction;
 import open.commons.core.function.QuadFunction;
 import open.commons.core.stream.ClassSpliterator;
@@ -594,7 +595,7 @@ public class ObjectUtils {
 
         int key = TYPE_CONVERTER_KEYGEN.apply(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
         return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, key,
-                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
+                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
     }
 
     /**
@@ -773,7 +774,7 @@ public class ObjectUtils {
         AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
         return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, typeConverterKey,
-                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> ObjectUtils.transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
+                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
     }
 
     /**
@@ -1462,6 +1463,7 @@ public class ObjectUtils {
      * @throws InstantiationException
      *
      * @since 2018. 1. 31.
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static <C extends Collection<Object>, T, R extends Collection<T>> R to(C objects, Class<R> classType, Function<Object, T> function)
             throws UnsupportedOperationException, InstantiationException, IllegalAccessException {
@@ -1480,6 +1482,42 @@ public class ObjectUtils {
         objects.forEach(o -> r.add(function.apply(o)));
 
         return r;
+    }
+
+    /**
+     * 전달받은 데이터를 변환(T => U)한 후, 새로운 {@link Collection}(R)로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 30.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            기존 데이터 유형
+     * @param <U>
+     *            새로운 데이터 유형
+     * @param <C>
+     *            기존 데이터를 담은 {@link Collection} 유형
+     * @param <R>
+     *            변환 후 데이터가 저장될 {@link Collection} 유형
+     * @param objects
+     * @param function
+     *            데이터 변환 함수
+     * @param collectionSupplier
+     * @return
+     * @throws UnsupportedOperationException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static <T, U, C extends Collection<T>, R extends Collection<U>> R to(C objects, Function<T, U> function, Supplier<R> collectionSupplier)
+            throws UnsupportedOperationException, InstantiationException, IllegalAccessException {
+        return objects.stream().map(function).collect(Collectors.toCollection(collectionSupplier));
     }
 
     /**
@@ -1690,6 +1728,7 @@ public class ObjectUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 8. 30.     박준홍         내부 구현을 {@link #transform(Collection, boolean, Supplier, boolean, Map, Supplier)}으로 전환.
      * </pre>
      *
      * @param <S>
@@ -1702,8 +1741,8 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형..
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
@@ -1712,8 +1751,8 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection} 제공 함수
      * @return
      *
      * @since 2025. 4. 3.
@@ -1721,14 +1760,16 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, Supplier<C> supplier) {
-        return src.stream().map(s -> {
-            try {
-                return ObjectUtils.transform(s, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper, converters);
-            } catch (InstantiationException | IllegalAccessException e) {
-                throw new IllegalStateException(e);
-            }
-        }).collect(Collectors.toCollection(supplier));
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper //
+                , (Supplier<T>) () -> {
+                    try {
+                        return (T) targetType.newInstance();
+                    } catch (Exception e) {
+                        throw new CreateInstanceFailedException(targetType, e);
+                    }
+                }, lookupTargetSuper //
+                , converters, collectionSupplier);
     }
 
     /**
@@ -1752,20 +1793,21 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            기존 데이터 정보를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> supplier) {
-        return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, FIELD_CONVERTERS, supplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
+            Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
     }
 
     /**
@@ -1789,16 +1831,16 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
@@ -1806,8 +1848,8 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters,
-            Supplier<C> supplier) {
-        return transform(src, lookupSrcSuper, targetType, false, converters, supplier);
+            Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetType, false, converters, collectionSupplier);
     }
 
     /**
@@ -1831,18 +1873,179 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> supplier) {
-        return transform(src, lookupSrcSuper, targetType, false, FIELD_CONVERTERS, supplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetType, false, FIELD_CONVERTERS, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * * @param <S> 입력 데이터 타입
+     * 
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection} 제공 함수
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        return src.stream().map(s -> {
+            return transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
+        }).collect(Collectors.toCollection(collectionSupplier));
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 개체 제공함수.
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, false, FIELD_CONVERTERS, collectionSupplier);
     }
 
     /**
@@ -1864,7 +2067,7 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param target
+     * @param targetType
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -1874,8 +2077,8 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
@@ -1883,8 +2086,8 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters,
-            Supplier<C> supplier) {
-        return transform(src, false, targetType, lookupTargetSuper, converters, supplier);
+            Supplier<C> collectionSupplier) {
+        return transform(src, false, targetType, lookupTargetSuper, converters, collectionSupplier);
     }
 
     /**
@@ -1906,20 +2109,20 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> supplier) {
-        return transform(src, false, targetType, lookupTargetSuper, FIELD_CONVERTERS, supplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetType, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
     }
 
     /**
@@ -1941,24 +2144,24 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> supplier) {
-        return transform(src, false, targetType, false, converters, supplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetType, false, converters, collectionSupplier);
     }
 
     /**
@@ -1980,18 +2183,168 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param target
-     *            데이터를 전달받은 객체.
-     * @param colsType
-     *            대상 데이터를 포함한 {@link Collection}
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
      * @return
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> supplier) {
-        return transform(src, false, targetType, false, FIELD_CONVERTERS, supplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetType, false, FIELD_CONVERTERS, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetInstanceSupplier, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
+        return transform(src, false, targetInstanceSupplier, false, converters, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetInstanceSupplier, false, FIELD_CONVERTERS, collectionSupplier);
     }
 
     /**
@@ -2031,9 +2384,9 @@ public class ObjectUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.		박준홍			최초 작성
+     * 2019. 7. 11.     박준홍         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2054,11 +2407,14 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
-        try {
-            return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
+        return transform(src, lookupSrcSuper //
+                , (Supplier<T>) () -> {
+                    try {
+                        return (T) targetType.newInstance();
+                    } catch (Exception e) {
+                        throw new CreateInstanceFailedException(targetType, e);
+                    }
+                }, lookupTargetSuper);
     }
 
     /**
@@ -2067,9 +2423,9 @@ public class ObjectUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.		박준홍			최초 작성
+     * 2021. 11. 22.        박준홍         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2097,11 +2453,15 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        try {
-            return transform(src, lookupSrcSuper, targetType.newInstance(), lookupTargetSuper, converters);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw new IllegalStateException(e);
-        }
+        return transform(src, lookupSrcSuper //
+                , (Supplier<T>) () -> {
+                    try {
+                        return targetType.newInstance();
+                    } catch (Exception e) {
+                        throw new CreateInstanceFailedException(targetType, e);
+                    }
+                }, lookupTargetSuper //
+                , converters);
     }
 
     /**
@@ -2143,6 +2503,116 @@ public class ObjectUtils {
     }
 
     /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
+     * 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
+    }
+
+    /**
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters);
+    }
+
+    /**
      * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
@@ -2160,8 +2630,8 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @return
      *
      * @since 2020. 12. 08.
@@ -2192,8 +2662,8 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
@@ -2213,10 +2683,10 @@ public class ObjectUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2020. 12. 08.     박준홍         최초 작성
-     * 2021. 11. 22.		박준홍      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * 2021. 11. 22.        박준홍      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
      * </pre>
      *
      * @param <S>
@@ -2227,8 +2697,8 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
@@ -2367,8 +2837,8 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
      *            <ul>
@@ -2532,6 +3002,144 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see Getter
+     * @see Setter
+     */
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier) {
+        return transform(src, false, targetInstanceSupplier, false);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
+     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터.
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+        return transform(src, false, targetInstanceSupplier, lookupTargetSuper);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
+     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터.
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param lookupTargetSuper
+     *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+        return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            변환 타입
+     * @param converters
+     *            데이터 변환 함수.
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see Getter
+     * @see Setter
+     */
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+        return transform(src, false, targetInstanceSupplier, false, converters);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
      * 2020. 12. 08.     박준홍         최초 작성
      * </pre>
      *
@@ -2541,8 +3149,8 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @return
      *
      * @since 2020. 12. 08.
@@ -2573,8 +3181,8 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터.
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
      * @return
@@ -2603,8 +3211,8 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터.
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
      * @param converters
@@ -2640,8 +3248,8 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param target
-     *            데이터를 전달받은 객체.
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
      *            <ul>
@@ -2659,6 +3267,295 @@ public class ObjectUtils {
      */
     public static <S, T> T transform(S src, T target, Map<String, Function<?, ?>> converters) {
         return transform(src, false, target, false, converters);
+    }
+
+    /**
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, T> T transform1(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, false);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
+     */
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        return transform(src, true, targetType, true, converters, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
+     */
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
+        return transform(src, true, targetType, true, FIELD_CONVERTERS, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
+     */
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
+        return transform(src, true, targetInstanceSupplier, true, converters, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입
+     * @param <T>
+     *            대상 데이터 타입
+     * @param <C>
+     *            변환 후 데이터 {@link Collection}
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @param collectionSupplier
+     *            대상 데이터를 포함할 {@link Collection}
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
+     */
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+        return transform(src, true, targetInstanceSupplier, true, FIELD_CONVERTERS, collectionSupplier);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param targetType
+     *            변환 타입
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T> T transformAll(S src, Class<T> targetType) {
+        return transform(src, true, targetType, true);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, T> T transformAll(S src, T target) {
+        return transform(src, true, target, true);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param targetType
+     *            데이터를 전달받을 새로운 데이터 유형.
+     * @param converters
+     *            데이터 변환 함수
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Object, boolean)
+     */
+    public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
+        return transform(src, true, target, true, converters);
     }
 
 }
