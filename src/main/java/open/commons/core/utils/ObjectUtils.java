@@ -2503,6 +2503,38 @@ public class ObjectUtils {
     }
 
     /**
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transform(Object, boolean, Class, boolean)
+     */
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, false);
+    }
+
+    /**
      * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
      * 제공합니다.<br>
      * 
@@ -3270,38 +3302,6 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            입력 데이터 타입 정의.
-     * @param <T>
-     *            신규 데이터 타입 정의.
-     * @param src
-     *            입력 데이터
-     * @param lookupSrcSuper
-     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetInstanceSupplier
-     *            새로운 데이터 객체 제공 함수.
-     * @return
-     *
-     * @since 2025. 8. 30.
-     * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @see #transform(Object, boolean, Class, boolean)
-     */
-    public static <S, T> T transform1(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
-        return transform(src, lookupSrcSuper, targetInstanceSupplier, false);
-    }
-
-    /**
      * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
      * <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
@@ -3486,6 +3486,36 @@ public class ObjectUtils {
      */
     public static <S, T> T transformAll(S src, Class<T> targetType) {
         return transform(src, true, targetType, true);
+    }
+
+    /**
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
+     * <br>
+     * 상위 클래스에서 정의한 내용도 이관합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 8. 30.     박준홍         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 타입 정의.
+     * @param <T>
+     *            신규 데이터 타입 정의.
+     * @param src
+     *            입력 데이터
+     * @param targetInstanceSupplier
+     *            새로운 데이터 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 8. 30.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, T> T transformAll(S src, Supplier<T> targetInstanceSupplier) {
+        return transform(src, true, targetInstanceSupplier, true);
     }
 
     /**
