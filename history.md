@@ -1,3 +1,12 @@
+[2025/09/01]
+- New
+  + open.commons.core.utils.CollectionUtils
+    + alignBy(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;, Function&lt;KEY, R&gt;)
+    + alignBy(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;KEY, E&gt;)
+    + alignBy(List&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, List&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;, Function&lt;KEY, R&gt;)
+    + alignBy(List&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R1&gt;, Function&lt;KEY, R1&gt;, List&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R2&gt;, Function&lt;KEY, R2&gt;)
+    + createTree(List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, KEY&gt;, Function&lt;E, TREE&gt;, BiConsumer&lt;TREE, E&gt;)
+
 [2025/08/30]
 - New
   + open.commons.core.exception.CreateInstanceFailedException

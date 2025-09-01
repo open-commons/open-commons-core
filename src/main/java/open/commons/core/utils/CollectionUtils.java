@@ -53,6 +53,10 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
+
+import open.commons.core.TwoValueObject;
+import open.commons.core.collection.FIFOMap;
 import open.commons.core.collection.IKeyExtractor;
 
 /**
@@ -287,6 +291,226 @@ public class CollectionUtils {
     }
 
     /**
+     * 2개의 데이터를 동일한 기준으로 양쪽 순서를 맞추어 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E => R)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @param transformer
+     *            데이터 변환 함수 (E => R)
+     * @param emptyCreator
+     *            빈 데이터 제공 함수 ({} => R)
+     * @return
+     *
+     * @since 2025. 9. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>, R> TwoValueObject<List<R>, List<R>> alignBy( //
+            @Nonnull List<E> data1, @Nonnull List<E> data2 //
+            , @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, R> transformer, @Nonnull Function<KEY, R> emptyCreator //
+    ) {
+        return alignBy(data1, keyProvider, transformer, emptyCreator, data2, keyProvider, transformer, emptyCreator);
+    }
+
+    /**
+     * 2개의 데이터를 동일한 기준으로 양쪽 순서를 맞추어 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param data1
+     *            정렬된 데이터#1
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @param emptyCreator
+     *            빈 데이터 제공 함수 ({} => R)
+     * @return
+     *
+     * @since 2025. 9. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>> TwoValueObject<List<E>, List<E>> alignBy( //
+            @Nonnull List<E> data1, @Nonnull List<E> data2 //
+            , @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<KEY, E> emptyCreator //
+    ) {
+        return alignBy(data1, keyProvider, d -> d, emptyCreator, data2, keyProvider, d -> d, emptyCreator);
+    }
+
+    /**
+     * 2개의 데이터를 동일한 기준으로 양쪽 순서를 맞추어 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @param emptyCreator
+     *            빈 데이터 제공 함수 ({} => R)
+     * @return
+     *
+     * @since 2025. 9. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R> TwoValueObject<List<R>, List<R>> alignBy( //
+            @Nonnull List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
+            , @Nonnull List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
+            , @Nonnull Function<KEY, R> emptyCreator //
+    ) {
+        return alignBy(data1, keyProvider1, transformer1, emptyCreator, data2, keyProvider2, transformer2, emptyCreator);
+    }
+
+    /**
+     * 2개의 데이터를 동일한 기준으로 양쪽 순서를 맞추어 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R1>
+     *            새로운 데이터 유형1 (E1 => R1)
+     * @param <R2>
+     *            새로운 데이터 유형2 (E2 => R2)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R1)
+     * @param emptyCreator1
+     *            빈 데이터 제공 함수 ( {} => R1)
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R2)
+     * @param emptyCreator2
+     *            빈 데이터 제공 함수 ({} => R2)
+     * @return
+     *
+     * @since 2025. 9. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R1, R2> TwoValueObject<List<R1>, List<R2>> alignBy( //
+            @Nonnull List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R1> transformer1, @Nonnull Function<KEY, R1> emptyCreator1 //
+            , @Nonnull List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R2> transformer2, @Nonnull Function<KEY, R2> emptyCreator2 //
+    ) {
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, emptyCreator1, data2, keyProvider2, transformer2, emptyCreator2);
+
+        List<R1> resultData1 = new ArrayList<>();
+        List<R2> resultData2 = new ArrayList<>();
+
+        Iterator<E1> itrData1 = data1.iterator();
+        E1 d1 = null;
+        KEY key1 = null;
+        Iterator<E2> itrData2 = data2.iterator();
+        E2 d2 = null;
+        KEY key2 = null;
+
+        int compared = -1;
+        while (itrData1.hasNext() || itrData2.hasNext()) {
+            if (d1 == null && itrData1.hasNext()) {
+                d1 = itrData1.next();
+            }
+            if (d2 == null && itrData2.hasNext()) {
+                d2 = itrData2.next();
+            }
+
+            if (d1 != null && d2 != null) {
+                key1 = keyProvider1.apply(d1);
+                key2 = keyProvider2.apply(d2);
+                compared = key1.compareTo(key2);
+            } else if (d1 != null) {
+                key1 = keyProvider1.apply(d1);
+                compared = -1;
+            } else if (d2 != null) {
+                key2 = keyProvider2.apply(d2);
+                compared = 1;
+            } else {
+                break;
+            }
+
+            if (compared < 0) {
+                resultData1.add(transformer1.apply(d1));
+                d1 = null;
+                resultData2.add(emptyCreator2.apply(key1));
+            } else if (compared > 0) {
+                resultData1.add(emptyCreator1.apply(key2));
+                resultData2.add(transformer2.apply(d2));
+                d2 = null;
+            } else {
+                resultData1.add(transformer1.apply(d1));
+                d1 = null;
+                resultData2.add(transformer2.apply(d2));
+                d2 = null;
+            }
+        }
+
+        return new TwoValueObject<>(resultData1, resultData2);
+    }
+
+    /**
      * Clear {@link Collection}s if each of them are not null.
      * 
      * @param cols
@@ -376,6 +600,67 @@ public class CollectionUtils {
         }
 
         return false;
+    }
+
+    /**
+     * 주어진 데이터를 'Tree' 형태로 구성하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <TREE>
+     *            'Tree' 데이터 유형
+     * @param <KEY>
+     *            'Tree' 데이터 식별정보 유형
+     * @param data
+     *            데이터
+     * @param keyProvider
+     *            식별정보 제공자
+     * @param parentKeyProvider
+     *            상위객체 식별정보 제공자
+     * @param transformer
+     *            데이터 변환 함수 (E => TREE)
+     * @param addChild
+     *            'TREE'에 데이터 추가 함수.
+     * @return
+     *
+     * @since 2025. 9. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, TREE, KEY> List<TREE> createTree(//
+            @Nonnull List<E> data, @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, KEY> parentKeyProvider //
+            , @Nonnull Function<E, TREE> transformer, @Nonnull BiConsumer<TREE, E> addChild //
+    ) {
+        AssertUtils2.notNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
+
+        Map<KEY, TREE> topLevels = new FIFOMap<>();
+        Map<KEY, TREE> nodesMap = new HashMap<>();
+
+        KEY itemNumber = null;
+        KEY parentItemNumber = null;
+        TREE tree = null;
+        for (E d : data) {
+            itemNumber = keyProvider.apply(d);
+            tree = transformer.apply(d);
+            parentItemNumber = parentKeyProvider.apply(d);
+            if (nodesMap.containsKey(parentItemNumber)) {
+                // 상위 객체에 추가.
+                addChild.accept(nodesMap.get(parentItemNumber), d);
+            } else {
+                topLevels.put(itemNumber, tree);
+            }
+            // 자신 객체를 Map에 추가. 하위 객체가 자신을 찾을 수 있게.
+            nodesMap.put(itemNumber, tree);
+        }
+
+        return new ArrayList<>(topLevels.values());
     }
 
     /**
