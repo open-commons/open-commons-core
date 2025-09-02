@@ -628,6 +628,8 @@ public class CollectionUtils {
      *            데이터 변환 함수 (E => TREE)
      * @param addChild
      *            'TREE'에 데이터 추가 함수.
+     *            <li>첫번재: 상위 객체
+     *            <li>두번째: 하위 객체
      * @return
      *
      * @since 2025. 9. 1.
@@ -636,7 +638,7 @@ public class CollectionUtils {
      */
     public static <E, TREE, KEY> List<TREE> createTree(//
             @Nonnull List<E> data, @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, KEY> parentKeyProvider //
-            , @Nonnull Function<E, TREE> transformer, @Nonnull BiConsumer<TREE, E> addChild //
+            , @Nonnull Function<E, TREE> transformer, @Nonnull BiConsumer<TREE, TREE> addChild //
     ) {
         AssertUtils2.notNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
 
@@ -652,7 +654,7 @@ public class CollectionUtils {
             parentItemNumber = parentKeyProvider.apply(d);
             if (nodesMap.containsKey(parentItemNumber)) {
                 // 상위 객체에 추가.
-                addChild.accept(nodesMap.get(parentItemNumber), d);
+                addChild.accept(nodesMap.get(parentItemNumber), tree);
             } else {
                 topLevels.put(itemNumber, tree);
             }
