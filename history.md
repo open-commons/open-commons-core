@@ -1,6 +1,31 @@
 [2025/09/01]
-- New
+- Add
   + open.commons.core.utils.CollectionUtils
+    + parallelSort(Collection&lt;T&gt;, Comparator&lt;T&gt;)
+    + parallelSort(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;)
+    + parallelSortAndMerge(Collection&lt;E&gt;, Collection&lt;E&gt;, Function&lt;E, KEY&gt;)
+    + parallelSortAndMerge(Collection&lt;E&gt;, Collection&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;)
+    + parallelSortAndMerge(Collection&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, Collection&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;)
+    + parallelSortAndMerge(Collection&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, Collection&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;, Comparator&lt;KEY&gt;)
+    + sort(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;)
+    + sort(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;)
+    + sort(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;, Comparator&lt;KEY&gt;)
+    + sort(List&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, List&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;)
+    + sort(List&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, List&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;, Comparator&lt;KEY&gt;)
+    + sortAndMerge(Collection&lt;E&gt;, Collection&lt;E&gt;, Function&lt;E, KEY&gt;)
+    + sortAndMerge(Collection&lt;E&gt;, Collection&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;)
+    + sortAndMerge(Collection&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, Collection&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;)
+    + sortAndMerge(Collection&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, Collection&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;, Comparator&lt;KEY&gt;)
+    + topN(Collection&lt;T&gt;, Comparator&lt;T&gt;, int)
+    + topN(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
+    + topN(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int, TopNStrategy, boolean)
+    + topnByFullSort(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
+    + topnByHeap(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
+    + topnByQuickselect(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
+  
+[2025/09/01]
+- Add
+  + pen.commons.core.utils.CollectionUtils
     + alignBy(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;, Function&lt;KEY, R&gt;)
     + alignBy(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;KEY, E&gt;)
     + alignBy(List&lt;E1&gt;, Function&lt;E1, KEY&gt;, Function&lt;E1, R&gt;, List&lt;E2&gt;, Function&lt;E2, KEY&gt;, Function&lt;E2, R&gt;, Function&lt;KEY, R&gt;)

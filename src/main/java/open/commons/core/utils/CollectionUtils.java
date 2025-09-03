@@ -39,6 +39,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
+import java.util.Random;
 import java.util.Set;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
@@ -58,6 +60,7 @@ import javax.annotation.Nonnull;
 import open.commons.core.TwoValueObject;
 import open.commons.core.collection.FIFOMap;
 import open.commons.core.collection.IKeyExtractor;
+import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
 
 /**
  * 
@@ -642,27 +645,27 @@ public class CollectionUtils {
     ) {
         AssertUtils2.notNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
 
-        Map<KEY, TREE> topLevels = new FIFOMap<>();
-        Map<KEY, TREE> nodesMap = new HashMap<>();
+        Map<KEY, TREE> top = new FIFOMap<>();
+        Map<KEY, TREE> elements = new HashMap<>();
 
-        KEY itemNumber = null;
-        KEY parentItemNumber = null;
+        KEY key = null;
+        KEY parentKey = null;
         TREE tree = null;
         for (E d : data) {
-            itemNumber = keyProvider.apply(d);
+            key = keyProvider.apply(d);
             tree = transformer.apply(d);
-            parentItemNumber = parentKeyProvider.apply(d);
-            if (nodesMap.containsKey(parentItemNumber)) {
+            parentKey = parentKeyProvider.apply(d);
+            if (elements.containsKey(parentKey)) {
                 // 상위 객체에 추가.
-                addChild.accept(nodesMap.get(parentItemNumber), tree);
+                addChild.accept(elements.get(parentKey), tree);
             } else {
-                topLevels.put(itemNumber, tree);
+                top.put(key, tree);
             }
             // 자신 객체를 Map에 추가. 하위 객체가 자신을 찾을 수 있게.
-            nodesMap.put(itemNumber, tree);
+            elements.put(key, tree);
         }
 
-        return new ArrayList<>(topLevels.values());
+        return new ArrayList<>(top.values());
     }
 
     /**
@@ -2277,7 +2280,6 @@ public class CollectionUtils {
      * 
      * @param map
      * @param asc
-     *            TODO
      * @return 정렬된 새로운 객체
      * 
      * @since 2012. 02. 15.
@@ -2294,8 +2296,7 @@ public class CollectionUtils {
      * 주어진 {@link Map}을 정렬한 후 새로운 {@link Map}을 반환합니다.
      * 
      * @param map
-     * @param asc
-     *            TODO
+     * @param comparator
      * @return 정렬된 새로운 객체
      * 
      * @since 2012. 02. 15.
@@ -2306,6 +2307,225 @@ public class CollectionUtils {
         returnedMap.putAll(map);
 
         return returnedMap;
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3..        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param sorter
+     *            정렬 함수
+     * @return
+     *
+     * @since 2025. 9. 3..
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> parallelSort(Collection<T> data, Comparator<T> sorter) {
+        return data.parallelStream() //
+                .sorted(sorter)//
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3..        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @return
+     *
+     * @since 2025. 9. 3..
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> parallelSort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
+        return data.parallelStream() //
+                .filter(filter) // 필터 적용
+                .sorted(sorter)// 정렬
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, List, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param data1
+     *            데이터#1
+     * @param data2
+     *            데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
+        return parallelSortAndMerge(data1, keyProvider, d -> d, data2, keyProvider, d -> d, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, List, Function, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E => R)
+     * @param data1
+     *            데이터#1
+     * @param data2
+     *            데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @param transformer
+     *            데이터 변환 함수 (E => R)
+     *
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider,
+            Function<E, R> transformer) {
+        return parallelSortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge( //
+            Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
+            , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
+    ) {
+        return parallelSortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge( //
+            Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
+            , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
+            , Comparator<KEY> comparator //
+    ) {
+        List<E1> sortedData1 = data1.parallelStream().sorted((o1, o2) -> keyProvider1.apply(o1).compareTo(keyProvider1.apply(o2))).collect(Collectors.toList());
+        List<E2> sortedData2 = data2.parallelStream().sorted((o1, o2) -> keyProvider2.apply(o1).compareTo(keyProvider2.apply(o2))).collect(Collectors.toList());
+
+        return sort(sortedData1, keyProvider1, transformer1, sortedData2, keyProvider2, transformer2, comparator);
     }
 
     /**
@@ -2427,40 +2647,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> List<T> sort(Collection<T> data, Comparator<T> sorter) {
-        return data.stream() //
-                .sorted(sorter)//
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2023. 12. 13.        박준홍         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            데이터 타입
-     * @param data
-     *            원본 데이터
-     * @param sorter
-     *            정렬 함수
-     * @param limit
-     *            데이터 개수
-     * @return
-     *
-     * @since 2023. 12. 13.
-     * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <T> List<T> sort(Collection<T> data, Comparator<T> sorter, int limit) {
-        return data.stream() //
-                .sorted(sorter)//
-                .limit(limit) //
-                .collect(Collectors.toList());
+        return sort(data, o -> true, sorter);
     }
 
     /**
@@ -2488,6 +2675,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
+        AssertUtils2.notNulls(data, filter, sorter);
         return data.stream() //
                 .filter(filter) // 필터 적용
                 .sorted(sorter)// 정렬
@@ -2495,37 +2683,386 @@ public class CollectionUtils {
     }
 
     /**
-     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 정렬된 2개의 {@link List}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param data1
+     *            정렬된 데이터#1
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider) {
+        return sort(data1, keyProvider, d -> d, data2, keyProvider, d -> d, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬된 2개의 {@link List}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E => R)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @param transforme
+     *            데이터 변환 함수 (E => R)
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>, R> List<R> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
+        return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬된 2개의 {@link List}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 12. 13.		박준홍			최초 작성
+     * 2025. 9. 3.		박준홍			최초 작성
      * </pre>
      *
-     * @param <T>
-     *            데이터 타입
-     * @param data
-     *            원본 데이터
-     * @param filter
-     *            데이터 필터
-     * @param sorter
-     *            정렬 함수
-     * @param limit
-     *            데이터 개수
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param comparator
+     *            'KEY' 값 우선순위 비교 함수
      * @return
      *
-     * @since 2023. 12. 13.
-     * @version 2.0.0
+     * @since 2025. 9. 3.
+     * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
-        return data.stream() //
-                .filter(filter) // 필터 적용
-                .sorted(sorter)// 정렬
-                .limit(limit) // 개수 제한
-                .collect(Collectors.toList());
+    public static <E, KEY, R> List<R> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer, Comparator<KEY> comparator) {
+        return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, comparator);
+    }
+
+    /**
+     * 정렬된 2개의 {@link List}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sort( //
+            List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
+            , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
+    ) {
+        return sort(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬된 2개의 {@link List}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            정렬된 데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            정렬된 데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @param comparator
+     *            'KEY' 값 우선순위 비교 함수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY, R> List<R> sort( //
+            List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
+            , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
+            , Comparator<KEY> comparator //
+    ) {
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
+
+        List<R> sorted = new ArrayList<>();
+
+        Iterator<E1> itrData1 = data1.iterator();
+        Iterator<E2> itrData2 = data2.iterator();
+
+        E1 d1 = itrData1.hasNext() ? itrData1.next() : null;
+        E2 d2 = itrData2.hasNext() ? itrData2.next() : null;
+        int compared = -1;
+        while (d1 != null && d2 != null) {
+            compared = comparator.compare(keyProvider1.apply(d1), keyProvider2.apply(d2));
+            if (compared < 0) {
+                sorted.add(transformer1.apply(d1));
+                d1 = itrData1.hasNext() ? itrData1.next() : null;
+            } else if (compared > 0) {
+                sorted.add(transformer2.apply(d2));
+                d2 = itrData2.hasNext() ? itrData2.next() : null;
+            } else {
+                sorted.add(transformer1.apply(d1));
+                sorted.add(transformer2.apply(d2));
+                d1 = itrData1.hasNext() ? itrData1.next() : null;
+                d2 = itrData2.hasNext() ? itrData2.next() : null;
+            }
+        }
+
+        while (d1 != null) {
+            sorted.add(transformer1.apply(d1));
+            d1 = itrData1.hasNext() ? itrData1.next() : null;
+        }
+        while (d2 != null) {
+            sorted.add(transformer2.apply(d2));
+            d2 = itrData2.hasNext() ? itrData2.next() : null;
+        }
+
+        return sorted;
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, List, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param data1
+     *            데이터#1
+     * @param data2
+     *            데이터#2
+     * @param keyProviders
+     *            데이터 식별정보 제공 함수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
+        return sortAndMerge(data1, keyProvider, d -> d, data2, keyProvider, d -> d, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, List, Function, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     * 
+     * @param <E>
+     *            데이터 유형
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E => R)
+     * @param data1
+     *            데이터#1
+     * @param data2
+     *            데이터#2
+     * @param keyProvider
+     *            데이터 식별정보 제공 함수
+     * @param transformer
+     *            데이터 변환 함수 (E => R)
+     *
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E, KEY extends Comparable<KEY>, R> List<R> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
+        return sortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sortAndMerge( //
+            Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
+            , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
+    ) {
+        return sortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
+    }
+
+    /**
+     * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <E1>
+     *            데이터 유형1
+     * @param <E2>
+     *            데이터 유형2
+     * @param <KEY>
+     *            식별정보 유형
+     * @param <R>
+     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     * @param data1
+     *            데이터#1
+     * @param keyProvider1
+     *            데이터#1 식별정보 제공 함수
+     * @param transformer1
+     *            데이터#1 변환 함수 (E1 => R)
+     * @param data2
+     *            데이터#2
+     * @param keyProvider2
+     *            데이터#2 식별정보 제공 함수
+     * @param transformer2
+     *            데이터#2 변환 함수 (E2 => R)
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sortAndMerge( //
+            Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
+            , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
+            , Comparator<KEY> comparator //
+    ) {
+        List<E1> sortedData1 = data1.stream().sorted((o1, o2) -> keyProvider1.apply(o1).compareTo(keyProvider1.apply(o2))).collect(Collectors.toList());
+        List<E2> sortedData2 = data2.stream().sorted((o1, o2) -> keyProvider2.apply(o1).compareTo(keyProvider2.apply(o2))).collect(Collectors.toList());
+
+        return sort(sortedData1, keyProvider1, transformer1, sortedData2, keyProvider2, transformer2, comparator);
     }
 
     /**
@@ -4472,6 +5009,282 @@ public class CollectionUtils {
     }
 
     /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2023. 12. 13.        박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2023. 12. 13.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> topN(Collection<T> data, Comparator<T> sorter, int limit) {
+        return topN(data, o -> true, sorter, limit);
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2023. 12. 13.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2023. 12. 13.
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
+        return topN(data, filter, sorter, limit, TopNStrategy.AUTO, false);
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 3.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @param strategy
+     *            정렬 방식
+     * @param expensiveComparator
+     *            비교 함수의 고비용 여부
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit, TopNStrategy strategy, boolean expensiveComparator) {
+        AssertUtils2.notNulls(data, filter, sorter);
+        AssertUtils2.isTrue(limit > -1);
+
+        if (limit <= 0 || data == null || data.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // 1) 필터 통과 개수 M 산정
+        int filteredCount = 0;
+        for (T t : data) {
+            if (filter.test(t)) {
+                filteredCount++;
+            }
+        }
+        if (filteredCount == 0) {
+            return Collections.emptyList();
+        }
+        if (limit >= filteredCount) {
+            // 전부 필요 → 모아서 한 번 정렬 후 반환
+            return topnByFullSort(data, filter, sorter, filteredCount);
+        }
+
+        // 2) 전략 결정
+        TopNStrategy chosen = (strategy == TopNStrategy.AUTO) ? TopN.decideStrategy(filteredCount, limit, expensiveComparator) : strategy;
+
+        // 3) 전략 실행
+        switch (chosen) {
+            case HEAP_SORT:
+                return topnByHeap(data, filter, sorter, limit);
+            case FULL_SORT:
+                return topnByFullSort(data, filter, sorter, limit);
+            case QUICKSELECT:
+                return topnByQuickselect(data, filter, sorter, limit);
+            default:
+                // 방어적 기본
+                return topnByHeap(data, filter, sorter, limit);
+        }
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> topnByFullSort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
+        AssertUtils2.notNulls(data, filter, sorter);
+        AssertUtils2.isTrue(limit > -1);
+
+        return data.parallelStream() //
+                .filter(filter) //
+                .sorted(sorter) //
+                .limit(limit) //
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> topnByHeap(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
+        AssertUtils2.notNulls(data, filter, sorter);
+        AssertUtils2.isTrue(limit > -1);
+
+        // N개 중 "최악"이 루트가 되도록: cmp의 자연스런 최소힙을 쓰고, 들어온 e가 루트보다 "더 낫다"(>0)면 교체합니다.
+        PriorityQueue<T> filtered = new PriorityQueue<>(limit, sorter);
+
+        for (T e : data) {
+            if (!filter.test(e)) {
+                continue;
+            }
+            if (filtered.size() < limit) {
+                filtered.add(e);
+            } else {
+                T worst = filtered.peek(); // 현재 N개 중 최악
+                // e가 더 "좋으면" 교체
+                if (sorter.compare(e, worst) > 0) {
+                    filtered.poll();
+                    filtered.add(e);
+                }
+            }
+        }
+
+        // 최종 결과는 정렬해서 반환
+        return filtered.stream() //
+                .sorted(sorter) //
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 3.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            데이터 타입
+     * @param data
+     *            원본 데이터
+     * @param filter
+     *            데이터 필터
+     * @param sorter
+     *            정렬 함수
+     * @param limit
+     *            데이터 개수
+     * @return
+     *
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> List<T> topnByQuickselect(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
+        AssertUtils2.notNulls(data, filter, sorter);
+        AssertUtils2.isTrue(limit > -1);
+
+        // 1) 필터 통과본만 ArrayList로 수집
+        ArrayList<T> filtered = new ArrayList<>();
+        for (T e : data) {
+            if (filter.test(e)) {
+                filtered.add(e);
+            }
+        }
+        final int filteredCount = filtered.size();
+        if (filteredCount == 0) {
+            return Collections.emptyList();
+        }
+        if (limit >= filteredCount) {
+            filtered.sort(sorter);
+            return filtered;
+        }
+
+        // 2) Quickselect로 "상위 N 기준" 파티셔닝
+        // partition 규칙: cmp.compare(a[i], pivot) > 0 이면 "더 좋음"으로 간주하여 왼쪽군에 둠
+        TopN.quickselectTopNInPlace(filtered, sorter, limit);
+
+        // 3) 상위 N 구간만 최종 정렬
+        return filtered.subList(0, limit).stream() //
+                .sorted(sorter) //
+                .collect(Collectors.toList());
+    }
+
+    /**
      * {@link Collection}에 포함된 데이터를 {@link Set}에 담아 제공합니다. <br>
      * 
      * <pre>
@@ -4995,6 +5808,202 @@ public class CollectionUtils {
         public int compare(T o1, T o2) {
             return -1 * o1.compareTo(o2);
 
+        }
+    }
+
+    /**
+     * 전체 데이터(M 개)에서 'N' 개를 추출하는 기능을 지원.
+     * 
+     * @since 2025. 9. 3.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static class TopN {
+
+        // ---- 하이브리드 의사결정 임계값(시작점). JMH로 환경에 맞게 미세 조정하세요.
+        /** 전체 데이터 개수(M)이 작으면 FULL_SORT 유리 */
+        private static int FULL_SORT_M_THREADHOLD = 20_000;
+        /** N/M ≤ 10% → HEAP_SORT */
+        private static double HEAP_SORT_RATIO = 0.10;
+        /** N/M ≥ 40% → FULL_SORT */
+        private static double FULL_SORT_RATIO = 0.40;
+        /** 아주 작은 N은 HEAP_SORT 가중 */
+        private static int HEAP_SORT_N_THRESHOLD = 32;
+
+        private static final Random RNG = new Random();
+
+        private TopN() {
+        }
+
+        /**
+         * 정렬 전략을 결정합니다. <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2025. 9. 3.		박준홍			최초 작성
+         * </pre>
+         *
+         * @param fullCount
+         *            정렬 대상 데이터 개수
+         * @param limit
+         *            선택할 데이터 개수
+         * @param expensiveComparator
+         *            비교 함수의 고비용 여부
+         * @return
+         *
+         * @since 2025. 9. 3.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         */
+        private static TopNStrategy decideStrategy(int fullCount, int limit, boolean expensiveComparator) {
+            // 작은 M 보호장치: 전체 정렬이 대체로 이득
+            if (fullCount < FULL_SORT_M_THREADHOLD) {
+                return TopNStrategy.FULL_SORT;
+            }
+
+            double ratio = (double) limit / (double) fullCount;
+
+            // 아주 작은 N은 힙 쪽 가중
+            if (limit <= HEAP_SORT_N_THRESHOLD && ratio <= 0.25) {
+                return TopNStrategy.HEAP_SORT;
+            } else if (ratio < HEAP_SORT_RATIO) {
+                return TopNStrategy.HEAP_SORT;
+            } else if (ratio >= FULL_SORT_RATIO) {
+                return TopNStrategy.FULL_SORT;
+            } else
+            // 중간 구간: 비교자 비용이 크면 FULL_SORT 가중, 아니면 QUICKSELECT 권장
+            if (expensiveComparator) {
+                return TopNStrategy.FULL_SORT;
+            } else {
+                return TopNStrategy.QUICKSELECT;
+            }
+        }
+
+        /**
+         * 파티션: sorter.compare(x, pivot) > 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종 위치. <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2025. 9. 3.		박준홍			최초 작성
+         * </pre>
+         *
+         * @param <T>
+         * @param data
+         * @param sorter
+         * @param left
+         * @param right
+         * @param pivotIdx
+         * @return
+         *
+         * @since 2025. 9. 3.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         */
+        private static <T> int partitionByComparator(List<T> data, Comparator<T> sorter, int left, int right, int pivotIdx) {
+            T pivotVal = data.get(pivotIdx);
+            swap(data, pivotIdx, right);
+            int store = left;
+            for (int i = left; i < right; i++) {
+                // "더 좋음"을 왼쪽으로 모음
+                if (sorter.compare(data.get(i), pivotVal) > 0) {
+                    swap(data, store++, i);
+                }
+            }
+            swap(data, store, right);
+            return store;
+        }
+
+        /**
+         * 데이터를 제자리에서 파티셔닝하여, sorter기준 상위 N개가 [0..N-1]에 오도록 만듭니다.<br>
+         * (내림/오름은 sorter 정의에 따릅니다. sorter가 "큰 값 우선"이라면 큰 값들이 앞으로 모입니다.) <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2025. 9. 3.		박준홍			최초 작성
+         * </pre>
+         *
+         * @param <T>
+         * @param data
+         * @param sorter
+         * @param limit
+         *
+         * @since 2025. 9. 3.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         */
+        private static <T> void quickselectTopNInPlace(List<T> data, Comparator<T> sorter, int limit) {
+            int left = 0;
+            int right = data.size() - 1;
+            int target = limit - 1;
+
+            while (left <= right) {
+                int pivotIdx = left + RNG.nextInt(right - left + 1);
+                int newIdx = partitionByComparator(data, sorter, left, right, pivotIdx);
+                if (newIdx == target) {
+                    return;
+                } else if (newIdx > target) {
+                    // 상위(더 좋은 값) 구간이 target을 넘어섰으므로 왼쪽으로 좁힘
+                    right = newIdx - 1;
+                } else {
+                    left = newIdx + 1;
+                }
+            }
+        }
+
+        /**
+         * 하이브리드 의사결정 임계값(시작점)을 설정합니다.<br>
+         * JMH로 환경에 맞게 미세 조정하세요. <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜      | 작성자   |   내용
+         * ------------------------------------------
+         * 2025. 9. 3.      박준홍         최초 작성
+         * </pre>
+         *
+         * @param fullSortThreshold
+         *            설정 개수 이하인 경우 {@link TopNStrategy#FULL_SORT} 적용
+         * @param fullSortRatio
+         *            {@link TopNStrategy#FULL_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (>=)
+         * @param heapSortThreshold
+         * @param heapSortRatio
+         *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (<)
+         * @since 2025. 9. 3.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         */
+        public static void setAutoConfiguration(int fullSortThreshold, double fullSortRatio, int heapSortThreshold, double heapSortRatio) {
+            TopN.FULL_SORT_M_THREADHOLD = fullSortThreshold;
+            TopN.FULL_SORT_RATIO = fullSortRatio;
+            TopN.HEAP_SORT_N_THRESHOLD = heapSortThreshold;
+            TopN.HEAP_SORT_RATIO = heapSortRatio;
+        }
+
+        private static <T> void swap(List<T> data, int from, int to) {
+            if (from != to) {
+                T t = data.get(from);
+                data.set(from, data.get(to));
+                data.set(to, t);
+            }
+        }
+
+        public enum TopNStrategy {
+            /** */
+            AUTO,
+            /** */
+            HEAP_SORT,
+            /** */
+            FULL_SORT,
+            /** */
+            QUICKSELECT
+            //
+            ;
         }
     }
 }
