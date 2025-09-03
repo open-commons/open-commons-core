@@ -5095,6 +5095,9 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서 {@link TopNStrategy}를 선택하는 설정값을 변경할 수
+     *      있습니다.
      */
     public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit, TopNStrategy strategy, boolean expensiveComparator) {
         AssertUtils2.notNulls(data, filter, sorter);
@@ -5837,6 +5840,28 @@ public class CollectionUtils {
 
         /**
          * 정렬 전략을 결정합니다. <br>
+         * 우선순위
+         * <li>1. 전체 데이터 개수 (M)
+         * <ul>
+         * <li>{@link TopN#FULL_SORT_M_THREADHOLD} 보다 작으면(<code>&lt;</code>) {@link TopNStrategy#FULL_SORT}
+         * </ul>
+         * <li>2. 선택하려는 데이터 개수 (N) 와 N/M의 비율 고정값 (0.25)
+         * <ul>
+         * <li>{@link TopN#HEAP_SORT_N_THRESHOLD} 보다 작으고, (<code>&lt;</code>) 비율이 0.25 보다 작거나 같으면
+         * {@link TopNStrategy#HEAP_SORT}
+         * </ul>
+         * <li>3. N/M 의 비율
+         * <ul>
+         * 설정값
+         * <li>{@link TopN#HEAP_SORT_RATIO} 보다 작으면(<code>&lt;</code>) {@link TopNStrategy#HEAP_SORT}
+         * <li>{@link TopN#FULL_SORT_RATIO} 보다 크거나 같으면(<code>>=</code>) {@link TopNStrategy#FULL_SORT}
+         * </ul>
+         * <li>4. 정렬 비교 함수의 비용에 따라
+         * <ul>
+         * <li>비싸면? {@link TopNStrategy#FULL_SORT}
+         * <li>그렇지 않으면? {@link TopNStrategy#QUICKSELECT}
+         * </ul>
+         * 
          * 
          * <pre>
          * [개정이력]
@@ -5846,9 +5871,9 @@ public class CollectionUtils {
          * </pre>
          *
          * @param fullCount
-         *            정렬 대상 데이터 개수
+         *            전체 데이터 개수 (M)
          * @param limit
-         *            선택할 데이터 개수
+         *            선택하려는 데이터 개수 (N)
          * @param expensiveComparator
          *            비교 함수의 고비용 여부
          * @return
@@ -5972,6 +5997,7 @@ public class CollectionUtils {
          * @param fullSortRatio
          *            {@link TopNStrategy#FULL_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (>=)
          * @param heapSortThreshold
+         *            설정 개수 이하인 경우 {@link TopNStrategy#HEAP_SORT} 적용
          * @param heapSortRatio
          *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (<)
          * @since 2025. 9. 3.
