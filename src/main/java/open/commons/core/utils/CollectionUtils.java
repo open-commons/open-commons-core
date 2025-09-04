@@ -5068,6 +5068,8 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 원본 데이터에서 <code>filter</code>를 통과한 데이터의 개수(M)와 실제 선택하려는 개수(<code>limit</code>, N)의 값에 따라서 세부적인 구현이 분기됩니다.<br>
+     * 자세한 내용은 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -5141,6 +5143,10 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 원본 데이터에서 <code>filter</code>를 통과한 데이터의 개수(M)와 실제 선택하려는 개수(<code>limit</code>, N)의 값에 따라서 세부적인 구현이 분기되어 사용되는
+     * 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -5178,6 +5184,10 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 원본 데이터에서 <code>filter</code>를 통과한 데이터의 개수(M)와 실제 선택하려는 개수(<code>limit</code>, N)의 값에 따라서 세부적인 구현이 분기되어 사용되는
+     * 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -5233,6 +5243,10 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
+     * 원본 데이터에서 <code>filter</code>를 통과한 데이터의 개수(M)와 실제 선택하려는 개수(<code>limit</code>, N)의 값에 따라서 세부적인 구현이 분기되어 사용되는
+     * 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
