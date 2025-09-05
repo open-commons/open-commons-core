@@ -200,7 +200,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 2.		박준홍			최초 작성
+     * 2021. 12. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcType
@@ -244,7 +244,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 2.		박준홍			최초 작성
+     * 2021. 12. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcObject
@@ -520,7 +520,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 15.		박준홍			최초 작성
+     * 2022. 3. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -562,7 +562,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcType

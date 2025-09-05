@@ -142,7 +142,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 7. 4.		박준홍			최초 작성
+     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param col
@@ -167,7 +167,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 12. 13.        박준홍         최초 작성
+     * 2017. 12. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param col
@@ -238,7 +238,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 12. 13.		박준홍			최초 작성
+     * 2017. 12. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -273,7 +273,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 12. 13.		박준홍			최초 작성
+     * 2017. 12. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param col
@@ -300,7 +300,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		박준홍			최초 작성
+     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -339,7 +339,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		박준홍			최초 작성
+     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -374,7 +374,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		박준홍			최초 작성
+     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -420,7 +420,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		박준홍			최초 작성
+     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -536,7 +536,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 14.		박준홍			최초 작성
+     * 2021. 12. 14.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -564,7 +564,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 20.		박준홍			최초 작성
+     * 2021. 12. 20.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -612,7 +612,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		박준홍			최초 작성
+     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -675,7 +675,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 6.		박준홍			최초 작성
+     * 2017. 7. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -720,7 +720,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2014. 10. 17.		박준홍			최초 작성
+     * 2014. 10. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -765,7 +765,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.		박준홍			최초 작성
+     * 2021. 7. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -793,7 +793,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.		박준홍			최초 작성
+     * 2021. 7. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -823,7 +823,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -856,7 +856,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.		박준홍			최초 작성
+     * 2021. 7. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -885,7 +885,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 6.		박준홍			최초 작성
+     * 2017. 7. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -930,7 +930,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2014. 10. 17.		박준홍			최초 작성
+     * 2014. 10. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -999,7 +999,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1027,7 +1027,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1055,7 +1055,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1083,7 +1083,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 12. 30.		박준홍			최초 작성
+     * 2022. 12. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1109,7 +1109,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 12. 30.		박준홍			최초 작성
+     * 2022. 12. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1151,7 +1151,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1179,7 +1179,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 21.		박준홍			최초 작성
+     * 2020. 12. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1210,8 +1210,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
-     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -1237,8 +1237,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
-     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -1264,7 +1264,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1292,7 +1292,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 12. 30.		박준홍			최초 작성
+     * 2022. 12. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1318,7 +1318,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1356,7 +1356,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1384,7 +1384,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 15.		박준홍			최초 작성
+     * 2020. 12. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param elems
@@ -1412,7 +1412,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1440,7 +1440,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1468,7 +1468,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1495,7 +1495,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        박준홍         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1521,7 +1521,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        박준홍         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1563,7 +1563,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1591,7 +1591,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1622,8 +1622,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
-     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
      * </pre>
      *
      * @param <E>
@@ -1649,8 +1649,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
-     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
      * </pre>
      *
      * @param <E>
@@ -1676,7 +1676,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1704,7 +1704,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1732,7 +1732,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        박준홍         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1758,7 +1758,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1796,7 +1796,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1824,7 +1824,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1852,7 +1852,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1880,7 +1880,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1908,7 +1908,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        박준홍         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1934,7 +1934,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        박준홍         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1976,7 +1976,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2004,7 +2004,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2035,8 +2035,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
-     * 2022. 12. 30.        박준홍     내부 구현 변경 (see {@link #newVector(Collection, Object, boolean)})
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newVector(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -2062,7 +2062,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2088,7 +2088,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2116,7 +2116,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2144,7 +2144,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        박준홍         최초 작성
+     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2172,7 +2172,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        박준홍         최초 작성
+     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2198,7 +2198,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        박준홍         최초 작성
+     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2316,7 +2316,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3..        박준홍         최초 작성
+     * 2025. 9. 3..        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2344,7 +2344,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3..        박준홍         최초 작성
+     * 2025. 9. 3..        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2376,7 +2376,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -2407,7 +2407,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -2444,7 +2444,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2488,7 +2488,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2552,7 +2552,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 10. 18.		박준홍			최초 작성
+     * 2017. 10. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param list
@@ -2589,7 +2589,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 10. 18.		박준홍			최초 작성
+     * 2017. 10. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param list
@@ -2631,7 +2631,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 13.        박준홍         최초 작성
+     * 2023. 12. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2657,7 +2657,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 13.        박준홍         최초 작성
+     * 2023. 12. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2689,7 +2689,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      박준홍         최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2719,7 +2719,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      박준홍         최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2753,7 +2753,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -2789,7 +2789,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2832,7 +2832,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2914,7 +2914,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -2945,7 +2945,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -2981,7 +2981,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -3025,7 +3025,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -3126,7 +3126,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 4. 18.		박준홍			최초 작성
+     * 2018. 4. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param E
@@ -3163,7 +3163,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		박준홍			최초 작성
+     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3196,7 +3196,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3268,7 +3268,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     박준홍         최초 작성
+     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -3337,7 +3337,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     박준홍         최초 작성
+     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -3369,7 +3369,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		박준홍			최초 작성
+     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -3395,7 +3395,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		박준홍			최초 작성
+     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -3422,7 +3422,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3452,7 +3452,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3487,7 +3487,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3519,7 +3519,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3553,7 +3553,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 9. 12.		박준홍			최초 작성
+     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param stream
@@ -3575,7 +3575,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 9. 12.		박준홍			최초 작성
+     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param stream
@@ -3632,8 +3632,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 60.		박준홍			최초 작성
-     * 2025. 8. 21.     박준홍         {@link Stream} API로 변환. 
+     * 2017. 7. 60.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.     parkjunohng77@gmail.com         {@link Stream} API로 변환. 
      * </pre>
      *
      * @param <E>
@@ -3663,7 +3663,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 11.		박준홍			최초 작성
+     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3705,7 +3705,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 2. 8.		박준홍			최초 작성
+     * 2018. 2. 8.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3738,7 +3738,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 2. 8.		박준홍			최초 작성
+     * 2018. 2. 8.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -3795,7 +3795,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 11. 28.		박준홍			최초 작성
+     * 2019. 11. 28.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -3868,7 +3868,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3950,7 +3950,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3995,8 +3995,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 7. 60.     박준홍         최초 작성
-     * 2025. 8. 21.     박준홍         {@link Stream} API로 변환. 
+     * 2017. 7. 60.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunohng77@gmail.com         {@link Stream} API로 변환. 
      * </pre>
      *
      * @param <E>
@@ -4031,8 +4031,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------ 
-     * 2014. 10. 17.        박준홍         최초작성
-     * 2020. 1. 30.         박준홍         deprecated.
+     * 2014. 10. 17.        parkjunohng77@gmail.com         최초작성
+     * 2020. 1. 30.         parkjunohng77@gmail.com         deprecated.
      * </pre>
      * 
      * @ppram <E> a type of an element.
@@ -4062,8 +4062,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 27.        박준홍         최초작성
-     * 2020. 1. 30.         박준홍         deprecated.
+     * 2017. 7. 27.        parkjunohng77@gmail.com         최초작성
+     * 2020. 1. 30.         parkjunohng77@gmail.com         deprecated.
      * </pre>
      * 
      * @param <E>
@@ -4107,7 +4107,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4138,7 +4138,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜 | 작성자 | 내용
      * ------------------------------------------
-     * 2025. 8. 20. 박준홍 최초 작성
+     * 2025. 8. 20. parkjunohng77@gmail.com 최초 작성
      * </pre>
      *
      * @param <K>
@@ -4172,7 +4172,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4209,7 +4209,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4243,7 +4243,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4279,7 +4279,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4325,7 +4325,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 11.		박준홍			최초 작성
+     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4354,7 +4354,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 11.		박준홍			최초 작성
+     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4408,7 +4408,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4464,8 +4464,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 11.		박준홍			최초 작성
-     * 2020. 1. 30.     박준홍         deprecated.
+     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.     parkjunohng77@gmail.com         deprecated.
      * </pre>
      *
      * @param <E>
@@ -4495,8 +4495,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 11.		박준홍			최초 작성
-     * 2020. 1. 30.     박준홍         deprecated.
+     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.     parkjunohng77@gmail.com         deprecated.
      * </pre>
      *
      * @param <E>
@@ -4545,7 +4545,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      박준홍         최초 작성
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4578,7 +4578,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      박준홍         최초 작성
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4621,7 +4621,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4664,7 +4664,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      박준홍         최초 작성
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4697,7 +4697,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      박준홍         최초 작성
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4740,7 +4740,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4783,7 +4783,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      박준홍         최초 작성
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4816,7 +4816,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      박준홍         최초 작성
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4861,7 +4861,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4904,7 +4904,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 15.		박준홍			최초 작성
+     * 2019. 1. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4937,7 +4937,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 15.		박준홍			최초 작성
+     * 2019. 1. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4983,7 +4983,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -5022,7 +5022,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 13.        박준홍         최초 작성
+     * 2023. 12. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5050,7 +5050,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 12. 13.		박준홍			최초 작성
+     * 2023. 12. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -5082,7 +5082,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		박준홍			최초 작성
+     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -5159,7 +5159,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      박준홍         최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5200,7 +5200,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      박준홍         최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5259,7 +5259,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      박준홍         최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5315,8 +5315,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2014. 10. 17.		박준홍			최초 작성
-     * 2025. 8. 21.         박준홍         내부 구현 개선. (Stream API 적용)
+     * 2014. 10. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.         parkjunohng77@gmail.com         내부 구현 개선. (Stream API 적용)
      * </pre>
      *
      * @param <E>
@@ -5340,8 +5340,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2014. 10. 17.        박준홍     최초 작성
-     * 2023. 7. 27.         박준홍     Return Type 변경. Set&lt;E&gt; -> S
+     * 2014. 10. 17.        parkjunohng77@gmail.com     최초 작성
+     * 2023. 7. 27.         parkjunohng77@gmail.com     Return Type 변경. Set&lt;E&gt; -> S
      * </pre>
      * 
      * @param <E>
@@ -5390,8 +5390,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 6.		박준홍			최초 작성
-     * 2025. 8. 21.     박준홍         내구 구현 개선 (Stream API 적용)
+     * 2017. 7. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.     parkjunohng77@gmail.com         내구 구현 개선 (Stream API 적용)
      * </pre>
      *
      * @param <E>
@@ -5468,8 +5468,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
-     * 2023. 7. 27.         박준홍     Return Type 변경. Set&lt;E&gt; -> S
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 7. 27.         parkjunohng77@gmail.com     Return Type 변경. Set&lt;E&gt; -> S
      * </pre>
      *
      * @param <E>
@@ -5505,7 +5505,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		박준홍			최초 작성
+     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -5534,7 +5534,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5564,7 +5564,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5598,7 +5598,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5632,7 +5632,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     박준홍         최초 작성
+     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5668,7 +5668,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 9. 12.		박준홍			최초 작성
+     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -5697,7 +5697,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 9. 12.		박준홍			최초 작성
+     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -5888,7 +5888,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2025. 9. 3.		박준홍			최초 작성
+         * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param fullCount
@@ -5934,7 +5934,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2025. 9. 3.		박준홍			최초 작성
+         * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param <T>
@@ -5971,7 +5971,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2025. 9. 3.		박준홍			최초 작성
+         * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param <T>
@@ -6010,7 +6010,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2025. 9. 3.      박준홍         최초 작성
+         * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
          * </pre>
          *
          * @param fullSortThreshold

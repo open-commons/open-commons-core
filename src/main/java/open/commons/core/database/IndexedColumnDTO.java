@@ -42,7 +42,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -65,7 +65,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 4. 7.		박준홍			최초 작성
+     * 2022. 4. 7.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -89,7 +89,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 4. 7.		박준홍			최초 작성
+     * 2022. 4. 7.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -113,7 +113,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -156,8 +156,8 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
-     * 2023. 10. 26.    박준홍         메소드 검색 버그 수정.
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 10. 26.    parkjunohng77@gmail.com         메소드 검색 버그 수정.
      * </pre>
      *
      * @return

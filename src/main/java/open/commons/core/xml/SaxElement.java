@@ -50,7 +50,7 @@ public @interface SaxElement {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 24.     박준홍         최초 작성
+     * 2019. 1. 24.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return

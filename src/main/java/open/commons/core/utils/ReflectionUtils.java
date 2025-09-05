@@ -405,7 +405,7 @@ public class ReflectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 17.		박준홍			최초 작성
+     * 2019. 6. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param annoType

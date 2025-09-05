@@ -55,7 +55,7 @@ import open.commons.core.utils.SQLUtils;
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
  * xxxx.xx.xx       xxx         최초작성
- * 2019. 10. 17.        박준홍         Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
+ * 2019. 10. 17.        parkjunohng77@gmail.com         Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
  * </pre>
  * 
  * @since 2018. 5. 23.
@@ -165,7 +165,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 5. 23.     박준홍         최초 작성
+     * 2018. 5. 23.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param broker
@@ -203,7 +203,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 5. 23.     박준홍         최초 작성
+     * 2018. 5. 23.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param broker
@@ -269,7 +269,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 19.		박준홍			최초 작성
+     * 2019. 2. 19.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param broker
@@ -305,7 +305,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 19.     박준홍         최초 작성
+     * 2019. 2. 19.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param broker
@@ -366,7 +366,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 5. 23.     박준홍         최초 작성
+     * 2018. 5. 23.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param broker
@@ -437,7 +437,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 19.     박준홍         최초 작성
+     * 2019. 2. 19.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param broker
@@ -526,7 +526,7 @@ public abstract class AbstractDao implements AutoCloseable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 5. 23.		박준홍			최초 작성
+     * 2018. 5. 23.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param name

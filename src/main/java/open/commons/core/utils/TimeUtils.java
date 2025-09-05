@@ -40,8 +40,8 @@ import java.util.function.Function;
  * [개정이력]
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
- * 2018. 1. 9.        박준홍         최초 작성
- * 2018. 11. 15.    박준홍     TimeUnit Expression String  Builder 추가. (Default, Korea 기본 적용)
+ * 2018. 1. 9.        parkjunohng77@gmail.com         최초 작성
+ * 2018. 11. 15.    parkjunohng77@gmail.com     TimeUnit Expression String  Builder 추가. (Default, Korea 기본 적용)
  * </pre>
  * 
  * @since 2018. 1. 9.
@@ -115,7 +115,7 @@ public class TimeUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 15.		박준홍			최초 작성
+     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param units
@@ -164,7 +164,7 @@ public class TimeUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 9.      박준홍         최초 작성
+     * 2018. 1. 9.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param timeBuf
@@ -198,7 +198,7 @@ public class TimeUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 15.		박준홍			최초 작성
+     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param units
@@ -223,7 +223,7 @@ public class TimeUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 15.		박준홍			최초 작성
+     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param locale
@@ -247,7 +247,7 @@ public class TimeUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 15.		박준홍			최초 작성
+     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param locale
@@ -269,7 +269,7 @@ public class TimeUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 15.		박준홍			최초 작성
+     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param locale
@@ -382,7 +382,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @return
@@ -402,7 +402,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param unit
@@ -450,7 +450,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr
@@ -470,7 +470,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr
@@ -490,7 +490,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr
@@ -510,7 +510,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr
@@ -530,7 +530,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr
@@ -550,7 +550,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr
@@ -570,7 +570,7 @@ public class TimeUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2018. 11. 15.		박준홍			최초 작성
+         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
          * </pre>
          *
          * @param expr

@@ -50,7 +50,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 20.     박준홍         최초 작성
+     * 2019. 2. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param data
@@ -68,7 +68,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 20.     박준홍         최초 작성
+     * 2019. 2. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param response
@@ -86,7 +86,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 20.     박준홍         최초 작성
+     * 2019. 2. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -104,7 +104,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 20.     박준홍         최초 작성
+     * 2019. 2. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -122,7 +122,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 20.     박준홍         최초 작성
+     * 2019. 2. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -158,7 +158,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 2. 20.     박준홍         최초 작성
+     * 2019. 2. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param millis

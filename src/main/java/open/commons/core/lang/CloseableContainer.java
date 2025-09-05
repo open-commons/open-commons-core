@@ -49,7 +49,7 @@ public interface CloseableContainer extends AutoCloseable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 1.		박준홍			최초 작성
+     * 2021. 7. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @throws Exception

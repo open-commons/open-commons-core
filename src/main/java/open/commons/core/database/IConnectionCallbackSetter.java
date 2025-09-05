@@ -45,7 +45,7 @@ public interface IConnectionCallbackSetter {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 12. 29.		박준홍			최초 작성
+     * 2017. 12. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param stmt

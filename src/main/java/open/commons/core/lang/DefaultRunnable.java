@@ -43,7 +43,7 @@ import open.commons.core.utils.ThreadUtils;
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
  * xxxx.xx.xx       xxx         최초작성
- * 2019. 10. 17.        박준홍         {@link #beforeStartup()}에 Process ID 를 {@link ThreadContext}에 'pid'란 이름으로 추가.
+ * 2019. 10. 17.        parkjunohng77@gmail.com         {@link #beforeStartup()}에 Process ID 를 {@link ThreadContext}에 'pid'란 이름으로 추가.
  * </pre>
  * 
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
@@ -76,7 +76,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 17.		박준홍			최초 작성
+     * 2019. 10. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -120,8 +120,8 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * xxxx.xx.xx.      박준홍     최초 작성
-     * 2022. 9. 1.		박준홍     final 제거. 아래 내용을지 원하기 위함.
+     * xxxx.xx.xx.      parkjunohng77@gmail.com     최초 작성
+     * 2022. 9. 1.		parkjunohng77@gmail.com     final 제거. 아래 내용을지 원하기 위함.
      *                              - Unable to proxy interface-implementing method [public final void open.commons.core.lang.DefaultRunnable.run()] 
      *                                because it is marked as final: Consider using interface-based JDK proxies instead! (CglibAopProxy.java)
      * </pre>
@@ -172,7 +172,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 17.		박준홍			최초 작성
+     * 2019. 10. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *

@@ -41,7 +41,7 @@ public interface IRunnable extends Runnable, IControllable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 10.		박준홍			최초 작성
+     * 2019. 10. 10.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param daemon

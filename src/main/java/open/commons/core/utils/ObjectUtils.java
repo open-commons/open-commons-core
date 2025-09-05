@@ -122,14 +122,26 @@ public class ObjectUtils {
         // end: wrapper types
     }
 
+    /**
+     * 데이터 제공 메소드 이름 유형
+     * <li>is: boolean
+     * <li>get: 일반적으로 전체
+     */
     private static final Pattern METHOD_GETTER = Pattern.compile("^(is|get)(.+)$");
     /**
+     * 데이터 설정 메소드 유형
+     * 
+     * <li>add: {@link Collection}
+     * <li>put: {@link Map}
+     * <li>set: 일반적으로 전체
+     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.        Park_Jun_Hong (parkjunhong77@gmail.com) 최초 작성
-     * 2023. 12. 5.		Park_Jun_Hong (parkjunhong77@gmail.com)			데이터 설정함수 prefix 추가 (addXXX 지원)
+     * 2020. 12. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2023. 12. 5.		parkjunhong77@gmail.com		데이터 설정함수 prefix 추가 (addXXX 지원)
+     * 2025. 9. 5.      parkjunhong77@gmail.com     데이터 설정함수 prefix 추가 (putXXX 지원)
      * </pre>
      */
     private static final Pattern METHOD_SETTER = Pattern.compile("^(set|add)(.+)$");
@@ -274,7 +286,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 4.		박준홍			최초 작성
+     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcClass
@@ -390,7 +402,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 9. 3.		박준홍			최초 작성
+     * 2019. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param target
@@ -441,7 +453,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 9. 3.		박준홍			최초 작성
+     * 2019. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param target
@@ -469,7 +481,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param visitValue
@@ -512,7 +524,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param visitValue
@@ -537,7 +549,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param data
@@ -560,7 +572,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param array
@@ -583,7 +595,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 22.		박준홍			최초 작성
+     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -631,7 +643,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 22.		박준홍			최초 작성
+     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param type
@@ -662,9 +674,9 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 22.		박준홍			최초 작성
-     * 2021. 12. 02.        박준홍     메소드를 찾는 키를 필드 속성명으로 고정.
-     * 2022. 3. 22.         박준홍     더 이상 사용하지 않음.
+     * 2021. 11. 22.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 02.        parkjunohng77@gmail.com     메소드를 찾는 키를 필드 속성명으로 고정.
+     * 2022. 3. 22.         parkjunohng77@gmail.com     더 이상 사용하지 않음.
      * </pre>
      *
      * @param name
@@ -692,7 +704,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 6.     박준홍         최초 작성
+     * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -732,7 +744,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 6.     박준홍         최초 작성
+     * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -762,7 +774,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 6.		박준홍			최초 작성
+     * 2021. 12. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -801,7 +813,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 6.		박준홍			최초 작성
+     * 2021. 12. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -836,7 +848,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 30.     박준홍         최초 작성
+     * 2021. 12. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -868,7 +880,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 30.     박준홍         최초 작성
+     * 2021. 12. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -911,7 +923,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 6.     박준홍         최초 작성
+     * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -949,7 +961,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 1. 26.		박준홍			최초 작성
+     * 2022. 1. 26.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * *
@@ -989,7 +1001,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 6.		박준홍			최초 작성
+     * 2021. 12. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -1021,7 +1033,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 1. 26.		박준홍			최초 작성
+     * 2022. 1. 26.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -1052,8 +1064,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		박준홍			최초 작성
-     * 2022. 02. 07.        박준홍     버그 수정.
+     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 02. 07.        parkjunohng77@gmail.com     버그 수정.
      * </pre>
      *
      * @param type
@@ -1075,7 +1087,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		박준홍			최초 작성
+     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param obj
@@ -1099,7 +1111,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 22.		박준홍			최초 작성
+     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param type
@@ -1128,8 +1140,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		박준홍			최초 작성
-     * 2022. 02. 07.        박준홍     버그 수정.
+     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 02. 07.        parkjunohng77@gmail.com     버그 수정.
      * </pre>
      *
      * @param type
@@ -1151,7 +1163,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		박준홍			최초 작성
+     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param obj
@@ -1173,7 +1185,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 9. 3.      박준홍         최초 작성
+     * 2019. 9. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1236,7 +1248,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param srcClass
@@ -1314,7 +1326,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param forceToPrimitive
@@ -1337,7 +1349,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1358,7 +1370,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1380,7 +1392,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1401,7 +1413,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1422,7 +1434,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1443,7 +1455,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 3.		박준홍			최초 작성
+     * 2021. 11. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param o
@@ -1487,7 +1499,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 2.     박준홍         최초 작성
+     * 2021. 12. 2.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <SF>
@@ -1518,7 +1530,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 2.     박준홍         최초 작성
+     * 2021. 12. 2.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <SF>
@@ -1553,7 +1565,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 22.		박준홍			최초 작성
+     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -1609,7 +1621,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 22.		박준홍			최초 작성
+     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -1655,7 +1667,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 4.		박준홍			최초 작성
+     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param steps
@@ -1687,7 +1699,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -1727,7 +1739,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 30.		박준홍			최초 작성
+     * 2025. 8. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -1766,7 +1778,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 4.		박준홍			최초 작성
+     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1788,7 +1800,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param <R>
@@ -1822,7 +1834,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 4.		박준홍			최초 작성
+     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1846,7 +1858,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1874,7 +1886,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1900,7 +1912,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -1922,7 +1934,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1955,7 +1967,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -1979,7 +1991,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2007,7 +2019,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2033,7 +2045,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2055,7 +2067,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2089,7 +2101,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2113,7 +2125,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2141,7 +2153,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2167,7 +2179,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2189,7 +2201,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2222,7 +2234,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2246,7 +2258,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2274,7 +2286,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2300,7 +2312,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2322,7 +2334,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2356,7 +2368,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2380,7 +2392,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2408,7 +2420,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2434,7 +2446,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2456,7 +2468,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2489,7 +2501,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2513,7 +2525,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2541,7 +2553,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2567,7 +2579,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2589,7 +2601,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2622,7 +2634,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2646,7 +2658,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2674,7 +2686,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2700,7 +2712,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2722,7 +2734,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 31.     박준홍         최초 작성
+     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2755,7 +2767,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
@@ -2779,7 +2791,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2807,7 +2819,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      박준홍         최초 작성
+     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2834,8 +2846,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
-     * 2025. 8. 30.     박준홍         내부 구현을 {@link #transform(Collection, boolean, Supplier, boolean, Map, Supplier)}으로 전환.
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         내부 구현을 {@link #transform(Collection, boolean, Supplier, boolean, Map, Supplier)}으로 전환.
      * </pre>
      *
      * @param <S>
@@ -2887,7 +2899,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2925,7 +2937,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2967,7 +2979,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3002,7 +3014,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * * @param <S> 입력 데이터 타입
@@ -3048,7 +3060,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3086,7 +3098,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      박준홍         최초 작성
+     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3128,7 +3140,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      박준홍         최초 작성
+     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3163,7 +3175,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3205,7 +3217,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3240,7 +3252,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3279,7 +3291,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      박준홍         최초 작성
+     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3312,7 +3324,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      박준홍         최초 작성
+     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3354,7 +3366,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      박준홍         최초 작성
+     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3389,7 +3401,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      박준홍         최초 작성
+     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3429,7 +3441,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      박준홍         최초 작성
+     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3461,7 +3473,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     박준홍         최초 작성
+     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3493,7 +3505,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     박준홍         최초 작성
+     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3532,7 +3544,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.        박준홍         최초 작성
+     * 2021. 11. 22.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3578,7 +3590,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     박준홍         최초 작성
+     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3616,7 +3628,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3649,7 +3661,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3682,7 +3694,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3720,7 +3732,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3758,7 +3770,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     박준홍         최초 작성
+     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3790,7 +3802,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     박준홍         최초 작성
+     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3824,8 +3836,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     박준홍         최초 작성
-     * 2021. 11. 22.        박준홍      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 22.        parkjunohng77@gmail.com      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
      * </pre>
      *
      * @param <S>
@@ -3877,7 +3889,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     박준홍         최초 작성
+     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3916,7 +3928,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 20.     박준홍         최초 작성
+     * 2019. 6. 20.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3948,7 +3960,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     박준홍         최초 작성
+     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3978,7 +3990,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     박준홍         최초 작성
+     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4015,7 +4027,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     박준홍         최초 작성
+     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4053,7 +4065,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4085,7 +4097,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4116,7 +4128,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4153,7 +4165,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4191,7 +4203,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     박준홍         최초 작성
+     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4223,7 +4235,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     박준홍         최초 작성
+     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4253,7 +4265,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     박준홍         최초 작성
+     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4290,7 +4302,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11.22.     박준홍         최초 작성
+     * 2021. 11.22.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4329,7 +4341,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4371,7 +4383,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4407,7 +4419,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4450,7 +4462,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4486,7 +4498,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4516,7 +4528,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4546,7 +4558,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4578,7 +4590,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     박준홍         최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -4697,7 +4709,7 @@ public class ObjectUtils {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2025. 9. 4.      박준홍         최초 작성
+         * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
          * </pre>
          * 
          * @param property
@@ -4708,9 +4720,16 @@ public class ObjectUtils {
          *            원본 클래스의 'getter' 메소드.
          * @param setter
          *            대상 클래스의 'setter' 메소드
-         * @param converter
+         * @param deepConvert
+         *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
+         * @param containerKind
+         *            'container' 유형
+         * @param addStyle
+         *            'container' 데이터 추가 'addXXX' 스타일
+         * @param putStyle
+         *            'container' 데이터 추가 'putXXX' 스타일
+         * @param converterOrIdentity
          *            데이터 형변환 함수.
-         *
          * @since 2025. 9. 4.
          * @version 2.1.0
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -4722,5 +4741,4 @@ public class ObjectUtils {
             this.converter = converterOrIdentity != null ? converterOrIdentity : IDENTITY_CONVERT;
         }
     }
-
 }

@@ -66,7 +66,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 13.		박준홍			최초 작성
+     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -105,7 +105,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 13.		박준홍			최초 작성
+     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -129,7 +129,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 24.		박준홍			최초 작성
+     * 2019. 10. 24.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *

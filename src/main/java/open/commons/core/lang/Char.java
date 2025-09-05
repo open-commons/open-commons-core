@@ -44,7 +44,7 @@ public class Char implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -63,7 +63,7 @@ public class Char implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param index
@@ -89,7 +89,7 @@ public class Char implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -111,7 +111,7 @@ public class Char implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param start
@@ -138,7 +138,7 @@ public class Char implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 18.		박준홍			최초 작성
+     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return

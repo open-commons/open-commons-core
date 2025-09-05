@@ -47,7 +47,7 @@ public class IterableEnumeration<T> implements Iterable<T> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 28.     박준홍         최초 작성
+     * 2019. 6. 28.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @since 2019. 6. 28.
@@ -76,7 +76,7 @@ public class IterableEnumeration<T> implements Iterable<T> {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2019. 6. 28.     박준홍         최초 작성
+         * 2019. 6. 28.     parkjunohng77@gmail.com         최초 작성
          * </pre>
          *
          * @since 2019. 6. 28.

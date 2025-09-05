@@ -47,7 +47,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 7. 12.		박준홍			최초 작성
+     * 2022. 7. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -65,7 +65,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 7. 12.		박준홍			최초 작성
+     * 2022. 7. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param data
@@ -104,7 +104,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 7. 12.		박준홍			최초 작성
+     * 2022. 7. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -138,7 +138,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 7. 12.		박준홍			최초 작성
+     * 2022. 7. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return 첫번째 데이터. 비어 있는 경우 <code>null</code>.
@@ -158,7 +158,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 7. 12.		박준홍			최초 작성
+     * 2022. 7. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return

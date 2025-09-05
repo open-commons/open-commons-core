@@ -60,8 +60,8 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 10     박준홍     최초 작성
-     * 2021. 2. 9.		박준홍     Future의 Generic 타입을 wildcard로 변경
+     * 2020. 11. 10     parkjunohng77@gmail.com     최초 작성
+     * 2021. 2. 9.		parkjunohng77@gmail.com     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      */
     private HashMap<K, Future<?>> ASYNC_JOBS = new HashMap<>();
@@ -75,7 +75,7 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 10.        박준홍         최초 작성
+     * 2020. 11. 10.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @since 2020. 11. 10.
@@ -90,8 +90,8 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 10.		박준홍			최초 작성
-     * 2021. 2. 9.      박준홍     Future의 Generic 타입을 wildcard로 변경
+     * 2020. 11. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 2. 9.      parkjunohng77@gmail.com     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      *
      * @param key
@@ -125,7 +125,7 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2024. 5. 9.		박준홍			최초 작성
+     * 2024. 5. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -154,7 +154,7 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 10.        박준홍         최초 작성
+     * 2020. 11. 10.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param key
@@ -187,8 +187,8 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 10.        박준홍         최초 작성
-     * 2021. 2. 9.      박준홍     Future의 Generic 타입을 wildcard로 변경
+     * 2020. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 2. 9.      parkjunohng77@gmail.com     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      *
      * @param key
@@ -230,8 +230,8 @@ public class AsyncJobManager<K, V> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 10.        박준홍         최초 작성
-     * 2021. 2. 9.      박준홍     Future의 Generic 타입을 wildcard로 변경
+     * 2020. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 2. 9.      parkjunohng77@gmail.com     Future의 Generic 타입을 wildcard로 변경
      * </pre>
      *
      * @param <T>
@@ -280,8 +280,8 @@ public class AsyncJobManager<K, V> {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2020. 11. 10.    박준홍     최초 작성
-         * 2021. 2. 9.      박준홍     AsyncJobManager의 두번째 Generic 타입을 wildcard로 변경
+         * 2020. 11. 10.    parkjunohng77@gmail.com     최초 작성
+         * 2021. 2. 9.      parkjunohng77@gmail.com     AsyncJobManager의 두번째 Generic 타입을 wildcard로 변경
          * </pre>
          *
          * @param <K>

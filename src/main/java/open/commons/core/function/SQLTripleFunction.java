@@ -154,8 +154,8 @@ public interface SQLTripleFunction<T, U, V, R> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 22.		박준홍			최초 작성
-     * 2020. 12. 22.    박준홍         데이터 설정 메소드 분리.
+     * 2020. 1. 22.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 22.    parkjunohng77@gmail.com         데이터 설정 메소드 분리.
      * </pre>
      *
      * @param <T>

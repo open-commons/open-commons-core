@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
  * xxxx.xx.xx       xxx         최초작성
- * 2019. 10. 17.        박준홍         Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
+ * 2019. 10. 17.        parkjunohng77@gmail.com         Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
  * </pre>
  * 
  * @since 2019. 2. 19.

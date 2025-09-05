@@ -50,7 +50,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 4.      박준홍         최초 작성
+     * 2019. 1. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param driver
@@ -71,7 +71,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 4.     박준홍         최초 작성
+     * 2019. 1. 4.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param insertAllQuery
@@ -110,7 +110,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 4.      박준홍         최초 작성
+     * 2019. 1. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -126,7 +126,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 4.      박준홍         최초 작성
+     * 2019. 1. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param data
@@ -212,7 +212,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 22.		박준홍			최초 작성
+     * 2019. 2. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param data
@@ -294,7 +294,7 @@ public abstract class AbstractInsertDao extends AbstractDao {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 4.     박준홍         최초 작성
+     * 2019. 1. 4.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param list

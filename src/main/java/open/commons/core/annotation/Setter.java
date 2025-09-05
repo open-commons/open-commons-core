@@ -49,6 +49,24 @@ import java.lang.reflect.Method;
 @Target({ FIELD, METHOD })
 public @interface Setter {
 
+    /**
+     * 제공받는 데이터가 '배열'이나 '컬렉션'처럼 여러 개이 데이터를 소유하는 데이터 유형인 경우, 내부 데이터까지 재귀적으로 변환을 할지 여부. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 5.		parkjunohng77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2025. 9. 5.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    boolean deepConvert() default false;
+
     /** 데이터 이름 */
     String name() default "";
 
@@ -59,8 +77,8 @@ public @interface Setter {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 202. 6. 20.      박준홍     최초 작성
-     * 2022. 11. 3.     박준홍    기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드로 {@link Method}의 Return Type을 통해서 직접 정보를 획득.
+     * 202. 6. 20.      parkjunohng77@gmail.com     최초 작성
+     * 2022. 11. 3.     parkjunohng77@gmail.com    기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드로 {@link Method}의 Return Type을 통해서 직접 정보를 획득.
      * </pre>
      * 
      * @deprecated (since 2022/11/03) 사용하지 않음. 기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드를 적용함.

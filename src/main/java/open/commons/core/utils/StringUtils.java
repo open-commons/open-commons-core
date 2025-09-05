@@ -290,7 +290,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 1. 5.		박준홍			최초 작성
+     * 2022. 1. 5.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param str
@@ -322,7 +322,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 10. 15.        박준홍         최초 작성
+     * 2019. 10. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param strings
@@ -364,7 +364,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 10. 15.        박준홍         최초 작성
+     * 2019. 10. 15.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param delimeter
@@ -406,7 +406,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 21.		박준홍			최초 작성
+     * 2019. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param delimeter
@@ -452,7 +452,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 21.		박준홍			최초 작성
+     * 2019. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param delimeter
@@ -500,7 +500,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 21.		박준홍			최초 작성
+     * 2019. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param delimeter
@@ -527,7 +527,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 21.		박준홍			최초 작성
+     * 2019. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param delimeter
@@ -567,7 +567,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 21.		박준홍			최초 작성
+     * 2019. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param delimeter
@@ -623,7 +623,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 21.     박준홍         최초 작성
+     * 2019. 6. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param delimeter
@@ -651,7 +651,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 21.		박준홍			최초 작성
+     * 2019. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param delimeter
@@ -715,7 +715,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -847,7 +847,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 6. 28.		박준홍			최초 작성
+     * 2019. 6. 28.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -1067,7 +1067,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 25.		박준홍			최초 작성
+     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param target
@@ -1094,7 +1094,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 25.		박준홍			최초 작성
+     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param target
@@ -1115,7 +1115,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 25.		박준홍			최초 작성
+     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param target
@@ -1142,7 +1142,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 25.		박준홍			최초 작성
+     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param target
@@ -1164,8 +1164,8 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 9. 27.     	박준홍			최초 작성
-     * 2023. 12. 15.		박준홍			접근자 변경 (private -> public)
+     * 2023. 9. 27.     	parkjunohng77@gmail.com			최초 작성
+     * 2023. 12. 15.		parkjunohng77@gmail.com			접근자 변경 (private -> public)
      * </pre>
      *
      * @param buf
@@ -1700,7 +1700,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 11. 27.		박준홍			최초 작성
+     * 2023. 11. 27.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -1921,7 +1921,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 27.		박준홍			최초 작성
+     * 2025. 8. 27.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -1945,7 +1945,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 29.		박준홍			최초 작성
+     * 2025. 8. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param strings
@@ -1971,8 +1971,8 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2011. 6. 23.		박준홍			최초 작성
-     * 2019. 1. 24.		박준홍			복사 dest pos 버그 수정. (i * n -> i * strArray.length)
+     * 2011. 6. 23.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 1. 24.		parkjunohng77@gmail.com			복사 dest pos 버그 수정. (i * n -> i * strArray.length)
      * </pre>
      *
      * @param string
@@ -2406,7 +2406,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 2.		박준홍			최초 작성
+     * 2025. 4. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2432,7 +2432,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 2.		박준홍			최초 작성
+     * 2025. 4. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2468,7 +2468,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 8. 24.		박준홍			최초 작성
+     * 2023. 8. 24.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2563,7 +2563,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 2.		박준홍			최초 작성
+     * 2025. 4. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2620,7 +2620,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 2.		박준홍			최초 작성
+     * 2025. 4. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2692,7 +2692,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 2.		박준홍			최초 작성
+     * 2025. 4. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2718,7 +2718,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 2.		박준홍			최초 작성
+     * 2025. 4. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2754,7 +2754,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 21.		박준홍			최초 작성
+     * 2021. 6. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2781,7 +2781,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 4. 1.		박준홍			최초 작성
+     * 2022. 4. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2808,7 +2808,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 4. 1.      박준홍         최초 작성
+     * 2022. 4. 1.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param string
@@ -2858,7 +2858,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 7. 30.		박준홍			최초 작성
+     * 2025. 7. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -2910,7 +2910,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 7. 30.		박준홍			최초 작성
+     * 2025. 7. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param string
@@ -3126,7 +3126,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 16.		박준홍			최초 작성
+     * 2020. 1. 16.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase
@@ -3160,7 +3160,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 9. 27.		박준홍			최초 작성
+     * 2023. 9. 27.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase
@@ -3208,7 +3208,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 9. 27.		박준홍			최초 작성
+     * 2023. 9. 27.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase
@@ -3275,7 +3275,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 16.		박준홍			최초 작성
+     * 2020. 1. 16.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase
@@ -3341,7 +3341,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 16.		박준홍			최초 작성
+     * 2020. 1. 16.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase
@@ -3362,7 +3362,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 9. 27.		박준홍			최초 작성
+     * 2023. 9. 27.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase
@@ -3407,7 +3407,7 @@ public class StringUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 9. 27.		박준홍			최초 작성
+     * 2023. 9. 27.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param camelCase

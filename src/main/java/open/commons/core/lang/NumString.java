@@ -64,7 +64,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param index
@@ -97,7 +97,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -123,7 +123,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param start
@@ -147,7 +147,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -169,7 +169,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <N>
@@ -191,7 +191,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -219,7 +219,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -243,7 +243,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		박준홍			최초 작성
+     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <N>

@@ -83,7 +83,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 10. 29.		박준홍			최초 작성
+     * 2020. 10. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param query
@@ -146,7 +146,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 19.		박준홍			최초 작성
+     * 2019. 2. 19.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param stmt

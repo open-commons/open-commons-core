@@ -51,7 +51,7 @@ public @interface ColumnDef {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 9. 5.      박준홍         최초 작성
+     * 2017. 9. 5.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -70,7 +70,7 @@ public @interface ColumnDef {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 16.		박준홍			최초 작성
+     * 2020. 1. 16.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -90,8 +90,8 @@ public @interface ColumnDef {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 9. 5.      박준홍         최초 작성
-     * 2022. 11. 24.    박준홍     기본값 빈 문자열("") 적용
+     * 2017. 9. 5.      parkjunohng77@gmail.com         최초 작성
+     * 2022. 11. 24.    parkjunohng77@gmail.com     기본값 빈 문자열("") 적용
      * </pre>
      *
      * @return
@@ -109,7 +109,7 @@ public @interface ColumnDef {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 18.		박준홍			최초 작성
+     * 2019. 2. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -127,7 +127,7 @@ public @interface ColumnDef {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 5. 4.		박준홍			최초 작성
+     * 2018. 5. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -145,8 +145,8 @@ public @interface ColumnDef {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 9. 5.      박준홍         최초 작성
-     * 2022. 11. 03.    박준홍     default 값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드를 적용함. {@link Class}.class 인 경우 {@link Method#getParameterTypes()} 를 이용.
+     * 2017. 9. 5.      parkjunohng77@gmail.com         최초 작성
+     * 2022. 11. 03.    parkjunohng77@gmail.com     default 값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드를 적용함. {@link Class}.class 인 경우 {@link Method#getParameterTypes()} 를 이용.
      * </pre>
      *
      * @return

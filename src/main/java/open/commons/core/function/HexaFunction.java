@@ -53,7 +53,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <Z>
@@ -78,7 +78,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		박준홍			최초 작성
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param t

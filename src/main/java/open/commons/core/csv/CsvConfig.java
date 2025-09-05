@@ -33,8 +33,8 @@ package open.commons.core.csv;
  * [개정이력]
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
- * 2021. 6. 25.      박준홍     최초 작성
- * 2022. 3. 17.     박준홍     {@link CsvWriteConfig}와 공통 정보 상위 클래스로 추출
+ * 2021. 6. 25.      parkjunohng77@gmail.com     최초 작성
+ * 2022. 3. 17.     parkjunohng77@gmail.com     {@link CsvWriteConfig}와 공통 정보 상위 클래스로 추출
  * </pre>
  * 
  * @since 2021. 6. 25.
@@ -58,7 +58,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -84,7 +84,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -111,7 +111,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -138,7 +138,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -162,7 +162,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -190,7 +190,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -220,7 +220,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the ignoreLeadingWhiteSpace
@@ -241,7 +241,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the strictQuotes
@@ -262,7 +262,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param ignoreLeadingWhiteSpace
@@ -283,7 +283,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param strictQuotes
@@ -304,7 +304,7 @@ public class CsvConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 6. 25.		박준홍			최초 작성
+     * 2021. 6. 25.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return

@@ -64,7 +64,7 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 10. 29.        박준홍         최초 작성
+     * 2020. 10. 29.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param query

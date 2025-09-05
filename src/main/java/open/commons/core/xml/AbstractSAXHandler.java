@@ -48,7 +48,7 @@ import open.commons.core.utils.StringUtils;
  *      날짜    	| 작성자	|	내용
  * ------------------------------------------
  * xxxx.xx.xx		xxx			최초작성
- * 2019. 10. 17.		박준홍			Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
+ * 2019. 10. 17.		parkjunohng77@gmail.com			Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
  * </pre>
  * 
  * @since 2019. 1. 25.
@@ -88,7 +88,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param logger
@@ -131,7 +131,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param qName
@@ -223,7 +223,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param uri
@@ -254,7 +254,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param qName
@@ -278,7 +278,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return a string to be used as a indentation.
@@ -296,7 +296,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param qName
@@ -317,7 +317,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -337,7 +337,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param converter
@@ -354,7 +354,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param dataQNames
@@ -400,7 +400,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 25.     박준홍         최초 작성
+     * 2019. 1. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param uri

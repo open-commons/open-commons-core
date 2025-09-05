@@ -154,7 +154,7 @@ public enum BinaryDataUnit {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.     박준홍         최초 작성
+     * 2021. 11. 4.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param size
@@ -180,7 +180,7 @@ public enum BinaryDataUnit {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.     박준홍         최초 작성
+     * 2021. 11. 4.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param size
@@ -231,7 +231,7 @@ public enum BinaryDataUnit {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.     박준홍         최초 작성
+     * 2021. 11. 4.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param size
@@ -259,7 +259,7 @@ public enum BinaryDataUnit {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
+     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return 하위 단위. 현재 단위가 가장 하위인 경우 <code>null</code> 반환.
@@ -323,7 +323,7 @@ public enum BinaryDataUnit {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 4.		박준홍			최초 작성
+     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return 상위 단위. 현재 단위가 가장 상위인 경우 <code>null</code> 반환.

@@ -239,7 +239,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 18.		박준홍			최초 작성
+     * 2022. 10. 18.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param contextName

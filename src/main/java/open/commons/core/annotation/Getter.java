@@ -58,8 +58,8 @@ public @interface Getter {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 202. 6. 20.      박준홍     최초 작성
-     * 2022. 11. 3.		박준홍    기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드로 {@link Method}의 Return Type을 통해서 직접 정보를 획득.
+     * 202. 6. 20.      parkjunohng77@gmail.com     최초 작성
+     * 2022. 11. 3.		parkjunohng77@gmail.com    기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드로 {@link Method}의 Return Type을 통해서 직접 정보를 획득.
      * </pre>
      * 
      * @deprecated (since 2022/11/03) 사용하지 않음. 기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드를 적용함.

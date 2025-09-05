@@ -53,7 +53,7 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param forceToPrimitive
@@ -78,7 +78,7 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		박준홍			최초 작성
+     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      * 
      * @param data

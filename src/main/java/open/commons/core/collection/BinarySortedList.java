@@ -63,7 +63,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 9.      박준홍         최초 작성
+     * 2019. 1. 9.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param asc
@@ -82,7 +82,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 9.      박준홍         최초 작성
+     * 2019. 1. 9.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      * 
      * @param asc
@@ -118,7 +118,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 9.      박준홍         최초 작성
+     * 2019. 1. 9.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param comparator
@@ -202,8 +202,8 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 8.      박준홍         최초 작성
-     * 2025. 3. 10.     박준홍     ChatGTP를 통한 성능 검증으로 구현 수정
+     * 2019. 1. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 3. 10.     parkjunohng77@gmail.com     ChatGTP를 통한 성능 검증으로 구현 수정
      * </pre>
      *
      * @param e

@@ -50,7 +50,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param accObj
@@ -84,7 +84,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		박준홍			최초 작성
+     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -130,7 +130,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 2. 6.		박준홍			최초 작성
+     * 2012. 2. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -153,7 +153,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		박준홍			최초 작성
+     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -179,7 +179,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -206,7 +206,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 26.		박준홍			최초 작성
+     * 2017. 9. 26.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -231,7 +231,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -258,7 +258,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -284,7 +284,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 3.		박준홍			최초 작성
+     * 2021. 11. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -307,7 +307,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		박준홍			최초 작성
+     * 2022. 9. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -339,7 +339,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		박준홍			최초 작성
+     * 2022. 9. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param obj
@@ -362,7 +362,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		박준홍			최초 작성
+     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -403,7 +403,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 2. 6.		박준홍			최초 작성
+     * 2012. 2. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -426,7 +426,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		박준홍			최초 작성
+     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -452,7 +452,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -478,7 +478,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 26.		박준홍			최초 작성
+     * 2017. 9. 26.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -502,7 +502,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -526,7 +526,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -554,7 +554,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -577,7 +577,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -609,7 +609,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		박준홍			최초 작성
+     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -655,7 +655,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 2. 6.		박준홍			최초 작성
+     * 2012. 2. 6.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param clazz
@@ -710,7 +710,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		박준홍			최초 작성
+     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param obj
@@ -766,7 +766,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		박준홍			최초 작성
+     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param type

@@ -63,7 +63,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 1. 22.      박준홍         최초 작성
+     * 2020. 1. 22.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -90,7 +90,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 24.     박준홍         최초 작성
+     * 2020. 9. 24.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -110,7 +110,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 4. 9.		박준홍			최초 작성
+     * 2025. 4. 9.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -129,7 +129,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 11. 1.		박준홍			최초 작성
+     * 2022. 11. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -173,7 +173,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 1. 22.      박준홍         최초 작성
+     * 2020. 1. 22.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @return
@@ -192,7 +192,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 22.		박준홍			최초 작성
+     * 2020. 1. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -210,7 +210,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 11. 1.		박준홍			최초 작성
+     * 2022. 11. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -228,7 +228,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 29.		박준홍			최초 작성
+     * 2021. 11. 29.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -247,7 +247,7 @@ public @interface ColumnValue {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 1.		박준홍			최초 작성
+     * 2021. 12. 1.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @return

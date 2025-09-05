@@ -290,7 +290,7 @@ public abstract class AbstractLogger implements ILogger {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2013. 7. 3.	박준홍		최초 작성.
+     * 2013. 7. 3.	parkjunohng77@gmail.com		최초 작성.
      * </pre>
      * 
      * @param type
@@ -336,7 +336,7 @@ public abstract class AbstractLogger implements ILogger {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2013. 7. 2.  박준홍     최초 작성.
+     * 2013. 7. 2.  parkjunohng77@gmail.com     최초 작성.
      * </pre>
      * 
      * @param type

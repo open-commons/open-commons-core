@@ -101,7 +101,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 2.		박준홍			최초 작성
+     * 2019. 10. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -119,7 +119,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 2.		박준홍			최초 작성
+     * 2019. 10. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param millis
@@ -138,7 +138,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 2.		박준홍			최초 작성
+     * 2019. 10. 2.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param millis
