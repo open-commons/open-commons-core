@@ -3066,7 +3066,9 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환합니다.
+     * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환합니다.<br>
+     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는 <code>delegate</code>
+     * 방식으로 제공됩니다.
      * 
      * @param <E>
      * @param list
@@ -3089,7 +3091,9 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 범위(<code>s</code> ~ <code>e</code>) 내의 원소들을 포함하는 새로운 {@link List}를 반환합니다.
+     * {@link List}에서 주어진 범위(<code>s</code> ~ <code>e</code>) 내의 원소들을 포함하는 새로운 {@link List}를 반환합니다.<br>
+     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는 <code>delegate</code>
+     * 방식으로 제공됩니다.
      * 
      * @param <E>
      * @param list
@@ -3098,6 +3102,8 @@ public class CollectionUtils {
      * @param end
      *            종료 위치 exclusive
      * @return
+     * 
+     * 
      */
     public static <E> List<E> subCollection(List<E> list, int begin, int end) {
         if (begin > list.size() - 1 || begin >= end || end < 0) {
@@ -3589,7 +3595,7 @@ public class CollectionUtils {
      *             => StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
      *             : stream -> stream
      *             : transformer -> transfomer
-     *             : ArrayList.class ->  (Supplier<List<NE>>) ArrayList<NE>::new) // '(Supplier&lt;List&lt;NE&gt;&gt;)'는 Generic 정보를 명확하게 전달하기 위함.
+     *             : ArrayList.class ->  (Supplier&lt;List&lt;NE&gt;&gt;) ArrayList<NE>::new) // '(Supplier&lt;List&lt;NE&gt;&gt;)'는 Generic 정보를 명확하게 전달하기 위함.
      *             </pre>
      * 
      *             <br>
@@ -4395,7 +4401,8 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Enumeration} to the specified {@link Map}. <br>
+     * 이 메소드는 전달받은 {@link Map}에 {@link Enumeration} 에 포함된 정보를 추가하기 때문에,<br>
+     * <span style="color:red">동일한 <code>키</code>에 대한 데이터 무결성을 보장하지 않습니다.</span>
      * 
      * <pre>
      * [개정이력]
@@ -5125,7 +5132,7 @@ public class CollectionUtils {
         }
 
         // 2) 전략 결정
-        TopNStrategy chosen = (strategy == TopNStrategy.AUTO) ? TopN.decideStrategy(filteredCount, limit, expensiveComparator) : strategy;
+        TopNStrategy chosen = strategy == TopNStrategy.AUTO ? TopN.decideStrategy(filteredCount, limit, expensiveComparator) : strategy;
 
         // 3) 전략 실행
         switch (chosen) {

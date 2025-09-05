@@ -1,3 +1,8 @@
+[2025/09/05]
+- Enhance!!!
+  + open.commons.core.utils.ObjectUtils.transform(S, boolean, T, boolean, Map&lt;String, Function&lt;, ?&gt;&gt;): 성능 대폭 향상
+    - Reflection 스캔을 1회로 줄이고, MethodHanlde 을 사용하여 기능 향상 (native 코드에 가까움)
+
 [2025/09/01]
 - Add
   + open.commons.core.utils.CollectionUtils

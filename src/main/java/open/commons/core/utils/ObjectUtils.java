@@ -26,6 +26,11 @@
 
 package open.commons.core.utils;
 
+import java.lang.invoke.CallSite;
+import java.lang.invoke.LambdaMetafactory;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -38,7 +43,8 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.regex.Matcher;
@@ -192,7 +198,7 @@ public class ObjectUtils {
      * <li>value: Source 객체를 Target 객체로 변환하는데 필요한 데이터 변환 함수들.
      * </ul>
      */
-    private static final ConcurrentSkipListMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentSkipListMap<>();
+    private static final ConcurrentHashMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentHashMap<>();
 
     /**
      * 기본 데이터 변환 키 생성 함수.
@@ -233,7 +239,7 @@ public class ObjectUtils {
      * <li>value: 변환 함수.
      * </ul>
      */
-    private static final ConcurrentSkipListMap<Integer, Function<?, ?>> TYPE_CONVERTERS = new ConcurrentSkipListMap<>();
+    private static final ConcurrentHashMap<Integer, Function<?, ?>> TYPE_CONVERTERS = new ConcurrentHashMap<>();
 
     /**
      * @param srcClass
@@ -252,8 +258,129 @@ public class ObjectUtils {
                     .append(targetClass.toGenericString()).append(lookupTargetSuper)//
                     .toString().hashCode();
 
+    /**
+     * 
+     */
+    private static final Map<CopierKey, BiConsumer<Object, Object>> COPIER_CACHE = new ConcurrentHashMap<>();
+
     // Prevent to create a new instance.
     private ObjectUtils() {
+    }
+
+    /**
+     * 데이터 이관을 진행할 객체를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 정보 이관 여부
+     * @param converters
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static BiConsumer<Object, Object> buildCopier(Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters) {
+
+        List<StepPlan> steps = planSteps(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
+
+        final MethodHandles.Lookup lookup = MethodHandles.lookup();
+        // 3-1) 각 step을 (b,a)->void 로 “미리” 합성
+        final List<MethodHandle> mhSteps = new ArrayList<>(steps.size());
+
+        MethodHandle getter = null;
+        MethodType GETTER_OBJ = null;
+        MethodHandle setter = null;
+        MethodType SETTER_OBJ = null;
+        MethodHandle conv = null;
+        MethodHandle converted = null;
+        MethodHandle step = null;
+        try {
+            for (StepPlan plan : steps) {
+                // (A)->val
+                if (!plan.getter.isAccessible()) {
+                    plan.getter.setAccessible(true);
+                }
+                getter = lookup.unreflect(plan.getter);
+                // (Object)->Object 로 어댑터
+                GETTER_OBJ = MethodType.methodType(Object.class, Object.class);
+                getter = MethodHandles.explicitCastArguments(getter, GETTER_OBJ);
+
+                // converter(Function.apply)
+                if (plan.converter == StepPlan.IDENTITY_CONVERT) {
+                    conv = MethodHandles.identity(Object.class); // (Object)->Object
+                } else {
+                    MethodHandle apply = lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(plan.converter);
+                    conv = apply; // (Object)->Object
+                }
+
+                // (a)->val2
+                converted = MethodHandles.filterReturnValue(getter, conv);
+
+                // (B,val)->void
+                if (!plan.setter.isAccessible()) {
+                    plan.setter.setAccessible(true);
+                }
+                setter = lookup.unreflect(plan.setter);
+                SETTER_OBJ = MethodType.methodType(void.class, Object.class, Object.class);
+                setter = MethodHandles.explicitCastArguments(setter, SETTER_OBJ);
+
+                // (b,a)->void : setter(b, converted(a))
+                step = MethodHandles.collectArguments(setter, 1, converted);
+                // (선택) 명시 캐스팅 — 사실상 이미 (Object,Object)->void 일 것이라 불필요하지만, 놔둬도 무해
+                step = MethodHandles.explicitCastArguments( //
+                        step //
+                        , MethodType.methodType(void.class, Object.class, Object.class) //
+                );
+
+                mhSteps.add(step);
+            }
+
+            // 3-2) 루프 본체: (target, src, mhStepArr)->void
+            MethodHandle impl = lookup.findStatic( //
+                    // 또는 별도 Fast 클래스
+                    ObjectUtils.class, "runSteps" //
+                    , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
+            );
+
+            // 3-3) LMF로 BiConsumer<Object,Object> 생성
+            CallSite site = LambdaMetafactory.metafactory( //
+                    lookup //
+                    , "accept"
+                    // 팩토리 invokedType에 캡처할 인자(MethodHandle[] steps)를 추가
+                    , MethodType.methodType(BiConsumer.class, MethodHandle[].class) // (steps) -> BiConsumer
+                    , MethodType.methodType(void.class, Object.class, Object.class) // erased SAM: (b,a)->void
+                    , impl // direct: (b,a,steps)->void
+                    , MethodType.methodType(void.class, Object.class, Object.class) // instantiated SAM
+            );
+
+            // 캡처할 배열을 정확 타입으로 전달 (invokeExact 권장)
+            MethodHandle[] mhStepArr = mhSteps.toArray(new MethodHandle[0]);
+            return (BiConsumer<Object, Object>) site.getTarget().invoke(mhStepArr);
+        } catch (Throwable t) {
+            LOGGER.error("getter    = {}, getter.type  = {}", getter, GETTER_OBJ);
+            LOGGER.error("setter    = {}, setter.type  = {}", setter, SETTER_OBJ);
+            LOGGER.error("converter = {}, conver.after = {}", conv, converted);
+            LOGGER.error("step      = {}", step);
+            throw new RuntimeException("Failed to build copier: " + srcClass + "->" + targetClass, t);
+        }
+    }
+
+    private static Map<String, Function<?, ?>> checkConvertersOrDefault(Map<String, Function<?, ?>> converters) {
+        return MapUtils.isNullOrEmpty(converters) ? FIELD_CONVERTERS : converters;
     }
 
     /**
@@ -1103,6 +1230,84 @@ public class ObjectUtils {
     }
 
     /**
+     * 데이터를 이관할 메소드 정보를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 정보 이관 여부
+     * @param converters
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static <S, T> List<StepPlan> planSteps(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters) {
+
+        List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(srcClass, Getter.class) : AnnotationUtils.getAnnotatedMethods(srcClass, Getter.class);
+        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(targetClass, Setter.class)
+                : AnnotationUtils.getAnnotatedMethods(targetClass, Setter.class);
+
+        // 데이터 변환함수가 null 인 경우
+        converters = checkConvertersOrDefault(converters);
+
+        // #0. Setter 메소드 재정렬
+        // key: Setter#name()
+        // value: Method
+        final Map<String, Method> setterMap = setters.stream().collect(Collectors.toMap(SETTER_KEYGEN, m -> m));
+
+        // #1. Setter와 연결되는 Getter 메소드 재정렬
+        final Map<String, Method> getterMap = getters.stream()
+                // Setter와 동일한 식별정보를 갖는 Getter 추출
+                .filter(m -> setterMap.containsKey(GETTER_KEYGEN.apply(m))) //
+                .collect(Collectors.toMap(GETTER_KEYGEN, m -> m));
+
+        // method key
+        String property = null;
+        // getter method
+        Method getter = null;
+        // setter method
+        Method setter = null;
+        // 제공되는 데이터 변환 함수
+        Function<?, ?> converter = null;
+
+        List<StepPlan> plans = new ArrayList<>();
+        for (Entry<String, Method> entry : setterMap.entrySet()) {
+            property = entry.getKey();
+
+            // 데이터 제공 함수
+            getter = getterMap.get(property);
+
+            // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
+            if (getter == null) {
+                continue;
+            }
+
+            // 데이터 설정 함수
+            setter = entry.getValue();
+
+            // 변환 함수
+            converter = getFieldConverter(srcClass, RETURN_TYPE.apply(getter), property, targetClass, PARAMETER_TYPE.apply(setter), converters);
+            plans.add(new StepPlan(property, getter, setter, converter));
+        }
+
+        return plans;
+    }
+
+    /**
      * 주어진 객체의 {@link Class} 정보를 배열로 제공합니다. <br>
      * 
      * <pre>
@@ -1444,6 +1649,37 @@ public class ObjectUtils {
     }
 
     /**
+     * <code>LMF가 호출할 루프 본체</code>로써 실제 데이터 형변환을 실행합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param steps
+     * @param target
+     *            대상 데이터 객체
+     * @param src
+     *            원본 데이터 객체
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unused")
+    private static void runSteps(MethodHandle[] steps, Object target, Object src) {
+        try {
+            for (int i = 0; i < steps.length; i++) {
+                steps[i].invokeExact(target, src);
+            }
+        } catch (Throwable t) {
+            throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
+        }
+    }
+
+    /**
      * 
      * <br>
      * 
@@ -1498,8 +1734,6 @@ public class ObjectUtils {
      *            기존 데이터 유형
      * @param <U>
      *            새로운 데이터 유형
-     * @param <C>
-     *            기존 데이터를 담은 {@link Collection} 유형
      * @param <R>
      *            변환 후 데이터가 저장될 {@link Collection} 유형
      * @param objects
@@ -1515,13 +1749,40 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    private static <T, U, C extends Collection<T>, R extends Collection<U>> R to(C objects, Function<T, U> function, Supplier<R> collectionSupplier)
-            throws UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return objects.stream().map(function).collect(Collectors.toCollection(collectionSupplier));
+    private static <T, U, R extends Collection<U>> R to(Collection<T> objects, Function<T, U> transformer, Supplier<R> collectionSupplier) {
+        AssertUtils2.notNulls(objects, transformer, collectionSupplier);
+
+        if (objects.size() < 1) {
+            return collectionSupplier.get();
+        }
+
+        return objects.stream().map(transformer).collect(Collectors.toCollection(collectionSupplier));
     }
 
     /**
-     * Object Type {@link Collection}을 Boolean Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 Boolean Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Boolean> toBoolean(Collection<Object> objects) {
+        return to(objects, booleanFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1529,24 +1790,133 @@ public class ObjectUtils {
      * ------------------------------------------
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
-     *
+     * 
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toBoolean(Collection, Function, Supplier)} 또는 편의성에 따라 다른
+     *             <code>toBoolean(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러
+     *             가지 제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Boolean>> R toBoolean(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, booleanFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 4.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Boolean)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Boolean> toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Boolean)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, booleanFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 Byte Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Byte> toByte(Collection<Object> objects) {
+        return to(objects, byteFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1555,23 +1925,131 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toByte(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toByte(...)</code>를
+     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Byte>> R toByte(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, byteFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Byte)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Byte> toByte(Collection<Object> objects, Function<Object, Byte> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Byte)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Function<Object, Byte> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, byteFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 Double Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Double> toDouble(Collection<Object> objects) {
+        return to(objects, doubleFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1580,23 +2058,132 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toDouble(Collection, Function, Supplier)} 또는 편의성에 따라 다른
+     *             <code>toDouble(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지
+     *             제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Double>> R toDouble(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, doubleFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 Float Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Double)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Double> toDouble(Collection<Object> objects, Function<Object, Double> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Double)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Function<Object, Double> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, doubleFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 Float Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Float> toFloat(Collection<Object> objects) {
+        return to(objects, floatFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1605,23 +2192,131 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toFloat(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toFloat(...)</code>를
+     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Float>> R toFloat(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, floatFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 Integer Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Float)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Float> toFloat(Collection<Object> objects, Function<Object, Float> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Float)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Function<Object, Float> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, floatFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 Integer Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Integer> toInteger(Collection<Object> objects) {
+        return to(objects, intFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1630,23 +2325,132 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toInteger(Collection, Function, Supplier)} 또는 편의성에 따라 다른
+     *             <code>toInteger(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러
+     *             가지 제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Integer>> R toInteger(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, intFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 Long Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Integer)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Integer> toInteger(Collection<Object> objects, Function<Object, Integer> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Integer)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Function<Object, Integer> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, intFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 Long Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Long> toLong(Collection<Object> objects) {
+        return to(objects, longFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1655,23 +2459,131 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toLong(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toLong(...)</code>를
+     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Long>> R toLong(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, longFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Long)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Long> toLong(Collection<Object> objects, Function<Object, Long> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Long)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Function<Object, Long> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, longFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 Short Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Short> toShort(Collection<Object> objects) {
+        return to(objects, shortFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1680,23 +2592,131 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws NullPointerException
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toShort(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toShort(...)</code>를
+     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<Short>> R toShort(C objects, Class<? extends R> classType)
+    public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Class<? extends R> classType)
             throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, shortFunction);
     }
 
     /**
-     * Object Type {@link Collection}을 String Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Short)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<Short> toShort(Collection<Object> objects, Function<Object, Short> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => Short)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Function<Object, Short> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, shortFunction, collectionSupplier);
+    }
+
+    /**
+     * Object Type {@link Collection}을 String Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> toString(Collection<Object> objects) {
+        return to(objects, strFunction, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1705,18 +2725,105 @@ public class ObjectUtils {
      * 2018. 1. 31.     박준홍         최초 작성
      * </pre>
      *
+     * @param <R>
+     *            새로운 {@link Collection} 유형
      * @param objects
+     *            변환할 데이터
      * @param classType
+     *            새로운 {@link Collection} 객체
      * @return
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws UnsupportedOperationException
+     * 
+     * @deprecated 2025. 9. 4. {@link #toString(Collection, Function, Supplier)} 또는 편의성에 따라 다른
+     *             <code>toString(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지
+     *             제약과 오류의 소지가 확인되었습니다. <br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      *
      * @since 2018. 1. 31.
      */
-    public static <C extends Collection<Object>, R extends Collection<String>> R toString(C objects, Class<? extends R> classType)
+    public static <R extends Collection<String>> R toString(Collection<Object> objects, Class<? extends R> classType)
             throws UnsupportedOperationException, InstantiationException, IllegalAccessException {
         return to(objects, classType, strFunction);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link String} Type {@link List}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => String)
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static List<String> toString(Collection<Object> objects, Function<Object, String> transformer) {
+        return to(objects, transformer, ArrayList::new);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param transfomer
+     *            데이터 변환 함수 (Object => String)
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<String>> R toString(Collection<Object> objects, Function<Object, String> transformer, Supplier<R> collectionSupplier) {
+        return to(objects, transformer, collectionSupplier);
+    }
+
+    /**
+     * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      박준홍         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            새로운 {@link Collection} 유형.
+     * @param objects
+     *            변환할 데이터
+     * @param collectionSupplier
+     *            {@link Collection} 객체 제공 함수.
+     * @return
+     *
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <R extends Collection<String>> R toString(Collection<Object> objects, Supplier<R> collectionSupplier) {
+        return to(objects, strFunction, collectionSupplier);
     }
 
     /**
@@ -1928,9 +3035,9 @@ public class ObjectUtils {
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
-        return src.stream().map(s -> {
-            return transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
-        }).collect(Collectors.toCollection(collectionSupplier));
+        return src.stream() //
+                .map(s -> transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
+                .collect(Collectors.toCollection(collectionSupplier));
     }
 
     /**
@@ -2729,8 +3836,8 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
-     *            데이터를 전달받을 새로운 데이터 유형.
+     * @param target
+     *            데이터를 전달받을 새로운 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
@@ -2748,105 +3855,17 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    @SuppressWarnings("unchecked")
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
 
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
-
-        List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(src, Getter.class) : AnnotationUtils.getAnnotatedMethods(src, Getter.class);
-        if (getters.size() < 1) {
-            return target;
-        }
-
-        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(target, Setter.class) : AnnotationUtils.getAnnotatedMethods(target, Setter.class);
-        if (setters.size() < 1) {
-            return target;
-        }
+        AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
 
         // 데이터 변환함수가 null 인 경우
-        if (converters == null) {
-            converters = FIELD_CONVERTERS;
-        }
+        CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
+                /* convertersId */ System.identityHashCode(checkConvertersOrDefault(converters)) // 또는 고정 Registry ID
+        );
 
-        // #0. Setter 메소드 재정렬
-        // key: Setter#name()
-        // value: Method
-        final Map<String, Method> setterMap = CollectionUtils.toMapHSV(setters, SETTER_KEYGEN, m -> m);
-
-        // #1. Setter와 동일한 식별정보를 갖는 Getter 추출
-        List<Method> gettersFiltered = getters.stream().filter(m -> {
-            return setterMap.containsKey(GETTER_KEYGEN.apply(m));
-        }).collect(Collectors.toList());
-
-        // #2. Setter와 연결되는 Getter 메소드 재정렬
-        Map<String, Method> getterMap = CollectionUtils.toMapHSV(gettersFiltered, GETTER_KEYGEN, m -> m);
-
-        // method key
-        String property = null;
-        // getter method
-        Method getter = null;
-        boolean getterAccessible = false;
-        // setter method
-        Method setter = null;
-        boolean setterAccessible = false;
-
-        Object o = null;
-        Class<?> srcClass = src.getClass();
-        Class<?> srcPropertyClass = null;
-        Class<?> targetClass = target.getClass();
-        Class<?> targetPropertyClass = null;
-        Function<?, ?> converter = null;
-        for (Entry<String, Method> entry : setterMap.entrySet()) {
-            try {
-                property = entry.getKey();
-
-                // 데이터 제공 함수
-                getter = getterMap.get(property);
-
-                // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
-                if (getter == null) {
-                    continue;
-                }
-
-                // 데이터 읽기
-                getterAccessible = getter.isAccessible();
-                getter.setAccessible(true);
-
-                // PATCH [2021. 11. 22.]: 데이터 변환 | Park_Jun_Hong_(fafanmama_at_naver_com)
-                o = getter.invoke(src);
-
-                // 데이터 쓰기
-                setter = entry.getValue();
-                setterAccessible = setter.isAccessible();
-                setter.setAccessible(true);
-
-                srcPropertyClass = RETURN_TYPE.apply(getter);
-                targetPropertyClass = PARAMETER_TYPE.apply(setter);
-
-                // srcType과 targetType이 호환여부 확인
-                // if (!checkType(srcPropertyClass, targetPropertyClass)) {
-                // 타입 변환 함수가 존재하는 경우
-                if ((converter = getFieldConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converters)) != null) {
-                    o = ((Function<Object, ?>) converter).apply(o);
-                }
-                // }
-
-                setter.invoke(target, o);
-
-            } catch (Exception e) {
-                String errMsg = String.format("src.type=%s, src.getter=%s, target.type=%s, target.setter=%s, argument=%s, 원인=%s" //
-                        , src.getClass(), getter, target.getClass(), setter, o, e.getMessage());
-                LOGGER.error(errMsg, e);
-                throw new IllegalArgumentException(errMsg, e);
-            } finally {
-                if (getter != null) {
-                    getter.setAccessible(getterAccessible);
-                }
-                if (setter != null) {
-                    setter.setAccessible(setterAccessible);
-                }
-            }
-        }
+        BiConsumer<Object, Object> copier = COPIER_CACHE.computeIfAbsent(key, k -> buildCopier(src.getClass(), lookupSrcSuper, target.getClass(), lookupTargetSuper, converters));
+        copier.accept(target, src);
 
         return target;
     }
@@ -3586,6 +4605,122 @@ public class ObjectUtils {
      */
     public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
         return transform(src, true, target, true, converters);
+    }
+
+    static final class CopierKey {
+        final Class<?> src;
+        final Class<?> dst;
+        final boolean lookupSrcSuper;
+        final boolean lookupDstSuper;
+        final int convertersId;
+
+        /**
+         *
+         * @param src
+         *            원본 데이터 유형
+         * @param dst
+         *            변환 데이터 유형
+         * @param lookupSrcSuper
+         *            원본 데이터 상위 클래스 정보 전환 여부
+         * @param lookupDstSuper
+         *            변환 데이터 상위 클래스 정보 전환 여부
+         * @param convertersId
+         *            변환기 식별정보
+         *
+         * @since 2025. 9. 4.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         */
+        public CopierKey(Class<?> src, Class<?> dst, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
+            this.src = src;
+            this.dst = dst;
+            this.lookupSrcSuper = lookupSrcSuper;
+            this.lookupDstSuper = lookupDstSuper;
+            this.convertersId = convertersId;
+        }
+
+        /**
+         *
+         * @since 2025. 9. 4.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         *
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            CopierKey other = (CopierKey) obj;
+            return convertersId == other.convertersId && Objects.equals(dst, other.dst) && lookupDstSuper == other.lookupDstSuper && lookupSrcSuper == other.lookupSrcSuper
+                    && Objects.equals(src, other.src);
+        }
+
+        /**
+         *
+         * @since 2025. 9. 4.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         *
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            return Objects.hash(convertersId, dst, lookupDstSuper, lookupSrcSuper, src);
+        }
+    }
+
+    static final class StepPlan {
+
+        static final Function<?, ?> IDENTITY_CONVERT = o -> o;
+        /**
+         * 속성 이름<br>
+         * <li>{@link Getter#name()}
+         * <li>{@link Setter#name()}
+         */
+        final String property;
+        /** 원본 클래스의 'getter' 메소드. */
+        final Method getter;
+        /** 대상 클래스의 'setter' 메소드 */
+        final Method setter;
+        /** 데이터 형변환 함수. */
+        final Function<?, ?> converter;
+
+        /**
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜      | 작성자   |   내용
+         * ------------------------------------------
+         * 2025. 9. 4.      박준홍         최초 작성
+         * </pre>
+         * 
+         * @param property
+         *            속성 이름<br>
+         *            <li>{@link Getter#name()}
+         *            <li>{@link Setter#name()}
+         * @param getter
+         *            원본 클래스의 'getter' 메소드.
+         * @param setter
+         *            대상 클래스의 'setter' 메소드
+         * @param converter
+         *            데이터 형변환 함수.
+         *
+         * @since 2025. 9. 4.
+         * @version 2.1.0
+         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         */
+        public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity) {
+            this.property = property;
+            this.getter = getter;
+            this.setter = setter;
+            this.converter = converterOrIdentity != null ? converterOrIdentity : IDENTITY_CONVERT;
+        }
     }
 
 }
