@@ -1,3 +1,10 @@
+[2025/09/08]
+- Migration
+  + open.commons.utils.ObjectUtils -> open.commons.utils.Transformer
+    + registerPropertyConverter(Class&lt;S>, Class&lt;SF>, String, Class&lt;T>, Class&lt;TF>, Function&lt;SF, TF>)
+    + registerPropertyConverter(Class&lt;S>, Class&lt;SF>, String, Class&lt;T>, Class&lt;TF>, Function&lt;SF, TF>, Function&lt;TF, SF>)
+    + transform(S, boolean, T, boolean, Map&lt;String, Function<?, ?>>)
+  
 [2025/09/05]
 - Enhance!!!
   + open.commons.core.utils.ObjectUtils.transform(S, boolean, T, boolean, Map&lt;String, Function&lt;, ?&gt;&gt;): 성능 대폭 향상

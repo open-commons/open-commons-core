@@ -37,9 +37,12 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
+import java.time.temporal.Temporal;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -65,6 +68,7 @@ import org.slf4j.LoggerFactory;
 
 import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Setter;
+import open.commons.core.exception.TransformationFailedException;
 import open.commons.core.function.PentagonFunction;
 import open.commons.core.utils.Transformer.StepPlan.ContainerKind;
 
@@ -225,6 +229,32 @@ public class Transformer {
         return null;
     }
 
+    /**
+     * 데이터 이관 함수를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 클래스 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 클래스 정보 이관 여부
+     * @param converters
+     *            데이터 변환 함수
+     * @return
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     private static BiConsumer<Object, Object> buildCopier(Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters) {
 
@@ -257,7 +287,7 @@ public class Transformer {
                     Class<?> srcType = plan.getter.getReturnType();
                     Class<?> dstType = plan.setter.getParameterTypes()[0];
 
-                    conv = buildValueConverterMH(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.converter);
+                    conv = buildValueConverterMH(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.converter, plan.deepConvert);
 
                     converted = MethodHandles.filterReturnValue(getter, conv); // (a)->val'
                     step = MethodHandles.collectArguments(setter, 1, converted); // (b,a)->void
@@ -270,7 +300,7 @@ public class Transformer {
                 if (plan.kind == ContainerKind.ARRAY) {
                     Class<?> srcElem = componentTypeOfReturn(plan.getter);
                     Class<?> dstElem = plan.setter.getParameterTypes()[0].getComponentType();
-                    MethodHandle elemConv = buildValueConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
+                    MethodHandle elemConv = buildElementConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
 
                     setter = lookup.unreflect(plan.setter);
                     step = makeDeepArrayStep(lookup, getter, setter, elemConv, dstElem);
@@ -309,7 +339,7 @@ public class Transformer {
                         // addXxx(E) — 요소 단위 추가
                         Class<?> srcElem = elementTypeOfGetter(plan.getter);
                         Class<?> dstElem = plan.setter.getParameterTypes()[0];
-                        MethodHandle elemConv = buildValueConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
+                        MethodHandle elemConv = buildElementConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
 
                         setter = lookup.unreflect(plan.setter); // addXxx(E)
                         step = makeDeepCollectionAddStep(lookup, getter, setter, elemConv);
@@ -319,7 +349,7 @@ public class Transformer {
                         Class<?> srcElem = elementTypeOfGetter(plan.getter);
                         Class<?> dstParam = plan.setter.getParameterTypes()[0];
                         Class<?> dstElem = genericElementTypeOfSetter(plan.setter).orElse(Object.class);
-                        MethodHandle elemConv = buildValueConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
+                        MethodHandle elemConv = buildElementConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
 
                         @SuppressWarnings("rawtypes")
                         Class<? extends Collection> dstImpl = pickCollectionImpl(dstParam);
@@ -339,8 +369,8 @@ public class Transformer {
                         Class<?> kSrc = mapKeyTypeOfGetter(plan.getter);
                         Class<?> vSrc = mapValTypeOfGetter(plan.getter);
 
-                        MethodHandle kConv = buildValueConverterMH(lookup, kSrc, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
-                        MethodHandle vConv = buildValueConverterMH(lookup, vSrc, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
+                        MethodHandle kConv = buildElementConverterMH(lookup, kSrc, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
+                        MethodHandle vConv = buildElementConverterMH(lookup, vSrc, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
 
                         setter = lookup.unreflect(plan.setter); // putXxx(K,V)
                         step = makeDeepMapPutStep(lookup, getter, setter, kConv, vConv);
@@ -366,11 +396,12 @@ public class Transformer {
             }
 
             // 3-2) 루프 본체: (target, src, mhStepArr)->void
-            MethodHandle impl = lookup.findStatic( //
-                    // 또는 별도 Fast 클래스
-                    Transformer.class, "runSteps" //
-                    , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
-            );
+            MethodHandle impl = //
+                    lookup.findStatic( //
+                            // 또는 별도 Fast 클래스
+                            Transformer.class, "runSteps" //
+                            , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
+                    );
 
             // 3-3) LMF로 BiConsumer<Object,Object> 생성
             CallSite site = LambdaMetafactory.metafactory( //
@@ -395,6 +426,32 @@ public class Transformer {
         }
     }
 
+    // 추가: forceDeepSameType 플래그
+    private static MethodHandle buildElementConverterMH(MethodHandles.Lookup lookup, Class<?> srcElem, Class<?> dstElem, boolean lookupSrcSuper, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters, String property, boolean deepConvert) throws Exception {
+
+        boolean sameOrWiden = wrap(dstElem).isAssignableFrom(wrap(srcElem));
+
+        // same-type 이고 deep을 강제한다면 nested copier로 내려간다
+        if (sameOrWiden && deepConvert && isPojo(dstElem)) {
+            return makeNestedCopierAsConverter(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters);
+        }
+
+        // 평소 정책: 동일/호환 → identity
+        if (sameOrWiden) {
+            return MethodHandles.identity(Object.class);
+        }
+
+        // 등록 컨버터 우선
+        Function<?, ?> f = getFieldConverter(srcElem, srcElem, property, dstElem, dstElem, converters);
+        if (f != null) {
+            return lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(f);
+        }
+
+        // 나머지는 nested copier fallback
+        return makeNestedCopierAsConverter(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters);
+    }
+
     // 스칼라/요소 공통: (Object)->Object 변환기 MethodHandle
     private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcElem, Class<?> dstElem, boolean lookupSrcSuper, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, String property) throws Exception {
@@ -405,7 +462,7 @@ public class Transformer {
         }
 
         // 등록된 필드 컨버터 우선
-        Function<?, ?> f = getFieldConverter(srcElem, srcElem, property, dstElem, dstElem, checkConvertersOrDefault(converters));
+        Function<?, ?> f = getFieldConverter(srcElem, srcElem, property, dstElem, dstElem, converters);
         if (f != null) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
@@ -419,49 +476,49 @@ public class Transformer {
                 , k -> buildCopier(srcElem, lookupSrcSuper, dstElem, lookupTargetSuper, converters));
 
         MethodHandle ctor = constructorMH(lookup, dstElem); // ()->Object
-        MethodHandle impl = lookup.findStatic(Transformer.class //
-                , "convertPojoElem" //
-                , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class));
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "convertPojoElem" //
+                        , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class) //
+                );
         impl = MethodHandles.insertArguments(impl, 1, new Object[] { nested, ctor });
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(Object.class, Object.class));
     }
 
     private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcType, Class<?> dstType, boolean lookupSrcSuper, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, String property, Function<?, ?> planConverter // ★
-    ) throws Exception {
+            Map<String, Function<?, ?>> converters, String property, Function<?, ?> planConverter, boolean deepConvert) throws Exception {
 
-        // 0) 타입 호환 → identity
-        if (wrap(dstType).isAssignableFrom(wrap(srcType))) {
-            return MethodHandles.identity(Object.class); // (Object)->Object
+        Class<?> ws = wrap(srcType), wd = wrap(dstType);
+        boolean sameOrWiden = wd.isAssignableFrom(ws);
+
+        // ★ deep 요청이고 동일/호환 타입이며 POJO라면, identity 대신 nested copier로 강제
+        if (sameOrWiden && deepConvert && isPojo(dstType)) {
+            return makeNestedCopierAsConverter(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters);
         }
 
-        // 1) 플랜이 이미 선택한 컨버터 우선 사용
+        // 0) 동일/호환 → 기본은 identity (deep 강제 조건에 걸리지 않았을 때)
+        if (sameOrWiden) {
+            return MethodHandles.identity(Object.class);
+        }
+
+        // 1) 플랜에 명시 컨버터가 있으면 우선
         if (planConverter != null && planConverter != StepPlan.IDENTITY_CONVERT) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
                     , MethodType.methodType(Object.class, Object.class)).bindTo(planConverter);
         }
 
-        // 2) (옵션) 컨버터 맵에서 재조회 — 플랜과 동일 키 정책이라면 생략 가능
+        // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
         Function<?, ?> f = getFieldConverter(srcType, srcType, property, dstType, dstType, checkConvertersOrDefault(converters));
         if (f != null) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
-                    , MethodType.methodType(Object.class, Object.class)) //
-                    .bindTo(f);
+                    , MethodType.methodType(Object.class, Object.class)).bindTo(f);
         }
 
-        // 3) POJO ↔ POJO 중첩 변환 fallback
-        BiConsumer<Object, Object> nested = COPIER_CACHE.computeIfAbsent(
-                new CopierKey(srcType, dstType, lookupSrcSuper, lookupTargetSuper, /* converters version/id */ 0)//
-                , k -> buildCopier(srcType, lookupSrcSuper, dstType, lookupTargetSuper, converters));
-
-        MethodHandle ctor = constructorMH(lookup, dstType); // ()->Object
-        MethodHandle impl = lookup.findStatic(Transformer.class //
-                , "convertPojoElem" //
-                , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class));
-        impl = MethodHandles.insertArguments(impl, 1, new Object[] { nested, ctor });
-        return MethodHandles.explicitCastArguments(impl, MethodType.methodType(Object.class, Object.class));
+        // 3) POJO ↔ POJO fallback: nested copier
+        return makeNestedCopierAsConverter(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters);
     }
 
     private static Map<String, Function<?, ?>> checkConvertersOrDefault(Map<String, Function<?, ?>> converters) {
@@ -486,19 +543,64 @@ public class Transformer {
         return h.asType(MethodType.methodType(Object.class));
     }
 
+    /**
+     * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, boolean, Map, String)},
+     * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, boolean, Map, String, Function, boolean)}에서
+     * 호출하는 'MethodHandle' 대상. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param src
+     * @param copier
+     * @param ctor
+     * @return
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings("unused")
     private static Object convertPojoElem(Object src, BiConsumer<Object, Object> copier, MethodHandle ctor) {
-        if (src == null)
+        if (src == null) {
             return null;
+        }
+        Object dst = null;
         try {
-            Object dst = ctor.invoke(); // ()->Object
+            dst = ctor.invoke(); // ()->Object
             copier.accept(dst, src);
             return dst;
         } catch (Throwable t) {
-            throw new RuntimeException(t);
+            throw new TransformationFailedException(src.getClass(), dst != null ? dst.getClass() : null, t);
         }
     }
 
+    /**
+     * {@link #makeDeepArrayStep(java.lang.invoke.MethodHandles.Lookup, MethodHandle, MethodHandle, MethodHandle, Class)}에서
+     * 호출하는 'MethodHandle' 대상. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param b
+     * @param a
+     * @param getter
+     * @param setter
+     * @param elemConv
+     * @param dstElem
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings("unused")
     private static void deepCopyArray(Object b, Object a, MethodHandle getter, MethodHandle setter, MethodHandle elemConv, Class<?> dstElem) {
         try {
@@ -516,10 +618,31 @@ public class Transformer {
             }
             setter.invoke(b, dstArr);
         } catch (Throwable t) {
-            throw new RuntimeException(t);
+            throw new TransformationFailedException(t);
         }
     }
 
+    /**
+     * {@link #makeDeepCollectionAddStep(java.lang.invoke.MethodHandles.Lookup, MethodHandle, MethodHandle, MethodHandle)}에서
+     * 호출하는 'MethodHandle' 대상. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param b
+     * @param a
+     * @param getter
+     * @param adder
+     * @param elemConv
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings({ "rawtypes", "unused" })
     private static void deepCopyCollectionAdd(Object b, Object a, MethodHandle getter, MethodHandle adder, MethodHandle elemConv) {
         try {
@@ -540,10 +663,32 @@ public class Transformer {
                 }
             }
         } catch (Throwable t) {
-            throw new RuntimeException(t);
+            throw new TransformationFailedException(t);
         }
     }
 
+    /**
+     * {@link #makeDeepCollectionSetStep(java.lang.invoke.MethodHandles.Lookup, MethodHandle, MethodHandle, MethodHandle, Class)}
+     * 메소드가 호출하는 'MethodHandle' 대상. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param b
+     * @param a
+     * @param getter
+     * @param setter
+     * @param elemConv
+     * @param dstImpl
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
     private static void deepCopyCollectionSet(Object b, Object a, MethodHandle getter, MethodHandle setter, MethodHandle elemConv, Class<? extends Collection> dstImpl) {
         try {
@@ -560,17 +705,39 @@ public class Transformer {
                     dst.add(dv);
                 }
             } else {
-                for (Object sv : (java.lang.Iterable) src) {
+                for (Object sv : (Iterable) src) {
                     Object dv = elemConv.invoke(sv);
                     dst.add(dv);
                 }
             }
             setter.invoke(b, dst);
         } catch (Throwable t) {
-            throw new RuntimeException(t);
+            throw new TransformationFailedException(t);
         }
     }
 
+    /**
+     * {@link #makeDeepMapPutStep(java.lang.invoke.MethodHandles.Lookup, MethodHandle, MethodHandle, MethodHandle, MethodHandle)}에서
+     * 호출하는 'MethodHandle' 대상 <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param b
+     * @param a
+     * @param getter
+     * @param put
+     * @param kConv
+     * @param vConv
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings({ "rawtypes", "unused" })
     private static void deepCopyMapPut(Object b, Object a, MethodHandle getter, MethodHandle put, MethodHandle kConv, MethodHandle vConv) {
         try {
@@ -588,10 +755,33 @@ public class Transformer {
                 put.invoke(b, k2, v2);
             }
         } catch (Throwable t) {
-            throw new RuntimeException(t);
+            throw new TransformationFailedException(t);
         }
     }
 
+    /**
+     * {@link #makeDeepMapSetStep(java.lang.invoke.MethodHandles.Lookup, MethodHandle, MethodHandle, MethodHandle, MethodHandle, Class)}
+     * 내부에서 호출하는 'MethodHandle' 대상. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param b
+     * @param a
+     * @param getter
+     * @param setter
+     * @param kConv
+     * @param vConv
+     * @param dstImpl
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
     private static void deepCopyMapSet(Object b, Object a, MethodHandle getter, MethodHandle setter, MethodHandle kConv, MethodHandle vConv, Class<? extends Map> dstImpl) {
         try {
@@ -610,7 +800,7 @@ public class Transformer {
             }
             setter.invoke(b, dst);
         } catch (Throwable t) {
-            throw new RuntimeException(t);
+            throw new TransformationFailedException(t);
         }
     }
 
@@ -696,11 +886,59 @@ public class Transformer {
         return converters.get(FIELD_CONVERTER_KEYGEN.apply(null, srcPropertyClass, null, null, targetPropertyClass));
     }
 
+    /**
+     * 주어진 타입에 대한 추가 타입을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 3. 22.     parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param type
+     * @return
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static Set<Class<?>> getPropertyConvertedTypes(Class<?> type) {
+        Set<Class<?>> types = new HashSet<>();
+        types.add(type);
+
+        int is = ObjectUtils.isPrimitiveOrWrapper(type);
+        if (is > 0) {
+            types.add(ConvertUtils.translateToWrapper(type));
+        } else if (is < 0) {
+            types.add(ConvertUtils.translateToPrimitive(type));
+        }
+
+        return types;
+    }
+
+    private static boolean isPojo(Class<?> c) {
+        return !(c.isPrimitive() //
+                || Number.class.isAssignableFrom(c) //
+                || c == Boolean.class //
+                || c == Character.class
+                // String 포함
+                || CharSequence.class.isAssignableFrom(c) //
+                || Enum.class.isAssignableFrom(c) //
+                || Date.class.isAssignableFrom(c) //
+                || Temporal.class.isAssignableFrom(c) //
+        );
+    }
+
     /* ========= Array ========= */
     private static MethodHandle makeDeepArrayStep(MethodHandles.Lookup lookup, MethodHandle getter, MethodHandle setter, MethodHandle elemConv, Class<?> dstElem) throws Exception {
 
-        MethodHandle impl = lookup.findStatic(Transformer.class, "deepCopyArray",
-                MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class));
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "deepCopyArray" //
+                        , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class) //
+                );
         impl = MethodHandles.insertArguments(impl, 2, new Object[] { getter, setter, elemConv, dstElem });
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(void.class, Object.class, Object.class));
     }
@@ -708,8 +946,12 @@ public class Transformer {
     /* ========= Collection:add ========= */
     private static MethodHandle makeDeepCollectionAddStep(MethodHandles.Lookup lookup, MethodHandle getter, MethodHandle adder, MethodHandle elemConv) throws Exception {
 
-        MethodHandle impl = lookup.findStatic(Transformer.class, "deepCopyCollectionAdd",
-                MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class));
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "deepCopyCollectionAdd" //
+                        , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class) //
+                );
         impl = MethodHandles.insertArguments(impl, 2, new Object[] { getter, adder, elemConv });
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(void.class, Object.class, Object.class));
     }
@@ -719,8 +961,12 @@ public class Transformer {
     private static MethodHandle makeDeepCollectionSetStep(MethodHandles.Lookup lookup, MethodHandle getter, MethodHandle setter, MethodHandle elemConv,
             Class<? extends Collection> dstImpl) throws Exception {
 
-        MethodHandle impl = lookup.findStatic(Transformer.class, "deepCopyCollectionSet",
-                MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class));
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "deepCopyCollectionSet" //
+                        , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class) //
+                );
         impl = MethodHandles.insertArguments(impl, 2, new Object[] { getter, setter, elemConv, dstImpl });
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(void.class, Object.class, Object.class));
     }
@@ -728,8 +974,12 @@ public class Transformer {
     /* ========= Map:put ========= */
     private static MethodHandle makeDeepMapPutStep(MethodHandles.Lookup lookup, MethodHandle getter, MethodHandle put, MethodHandle kConv, MethodHandle vConv) throws Exception {
 
-        MethodHandle impl = lookup.findStatic(Transformer.class, "deepCopyMapPut",
-                MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class));
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "deepCopyMapPut" //
+                        , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class) //
+                );
         impl = MethodHandles.insertArguments(impl, 2, new Object[] { getter, put, kConv, vConv });
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(void.class, Object.class, Object.class));
     }
@@ -739,10 +989,30 @@ public class Transformer {
     private static MethodHandle makeDeepMapSetStep(MethodHandles.Lookup lookup, MethodHandle getter, MethodHandle setter, MethodHandle keyConv, MethodHandle valConv,
             Class<? extends Map> dstImpl) throws Exception {
 
-        MethodHandle impl = lookup.findStatic(Transformer.class, "deepCopyMapSet",
-                MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class));
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "deepCopyMapSet",
+                        MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class) //
+                );
         impl = MethodHandles.insertArguments(impl, 2, new Object[] { getter, setter, keyConv, valConv, dstImpl });
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(void.class, Object.class, Object.class));
+    }
+
+    private static MethodHandle makeNestedCopierAsConverter(MethodHandles.Lookup lookup, Class<?> src, Class<?> dst, boolean lookupSrcSuper, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters) throws Exception {
+        BiConsumer<Object, Object> nested = COPIER_CACHE.computeIfAbsent(new CopierKey(src, dst, lookupSrcSuper, lookupTargetSuper, 0),
+                k -> buildCopier(src, lookupSrcSuper, dst, lookupTargetSuper, converters));
+
+        MethodHandle ctor = constructorMH(lookup, dst); // ()->Object
+        MethodHandle impl = //
+                lookup.findStatic(//
+                        Transformer.class //
+                        , "convertPojoElem" //
+                        , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class) //
+                );
+        impl = MethodHandles.insertArguments(impl, 1, new Object[] { nested, ctor });
+        return MethodHandles.explicitCastArguments(impl, MethodType.methodType(Object.class, Object.class));
     }
 
     private static Class<?> mapKeyType(Type t) {
@@ -823,9 +1093,6 @@ public class Transformer {
         List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(srcClass, Getter.class) : AnnotationUtils.getAnnotatedMethods(srcClass, Getter.class);
         List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(targetClass, Setter.class)
                 : AnnotationUtils.getAnnotatedMethods(targetClass, Setter.class);
-
-        // 데이터 변환함수가 null 인 경우
-        converters = checkConvertersOrDefault(converters);
 
         // #0. Setter 메소드 재정렬
         // key: Setter#name()
@@ -949,13 +1216,73 @@ public class Transformer {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
-            Function<SF, TF> converter) throws NullPointerException {
-        FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass), converter);
+    public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
+            Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
+        AssertUtils2.notNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
+
+        // primitive 타입, wrapper 타입인 경우 추가 자동 등록
+        Set<Class<?>> srcPropertyTypes = getPropertyConvertedTypes(srcPropertyClass);
+        Set<Class<?>> targetPropertyTypes = getPropertyConvertedTypes(targetPropertyClass);
+
+        for (Class<?> srcPropType : srcPropertyTypes) {
+            for (Class<?> targetPropType : targetPropertyTypes) {
+                FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropType, property, targetClass, targetPropType), converter);
+            }
+        }
+
         return null;
     }
 
     /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 3. 22.     parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            Source Type
+     * @param <SF>
+     *            Source Field Type
+     * @param <T>
+     *            Target Type
+     * @param <TF>
+     *            Target Field Type
+     * @param srcClass
+     *            변환 이전 데이터 타입
+     * @param srcPropertyClass
+     *            변환 이전 속성 데이터 타입
+     * @param property
+     *            속성명
+     * @param targetClass
+     *            변환 이후 데이터 타입
+     * @param targetPropertyClass
+     *            변환 이후 속성 데이터 타입
+     * @param srcToTarget
+     *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
+     * @param targetToSrc
+     *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
+     * @throws NullPointerException
+     *
+     * @since 2022. 3. 22.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
+            Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
+        // register 'src' to 'target'
+        registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget);
+        // register 'target' to 'src'
+        registerPropertyConverter(targetClass, targetPropertyClass, property, srcClass, srcPropertyClass, targetToSrc);
+    }
+
+    /**
+     * {@link #buildCopier(Class, boolean, Class, boolean, Map)}에서 호출하는 'MethodHandle' 대상으로, 데이터를 이관하는 메소드들의 실행을
+     * 담당합니다.<br>
      * <code>LMF가 호출할 루프 본체</code>로써 실제 데이터 형변환을 실행합니다. <br>
      * 
      * <pre>
@@ -1238,227 +1565,5 @@ public class Transformer {
         static enum ContainerKind {
             SCALAR, ARRAY, COLLECTION, MAP
         }
-    }
-
-    static class A {
-        String name;
-        List<Aa> children;
-
-        A() {
-        }
-
-        A(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<Aa> getChildren() {
-            System.out.println("[getter] A.children=" + this.children);
-            return children;
-        }
-
-        @Setter
-        public void setChildren(List<Aa> aa) {
-            this.children = aa;
-            System.out.println("[setter] A.children=" + this.children);
-        }
-    }
-    
-    static class Aa {
-        String name;
-        List<Aaa> children;
-        
-        Aa() {
-        }
-        
-        Aa(String name) {
-            this.name = name;
-        }
-        
-        @Getter
-        public String getName() {
-            return name;
-        }
-        
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-        
-        @Getter
-        public List<Aaa> getChildren() {
-            System.out.println("[getter] Aa.children=" + this.children);
-            return children;
-        }
-        
-        @Setter
-        public void setChildren(List<Aaa> aaa) {
-            this.children = aaa;
-            System.out.println("[setter] Aa.children=" + this.children);
-        }
-    }
-
-    static class Aaa {
-        String name;
-
-        Aaa() {
-        }
-
-        Aaa(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    static class B {
-        String name;
-        List<Bb> children;
-
-        B() {
-        }
-
-        B(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<Bb> getChildren() {
-            System.out.println("[getter] B.children=" + this.children);
-            return children;
-        }
-
-        @Setter(deepConvert = true)
-        public void setChildren(List<Bb> bb) {
-            this.children = bb;
-            System.out.println("[setter] B.children=" + bb);
-        }
-    }
-    static class Bb {
-        String name;
-        List<Bbb> children;
-        
-        Bb() {
-        }
-        
-        Bb(String name) {
-            this.name = name;
-        }
-        
-        @Getter
-        public String getName() {
-            return name;
-        }
-        
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-        
-        @Getter
-        public List<Bbb> getChildren() {
-            System.out.println("[getter] Bb.children=" + this.children);
-            return children;
-        }
-        
-        @Setter(deepConvert = true)
-        public void setChildren(List<Bbb> bbb) {
-            this.children = bbb;
-            System.out.println("[setter] Bb.children=" + bbb);
-        }
-    }
-
-    static class Bbb {
-        String name;
-
-        Bbb() {
-        }
-
-        Bbb(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-    
-    
-    static Aa listAa(String name) {
-        Aa aa = new Aa(name);
-        List<Aaa> children = new ArrayList<>();
-        children.add(new Aaa(name + ".children-1"));
-        aa.setChildren(children);
-        return aa;
-    }
-    
-    static Bb listBb(String name) {
-        Bb bb = new Bb(name);
-        List<Bbb> children = new ArrayList<>();
-        children.add(new Bbb(name + ".children-1"));
-        bb.setChildren(children);
-        return bb;
-    }
-
-    public static void main(String[] args) {
-
-        List<Aa> aChildren = new ArrayList<>();
-        A a = new A("a");
-        aChildren.add(listAa("a#1"));
-        a.setChildren(aChildren);
-
-        A cloneA = transform(a, false, new A("aa"), false, null);
-        
-        System.out.println("...... " + cloneA);
-        
-        List<Bb> bChildren = new ArrayList<>();
-        B b = new B("b");
-        bChildren.add(listBb("b#1"));
-        b.setChildren(bChildren);
-        
-        B cloneB = transform(b, false, new B("bb"), false, null);
-        
-        System.out.println("......" + cloneB);
-        
-        
-        B a2b = transform(a, false, new B("a2b"), false, null);
-        
-        System.out.println("......" + a2b);
-        
-
     }
 }

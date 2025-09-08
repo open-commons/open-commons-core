@@ -26,11 +26,6 @@
 
 package open.commons.core.utils;
 
-import java.lang.invoke.CallSite;
-import java.lang.invoke.LambdaMetafactory;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -39,16 +34,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -60,7 +49,6 @@ import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Information;
 import open.commons.core.annotation.Setter;
 import open.commons.core.exception.CreateInstanceFailedException;
-import open.commons.core.function.PentagonFunction;
 import open.commons.core.function.QuadFunction;
 import open.commons.core.stream.ClassSpliterator;
 
@@ -72,7 +60,7 @@ import open.commons.core.stream.ClassSpliterator;
  */
 public class ObjectUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
 
     private static final Function<Object, Short> shortFunction = o -> Short.parseShort(o.toString());
     private static final Function<Object, Byte> byteFunction = o -> Byte.parseByte(o.toString());
@@ -123,129 +111,6 @@ public class ObjectUtils {
     }
 
     /**
-     * 데이터 제공 메소드 이름 유형
-     * <li>is: boolean
-     * <li>get: 일반적으로 전체
-     */
-    private static final Pattern METHOD_GETTER = Pattern.compile("^(is|get)(.+)$");
-    /**
-     * 데이터 설정 메소드 유형
-     * 
-     * <li>add: {@link Collection}
-     * <li>put: {@link Map}
-     * <li>set: 일반적으로 전체
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 12. 22.    parkjunhong77@gmail.com     최초 작성
-     * 2023. 12. 5.		parkjunhong77@gmail.com		데이터 설정함수 prefix 추가 (addXXX 지원)
-     * 2025. 9. 5.      parkjunhong77@gmail.com     데이터 설정함수 prefix 추가 (putXXX 지원)
-     * </pre>
-     */
-    private static final Pattern METHOD_SETTER = Pattern.compile("^(set|add)(.+)$");
-
-    /**
-     * Method에 설정된 {@link Setter} 어노테이션 값을 이용해서 "속성" 이름을 제공합니다.<br>
-     * 
-     * @param method
-     *            {@link Method}
-     * 
-     * @return 속성 이름
-     */
-    private static Function<Method, String> GETTER_KEYGEN = method -> {
-        Getter annoGetter = method.getAnnotation(Getter.class);
-        String name = annoGetter.name();
-        if (name.trim().isEmpty()) {
-            name = method.getName();
-            Matcher m = METHOD_GETTER.matcher(name);
-            if (m.matches()) {
-                if ("is".equals(m.group(1))) {
-                    name = StringUtils.toLowerCase(name.substring(2), 0);
-                } else /* if ("get".equals(m.group(1))) { */
-                {
-                    name = StringUtils.toLowerCase(name.substring(3), 0);
-                }
-            } else {
-                // 지원하지 않는 메소드
-                name = UUID.randomUUID().toString();
-            }
-        }
-        // return getPropertyKey(annoGetter.name(), annoGetter.type());
-        return name;
-    };
-
-    /**
-     * Method에 설정된 {@link Setter} 어노테이션 값을 이용해서 "속성" 이름을 제공합니다.<br>
-     * 
-     * @param method
-     *            {@link Method}
-     * 
-     * @return 속성 이름
-     */
-    private static Function<Method, String> SETTER_KEYGEN = method -> {
-        Setter annoSetter = method.getAnnotation(Setter.class);
-        String name = annoSetter.name();
-        if (name.trim().isEmpty()) {
-            name = method.getName();
-            Matcher m = METHOD_SETTER.matcher(name);
-            if (m.matches()) {
-                name = StringUtils.toLowerCase(name.substring(3), 0);
-            } else {
-                // 지원하지 않는 메소드
-                name = UUID.randomUUID().toString();
-            }
-        }
-        // return getPropertyKey(annoSetter.name(), annoSetter.type());
-        return name;
-    };
-
-    private static final Function<Method, Class<?>> RETURN_TYPE = m -> m.getReturnType();
-    private static final Function<Method, Class<?>> PARAMETER_TYPE = m -> m.getParameterTypes()[0];
-
-    /**
-     * <ul>
-     * <li>key: Source 타입 정보와 Target 타입 정보를 이용하여 생성한 식별정보
-     * <li>value: Source 객체를 Target 객체로 변환하는데 필요한 데이터 변환 함수들.
-     * </ul>
-     */
-    private static final ConcurrentHashMap<String, Function<?, ?>> FIELD_CONVERTERS = new ConcurrentHashMap<>();
-
-    /**
-     * 기본 데이터 변환 키 생성 함수.
-     * 
-     * @param srcFieldClass
-     *            변환 이전 속성 데이터 타입
-     * @param targetFieldClass
-     *            변환 이후 속성 데이터 타입
-     */
-    // public static final BiFunction<Class<?>, Class<?>, String> FIELD_CONVERTER_KEYGEN = (srcFieldClass,
-    // targetFieldClass) -> String.join(" -> ", srcFieldClass.toGenericString(),
-    // targetFieldClass.toGenericString());
-    /**
-     * 기본 데이터 변환 키 생성 함수.
-     * 
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param srcPropertyClass
-     *            변환 이전 속성 데이터 타입
-     * @param property
-     *            속성명
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     * @param targetPropertyClass
-     *            변환 이후 속성 데이터 타입
-     */
-    public static final PentagonFunction<Class<?>, Class<?>, String, Class<?>, Class<?>, String> FIELD_CONVERTER_KEYGEN = //
-            (srcClass, srcPropertyClass, property, targetClass, targetPropertyClass) //
-            -> String.join(" -> " //
-                    , String.join("#", Objects.toString(srcClass, "null"), Objects.toString(srcPropertyClass, "null")) //
-                    , property //
-                    , String.join("#", Objects.toString(targetClass, "null"), Objects.toString(targetPropertyClass, "null")) //
-            );
-
-    /**
      * <ul>
      * <li>key: 변환 전/후 데이터 타입 및 상위 클래스 정보 적용 여부가 합쳐진 식별정보
      * <li>value: 변환 함수.
@@ -270,129 +135,8 @@ public class ObjectUtils {
                     .append(targetClass.toGenericString()).append(lookupTargetSuper)//
                     .toString().hashCode();
 
-    /**
-     * 
-     */
-    private static final Map<CopierKey, BiConsumer<Object, Object>> COPIER_CACHE = new ConcurrentHashMap<>();
-
     // Prevent to create a new instance.
     private ObjectUtils() {
-    }
-
-    /**
-     * 데이터 이관을 진행할 객체를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param srcClass
-     *            원본 데이터 유형
-     * @param lookupSrcSuper
-     *            원본 데이터 상위 정보 이관 여부
-     * @param targetClass
-     *            대상 데이터 유형
-     * @param lookupTargetSuper
-     *            대상 데이터 상위 정보 이관 여부
-     * @param converters
-     * @return
-     *
-     * @since 2025. 9. 4.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    private static BiConsumer<Object, Object> buildCopier(Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters) {
-
-        List<StepPlan> steps = planSteps(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
-
-        final MethodHandles.Lookup lookup = MethodHandles.lookup();
-        // 3-1) 각 step을 (b,a)->void 로 “미리” 합성
-        final List<MethodHandle> mhSteps = new ArrayList<>(steps.size());
-
-        MethodHandle getter = null;
-        MethodType GETTER_OBJ = null;
-        MethodHandle setter = null;
-        MethodType SETTER_OBJ = null;
-        MethodHandle conv = null;
-        MethodHandle converted = null;
-        MethodHandle step = null;
-        try {
-            for (StepPlan plan : steps) {
-                // (A)->val
-                if (!plan.getter.isAccessible()) {
-                    plan.getter.setAccessible(true);
-                }
-                getter = lookup.unreflect(plan.getter);
-                // (Object)->Object 로 어댑터
-                GETTER_OBJ = MethodType.methodType(Object.class, Object.class);
-                getter = MethodHandles.explicitCastArguments(getter, GETTER_OBJ);
-
-                // converter(Function.apply)
-                if (plan.converter == StepPlan.IDENTITY_CONVERT) {
-                    conv = MethodHandles.identity(Object.class); // (Object)->Object
-                } else {
-                    MethodHandle apply = lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(plan.converter);
-                    conv = apply; // (Object)->Object
-                }
-
-                // (a)->val2
-                converted = MethodHandles.filterReturnValue(getter, conv);
-
-                // (B,val)->void
-                if (!plan.setter.isAccessible()) {
-                    plan.setter.setAccessible(true);
-                }
-                setter = lookup.unreflect(plan.setter);
-                SETTER_OBJ = MethodType.methodType(void.class, Object.class, Object.class);
-                setter = MethodHandles.explicitCastArguments(setter, SETTER_OBJ);
-
-                // (b,a)->void : setter(b, converted(a))
-                step = MethodHandles.collectArguments(setter, 1, converted);
-                // (선택) 명시 캐스팅 — 사실상 이미 (Object,Object)->void 일 것이라 불필요하지만, 놔둬도 무해
-                step = MethodHandles.explicitCastArguments( //
-                        step //
-                        , MethodType.methodType(void.class, Object.class, Object.class) //
-                );
-
-                mhSteps.add(step);
-            }
-
-            // 3-2) 루프 본체: (target, src, mhStepArr)->void
-            MethodHandle impl = lookup.findStatic( //
-                    // 또는 별도 Fast 클래스
-                    ObjectUtils.class, "runSteps" //
-                    , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
-            );
-
-            // 3-3) LMF로 BiConsumer<Object,Object> 생성
-            CallSite site = LambdaMetafactory.metafactory( //
-                    lookup //
-                    , "accept"
-                    // 팩토리 invokedType에 캡처할 인자(MethodHandle[] steps)를 추가
-                    , MethodType.methodType(BiConsumer.class, MethodHandle[].class) // (steps) -> BiConsumer
-                    , MethodType.methodType(void.class, Object.class, Object.class) // erased SAM: (b,a)->void
-                    , impl // direct: (b,a,steps)->void
-                    , MethodType.methodType(void.class, Object.class, Object.class) // instantiated SAM
-            );
-
-            // 캡처할 배열을 정확 타입으로 전달 (invokeExact 권장)
-            MethodHandle[] mhStepArr = mhSteps.toArray(new MethodHandle[0]);
-            return (BiConsumer<Object, Object>) site.getTarget().invoke(mhStepArr);
-        } catch (Throwable t) {
-            LOGGER.error("getter    = {}, getter.type  = {}", getter, GETTER_OBJ);
-            LOGGER.error("setter    = {}, setter.type  = {}", setter, SETTER_OBJ);
-            LOGGER.error("converter = {}, conver.after = {}", conv, converted);
-            LOGGER.error("step      = {}", step);
-            throw new RuntimeException("Failed to build copier: " + srcClass + "->" + targetClass, t);
-        }
-    }
-
-    private static Map<String, Function<?, ?>> checkConvertersOrDefault(Map<String, Function<?, ?>> converters) {
-        return MapUtils.isNullOrEmpty(converters) ? FIELD_CONVERTERS : converters;
     }
 
     /**
@@ -586,85 +330,6 @@ public class ObjectUtils {
      */
     public static boolean containsNull(Object... array) {
         return containsNull(false, array);
-    }
-
-    /**
-     * 주어진 정보에 맞는 데이터 변환 함수를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            Source Type
-     * @param <SF>
-     *            Source Field Type
-     * @param <T>
-     *            Target Type
-     * @param <TF>
-     *            Target Field Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param srcPropertyClass
-     *            변환 이전 속성 데이터 타입
-     * @param property
-     *            속성명
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     * @param targetPropertyClass
-     *            변환 이후 속성 데이터 타입
-     * @param converters
-     *            변환 함수들
-     * @return
-     *
-     * @since 2022. 3. 22.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    private static <S, SF, T, TF> Function<?, ?> getFieldConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
-            Class<TF> targetPropertyClass, Map<String, Function<?, ?>> converters) {
-
-        Function<?, ?> converter = null;
-        String funcKey = FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass);
-        if ((converter = converters.get(funcKey)) != null) {
-            return converter;
-        }
-
-        return converters.get(FIELD_CONVERTER_KEYGEN.apply(null, srcPropertyClass, null, null, targetPropertyClass));
-    }
-
-    /**
-     * 주어진 타입에 대한 추가 타입을 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param type
-     * @return
-     *
-     * @since 2022. 3. 22.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    private static Set<Class<?>> getPropertyConvertedTypes(Class<?> type) {
-        Set<Class<?>> types = new HashSet<>();
-        types.add(type);
-
-        int is = isPrimitiveOrWrapper(type);
-        if (is > 0) {
-            types.add(ConvertUtils.translateToWrapper(type));
-        } else if (is < 0) {
-            types.add(ConvertUtils.translateToPrimitive(type));
-        }
-
-        return types;
     }
 
     /**
@@ -1242,84 +907,6 @@ public class ObjectUtils {
     }
 
     /**
-     * 데이터를 이관할 메소드 정보를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param srcClass
-     *            원본 데이터 유형
-     * @param lookupSrcSuper
-     *            원본 데이터 상위 정보 이관 여부
-     * @param targetClass
-     *            대상 데이터 유형
-     * @param lookupTargetSuper
-     *            대상 데이터 상위 정보 이관 여부
-     * @param converters
-     * @return
-     *
-     * @since 2025. 9. 4.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    private static <S, T> List<StepPlan> planSteps(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters) {
-
-        List<Method> getters = lookupSrcSuper ? AnnotationUtils.getAnnotatedMethodsAll(srcClass, Getter.class) : AnnotationUtils.getAnnotatedMethods(srcClass, Getter.class);
-        List<Method> setters = lookupTargetSuper ? AnnotationUtils.getAnnotatedMethodsAll(targetClass, Setter.class)
-                : AnnotationUtils.getAnnotatedMethods(targetClass, Setter.class);
-
-        // 데이터 변환함수가 null 인 경우
-        converters = checkConvertersOrDefault(converters);
-
-        // #0. Setter 메소드 재정렬
-        // key: Setter#name()
-        // value: Method
-        final Map<String, Method> setterMap = setters.stream().collect(Collectors.toMap(SETTER_KEYGEN, m -> m));
-
-        // #1. Setter와 연결되는 Getter 메소드 재정렬
-        final Map<String, Method> getterMap = getters.stream()
-                // Setter와 동일한 식별정보를 갖는 Getter 추출
-                .filter(m -> setterMap.containsKey(GETTER_KEYGEN.apply(m))) //
-                .collect(Collectors.toMap(GETTER_KEYGEN, m -> m));
-
-        // method key
-        String property = null;
-        // getter method
-        Method getter = null;
-        // setter method
-        Method setter = null;
-        // 제공되는 데이터 변환 함수
-        Function<?, ?> converter = null;
-
-        List<StepPlan> plans = new ArrayList<>();
-        for (Entry<String, Method> entry : setterMap.entrySet()) {
-            property = entry.getKey();
-
-            // 데이터 제공 함수
-            getter = getterMap.get(property);
-
-            // 대상 타입에 정의된 Setter에 해당하는 Getter이 없는 경우
-            if (getter == null) {
-                continue;
-            }
-
-            // 데이터 설정 함수
-            setter = entry.getValue();
-
-            // 변환 함수
-            converter = getFieldConverter(srcClass, RETURN_TYPE.apply(getter), property, targetClass, PARAMETER_TYPE.apply(setter), converters);
-            plans.add(new StepPlan(property, getter, setter, converter));
-        }
-
-        return plans;
-    }
-
-    /**
      * 주어진 객체의 {@link Class} 정보를 배열로 제공합니다. <br>
      * 
      * <pre>
@@ -1594,22 +1181,14 @@ public class ObjectUtils {
      * @since 2022. 3. 22.
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 9. 8.
+     *             {@link Transformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
             Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
-
-        AssertUtils2.notNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
-
-        // primitive 타입, wrapper 타입인 경우 추가 자동 등록
-        Set<Class<?>> srcPropertyTypes = getPropertyConvertedTypes(srcPropertyClass);
-        Set<Class<?>> targetPropertyTypes = getPropertyConvertedTypes(targetPropertyClass);
-
-        for (Class<?> srcPropType : srcPropertyTypes) {
-            for (Class<?> targetPropType : targetPropertyTypes) {
-                FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropType, property, targetClass, targetPropType), converter);
-            }
-        }
-
+        Transformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converter);
         return null;
     }
 
@@ -1651,44 +1230,14 @@ public class ObjectUtils {
      * @since 2022. 3. 22.
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @deprecated 2025. 9. 8.
+     *             {@link Transformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)}.<br>
+     *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
             Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
-        // register 'src' to 'target'
-        registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget);
-        // register 'target' to 'src'
-        registerPropertyConverter(targetClass, targetPropertyClass, property, srcClass, srcPropertyClass, targetToSrc);
-    }
-
-    /**
-     * <code>LMF가 호출할 루프 본체</code>로써 실제 데이터 형변환을 실행합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param steps
-     * @param target
-     *            대상 데이터 객체
-     * @param src
-     *            원본 데이터 객체
-     *
-     * @since 2025. 9. 4.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    @SuppressWarnings("unused")
-    private static void runSteps(MethodHandle[] steps, Object target, Object src) {
-        try {
-            for (int i = 0; i < steps.length; i++) {
-                steps[i].invokeExact(target, src);
-            }
-        } catch (Throwable t) {
-            throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
-        }
+        Transformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget, targetToSrc);
     }
 
     /**
@@ -2926,7 +2475,7 @@ public class ObjectUtils {
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
@@ -3003,7 +2552,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetType, false, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, lookupSrcSuper, targetType, false, null, collectionSupplier);
     }
 
     /**
@@ -3048,7 +2597,7 @@ public class ObjectUtils {
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return src.stream() //
-                .map(s -> transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
+                .map(s -> Transformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
                 .collect(Collectors.toCollection(collectionSupplier));
     }
 
@@ -3087,7 +2636,7 @@ public class ObjectUtils {
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetInstanceSupplier, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
@@ -3164,7 +2713,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetInstanceSupplier, false, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, lookupSrcSuper, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
     /**
@@ -3241,7 +2790,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetType, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, false, targetType, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
@@ -3313,7 +2862,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetType, false, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, false, targetType, false, null, collectionSupplier);
     }
 
     /**
@@ -3390,7 +2939,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetInstanceSupplier, lookupTargetSuper, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, false, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
@@ -3463,7 +3012,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetInstanceSupplier, false, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, false, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
     /**
@@ -3683,7 +3232,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
-        return transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper);
+        return Transformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }
 
     /**
@@ -3722,7 +3271,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        return transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
+        return Transformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
     }
 
     /**
@@ -3791,7 +3340,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Class, boolean)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target) {
-        return transform(src, lookupSrcSuper, target, false);
+        return Transformer.transform(src, lookupSrcSuper, target, false, null);
     }
 
     /**
@@ -3825,7 +3374,7 @@ public class ObjectUtils {
      * @see #FIELD_CONVERTERS
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) {
-        return transform(src, lookupSrcSuper, target, lookupTargetSuper, FIELD_CONVERTERS);
+        return Transformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
     }
 
     /**
@@ -3868,18 +3417,21 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-
-        AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
-
-        // 데이터 변환함수가 null 인 경우
-        CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
-                /* convertersId */ System.identityHashCode(checkConvertersOrDefault(converters)) // 또는 고정 Registry ID
-        );
-
-        BiConsumer<Object, Object> copier = COPIER_CACHE.computeIfAbsent(key, k -> buildCopier(src.getClass(), lookupSrcSuper, target.getClass(), lookupTargetSuper, converters));
-        copier.accept(target, src);
-
-        return target;
+        return Transformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
+        //
+        // AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!",
+        // IllegalArgumentException.class, src, target);
+        //
+        // // 데이터 변환함수가 null 인 경우
+        // CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
+        // /* convertersId */ System.identityHashCode(checkConvertersOrDefault(converters)) // 또는 고정 Registry ID
+        // );
+        //
+        // BiConsumer<Object, Object> copier = COPIER_CACHE.computeIfAbsent(key, k -> buildCopier(src.getClass(),
+        // lookupSrcSuper, target.getClass(), lookupTargetSuper, converters));
+        // copier.accept(target, src);
+        //
+        // return target;
     }
 
     /**
@@ -3917,7 +3469,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Class, boolean)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, Map<String, Function<?, ?>> converters) {
-        return transform(src, lookupSrcSuper, target, false, converters);
+        return Transformer.transform(src, lookupSrcSuper, target, false, converters);
     }
 
     /**
@@ -4224,7 +3776,7 @@ public class ObjectUtils {
      * @see Setter
      */
     public static <S, T> T transform(S src, T target) {
-        return transform(src, false, target, false);
+        return Transformer.transform(src, false, target, false, null);
     }
 
     /**
@@ -4254,7 +3806,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, T target, boolean lookupTargetSuper) {
-        return transform(src, false, target, lookupTargetSuper);
+        return Transformer.transform(src, false, target, lookupTargetSuper, null);
     }
 
     /**
@@ -4291,7 +3843,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        return transform(src, false, target, lookupTargetSuper, converters);
+        return Transformer.transform(src, false, target, lookupTargetSuper, converters);
     }
 
     /**
@@ -4329,7 +3881,7 @@ public class ObjectUtils {
      * @see Setter
      */
     public static <S, T> T transform(S src, T target, Map<String, Function<?, ?>> converters) {
-        return transform(src, false, target, false, converters);
+        return Transformer.transform(src, false, target, false, converters);
     }
 
     /**
@@ -4407,7 +3959,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
     public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
-        return transform(src, true, targetType, true, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, true, targetType, true, null, collectionSupplier);
     }
 
     /**
@@ -4486,7 +4038,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
     public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
-        return transform(src, true, targetInstanceSupplier, true, FIELD_CONVERTERS, collectionSupplier);
+        return transform(src, true, targetInstanceSupplier, true, null, collectionSupplier);
     }
 
     /**
@@ -4578,7 +4130,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Class, boolean)
      */
     public static <S, T> T transformAll(S src, T target) {
-        return transform(src, true, target, true);
+        return Transformer.transform(src, true, target, true, null);
     }
 
     /**
@@ -4616,129 +4168,6 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Object, boolean)
      */
     public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
-        return transform(src, true, target, true, converters);
-    }
-
-    static final class CopierKey {
-        final Class<?> src;
-        final Class<?> dst;
-        final boolean lookupSrcSuper;
-        final boolean lookupDstSuper;
-        final int convertersId;
-
-        /**
-         *
-         * @param src
-         *            원본 데이터 유형
-         * @param dst
-         *            변환 데이터 유형
-         * @param lookupSrcSuper
-         *            원본 데이터 상위 클래스 정보 전환 여부
-         * @param lookupDstSuper
-         *            변환 데이터 상위 클래스 정보 전환 여부
-         * @param convertersId
-         *            변환기 식별정보
-         *
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         */
-        public CopierKey(Class<?> src, Class<?> dst, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
-            this.src = src;
-            this.dst = dst;
-            this.lookupSrcSuper = lookupSrcSuper;
-            this.lookupDstSuper = lookupDstSuper;
-            this.convertersId = convertersId;
-        }
-
-        /**
-         *
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         *
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            CopierKey other = (CopierKey) obj;
-            return convertersId == other.convertersId && Objects.equals(dst, other.dst) && lookupDstSuper == other.lookupDstSuper && lookupSrcSuper == other.lookupSrcSuper
-                    && Objects.equals(src, other.src);
-        }
-
-        /**
-         *
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         *
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-            return Objects.hash(convertersId, dst, lookupDstSuper, lookupSrcSuper, src);
-        }
-    }
-
-    static final class StepPlan {
-
-        static final Function<?, ?> IDENTITY_CONVERT = o -> o;
-        /**
-         * 속성 이름<br>
-         * <li>{@link Getter#name()}
-         * <li>{@link Setter#name()}
-         */
-        final String property;
-        /** 원본 클래스의 'getter' 메소드. */
-        final Method getter;
-        /** 대상 클래스의 'setter' 메소드 */
-        final Method setter;
-        /** 데이터 형변환 함수. */
-        final Function<?, ?> converter;
-
-        /**
-         * <br>
-         * 
-         * <pre>
-         * [개정이력]
-         *      날짜      | 작성자   |   내용
-         * ------------------------------------------
-         * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
-         * </pre>
-         * 
-         * @param property
-         *            속성 이름<br>
-         *            <li>{@link Getter#name()}
-         *            <li>{@link Setter#name()}
-         * @param getter
-         *            원본 클래스의 'getter' 메소드.
-         * @param setter
-         *            대상 클래스의 'setter' 메소드
-         * @param deepConvert
-         *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
-         * @param containerKind
-         *            'container' 유형
-         * @param addStyle
-         *            'container' 데이터 추가 'addXXX' 스타일
-         * @param putStyle
-         *            'container' 데이터 추가 'putXXX' 스타일
-         * @param converterOrIdentity
-         *            데이터 형변환 함수.
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         */
-        public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity) {
-            this.property = property;
-            this.getter = getter;
-            this.setter = setter;
-            this.converter = converterOrIdentity != null ? converterOrIdentity : IDENTITY_CONVERT;
-        }
+        return Transformer.transform(src, true, target, true, converters);
     }
 }
