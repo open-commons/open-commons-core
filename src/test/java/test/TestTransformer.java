@@ -32,7 +32,7 @@ import java.util.List;
 import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Setter;
 import open.commons.core.utils.ObjectUtils;
-import open.commons.core.utils.Transformer;
+import open.commons.core.utils.ObjectTransformer;
 
 /**
  * 
@@ -302,7 +302,7 @@ public class TestTransformer {
 
         logging = true;
 
-        A cloneA = Transformer.transform(a, false, new A("aa"), false, null);
+        A cloneA = ObjectTransformer.transform(a, false, new A("aa"), false, null);
         System.out.println("cloneA ........ " + cloneA);
         System.out.println();
         System.out.println();
@@ -317,12 +317,12 @@ public class TestTransformer {
 
         logging = true;
 
-        B cloneB = Transformer.transform(b, false, new B("bb"), false, null);
+        B cloneB = ObjectTransformer.transform(b, false, new B("bb"), false, null);
         System.out.println("cloneB ......" + cloneB);
         System.out.println();
         System.out.println();
 
-        B a2b = Transformer.transform(a, false, new B("a2b"), false, null);
+        B a2b = ObjectTransformer.transform(a, false, new B("a2b"), false, null);
         System.out.println("a2b  >>> " + a2b);
         System.out.println();
         System.out.println();

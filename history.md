@@ -1,10 +1,12 @@
 [2025/09/08]
 - Migration
-  + open.commons.utils.ObjectUtils -> open.commons.utils.Transformer
+  + open.commons.utils.ObjectUtils -> open.commons.utils.ObjectTransformer
     + registerPropertyConverter(Class&lt;S>, Class&lt;SF>, String, Class&lt;T>, Class&lt;TF>, Function&lt;SF, TF>)
     + registerPropertyConverter(Class&lt;S>, Class&lt;SF>, String, Class&lt;T>, Class&lt;TF>, Function&lt;SF, TF>, Function&lt;TF, SF>)
-    + transform(S, boolean, T, boolean, Map&lt;String, Function<?, ?>>)
-  
+    + transform(S, boolean, T, boolean, Map&lt;String, Function<?, ?>>): 데이터 제공 Method에 대한 MethodHandle 기반 Cache 적용
+  + open.commons.utils.SQLUtils -> open.commons.utils.ResultSetTransformer
+    + newInstance(Class&lt;T&gt;, ResultSet, String...): 데이터 제공 Method에 대한 MethodHandle 기반 Cache 적용
+    
 [2025/09/05]
 - Enhance!!!
   + open.commons.core.utils.ObjectUtils.transform(S, boolean, T, boolean, Map&lt;String, Function&lt;, ?&gt;&gt;): 성능 대폭 향상

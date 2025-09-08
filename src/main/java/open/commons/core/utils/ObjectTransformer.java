@@ -70,7 +70,7 @@ import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Setter;
 import open.commons.core.exception.TransformationFailedException;
 import open.commons.core.function.PentagonFunction;
-import open.commons.core.utils.Transformer.StepPlan.ContainerKind;
+import open.commons.core.utils.ObjectTransformer.StepPlan.ContainerKind;
 
 /**
  * 
@@ -78,9 +78,9 @@ import open.commons.core.utils.Transformer.StepPlan.ContainerKind;
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class Transformer {
+public class ObjectTransformer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Transformer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTransformer.class);
 
     /**
      * 데이터 제공 메소드 이름 유형
@@ -199,7 +199,7 @@ public class Transformer {
      */
     private static final Map<CopierKey, BiConsumer<Object, Object>> COPIER_CACHE = new ConcurrentHashMap<>();
 
-    private Transformer() {
+    private ObjectTransformer() {
     }
 
     /** Type을 가능한 한 Class로 환산한다. 불가하면 null */
@@ -399,7 +399,7 @@ public class Transformer {
             MethodHandle impl = //
                     lookup.findStatic( //
                             // 또는 별도 Fast 클래스
-                            Transformer.class, "runSteps" //
+                            ObjectTransformer.class, "runSteps" //
                             , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
                     );
 
@@ -478,7 +478,7 @@ public class Transformer {
         MethodHandle ctor = constructorMH(lookup, dstElem); // ()->Object
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "convertPojoElem" //
                         , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class) //
                 );
@@ -935,7 +935,7 @@ public class Transformer {
 
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "deepCopyArray" //
                         , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class) //
                 );
@@ -948,7 +948,7 @@ public class Transformer {
 
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "deepCopyCollectionAdd" //
                         , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class) //
                 );
@@ -963,7 +963,7 @@ public class Transformer {
 
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "deepCopyCollectionSet" //
                         , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class) //
                 );
@@ -976,7 +976,7 @@ public class Transformer {
 
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "deepCopyMapPut" //
                         , MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class) //
                 );
@@ -991,7 +991,7 @@ public class Transformer {
 
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "deepCopyMapSet",
                         MethodType.methodType(void.class, Object.class, Object.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, MethodHandle.class, Class.class) //
                 );
@@ -1007,7 +1007,7 @@ public class Transformer {
         MethodHandle ctor = constructorMH(lookup, dst); // ()->Object
         MethodHandle impl = //
                 lookup.findStatic(//
-                        Transformer.class //
+                        ObjectTransformer.class //
                         , "convertPojoElem" //
                         , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class) //
                 );

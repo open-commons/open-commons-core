@@ -1183,12 +1183,12 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @deprecated 2025. 9. 8.
-     *             {@link Transformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)}.<br>
+     *             {@link ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)}.<br>
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
             Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
-        Transformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converter);
+        ObjectTransformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converter);
         return null;
     }
 
@@ -1232,12 +1232,12 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @deprecated 2025. 9. 8.
-     *             {@link Transformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)}.<br>
+     *             {@link ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)}.<br>
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
     public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
             Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
-        Transformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget, targetToSrc);
+        ObjectTransformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget, targetToSrc);
     }
 
     /**
@@ -2597,7 +2597,7 @@ public class ObjectUtils {
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return src.stream() //
-                .map(s -> Transformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
+                .map(s -> ObjectTransformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
                 .collect(Collectors.toCollection(collectionSupplier));
     }
 
@@ -3232,7 +3232,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
-        return Transformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
+        return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }
 
     /**
@@ -3271,7 +3271,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        return Transformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
+        return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
     }
 
     /**
@@ -3340,7 +3340,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Class, boolean)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target) {
-        return Transformer.transform(src, lookupSrcSuper, target, false, null);
+        return ObjectTransformer.transform(src, lookupSrcSuper, target, false, null);
     }
 
     /**
@@ -3374,7 +3374,7 @@ public class ObjectUtils {
      * @see #FIELD_CONVERTERS
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) {
-        return Transformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
+        return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
     }
 
     /**
@@ -3417,7 +3417,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        return Transformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
+        return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
         //
         // AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!",
         // IllegalArgumentException.class, src, target);
@@ -3469,7 +3469,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Class, boolean)
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, Map<String, Function<?, ?>> converters) {
-        return Transformer.transform(src, lookupSrcSuper, target, false, converters);
+        return ObjectTransformer.transform(src, lookupSrcSuper, target, false, converters);
     }
 
     /**
@@ -3776,7 +3776,7 @@ public class ObjectUtils {
      * @see Setter
      */
     public static <S, T> T transform(S src, T target) {
-        return Transformer.transform(src, false, target, false, null);
+        return ObjectTransformer.transform(src, false, target, false, null);
     }
 
     /**
@@ -3806,7 +3806,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, T target, boolean lookupTargetSuper) {
-        return Transformer.transform(src, false, target, lookupTargetSuper, null);
+        return ObjectTransformer.transform(src, false, target, lookupTargetSuper, null);
     }
 
     /**
@@ -3843,7 +3843,7 @@ public class ObjectUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        return Transformer.transform(src, false, target, lookupTargetSuper, converters);
+        return ObjectTransformer.transform(src, false, target, lookupTargetSuper, converters);
     }
 
     /**
@@ -3881,7 +3881,7 @@ public class ObjectUtils {
      * @see Setter
      */
     public static <S, T> T transform(S src, T target, Map<String, Function<?, ?>> converters) {
-        return Transformer.transform(src, false, target, false, converters);
+        return ObjectTransformer.transform(src, false, target, false, converters);
     }
 
     /**
@@ -4130,7 +4130,7 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Class, boolean)
      */
     public static <S, T> T transformAll(S src, T target) {
-        return Transformer.transform(src, true, target, true, null);
+        return ObjectTransformer.transform(src, true, target, true, null);
     }
 
     /**
@@ -4168,6 +4168,6 @@ public class ObjectUtils {
      * @see #transform(Object, boolean, Object, boolean)
      */
     public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
-        return Transformer.transform(src, true, target, true, converters);
+        return ObjectTransformer.transform(src, true, target, true, converters);
     }
 }

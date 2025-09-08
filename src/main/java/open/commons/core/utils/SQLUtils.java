@@ -690,6 +690,10 @@ public class SQLUtils {
      * @since 2017. 9. 5.
      */
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
+        return ResultSetTransformer.newInstance(objectType, rs, columns);
+    }
+
+    static <T> T newInstance0(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
 
         boolean isTagged = columns != null && columns.length > 0;
 
@@ -994,4 +998,5 @@ public class SQLUtils {
 
         columnBindingMethods.sort(Comparator.comparing(keyExtractor));
     }
+
 }
