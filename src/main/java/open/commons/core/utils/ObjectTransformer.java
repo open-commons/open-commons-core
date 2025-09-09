@@ -269,8 +269,8 @@ public class ObjectTransformer {
         MethodHandle conv = null;
         MethodHandle converted = null;
         MethodHandle step = null;
-        try {
-            for (StepPlan plan : steps) {
+        for (StepPlan plan : steps) {
+            try {
                 // (A)->val
                 if (!plan.getter.isAccessible()) {
                     plan.getter.setAccessible(true);
@@ -393,10 +393,17 @@ public class ObjectTransformer {
                         mhSteps.add(step);
                     }
                 }
+            } catch (Throwable t) {
+                LOGGER.error("데이터 변환설정 = {}, src={}, target={}", plan, srcClass, targetClass);
+                throw new TransformationFailedException(srcClass, targetClass, String.format("데이터 변환 함수 생성 도중 오류가 발생하였습니다. plan=%s", plan), t);
             }
+        }
 
+        MethodHandle impl = null;
+        CallSite site = null;
+        try {
             // 3-2) 루프 본체: (target, src, mhStepArr)->void
-            MethodHandle impl = //
+            impl = //
                     lookup.findStatic( //
                             // 또는 별도 Fast 클래스
                             ObjectTransformer.class, "runSteps" //
@@ -404,7 +411,7 @@ public class ObjectTransformer {
                     );
 
             // 3-3) LMF로 BiConsumer<Object,Object> 생성
-            CallSite site = LambdaMetafactory.metafactory( //
+            site = LambdaMetafactory.metafactory( //
                     lookup //
                     , "accept"
                     // 팩토리 invokedType에 캡처할 인자(MethodHandle[] steps)를 추가
@@ -418,11 +425,10 @@ public class ObjectTransformer {
             MethodHandle[] mhStepArr = mhSteps.toArray(new MethodHandle[0]);
             return (BiConsumer<Object, Object>) site.getTarget().invoke(mhStepArr);
         } catch (Throwable t) {
-            LOGGER.error("getter    = {}", getter);
-            LOGGER.error("setter    = {}", setter);
-            LOGGER.error("converter = {}, conver.after = {}", conv, converted);
-            LOGGER.error("step      = {}", step);
-            throw new RuntimeException("Failed to build copier: " + srcClass + "->" + targetClass, t);
+            LOGGER.error("lookup = {}", lookup);
+            LOGGER.error("impl   = {}", impl);
+            LOGGER.error("site   = {}", site);
+            throw new TransformationFailedException(srcClass, targetClass, "Failed to build copier.", t);
         }
     }
 
@@ -1564,6 +1570,29 @@ public class ObjectTransformer {
 
         static enum ContainerKind {
             SCALAR, ARRAY, COLLECTION, MAP
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("StepPlan [property=");
+            builder.append(property);
+            builder.append(", getter=");
+            builder.append(getter);
+            builder.append(", setter=");
+            builder.append(setter);
+            builder.append(", converter=");
+            builder.append(converter);
+            builder.append(", deepConvert=");
+            builder.append(deepConvert);
+            builder.append(", kind=");
+            builder.append(kind);
+            builder.append(", adderStyle=");
+            builder.append(adderStyle);
+            builder.append(", putStyle=");
+            builder.append(putStyle);
+            builder.append("]");
+            return builder.toString();
         }
     }
 }

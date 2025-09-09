@@ -209,11 +209,24 @@ public class TransformationFailedException extends RuntimeException {
             builder.append(", cause=");
             builder.append(o);
         }
-        if ((o = getMessage()) != null) {
+        if ((o = super.getMessage()) != null) {
             builder.append(", message=");
             builder.append(o);
         }
 
         return builder.toString();
+    }
+    
+    /**
+     *
+     * @since 2025. 9. 9.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     *
+     * @see java.lang.Throwable#getMessage()
+     */
+    @Override
+    public String getMessage() {
+        return getLocalizedMessage();
     }
 }

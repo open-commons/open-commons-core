@@ -66,6 +66,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import open.commons.core.annotation.ColumnDef;
+import open.commons.core.exception.TransformationFailedException;
 
 /**
  * 
@@ -177,18 +178,22 @@ public class ResultSetTransformer {
         return rs.wasNull() ? null : Byte.valueOf(v);
     }
 
-    private static Map<String, Integer> buildLabelIndexMap(ResultSetMetaData md) throws SQLException {
-        final int n = md.getColumnCount();
-        final Map<String, Integer> m = new HashMap<>(n * 2);
-        for (int i = 1; i <= n; i++) {
-            // getColumnLabel 우선(AS 별칭 보존). 대소문자 정확히 보존해서 저장.
-            final String label = md.getColumnLabel(i);
-            m.put(label, i);
-            // 편의상 대소문자 무시 매핑도 추가(충돌 가능성 없을 때만)
-            final String up = label.toUpperCase(Locale.ROOT);
-            m.putIfAbsent(up, i);
+    private static Map<String, Integer> buildLabelIndexMap(ResultSetMetaData md) {
+        try {
+            final int n = md.getColumnCount();
+            final Map<String, Integer> m = new HashMap<>(n * 2);
+            for (int i = 1; i <= n; i++) {
+                // getColumnLabel 우선(AS 별칭 보존). 대소문자 정확히 보존해서 저장.
+                final String label = md.getColumnLabel(i);
+                m.put(label, i);
+                // 편의상 대소문자 무시 매핑도 추가(충돌 가능성 없을 때만)
+                final String up = label.toUpperCase(Locale.ROOT);
+                m.putIfAbsent(up, i);
+            }
+            return m;
+        } catch (Throwable t) {
+            throw new RuntimeException(t);
         }
-        return m;
     }
 
     /**
@@ -212,45 +217,45 @@ public class ResultSetTransformer {
      */
     private static Function<ResultSet, Object> buildRowMapper(Class<?> entityType, ResultSetMetaData md, List<String> tags) {
 
-        try {
-            final MethodHandles.Lookup lookup = MethodHandles.lookup();
+        final MethodHandles.Lookup lookup = MethodHandles.lookup();
 
-            // 3-1) 타입별 @ColumnDef 세터 목록 (1회만 스캔/캐시)
-            final List<ColumnPlan> allPlans = COLUMN_PLAN_CACHE.computeIfAbsent(entityType, ResultSetTransformer::scanColumnPlans);
+        // 3-1) 타입별 @ColumnDef 세터 목록 (1회만 스캔/캐시)
+        final List<ColumnPlan> allPlans = COLUMN_PLAN_CACHE.computeIfAbsent(entityType, ResultSetTransformer::scanColumnPlans);
 
-            // 3-2) 태그(columns...)가 지정되었으면 그 컬럼만 선택
-            final List<ColumnPlan> plans = filterByTags(allPlans, tags);
+        // 3-2) 태그(columns...)가 지정되었으면 그 컬럼만 선택
+        final List<ColumnPlan> plans = filterByTags(allPlans, tags);
 
-            // 3-3) 메타데이터에서 컬럼라벨 → 인덱스 맵
-            final Map<String, Integer> labelToIndex = buildLabelIndexMap(md);
+        // 3-3) 메타데이터에서 컬럼라벨 → 인덱스 맵
+        final Map<String, Integer> labelToIndex = buildLabelIndexMap(md);
 
-            // 3-4) 각 스텝 합성: (target, rs) -> void
-            final List<MethodHandle> steps = new ArrayList<>(plans.size());
+        // 3-4) 각 스텝 합성: (target, rs) -> void
+        final List<MethodHandle> steps = new ArrayList<>(plans.size());
 
-            for (ColumnPlan p : plans) {
-                final Integer idx = labelToIndex.get(p.caseSensitive ? p.columnName : p.columnName.toUpperCase());
+        for (ColumnPlan plan : plans) {
+            try {
+                final Integer idx = labelToIndex.get(plan.caseSensitive ? plan.columnName : plan.columnName.toUpperCase());
                 if (idx == null) {
                     // 컬럼이 없으면: required=true → 런타임 예외, required=false → 스킵
-                    if (p.required) {
-                        throw new IllegalStateException("Required column not found: " + p.columnName);
+                    if (plan.required) {
+                        throw new IllegalStateException("Required column not found: " + plan.columnName);
                     } else {
                         continue;
                     }
                 }
 
                 // setter: (Object,Object)->void
-                if (!p.setter.isAccessible())
-                    p.setter.setAccessible(true);
+                if (!plan.setter.isAccessible())
+                    plan.setter.setAccessible(true);
 
                 // #1. reader 준비
                 // reader: (ResultSet,int)->Object -> 인덱스 바인딩 → (ResultSet)->Object
                 // #1-1. (ResultSet,int)->Object
-                MethodHandle reader2 = readerForType(lookup, p.paramType);
+                MethodHandle reader2 = readerForType(lookup, plan.paramType);
                 // #1-2. (ResultSet)->Object
                 MethodHandle readerBound = MethodHandles.insertArguments(reader2, 1, idx.intValue());
 
                 // #2. setter: (Object,Object)->void
-                MethodHandle setter = lookup.unreflect(p.setter);
+                MethodHandle setter = lookup.unreflect(plan.setter);
                 setter = MethodHandles.explicitCastArguments(setter, MethodType.methodType(void.class, Object.class, Object.class));
 
                 // #3. null 정책 적용 래퍼: (Object,Object)->void (setter, notNullable, colName 바인딩)
@@ -259,7 +264,7 @@ public class ResultSetTransformer {
                         , "applyNullPolicy" //
                         , MethodType.methodType(void.class, MethodHandle.class, boolean.class, String.class, Object.class, Object.class) //
                 );
-                apply = MethodHandles.insertArguments(apply, 0, setter, p.nullable, p.columnName);
+                apply = MethodHandles.insertArguments(apply, 0, setter, plan.nullable, plan.columnName);
 
                 // #4. compose: (target, rs) -> void
                 // value = readerBound(rs)
@@ -267,27 +272,35 @@ public class ResultSetTransformer {
                 step = MethodHandles.explicitCastArguments(step, MethodType.methodType(void.class, Object.class, ResultSet.class));
 
                 // optional 컬럼이면 try/catch 래핑 (SQLException 무시)
-                if (!p.required) {
+                if (!plan.required) {
                     // (Object, ResultSet)->void
                     step = wrapIgnoreSQLException(lookup, step);
                 }
 
                 steps.add(step);
+            } catch (Throwable t) {
+                LOGGER.error("데이터 변환설정 = {}, entity={}, result-set={}", plan, entityType, md);
+                throw new TransformationFailedException(null, entityType, String.format("컬럼 함수 생성 도중 오류가 발생하였습니다. plan={}, result-set={}", plan, md), t);
             }
+        }
 
+        MethodHandle ctor = null;
+        MethodHandle impl = null;
+        CallSite site = null;
+        try {
             // 3-5) 생성자: ()->Object
             // ()->Object
-            MethodHandle ctor = constructorMH(lookup, entityType);
+            ctor = constructorMH(lookup, entityType);
 
             // 3-6) 구현 본체: (ctor, steps[], rs)->Object
-            MethodHandle impl = lookup.findStatic(ResultSetTransformer.class //
+            impl = lookup.findStatic(ResultSetTransformer.class //
                     , "materialize" //
                     , MethodType.methodType(Object.class, MethodHandle.class, MethodHandle[].class, ResultSet.class) //
             );
 
             final MethodHandle[] stepArr = steps.toArray(new MethodHandle[0]);
             // 3-7) LMF로 Function<ResultSet,Object> 생성
-            CallSite site = LambdaMetafactory.metafactory( //
+            site = LambdaMetafactory.metafactory( //
                     lookup //
                     , "apply"
                     // invokedType: (ctor, steps) -> Function
@@ -302,8 +315,10 @@ public class ResultSetTransformer {
             Function<ResultSet, Object> mapper = (Function<ResultSet, Object>) site.getTarget().invoke(ctor, stepArr);
             return mapper;
         } catch (Throwable t) {
-            LOGGER.warn("buildRowMapper failed for {}, cause={}", entityType, t.getMessage(), t);
-            throw new RuntimeException("buildRowMapper failed for: " + entityType, t);
+            LOGGER.warn("constructor = {}", ctor);
+            LOGGER.warn("impl        = {}", impl);
+            LOGGER.warn("site        = {}", site);
+            throw new TransformationFailedException(null, entityType, "Failed to build buildRowMapper", t);
         }
     }
 
@@ -840,6 +855,25 @@ public class ResultSetTransformer {
             this.paramType = paramType;
             this.nullable = nullable;
             this.setter = setter;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("ColumnPlan [columnName=");
+            builder.append(columnName);
+            builder.append(", caseSensitive=");
+            builder.append(caseSensitive);
+            builder.append(", required=");
+            builder.append(required);
+            builder.append(", paramType=");
+            builder.append(paramType);
+            builder.append(", nullable=");
+            builder.append(nullable);
+            builder.append(", setter=");
+            builder.append(setter);
+            builder.append("]");
+            return builder.toString();
         }
     }
 
