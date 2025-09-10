@@ -302,7 +302,8 @@ public class ObjectTransformer {
                     Class<?> srcType = plan.getter.getReturnType();
                     Class<?> dstType = plan.setter.getParameterTypes()[0];
 
-                    conv = buildValueConverterMH(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.converter, plan.deepConvert);
+                    conv = buildValueConverterMH(lookup, srcClass, srcType, lookupSrcSuper, targetClass, dstType, lookupTargetSuper, converters, plan.property, plan.converter,
+                            plan.deepConvert, plan.useGlobalConverter);
 
                     converted = MethodHandles.filterReturnValue(getter, conv); // (a)->val'
                     step = MethodHandles.collectArguments(setter, 1, converted); // (b,a)->void
@@ -313,12 +314,13 @@ public class ObjectTransformer {
 
                 // ===== 2) ARRAY =====
                 if (plan.kind == ContainerKind.ARRAY) {
-                    Class<?> srcElem = componentTypeOfReturn(plan.getter);
-                    Class<?> dstElem = plan.setter.getParameterTypes()[0].getComponentType();
-                    MethodHandle elemConv = buildElementConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
+                    Class<?> srcFieldClass = componentTypeOfReturn(plan.getter);
+                    Class<?> targetFieldClass = plan.setter.getParameterTypes()[0].getComponentType();
+                    MethodHandle fieldConv = buildElementConverterMH(lookup, srcClass, srcFieldClass, targetClass, targetFieldClass, lookupSrcSuper, lookupTargetSuper, converters,
+                            plan.property, plan.deepConvert, plan.useGlobalConverter);
 
                     setter = lookup.unreflect(plan.setter);
-                    step = makeDeepArrayStep(lookup, getter, setter, elemConv, dstElem);
+                    step = makeDeepArrayStep(lookup, getter, setter, fieldConv, targetFieldClass);
                     mhSteps.add(step);
                     continue;
                 }
@@ -352,19 +354,21 @@ public class ObjectTransformer {
                     // 2) adder or 컨테이너 컨버터 없음 → deep 요소 변환
                     if (plan.adderStyle) {
                         // addXxx(E) — 요소 단위 추가
-                        Class<?> srcElem = elementTypeOfGetter(plan.getter);
-                        Class<?> dstElem = plan.setter.getParameterTypes()[0];
-                        MethodHandle elemConv = buildElementConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
+                        Class<?> srcElemClass = elementTypeOfGetter(plan.getter);
+                        Class<?> targetElemClass = plan.setter.getParameterTypes()[0];
+                        MethodHandle elemConv = buildElementConverterMH(lookup, srcClass, srcElemClass, targetClass, targetElemClass, lookupSrcSuper, lookupTargetSuper, converters,
+                                plan.property, plan.deepConvert, plan.useGlobalConverter);
 
                         setter = lookup.unreflect(plan.setter); // addXxx(E)
                         step = makeDeepCollectionAddStep(lookup, getter, setter, elemConv);
                         mhSteps.add(step);
                     } else {
                         // setXxx(Collection<E>)
-                        Class<?> srcElem = elementTypeOfGetter(plan.getter);
+                        Class<?> srcElemClass = elementTypeOfGetter(plan.getter);
                         Class<?> dstParam = plan.setter.getParameterTypes()[0];
-                        Class<?> dstElem = genericElementTypeOfSetter(plan.setter).orElse(Object.class);
-                        MethodHandle elemConv = buildElementConverterMH(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
+                        Class<?> targetElemClass = genericElementTypeOfSetter(plan.setter).orElse(Object.class);
+                        MethodHandle elemConv = buildElementConverterMH(lookup, srcClass, srcElemClass, targetClass, targetElemClass, lookupSrcSuper, lookupTargetSuper, converters,
+                                plan.property, plan.deepConvert, plan.useGlobalConverter);
 
                         @SuppressWarnings("rawtypes")
                         Class<? extends Collection> dstImpl = pickCollectionImpl(dstParam);
@@ -384,8 +388,10 @@ public class ObjectTransformer {
                         Class<?> kSrc = mapKeyTypeOfGetter(plan.getter);
                         Class<?> vSrc = mapValTypeOfGetter(plan.getter);
 
-                        MethodHandle kConv = buildElementConverterMH(lookup, kSrc, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
-                        MethodHandle vConv = buildElementConverterMH(lookup, vSrc, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert);
+                        MethodHandle kConv = buildElementConverterMH(lookup, srcClass, kSrc, targetClass, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
+                                plan.deepConvert, plan.useGlobalConverter);
+                        MethodHandle vConv = buildElementConverterMH(lookup, srcClass, vSrc, targetClass, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
+                                plan.deepConvert, plan.useGlobalConverter);
 
                         setter = lookup.unreflect(plan.setter); // putXxx(K,V)
                         step = makeDeepMapPutStep(lookup, getter, setter, kConv, vConv);
@@ -398,8 +404,10 @@ public class ObjectTransformer {
                         Class<?> kSrc = mapKeyTypeOfGetter(plan.getter);
                         Class<?> vSrc = mapValTypeOfGetter(plan.getter);
 
-                        MethodHandle kConv = buildValueConverterMH(lookup, kSrc, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
-                        MethodHandle vConv = buildValueConverterMH(lookup, vSrc, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property);
+                        MethodHandle kConv = buildValueConverterMH(lookup, srcClass, kSrc, targetClass, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
+                                plan.useGlobalConverter);
+                        MethodHandle vConv = buildValueConverterMH(lookup, srcClass, vSrc, targetClass, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
+                                plan.useGlobalConverter);
 
                         @SuppressWarnings("rawtypes")
                         Class<? extends Map> dstImpl = pickMapImpl(dstParam);
@@ -448,14 +456,21 @@ public class ObjectTransformer {
     }
 
     // 추가: forceDeepSameType 플래그
-    private static MethodHandle buildElementConverterMH(MethodHandles.Lookup lookup, Class<?> srcElem, Class<?> dstElem, boolean lookupSrcSuper, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, String property, boolean deepConvert) throws Exception {
+    private static MethodHandle buildElementConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcElemClass, Class<?> targetParentClass,
+            Class<?> targetElemClass, boolean lookupSrcSuper, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, String property, boolean deepConvert,
+            boolean useGlobalConverter) throws Exception {
+        
+        // 등록 컨버터 우선
+        Function<?, ?> f = getFieldConverter(srcParentClass, srcElemClass, property, targetParentClass, targetElemClass, converters, useGlobalConverter);
+        if (f != null) {
+            return lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(f);
+        }
 
-        boolean sameOrWiden = wrap(dstElem).isAssignableFrom(wrap(srcElem));
+        boolean sameOrWiden = wrap(targetElemClass).isAssignableFrom(wrap(srcElemClass));
 
         // same-type 이고 deep을 강제한다면 nested copier로 내려간다
-        if (sameOrWiden && deepConvert && isPojo(dstElem)) {
-            return makeNestedCopierAsConverter(lookup, srcElem, lookupSrcSuper, dstElem, lookupTargetSuper, converters);
+        if (sameOrWiden && deepConvert && isPojo(targetElemClass)) {
+            return makeNestedCopierAsConverter(lookup, srcElemClass, lookupSrcSuper, targetElemClass, lookupTargetSuper, converters);
         }
 
         // 평소 정책: 동일/호환 → identity
@@ -463,39 +478,27 @@ public class ObjectTransformer {
             return MethodHandles.identity(Object.class);
         }
 
-        // 등록 컨버터 우선
-        Function<?, ?> f = getFieldConverter(srcElem, srcElem, property, dstElem, dstElem, converters);
-        if (f != null) {
-            return lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(f);
-        }
+//        // 등록 컨버터 우선
+//        Function<?, ?> f = getFieldConverter(srcParentClass, srcElemClass, property, targetParentClass, targetElemClass, converters, useGlobalConverter);
+//        if (f != null) {
+//            return lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(f);
+//        }
 
         // 나머지는 nested copier fallback
-        return makeNestedCopierAsConverter(lookup, srcElem, lookupSrcSuper, dstElem, lookupTargetSuper, converters);
+        return makeNestedCopierAsConverter(lookup, srcElemClass, lookupSrcSuper, targetElemClass, lookupTargetSuper, converters);
     }
 
-    // 스칼라/요소 공통: (Object)->Object 변환기 MethodHandle
-    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, String property) throws Exception {
-
-        Class<?> ws = wrap(srcClass), wd = wrap(targetClass);
-        if (wd.isAssignableFrom(ws)) {
-            return MethodHandles.identity(Object.class); // (Object)->Object
-        }
-
-        // 등록된 필드 컨버터 우선
-        Function<?, ?> f = getFieldConverter(srcClass, srcClass, property, targetClass, targetClass, converters);
+    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetParentClass,
+            Class<?> targetClass, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, String property, Function<?, ?> planConverter, boolean deepConvert,
+            boolean useGlobalConverter) throws Exception {
+        
+        // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
+        Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
         if (f != null) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
-                    , MethodType.methodType(Object.class, Object.class)) //
-                    .bindTo(f);
+                    , MethodType.methodType(Object.class, Object.class)).bindTo(f);
         }
-
-        return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
-    }
-
-    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, String property, Function<?, ?> planConverter, boolean deepConvert) throws Exception {
 
         Class<?> ws = wrap(srcClass), wd = wrap(targetClass);
         boolean sameOrWiden = wd.isAssignableFrom(ws);
@@ -517,15 +520,45 @@ public class ObjectTransformer {
                     , MethodType.methodType(Object.class, Object.class)).bindTo(planConverter);
         }
 
-        // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
-        Function<?, ?> f = getFieldConverter(srcClass, srcClass, property, targetClass, targetClass, checkConvertersOrDefault(converters));
+//        // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
+//        Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
+//        if (f != null) {
+//            return lookup.findVirtual(Function.class //
+//                    , "apply" //
+//                    , MethodType.methodType(Object.class, Object.class)).bindTo(f);
+//        }
+
+        // 3) POJO ↔ POJO fallback: nested copier
+        return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
+    }
+
+    // 스칼라/요소 공통: (Object)->Object 변환기 MethodHandle
+    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcClass, Class<?> targetParentClass, Class<?> targetClass,
+            boolean lookupSrcSuper, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, String property, boolean useGlobalConverter) throws Exception {
+        
+        // 등록된 필드 컨버터 우선
+        Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
         if (f != null) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
-                    , MethodType.methodType(Object.class, Object.class)).bindTo(f);
+                    , MethodType.methodType(Object.class, Object.class)) //
+                    .bindTo(f);
         }
 
-        // 3) POJO ↔ POJO fallback: nested copier
+        Class<?> ws = wrap(srcClass), wd = wrap(targetClass);
+        if (wd.isAssignableFrom(ws)) {
+            return MethodHandles.identity(Object.class); // (Object)->Object
+        }
+
+//        // 등록된 필드 컨버터 우선
+//        Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
+//        if (f != null) {
+//            return lookup.findVirtual(Function.class //
+//                    , "apply" //
+//                    , MethodType.methodType(Object.class, Object.class)) //
+//                    .bindTo(f);
+//        }
+
         return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
     }
 
@@ -554,8 +587,8 @@ public class ObjectTransformer {
     /**
      * 
      * <code>(src)->Object : src가 null이면 null, (src,copier) 이미 있으면 캐시 반환, 아니면 새로 만들어 채움</code>
-     * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, boolean, Map, String)},
-     * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, boolean, Map, String, Function, boolean)}에서
+     * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, Class, Class, boolean, boolean, Map, String, boolean)},
+     * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, Class, Class, boolean, Map, String, Function, boolean, boolean)}에서
      * 호출하는 'MethodHandle' 대상. <br>
      * 
      * <pre>
@@ -904,6 +937,8 @@ public class ObjectTransformer {
      *            변환 이후 속성 데이터 타입
      * @param converters
      *            변환 함수들
+     * @param useGlobalConverter
+     *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
      * @return
      *
      * @since 2022. 3. 22.
@@ -911,15 +946,14 @@ public class ObjectTransformer {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static <S, SF, T, TF> Function<?, ?> getFieldConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
-            Class<TF> targetPropertyClass, Map<String, Function<?, ?>> converters) {
-
-        Function<?, ?> converter = null;
-        String funcKey = FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass);
-        if ((converter = converters.get(funcKey)) != null) {
-            return converter;
-        }
-
-        return converters.get(FIELD_CONVERTER_KEYGEN.apply(null, srcPropertyClass, null, null, targetPropertyClass));
+            Class<TF> targetPropertyClass, Map<String, Function<?, ?>> converters, boolean useGlobalConverter) {
+        return MapUtils.getOrDefault( //
+                FIELD_CONVERTERS //
+                , FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass) //
+                , (Supplier<Function<?, ?>>) () -> useGlobalConverter //
+                        ? converters.get(FIELD_CONVERTER_KEYGEN.apply(null, srcPropertyClass, null, null, targetPropertyClass)) //
+                        : null //
+                , false);
     }
 
     private static BiConsumer<Object, Object> getOrBuildCopier(CopierKey key, Supplier<BiConsumer<Object, Object>> builder) {
@@ -1191,10 +1225,9 @@ public class ObjectTransformer {
 
             // 데이터 설정 함수
             setter = entry.getValue();
-
             // 메타 정보 처리
             Setter annoSetter = setter.getAnnotation(Setter.class);
-            boolean deepConvert = annoSetter.deepConvert();
+
             // setter parameter count
             int pc = setter.getParameterCount();
             // setter 1번째 파라미터 유형
@@ -1222,9 +1255,10 @@ public class ObjectTransformer {
 
             // 변환 함수
             Class<?> setterParamClass = pc == 1 ? PARAMETER_TYPE.apply(setter) : Object.class;
-            converter = getFieldConverter(srcClass, RETURN_TYPE.apply(getter), property, targetClass, setterParamClass, converters);
+            // getter/setter 메소드가 Collection인 경우, 그 paremeterized 타입을 직접 보고 변환 함수를 던져야 할까?
+            converter = getFieldConverter(srcClass, RETURN_TYPE.apply(getter), property, targetClass, setterParamClass, converters, annoSetter.useGlobalConverter());
 
-            plans.add(new StepPlan(property, getter, setter, converter, deepConvert, kind, adderStyle, putStyle));
+            plans.add(new StepPlan(property, getter, setter, converter, annoSetter.useGlobalConverter(), annoSetter.deepConvert(), kind, adderStyle, putStyle));
         }
 
         return plans;
@@ -1498,6 +1532,8 @@ public class ObjectTransformer {
             this.lookupSrcSuper = lookupSrcSuper;
             this.lookupDstSuper = lookupDstSuper;
             this.convertersId = convertersId;
+
+            System.out.println(toString());
         }
 
         /**
@@ -1589,7 +1625,11 @@ public class ObjectTransformer {
         final Method setter;
         /** 데이터 형변환 함수. */
         final Function<?, ?> converter;
-
+        /**
+         * <code>srcClass/srcFieldClass/property/targetClass/targetFieldClass</code> 로 식별되는 '변환 함수'가 없는 경우<br>
+         * <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+         */
+        final boolean useGlobalConverter;
         /** '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부 */
         final boolean deepConvert;
         final ContainerKind kind;
@@ -1631,7 +1671,7 @@ public class ObjectTransformer {
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity) {
-            this(property, getter, setter, converterOrIdentity, false, null, false, false);
+            this(property, getter, setter, converterOrIdentity, false, false, null, false, false);
         }
 
         /**
@@ -1655,6 +1695,8 @@ public class ObjectTransformer {
          *            대상 클래스의 'setter' 메소드
          * @param converterOrIdentity
          *            데이터 형변환 함수.
+         * @param useGlobalConverter
+         *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
          * @param deepConvert
          *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
          * @param containerKind
@@ -1667,12 +1709,13 @@ public class ObjectTransformer {
          * @version 2.1.0
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
-        public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity, boolean deepConvert, ContainerKind containerKind, boolean addStyle,
-                boolean putStyle) {
+        public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity, boolean useGlobalConverter, boolean deepConvert,
+                ContainerKind containerKind, boolean addStyle, boolean putStyle) {
             this.property = property;
             this.getter = getter;
             this.setter = setter;
             this.converter = converterOrIdentity != null ? converterOrIdentity : IDENTITY_CONVERT;
+            this.useGlobalConverter = useGlobalConverter;
             this.deepConvert = deepConvert;
             this.kind = containerKind;
             this.adderStyle = addStyle;

@@ -1,4 +1,7 @@
 [2025/09/10]
+- Add
+  + open.commons.core.annotation.Setter: 기능 확장
+    + useGlbalConverter
 - Bugfix
   + open.commons.core.utils.ObjectTransformer.transform(S, boolean, T, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;): 셀프 참조 및 상호참조 형태의 클래스인 경우에 대해 중복 처리 추가.
 

@@ -85,4 +85,10 @@ public @interface Setter {
      */
     Class<?> type() default Class.class;
 
+    /**
+     * <code>srcClass/srcFieldClass/property/targetClass/targetFieldClass</code> 로 식별되는 '변환 함수'가 없는 경우<br>
+     * <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     */
+    boolean useGlobalConverter() default false;
+
 }
