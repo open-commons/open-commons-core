@@ -65,7 +65,7 @@ public @interface Setter {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    boolean deepConvert() default false;
+    boolean deepConvert() default true;
 
     /** 데이터 이름 */
     String name() default "";

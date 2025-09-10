@@ -31,8 +31,8 @@ import java.util.List;
 
 import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Setter;
-import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.ObjectTransformer;
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 
@@ -202,7 +202,7 @@ public class TestTransformer {
             return child;
         }
 
-//        @Setter(deepConvert = true)
+        // @Setter(deepConvert = true)
         @Setter
         public void setChild(Bb child) {
             this.child = child;
@@ -289,8 +289,7 @@ public class TestTransformer {
 
     static boolean logging = false;
 
-    public static void main(String[] args) {
-
+    static void test1() {
         List<Aa> aChildren = new ArrayList<>();
         A a = new A("a");
         a.setChild(new Aa("a#c"));
@@ -328,8 +327,7 @@ public class TestTransformer {
         System.out.println();
         System.out.println();
         System.out.println();
-        
-        
+
         cloneA = ObjectUtils.transform(a, false, new A("aa"), false, null);
         System.out.println("cloneA#1 ........ " + cloneA);
         System.out.println();
@@ -344,6 +342,199 @@ public class TestTransformer {
         System.out.println("a2b#1  >>> " + a2b);
         System.out.println();
         System.out.println();
+    }
+
+    public static class A1 {
+        A2 child;
+
+        @Getter
+        public A2 getChild() {
+            return child;
+        }
+
+        @Setter
+        public void setChild(A2 child) {
+            this.child = child;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("A1 [child=");
+            builder.append(child);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    public static class A2 {
+        List<A3> content;
+
+        @Getter
+        public List<A3> getContent() {
+            return content;
+        }
+
+        @Setter
+        public void setContent(List<A3> content) {
+            this.content = content;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("A2 [content=");
+            builder.append(content);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    public static class A3 {
+        String name;
+        List<A3> children;
+
+        public A3(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public List<A3> getChildren() {
+            return children;
+        }
+
+        @Setter
+        public void setChildren(List<A3> children) {
+            this.children = children;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("A3 [name=");
+            builder.append(name);
+            builder.append(", children=");
+            builder.append(children);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    public static class B1 {
+        B2 child;
+
+        @Getter
+        public B2 getChild() {
+            return child;
+        }
+
+        @Setter
+        public void setChild(B2 child) {
+            this.child = child;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("B1 [child=");
+            builder.append(child);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    public static class B2 {
+        List<B3> content;
+
+        @Getter
+        public List<B3> getContent() {
+            return content;
+        }
+
+        @Setter
+        public void setContent(List<B3> content) {
+            this.content = content;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("B2 [content=");
+            builder.append(content);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    public static class B3 {
+        String name;
+        List<B3> children;
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public List<B3> getChildren() {
+            return children;
+        }
+
+        @Setter
+        public void setChildren(List<B3> children) {
+            this.children = children;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("B3 [name=");
+            builder.append(name);
+            builder.append(", children=");
+            builder.append(children);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    public static void main(String[] args) {
+
+        A1 a1 = new A1();
+        A2 a2 = new A2();
+        
+        A3 a2Child = new A3("a2-child");
+        List<A3> a3Children = new ArrayList<>();
+        a3Children.add(new A3("a2-child-child-1"));
+        a3Children.add(new A3("a2-child-child-2"));
+        a3Children.add(new A3("a2-child-child-3"));
+        a3Children.add(new A3("a2-child-child-4"));
+        a2Child.setChildren(a3Children);
+        
+        List<A3> a2Children = new ArrayList<>();
+        a2Children.add(a2Child);
+        a2.setContent(a2Children);
+        a1.setChild(a2);
+        
+        B1 b1 = ObjectTransformer.transform(a1, true, new B1(), true, null);
+        
+        
+        System.out.println("a1=" + a1);
+        System.out.println("b1=" + b1);
 
     }
 

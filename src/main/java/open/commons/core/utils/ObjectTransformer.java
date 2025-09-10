@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -57,8 +58,10 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -81,6 +84,15 @@ import open.commons.core.utils.ObjectTransformer.StepPlan.ContainerKind;
 public class ObjectTransformer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTransformer.class);
+
+    /**
+     * 셀프 참조 및 상호참조 형태의 클래스인 경우에 대해 중복 처리 금지를 위한 '식별정보' 관리.<br>
+     * <code>
+     * (src) -> (copierToken -> dst)<br>
+     * 둘 다 identity 비교를 쓰기 위해 IdentityHashMap 중첩
+     * </code>
+     */
+    private static final ThreadLocal<IdentityHashMap<Object, IdentityHashMap<Object, Object>>> TL_VISITED = new ThreadLocal<>();
 
     /**
      * 데이터 제공 메소드 이름 유형
@@ -275,6 +287,9 @@ public class ObjectTransformer {
                 if (!plan.getter.isAccessible()) {
                     plan.getter.setAccessible(true);
                 }
+                if (!plan.setter.isAccessible()) {
+                    plan.setter.setAccessible(true);
+                }
                 getter = lookup.unreflect(plan.getter);
                 // (Object)->Object 로 어댑터
                 getter = MethodHandles.explicitCastArguments(getter, MethodType.methodType(Object.class, Object.class));
@@ -440,7 +455,7 @@ public class ObjectTransformer {
 
         // same-type 이고 deep을 강제한다면 nested copier로 내려간다
         if (sameOrWiden && deepConvert && isPojo(dstElem)) {
-            return makeNestedCopierAsConverter(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters);
+            return makeNestedCopierAsConverter(lookup, srcElem, lookupSrcSuper, dstElem, lookupTargetSuper, converters);
         }
 
         // 평소 정책: 동일/호환 → identity
@@ -455,20 +470,20 @@ public class ObjectTransformer {
         }
 
         // 나머지는 nested copier fallback
-        return makeNestedCopierAsConverter(lookup, srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, converters);
+        return makeNestedCopierAsConverter(lookup, srcElem, lookupSrcSuper, dstElem, lookupTargetSuper, converters);
     }
 
     // 스칼라/요소 공통: (Object)->Object 변환기 MethodHandle
-    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcElem, Class<?> dstElem, boolean lookupSrcSuper, boolean lookupTargetSuper,
+    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, String property) throws Exception {
 
-        Class<?> ws = wrap(srcElem), wd = wrap(dstElem);
+        Class<?> ws = wrap(srcClass), wd = wrap(targetClass);
         if (wd.isAssignableFrom(ws)) {
             return MethodHandles.identity(Object.class); // (Object)->Object
         }
 
         // 등록된 필드 컨버터 우선
-        Function<?, ?> f = getFieldConverter(srcElem, srcElem, property, dstElem, dstElem, converters);
+        Function<?, ?> f = getFieldConverter(srcClass, srcClass, property, targetClass, targetClass, converters);
         if (f != null) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
@@ -476,31 +491,18 @@ public class ObjectTransformer {
                     .bindTo(f);
         }
 
-        // POJO -> POJO: nested Copier 사용
-        BiConsumer<Object, Object> nested = COPIER_CACHE.computeIfAbsent(
-                new CopierKey(srcElem, dstElem, lookupSrcSuper, lookupTargetSuper, /* converters version/id */ 0) //
-                , k -> buildCopier(srcElem, lookupSrcSuper, dstElem, lookupTargetSuper, converters));
-
-        MethodHandle ctor = constructorMH(lookup, dstElem); // ()->Object
-        MethodHandle impl = //
-                lookup.findStatic(//
-                        ObjectTransformer.class //
-                        , "convertPojoElem" //
-                        , MethodType.methodType(Object.class, Object.class, BiConsumer.class, MethodHandle.class) //
-                );
-        impl = MethodHandles.insertArguments(impl, 1, new Object[] { nested, ctor });
-        return MethodHandles.explicitCastArguments(impl, MethodType.methodType(Object.class, Object.class));
+        return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
     }
 
-    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcType, Class<?> dstType, boolean lookupSrcSuper, boolean lookupTargetSuper,
+    private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, String property, Function<?, ?> planConverter, boolean deepConvert) throws Exception {
 
-        Class<?> ws = wrap(srcType), wd = wrap(dstType);
+        Class<?> ws = wrap(srcClass), wd = wrap(targetClass);
         boolean sameOrWiden = wd.isAssignableFrom(ws);
 
         // ★ deep 요청이고 동일/호환 타입이며 POJO라면, identity 대신 nested copier로 강제
-        if (sameOrWiden && deepConvert && isPojo(dstType)) {
-            return makeNestedCopierAsConverter(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters);
+        if (sameOrWiden && deepConvert && isPojo(targetClass)) {
+            return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
         }
 
         // 0) 동일/호환 → 기본은 identity (deep 강제 조건에 걸리지 않았을 때)
@@ -516,7 +518,7 @@ public class ObjectTransformer {
         }
 
         // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
-        Function<?, ?> f = getFieldConverter(srcType, srcType, property, dstType, dstType, checkConvertersOrDefault(converters));
+        Function<?, ?> f = getFieldConverter(srcClass, srcClass, property, targetClass, targetClass, checkConvertersOrDefault(converters));
         if (f != null) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
@@ -524,7 +526,7 @@ public class ObjectTransformer {
         }
 
         // 3) POJO ↔ POJO fallback: nested copier
-        return makeNestedCopierAsConverter(lookup, srcType, dstType, lookupSrcSuper, lookupTargetSuper, converters);
+        return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
     }
 
     private static Map<String, Function<?, ?>> checkConvertersOrDefault(Map<String, Function<?, ?>> converters) {
@@ -550,6 +552,8 @@ public class ObjectTransformer {
     }
 
     /**
+     * 
+     * <code>(src)->Object : src가 null이면 null, (src,copier) 이미 있으면 캐시 반환, 아니면 새로 만들어 채움</code>
      * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, boolean, Map, String)},
      * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, boolean, Map, String, Function, boolean)}에서
      * 호출하는 'MethodHandle' 대상. <br>
@@ -563,7 +567,9 @@ public class ObjectTransformer {
      *
      * @param src
      * @param copier
+     *            토큰
      * @param ctor
+     *            () => Object
      * @return
      *
      * @since 2025. 9. 8.
@@ -575,9 +581,33 @@ public class ObjectTransformer {
         if (src == null) {
             return null;
         }
+
+        IdentityHashMap<Object, IdentityHashMap<Object, Object>> outer = TL_VISITED.get();
+        if (outer == null) {
+            // 만약 최상위 transform 밖에서 직접 호출되는 예외 케이스 보호
+            outer = new IdentityHashMap<>();
+            TL_VISITED.set(outer);
+            try {
+                return convertPojoElem(src, copier, ctor);
+            } finally {
+                TL_VISITED.remove();
+            }
+        }
+
+        IdentityHashMap<Object, Object> inner = outer.get(src);
+        if (inner == null) {
+            inner = new IdentityHashMap<>();
+            outer.put(src, inner);
+        }
+
+        Object cached = inner.get(copier); // ★ (src, copierToken) 조회
+        if (cached != null)
+            return cached;
+
         Object dst = null;
         try {
             dst = ctor.invoke(); // ()->Object
+            inner.put(copier, dst);
             copier.accept(dst, src);
             return dst;
         } catch (Throwable t) {
@@ -892,6 +922,31 @@ public class ObjectTransformer {
         return converters.get(FIELD_CONVERTER_KEYGEN.apply(null, srcPropertyClass, null, null, targetPropertyClass));
     }
 
+    private static BiConsumer<Object, Object> getOrBuildCopier(CopierKey key, Supplier<BiConsumer<Object, Object>> builder) {
+
+        // fast-path
+        BiConsumer<Object, Object> got = COPIER_CACHE.get(key);
+        if (got != null)
+            // 이미 완성 or 자리표(CopierBox) — 자리표는 accept 시 내부에서 대기
+            return got;
+
+        // 1) 먼저 스텁을 넣는다 (동일 키 재진입 방지)
+        CopierStub stub = new CopierStub();
+        BiConsumer<Object, Object> raced = COPIER_CACHE.putIfAbsent(key, stub);
+        if (raced != null)
+            return raced; // 누군가 먼저 넣었으면 그걸 쓴다(스텁일 수도, 완성품일 수도)
+
+        // 2) 우리가 빌더 역할
+        BiConsumer<Object, Object> real = builder.get();
+
+        // 3) 스텁을 실제 구현으로 연결
+        stub.set(real);
+
+        // 4) 캐시를 완성품으로 교체(선택적이지만 권장) — 이후 조회는 delegate 대기 없이 바로 사용
+        COPIER_CACHE.replace(key, stub, real);
+        return real;
+    }
+
     /**
      * 주어진 타입에 대한 추가 타입을 제공합니다. <br>
      * 
@@ -1005,12 +1060,14 @@ public class ObjectTransformer {
         return MethodHandles.explicitCastArguments(impl, MethodType.methodType(void.class, Object.class, Object.class));
     }
 
-    private static MethodHandle makeNestedCopierAsConverter(MethodHandles.Lookup lookup, Class<?> src, Class<?> dst, boolean lookupSrcSuper, boolean lookupTargetSuper,
+    private static MethodHandle makeNestedCopierAsConverter(MethodHandles.Lookup lookup, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters) throws Exception {
-        BiConsumer<Object, Object> nested = COPIER_CACHE.computeIfAbsent(new CopierKey(src, dst, lookupSrcSuper, lookupTargetSuper, 0),
-                k -> buildCopier(src, lookupSrcSuper, dst, lookupTargetSuper, converters));
 
-        MethodHandle ctor = constructorMH(lookup, dst); // ()->Object
+        BiConsumer<Object, Object> nested = getOrBuildCopier(
+                new CopierKey(srcClass, targetClass, lookupSrcSuper, lookupTargetSuper, /* converters version/id */ 0) //
+                , () -> buildCopier(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters));
+
+        MethodHandle ctor = constructorMH(lookup, targetClass); // ()->Object
         MethodHandle impl = //
                 lookup.findStatic(//
                         ObjectTransformer.class //
@@ -1362,16 +1419,31 @@ public class ObjectTransformer {
 
         AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
 
-        // 데이터 변환함수가 null 인 경우
-        CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
-                /* convertersId */ System.identityHashCode(checkConvertersOrDefault(converters)) // 또는 고정 Registry ID
-        );
+        IdentityHashMap<Object, IdentityHashMap<Object, Object>> prev = TL_VISITED.get();
+        boolean owner = false;
+        if (prev == null) {
+            TL_VISITED.set(new java.util.IdentityHashMap<>());
+            owner = true;
+        }
 
-        BiConsumer<Object, Object> copier = COPIER_CACHE.computeIfAbsent(key,
-                k -> buildCopier(src.getClass(), lookupSrcSuper, target.getClass(), lookupTargetSuper, checkConvertersOrDefault(converters)));
-        copier.accept(target, src);
+        try {
+            // 데이터 변환함수가 null 인 경우
+            CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
+                    // convertersId 또는 고정 Registry ID
+                    System.identityHashCode(checkConvertersOrDefault(converters)) //
+            );
 
-        return target;
+            BiConsumer<Object, Object> copier = getOrBuildCopier(key,
+                    () -> buildCopier(src.getClass(), lookupSrcSuper, target.getClass(), lookupTargetSuper, checkConvertersOrDefault(converters)));
+
+            copier.accept(target, src);
+
+            return target;
+        } finally {
+            if (owner) {
+                TL_VISITED.remove();
+            }
+        }
     }
 
     private static Class<?> wrap(Class<?> c) {
@@ -1397,17 +1469,17 @@ public class ObjectTransformer {
     }
 
     static final class CopierKey {
-        final Class<?> src;
-        final Class<?> dst;
+        final Class<?> srcClass;
+        final Class<?> targetClass;
         final boolean lookupSrcSuper;
         final boolean lookupDstSuper;
         final int convertersId;
 
         /**
          *
-         * @param src
+         * @param srcClass
          *            원본 데이터 유형
-         * @param dst
+         * @param targetClass
          *            변환 데이터 유형
          * @param lookupSrcSuper
          *            원본 데이터 상위 클래스 정보 전환 여부
@@ -1420,9 +1492,9 @@ public class ObjectTransformer {
          * @version 2.1.0
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
-        public CopierKey(Class<?> src, Class<?> dst, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
-            this.src = src;
-            this.dst = dst;
+        public CopierKey(Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
+            this.srcClass = srcClass;
+            this.targetClass = targetClass;
             this.lookupSrcSuper = lookupSrcSuper;
             this.lookupDstSuper = lookupDstSuper;
             this.convertersId = convertersId;
@@ -1445,8 +1517,8 @@ public class ObjectTransformer {
             if (getClass() != obj.getClass())
                 return false;
             CopierKey other = (CopierKey) obj;
-            return convertersId == other.convertersId && Objects.equals(dst, other.dst) && lookupDstSuper == other.lookupDstSuper && lookupSrcSuper == other.lookupSrcSuper
-                    && Objects.equals(src, other.src);
+            return convertersId == other.convertersId && Objects.equals(targetClass, other.targetClass) && lookupDstSuper == other.lookupDstSuper
+                    && lookupSrcSuper == other.lookupSrcSuper && Objects.equals(srcClass, other.srcClass);
         }
 
         /**
@@ -1459,7 +1531,46 @@ public class ObjectTransformer {
          */
         @Override
         public int hashCode() {
-            return Objects.hash(convertersId, dst, lookupDstSuper, lookupSrcSuper, src);
+            return Objects.hash(convertersId, targetClass, lookupDstSuper, lookupSrcSuper, srcClass);
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("CopierKey [srcClass=");
+            builder.append(srcClass);
+            builder.append(", targetClass=");
+            builder.append(targetClass);
+            builder.append(", lookupSrcSuper=");
+            builder.append(lookupSrcSuper);
+            builder.append(", lookupDstSuper=");
+            builder.append(lookupDstSuper);
+            builder.append(", convertersId=");
+            builder.append(convertersId);
+            builder.append("]");
+            return builder.toString();
+        }
+    }
+
+    // 다른 스레드가 먼저 호출하면 안전하게 '완성될 때까지' 대기
+    static final class CopierStub implements BiConsumer<Object, Object> {
+        private final CountDownLatch ready = new CountDownLatch(1);
+        volatile BiConsumer<Object, Object> delegate;
+
+        @Override
+        public void accept(Object dst, Object src) {
+            try {
+                ready.await();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+            delegate.accept(dst, src);
+        }
+
+        void set(BiConsumer<Object, Object> real) {
+            this.delegate = real;
+            this.ready.countDown();
         }
     }
 
@@ -1568,10 +1679,6 @@ public class ObjectTransformer {
             this.putStyle = putStyle;
         }
 
-        static enum ContainerKind {
-            SCALAR, ARRAY, COLLECTION, MAP
-        }
-
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
@@ -1593,6 +1700,10 @@ public class ObjectTransformer {
             builder.append(putStyle);
             builder.append("]");
             return builder.toString();
+        }
+
+        static enum ContainerKind {
+            SCALAR, ARRAY, COLLECTION, MAP
         }
     }
 }
