@@ -459,7 +459,7 @@ public class ObjectTransformer {
     private static MethodHandle buildElementConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcElemClass, Class<?> targetParentClass,
             Class<?> targetElemClass, boolean lookupSrcSuper, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, String property, boolean deepConvert,
             boolean useGlobalConverter) throws Exception {
-        
+
         // 등록 컨버터 우선
         Function<?, ?> f = getFieldConverter(srcParentClass, srcElemClass, property, targetParentClass, targetElemClass, converters, useGlobalConverter);
         if (f != null) {
@@ -478,12 +478,6 @@ public class ObjectTransformer {
             return MethodHandles.identity(Object.class);
         }
 
-//        // 등록 컨버터 우선
-//        Function<?, ?> f = getFieldConverter(srcParentClass, srcElemClass, property, targetParentClass, targetElemClass, converters, useGlobalConverter);
-//        if (f != null) {
-//            return lookup.findVirtual(Function.class, "apply", MethodType.methodType(Object.class, Object.class)).bindTo(f);
-//        }
-
         // 나머지는 nested copier fallback
         return makeNestedCopierAsConverter(lookup, srcElemClass, lookupSrcSuper, targetElemClass, lookupTargetSuper, converters);
     }
@@ -491,8 +485,8 @@ public class ObjectTransformer {
     private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetParentClass,
             Class<?> targetClass, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, String property, Function<?, ?> planConverter, boolean deepConvert,
             boolean useGlobalConverter) throws Exception {
-        
-        // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
+
+        // 0) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
         Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
         if (f != null) {
             return lookup.findVirtual(Function.class //
@@ -508,25 +502,17 @@ public class ObjectTransformer {
             return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
         }
 
-        // 0) 동일/호환 → 기본은 identity (deep 강제 조건에 걸리지 않았을 때)
+        // 1) 동일/호환 → 기본은 identity (deep 강제 조건에 걸리지 않았을 때)
         if (sameOrWiden) {
             return MethodHandles.identity(Object.class);
         }
 
-        // 1) 플랜에 명시 컨버터가 있으면 우선
+        // 2) 플랜에 명시 컨버터가 있으면 우선
         if (planConverter != null && planConverter != StepPlan.IDENTITY_CONVERT) {
             return lookup.findVirtual(Function.class //
                     , "apply" //
                     , MethodType.methodType(Object.class, Object.class)).bindTo(planConverter);
         }
-
-//        // 2) 필드 컨버터 레지스트리에서 조회 (선택: 플랜과 동일 정책이면 생략 가능)
-//        Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
-//        if (f != null) {
-//            return lookup.findVirtual(Function.class //
-//                    , "apply" //
-//                    , MethodType.methodType(Object.class, Object.class)).bindTo(f);
-//        }
 
         // 3) POJO ↔ POJO fallback: nested copier
         return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
@@ -535,7 +521,7 @@ public class ObjectTransformer {
     // 스칼라/요소 공통: (Object)->Object 변환기 MethodHandle
     private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcClass, Class<?> targetParentClass, Class<?> targetClass,
             boolean lookupSrcSuper, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, String property, boolean useGlobalConverter) throws Exception {
-        
+
         // 등록된 필드 컨버터 우선
         Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
         if (f != null) {
@@ -549,15 +535,6 @@ public class ObjectTransformer {
         if (wd.isAssignableFrom(ws)) {
             return MethodHandles.identity(Object.class); // (Object)->Object
         }
-
-//        // 등록된 필드 컨버터 우선
-//        Function<?, ?> f = getFieldConverter(srcParentClass, srcClass, property, targetParentClass, targetClass, converters, useGlobalConverter);
-//        if (f != null) {
-//            return lookup.findVirtual(Function.class //
-//                    , "apply" //
-//                    , MethodType.methodType(Object.class, Object.class)) //
-//                    .bindTo(f);
-//        }
 
         return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
     }
@@ -1532,8 +1509,6 @@ public class ObjectTransformer {
             this.lookupSrcSuper = lookupSrcSuper;
             this.lookupDstSuper = lookupDstSuper;
             this.convertersId = convertersId;
-
-            System.out.println(toString());
         }
 
         /**
