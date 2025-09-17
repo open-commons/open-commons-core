@@ -671,10 +671,8 @@ public class SQLUtils {
      *
      * @param objectType
      *            생성할 데이터 타입. 파라미터를 받지 않는 기본 생성자가 반드시 있어야 합니다.
-     * 
      * @param rs
      *            {@link ResultSet} 객체
-     * 
      * @param columns
      *            불러올 컬럼 목록. 없는 경우 생성하는 객체에 정의되어 있는 모든 컬럼 정보를 읽어온다.
      * 
@@ -693,6 +691,7 @@ public class SQLUtils {
         return ResultSetTransformer.newInstance(objectType, rs, columns);
     }
 
+    /** @deprecated 이전 구현코드의 보관용으로 이후에 삭제될 예정. */
     static <T> T newInstance0(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
 
         boolean isTagged = columns != null && columns.length > 0;

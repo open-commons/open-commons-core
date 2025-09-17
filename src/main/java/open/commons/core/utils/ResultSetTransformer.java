@@ -523,6 +523,32 @@ public class ResultSetTransformer {
         return lookup.findStatic(ResultSetTransformer.class, staticName, MethodType.methodType(Object.class, ResultSet.class, int.class));
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 8.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * 
+     * @param objectType
+     *            생성할 데이터 타입. 파라미터를 받지 않는 기본 생성자가 반드시 있어야 합니다.
+     * @param rs
+     *            {@link ResultSet} 객체
+     * @param columns
+     *            불러올 컬럼 목록. 없는 경우 생성하는 객체에 정의되어 있는 모든 컬럼 정보를 읽어온다.
+     * @return
+     * @throws SQLException
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
         // 2-1) ResultSet 메타데이터 시그니처

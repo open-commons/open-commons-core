@@ -937,15 +937,17 @@ public class ObjectTransformer {
 
         // fast-path
         BiConsumer<Object, Object> got = COPIER_CACHE.get(key);
-        if (got != null)
+        if (got != null) {
             // 이미 완성 or 자리표(CopierBox) — 자리표는 accept 시 내부에서 대기
             return got;
+        }
 
         // 1) 먼저 스텁을 넣는다 (동일 키 재진입 방지)
         CopierStub stub = new CopierStub();
         BiConsumer<Object, Object> raced = COPIER_CACHE.putIfAbsent(key, stub);
-        if (raced != null)
+        if (raced != null) {
             return raced; // 누군가 먼저 넣었으면 그걸 쓴다(스텁일 수도, 완성품일 수도)
+        }
 
         // 2) 우리가 빌더 역할
         BiConsumer<Object, Object> real = builder.get();
@@ -955,6 +957,7 @@ public class ObjectTransformer {
 
         // 4) 캐시를 완성품으로 교체(선택적이지만 권장) — 이후 조회는 delegate 대기 없이 바로 사용
         COPIER_CACHE.replace(key, stub, real);
+
         return real;
     }
 
@@ -1590,8 +1593,9 @@ public class ObjectTransformer {
         static final Function<?, ?> IDENTITY_CONVERT = o -> o;
         /**
          * 속성 이름<br>
-         * <li>{@link Getter#name()}
-         * <li>{@link Setter#name()}
+         * 
+         * @see {@link Getter#name()}
+         * @see {@link Setter#name()}
          */
         final String property;
         /** 원본 클래스의 'getter' 메소드. */
@@ -1601,8 +1605,10 @@ public class ObjectTransformer {
         /** 데이터 형변환 함수. */
         final Function<?, ?> converter;
         /**
-         * <code>srcClass/srcFieldClass/property/targetClass/targetFieldClass</code> 로 식별되는 '변환 함수'가 없는 경우<br>
-         * <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+         * <i><code>srcClass#srcFieldClass-&gt;property-&gt;targetClass#targetFieldClass<code></i> 로 식별되는 '변환 함수'가 없는 경우<br>
+         * <i><code>null#srcFieldClass-&gt;null->&gt;null#targetFieldClass</code></i>로 식별되는 '변환 함수'가 있다면 사용할지 여부<br>
+         * 
+         * @see {@link Setter#useGlobalConverter()}
          */
         final boolean useGlobalConverter;
         /** '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부 */
