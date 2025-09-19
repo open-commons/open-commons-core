@@ -1727,6 +1727,42 @@ public class StringUtils {
     }
 
     /**
+     * 주어진 문자열에 'Left-Padding'을 적용하여 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param str
+     * @param padding
+     * @param padChar
+     * @return
+     *
+     * @since 2025. 9. 19.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String leftPad(String str, int padding, char padChar) {
+        if (str == null) {
+            return null;
+        }
+        int strLength = str.length();
+        if (strLength >= padding) {
+            return str;
+        }
+        int padCount = padding - strLength;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < padCount; i++) {
+            sb.append(padChar);
+        }
+        sb.append(str);
+        return sb.toString();
+    }
+
+    /**
      * <b><code>long</code></b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
      * 
@@ -2276,6 +2312,41 @@ public class StringUtils {
         }
 
         return string;
+    }
+
+    /**
+     * 주어진 문자열에 'Right-Padding'을 적용하여 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 19.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param str
+     * @param padding
+     * @param padChar
+     * @return
+     *
+     * @since 2025. 9. 19.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static String rightPad(String str, int padding, char padChar) {
+        if (str == null) {
+            return null;
+        }
+        int strLength = str.length();
+        if (strLength >= padding) {
+            return str;
+        }
+        int padCount = padding - strLength;
+        StringBuilder sb = new StringBuilder(str);
+        for (int i = 0; i < padCount; i++) {
+            sb.append(padChar);
+        }
+        return sb.toString();
     }
 
     /**
@@ -3054,7 +3125,7 @@ public class StringUtils {
      */
     public static String toBeanSetter(String type, String field) {
         return "set" + toUpperCase(field, 0) + "( " + type + " " + field + " )";
-    }
+    };
 
     /**
      * <pre>
@@ -3111,7 +3182,7 @@ public class StringUtils {
                 }
             }
         }
-    };
+    }
 
     /**
      * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
