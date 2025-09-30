@@ -1,3 +1,7 @@
+[2025/09/30]
+- New
+  + open.commons.core.utils.ConcurrentUtils: Concurrent/Parallel/Async Programming을 위한 유틸 클래스
+
 [2025/09/10]
 - Add
   + open.commons.core.annotation.Setter: 기능 확장
