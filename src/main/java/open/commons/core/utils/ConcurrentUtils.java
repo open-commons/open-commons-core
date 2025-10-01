@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -95,7 +96,7 @@ public class ConcurrentUtils {
      * @param actor
      *            수행할 작업
      * @param executor
-     *            작업 실행기
+     *            작업 실행 환경
      * @return
      *
      * @since 2025. 9. 30.
@@ -107,6 +108,89 @@ public class ConcurrentUtils {
         List<CompletableFuture<U>> jobs = data.stream() //
                 .map(d -> CompletableFuture.supplyAsync(() -> actor.apply(d), executor))//
                 .collect(Collectors.toList());
+        // #2. 작업 완료 후 처리
+        return waitAndApply(jobs);
+    }
+
+    /**
+     * 여러 개의 처리 결과를 하나의 데이터에 적용하는 작업을 병렬로 수행합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 10. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param bucket
+     *            처리 결과를 적용할 객체
+     * @param actors
+     *            수행할 작업들
+     * @param executor
+     *            작업 실행 환경
+     *
+     * @since 2025. 10. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> void executeAsync(@Nonnull T bucket, @Nonnull Collection<Consumer<T>> actors) {
+        executeAsync(bucket, actors, ForkJoinPool.commonPool());
+    }
+
+    /**
+     * 여러 개의 처리 결과를 하나의 데이터에 적용하는 작업을 병렬로 수행합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 10. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param bucket
+     *            처리 결과를 적용할 객체
+     * @param actors
+     *            수행할 작업들
+     * @param executor
+     *            작업 실행 환경
+     *
+     * @since 2025. 10. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> void executeAsync(@Nonnull T bucket, @Nonnull Collection<Consumer<T>> actors, @Nonnull Executor executor) {
+        // #1. 작업을 병렬로 실행
+        List<CompletableFuture<Object>> jobs = actors.stream() //
+                .map(actor -> CompletableFuture.supplyAsync(() -> {
+                    actor.accept(bucket);
+                    return null;
+                }, executor)) //
+                .collect(Collectors.toList());
+        // #2. 작업 완료 후 처리
+        waitAndApply(jobs);
+    }
+
+    /**
+     * 전달받은 모든 작업이 완료된 후 결과를 합쳐서 반환합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 10. 1.		박준홍			최초 작성
+     * </pre>
+     *
+     * @param <U>
+     * @param jobs
+     * @return
+     *
+     * @since 2025. 10. 1.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static <U> List<U> waitAndApply(List<CompletableFuture<U>> jobs) {
         // #2. 모든 작업 완료 대기
         CompletableFuture<Void> allDone = CompletableFuture.allOf(jobs.toArray(new CompletableFuture[0]));
         // #3. 결과 수집

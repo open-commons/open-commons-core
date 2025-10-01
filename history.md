@@ -1,4 +1,10 @@
 [2025/09/30]
+- Add
+  + open.commons.core.utils.ConcurrentUtils
+    + excuteAsync(T, Collection&lt;Consumer&lt;T&gt;&gt;)
+    + excuteAsync(T, Collection&lt;Consumer&lt;T&gt;&gt;, Executor)
+
+[2025/09/30]
 - New
   + open.commons.core.utils.ConcurrentUtils: Concurrent/Parallel/Async Programming을 위한 유틸 클래스
 
