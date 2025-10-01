@@ -1,4 +1,4 @@
-[2025/09/30]
+[2025/10/01]
 - Add
   + open.commons.core.utils.ConcurrentUtils
     + excuteAsync(T, Collection&lt;Consumer&lt;T&gt;&gt;)
