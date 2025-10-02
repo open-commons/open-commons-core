@@ -933,6 +933,26 @@ public class ObjectTransformer {
                 , false);
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 9. 5.		박준홍			최초 작성
+     * 2025. 10. 2.     박준홍         try-catch-finally 구조와 실패 처리 적용
+     * </pre>
+     *
+     * @param key
+     * @param builder
+     * @return
+     *
+     * @since 2025. 9. 5.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     private static BiConsumer<Object, Object> getOrBuildCopier(CopierKey key, Supplier<BiConsumer<Object, Object>> builder) {
 
         // fast-path
@@ -950,15 +970,29 @@ public class ObjectTransformer {
         }
 
         // 2) 우리가 빌더 역할
-        BiConsumer<Object, Object> real = builder.get();
+        BiConsumer<Object, Object> real = null;
 
-        // 3) 스텁을 실제 구현으로 연결
-        stub.set(real);
+        try {
+            real = builder.get();
 
-        // 4) 캐시를 완성품으로 교체(선택적이지만 권장) — 이후 조회는 delegate 대기 없이 바로 사용
-        COPIER_CACHE.replace(key, stub, real);
+            // 3) 스텁을 실제 구현으로 연결
+            stub.set(real);
 
-        return real;
+            // 4) 캐시를 완성품으로 교체(선택적이지만 권장) — 이후 조회는 delegate 대기 없이 바로 사용
+            COPIER_CACHE.replace(key, stub, real);
+
+            return real;
+        } catch (Throwable t) {
+            // 4)-A. 캐시에서 실패한 스텁을 제거하여 다른 쓰레드의 재시도 유도
+            COPIER_CACHE.remove(key, stub);
+
+            // 4)-B. (필수) 대기 중인 쓰레드에게 실패를 알리고 해제
+            // stub.fail() 호출로 ready.countDown()이 실행되어 무한 대기를 해소하고,
+            // 대기 쓰레드는 accept()에서 t 예외를 던지게 됨.
+            stub.fail(t);
+
+            throw t; // 원래 예외를 호출자에게 전파
+        }
     }
 
     /**
@@ -1570,6 +1604,12 @@ public class ObjectTransformer {
     static final class CopierStub implements BiConsumer<Object, Object> {
         private final CountDownLatch ready = new CountDownLatch(1);
         volatile BiConsumer<Object, Object> delegate;
+        /**
+         * 초기화 실패시 예외 저장용<br>
+         * 
+         * @since 2025. 10. 2.
+         */
+        volatile Throwable initializationError;
 
         @Override
         public void accept(Object dst, Object src) {
@@ -1577,13 +1617,23 @@ public class ObjectTransformer {
                 ready.await();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+                throw new RuntimeException("CopierStub 대기 중 Interrupt 발생", e);
             }
+
+            if (initializationError != null) {
+                throw new RuntimeException("CopierStub 초기화 실패: 빌더 함수 실행 중 예외 발생", initializationError);
+            }
+
             delegate.accept(dst, src);
         }
 
         void set(BiConsumer<Object, Object> real) {
             this.delegate = real;
+            this.ready.countDown();
+        }
+
+        void fail(Throwable error) {
+            this.initializationError = error;
             this.ready.countDown();
         }
     }

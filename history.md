@@ -1,3 +1,9 @@
+[2025/10/02]
+- Bugfix
+  + open.commons.core.utils.ObjectTransformer: CountDownLatch 카운터 관리 실패로 인한 무한대기 수정
+    + open.commons.core.utils.ObjectTransformer.CopierStub
+    + open.commons.core.utils.ObjectTransformer.getOrBuildCopier(CopierKey, Supplier&lt;BiConsumer&lt;Object, Object&gt;&gt;)
+
 [2025/10/01]
 - Add
   + open.commons.core.utils.ConcurrentUtils
