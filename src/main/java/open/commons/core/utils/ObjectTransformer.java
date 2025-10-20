@@ -248,7 +248,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcClass
@@ -572,7 +572,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param src
@@ -633,7 +633,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param b
@@ -676,7 +676,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param b
@@ -721,7 +721,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param b
@@ -770,7 +770,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param b
@@ -813,7 +813,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param b
@@ -941,8 +941,8 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 5.		박준홍			최초 작성
-     * 2025. 10. 2.     박준홍         try-catch-finally 구조와 실패 처리 적용
+     * 2025. 9. 5.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 10. 2.     parkjunhong77@gmail.com         try-catch-finally 구조와 실패 처리 적용
      * </pre>
      *
      * @param key

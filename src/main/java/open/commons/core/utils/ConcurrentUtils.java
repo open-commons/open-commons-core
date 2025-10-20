@@ -56,7 +56,7 @@ public class ConcurrentUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 30.		박준홍			최초 작성
+     * 2025. 9. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -84,7 +84,7 @@ public class ConcurrentUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 30.		박준홍			최초 작성
+     * 2025. 9. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <T>
@@ -119,7 +119,7 @@ public class ConcurrentUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 10. 1.		박준홍			최초 작성
+     * 2025. 10. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -145,7 +145,7 @@ public class ConcurrentUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 10. 1.		박준홍			최초 작성
+     * 2025. 10. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -179,7 +179,7 @@ public class ConcurrentUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 10. 1.		박준홍			최초 작성
+     * 2025. 10. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <U>

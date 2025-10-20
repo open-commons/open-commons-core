@@ -48,7 +48,7 @@ public class TransformationFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param srcClass
@@ -71,7 +71,7 @@ public class TransformationFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param srcClass
@@ -95,7 +95,7 @@ public class TransformationFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param srcClass
@@ -120,7 +120,7 @@ public class TransformationFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param srcClass
@@ -149,7 +149,7 @@ public class TransformationFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param cause
@@ -170,7 +170,7 @@ public class TransformationFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param srcClass

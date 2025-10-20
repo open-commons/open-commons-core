@@ -93,7 +93,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param setter
@@ -154,7 +154,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param rs
@@ -203,7 +203,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param entityType
@@ -330,7 +330,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param lookup
@@ -409,7 +409,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param ctor
@@ -441,7 +441,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param lookup
@@ -476,7 +476,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param lookup
@@ -505,7 +505,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param lookup
@@ -531,7 +531,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -593,7 +593,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param rs
@@ -627,7 +627,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param lookup
@@ -754,7 +754,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param type
@@ -801,7 +801,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param c
@@ -837,7 +837,7 @@ public class ResultSetTransformer {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 8.		박준홍			최초 작성
+     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param lookup
