@@ -3675,7 +3675,7 @@ public class CollectionUtils {
      * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -3717,7 +3717,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 2. 8.
      */
-    public static <E, K, V, @Nonnull M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
+    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
         return (M) toMap(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -3774,7 +3774,7 @@ public class CollectionUtils {
      * 
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, K, V, @Nonnull M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen,
+    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen,
             Class<M> mapClass) {
         return (M) toMap(col, keyGen, valueGen, mapClass, ArrayList.class);
     }
@@ -3838,7 +3838,7 @@ public class CollectionUtils {
      * 
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, K, V, C extends Collection<V>, @Nonnull M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen,
+    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen,
             @Nonnull Function<E, V> valueGen, Class<M> mapClass, Class<C> colClass) {
 
         M map = null;
@@ -3907,7 +3907,7 @@ public class CollectionUtils {
      * 
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, K, V, C extends Collection<V>, @Nonnull M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen,
+    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen,
             @Nonnull Function<E, V> valueGen, @Nonnull M map, Class<C> colClass) {
 
         K key = null;
@@ -3961,7 +3961,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map) {
+    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map) {
 
         for (E v : col) {
             map.put(keyGen.apply(v), v);
@@ -4008,7 +4008,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyMapper, @Nonnull Supplier<M> mapSupplier) {
+    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyMapper, @Nonnull Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, d -> d, (d1, d2) -> d2, (Supplier<M>) mapSupplier);
     }
 
@@ -4073,7 +4073,7 @@ public class CollectionUtils {
      * 
      * @deprecated Use {@link #toMap(Collection, Function, Class)}, if supports JDK 1.8 or higher.
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -4188,7 +4188,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, @Nonnull M extends Map<K, U>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
             @Nonnull Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, mergeFunction, transformer, mapSupplier);
     }
@@ -4222,7 +4222,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, @Nonnull M extends Map<K, V>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
+    public static <K, V, M extends Map<K, V>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
             @Nonnull Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, d -> d, mergeFunction, mapSupplier);
     }
@@ -4297,7 +4297,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, @Nonnull M extends Map<K, U>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction,
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction,
             @Nonnull BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
@@ -4381,7 +4381,7 @@ public class CollectionUtils {
      * 
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -4436,7 +4436,7 @@ public class CollectionUtils {
      * 
      *             <font color="red">다음 배포시 삭제 예정</font>
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map) {
+    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map) {
 
         E v = null;
 
@@ -4511,7 +4511,7 @@ public class CollectionUtils {
      * 
      * @deprecated Use {@link #toMap(Enumeration, Function, Class)}, if supports JDK 1.8 or higher.
      */
-    public static <E, K, @Nonnull M extends Map<K, E>> M toMap(Enumeration<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
+    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -4561,8 +4561,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen,
-            @Nonnull BiFunction<E, Integer, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -4597,128 +4596,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen,
-            @Nonnull BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
-        M map = null;
-
-        try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return toMapHSV(col, keyGen, valueGen, map);
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            새로운 데이터 변환 함수
-     * @param map
-     *            an instance of a {@link Map}.
-     * @return
-     *
-     * @since 2020. 1. 30.
-     * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen,
-            @Nonnull BiFunction<E, Integer, V> valueGen, M map) {
-
-        int i = 0;
-        for (E e : col) {
-            map.put(keyGen.apply(e, i), valueGen.apply(e, i));
-            i++;
-        }
-
-        return map;
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            새로운 데이터 변환 함수
-     * @return
-     *
-     * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen) {
-        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            새로운 데이터 변환 함수
-     * @param mapClass
-     *            a sub-{@link Class} of a {@link Map}.
-     * @return
-     *
-     * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
             Class<M> mapClass) {
         M map = null;
 
@@ -4763,7 +4641,128 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
+            M map) {
+
+        int i = 0;
+        for (E e : col) {
+            map.put(keyGen.apply(e, i), valueGen.apply(e, i));
+            i++;
+        }
+
+        return map;
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            데이터 식별정보 유형 a type of a key.
+     * @param <V>
+     *            데이터 유형 a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            데이터 식별정보 제공 함수.
+     * @param valueGen
+     *            새로운 데이터 변환 함수
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen) {
+        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            데이터 식별정보 유형 a type of a key.
+     * @param <V>
+     *            데이터 유형 a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            데이터 식별정보 제공 함수.
+     * @param valueGen
+     *            새로운 데이터 변환 함수
+     * @param mapClass
+     *            a sub-{@link Class} of a {@link Map}.
+     * @return
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
+            Class<M> mapClass) {
+        M map = null;
+
+        try {
+            map = mapClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return toMapHSV(col, keyGen, valueGen, map);
+    }
+
+    /**
+     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            데이터 식별정보 유형 a type of a key.
+     * @param <V>
+     *            데이터 유형 a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            데이터 식별정보 제공 함수.
+     * @param valueGen
+     *            새로운 데이터 변환 함수
+     * @param map
+     *            an instance of a {@link Map}.
+     * @return
+     *
+     * @since 2020. 1. 30.
+     * @version 1.6.17
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
             @Nonnull M map) {
 
         int i = 0;
@@ -4804,7 +4803,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -4839,7 +4838,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
             Class<M> mapClass) {
         M map = null;
 
@@ -4886,7 +4885,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
             @Nonnull M map) {
 
         int i = 0;
@@ -4927,7 +4926,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 15.
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -4962,8 +4961,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 15.
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen,
-            Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen, Class<M> mapClass) {
 
         M map = null;
 
@@ -5010,7 +5008,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, @Nonnull M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen, @Nonnull M map) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen, @Nonnull M map) {
         for (E e : col) {
             map.put(keyGen.apply(e), valueGen.apply(e));
         }
