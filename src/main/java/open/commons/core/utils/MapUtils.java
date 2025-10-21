@@ -41,6 +41,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
+
 /**
  * 
  * @since 2015. 1. 6.
@@ -58,7 +60,31 @@ public class MapUtils {
     }
 
     /**
-     * 2개이 {@link Map}을 하나의 {@link List}로 병합하여 {@link Stream} 형태로 제공합니다. <br>
+     * {@link Collection} 형태의 값을 갖는 {@link Map} 정보를 하나의 1차원 형태의 {@link Stream}으로 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 10. 21.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <K>
+     * @param <V>
+     * @param multi
+     * @return
+     *
+     * @since 2025. 10. 21.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <K, V> Stream<V> flat(@Nonnull Map<K, ? extends Collection<V>> multi) {
+        AssertUtils2.notNulls(multi);
+        return multi.values().stream().flatMap(Collection::stream);
+    }
+
+    /**
+     * 2개의 {@link Map}을 하나의 {@link List}로 병합하여 {@link Stream} 형태로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -77,11 +103,11 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Stream<V> flat(Map<K, V> single, Map<K, List<V>> multi) {
+    public static <K, V> Stream<V> flat(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi) {
         AssertUtils2.notNulls(single, multi);
         return Stream //
                 .of(single.values().stream() //
-                        , multi.values().stream().flatMap(List::stream) //
+                        , multi.values().stream().flatMap(Collection::stream) //
                 ) //
                 .flatMap(s -> s);
     }
@@ -114,7 +140,7 @@ public class MapUtils {
      * @since 2020. 10. 23.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <K, V> V getOrDefault(Map<K, V> map, K key, Supplier<V> defaultValue, boolean insertIfNot) {
+    public static <K, V> V getOrDefault(@Nonnull Map<K, V> map, K key, @Nonnull Supplier<V> defaultValue, boolean insertIfNot) {
 
         V v = map.get(key);
         if (v != null) {
@@ -159,7 +185,7 @@ public class MapUtils {
      * 
      * @see Map#getOrDefault(Object, Object)
      */
-    public static <K, V> V getOrDefault(Map<K, V> map, K key, V defaultValue, boolean insertIfNot) {
+    public static <K, V> V getOrDefault(@Nonnull Map<K, V> map, K key, V defaultValue, boolean insertIfNot) {
         V v = map.getOrDefault(key, defaultValue);
 
         if (!map.containsKey(key) && insertIfNot) {
@@ -190,7 +216,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> boolean isNullOrEmpty(Map<K, V> map) {
+    public static <K, V> boolean isNullOrEmpty(@Nonnull Map<K, V> map) {
         return map == null || map.size() < 1;
     }
 
@@ -299,8 +325,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, NV, M extends Map<NK, List<NV>>> M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction,
-            Supplier<M> mapSupplier) {
+    public static <K, V, NK, NV, M extends Map<NK, List<NV>>> M map(@Nonnull Map<K, V> map, @Nonnull Function<Entry<K, V>, NK> keyMapper,
+            @Nonnull Function<Entry<K, V>, NV> valueFunction, @Nonnull Supplier<M> mapSupplier) {
         return map(map, keyMapper, valueFunction, mapSupplier, (Supplier<List<NV>>) ArrayList::new);
     }
 
@@ -343,8 +369,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction,
-            Supplier<M> mapSupplier, Supplier<C> colSupplier) {
+    public static <K, V, NK, NV, C extends Collection<NV>, M extends Map<NK, C>> M map(@Nonnull Map<K, V> map, @Nonnull Function<Entry<K, V>, NK> keyMapper,
+            @Nonnull Function<Entry<K, V>, NV> valueFunction, @Nonnull Supplier<M> mapSupplier, @Nonnull Supplier<C> colSupplier) {
         AssertUtils2.notNulls(map, keyMapper, valueFunction, mapSupplier, colSupplier);
         return map.entrySet().stream() //
                 .collect(Collectors.groupingBy( //
@@ -381,7 +407,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U> Map<K, U> map(Map<K, V> map, Function<V, U> transformer) {
+    public static <K, V, U> Map<K, U> map(@Nonnull Map<K, V> map, @Nonnull Function<V, U> transformer) {
         return map(map, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
@@ -414,7 +440,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M map(Map<K, V> map, Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M map(@Nonnull Map<K, V> map, @Nonnull Function<V, U> transformer, @Nonnull Supplier<M> mapSupplier) {
         return map.entrySet().stream() //
                 .collect(Collectors.toMap( //
                         Map.Entry::getKey //
@@ -453,7 +479,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK> Map<NK, V> map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> Map<NK, V> map(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull BinaryOperator<V> mergeFunction) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, d -> d, mergeFunction, (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
     }
 
@@ -490,7 +517,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, U> Map<NK, U> map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
+    public static <K, V, NK, U> Map<NK, U> map(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Function<V, U> transformer) {
         return map(single, multi, keyMapper, mergeFunction, transformer, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
     }
 
@@ -529,8 +557,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, U, M extends Map<NK, U>> M map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K, V, NK, U, M extends Map<NK, U>> M map(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Function<V, U> transformer, @Nonnull Supplier<M> mapSupplier) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, mergeFunction, transformer, mapSupplier);
     }
 
@@ -565,8 +593,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, M extends Map<NK, V>> M map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<M> mapSupplier) {
+    public static <K, V, NK, M extends Map<NK, V>> M map(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Supplier<M> mapSupplier) {
         return map(single, multi, keyMapper, d -> d, mergeFunction, mapSupplier);
     }
 
@@ -604,8 +632,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, U, M> Map<NK, U> map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction) {
+    public static <K, V, NK, U, M> Map<NK, U> map(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull Function<V, U> valueFunction, @Nonnull BinaryOperator<U> mergeFunction) {
         return map(single, multi, keyMapper, valueFunction, mergeFunction, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
     }
 
@@ -646,8 +674,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, U, M extends Map<NK, U>> M map(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+    public static <K, V, NK, U, M extends Map<NK, U>> M map(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            Function<V, U> valueFunction, @Nonnull BinaryOperator<U> mergeFunction, @Nonnull Supplier<M> mapSupplier) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -687,7 +715,7 @@ public class MapUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NV> Map<K, NV> merge(Map<K, V> bucket, Map<K, V> newData, BiFunction<V, V, NV> aggrValue, Map<K, NV> newBucket) {
+    public static <K, V, NV> Map<K, NV> merge(@Nonnull Map<K, V> bucket, @Nonnull Map<K, V> newData, @Nonnull BiFunction<V, V, NV> aggrValue, Map<K, NV> newBucket) {
         if (newBucket == null) {
             newBucket = new HashMap<K, NV>();
         }
@@ -764,7 +792,7 @@ public class MapUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2017. 10. 18.
      */
-    public static <K, V> Map<K, V> read(Map<K, V> map, int readCount) {
+    public static <K, V> Map<K, V> read(@Nonnull Map<K, V> map, int readCount) {
 
         Map<K, V> read = new HashMap<>();
 
@@ -835,8 +863,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, COL extends Collection<V>> COL toCollection(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<COL> collectionFactory) {
+    public static <K, V, NK, COL extends Collection<V>> COL toCollection(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi,
+            @Nonnull Function<V, NK> keyMapper, @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Supplier<COL> collectionFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, collectionFactory);
     }
 
@@ -873,8 +901,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, COL extends Collection<V>> COL toCollection(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K, V, NK, COL extends Collection<V>> COL toCollection(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi,
+            @Nonnull Function<V, NK> keyMapper, Function<V, V> valueMapper, @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Supplier<COL> collectionFactory) {
         return StreamUtils.toCollection(flat(single, multi), keyMapper, valueMapper, mergeFunction, collectionFactory);
     }
 
@@ -902,7 +930,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Map<K, V> single, Map<K, List<V>> multi, Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>> COL toCollection(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi,
+            @Nonnull Supplier<COL> collectionFactory) {
         AssertUtils2.notNulls(single, multi, collectionFactory);
         return flat(single, multi).collect(Collectors.toCollection(collectionFactory));
     }
@@ -927,7 +956,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> List<V> toList(Map<K, V> single, Map<K, List<V>> multi) {
+    public static <K, V> List<V> toList(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi) {
         return toCollection(single, multi, ArrayList<V>::new);
     }
 
@@ -958,7 +987,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK> List<V> toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> List<V> toList(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, ArrayList<V>::new);
     }
 
@@ -993,8 +1023,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, LIST extends List<V>> LIST toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<LIST> listFactory) {
+    public static <K, V, NK, LIST extends List<V>> LIST toList(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            BinaryOperator<V> mergeFunction, @Nonnull Supplier<LIST> listFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, listFactory);
     }
 
@@ -1029,7 +1059,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK> List<V> toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> List<V> toList(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull Function<V, V> valueMapper, @Nonnull BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, ArrayList<V>::new);
     }
 
@@ -1066,8 +1097,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, LIST extends List<V>> LIST toList(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
+    public static <K, V, NK, LIST extends List<V>> LIST toList(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull Function<V, V> valueMapper, @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Supplier<LIST> listFactory) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, listFactory);
     }
 
@@ -1091,7 +1122,7 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Set<V> toSet(Map<K, V> single, Map<K, List<V>> multi) {
+    public static <K, V> Set<V> toSet(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi) {
         return toCollection(single, multi, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -1122,7 +1153,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK> Set<V> toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> Set<V> toSet(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -1157,8 +1189,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, SET extends Set<V>> SET toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<SET> setFactory) {
+    public static <K, V, NK, SET extends Set<V>> SET toSet(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            BinaryOperator<V> mergeFunction, @Nonnull Supplier<SET> setFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, setFactory);
     }
 
@@ -1193,7 +1225,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK> Set<V> toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K, V, NK> Set<V> toSet(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            @Nonnull Function<V, V> valueMapper, @Nonnull BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -1231,8 +1264,8 @@ public class MapUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, NK, SET extends Set<V>> SET toSet(Map<K, V> single, Map<K, List<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
+    public static <K, V, NK, SET extends Set<V>> SET toSet(@Nonnull Map<K, V> single, @Nonnull Map<K, ? extends Collection<V>> multi, @Nonnull Function<V, NK> keyMapper,
+            Function<V, V> valueMapper, @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Supplier<SET> setFactory) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, setFactory);
     }
 

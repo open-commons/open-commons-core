@@ -44,6 +44,8 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
+
 /**
  * 'deprecated' 된 메소드들은 {@link FunctionUtils}를 통해서 제공됩니다.
  * 
@@ -135,7 +137,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+    public static <E, NE, COL extends Collection<NE>> COL toCollection(@Nonnull Stream<E> stream, @Nonnull Function<E, NE> transformer, @Nonnull Supplier<COL> collectionSupplier) {
         return toCollection(stream, TRUE(), transformer, collectionSupplier);
     }
 
@@ -169,7 +171,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+    public static <E, NE, COL extends Collection<NE>> COL toCollection(@Nonnull Stream<E> stream, @Nonnull Predicate<E> filter, @Nonnull Function<E, NE> transformer,
+            @Nonnull Supplier<COL> collectionSupplier) {
         AssertUtils2.notNulls(stream, filter, transformer, collectionSupplier);
         return stream.filter(filter).map(transformer).collect(Collectors.toCollection(collectionSupplier));
     }
@@ -200,7 +203,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, COL extends Collection<E>> COL toCollection(Stream<E> stream, Predicate<E> filter, Supplier<COL> collectionSupplier) {
+    public static <E, COL extends Collection<E>> COL toCollection(@Nonnull Stream<E> stream, @Nonnull Predicate<E> filter, @Nonnull Supplier<COL> collectionSupplier) {
         return toCollection(stream, filter, ID(), collectionSupplier);
     }
 
@@ -228,7 +231,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, COL extends Collection<E>> COL toCollection(Stream<E> stream, Supplier<COL> collectionSupplier) {
+    public static <E, COL extends Collection<E>> COL toCollection(@Nonnull Stream<E> stream, @Nonnull Supplier<COL> collectionSupplier) {
         return toCollection(stream, TRUE(), ID(), collectionSupplier);
     }
 
@@ -265,8 +268,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
-            Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>> COL toCollection(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
         return toCollection(stream, TRUE(), keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
@@ -307,8 +310,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper,
+            @Nonnull Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, @Nonnull Supplier<M> mapSupplier, @Nonnull Supplier<COL> collectionFactory) {
         return toCollection(stream, TRUE(), keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
     }
 
@@ -347,8 +350,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>> COL toCollection(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
+            @Nonnull Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, @Nonnull Supplier<COL> collectionFactory) {
         return toCollection(stream, filter, keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
@@ -391,8 +394,9 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper,
-            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter,
+            @Nonnull Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, @Nonnull Supplier<M> mapSupplier,
+            @Nonnull Supplier<COL> collectionFactory) {
         AssertUtils2.notNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
         return stream//
                 .filter(filter) //
@@ -432,7 +436,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
+    public static <E, NE> List<NE> toList(@Nonnull Stream<E> stream, @Nonnull Function<E, NE> transformer) {
         return toCollection(stream, TRUE(), transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
@@ -464,7 +468,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, LIST extends List<NE>> LIST toList(Stream<E> stream, Function<E, NE> transformer, Supplier<LIST> listSupplier) {
+    public static <E, NE, LIST extends List<NE>> LIST toList(@Nonnull Stream<E> stream, @Nonnull Function<E, NE> transformer, @Nonnull Supplier<LIST> listSupplier) {
         return toCollection(stream, TRUE(), transformer, listSupplier);
     }
 
@@ -496,7 +500,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE> List<NE> toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
+    public static <E, NE> List<NE> toList(@Nonnull Stream<E> stream, @Nonnull Predicate<E> filter, @Nonnull Function<E, NE> transformer) {
         return toCollection(stream, filter, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
@@ -530,7 +534,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, LIST extends List<NE>> LIST toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<LIST> listSupplier) {
+    public static <E, NE, LIST extends List<NE>> LIST toList(@Nonnull Stream<E> stream, @Nonnull Predicate<E> filter, @Nonnull Function<E, NE> transformer,
+            @Nonnull Supplier<LIST> listSupplier) {
         return toCollection(stream, filter, transformer, listSupplier);
     }
 
@@ -569,8 +574,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
-            Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            @Nonnull Function<V, U> transformer, Supplier<M> mapSupplier) {
         return toMap(stream, TRUE(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
@@ -611,8 +616,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
-            Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            @Nonnull Function<V, U> transformer, Supplier<M> mapSupplier, @Nonnull Supplier<? extends Map<K, V>> mergeMapSupplier) {
         return toMap(stream, TRUE(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
     }
 
@@ -646,7 +651,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction) {
+    public static <K, V, U> Map<K, List<U>> toMap(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction) {
         return toMap(stream, TRUE(), keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
     }
 
@@ -687,8 +692,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction,
-            Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return toMap(stream, TRUE(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -726,7 +731,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, List<U>>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, List<U>>> M toMap(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction,
+            @Nonnull Supplier<M> mapSupplier) {
         return toMap(stream, keyMapper, valueFunction, mapSupplier, (Supplier<List<U>>) ArrayList<U>::new);
     }
 
@@ -768,8 +774,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
+    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(@Nonnull Stream<V> stream, @Nonnull Function<V, K> keyMapper,
+            @Nonnull Function<V, U> valueFunction, Supplier<M> mapSupplier, @Nonnull Supplier<COL> collectionSupplier) {
         return toMap(stream, TRUE(), keyMapper, valueFunction, mapSupplier, collectionSupplier);
     }
 
@@ -810,8 +816,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
+            BinaryOperator<V> mergeFunction, Function<V, U> transformer, @Nonnull Supplier<M> mapSupplier) {
         return toMap(stream, filter, keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
@@ -854,8 +860,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
+            BinaryOperator<V> mergeFunction, Function<V, U> transformer, @Nonnull Supplier<M> mapSupplier, @Nonnull Supplier<? extends Map<K, V>> mergeMapSupplier) {
         AssertUtils2.notNulls(transformer, mapSupplier);
         return toMap(stream, filter, keyMapper, ID(), mergeFunction, mergeMapSupplier) //
                 .entrySet().stream() //
@@ -901,7 +907,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction) {
+    public static <K, V, U> Map<K, List<U>> toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
+            @Nonnull Function<V, U> valueFunction) {
         return toMap(stream, filter, keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
     }
 
@@ -944,8 +951,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
+            @Nonnull Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, @Nonnull Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
         return stream//
                 .filter(filter) //
@@ -1004,8 +1011,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
+    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
+            @Nonnull Function<V, U> valueFunction, Supplier<M> mapSupplier, @Nonnull Supplier<COL> collectionSupplier) {
         AssertUtils2.notNulls(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);
         return stream //
                 .filter(filter) //
@@ -1044,7 +1051,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
+    public static <E, NE> Set<NE> toSet(@Nonnull Stream<E> stream, @Nonnull Function<E, NE> transformer) {
         return toCollection(stream, TRUE(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
@@ -1076,7 +1083,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, SET extends Set<NE>> SET toSet(Stream<E> stream, Function<E, NE> transformer, Supplier<SET> setSupplier) {
+    public static <E, NE, SET extends Set<NE>> SET toSet(@Nonnull Stream<E> stream, @Nonnull Function<E, NE> transformer, @Nonnull Supplier<SET> setSupplier) {
         return toCollection(stream, TRUE(), transformer, setSupplier);
     }
 
@@ -1108,7 +1115,7 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE> Set<NE> toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
+    public static <E, NE> Set<NE> toSet(@Nonnull Stream<E> stream, @Nonnull Predicate<E> filter, @Nonnull Function<E, NE> transformer) {
         return toCollection(stream, filter, transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
@@ -1142,7 +1149,8 @@ public class StreamUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, SET extends Set<NE>> SET toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<SET> setSupplier) {
+    public static <E, NE, SET extends Set<NE>> SET toSet(@Nonnull Stream<E> stream, @Nonnull Predicate<E> filter, @Nonnull Function<E, NE> transformer,
+            @Nonnull Supplier<SET> setSupplier) {
         return toCollection(stream, filter, transformer, setSupplier);
     }
 

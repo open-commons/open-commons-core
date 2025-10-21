@@ -1,3 +1,10 @@
+[2025/10/21]
+- Modify
+  + 제너릭 반환 타입 일치 및 @Nonnull 추가
+    + open.commons.core.utils.CollectionUtils
+    + open.commons.core.utils.MapUtils
+    + open.commons.core.utils.StreamUtils
+
 [2025/10/02]
 - Bugfix
   + open.commons.core.utils.ObjectTransformer: CountDownLatch 카운터 관리 실패로 인한 무한대기 수정
