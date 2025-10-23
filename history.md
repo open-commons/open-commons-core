@@ -1,3 +1,7 @@
+[2025/10/23]
+- New
+ + open.commons.core.function.ThrowableFunction&lt;T, R&gt;
+
 [2025/10/21]
 - Modify
   + 제너릭 반환 타입 일치 및 @Nonnull 추가
