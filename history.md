@@ -1,3 +1,11 @@
+[2025/11/24]
+- Add
+  + open.commons.core.utils.ObjectUtils: 값이 null인 경우 기본값 제공 함수 추가.
+    + open.commons.core.utils.ObjectUtils.getOrDefault(T, Function&lt;T, R&gt;, R)
+    + open.commons.core.utils.ObjectUtils.getOrDefault(T, Function&lt;T, R&gt;, Supplier&lt;R&gt;)
+    + open.commons.core.utils.ObjectUtils.getOrDefault(T, Supplier&lt;T&gt;)
+    + open.commons.core.utils.ObjectUtils.getOrDefault(T, T)
+
 [2025/10/23]
 - New
  + open.commons.core.function.ThrowableFunction&lt;T, R&gt;

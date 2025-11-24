@@ -42,6 +42,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import javax.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -330,6 +332,112 @@ public class ObjectUtils {
      */
     public static boolean containsNull(Object... array) {
         return containsNull(false, array);
+    }
+
+    /**
+     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>sup.get()</code>)을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 11. 24.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     * @param o
+     *            사용하려는 데이터를 포함하고 있는 객체
+     * @param manipulator
+     *            사용하려는 데이터를 제공하는 함수
+     * @param defaultValue
+     *            기본값
+     * @return
+     *
+     * @since 2025. 11. 24.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, R> R getOrDefault(T o, @Nonnull Function<T, R> manipulator, @Nonnull R defaultValue) {
+        return o != null ? manipulator.apply(o) : defaultValue;
+    }
+
+    /**
+     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>sup.get()</code>)을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 11. 24.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     * @param o
+     *            사용하려는 데이터를 포함하고 있는 객체
+     * @param manipulator
+     *            사용하려는 데이터를 제공하는 함수
+     * @param sup
+     *            기본값을 제공하는 함수.
+     * @return
+     *
+     * @since 2025. 11. 24.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T, R> R getOrDefault(T o, @Nonnull Function<T, R> manipulator, @Nonnull Supplier<R> sup) {
+        return o != null ? manipulator.apply(o) : sup.get();
+    }
+
+    /**
+     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>sup.get()</code>)을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 11. 24.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param o
+     *            사용하려는 데이터.
+     * @param sup
+     *            기본값을 제공하는 함수.
+     * @return
+     *
+     * @since 2025. 11. 24.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T getOrDefault(T o, @Nonnull Supplier<T> sup) {
+        return o != null ? o : sup.get();
+    }
+
+    /**
+     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>defaultValue</code>)을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 11. 24.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param o
+     *            사용하려는 데이터.
+     * @param defaultValue
+     *            기본값
+     * @return
+     *
+     * @since 2025. 11. 24.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <T> T getOrDefault(T o, T defaultValue) {
+        return o != null ? o : defaultValue;
     }
 
     /**
