@@ -111,7 +111,5 @@ local.properties
 .scala_dependencies
 .worksheet
 
-
-
-mvn-deploy.sh
-
+# VSCode 환경설정
+.vscode
