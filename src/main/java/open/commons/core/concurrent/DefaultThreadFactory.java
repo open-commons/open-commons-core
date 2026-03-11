@@ -30,24 +30,71 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * JDK 25 환경에 최적화된 ThreadFactory 구현체입니다. *
  * 
+ * <pre>
+ * [개정이력]
+ * 날짜      | 작성자   |   내용
+ * ------------------------------------------
+ * 2017. 9. 12.         parkjunhong77@gmail.com         최초 작성 (JDK 8)
+ * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: SecurityManager 제거 및 Thread.Builder 적용
+ * </pre>
+ *
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2017. 9. 12.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @version 3.0.0
  */
 public class DefaultThreadFactory implements ThreadFactory {
 
-    /**
-     * The default thread factory
-     */
     private static final AtomicInteger poolNumber = new AtomicInteger(1);
-    private final ThreadGroup group;
+
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private final String namePrefix;
+    private final ThreadType threadType;
+    private final ThreadGroup group;
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 2. 26.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param monitor
+     *
+     * @since 2017. 9.12
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     public DefaultThreadFactory(String monitor) {
-        SecurityManager s = System.getSecurityManager();
-        group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
-        namePrefix = "<" + monitor + "> pool-" + poolNumber.getAndIncrement() + "-thread-";
+        this(monitor, ThreadType.VIRTUAL);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 2. 26.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param monitor
+     * @param threadType
+     *
+     * @since 2026. 2. 26.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public DefaultThreadFactory(String monitor, ThreadType threadType) {
+        this.threadType = threadType;
+        this.group = Thread.currentThread().getThreadGroup();
+        this.namePrefix = String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), poolNumber.getAndIncrement());
     }
 
     /**
@@ -56,12 +103,24 @@ public class DefaultThreadFactory implements ThreadFactory {
      */
     @Override
     public Thread newThread(Runnable r) {
-        Thread t = new Thread(group, r, namePrefix + threadNumber.getAndIncrement(), 0);
-        if (t.isDaemon())
-            t.setDaemon(false);
-        if (t.getPriority() != Thread.NORM_PRIORITY)
-            t.setPriority(Thread.NORM_PRIORITY);
-        return t;
+        String threadName = namePrefix + threadNumber.getAndIncrement();
+
+        return switch (threadType) {
+            // 1. 가상 스레드 생성 (Loom)
+            case VIRTUAL -> Thread.ofVirtual() //
+                    .name(threadName) //
+                    .unstarted(r);
+            // 2. 플랫폼 스레드 생성 (Classic)
+            case PLATFORM -> Thread.ofPlatform() //
+                    .group(group) //
+                    .name(threadName) //
+                    .daemon(false) //
+                    .priority(Thread.NORM_PRIORITY).unstarted(r);
+        };
+    }
+
+    public enum ThreadType {
+        PLATFORM, VIRTUAL
     }
 
 }

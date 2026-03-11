@@ -26,7 +26,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.log.LogUtils;
 import open.commons.core.utils.ArrayUtils;
 
 /**
@@ -270,7 +269,7 @@ public class FileRecursiveHandler {
                     handle.handleFile(file);
                 }
             } catch (Exception ex) {
-                addErrorLog(ex.getLocalizedMessage() + ", file: " + file.getAbsolutePath() + "\n" + LogUtils.logCallStack());
+                addErrorLog(ex.getLocalizedMessage() + ", file: " + file.getAbsolutePath());
             }
         }
     }

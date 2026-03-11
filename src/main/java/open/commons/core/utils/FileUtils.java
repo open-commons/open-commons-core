@@ -24,13 +24,10 @@ import java.io.Closeable;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.nio.file.CopyOption;
 import java.nio.file.FileVisitOption;
 import java.nio.file.FileVisitResult;
@@ -39,6 +36,7 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -61,7 +59,9 @@ import org.slf4j.LoggerFactory;
 import open.commons.core.io.Consumers;
 
 /**
- * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
+ * 
+ * @since 2019. 8. 8.
+ * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
  */
 public class FileUtils {
@@ -138,49 +138,46 @@ public class FileUtils {
 
     /**
      * 
-     * @param inStream
-     *            원본 파일
-     * @param srcEncoding
-     *            원본 파일 인코딩
-     * @param outStream
-     *            대상 파일
-     * @param targetEncoding
-     *            대상 파일 인코딩
-     * @return
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 8. 8.          parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param src
+     * @param target
      * @throws IOException
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static boolean converEnconding(InputStream inStream, String srcEncoding, OutputStream outStream, String targetEncoding) throws IOException {
-
-        InputStreamReader isr = null;
-        OutputStreamWriter osw = null;
-
-        try {
-            isr = new InputStreamReader(inStream, srcEncoding);
-
-            osw = new OutputStreamWriter(outStream, targetEncoding);
-
-            char[] buf = new char[1024];
-            int readLen = -1;
-
-            while ((readLen = isr.read(buf)) != -1) {
-                osw.write(buf, 0, readLen);
-            }
-
-            osw.flush();
-
-        } finally {
-            IOUtils.close(inStream, isr, outStream, osw);
-        }
-
-        return true;
-    }
-
     public static void copyFile(File src, File target) throws IOException {
-        IOUtils.transfer(new FileInputStream(src), new FileOutputStream(target));
+        Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 8. 8.          parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param src
+     * @param target
+     * @throws IOException
+     *
+     * @since 2019. 8. 8.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     */
     public static void copyFile(String src, String target) throws IOException {
-        IOUtils.transfer(new FileInputStream(src), new FileOutputStream(target));
+        Files.copy(Paths.get(src), Paths.get(target), StandardCopyOption.REPLACE_EXISTING);
     }
 
     /**
@@ -688,7 +685,7 @@ public class FileUtils {
      * @see #listFiles(Path, Predicate, Function)
      */
     public static Path[] listFilesAsArray(Path directory) throws IOException {
-        return listFilesAsArray(directory, p -> true);
+        return listFilesAsArray(directory, _ -> true);
     }
 
     /**
@@ -740,7 +737,7 @@ public class FileUtils {
      * @see #listFiles(Path, Predicate, Function)
      */
     public static List<Path> listFilesAsList(Path directory) throws IOException {
-        return listFilesAsList(directory, p -> true);
+        return listFilesAsList(directory, _ -> true);
     }
 
     /**
@@ -792,7 +789,7 @@ public class FileUtils {
      * @see #listFiles(Path, Predicate, Function)
      */
     public static Set<Path> listFilesAsSet(Path directory) throws IOException {
-        return listFilesAsSet(directory, p -> true);
+        return listFilesAsSet(directory, _ -> true);
     }
 
     /**

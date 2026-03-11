@@ -5,11 +5,11 @@
   <parent>
     <groupId>io.github.open-commons</groupId>
     <artifactId>open-commons-core-dependencies</artifactId>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
   <artifactId>open-commons-core</artifactId>
-  <name>Open Commons Core (Java 1.8 or higher since 1.4.7)</name>
+  <name>Open Commons Core (Java 25 or higher since 3.0.0)</name>
   <description>Open Commons Core Project</description>
   <url>https://github.com/open-commons/open-commons-core</url>
 
@@ -38,12 +38,12 @@
   </developers>
 
   <properties>
-    <encoding>UTF-8</encoding>
-    <java.version>1.8</java.version>
+<!--    <encoding>UTF-8</encoding>-->
+<!--    <java.version>1.8</java.version>-->
 
-    <compile.encoding>UTF-8</compile.encoding>
-    <compile.source.version>1.8</compile.source.version>
-    <compile.target.version>1.8</compile.target.version>
+<!--    <compile.encoding>UTF-8</compile.encoding>-->
+<!--    <compile.source.version>1.8</compile.source.version>-->
+<!--    <compile.target.version>1.8</compile.target.version>-->
 
     <!-- >>> begin: plugin dependencies -->
     <build.finalName>open-commons-core-${project.version}</build.finalName>
@@ -101,7 +101,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
+      <artifactId>log4j-slf4j2-impl</artifactId>
     </dependency>
 
     <!-- begin: slf4j -->
@@ -116,9 +116,9 @@
 
     <!-- ************** -->
     <!-- begin: OpenCSV -->
-    <!-- https://mvnrepository.com/artifact/net.sf.opencsv/opencsv -->
+    <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
     <dependency>
-      <groupId>net.sf.opencsv</groupId>
+      <groupId>com.opencsv</groupId>
       <artifactId>opencsv</artifactId>
     </dependency>
     <!-- end: OpenCSV -->
@@ -138,6 +138,16 @@
       <artifactId>jsr305</artifactId>
     </dependency>
     <!-- <<< end: Validation -->
+    <!-- ************** -->
+    
+    <!-- ************** -->
+    <!-- >>> begin: Annotation -->
+    <!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+    </dependency>
+    <!-- <<< end: Annotation -->
     <!-- ************** -->
   </dependencies>
 
@@ -166,7 +176,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <encoding>${compile.encoding}</encoding>
+          <encoding>${encoding}</encoding>
           <source>${compile.source.version}</source>
           <target>${compile.target.version}</target>
         </configuration>
@@ -177,42 +187,42 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
+<!--        <configuration>-->
+<!--          <encoding>UTF-8</encoding>-->
+<!--        </configuration>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>attach-sources</id>-->
+<!--            <goals>-->
+<!--              <goal>jar</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
       </plugin>
       <!-- <<< end: source -->
       <!-- >>> begin: javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <goal>deploy</goal>
-          <show>private</show>
-          <nohelp>true</nohelp>
-          <additionalOptions>
-            <additionalOption>-Xdoclint:none</additionalOption>
-          </additionalOptions>
-          <charset>${encoding}</charset>
-          <docencoding>${encoding}</docencoding>
-          <encoding>${encoding}</encoding>
-        </configuration>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
+<!--        <configuration>-->
+<!--          <goal>deploy</goal>-->
+<!--          <show>private</show>-->
+<!--          <nohelp>true</nohelp>-->
+<!--          <additionalOptions>-->
+<!--            <additionalOption>-Xdoclint:none</additionalOption>-->
+<!--          </additionalOptions>-->
+<!--          <charset>${encoding}</charset>-->
+<!--          <docencoding>${encoding}</docencoding>-->
+<!--          <encoding>${encoding}</encoding>-->
+<!--        </configuration>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>attach-javadocs</id>-->
+<!--            <goals>-->
+<!--              <goal>jar</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
       </plugin>
       <!-- <<< end: javadoc -->
 
@@ -220,30 +230,29 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <version>0.7.0</version>
-        <extensions>true</extensions>
-        <configuration>
-          <publishingServerId>maven-central</publishingServerId>
-          <!-- autoPublish>true</autoPublish>
-             		<waitUntil>published</waitUntil -->
-        </configuration>
+<!--        <version>0.7.0</version>-->
+<!--        <extensions>true</extensions>-->
+<!--        <configuration>-->
+<!--          <publishingServerId>maven-central</publishingServerId>-->
+<!--           autoPublish>true</autoPublish>-->
+<!--             		<waitUntil>published</waitUntil -->
+<!--        </configuration>-->
       </plugin>
       <!-- GPG signature plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.5</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
+<!--        <version>1.5</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>sign-artifacts</id>-->
+<!--            <phase>verify</phase>-->
+<!--            <goals>-->
+<!--              <goal>sign</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
       </plugin>
-
     </plugins>
   </build>
 

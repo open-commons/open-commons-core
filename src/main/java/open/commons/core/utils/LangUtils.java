@@ -26,17 +26,10 @@
 
 package open.commons.core.utils;
 
-import java.io.Closeable;
-import java.io.File;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import open.commons.core.io.Consumers;
 
 /**
  * 
@@ -44,8 +37,6 @@ import open.commons.core.io.Consumers;
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class LangUtils {
-
-    private static final Logger logger = LoggerFactory.getLogger(LangUtils.class);
 
     private static final Predicate<Object> NULL = o -> o == null;
     private static final Predicate<Object> NOT_NULL = o -> o != null;
@@ -292,36 +283,6 @@ public class LangUtils {
         }
 
         return false;
-    }
-
-    /**
-     * {@link File}을 <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @return
-     *
-     * @since 2018. 10. 26.
-     * @see Closeable
-     * @see AutoCloseable
-     * 
-     * @deprecated Use {@link FileUtils#removableFiles()} instead of.
-     */
-    public static Consumers<File> removableFiles() {
-        return new Consumers<>(f -> {
-            if (f != null) {
-                FileUtils.delete(f, true);
-
-                if (logger.isInfoEnabled()) {
-                    logger.info("[ deleted ] {}", f.getAbsolutePath());
-                }
-            }
-        });
     }
 
     /**

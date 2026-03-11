@@ -44,7 +44,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * 'deprecated' 된 메소드들은 {@link FunctionUtils}를 통해서 제공됩니다.
@@ -105,7 +105,7 @@ public class StreamUtils {
      */
     static <T> BinaryOperator<T> throwingMerger() {
         return (u, v) -> {
-            throw new IllegalStateException(String.format("Duplicate key %s", u));
+            throw new IllegalStateException(String.format("Duplicate key %s, %s", u, v));
         };
     }
 
@@ -160,12 +160,12 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
      *            데이터 변환 함수 (E => NE)
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
-     * @return
+     * @return 필터링 및 변환이 완료된 새로운 컬렉션
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
@@ -194,7 +194,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
      * @return
@@ -335,7 +335,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param valueMapper
@@ -358,12 +358,13 @@ public class StreamUtils {
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 이중 Stream 오버헤드 제거 및 addAll Bulk 최적화
      * </pre>
      *
      * @param <K>
@@ -377,37 +378,40 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수.
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V)
      * @param mapSupplier
      *            {@link Map} 객체 제공 함수
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
-     * @return
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
      * @since 2025. 8. 26.
-     * @version 2.1.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter,
-            @Nonnull Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, @Nonnull Supplier<M> mapSupplier,
-            @Nonnull Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection( //
+            @Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, //
+            @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper, //
+            @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Supplier<M> mapSupplier, //
+            @Nonnull Supplier<COL> collectionFactory //
+    ) {
         AssertUtils2.notNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
-        return stream//
-                .filter(filter) //
-                .collect( //
-                        Collectors.toMap( //
-                                keyMapper //
-                                , valueMapper //
-                                , mergeFunction //
-                                , mapSupplier)) //
-                .values().stream() //
-                .collect(Collectors.toCollection(collectionFactory));
+
+        // 1. 첫 번째 Stream을 통해 중복이 병합된 Map을 생성합니다.
+        M mergedMap = stream.filter(filter).collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction, mapSupplier));
+
+        // 2. 두 번째 Stream을 여는 대신, 객체 생성 후 Bulk 연산(addAll)을 사용하여
+        // 루프 순회 및 Spliterator 초기화 비용을 완벽히 제거합니다.
+        COL resultCollection = collectionFactory.get();
+        resultCollection.addAll(mergedMap.values());
+
+        return resultCollection;
     }
 
     /**
@@ -491,7 +495,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
      *            새로운 데이터 제공 함수
      * @return
@@ -523,7 +527,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
      *            새로운 데이터 제공 함수
      * @param listSupplier
@@ -801,7 +805,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
@@ -823,13 +827,15 @@ public class StreamUtils {
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
-     * 
+     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U)
+     * 합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 이중 스트림 오버헤드 제거 및 forEach 직접 순회 최적화
      * </pre>
      *
      * @param <K>
@@ -843,36 +849,39 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V)
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U)
      * @param mapSupplier
      *            최종 결과 {@link Map} 객체를 제공하는 함수.
      * @param mergeMapSupplier
      *            데이터를 동일한 식별정보(<code>keyMapper</code>)로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
-     * @return
+     * @return 데이터가 병합 및 변환된 새로운 맵
      *
      * @since 2025. 8. 26.
-     * @version 2.1.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
-            BinaryOperator<V> mergeFunction, Function<V, U> transformer, @Nonnull Supplier<M> mapSupplier, @Nonnull Supplier<? extends Map<K, V>> mergeMapSupplier) {
-        AssertUtils2.notNulls(transformer, mapSupplier);
-        return toMap(stream, filter, keyMapper, ID(), mergeFunction, mergeMapSupplier) //
-                .entrySet().stream() //
-                .collect(Collectors.toMap( //
-                        Map.Entry::getKey //
-                        , entry -> Objects.requireNonNull( //
-                                transformer.apply(entry.getValue()) // V => U
-                                , "transformer returned 'null'") //
-                        , (v1, v2) -> v1 // never occure.
-                        , mapSupplier //
-                ));
+    public static <K, V, U, M extends Map<K, U>> M toMap( //
+            @Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper, //
+            @Nonnull BinaryOperator<V> mergeFunction, @Nonnull Function<V, U> transformer, //
+            @Nonnull Supplier<M> mapSupplier, @Nonnull Supplier<? extends Map<K, V>> mergeMapSupplier //
+    ) {
+        AssertUtils2.notNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
+
+        // 1. 내부 처리용 Map을 먼저 완성합니다.
+        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, ID(), mergeFunction, mergeMapSupplier);
+
+        // 2. 두 번째 Stream을 생성하지 않고 직접 순회하여 타겟 Map에 값을 할당(Transformation)합니다.
+        // 불필요한 충돌(Conflict) 검사를 피하고 성능을 극대화합니다.
+        M resultMap = mapSupplier.get();
+        intermediateMap.forEach((k, v) -> resultMap.put(k, Objects.requireNonNull(transformer.apply(v), "transformer returned 'null'")));
+
+        return resultMap;
     }
 
     /**
@@ -896,7 +905,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param valueFunction
@@ -936,7 +945,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param valueFunction
@@ -945,14 +954,14 @@ public class StreamUtils {
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
      * @param mapSupplier
      *            {@link Map} 제공함수.
-     * @return
+     * @return 데이터가 변환 및 병합된 새로운 맵
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Stream<V> stream, @Nonnull Predicate<V> filter, @Nonnull Function<V, K> keyMapper,
-            @Nonnull Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, @Nonnull Supplier<M> mapSupplier) {
+            @Nonnull Function<V, U> valueFunction, @Nonnull BinaryOperator<U> mergeFunction, @Nonnull Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
         return stream//
                 .filter(filter) //
@@ -1106,7 +1115,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
      *            새로운 데이터 제공 함수
      * @return
@@ -1138,7 +1147,7 @@ public class StreamUtils {
      * @param stream
      *            데이터 제공 객체
      * @param filter
-     *            처리 제외 함수.
+     *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
      *            새로운 데이터 제공 함수
      * @param setSupplier
@@ -1155,6 +1164,6 @@ public class StreamUtils {
     }
 
     static final <T> Predicate<T> TRUE() {
-        return o -> true;
+        return _ -> true;
     }
 }

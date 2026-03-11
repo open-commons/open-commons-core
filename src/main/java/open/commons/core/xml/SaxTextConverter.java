@@ -67,7 +67,7 @@ public class SaxTextConverter {
         registerConverter(double.class.getName(), s -> Double.parseDouble(s));
 
         // primitive wrapper class
-        registerConverter(Character.class.getName(), s -> new Character(s.charAt(0)));
+        registerConverter(Character.class.getName(), s -> Character.valueOf(s.charAt(0)));
         registerConverter(Byte.class.getName(), s -> s.getBytes()[0]);
         registerConverter(Boolean.class.getName(), s -> Boolean.parseBoolean(s));
         registerConverter(Integer.class.getName(), s -> Integer.parseInt(s));

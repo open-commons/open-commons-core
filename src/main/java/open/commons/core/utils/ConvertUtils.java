@@ -288,194 +288,6 @@ public class ConvertUtils {
         }
     }
 
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(boolean[])}, instead of.
-     */
-    public static Boolean[] toArray(boolean[] arr) {
-        Boolean[] array = new Boolean[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(byte[])}, instead of.
-     */
-    public static Byte[] toArray(byte[] arr) {
-        Byte[] array = new Byte[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(char[])}, instead of.
-     */
-    public static Character[] toArray(char[] arr) {
-        Character[] array = new Character[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(double[])}, instead of.
-     */
-    public static Double[] toArray(double[] arr) {
-        Double[] array = new Double[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(float[])}, instead of.
-     */
-    public static Float[] toArray(float[] arr) {
-        Float[] array = new Float[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(int[])}, instead of.
-     */
-    public static Integer[] toArray(int[] arr) {
-        Integer[] array = new Integer[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(long[])}, instead of.
-     */
-    public static Long[] toArray(long[] arr) {
-        Long[] array = new Long[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(Object)}, instead of.
-     */
-    public static <T> T[] toArray(Object array) {
-
-        Class<?> componentType = array.getClass().getComponentType();
-
-        if (componentType.isPrimitive()) {
-
-            if (boolean.class.equals(componentType)) {
-                return (T[]) toArray((boolean[]) array);
-            }
-
-            if (byte.class.equals(componentType)) {
-                return (T[]) toArray((byte[]) array);
-            }
-
-            if (char.class.equals(componentType)) {
-                return (T[]) toArray((char[]) array);
-            }
-
-            if (short.class.equals(componentType)) {
-                return (T[]) toArray((short[]) array);
-            }
-
-            if (int.class.equals(componentType)) {
-                return (T[]) toArray((int[]) array);
-            }
-
-            if (long.class.equals(componentType)) {
-                return (T[]) toArray((long[]) array);
-            }
-
-            if (float.class.equals(componentType)) {
-                return (T[]) toArray((float[]) array);
-            }
-
-            if (double.class.equals(componentType)) {
-                return (T[]) toArray((double[]) array);
-            }
-
-            return null;
-
-        } else {
-            return (T[]) array;
-        }
-    }
-
-    /**
-     * 
-     * @param arr
-     * @return
-     * 
-     * @deprecated Use {@link ArrayUtils#toWrapperArray(short[])}, instead of.
-     */
-    public static Short[] toArray(short[] arr) {
-        Short[] array = new Short[arr.length];
-
-        for (int i = 0; i < arr.length; i++) {
-            array[i] = arr[i];
-        }
-
-        return array;
-    }
-
     public static String toJavaDocSingleLineComment(String string) {
         return "/** " + string + " */";
     }
@@ -675,28 +487,28 @@ public class ConvertUtils {
         T[] wrapperClassArray = null;
 
         if (boolean.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((boolean[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((boolean[]) array);
         } else //
         if (char.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((char[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((char[]) array);
         } else //
         if (byte.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((byte[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((byte[]) array);
         } else //
         if (short.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((short[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((short[]) array);
         } else //
         if (int.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((int[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((int[]) array);
         } else //
         if (long.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((long[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((long[]) array);
         } else //
         if (float.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((float[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((float[]) array);
         } else //
         if (double.class.equals(componentType)) {
-            wrapperClassArray = (T[]) toArray((double[]) array);
+            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((double[]) array);
         } else {
             wrapperClassArray = (T[]) array;
         }

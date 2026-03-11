@@ -26,6 +26,8 @@
 
 package open.commons.core.csv;
 
+import com.opencsv.ICSVWriter;
+
 /**
  * CSV 파일 읽기/쓰기 공통 설정
  * 
@@ -38,6 +40,18 @@ public abstract class CsvCommon {
     public static final char DEFAULT_SEPARATOR = ',';
     public static final char DEFAULT_QUOTE_CHARACTER = '"';
     public static final char DEFAULT_ESCAPE_CHARACTER = '\\';
+    /**
+     * Default line terminator.
+     * 
+     * @since 3.0.0-SNAPSHOT
+     */
+    public static final String DEFAULT_LINE_END = ICSVWriter.DEFAULT_LINE_END;
+    /**
+     * RFC 4180 compliant line terminator.
+     * 
+     * @since 3.0.0-SNAPSHOT
+     */
+    public static final String RFC4180_LINE_END = ICSVWriter.RFC4180_LINE_END;
 
     /** 데이터를 구분하는 문자 */
     protected char separator;
@@ -45,6 +59,8 @@ public abstract class CsvCommon {
     protected char quotechar;
     /** escape 문자 */
     protected char escape;
+    /** 기본 줄바꿈 문자열 */
+    protected String lineEnd;
 
     /**
      * <br>
@@ -54,6 +70,7 @@ public abstract class CsvCommon {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmai.com      {@link #DEFAULT_LINE_END} 추가
      * </pre>
      *
      *
@@ -64,9 +81,10 @@ public abstract class CsvCommon {
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
+     * @see #DEFAULT_LINE_END
      */
     public CsvCommon() {
-        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER);
+        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_LINE_END);
     }
 
     /**
@@ -77,6 +95,7 @@ public abstract class CsvCommon {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmai.com      {@link #DEFAULT_LINE_END} 추가
      * </pre>
      *
      * @param separator
@@ -87,9 +106,10 @@ public abstract class CsvCommon {
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
+     * @see #DEFAULT_LINE_END
      */
     public CsvCommon(char separator) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER);
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_LINE_END);
     }
 
     /**
@@ -100,6 +120,7 @@ public abstract class CsvCommon {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmai.com      {@link #DEFAULT_LINE_END} 추가
      * </pre>
      *
      * @param separator
@@ -110,9 +131,10 @@ public abstract class CsvCommon {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
+     * @see #DEFAULT_LINE_END
      */
     public CsvCommon(char separator, char quotechar) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER);
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_LINE_END);
     }
 
     /**
@@ -123,6 +145,7 @@ public abstract class CsvCommon {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmai.com      {@link #DEFAULT_LINE_END} 추가
      * </pre>
      *
      * @param separator
@@ -134,9 +157,34 @@ public abstract class CsvCommon {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public CsvCommon(char separator, char quotechar, char escape) {
+        this(separator, quotechar, escape, DEFAULT_LINE_END);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 2. 26.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param separator
+     * @param quotechar
+     * @param escape
+     * @param lineEnd
+     *
+     * @since 2026. 2. 26.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public CsvCommon(char separator, char quotechar, char escape, String lineEnd) {
         this.separator = separator;
         this.quotechar = quotechar;
         this.escape = escape;
+        this.lineEnd = lineEnd;
     }
 
     /**
@@ -160,6 +208,29 @@ public abstract class CsvCommon {
 
     public char getEscape() {
         return escape;
+    }
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 2. 26.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     * 
+     * @return the lineEnd
+     *
+     * @since 2026. 2. 26.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     *
+     * @see #lineEnd
+     */
+
+    public String getLineEnd() {
+        return lineEnd;
     }
 
     /**
@@ -238,6 +309,29 @@ public abstract class CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
+     * 2026. 2. 26.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param lineEnd
+     *            the lineEnd to set
+     *
+     * @since 2026. 2. 26.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     *
+     * @see #lineEnd
+     */
+    public void setLineEnd(String lineEnd) {
+        this.lineEnd = lineEnd;
+    }
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
      * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
@@ -279,8 +373,8 @@ public abstract class CsvCommon {
 
     /**
      *
-     * @since 2022. 3. 17.
-     * @version 1.8.0
+     * @since 2026. 2. 26.
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see java.lang.Object#toString()
@@ -294,6 +388,8 @@ public abstract class CsvCommon {
         builder.append(quotechar);
         builder.append(", escape=");
         builder.append(escape);
+        builder.append(", lineEnd=");
+        builder.append(lineEnd);
         builder.append("]");
         return builder.toString();
     }

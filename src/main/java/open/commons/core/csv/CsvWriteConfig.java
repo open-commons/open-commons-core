@@ -158,7 +158,36 @@ public class CsvWriteConfig extends CsvCommon {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public CsvWriteConfig(char separator, char quotechar, char escape, Charset charset) {
-        super(separator, quotechar, escape);
+        this(separator, quotechar, escape, DEFAULT_LINE_END, charset);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 2. 26.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param separator
+     *            데이터를 구분하는 문자
+     * @param quotechar
+     *            문자열로 묶어주는 문자
+     * @param escape
+     *            escape 문자
+     * @param lineEnd
+     *            기본 줄바꿈 문자열
+     * @param charset
+     *
+     * @since 2026. 2. 26.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public CsvWriteConfig(char separator, char quotechar, char escape, String lineEnd, Charset charset) {
+        super(separator, quotechar, escape, lineEnd);
         setCharset(charset);
     }
 

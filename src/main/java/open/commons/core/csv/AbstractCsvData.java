@@ -26,6 +26,7 @@
 
 package open.commons.core.csv;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -143,6 +144,7 @@ public abstract class AbstractCsvData {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
+    @SuppressWarnings("unused")
     public final String csv(char delim, char quote, char escape, String nullValue) {
         List<Supplier<String>> providers = getValues();
 
@@ -480,29 +482,37 @@ public abstract class AbstractCsvData {
 
     /**
      * 컬럼명을 순서대로 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 6. 18.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 27.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: newInstance() 대체 및 예외 처리 개선
      * </pre>
      *
      * @param <T>
+     *            AbstractCsvData를 상속받은 타입
      * @param target
-     * @return
+     *            대상 클래스
+     * @return 컬럼명 목록
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T extends AbstractCsvData> List<String> columns(Class<T> target) {
         try {
-            return columns(target.newInstance());
+            // JDK 9+ : Class.newInstance() 대신 getDeclaredConstructor().newInstance() 사용
+            // 기본 생성자를 명시적으로 호출하며, 접근 제어자가 비공개일 경우에 대비해 처리할 수도 있습니다.
+            return columns(target.getDeclaredConstructor().newInstance());
         } catch (NullPointerException e) {
             throw ExceptionUtils.newException(IllegalArgumentException.class, "올바르지 않은 데이터 입니다. target=%s", target);
-        } catch (InstantiationException | IllegalAccessException e) {
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스는 반드시 기본생성자가 있어야 합니다. target=%s", target);
+        } catch (NoSuchMethodException e) {
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스에 기본 생성자가 존재하지 않습니다. target=%s", target);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
+            // InvocationTargetException: 생성자 내부에서 예외가 발생한 경우를 처리합니다.
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스의 인스턴스를 생성할 수 없습니다. target=%s", target);
         }
     }
 

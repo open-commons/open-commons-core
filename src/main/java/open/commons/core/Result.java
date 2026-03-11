@@ -453,7 +453,7 @@ public class Result<T> {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> Result<T> success(String format, Object... args) {
-        return success((T) null, format, args);
+        return success(null, format, args);
     }
 
     /**

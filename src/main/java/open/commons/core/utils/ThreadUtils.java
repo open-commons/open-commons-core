@@ -41,9 +41,6 @@ public class ThreadUtils {
      * @see #getMethodName(int)
      */
     public static String getCurrentMethodName() {
-        // Thread thread = Thread.currentThread();
-        // StackTraceElement[] stacks = thread.getStackTrace();
-        // return stacks.length < 3 ? "Oops... I DO NOT know where here is." : stacks[2].getMethodName();
         return getMethodName(1);
 
     }

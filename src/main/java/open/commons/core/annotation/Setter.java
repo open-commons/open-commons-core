@@ -33,7 +33,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.lang.reflect.Method;
 
 /**
  * 데이터를 설정하는 대상을 기술.<br>
@@ -69,21 +68,6 @@ public @interface Setter {
 
     /** 데이터 이름 */
     String name() default "";
-
-    /**
-     * 데이터 타입
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 202. 6. 20.      parkjunohng77@gmail.com     최초 작성
-     * 2022. 11. 3.     parkjunohng77@gmail.com    기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드로 {@link Method}의 Return Type을 통해서 직접 정보를 획득.
-     * </pre>
-     * 
-     * @deprecated (since 2022/11/03) 사용하지 않음. 기본값을 {@link Class}.class 로 변경하고 이에 대한 방어 코드를 적용함.
-     */
-    Class<?> type() default Class.class;
 
     /**
      * <code>srcClass/srcFieldClass/property/targetClass/targetFieldClass</code> 로 식별되는 '변환 함수'가 없는 경우<br>

@@ -26,18 +26,18 @@
 
 package open.commons.core.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -47,13 +47,12 @@ import java.util.zip.ZipOutputStream;
 import open.commons.core.function.IOTripleFunction;
 
 /**
+ * 압축 및 해제를 지원하는 유틸리티 클래스입니다.
  * 
  * @since 2018. 9. 10.
  * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  */
 public class ZipUtils {
-
-    private static final int BUFFER_SIZE = 1024 * 2;
 
     // prevent to create an instance.
     private ZipUtils() {
@@ -160,14 +159,14 @@ public class ZipUtils {
     }
 
     /**
-     * 
-     * <br>
+     * GZ 파일 압축을 해제 합니다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.		    parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.         parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: transferTo 및 try-with-resources 적용
      * </pre>
      *
      * @param inputFile
@@ -180,28 +179,17 @@ public class ZipUtils {
      * @throws IOException
      *
      * @since 2023. 8. 2.
-     * @version 2.0.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean ungzip(Path inputFile, Charset inCharset, Path outputFile) throws IOException {
-        return decompress(inputFile, inCharset, outputFile, (inPath, cs, outPath) -> {
-            // GZip 파일 입력
-            GZIPInputStream gzipInStream = null;
-            BufferedOutputStream outputStream = null;
-            try {
-                // 압축해제 파일 객체 생성
-                Files.createFile(outPath);
-                outputStream = new BufferedOutputStream(new FileOutputStream(outPath.toFile()));
-                gzipInStream = new GZIPInputStream(new FileInputStream(inPath.toFile()));
+        return decompress(inputFile, inCharset, outputFile, (inPath, _, outPath) -> {
+            // [최적화] try-with-resources 적용 및 수동 루프를 transferTo()로 교체
+            try (GZIPInputStream gzipInStream = new GZIPInputStream(Files.newInputStream(inPath)); //
+                    OutputStream outputStream = Files.newOutputStream(outPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
 
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int readCnt = -1;
-                while ((readCnt = gzipInStream.read(buffer, 0, BUFFER_SIZE)) != -1) {
-                    outputStream.write(buffer, 0, readCnt);
-                }
+                gzipInStream.transferTo(outputStream);
                 return true;
-            } finally {
-                IOUtils.close(gzipInStream, outputStream);
             }
         });
     }
@@ -340,9 +328,10 @@ public class ZipUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 9.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Zip Slip 취약점 패치 및 자원 관리 개선
      * </pre>
      *
      * @param inputFile
@@ -355,7 +344,7 @@ public class ZipUtils {
      * @throws IOException
      *
      * @since 2021. 11. 9.
-     * @version 1.8.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean unzip(Path inputFile, Charset inCharset, Path outputDir) throws IOException {
@@ -366,30 +355,33 @@ public class ZipUtils {
                 Files.createDirectories(outdir);
             }
 
-            // Zip 파일 입력
-            ZipInputStream zipInStream = null;
-            // Zip 파일 내부 데이터
-            ZipEntry entry = null;
-            try {
-                zipInStream = new ZipInputStream(new FileInputStream(infile.toFile()), cs);
-                Path normalized = null;
+            // [보안] Zip Slip 방지를 위해 절대 경로로 정규화
+            Path outdirAbs = outdir.toAbsolutePath().normalize();
+
+            // [최적화] try-with-resources 적용
+            try (ZipInputStream zipInStream = new ZipInputStream(Files.newInputStream(infile), cs)) {
+                ZipEntry entry;
                 while ((entry = zipInStream.getNextEntry()) != null) {
-                    // entry.getName()값이 상대경로(../../..) 표기인 경우 검증
-                    normalized = outdir.resolve(entry.getName()).normalize();
-                    if (!normalized.startsWith(outdir)) {
-                        throw new ZipException(String.format("올바르지 않은 entry 입니다. entry=%s, normailzed=%s, output.dir=%s", entry.getName(), normalized, outdir));
-                    }
-                    // entry의 상위 디렉토리 생성
-                    if (normalized.getParent() != null && !Files.exists(normalized.getParent())) {
-                        Files.createDirectories(normalized.getParent());
+                    Path normalized = outdirAbs.resolve(entry.getName()).normalize();
+
+                    // [보안] 상위 경로 접근을 통한 악의적인 파일 덮어쓰기 방지
+                    if (!normalized.startsWith(outdirAbs)) {
+                        throw new ZipException(String.format("보안 경고 (Zip Slip): 올바르지 않은 entry 입니다. entry=%s", entry.getName()));
                     }
 
-                    // 파일 생성
-                    Files.copy(zipInStream, normalized, StandardCopyOption.REPLACE_EXISTING);
+                    if (entry.isDirectory()) {
+                        Files.createDirectories(normalized);
+                    } else {
+                        if (normalized.getParent() != null && !Files.exists(normalized.getParent())) {
+                            Files.createDirectories(normalized.getParent());
+                        }
+                        // Files.copy를 transferTo와 newOutputStream으로 최적화 교체
+                        try (OutputStream os = Files.newOutputStream(normalized, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+                            zipInStream.transferTo(os);
+                        }
+                    }
                 }
                 return true;
-            } finally {
-                IOUtils.close(zipInStream);
             }
         });
     }
@@ -477,9 +469,10 @@ public class ZipUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 9.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Files.walk 적용 및 재귀 호출 제거
      * </pre>
      *
      * @param input
@@ -496,7 +489,7 @@ public class ZipUtils {
      * @throws IOException
      *
      * @since 2021. 11. 9.
-     * @version 1.8.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static boolean zip(File input, Charset inCharset, File output, Charset outCharset, int compressionLevel) throws IOException {
@@ -505,25 +498,49 @@ public class ZipUtils {
             throw new FileNotFoundException(input.getAbsolutePath());
         }
 
-        FileOutputStream fos = null;
-        BufferedOutputStream bos = null;
-        ZipOutputStream zos = null;
+        Path inPath = input.toPath();
 
-        try {
-            fos = new FileOutputStream(output); // FileOutputStream
-            bos = new BufferedOutputStream(fos); // BufferedStream
-            zos = new ZipOutputStream(bos, outCharset); // ZipOutputStream
-            zos.setLevel(compressionLevel < 0 //
-                    ? 0 //
-                    : compressionLevel > 9 //
-                            ? 9
-                            : compressionLevel); // 압축 레벨
-            zipEntry(input, input.getAbsolutePath(), zos); // Zip 파일 생성
-            zos.finish(); // ZipOutputStream finish
+        // [최적화] 중첩된 스트림을 try-with-resources에서 한 번에 안전하게 생성
+        try (OutputStream fos = Files.newOutputStream(output.toPath()); ZipOutputStream zos = new ZipOutputStream(fos, outCharset)) {
+
+            // 안전한 압축 레벨 바인딩 (수학적 치환)
+            zos.setLevel(Math.max(0, Math.min(9, compressionLevel)));
+
+            if (Files.isDirectory(inPath)) {
+                // [최적화] 재귀 함수(zipEntry) 대신 Stream API 기반의 Files.walk() 사용
+                try (Stream<Path> paths = Files.walk(inPath)) {
+                    paths.filter(path -> !Files.isDirectory(path)).forEach(path -> {
+                        try {
+                            // OS 상관없이 Zip 표준에 맞게 디렉토리 구분자를 '/'로 변환
+                            String zipEntryName = inPath.relativize(path).toString().replace("\\", "/");
+                            ZipEntry zentry = new ZipEntry(zipEntryName);
+                            zentry.setTime(Files.getLastModifiedTime(path).toMillis());
+
+                            zos.putNextEntry(zentry);
+                            try (InputStream is = Files.newInputStream(path)) {
+                                is.transferTo(zos);
+                            }
+                            zos.closeEntry();
+                        } catch (IOException e) {
+                            // Stream 루프 내부의 IOException을 Unchecked로 감싸서 던짐
+                            throw new UncheckedIOException(e);
+                        }
+                    });
+                }
+            } else {
+                ZipEntry zentry = new ZipEntry(inPath.getFileName().toString());
+                zentry.setTime(Files.getLastModifiedTime(inPath).toMillis());
+                zos.putNextEntry(zentry);
+                try (InputStream is = Files.newInputStream(inPath)) {
+                    is.transferTo(zos);
+                }
+                zos.closeEntry();
+            }
 
             return true;
-        } finally {
-            IOUtils.close(zos, bos, fos);
+        } catch (UncheckedIOException e) {
+            // 내부 Stream에서 발생한 IO 오류 복원
+            throw e.getCause();
         }
     }
 
@@ -605,59 +622,5 @@ public class ZipUtils {
      */
     public static boolean zip(String input, String output, int compressionLevel) throws IOException {
         return zip(input, StandardCharsets.UTF_8, output, StandardCharsets.UTF_8, compressionLevel);
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 9.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param sourceFile
-     * @param sourcePath
-     * @param zos
-     * @throws IOException
-     *
-     * @since 2018. 9. 10.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    private static void zipEntry(File sourceFile, String sourcePath, ZipOutputStream zos) throws IOException {
-        // sourceFile 이 디렉토리인 경우 하위 파일 리스트 가져와 재귀호출
-        if (sourceFile.isDirectory()) {
-            File[] fileArray = sourceFile.listFiles(); // sourceFile 의 하위 파일 리스트
-            for (int i = 0; i < fileArray.length; i++) {
-                zipEntry(fileArray[i], sourcePath, zos); // 재귀 호출
-            }
-        } else { // sourcehFile 이 디렉토리가 아닌 경우
-            BufferedInputStream bis = null;
-            try {
-                String sFilePath = sourceFile.getPath();
-                String zipEntryName = null;
-                if (sFilePath.equals(sourcePath)) {
-                    zipEntryName = FileUtils.getFileName(sourcePath);
-                } else {
-                    zipEntryName = sFilePath.substring(sourcePath.length() + 1, sFilePath.length());
-                }
-
-                bis = new BufferedInputStream(new FileInputStream(sourceFile));
-                ZipEntry zentry = new ZipEntry(zipEntryName);
-                zentry.setTime(sourceFile.lastModified());
-                zos.putNextEntry(zentry);
-
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int cnt = 0;
-                while ((cnt = bis.read(buffer, 0, BUFFER_SIZE)) != -1) {
-                    zos.write(buffer, 0, cnt);
-                }
-                zos.closeEntry();
-            } finally {
-                IOUtils.close(bis);
-            }
-        }
     }
 }

@@ -44,7 +44,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(boolean[] t1, boolean[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -72,7 +72,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(byte[] t1, byte[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -100,7 +100,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(char[] t1, char[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -128,7 +128,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(double[] t1, double[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -158,7 +158,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(float[] t1, float[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -186,7 +186,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(int[] t1, int[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -214,7 +214,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(long[] t1, long[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {
@@ -242,7 +242,7 @@ public class EquivalentFactory {
 
         @Override
         public boolean equals(short[] t1, short[] t2) {
-            if (t1 != null || t2 != null) {
+            if (t1 != null && t2 != null) {
                 int l = t1.length;
 
                 if (t2.length != l) {

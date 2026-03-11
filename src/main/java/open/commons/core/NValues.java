@@ -53,7 +53,7 @@ public class NValues {
      */
     public NValues(String... names) {
         if (names.length < 1 || CheckUtils.containsNull((Object[]) names)) {
-            throw new IllegalArgumentException("Arguments must not contain null. argument: " + (names != null ? Arrays.toString(names) : null));
+            throw new IllegalArgumentException("Arguments must not contain null. argument: " + Arrays.toString(names));
         }
 
         this.names = names;

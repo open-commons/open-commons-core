@@ -26,22 +26,11 @@
 
 package open.commons.core.utils;
 
-import java.io.ByteArrayInputStream;
-import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.net.URL;
-import java.sql.Array;
-import java.sql.Blob;
-import java.sql.Clob;
-import java.sql.Date;
-import java.sql.NClob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -77,6 +66,7 @@ import open.commons.core.function.TripleFunction;
  */
 public class SQLUtils {
 
+    @SuppressWarnings("unused")
     private static final Logger LOGGER = LoggerFactory.getLogger(SQLUtils.class);
 
     public static final Pattern METHOD_BOOLEAN_PATTERN = Pattern.compile("^(is|get)(.+)$");
@@ -471,143 +461,6 @@ public class SQLUtils {
     }
 
     /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 5. 30.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param rs
-     * @param cdef
-     *            컬럼 정의
-     * @param m
-     *            Method 객체
-     * @param object
-     *            데이터 객체
-     * @throws SQLException
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 5. 30.
-     */
-    private static void invoke(ResultSet rs, ColumnDef cdef, Method m, Object object)
-            throws SQLException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-
-        Class<?> columnType = cdef.type();
-        if (Class.class.equals(columnType)) {
-            columnType = m.getParameterTypes()[0];
-        }
-
-        // 컬럼명 설정
-        String columnName = getColumnName(cdef.name(), cdef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, m.getName()));
-
-        Object v = null;
-
-        if (Array.class.isAssignableFrom(columnType)) {
-            v = rs.getArray(columnName);
-        } //
-        else if (ByteArrayInputStream.class.isAssignableFrom(columnType)) {
-            v = rs.getAsciiStream(columnName);
-        } //
-        else if (BigDecimal.class.isAssignableFrom(columnType)) {
-            v = rs.getBigDecimal(columnName);
-        } //
-        else if (ByteArrayInputStream.class.isAssignableFrom(columnType)) {
-            v = rs.getBinaryStream(columnName);
-        } //
-        else if (Blob.class.isAssignableFrom(columnType)) {
-            v = rs.getBlob(columnName);
-        } //
-        else if (boolean.class.isAssignableFrom(columnType)) {
-            v = rs.getBoolean(columnName);
-        } //
-        else if (Boolean.class.isAssignableFrom(columnType)) {
-            v = rs.getBoolean(columnName);
-        } //
-        else if (Byte.class.isAssignableFrom(columnType)) {
-            v = rs.getByte(columnName);
-        } //
-        else if (byte[].class.isAssignableFrom(columnType)) {
-            v = rs.getBytes(columnName);
-        } //
-        else if (Reader.class.isAssignableFrom(columnType)) {
-            v = rs.getCharacterStream(columnName);
-        } //
-        else if (Clob.class.isAssignableFrom(columnType)) {
-            v = rs.getClob(columnName);
-        } //
-        else if (Date.class.isAssignableFrom(columnType)) {
-            v = rs.getDate(columnName);
-        } //
-        else if (double.class.isAssignableFrom(columnType)) {
-            v = rs.getDouble(columnName);
-        } //
-        else if (Double.class.isAssignableFrom(columnType)) {
-            BigDecimal d = rs.getBigDecimal(columnName);
-            v = d != null ? d.doubleValue() : null;
-        } //
-        else if (float.class.isAssignableFrom(columnType)) {
-            v = rs.getFloat(columnName);
-        } //
-        else if (Float.class.isAssignableFrom(columnType)) {
-            BigDecimal d = rs.getBigDecimal(columnName);
-            v = d != null ? d.floatValue() : null;
-        } //
-        else if (int.class.isAssignableFrom(columnType)) {
-            v = rs.getInt(columnName);
-        } //
-        else if (Integer.class.isAssignableFrom(columnType)) {
-            BigDecimal d = rs.getBigDecimal(columnName);
-            v = d != null ? d.intValue() : null;
-        } //
-        else if (long.class.isAssignableFrom(columnType)) {
-            v = rs.getLong(columnName);
-        } //
-        else if (Long.class.isAssignableFrom(columnType)) {
-            BigDecimal d = rs.getBigDecimal(columnName);
-            v = d != null ? d.longValue() : null;
-        } //
-        else if (NClob.class.isAssignableFrom(columnType)) {
-            v = rs.getNClob(columnName);
-        } //
-        else if (short.class.isAssignableFrom(columnType)) {
-            v = rs.getShort(columnName);
-        } //
-        else if (Short.class.isAssignableFrom(columnType)) {
-            BigDecimal d = rs.getBigDecimal(columnName);
-            v = d != null ? d.shortValue() : null;
-        } //
-        else if (String.class.isAssignableFrom(columnType)) {
-            v = rs.getString(columnName);
-        } //
-        else if (Time.class.isAssignableFrom(columnType)) {
-            v = rs.getTime(columnName);
-        } //
-        else if (Timestamp.class.isAssignableFrom(columnType)) {
-            v = rs.getTimestamp(columnName);
-        } //
-        else if (URL.class.isAssignableFrom(columnType)) {
-            v = rs.getURL(columnName);
-        } //
-        else if (Object.class.isAssignableFrom(columnType)) {
-            v = rs.getObject(columnName);
-        } else {
-            throw new SQLException("지원하지 않는 데이터 타입입니다.");
-        }
-
-        if (cdef.nullable() && v == null) {
-            return;
-        }
-        m.invoke(object, v);
-    }
-
-    /**
      * 주어진 DB Table Entity의 컬럼명 정렬 여부를 제공합니다. <br>
      * 컬럼명을 정렬하는 경우, 반드시 컬럼에 대응하는 메소드에 {@link ColumnValue#order()} 를 설정해야 합니다.
      * 
@@ -689,73 +542,6 @@ public class SQLUtils {
      */
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
         return ResultSetTransformer.newInstance(objectType, rs, columns);
-    }
-
-    /** @deprecated 이전 구현코드의 보관용으로 이후에 삭제될 예정. */
-    static <T> T newInstance0(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
-
-        boolean isTagged = columns != null && columns.length > 0;
-
-        List<String> caseSensitiveColumnsList = isTagged ? Arrays.asList(columns) : new ArrayList<>();
-
-        List<Method> methods = Arrays.asList(objectType.getMethods()) //
-                .stream() //
-                .filter(m -> {
-                    boolean filtered = false;
-                    boolean accessible = m.isAccessible();
-                    try {
-                        ColumnDef def = m.getAnnotation(ColumnDef.class);
-
-                        if (def != null) {
-                            String clmnName = getColumnName(def.name(), def.columnNameType(), () -> {
-                                return METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, m.getName());
-                            });
-                            filtered = isTagged ? caseSensitiveColumnsList.contains(clmnName) : true;
-                        } else {
-                            filtered = false;
-                        }
-                    } catch (Throwable t) {
-                        LOGGER.error("objectType: {}, rs: {}, column: {}", objectType, rs, columns == null ? null : Arrays.toString(columns), t);
-                    } finally {
-                        m.setAccessible(accessible);
-                    }
-
-                    return filtered;
-                }).collect(Collectors.toList());
-
-        T object = null;
-        ColumnDef cdef = null;
-        Object value = null;
-
-        try {
-            object = objectType.newInstance();
-
-            if (methods.size() < 1) {
-                return (T) object;
-            }
-
-            for (Method m : methods) {
-
-                cdef = m.getAnnotation(ColumnDef.class);
-
-                if (cdef.required()) {
-                    invoke(rs, cdef, m, object);
-                } else {
-                    try {
-                        invoke(rs, cdef, m, object);
-                    } catch (SQLException ignored) {
-                    }
-                }
-            }
-
-            return (T) object;
-        } catch (InstantiationException //
-                | IllegalAccessException //
-                | IllegalArgumentException //
-                | InvocationTargetException //
-                | SQLException e) {
-            throw ExceptionUtils.newException(SQLException.class, e, "class: %s, annotation: %s, value: %s", objectType, cdef, value);
-        }
     }
 
     /**

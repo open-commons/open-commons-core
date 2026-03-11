@@ -27,6 +27,7 @@
 package open.commons.core.utils;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,12 +56,11 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-
 import open.commons.core.TwoValueObject;
 import open.commons.core.collection.FIFOMap;
-import open.commons.core.collection.IKeyExtractor;
 import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * 
@@ -93,7 +93,7 @@ public class CollectionUtils {
 
         if (col == null) {
             try {
-                col = clazz.newInstance();
+                col = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 return null;
             }
@@ -120,7 +120,7 @@ public class CollectionUtils {
 
         if (col == null) {
             try {
-                col = clazz.newInstance();
+                col = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 return null;
             }
@@ -184,7 +184,7 @@ public class CollectionUtils {
 
         if (col == null) {
             try {
-                col = clazz.newInstance();
+                col = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 return null;
             }
@@ -215,7 +215,7 @@ public class CollectionUtils {
 
         if (col == null) {
             try {
-                col = clazz.newInstance();
+                col = clazz.getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 return null;
             }
@@ -698,52 +698,6 @@ public class CollectionUtils {
     }
 
     /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2014. 10. 17.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param col
-     *            elements
-     * @param extractor
-     *            a instance to create a key using an element.
-     * @return
-     *
-     * @since 2014. 10. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated Use {@link #elementToListValuedMap(Collection, Function)}, if supports JDK 1.8 or higher.
-     */
-    public static <E, K> Map<K, List<E>> elementToListValuedMap(@Nonnull Collection<E> col, IKeyExtractor<K, E> extrator) {
-        Map<K, List<E>> map = new HashMap<>();
-
-        K k = null;
-        List<E> vs = null;
-        for (E e : col) {
-            k = extrator.getKey(e);
-
-            vs = map.get(k);
-            if (vs == null) {
-                vs = new ArrayList<>();
-                map.put(k, vs);
-            }
-
-            vs.add(e);
-        }
-
-        return map;
-    }
-
-    /**
      * 전체 데이터 중에 조건에 맞는 데이터만 새로운 {@link Collection}에 추가합니다. <br>
      * 
      * <pre>
@@ -763,7 +717,7 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, C extends Collection<E>> void get(@Nonnull Collection<E> col, @Nonnull Predicate<E> p, C newCol) {
+    public static <E, C extends Collection<E>> void get(@Nonnull Collection<E> col, @Nonnull Predicate<E> p, @Nonnull C newCol) {
         for (E e : col) {
             if (p.test(e)) {
                 newCol.add(e);
@@ -778,7 +732,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 13.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 4.      parkjunhong77@gmail.com         내부 구현 변경 (Class.newInstance() -> Class.getDeclaredConstructor().newInstance());
      * </pre>
      *
      * @param <E>
@@ -794,13 +749,35 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, C extends Collection<E>> C get(@Nonnull Collection<E> col, @Nonnull Predicate<E> p, Class<C> type) throws InstantiationException, IllegalAccessException {
-        C ret = type.newInstance();
-        get(col, p, ret);
-        return ret;
+    public static <E, C extends Collection<E>> C get(@Nonnull Collection<E> col, @Nonnull Predicate<E> p, @Nonnull Class<C> type)
+            throws InstantiationException, IllegalAccessException {
+        try {
+            // Stream API와 Collectors.toCollection을 활용한 선언적 파이프라인
+            return col.stream().filter(p).collect(Collectors.toCollection(() -> {
+                try {
+                    // JDK 9+ 표준: getDeclaredConstructor().newInstance() 사용
+                    return type.getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    // Supplier 내부에서는 Checked Exception을 던질 수 없으므로 RuntimeException으로 래핑
+                    throw new RuntimeException(e);
+                } catch (NoSuchMethodException | InvocationTargetException e) {
+                    throw new IllegalArgumentException("기본 생성자를 호출할 수 없거나 예외가 발생했습니다: " + type.getName(), e);
+                }
+            }));
+        } catch (RuntimeException e) {
+            // 기존 API 호출부의 호환성(throws 시그니처)을 유지하기 위한 예외 언래핑(Unwrapping)
+            // Java 16+의 패턴 매칭을 활용하여 간결하게 처리
+            if (e.getCause() instanceof InstantiationException ie) {
+                throw ie;
+            } else if (e.getCause() instanceof IllegalAccessException iae) {
+                throw iae;
+            }
+            throw e; // 그 외의 예상치 못한 런타임 예외는 그대로 전파
+        }
     }
 
     /**
+     * {@link Map} 데이터의 'key'가 파라미터와 동일(대소문자 무시)한 값들을 제공합니다.
      * 
      * <br>
      * 
@@ -808,7 +785,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 3. 4.      parkjunhong77@gmail.com     구현을 Stream API 적용.
      * </pre>
      *
      * @param <E>
@@ -822,16 +800,11 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E> Collection<E> getIgnoreCase(Map<String, E> map, String keyIgnoreCase) {
-        ArrayList<E> result = new ArrayList<>();
-
-        for (String key : map.keySet()) {
-            if (key.equalsIgnoreCase(keyIgnoreCase)) {
-                result.add(map.get(key));
-            }
-        }
-
-        return result;
+    public static <E> Collection<E> getIgnoreCase(@Nonnull Map<String, E> map, String keyIgnoreCase) {
+        return map.entrySet().stream() //
+                .filter(entry -> entry.getKey().equalsIgnoreCase(keyIgnoreCase)) //
+                .map(entry -> entry.getValue()) //
+                .collect(Collectors.toList());
     }
 
     /**
@@ -865,12 +838,13 @@ public class CollectionUtils {
 
     /**
      * Transform {@link Collection} to {@link Map}. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 7. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 7. 6.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 4.      parkjunhong77@gmail.com         Stream API(flatMap, groupingBy) 적용
      * </pre>
      *
      * @param <E>
@@ -881,100 +855,18 @@ public class CollectionUtils {
      *            elements
      * @param keyGen
      *            데이터 식별정보 제공 함수.
-     * @return
+     * @return 요소가 키별로 그룹화된 맵
      *
      * @since 2017. 7. 6.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K> Map<K, List<E>> listElementToListValuedMap(@Nonnull Collection<List<E>> col, @Nonnull Function<E, K> keyGen) {
-        Map<K, List<E>> map = new HashMap<>();
-
-        K k = null;
-        List<E> vs;
-        for (List<E> list : col) {
-            for (E e : list) {
-                k = keyGen.apply(e);
-
-                vs = map.get(k);
-                if (vs == null) {
-                    vs = new ArrayList<>();
-                    map.put(k, vs);
-                }
-
-                vs.add(e);
-            }
-        }
-
-        return map;
-    }
-
-    /**
-     * Transform {@link Collection} to {@link Map}. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2014. 10. 17.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param col
-     *            elements
-     * @param extractor
-     *            a instance to create a key using an element.
-     * @return
-     *
-     * @since 2014. 10. 17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated Use {@link #listElementToListValuedMap(Collection, Function)}, if supports JDK 1.8 or higher.
-     */
-    public static <E, K> Map<K, List<E>> listElementToListValuedMap(@Nonnull Collection<List<E>> col, IKeyExtractor<K, E> extrator) {
-        Map<K, List<E>> map = new HashMap<>();
-
-        K k = null;
-        List<E> vs;
-        for (List<E> list : col) {
-            for (E e : list) {
-                k = extrator.getKey(e);
-
-                vs = map.get(k);
-                if (vs == null) {
-                    vs = new ArrayList<>();
-                    map.put(k, vs);
-                }
-
-                vs.add(e);
-            }
-        }
-
-        return map;
-    }
-
-    /**
-     * 2개의 배열을 합쳐서 하나의 배열로 반환합니다.
-     * 
-     * @param t1
-     * @param t2
-     * @return <BR>
-     * @since 2012. 2. 1.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
-     * @see NullPointerException
-     * @deprecated 2014. 6. 30., 대체 메소드: {@link ArrayUtils#merge(Object[], Object[])}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E> E[] merge(E[] t1, E[] t2) {
-        E[] t3 = (E[]) Array.newInstance(t1.getClass(), t1.length + t2.length);
-
-        System.arraycopy(t1, 0, t3, 0, t1.length);
-        System.arraycopy(t2, 0, t3, t1.length, t2.length);
-
-        return t3;
+        // 1. col.stream() : Collection<List<E>>를 Stream<List<E>>로 변환
+        return col.stream()
+                // 2. flatMap(Collection::stream) : 중첩된 리스트들을 평탄화하여 하나의 Stream<E>로 병합
+                .flatMap(Collection::stream)
+                // 3. collect(Collectors.groupingBy(keyGen)) : keyGen 함수를 기준으로 요소를 Map<K, List<E>>로 자동 그룹화
+                .collect(Collectors.groupingBy(keyGen));
     }
 
     /**
@@ -994,12 +886,19 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
+    @SafeVarargs
     public static List<Boolean> newList(boolean... elems) {
-        List<Boolean> list = new ArrayList<>();
-        if (elems != null) {
-            for (boolean e : elems) {
-                list.add(e);
-            }
+        // null이거나 빈 배열일 경우 불필요한 객체 생성 방지
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        // 요소의 개수만큼 ArrayList의 초기 용량(Capacity)을 지정하여,
+        // 데이터가 추가될 때 발생하는 내부 배열 복사(Resizing) 오버헤드 제거
+        List<Boolean> list = new ArrayList<>(elems.length);
+
+        for (boolean e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1023,11 +922,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Byte> newList(byte... elems) {
-        List<Byte> list = new ArrayList<>();
-        if (elems != null) {
-            for (byte e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        List<Byte> list = new ArrayList<>(elems.length);
+
+        for (byte e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1051,11 +953,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Character> newList(char... elems) {
-        List<Character> list = new ArrayList<>();
-        if (elems != null) {
-            for (char e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        List<Character> list = new ArrayList<>(elems.length);
+
+        for (char e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1147,11 +1052,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Double> newList(double... elems) {
-        List<Double> list = new ArrayList<>();
-        if (elems != null) {
-            for (double e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        List<Double> list = new ArrayList<>(elems.length);
+
+        for (double e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1178,14 +1086,11 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> List<E> newList(E... elems) {
-        List<E> list = new ArrayList<>();
-        if (elems != null) {
-            for (E e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
         }
 
-        return list;
+        return Stream.of(elems).toList();
     }
 
     /**
@@ -1260,11 +1165,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Integer> newList(int... elems) {
-        List<Integer> list = new ArrayList<>();
-        if (elems != null) {
-            for (int e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        List<Integer> list = new ArrayList<>(elems.length);
+
+        for (int e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1352,11 +1260,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Long> newList(long... elems) {
-        List<Long> list = new ArrayList<>();
-        if (elems != null) {
-            for (long e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        List<Long> list = new ArrayList<>(elems.length);
+
+        for (long e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1380,11 +1291,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static List<Short> newList(short... elems) {
-        List<Short> list = new ArrayList<>();
-        if (elems != null) {
-            for (short e : elems) {
-                list.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new ArrayList<>();
+        }
+
+        List<Short> list = new ArrayList<>(elems.length);
+
+        for (short e : elems) {
+            list.add(e);
         }
 
         return list;
@@ -1408,11 +1322,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Boolean> newSet(boolean... elems) {
-        Set<Boolean> set = new HashSet<>();
-        if (elems != null) {
-            for (boolean e : elems) {
-                set.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new HashSet<>();
+        }
+
+        Set<Boolean> set = new HashSet<>(elems.length);
+
+        for (boolean e : elems) {
+            set.add(e);
         }
 
         return set;
@@ -1436,11 +1353,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Byte> newSet(byte... elems) {
-        Set<Byte> set = new HashSet<>();
-        if (elems != null) {
-            for (byte e : elems) {
-                set.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new HashSet<>();
+        }
+
+        Set<Byte> set = new HashSet<>(elems.length);
+
+        for (byte e : elems) {
+            set.add(e);
         }
 
         return set;
@@ -1464,12 +1384,16 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Character> newSet(char... elems) {
-        Set<Character> set = new HashSet<>();
-        if (elems != null) {
-            for (char e : elems) {
-                set.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new HashSet<>();
         }
+
+        Set<Character> set = new HashSet<>(elems.length);
+
+        for (char e : elems) {
+            set.add(e);
+        }
+
         return set;
     }
 
@@ -1559,11 +1483,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Double> newSet(double... elems) {
-        Set<Double> set = new HashSet<>();
-        if (elems != null) {
-            for (double e : elems) {
-                set.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new HashSet<>();
+        }
+
+        Set<Double> set = new HashSet<>(elems.length);
+
+        for (double e : elems) {
+            set.add(e);
         }
 
         return set;
@@ -1590,14 +1517,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Set<E> newSet(E... elems) {
-        Set<E> set = new HashSet<E>();
-        if (elems != null) {
-            for (E e : elems) {
-                set.add(e);
-            }
-        }
-
-        return set;
+        return Stream.of(elems).collect(Collectors.toCollection(HashSet<E>::new));
     }
 
     /**
@@ -1672,11 +1592,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Integer> newSet(int... elems) {
-        Set<Integer> set = new HashSet<>();
-        if (elems != null) {
-            for (int e : elems) {
-                set.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new HashSet<>();
+        }
+
+        Set<Integer> set = new HashSet<>(elems.length);
+
+        for (int e : elems) {
+            set.add(e);
         }
 
         return set;
@@ -1700,11 +1623,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Set<Long> newSet(long... elems) {
-        Set<Long> set = new HashSet<>();
-        if (elems != null) {
-            for (long e : elems) {
-                set.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new HashSet<>();
+        }
+
+        Set<Long> set = new HashSet<>(elems.length);
+
+        for (long e : elems) {
+            set.add(e);
         }
 
         return set;
@@ -1820,11 +1746,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Boolean> newVector(boolean... elems) {
-        Vector<Boolean> vector = new Vector<>();
-        if (elems != null) {
-            for (boolean e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Boolean> vector = new Vector<>(elems.length);
+
+        for (boolean e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -1848,11 +1777,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Byte> newVector(byte... elems) {
-        Vector<Byte> vector = new Vector<>();
-        if (elems != null) {
-            for (byte e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Byte> vector = new Vector<>(elems.length);
+
+        for (byte e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -1876,11 +1808,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Character> newVector(char... elems) {
-        Vector<Character> vector = new Vector<>();
-        if (elems != null) {
-            for (char e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Character> vector = new Vector<>(elems.length);
+
+        for (char e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -1972,11 +1907,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Double> newVector(double... elems) {
-        Vector<Double> vector = new Vector<>();
-        if (elems != null) {
-            for (double e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Double> vector = new Vector<>(elems.length);
+
+        for (double e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -2003,14 +1941,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E> Vector<E> newVector(E... elems) {
-        Vector<E> vector = new Vector<E>();
-        if (elems != null) {
-            for (E e : elems) {
-                vector.add(e);
-            }
-        }
-
-        return vector;
+        return Stream.of(elems).collect(Collectors.toCollection(Vector<E>::new));
     }
 
     /**
@@ -2084,11 +2015,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Integer> newVector(int... elems) {
-        Vector<Integer> vector = new Vector<>();
-        if (elems != null) {
-            for (int e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Integer> vector = new Vector<>(elems.length);
+
+        for (int e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -2112,11 +2046,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Long> newVector(long... elems) {
-        Vector<Long> vector = new Vector<>();
-        if (elems != null) {
-            for (long e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Long> vector = new Vector<>(elems.length);
+
+        for (long e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -2140,11 +2077,14 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static Vector<Short> newVector(short... elems) {
-        Vector<Short> vector = new Vector<>();
-        if (elems != null) {
-            for (short e : elems) {
-                vector.add(e);
-            }
+        if (elems == null || elems.length == 0) {
+            return new Vector<>();
+        }
+
+        Vector<Short> vector = new Vector<>(elems.length);
+
+        for (short e : elems) {
+            vector.add(e);
         }
 
         return vector;
@@ -2631,6 +2571,7 @@ public class CollectionUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
+    @SuppressWarnings("unused")
     public static <T> List<T> sort(@Nonnull Collection<T> data, @Nonnull Comparator<T> sorter) {
         return sort(data, o -> true, sorter);
     }
@@ -2813,13 +2754,22 @@ public class CollectionUtils {
 
     /**
      * 정렬된 2개의 {@link List}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 5.      parkjunhong77@gmail.com         (3.0.0) ArrayList 용량 사전 할당 및 null 데이터 대응 개선, 동시성 제약 Javadoc 명시
      * </pre>
+     *
+     * <p>
+     * <b>[동시성(Concurrency) 주의사항]</b><br>
+     * 이 메소드는 성능 최적화를 위해 내부적으로 방어적 복사(Defensive Copy)를 수행하지 않고 원본 리스트의 {@link Iterator}를 직접 사용합니다. 따라서 멀티스레드 환경에서 병합 작업
+     * 도중 원본 리스트({@code data1}, {@code data2})에 구조적인 변경(추가/삭제 등)이 발생할 경우
+     * {@link java.util.ConcurrentModificationException}이 발생할 수 있습니다. 동시 수정이 예상되는 환경에서는 호출자가 외부에서 동기화(Lock)를 보장하거나,
+     * {@link java.util.concurrent.CopyOnWriteArrayList}와 같은 스레드 안전한 컬렉션을 전달해야 합니다.
+     * </p>
      *
      * @param <E1>
      *            데이터 유형1
@@ -2828,65 +2778,80 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            정렬된 데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            정렬된 데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
+     *            데이터#2 변환 함수 (E2 &rarr; R)
      * @param comparator
      *            'KEY' 값 우선순위 비교 함수
-     * @return
+     * @return 병합 및 정렬된 새로운 리스트
      *
      * @since 2025. 9. 3.
-     * @version 2.1.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY, R> List<R> sort( //
-            List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
-            , @Nonnull Comparator<KEY> comparator //
+            @Nonnull List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1, //
+            @Nonnull List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2, //
+            @Nonnull Comparator<KEY> comparator //
     ) {
         AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
 
-        List<R> sorted = new ArrayList<>();
+        // 두 리스트의 크기 합산만큼 초기 용량(Capacity)을 할당하여 Resizing 오버헤드 완벽 제거
+        List<R> sorted = new ArrayList<>(data1.size() + data2.size());
 
         Iterator<E1> itrData1 = data1.iterator();
         Iterator<E2> itrData2 = data2.iterator();
 
-        E1 d1 = itrData1.hasNext() ? itrData1.next() : null;
-        E2 d2 = itrData2.hasNext() ? itrData2.next() : null;
-        int compared = -1;
-        while (d1 != null && d2 != null) {
-            compared = comparator.compare(keyProvider1.apply(d1), keyProvider2.apply(d2));
+        // 리스트 내부에 실제 null 값이 들어있을 경우를 대비하여,
+        // 값의 null 여부가 아닌 Iterator의 상태 자체를 boolean으로 추적
+        boolean hasD1 = itrData1.hasNext();
+        boolean hasD2 = itrData2.hasNext();
+        E1 d1 = hasD1 ? itrData1.next() : null;
+        E2 d2 = hasD2 ? itrData2.next() : null;
+
+        while (hasD1 && hasD2) {
+            int compared = comparator.compare(keyProvider1.apply(d1), keyProvider2.apply(d2));
             if (compared < 0) {
                 sorted.add(transformer1.apply(d1));
-                d1 = itrData1.hasNext() ? itrData1.next() : null;
+                hasD1 = itrData1.hasNext();
+                if (hasD1)
+                    d1 = itrData1.next();
             } else if (compared > 0) {
                 sorted.add(transformer2.apply(d2));
-                d2 = itrData2.hasNext() ? itrData2.next() : null;
+                hasD2 = itrData2.hasNext();
+                if (hasD2)
+                    d2 = itrData2.next();
             } else {
                 sorted.add(transformer1.apply(d1));
                 sorted.add(transformer2.apply(d2));
-                d1 = itrData1.hasNext() ? itrData1.next() : null;
-                d2 = itrData2.hasNext() ? itrData2.next() : null;
+                hasD1 = itrData1.hasNext();
+                if (hasD1) {
+                    d1 = itrData1.next();
+                }
+                hasD2 = itrData2.hasNext();
+                if (hasD2) {
+                    d2 = itrData2.next();
+                }
             }
         }
 
-        while (d1 != null) {
+        // forEachRemaining을 활용하여 잔여 데이터 처리 로직을 간결하고 빠르게 최적화
+        if (hasD1) {
             sorted.add(transformer1.apply(d1));
-            d1 = itrData1.hasNext() ? itrData1.next() : null;
-        }
-        while (d2 != null) {
+            itrData1.forEachRemaining(e -> sorted.add(transformer1.apply(e)));
+        } else if (hasD2) {
             sorted.add(transformer2.apply(d2));
-            d2 = itrData2.hasNext() ? itrData2.next() : null;
+            itrData2.forEachRemaining(e -> sorted.add(transformer2.apply(e)));
         }
 
         return sorted;
@@ -3006,13 +2971,14 @@ public class CollectionUtils {
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
-     * 
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function, Comparator)}를 사용하기 바랍니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 정렬 기준(Comparator) 누락 버그 수정 및 Stream 최적화
      * </pre>
      *
      * @param <E1>
@@ -3022,125 +2988,163 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
-     * @return
+     *            데이터#2 변환 함수 (E2 &rarr; R)
+     * @param comparator
+     *            'KEY' 값 우선순위 비교 함수
+     * @return 병합 및 정렬된 새로운 리스트
      *
      * @since 2025. 9. 3.
-     * @version 2.1.0
+     * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sortAndMerge( //
+    public static <E1, E2, KEY, R> List<R> sortAndMerge( //
             Collection<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
             , Collection<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
             , @Nonnull Comparator<KEY> comparator //
     ) {
-        List<E1> sortedData1 = data1.stream().sorted((o1, o2) -> keyProvider1.apply(o1).compareTo(keyProvider1.apply(o2))).collect(Collectors.toList());
-        List<E2> sortedData2 = data2.stream().sorted((o1, o2) -> keyProvider2.apply(o1).compareTo(keyProvider2.apply(o2))).collect(Collectors.toList());
+        // null 방어 로직 추가 (시니어의 습관)
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
+
+        // 1. 파라미터로 전달받은 comparator를 적용하여 일관된 정렬 보장
+        // 2. Stream.toList()를 활용하여 불필요한 가변 ArrayList 생성 방지
+        List<E1> sortedData1 = data1.stream().sorted(Comparator.comparing(keyProvider1, comparator)).toList();
+        List<E2> sortedData2 = data2.stream().sorted(Comparator.comparing(keyProvider2, comparator)).toList();
 
         return sort(sortedData1, keyProvider1, transformer1, sortedData2, keyProvider2, transformer2, comparator);
     }
 
     /**
-     * {@link List}에서 주어진 위치(<code>s</code>)부터 시작하는 원소들을 포함하는 새로운 {@link List}를 반환합니다.<br>
+     * {@link List}에서 주어진 범위(<code>begin</code> ~ <code>end</code>) 내의 원소들을 포함하는 새로운 독립된 {@link List}를 반환합니다.<br>
      * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는 <code>delegate</code>
-     * 방식으로 제공됩니다.
+     * 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는 새로운 복사본을 생성합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2011. 10. 24.    parkjunhong77@gmail.com         최초 작성 (기존 코드 마이그레이션)
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 최적화: LinkedList O(N^2) 병목 제거 및 네이티브 배열 복사 적용
+     * </pre>
+     *
      * @param <E>
+     *            데이터 유형
      * @param list
+     *            원본 리스트
      * @param begin
-     *            시작 위치 inclusive
-     * @return
+     *            시작 위치 (inclusive)
+     * @return 지정된 범위의 데이터를 갖는 새로운 리스트
+     *
+     * @since 2011. 10. 24.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E> List<E> subCollection(List<E> list, int begin) {
-        if (begin > list.size() - 1) {
-            return new ArrayList<E>();
+        if (list == null || list.isEmpty()) {
+            return new ArrayList<>();
         }
 
-        List<E> newList = new ArrayList<E>();
-
-        for (int i = begin; i < list.size(); i++) {
-            newList.add(list.get(i));
-        }
-
-        return newList;
+        return subCollection(list, begin, list.size());
     }
 
     /**
-     * {@link List}에서 주어진 범위(<code>s</code> ~ <code>e</code>) 내의 원소들을 포함하는 새로운 {@link List}를 반환합니다.<br>
+     * {@link List}에서 주어진 범위(<code>begin</code> ~ <code>end</code>) 내의 원소들을 포함하는 새로운 독립된 {@link List}를 반환합니다.<br>
      * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는 <code>delegate</code>
-     * 방식으로 제공됩니다.
+     * 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는 새로운 복사본을 생성합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2011. 10. 24.    parkjunhong77@gmail.com         최초 작성 (기존 코드 마이그레이션)
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 최적화: LinkedList O(N^2) 병목 제거 및 네이티브 배열 복사 적용
+     * </pre>
+     *
      * @param <E>
+     *            데이터 유형
      * @param list
+     *            원본 리스트
      * @param begin
-     *            시작 위치 inclusive
+     *            시작 위치 (inclusive)
      * @param end
-     *            종료 위치 exclusive
-     * @return
-     * 
-     * 
+     *            종료 위치 (exclusive)
+     * @return 지정된 범위의 데이터를 갖는 새로운 리스트
+     *
+     * @since 2011. 10. 24.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E> List<E> subCollection(List<E> list, int begin, int end) {
-        if (begin > list.size() - 1 || begin >= end || end < 0) {
-            return new ArrayList<E>();
+        if (list == null || list.isEmpty()) {
+            return new ArrayList<>();
         }
 
-        List<E> newList = new ArrayList<E>();
+        // 인덱스 정규화 (IndexOutOfBoundsException 원천 차단)
+        int validBegin = Math.max(0, begin);
+        int validEnd = Math.min(list.size(), end);
 
-        for (int i = begin; i < end; i++) {
-            newList.add(list.get(i));
+        // 유효하지 않은 범위일 경우 빈 리스트 반환
+        if (validBegin >= validEnd) {
+            return new ArrayList<>();
         }
 
-        return newList;
+        // RandomAccess(ArrayList)와 SequentialAccess(LinkedList) 모두에서
+        // 최상의 성능(O(N))을 내며 내부 배열(System.arraycopy)을 복사하는 가장 우아한 방법
+        return new ArrayList<>(list.subList(validBegin, validEnd));
     }
 
     /**
      * 주어진 {@link Collection}에 포함된 데이터를 Array에 넣어서 제공합니다. <br>
-     * 
+     *
+     * <p>
+     * <b>[제네릭 타입 소거(Type Erasure) 및 아키텍처 주의사항]</b><br>
+     * 자바의 제네릭 구조는 컴파일 타임에만 유효하며, 런타임(실행 시점)에는 제네릭 타입 정보({@code <E>})가 모두 소거됩니다. 따라서 타입 파라미터가 없는
+     * {@link Collection#toArray()}를 호출할 경우, 컬렉션은 자신의 데이터 타입을 알지 못해 무조건 부모 타입인 {@code Object[]} 메모리 블록을 할당하여 반환합니다.<br>
+     * 이를 강제로 다운캐스팅({@code (E[]) col.toArray()})하여 반환할 경우, 컴파일 경고로 끝나지 않고 호출부에서 해당 배열을 사용할 때 런타임에 치명적인
+     * {@link ClassCastException} 장애가 발생합니다.<br>
+     * 본 유틸리티 메소드는 이러한 언어적 한계를 안전하게 극복하기 위해, {@code Class<E> type} 파라미터(타입 토큰)를 외부에서 명시적으로 주입받아 런타임에 정확한 타입의 네이티브 배열을 동적
+     * 할당({@link java.lang.reflect.Array#newInstance})합니다.
+     * </p>
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 4. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 4. 18.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: IntFunction 기반 최적화 및 타입 소거 제약 Javadoc 명시
      * </pre>
      *
-     * @param E
+     * @param <E>
      *            데이터 타입
      * @param col
-     *            {@link Collection}
+     *            {@link Collection} 원본 데이터
      * @param type
-     *            데이터 타입 Class
-     * @return
+     *            데이터 타입 Class (런타임 배열 생성을 위한 타입 토큰)
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @return 컬렉션의 데이터가 담긴 정확한 타입({@code E[]})의 새로운 배열
+     *
      * @since 2018. 4. 18.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> E[] toArray(@Nonnull Collection<E> col, Class<E> type) {
-
-        int len = col.size();
-
-        E[] array = type == Object.class //
-                ? (E[]) new Object[len] //
-                : (E[]) Array.newInstance(type, len);
-
-        int i = 0;
-        for (E t : col) {
-            array[i++] = t;
+    public static <E> E[] toArray(@Nonnull Collection<E> col, @Nonnull Class<E> type) {
+        if (col == null) {
+            return (E[]) Array.newInstance(type, 0);
         }
 
-        return array;
+        // JDK 11+: 컬렉션 구현체 내부의 System.arraycopy를 활용한 네이티브 고속 복사
+        return col.toArray(size -> (E[]) Array.newInstance(type, size));
     }
 
     /**
@@ -3214,42 +3218,6 @@ public class CollectionUtils {
 
     /**
      * 
-     * Transform {@link Collection} to extension of {@link List}.
-     * 
-     * @param <E>
-     *            type of an element
-     * @param <L>
-     *            type of extension of {@link List}
-     * @param col
-     * @param listClass
-     *            MUST be class. Not allow an interface.
-     * @return
-     *
-     * @since 2014. 10. 17.
-     * 
-     * @see Class#newInstance()
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toList(Collection, Supplier)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, L extends List<E>> List<E> toList(@Nonnull Collection<E> col, Class<L> listClass) {
-
-        List<E> list = null;
-
-        try {
-            list = listClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        if (col != null) {
-            list.addAll(col);
-        }
-
-        return list;
-    }
-
-    /**
-     * 
      * <br>
      * 
      * <pre>
@@ -3275,46 +3243,6 @@ public class CollectionUtils {
      */
     public static <E, NE> List<NE> toList(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer) {
         return toCollection(col, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
-    }
-
-    /**
-     * Transform {@link Collection} to extension of {@link List} that has an another element type.
-     *
-     * @param <E>
-     *            a source element tyhpe
-     * @param <NE>
-     *            a new element type
-     * @param <L>
-     *            extends of {@link List}
-     * @param col
-     * @param transformer
-     * @param listClass
-     *            MUST be class. Not allow an interface.
-     * @return
-     *
-     * @since 2017. 7. 27.
-     * 
-     * @see Class#newInstance()
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toList(Collection, Function, Supplier)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, NE, L extends List<NE>> L toList(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer, Class<L> listClass) {
-
-        L list = null;
-
-        try {
-
-            list = listClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        for (E c : col) {
-            list.add(transformer.apply(c));
-        }
-
-        return list;
     }
 
     /**
@@ -3373,7 +3301,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> List<T> toList(@Nonnull Collection<T> col) {
-        return toList(col, (Supplier<List<T>>) ArrayList::new);
+        return toList(col, (Supplier<List<T>>) ArrayList<T>::new);
     }
 
     /**
@@ -3558,54 +3486,6 @@ public class CollectionUtils {
     }
 
     /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param stream
-     * @param transformer
-     * @param listClass
-     * @return
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 12.
-     * 
-     * @deprecated 2025. 8. 21.<br>
-     *             대체 메소드: {@link StreamUtils#toCollection(Stream, Function, Supplier)}.
-     * 
-     *             <pre>
-     *            // '코드 전환' 예시
-     *            toList(stream, transformaer, ArrayList.class)
-     *             => StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
-     *             : stream -> stream
-     *             : transformer -> transfomer
-     *             : ArrayList.class ->  (Supplier&lt;List&lt;NE&gt;&gt;) ArrayList<NE>::new) // '(Supplier&lt;List&lt;NE&gt;&gt;)'는 Generic 정보를 명확하게 전달하기 위함.
-     *             </pre>
-     * 
-     *             <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, NE, L extends List<NE>> L toList(Stream<E> stream, @Nonnull Function<E, NE> transformer, Class<L> listClass) {
-        L list = null;
-
-        try {
-            list = listClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        list.addAll(stream.map(transformer).collect(Collectors.toList()));
-
-        return list;
-    }
-
-    /**
      * {@link Collection} 데이터를 <code>keyMapper</code>로 구분되는 {@link Map} 형테로 제공합니다.<br>
      * 단, <code>keyMapper</code> 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * <code>keyMapper</code> 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
@@ -3645,57 +3525,14 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map}.
-     * 
-     * <br>
-     * 
+     * Transform {@link Collection} to the specified {@link Map}.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            입력 데이터 타입
-     * @param <K>
-     *            데이터 식별정보 유형
-     * @param <M>
-     *            새로운 {@link Map} 타입
-     * @param col
-     *            elements
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param mapClass
-     *            a subclass of {@link Map}
-     * @return
-     *
-     * @since 2017. 9. 11.
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, Class<M> mapClass) {
-
-        M map = null;
-
-        try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return toMap(col, keyGen, map);
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map}.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: StreamUtils 위임 및 와일드카드(?, ?)를 통한 타입 안정성 확보
      * </pre>
      *
      * @param <E>
@@ -3703,269 +3540,69 @@ public class CollectionUtils {
      * @param <K>
      *            데이터 식별정보 유형
      * @param <V>
-     *            새로운 데이터 유형
+     *            새로운 데이터 유형 (E &rarr; V)
      * @param <M>
      *            새로운 {@link Map} 타입
      * @param col
-     *            elements.
+     *            원본 데이터 컬렉션
      * @param keyGen
-     *            데이터 식별정보 제공 함수.
+     *            데이터 식별정보 제공 함수
      * @param valueGen
-     *            a function to create a new element using an old element.
-     * @return
+     *            원본 데이터로 새로운 데이터를 생성하는 함수 (E &rarr; V)
+     * @return 키별로 그룹화된 컬렉션을 담은 맵
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 2. 8.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
-        return (M) toMap(col, keyGen, valueGen, HashMap.class);
+        AssertUtils2.notNulls(col, keyGen, valueGen);
+
+        // 비한정적 와일드카드(?, ?)를 사용하여 원시 타입(Raw Type) 경고를 방지하고 제네릭 안정성을 유지합니다.
+        return (M) (Map<?, ?>) StreamUtils.toMap(col.stream(), keyGen, valueGen, HashMap::new);
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map}.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 2. 8.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     * 
-     * @param <E>
-     *            입력 데이터 타입
-     * @param <K>
-     *            데이터 식별정보 유형
-     * @param <V>
-     *            데이터 유형 새로운 value로 사용될 데이터 타입
-     * @param <M>
-     *            새로운 {@link Map} 타입
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            a function to create a new element using an old element.
-     * @param mapClass
-     *            the subclass of a {@link Map}.
-     * @return
+     * Transform {@link Collection} to the specified {@link Map}. <br>
+     * *
+     * <p>
+     * <b>[데이터 병합 정책]</b><br>
+     * <code>keyGen</code> 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에 순회되는 요소가 이전 요소를
+     * 덮어씁니다(Overwrite).</b>
+     * </p>
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 2. 8.
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드 목록은 아래와 같습니다.
-     *             <ul>
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function)}
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier)}
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
-     *             </ul>
-     * 
-     *             <code>
-     *            // '코드 전환' 예시<br>
-     *            toMap(col, keyGen, valueGen, map, mapClass)<br>
-     *             => StreamUtils.toMap(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);<br>
-     *             : col => col.stream() ->  stream<br>
-     *             : keyGen -> keyMapper<br>
-     *             : valueGen -> valueFunction<br>
-     *             : mapClass => (Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;) HashMap&lt;K, List&lt;V&gt;&gt;::new 또는 (Supplier&lt;Map&lt;K, Set&lt;V&gt;&gt;&gt;) HashMap&lt;K, Set&lt;V&gt;&gt;::new, ...<br>
-     *               -> mapSupplier // 'Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             :  X => (Supplier&lt;List&lt;V&gt;&gt;) ArrayList&lt;V&gt;::new 또는 (Supplier&lt;Set&lt;V&gt;&gt;) HashSet&lt;V&gt;::new, ...<br>
-     *               -> collectionSupplier // 'Supplier&lt;List&lt;V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen,
-            Class<M> mapClass) {
-        return (M) toMap(col, keyGen, valueGen, mapClass, ArrayList.class);
-    }
-
-    /**
-     * Transfor a Collection to the specified {@link Map}. <br>
-     * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 11. 28.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     * 
-     * @param <E>
-     *            입력 데이터 타입
-     * @param <K>
-     *            데이터 식별정보 유형
-     * @param <V>
-     *            데이터 유형 새로운 value로 사용될 데이터 타입
-     * @param <C>
-     *            {@link Collection} 타입
-     * @param <M>
-     *            새로운 {@link Map} 타입
-     * 
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            a function to create a new element using an old element.
-     * @param mapClass
-     *            the subclass of a {@link Map}.
-     * @param colClass
-     *            the subclass of a {@link Collection}
-     * 
-     * @return
-     *
-     * @since 2019. 11. 28.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드 목록은 아래와 같습니다.
-     *             <ul>
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function)}
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier)}
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
-     *             </ul>
-     * 
-     *             <code>
-     *            // '코드 전환' 예시<br>
-     *            toMap(col, keyGen, valueGen, map, mapClass, colClass)<br>
-     *             => StreamUtils.toMap(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);<br>
-     *             : col => col.stream() ->  stream<br>
-     *             : keyGen -> keyMapper<br>
-     *             : valueGen -> valueFunction<br>
-     *             : mapClass => (Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;) HashMap&lt;K, List&lt;V&gt;&gt;::new 또는 (Supplier&lt;Map&lt;K, Set&lt;V&gt;&gt;&gt;) HashMap&lt;K, Set&lt;V&gt;&gt;::new, ...<br>
-     *               -> mapSupplier // 'Supplier&lt;Map&lt;K, List&lt;V&gt;&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             : colClass => (Supplier&lt;List&lt;V&gt;&gt;) ArrayList&lt;V&gt;::new 또는 (Supplier&lt;Set&lt;V&gt;&gt;) HashSet&lt;V&gt;::new, ...<br>
-     *               -> collectionSupplier // 'Supplier&lt;List&lt;V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen,
-            @Nonnull Function<E, V> valueGen, Class<M> mapClass, Class<C> colClass) {
-
-        M map = null;
-
-        try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return toMap(col, keyGen, valueGen, map, colClass);
-    }
-
-    /**
-     * Transfor a Collection to the specified {@link Map}. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            원본 데이터 유형 (a type of a value)
      * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
+     *            데이터 식별정보 유형 (a type of a key)
      * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
+     *            대상 {@link Map} 유형 (a type of a Map)
      * @param col
-     *            elements.
+     *            데이터를 추출할 원본 컬렉션
      * @param keyGen
-     *            데이터 식별정보 제공 함수. ( E =@=> K)
-     * @param valueGen
-     *            새로운 데이터 제공 함수 (E => V)
+     *            데이터 식별정보 제공 함수
      * @param map
-     *            an instance of {@link Map}.
-     * @param colClass
-     *            the subclass of a {@link Collection}.
-     * @return
+     *            데이터가 담길 대상 Map 인스턴스
+     * @return 데이터가 추가된 대상 Map 인스턴스
      *
      * @since 2020. 1. 30.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드 목록은 아래와 같습니다.
-     *             <ul>
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function)}
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier)}
-     *             <li>{@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
-     *             </ul>
-     * 
-     *             <code>
-     *             // '코드 전환' 예시<br>
-     *             toMap(col, keyGen, valueGen, map, colClass)<br>
-     *             => StreamUtils.toMap(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);<br>
-     *             : col => col.stream() -> stream<br>
-     *             : keyGen -> keyMapper<br>
-     *             : valueGen -> valueFunction<br>
-     *             : map => () -> map -> mapSupplier<br>
-     *             : colClass => (Supplier&lt;List&lt;V&gt;&gt;) ArrayList&lt;V&gt;::new 또는 (Supplier&lt;Set&lt;V&gt;&gt;) HashSet&lt;V&gt;::new, ...<br>
-     *             -> collectionSupplier // 'Supplier&lt;List&lt;V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, K, V, C extends Collection<V>, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen,
-            @Nonnull Function<E, V> valueGen, @Nonnull M map, Class<C> colClass) {
+    public static <E, K, M extends Map<K, E>> M toMap( //
+            @Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map //
+    ) {
+        AssertUtils2.notNulls(col, keyGen, map);
 
-        K key = null;
-        Collection<V> values = null;
-
-        for (E e : col) {
-            key = keyGen.apply(e);
-            values = map.get(key);
-
-            if (values == null) {
-                try {
-                    values = colClass.newInstance();
-                } catch (InstantiationException //
-                        | IllegalAccessException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                map.put(key, values);
-            }
-
-            values.add(valueGen.apply(e));
-        }
-
-        return map;
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map}. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of a value.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <M>
-     *            a type of a {@link Map}.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param map
-     * @return
-     *
-     * @since 2020. 1. 30.
-     * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     */
-    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map) {
-
-        for (E v : col) {
-            map.put(keyGen.apply(v), v);
-        }
+        // 컬렉션 내부 최적화를 활용하는 내부 반복자(Internal Iterator) 적용
+        col.forEach(v -> map.put(keyGen.apply(v), v));
 
         return map;
     }
@@ -4009,85 +3646,7 @@ public class CollectionUtils {
      * 
      */
     public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyMapper, @Nonnull Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(col.stream(), keyMapper, d -> d, (d1, d2) -> d2, (Supplier<M>) mapSupplier);
-    }
-
-    /**
-     * Tranform {@link Collection} to {@link Map}.
-     * 
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------ 
-     * 2014. 10. 17.        parkjunohng77@gmail.com         최초작성
-     * 2020. 1. 30.         parkjunohng77@gmail.com         deprecated.
-     * </pre>
-     * 
-     * @ppram <E> a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @return {@link HashMap}
-     *
-     * @since 2014. 10. 17.
-     * 
-     * @deprecated Use {@link {@link #toMap(Collection, Function)}, if supports JDK 1.8 or higher.
-     */
-    public static <E, K> Map<K, E> toMap(@Nonnull Collection<E> col, IKeyExtractor<K, E> keyGen) {
-        return toMap(col, keyGen, HashMap.class);
-    }
-
-    /**
-     * Transform {@link Collection} to extension of {@link Map}.
-     * 
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2017. 7. 27.        parkjunohng77@gmail.com         최초작성
-     * 2020. 1. 30.         parkjunohng77@gmail.com         deprecated.
-     * </pre>
-     * 
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <M>
-     *            a type of a {@link Map}.
-     * @param col
-     * @param keyGen
-     * @param mapClass
-     *            MUST be class. Not allow an interface.
-     * @return
-     *
-     * @since 2017. 7. 27.
-     * 
-     * @deprecated Use {@link #toMap(Collection, Function, Class)}, if supports JDK 1.8 or higher.
-     */
-    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
-
-        M map = null;
-
-        try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        for (E e : col) {
-            map.put(keyGen.getKey(e), e);
-        }
-
-        return map;
+        return StreamUtils.toMap(col.stream(), keyMapper, d -> d, (_, d2) -> d2, mapSupplier);
     }
 
     /**
@@ -4342,197 +3901,6 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Enumeration} to the specified {@link Map}. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param mapClass
-     *            a sub-{@link Class} of a {@link Map}.
-     * @return
-     *
-     * @since 2017. 9. 11.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
-     *             <code>
-     *              // '코드 전환' 예시<br>
-     *             toMap(col, keyGen, mapClass)<br>
-     *             => toMap(col, keyMapper, mapSupplier);<br>
-     *             : col => col.stream() -> stream<br>
-     *             : keyGen -> keyMapper<br>
-     *             : mapClass => (Supplier&lt;Map&lt;K, V&gt;&gt;) HashMap&lt;K, V&gt;::new <br>
-     *               -> mapSupplier // 'Supplier&lt;Map&lt;K, V&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen, Class<M> mapClass) {
-
-        M map = null;
-
-        try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return toMap(col, keyGen, map);
-    }
-
-    /**
-     * 이 메소드는 전달받은 {@link Map}에 {@link Enumeration} 에 포함된 정보를 추가하기 때문에,<br>
-     * <span style="color:red">동일한 <code>키</code>에 대한 데이터 무결성을 보장하지 않습니다.</span>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param map
-     *            an instance of a {@link Map}.
-     * 
-     * @return
-     *
-     * @since 2020. 1. 30.
-     * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toMap(Collection, Function, Supplier)}.<br>
-     *             <code>
-     *             // '코드 전환' 예시<br>
-     *             toMap(col, keyGen, valueGen, map)<br>
-     *             => toMap(stream, keyMapper, mapSupplier);<br>
-     *             : col => col.stream() -> stream<br>
-     *             : keyGen -> keyMapper<br>
-     *             : map => () -> map -> mapSupplier<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map) {
-
-        E v = null;
-
-        while (col.hasMoreElements()) {
-            v = col.nextElement();
-
-            map.put(keyGen.apply(v), v);
-        }
-
-        return map;
-    }
-
-    /**
-     * Tranform {@link Collection} to {@link Map}.
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
-     * 2020. 1. 30.     parkjunohng77@gmail.com         deprecated.
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @return
-     *
-     * @since 2017. 9. 11.
-     * 
-     * @deprecated Use {@link #toMap(Enumeration, Function, Class)}, if supports JDK 1.8 or higher.
-     */
-    public static <E, K> Map<K, E> toMap(Enumeration<E> col, IKeyExtractor<K, E> keyGen) {
-        return toMap(col, keyGen, HashMap.class);
-    }
-
-    /**
-     * Transform {@link Enumeration} to extension of {@link Map}.
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
-     * 2020. 1. 30.     parkjunohng77@gmail.com         deprecated.
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param mapClass
-     *            a sub-{@link Class} of a {@link Map}.
-     * @return
-     *
-     * @since 2017. 9. 11.
-     * 
-     * @deprecated Use {@link #toMap(Enumeration, Function, Class)}, if supports JDK 1.8 or higher.
-     */
-    public static <E, K, M extends Map<K, E>> M toMap(Enumeration<E> col, IKeyExtractor<K, E> keyGen, Class<M> mapClass) {
-
-        M map = null;
-
-        try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        E e = null;
-
-        while (col.hasMoreElements()) {
-            e = col.nextElement();
-
-            map.put(keyGen.getKey(e), e);
-        }
-
-        return map;
-    }
-
-    /**
      * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
      * 
      * <pre>
@@ -4566,44 +3934,53 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
+     * Transform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 원본 컬렉션의 요소와 해당 요소의 인덱스(0부터 시작)를 함께 고려하여 Key-Value 쌍을 생성합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            원본 데이터 유형 (a type of an element)
      * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
+     *            데이터 식별정보 유형 (a type of a key)
      * @param <V>
-     *            데이터 유형 a type of a new element.
+     *            새로운 데이터 유형 (a type of a new element)
      * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
+     *            생성할 대상 {@link Map} 구현체 유형 (not interface)
      * @param col
-     *            elements.
+     *            원본 데이터 컬렉션
      * @param keyGen
-     *            데이터 식별정보 제공 함수.
+     *            데이터와 인덱스를 받아 식별정보를 제공하는 함수
      * @param valueGen
-     *            새로운 데이터 변환 함수
+     *            데이터와 인덱스를 받아 새로운 데이터를 생성하는 변환 함수
      * @param mapClass
-     *            a sub-{@link Class} of a {@link Map}.
-     * @return
+     *            동적으로 인스턴스를 생성할 {@link Map}의 하위 클래스(Class) 메타데이터
+     * @return 동적으로 생성되고 데이터가 추가된 대상 Map 인스턴스
+     * @throws IllegalArgumentException
+     *             Map 인스턴스를 동적으로 생성할 수 없는 경우 (기본 생성자 부재, 접근 권한 등)
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
-            Class<M> mapClass) {
-        M map = null;
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV( //
+            @Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, //
+            @Nonnull BiFunction<E, Integer, V> valueGen, @Nonnull Class<M> mapClass //
+    ) {
+        AssertUtils2.notNulls(col, keyGen, valueGen, mapClass);
 
+        M map;
         try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            map = mapClass.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
+            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
         }
 
         return toMapHSV(col, keyGen, valueGen, map);
@@ -4643,6 +4020,8 @@ public class CollectionUtils {
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
             M map) {
+
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
         for (E e : col) {
@@ -4694,6 +4073,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
      * @param <E>
@@ -4715,16 +4095,18 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
+     * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
             Class<M> mapClass) {
-        M map = null;
 
+        M map;
         try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            map = mapClass.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
+            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
         }
 
         return toMapHSV(col, keyGen, valueGen, map);
@@ -4764,6 +4146,8 @@ public class CollectionUtils {
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
             @Nonnull M map) {
+
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
         for (E e : col) {
@@ -4815,6 +4199,7 @@ public class CollectionUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
      * @param <E>
@@ -4836,16 +4221,17 @@ public class CollectionUtils {
      * @return
      *
      * @since 2019. 8. 8.
+     * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
             Class<M> mapClass) {
-        M map = null;
-
+        M map;
         try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            map = mapClass.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
+            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
         }
 
         return toMapHSV(col, keyGen, valueGen, map);
@@ -4887,6 +4273,8 @@ public class CollectionUtils {
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
             @Nonnull M map) {
+
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
         for (E e : col) {
@@ -4938,6 +4326,7 @@ public class CollectionUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2019. 1. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
      * @param <E>
@@ -4958,60 +4347,69 @@ public class CollectionUtils {
      *            a sub-{@link Class} of a {@link Map}.
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 15.
+     * @version 3.0.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen, Class<M> mapClass) {
 
-        M map = null;
-
+        M map;
         try {
-            map = mapClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            map = mapClass.getDeclaredConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
+            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
         }
 
         return toMapHSV(col, keyGen, valueGen, map);
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <br>
-     * 
+     * Transform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     *
+     * <p>
+     * <b>[데이터 병합 정책]</b><br>
+     * <code>keyGen</code> 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에 처리되는 요소의 변환 값(valueGen)이 이전 값을
+     * 덮어씁니다(Overwrite).</b>
+     * </p>
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
-     *            a type of an element.
+     *            원본 데이터 유형 (a type of an element)
      * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
+     *            데이터 식별정보 유형 (a type of a key)
      * @param <V>
-     *            데이터 유형 a type of a new element.
+     *            새로운 데이터 유형 (E &rarr; V)
      * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
+     *            대상 {@link Map} 구현체 유형 (not interface)
      * @param col
-     *            elements.
+     *            원본 데이터 컬렉션
      * @param keyGen
-     *            데이터 식별정보 제공 함수.
+     *            데이터 식별정보 제공 함수
      * @param valueGen
-     *            새로운 데이터 변환 함수
+     *            새로운 데이터 변환 함수 (E &rarr; V)
      * @param map
-     *            an instance of a {@link Map}.
-     * @return
+     *            데이터가 담길 대상 Map 인스턴스
+     * @return 데이터가 추가된 대상 Map 인스턴스
      *
      * @since 2020. 1. 30.
-     * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @version 2.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen, @Nonnull M map) {
-        for (E e : col) {
-            map.put(keyGen.apply(e), valueGen.apply(e));
-        }
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV( //
+            @Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, //
+            @Nonnull Function<E, V> valueGen, @Nonnull M map //
+    ) {
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
+
+        col.forEach(e -> map.put(keyGen.apply(e), valueGen.apply(e)));
+
         return map;
     }
 
@@ -5040,7 +4438,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> List<T> topN(@Nonnull Collection<T> data, @Nonnull Comparator<T> sorter, int limit) {
-        return topN(data, o -> true, sorter, limit);
+        return topN(data, _ -> true, sorter, limit);
     }
 
     /**
@@ -5225,7 +4623,7 @@ public class CollectionUtils {
         AssertUtils2.isTrue(limit > -1);
 
         // N개 중 "최악"이 루트가 되도록: cmp의 자연스런 최소힙을 쓰고, 들어온 e가 루트보다 "더 낫다"(>0)면 교체합니다.
-        PriorityQueue<T> filtered = new PriorityQueue<>(limit, sorter);
+        PriorityQueue<T> filtered = new PriorityQueue<>(limit, sorter.reversed());
 
         for (T e : data) {
             if (!filter.test(e)) {
@@ -5236,7 +4634,7 @@ public class CollectionUtils {
             } else {
                 T worst = filtered.peek(); // 현재 N개 중 최악
                 // e가 더 "좋으면" 교체
-                if (sorter.compare(e, worst) > 0) {
+                if (sorter.compare(e, worst) < 0) {
                     filtered.poll();
                     filtered.add(e);
                 }
@@ -5300,7 +4698,7 @@ public class CollectionUtils {
         }
 
         // 2) Quickselect로 "상위 N 기준" 파티셔닝
-        // partition 규칙: cmp.compare(a[i], pivot) > 0 이면 "더 좋음"으로 간주하여 왼쪽군에 둠
+        // partition 규칙: cmp.compare(a[i], pivot) < 0 이면 "더 좋음"으로 간주하여 왼쪽군에 둠
         TopN.quickselectTopNInPlace(filtered, sorter, limit);
 
         // 3) 상위 N 구간만 최종 정렬
@@ -5335,56 +4733,6 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Set} to extension of a {@link Set}.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2014. 10. 17.        parkjunohng77@gmail.com     최초 작성
-     * 2023. 7. 27.         parkjunohng77@gmail.com     Return Type 변경. Set&lt;E&gt; -> S
-     * </pre>
-     * 
-     * @param <E>
-     *            a type of an element.
-     * @param <S>
-     *            a type of subclass of {@link Set}, not interface.
-     * @param col
-     *            elements.
-     * @param setClass
-     *            a sub-{@link Class} of a {@link Set}.
-     * @return
-     *
-     * @since 2014. 10. 17.
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link #toSet(Collection, Supplier)}.<br>
-     *             <code>
-     *            // '코드 전환' 예시<br>
-     *            toSet(col, setClass)<br>
-     *             => toSet(col, setSupplier);<br>
-     *             : col -> col<br>
-     *             : setClass => (Supplier&lt;Set&lt;E&gt;&gt;) Set&lt;E&gt;::new -> setSupplier // 'Supplier&lt;Set&lt;E&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, S extends Set<E>> S toSet(@Nonnull Collection<E> col, Class<S> setClass) {
-        Set<E> set = null;
-
-        if (setClass == null) {
-            set = new HashSet<>();
-        } else {
-            try {
-                set = setClass.newInstance();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return (S) toSet(col, set);
-    }
-
-    /**
      * {@link Collection}에 포함된 데이터를 변환(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
      * 
      * <pre>
@@ -5411,92 +4759,6 @@ public class CollectionUtils {
      */
     public static <E, NE> Set<NE> toSet(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer) {
         return StreamUtils.toCollection(col.stream(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
-    }
-
-    /**
-     * {@link Collection}에 포함된 데이터를 변환(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
-     * 
-     * @param <E>
-     *            데이터 유형
-     * @param <NE>
-     *            새로운 데이터 유형
-     * @param <NS>
-     *            결과 {@link Set} 유형
-     * 
-     * @param col
-     *            데이터 제공 함수
-     * @param transformer
-     *            새로운 데이터 제공 함수
-     * @param setClass
-     *            결과 {@link Set} 유형.
-     * @return
-     *
-     * @since 2017. 7. 27.
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link StreamUtils#toCollection(Stream, Function, Supplier)}.<br>
-     *             <code>
-     *            // '코드 전환' 예시<br>
-     *            toSet(col, transformer, setClass)<br>
-     *             => StreamUtils.toCollection(stream, transformer, collectionSupplier);<br>
-     *             : col => col.stream() ->  stream<br>
-     *             : transformer -> transformer<br>
-     *             : setClass => (Supplier&lt;Set&lt;E&gt;&gt;) Set&lt;E&gt;::new -> setSupplier // 'Supplier&lt;Set&lt;E&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code>
-     * 
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, NE, NS extends Set<NE>> NS toSet(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer, Class<NS> setClass) {
-
-        NS set = null;
-
-        try {
-            set = setClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        for (E c : col) {
-            set.add(transformer.apply(c));
-        }
-
-        return set;
-    }
-
-    /**
-     * Transform {@link Set} to extension of a {@link Set}. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
-     * 2023. 7. 27.         parkjunohng77@gmail.com     Return Type 변경. Set&lt;E&gt; -> S
-     * </pre>
-     *
-     * @param <E>
-     *            데이터 유형
-     * @param <S>
-     * 
-     * @param col
-     *            데이터 제공 객체
-     * @param set
-     *            데이터가 모아지는 {@link Set} 객체.
-     * @return
-     *
-     * @since 2020. 1. 30.
-     * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link Collection#addAll(Collection)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, S extends Set<E>> S toSet(@Nonnull Collection<E> col, S set) {
-
-        if (col != null) {
-            set.addAll(col);
-        }
-
-        return set;
     }
 
     /**
@@ -5661,86 +4923,6 @@ public class CollectionUtils {
     public static <K, V, SET extends Set<V>> SET toSet(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
             @Nonnull BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, setFactory);
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <NE>
-     *            a type of a new element.
-     * @param stream
-     * @param transformer
-     * @return
-     *
-     * @since 2018. 9. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link StreamUtils#toSet(Stream, Function)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, NE> Set<NE> toSet(Stream<E> stream, @Nonnull Function<E, NE> transformer) {
-        return stream.map(transformer).collect(Collectors.toSet());
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <NE>
-     *            a type of a new element.
-     * @param <S>
-     *            a type of a subclass of {@link Set}, not interface.
-     * @param stream
-     * @param transformer
-     * @param setClass
-     * @return
-     *
-     * @since 2019. 9. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * 
-     * @deprecated 2025. 8. 21., 대체 메소드: {@link StreamUtils#toSet(Stream, Function, Supplier)}.<br>
-     *             <code>
-     *            // '코드 전환' 예시<br>
-     *            toSet(stream, transformer, setClass)<br>
-     *             => StreamUtils.toSet(col, transformer, setSupplier);<br>
-     *             : col -> col<br>
-     *             : transformer -> transformer<br>
-     *             : setClass => (Supplier&lt;Set&lt;E&gt;&gt;) Set&lt;E&gt;::new -> setSupplier // 'Supplier&lt;Set&lt;E&gt;&gt;' 는 Generic 정보를 명확하게 전달하기 위함.<br>
-     *             </code> <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <E, NE, S extends Set<NE>> S toSet(Stream<E> stream, @Nonnull Function<E, NE> transformer, Class<S> setClass) {
-
-        S set = null;
-
-        try {
-            set = setClass.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        set.addAll(stream.map(transformer).collect(Collectors.toSet()));
-
-        return set;
     }
 
     /**
@@ -5931,7 +5113,7 @@ public class CollectionUtils {
         }
 
         /**
-         * 파티션: sorter.compare(x, pivot) > 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종 위치. <br>
+         * 파티션: sorter.compare(x, pivot) < 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종 위치. <br>
          * 
          * <pre>
          * [개정이력]
@@ -5958,7 +5140,7 @@ public class CollectionUtils {
             int store = left;
             for (int i = left; i < right; i++) {
                 // "더 좋음"을 왼쪽으로 모음
-                if (sorter.compare(data.get(i), pivotVal) > 0) {
+                if (sorter.compare(data.get(i), pivotVal) < 0) {
                     swap(data, store++, i);
                 }
             }

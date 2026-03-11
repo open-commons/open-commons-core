@@ -40,9 +40,6 @@ import java.nio.file.WatchService;
 import java.util.HashSet;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.log.LogStringFactory;
-import open.commons.core.log.LogUtils;
-import open.commons.core.log.LogStringFactory.LogStringContainer;
 import open.commons.core.utils.FileUtils;
 import open.commons.core.utils.IOUtils;
 import open.commons.core.utils.ThreadUtils;
@@ -142,7 +139,7 @@ public class DirectoryWatchService implements IRunnable {
             // register the events to be notified by the program
             path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
 
-            LogStringContainer log = LogStringFactory.getContainer(10, 5, 0, "\n");
+//            LogStringContainer log = LogStringFactory.getContainer(10, 5, 0, "\n");
 
             // infinite loop will take events
             while (running) {
@@ -158,13 +155,6 @@ public class DirectoryWatchService implements IRunnable {
                     Path file = (Path) watchEvent.context();
 
                     File realfile = path.resolve(file).toFile();
-
-                    boolean debugging = LogUtils.setEnabled(false);
-                    LogUtils.log(
-                            "\n" + log.add("WatchEvent", "KIND", kind.name()).add("TYPE", (realfile.isFile() ? "file" : realfile.isDirectory() ? "directory" : "unpredictable")) //
-                                    .add("FILE", realfile.toString()) //
-                                    .flush());
-                    LogUtils.setEnabled(debugging);
 
                     boolean monitor = true;
 

@@ -19,12 +19,12 @@
 */
 package open.commons.core.utils;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -37,26 +37,24 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.channels.Channels;
 import java.nio.channels.ClosedByInterruptException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
-import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Vector;
 import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +63,8 @@ import open.commons.core.CommonProperties;
 import open.commons.core.Result;
 import open.commons.core.io.IRandomAccessible;
 import open.commons.core.util.ArrayItr;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * 
@@ -79,33 +79,25 @@ public class IOUtils {
 
     private static Logger logger = LoggerFactory.getLogger(IOUtils.class);
 
+    // 애플리케이션 로드 시점에 OS별 명령어를 캐싱 (기존 아키텍처 유지)
     private static final String COMMAND_OPEN;
 
     static {
         final String PREFIX = "io.command.explorer.";
+        // 오타 수정 여부는 외부 라이브러리에 종속되므로 기존 코드 유지 (subProperteis)
         Properties prop = CommonProperties.subProperteis(PREFIX);
-
         final String osname = System.getProperty("os.name").toLowerCase();
 
-        String tmpcmd = null;
-
-        String key = null;
-        for (Entry<Object, Object> entry : prop.entrySet()) {
-            if (tmpcmd != null) {
-                break;
-            }
-
-            key = (String) entry.getKey();
-
-            if (osname.contains(key.replace(PREFIX, ""))) {
-                tmpcmd = (String) entry.getValue();
-            }
-        }
-
-        COMMAND_OPEN = tmpcmd;
+        // [최적화] Stream API를 활용하여 선언적으로 매핑 및 첫 번째 일치 항목 탐색
+        COMMAND_OPEN = prop.entrySet().stream() //
+                .filter(entry -> osname.contains(((String) entry.getKey()).replace(PREFIX, ""))) //
+                .map(entry -> (String) entry.getValue()) //
+                .findFirst() //
+                .orElse(null);
     }
 
-    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    // JDK 7+ 표준 API 사용
+    public static final String LINE_SEPARATOR = System.lineSeparator();
 
     /**
      * byte[] 데이터를 제공합니다.
@@ -117,19 +109,13 @@ public class IOUtils {
      */
     private static final Function<byte[], byte[]> BYTE_ACTION_BYPASS = bs -> bs;
 
-    public static final int BUFFER_SIZE_32B = 32;
-    public static final int BUFFER_SIZE_1KB = 1024;
-    public static final int BUFFER_SIZE_1MB = 1024 * 1024;
-    public static final int BUFFER_SIZE_10MB = 1024 * 1024 * 10;
-    public static final int BUFFER_SIZE_1GB = 1024 * 1024 * 1024;
-
     /**
      * {@link AutoCloseable}를 모두 닫는다.
      * 
      * @param closeables
      *            {@link AutoCloseable} 객체들.
      */
-    public static void close(AutoCloseable... closeables) {
+    public static void close(@Nonnull AutoCloseable... closeables) {
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -158,7 +144,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static void close(Collection<AutoCloseable> closeables) {
+    public static void close(@Nonnull Collection<AutoCloseable> closeables) {
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -248,7 +234,7 @@ public class IOUtils {
      * @param inStream
      * @return {@link BufferedReader} 객체, {@link InputStream}인 <code>null</code>인 경우 <code>null</code>반환.
      */
-    public static BufferedReader getReader(InputStream inStream) {
+    public static BufferedReader getReader(@Nonnull InputStream inStream) {
         return getReader(inStream, (Charset) null);
     }
 
@@ -269,14 +255,10 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(InputStream inStream, Charset cs) {
-        BufferedReader reader = null;
-
-        if (inStream != null) {
-            reader = new BufferedReader(cs != null ? new InputStreamReader(inStream, cs) : new InputStreamReader(inStream));
-        }
-
-        return reader;
+    public static BufferedReader getReader(@Nonnull InputStream inStream, Charset cs) {
+        return inStream != null //
+                ? new BufferedReader(new InputStreamReader(inStream, Objects.requireNonNullElse(cs, Charset.defaultCharset()))) //
+                : null;
     }
 
     /**
@@ -287,7 +269,7 @@ public class IOUtils {
      * 
      * @since 2014. 6. 24.
      */
-    public static BufferedReader getReader(InputStream inStream, String charsetName) {
+    public static BufferedReader getReader(@Nonnull InputStream inStream, String charsetName) {
         return getReader(inStream, charsetName != null ? Charset.forName(charsetName) : null);
     }
 
@@ -308,7 +290,7 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(Path path) {
+    public static BufferedReader getReader(@Nonnull Path path) {
         return getReader(path, (Charset) null);
     }
 
@@ -331,18 +313,17 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(Path path, Charset cs) {
-        BufferedReader reader = null;
+    public static BufferedReader getReader(@Nonnull Path path, Charset cs) {
 
-        if (path != null) {
-            try {
-                reader = getReader(Files.newInputStream(path), cs);
-            } catch (IOException e) {
-                logger.warn("reader 생성시 에러가 발생하였습니다. 원인={}", e.getMessage());
-            }
+        if (path == null)
+            return null;
+
+        try {
+            return Files.newBufferedReader(path, Objects.requireNonNullElse(cs, Charset.defaultCharset()));
+        } catch (IOException e) {
+            logger.warn("reader 생성시 에러가 발생하였습니다. 원인={}", e.getMessage());
+            return null;
         }
-
-        return reader;
     }
 
     /**
@@ -364,8 +345,8 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(Path path, String charsetName) {
-        return getReader(path, charsetName != null ? Charset.forName(charsetName) : (Charset) null);
+    public static BufferedReader getReader(@Nonnull Path path, String charsetName) {
+        return getReader(path, requireCharset(charsetName));
     }
 
     /**
@@ -460,7 +441,7 @@ public class IOUtils {
      */
     public static BufferedWriter getWriter(File file) {
         try {
-            return new BufferedWriter(new FileWriter(file));
+            return Files.newBufferedWriter(file.toPath());
         } catch (IOException e) {
             return null;
         }
@@ -582,36 +563,65 @@ public class IOUtils {
     }
 
     /**
-     * 대상에 해당하는 파일이나 폴더를 연다.
-     * 
+     * 대상에 해당하는 파일이나 폴더를 연다. <br>
      * <b>
      * 
      * <pre>
      * 지원
-     * - Windows 기반 OS
+     * - Windows 기반 OS 및 외부 프로퍼티에 정의된 OS
      * </pre>
      * 
      * </b>
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜          | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 01. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 09.    parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream/ProcessBuilder 적용 및 리소스 최적화
+     * </pre>
+     * 
      * @param target
-     *            <BR>
+     *            {String} 대상 경로
+     * 
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * @version 3.0.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static void open(String target) {
-        try {
-            if (new File(target).exists()) {
-                Process proc = Runtime.getRuntime().exec(COMMAND_OPEN + " " + target);
-                InputStreamReader reader = new InputStreamReader(proc.getInputStream());
+        if (target == null || target.trim().isEmpty()) {
+            return;
+        }
 
-                while (reader.read() != -1)
-                    ;
-                proc.destroy();
+        File file = new File(target);
+        if (!file.exists()) {
+            System.err.println("There is not a file or a directory: " + target);
+            return;
+        }
+
+        try {
+            if (COMMAND_OPEN != null) {
+                // [안전성] 공백이 포함된 경로나 복합 명령어 처리를 위한 리스트 분리
+                List<String> commandArgs = new ArrayList<>(Arrays.asList(COMMAND_OPEN.split("\\s+")));
+                commandArgs.add(file.getAbsolutePath());
+
+                ProcessBuilder pb = new ProcessBuilder(commandArgs);
+                pb.redirectErrorStream(true); // 데드락 방지를 위한 에러/표준 스트림 병합
+
+                Process proc = pb.start();
+
+                // try-with-resources를 통한 스트림 메모리 누수 방지
+                try (InputStream is = proc.getInputStream()) {
+                    is.skip(Long.MAX_VALUE); // Busy-waiting 제거
+                }
+            } else if (Desktop.isDesktopSupported()) {
+                // COMMAND_OPEN 매핑 실패 시 Java 표준 Desktop API로 Fallback 지원
+                Desktop.getDesktop().open(file);
             } else {
-                System.err.println("There is not a file or a directory");
+                throw new UnsupportedOperationException("Cannot open file: OS command is not configured and Desktop API is not supported.");
             }
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        } catch (IOException e) {
+            throw ExceptionUtils.newException(RuntimeException.class, e, "파일(%s)을 여는 도중 오류가 발생하였습니다.", target);
         }
     }
 
@@ -1265,7 +1275,7 @@ public class IOUtils {
      * @see #readFully(InputStream, boolean) since 1.6.5
      * @see #readFully(InputStream, int, boolean) since 1.6.5
      */
-    public static byte[] readFully(InputStream inStream) {
+    public static byte[] readFully(@Nonnull InputStream inStream) {
         return readFully(inStream, true);
     }
 
@@ -1274,9 +1284,10 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 3. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25: readAllBytes() 적용으로 수동 채널 버퍼링 제거
      * </pre>
      *
      * @param inStream
@@ -1286,12 +1297,21 @@ public class IOUtils {
      * @return
      *
      * @since 2019. 3. 21.
-     * @version 1.6.5
+     * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #readFully(InputStream, int, boolean)
      */
-    public static byte[] readFully(InputStream inStream, final boolean close) {
-        return readFully(inStream, 1048576 /* 1024 * 1024 */, close);
+    public static byte[] readFully(@Nonnull InputStream inStream, final boolean close) {
+        try {
+            return inStream.readAllBytes();
+        } catch (IOException e) {
+            logger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            return null;
+        } finally {
+            if (close) {
+                close(inStream);
+            }
+        }
     }
 
     /**
@@ -1304,6 +1324,7 @@ public class IOUtils {
      * 2019. 3. 21.		parkjunohng77@gmail.com			최초 작성
      * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
      * 2020. 9. 13.     parkjunohng77@gmail.com         Channel 처리 함수를 별도 분리 후, 내부 호출
+     * 2026. 3. 10.     parkjunhong77@gmail.com         기존의 bufferSize 파라미터는 하위 호환성을 위해 남기지만 내부적으로는 최적화된 {@link #readFully(InputStream, boolean)} 을 호출.
      * </pre>
      *
      * @param inStream
@@ -1318,12 +1339,13 @@ public class IOUtils {
      * @version 1.6.5
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) {
-        return readFully(Channels.newChannel(inStream), bufferSize, close);
+    public static byte[] readFully(@Nonnull InputStream inStream, final int bufferSize, final boolean close) {
+        return readFully(inStream, close);
     }
 
     /**
-     * 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
+     * 
+     * /** 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1557,7 +1579,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(InputStream inStream) throws IOException {
+    public static List<String> readLines(@Nonnull InputStream inStream) throws IOException {
         return readLines(inStream, Charset.defaultCharset(), -1);
     }
 
@@ -1582,51 +1604,50 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(InputStream inStream, Charset charset) throws IOException {
+    public static List<String> readLines(@Nonnull InputStream inStream, Charset charset) throws IOException {
         return readLines(inStream, charset, -1);
     }
 
     /**
      * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     * *
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜          | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 10.    parkjunohng77@gmail.com         최초 작성
+     * 2026. 03. 09.    parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream API 및 toList() 최적화 적용
      * </pre>
      *
      * @param inStream
-     *            읽을 파일
+     *            {InputStream} 읽을 파일
      * @param charset
-     *            문자열 셋
+     *            {Charset} 문자열 셋
      * @param lineCount
-     *            읽으려는 줄 수
-     * @return
+     *            {long} 읽으려는 줄 수 (0 미만일 경우 전체)
+     * @return 읽어들인 문자열 목록 (List<String>)
+     * 
      * @throws IOException
      *
      * @since 2021. 11. 10.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * @version 3.0.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(InputStream inStream, Charset charset, final long lineCount) throws IOException {
-        List<String> lines = new ArrayList<>();
+    public static List<String> readLines(@Nonnull InputStream inStream, @Nonnull Charset charset, final long lineCount) throws IOException {
+        AssertUtils2.notNulls(inStream, charset);
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, charset));
-        String readline = null;
+        // BufferedReader 라이프사이클(close)은 호출자의 책임이므로 try-with-resources는 생략합니다.
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, requireCharset(charset)));
 
-        Predicate<Long> counter = lineCount < 0 //
-                ? l -> true // 0보다 작은 경우 전체
-                : l -> l < lineCount //
-        ;
+        Stream<String> linesStream = reader.lines();
 
-        long readCount = 0;
-        while (counter.test(readCount) && (readline = reader.readLine()) != null) {
-            lines.add(readline);
-            readCount++;
+        if (lineCount >= 0) {
+            linesStream = linesStream.limit(lineCount);
         }
 
-        return lines;
+        // JDK 16+의 toList()를 사용하여 불변 컬렉션으로 깔끔하게 반환
+        return linesStream.toList();
     }
 
     /**
@@ -1651,7 +1672,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(InputStream inStream, long lineCount) throws IOException {
+    public static List<String> readLines(@Nonnull InputStream inStream, long lineCount) throws IOException {
         return readLines(inStream, Charset.defaultCharset(), lineCount);
     }
 
@@ -1674,7 +1695,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(InputStream inStream, String charsetName) throws IOException {
+    public static List<String> readLines(@Nonnull InputStream inStream, String charsetName) throws IOException {
         return readLines(inStream, charsetName, -1);
     }
 
@@ -1701,11 +1722,8 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(InputStream inStream, String charsetName, long lineCount) throws IOException {
-        Charset charset = Charset.isSupported(charsetName) //
-                ? Charset.forName(charsetName) //
-                : Charset.defaultCharset();
-        return readLines(inStream, charset, lineCount);
+    public static List<String> readLines(@Nonnull InputStream inStream, String charsetName, long lineCount) throws IOException {
+        return readLines(inStream, requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -1728,7 +1746,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@Nonnull Path path) throws FileNotFoundException, IOException {
         return readLines(path, Charset.defaultCharset(), -1);
     }
 
@@ -1754,7 +1772,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(Path path, Charset charset) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@Nonnull Path path, Charset charset) throws FileNotFoundException, IOException {
         return readLines(path, charset, -1);
     }
 
@@ -1782,7 +1800,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(Path path, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@Nonnull Path path, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
         return readLines(path.toFile(), charset, lineCount);
     }
 
@@ -1808,7 +1826,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(Path path, final long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@Nonnull Path path, final long lineCount) throws FileNotFoundException, IOException {
         return readLines(path, Charset.defaultCharset(), lineCount);
     }
 
@@ -1833,7 +1851,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(Path path, String charsetName) throws IOException {
+    public static List<String> readLines(@Nonnull Path path, String charsetName) throws IOException {
         return readLines(path, charsetName, -1);
     }
 
@@ -1860,7 +1878,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(Path path, String charsetName, long lineCount) throws IOException {
+    public static List<String> readLines(@Nonnull Path path, String charsetName, long lineCount) throws IOException {
         Charset charset = Charset.isSupported(charsetName) //
                 ? Charset.forName(charsetName) //
                 : Charset.defaultCharset();
@@ -2033,7 +2051,7 @@ public class IOUtils {
      *            읽어올 데이터 길이
      * @return InputStream으로부터 읽어온 데이터. 예외가 발생하는 경우 <code>null</code> 반환.
      */
-    public static byte[] readStream(InputStream inStream, final int length) {
+    public static byte[] readStream(@Nonnull InputStream inStream, final int length) {
         return readStream(inStream, length, true);
     }
 
@@ -2047,6 +2065,7 @@ public class IOUtils {
      * ------------------------------------------
      * 2017. 9. 6.		parkjunohng77@gmail.com			최초 작성
      * 2019. 8. 29.		parkjunohng77@gmail.com			내부 로직 성능 향상 및 안정성 강화
+     * 2026. 3. 10.     parkjunohng77@gmail.com			(3.0.0) JDK 25 마이그레이션
      * </pre>
      *
      * @param inStream
@@ -2057,61 +2076,68 @@ public class IOUtils {
      * @return
      *
      * @since 2017. 9. 6.
+     * @version 3.0.0.
+     * @author parkjunohng77@gmail.com
      */
-    public static byte[] readStream(InputStream inStream, final int length, boolean close) {
-
-        // buffer size
-        int bufferSize = 1024 * 1024;
-
-        // assign a real buffer.
-        ByteBuffer buf = ByteBuffer.allocateDirect(bufferSize < length ? bufferSize : length);
-
-        ReadableByteChannel reader = Channels.newChannel(inStream);
-
-        int total = 0;
-        int read = 0;
-        int over = 0;
-
-        ArrayList<byte[]> store = new ArrayList<>();
-        byte[] bs = null;
-
+    public static byte[] readStream(@Nonnull InputStream inStream, final int length, boolean close) {
         try {
-            do {
-                read = reader.read(buf);
-
-                if (read < 1) {
-                    break;
-                }
-
-                // check overed data.
-                over = (length - total) - read;
-                // remained data to read.
-                if (over < 0) {
-                    read -= over;
-                }
-
-                buf.flip();
-
-                buf.get(bs = new byte[read]);
-                store.add(bs);
-
-                buf.clear();
-
-                total += read;
-            } while (total < length);
-
-            return ArrayUtils.merge(store.toArray(new byte[0][]));
-
-        } catch (Throwable e) {
-            e.printStackTrace();
+            return inStream.readNBytes(length);
+        } catch (IOException e) {
+            logger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            return null;
         } finally {
-
             if (close) {
-                IOUtils.close(inStream, reader);
+                close(inStream);
             }
         }
+    }
 
-        return null;
+    /**
+     * 파라미터에 해당하는 {@link Charset}을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 11.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param charset
+     *            문자열 셋
+     * @return {@link Charset} 또는 <code>null</code>
+     *
+     * @since 2026. 3. 11.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static Charset requireCharset(Charset charset) {
+        return charset != null ? charset : Charset.defaultCharset();
+    }
+
+    /**
+     * 파라미터에 해당하는 {@link Charset}을 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 11.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param charset
+     *            문자열 셋
+     * @return {@link Charset} 또는 <code>null</code>
+     *
+     * @since 2026. 3. 11.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static Charset requireCharset(String charset) {
+        return charset != null //
+                ? Charset.isSupported(charset) //
+                        ? Charset.forName(charset) //
+                        : Charset.defaultCharset() //
+                : Charset.defaultCharset();
     }
 
     /**
@@ -2121,7 +2147,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: transferTo() 기반 Zero-copy 적용
+     * </pre>
      * </pre>
      *
      * @param inStream
@@ -2133,80 +2161,109 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     */
-    public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput) throws IOException {
-        return transfer(inStream, closeInput, outStream, closeOutput, BUFFER_SIZE_32B);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param closeInput
-     *            {@link InputStream#close()} 호출 여부
-     * @param outStream
-     * @param closeOutput
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
+     * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
+     *
+     * @see InputStream#transferTo(OutputStream)
      * @see InputStream#close()
      * @see OutputStream#close()
      */
-    public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput, int readBufferSize) throws IOException {
-
-        int rcvCount = 0;
-
-        ReadableByteChannel reader = null;
-        WritableByteChannel writer = null;
-
+    public static int transfer(@Nonnull InputStream inStream, boolean closeInput, @Nonnull OutputStream outStream, boolean closeOutput) throws IOException {
         try {
-
-            reader = Channels.newChannel(inStream);
-            writer = Channels.newChannel(outStream);
-
-            ByteBuffer buf = ByteBuffer.allocateDirect(readBufferSize);
-
-            int readCount = -1;
-            while ((readCount = reader.read(buf)) > 0) {
-
-                buf.flip();
-
-                writer.write(buf);
-
-                outStream.flush();
-
-                buf.clear();
-
-                rcvCount += readCount;
-            }
-
-            return rcvCount;
+            long transferred = inStream.transferTo(outStream);
+            outStream.flush();
+            // 2GB 이상의 데이터를 복사했을 때 int 캐스팅에 의한 음수 반환을 방지하기 위해 최대값을 반환하도록 안전 장치 추가
+            return transferred > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) transferred;
         } finally {
             if (closeInput) {
-                IOUtils.close(reader);
+                close(inStream);
             }
-
             if (closeOutput) {
-                IOUtils.close(writer);
+                close(outStream);
             }
+        }
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * </pre>
+     *
+     * @param inStream
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     * 
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, boolean closeInput, @Nonnull OutputStream outStream, boolean closeOutput, int readBufferSize) throws IOException {
+        return transfer(inStream, closeInput, outStream, closeOutput);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 11.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @since 2026. 3. 11.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     *
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     * @see InputStreamReader
+     * @see OutputStreamReader
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull Charset inCharset, boolean closeInput, @Nonnull OutputStream outStream, @Nonnull Charset outCharset,
+            boolean closeOutput) throws IOException {
+
+        // 입력과 출력의 인코딩이 동일하다면, 문자(Char) 디코딩을 생략하고 순수 바이트(Byte) 고속 복사를 수행합니다.
+        if (inCharset != null && inCharset.equals(outCharset)) {
+            return transfer(inStream, closeInput, outStream, closeOutput);
+        }
+        // 인코딩이 다르다면, 문자로 변환(디코딩) 후 다시 인코딩하는 Transcoding 과정을 거칩니다.
+        else {
+            Reader reader = new InputStreamReader(inStream, inCharset);
+            Writer writer = new OutputStreamWriter(outStream, outCharset);
+            return transfer(reader, closeInput, writer, closeOutput);
         }
     }
 
@@ -2235,9 +2292,10 @@ public class IOUtils {
      * @since 2018. 9. 26.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
+     * @see InputStreamReader
      */
-    public static int transfer(InputStream inStream, Charset inCharset, boolean closeInput, Writer writer, boolean closeOutput) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), closeInput, writer, closeOutput);
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
     /**
@@ -2248,6 +2306,7 @@ public class IOUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2267,9 +2326,11 @@ public class IOUtils {
      * @since 2021. 1. 14.
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
+     * @see InputStreamReader
      */
-    public static int transfer(InputStream inStream, Charset inCharset, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), closeInput, writer, closeOutput, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
     /**
@@ -2295,678 +2356,9 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 10.
      * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
-    public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset) throws IOException {
-        return transfer(inStream, inCharset.name(), true, outStream, outCharset.name(), true);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param outStream
-     * @param outCharset
-     *            Charset of an {@link OutputStream}
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     */
-    public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
-        return transfer(inStream, inCharset.name(), true, outStream, outCharset.name(), true, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param writer
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 26.
-     * 
-     * @see #transfer(Reader, boolean, Writer, boolean)
-     */
-    public static int transfer(InputStream inStream, Charset inCharset, Writer writer) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), true, writer, true);
-    }
-
-    /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param writer
-     * @param close
-     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 26.
-     * 
-     * @see #transfer(Reader, boolean, Writer, boolean)
-     */
-    public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), close, writer, close);
-    }
-
-    /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param writer
-     * @param close
-     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see #transfer(Reader, boolean, Writer, boolean)
-     */
-    public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), close, writer, close, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param writer
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see #transfer(Reader, boolean, Writer, boolean)
-     */
-    public static int transfer(InputStream inStream, Charset inCharset, Writer writer, int readBufferSize) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset.name()), true, writer, true, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
-     * </pre>
-     * 
-     * @param inStream
-     * @param outStream
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @since 2014. 4. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream) throws IOException {
-        return transfer(inStream, true, outStream, true);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param close
-     *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, boolean close) throws IOException {
-        return transfer(inStream, close, outStream, close);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param close
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, boolean close, int readBufferSize) throws IOException {
-        return transfer(inStream, close, outStream, close, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 10.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param charset
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     * 
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset) throws IOException {
-        return transfer(inStream, charset.name(), true, outStream, charset.name(), true);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param charset
-     *            Charset of an {@link OutputStream}
-     * @param close
-     *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close) throws IOException {
-        return transfer(inStream, charset.name(), close, outStream, charset.name(), close);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param charset
-     *            Charset of an {@link OutputStream}
-     * @param close
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close, int readBufferSize) throws IOException {
-        return transfer(inStream, charset.name(), close, outStream, charset.name(), close, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param charset
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     * 
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, int readBufferSize) throws IOException {
-        return transfer(inStream, charset.name(), true, outStream, charset.name(), true, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     * 
-     * @param inStream
-     * @param outStream
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, int readBufferSize) throws IOException {
-        return transfer(inStream, true, outStream, true, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
-     * </pre>
-     * 
-     * @param inStream
-     * @param outStream
-     * @param charset
-     *            charset
-     * @return
-     * @throws IOException
-     * 
-     * @since 2014. 4. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     * 
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, String charset) throws IOException {
-        return transfer(inStream, charset, true, outStream, charset, true);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param charset
-     *            Charset of an {@link OutputStream}
-     * @param close
-     *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, String charset, boolean close) throws IOException {
-        return transfer(inStream, charset, close, outStream, charset, close);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param outStream
-     * @param charset
-     *            Charset of an {@link OutputStream}
-     * @param close
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, String charset, boolean close, int readBufferSize) throws IOException {
-        return transfer(inStream, charset, close, outStream, charset, close, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     * 
-     * @param inStream
-     * @param outStream
-     * @param charset
-     *            charset
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     * 
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     * 
-     */
-    public static int transfer(InputStream inStream, OutputStream outStream, String charset, int readBufferSize) throws IOException {
-        return transfer(inStream, charset, true, outStream, charset, true, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param closeInput
-     *            {@link InputStream#close()} 호출 여부
-     * @param outStream
-     * @param outCharset
-     *            Charset of an {@link OutputStream}
-     * @param closeOutput
-     *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(Reader, boolean, Writer, boolean)
-     */
-    public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param closeInput
-     *            {@link InputStream#close()} 호출 여부
-     * @param outStream
-     * @param outCharset
-     *            Charset of an {@link OutputStream}
-     * @param closeOutput
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     * @see #transfer(Reader, boolean, Writer, boolean)
-     */
-    public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize)
-            throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput,
-                readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param closeInput
-     *            {@link InputStream#close()} 호출 여부
-     * @param writer
-     * @param closeOutput
-     *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 26.
-     */
-    public static int transfer(InputStream inStream, String inCharset, boolean closeInput, Writer writer, boolean closeOutput) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, writer, closeOutput);
-    }
-
-    /**
-     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param closeInput
-     *            {@link InputStream#close()} 호출 여부
-     * @param writer
-     * @param closeOutput
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
-     */
-    public static int transfer(InputStream inStream, String inCharset, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), closeInput, writer, closeOutput, readBufferSize);
-    }
-
-    /**
-     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2018. 9. 10.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param inCharset
-     *            Charset of an {@link InputStream}
-     * @param outStream
-     * @param outCharset
-     *            Charset of an {@link OutputStream}
-     * @return
-     * @throws IOException
-     *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2018. 9. 10.
-     * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
-     */
-    public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, @Nonnull OutputStream outStream, Charset outCharset) throws IOException {
         return transfer(inStream, inCharset, true, outStream, outCharset, true);
     }
 
@@ -2979,6 +2371,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2995,11 +2388,11 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
      * 
-     * @see InputStream#close()
-     * @see OutputStream#close()
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
-    public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
-        return transfer(inStream, inCharset, true, outStream, outCharset, true, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, @Nonnull OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+        return transfer(inStream, inCharset, true, outStream, outCharset, true);
     }
 
     /**
@@ -3007,9 +2400,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
      * @param inStream
@@ -3024,8 +2417,8 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(InputStream inStream, String inCharset, Writer writer) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), true, writer, true);
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), true, writer, true);
     }
 
     /**
@@ -3052,8 +2445,8 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), close, writer, close);
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), close, writer, close);
     }
 
     /**
@@ -3064,6 +2457,7 @@ public class IOUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -3082,8 +2476,9 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), close, writer, close, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), close, writer, close);
     }
 
     /**
@@ -3091,9 +2486,10 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -3110,8 +2506,694 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
-        return transfer(Channels.newReader(Channels.newChannel(inStream), inCharset), true, writer, true, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer, int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), true, writer, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @since 2014. 4. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream) throws IOException {
+        return transfer(inStream, true, outStream, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, boolean close) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, boolean close, int readBufferSize) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 10.		parkjunohng77@gmail.com		최초 작성
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     * 
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset) throws IOException {
+        return transfer(inStream, true, outStream, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset, boolean close) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset, boolean close, int readBufferSize) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     * 
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset, int readBufferSize) throws IOException {
+        return transfer(inStream, true, outStream, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, int readBufferSize) throws IOException {
+        return transfer(inStream, true, outStream, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            charset
+     * @return
+     * @throws IOException
+     * 
+     * @since 2014. 4. 14.
+     * 
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
+     * 
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset) throws IOException {
+        return transfer(inStream, true, outStream, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset, boolean close) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            Charset of an {@link OutputStream}
+     * @param close
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset, boolean close, int readBufferSize) throws IOException {
+        return transfer(inStream, close, outStream, close);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     * 
+     * @param inStream
+     * @param outStream
+     * @param charset
+     *            charset
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     * 
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(InputStream, boolean, OutputStream, boolean)
+     * 
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset, int readBufferSize) throws IOException {
+        return transfer(inStream, charset, true, outStream, charset, true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     *
+     * @see #requireCharset(String)
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeInput, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput)
+            throws IOException {
+        return transfer(inStream, requireCharset(inCharset), closeInput, outStream, requireCharset(outCharset), closeOutput);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeInput, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput,
+            int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), closeInput, new OutputStreamWriter(outStream, outCharset), closeOutput, readBufferSize);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @since 2018. 9. 26.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2018. 9. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 10.
+     * 
+     * @see #requireCharset(String)
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
+     * 
+     */
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, @Nonnull OutputStream outStream, String outCharset) throws IOException {
+        return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
+    }
+
+    /**
+     * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
+     * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param outStream
+     * @param outCharset
+     *            Charset of an {@link OutputStream}
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #requireCharset(String)
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, @Nonnull OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+        return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 26.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer) throws IOException {
+        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param close
+     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2018. 9. 26.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
+        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param close
+     *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
+    }
+
+    /**
+     * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
+     * </pre>
+     *
+     * @param inStream
+     * @param inCharset
+     *            Charset of an {@link InputStream}
+     * @param writer
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @since 2021. 1. 14.
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
+        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
     }
 
     /**
@@ -3122,6 +3204,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3140,8 +3223,8 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
-        return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), closeOutput);
+    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3152,6 +3235,8 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3172,8 +3257,10 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize) throws IOException {
-        return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), closeOutput, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize)
+            throws IOException {
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3184,6 +3271,7 @@ public class IOUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3202,8 +3290,8 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
-        return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput);
+    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3214,6 +3302,8 @@ public class IOUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3234,8 +3324,9 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
-        return transfer(reader, closeInput, Channels.newWriter(Channels.newChannel(outStream), outCharset), closeOutput, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3257,71 +3348,55 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
-     */
-    public static int transfer(Reader reader, boolean closeInput, Writer writer, boolean closeOutput) throws IOException {
-        return transfer(reader, closeInput, writer, closeOutput, BUFFER_SIZE_32B);
-    }
-
-    /**
-     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param reader
-     * @param closeInput
-     *            {@link InputStream#close()} 호출 여부
-     * @param writer
-     * @param closeOutput
-     *            {@link OutputStream#close()} 호출 여부
-     * @param readBufferSize
-     *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
-     *
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @since 2021. 1. 14.
      */
-    public static int transfer(Reader reader, boolean closeInput, Writer writer, boolean closeOutput, int readBufferSize) throws IOException {
-
-        int rcvCount = 0;
-
+    public static int transfer(Reader reader, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
         try {
-
-            CharBuffer buf = CharBuffer.allocate(readBufferSize);
-
-            int readCount = -1;
-            while ((readCount = reader.read(buf)) > 0) {
-
-                buf.flip();
-
-                writer.write(buf.array(), 0, readCount);
-                writer.flush();
-
-                buf.clear();
-
-                rcvCount += readCount;
-            }
-
-            return rcvCount;
+            long transferred = reader.transferTo(writer);
+            writer.flush();
+            return transferred > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) transferred;
         } finally {
-            if (closeInput) {
-                IOUtils.close(reader);
-            }
-
-            if (closeOutput) {
-                IOUtils.close(writer);
-            }
+            if (closeReader)
+                close(reader);
+            if (closeWriter)
+                close(writer);
         }
     }
 
     /**
+     * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * </pre>
+     *
+     * @param reader
+     * @param closeInput
+     *            {@link InputStream#close()} 호출 여부
+     * @param writer
+     * @param closeOutput
+     *            {@link OutputStream#close()} 호출 여부
+     * @param readBufferSize
+     *            데이터 읽기 버퍼 크기
+     * @return
+     * @throws IOException
+     *
+     * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
+     * @see #transfer(Reader, boolean, Writer, boolean)
+     */
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+        return transfer(reader, closeReader, writer, closeWriter);
+    }
+
+    /**
      * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달합니다. <br>
      * 
      * <pre>
@@ -3329,6 +3404,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3343,8 +3419,8 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, Charset outCharset) throws IOException {
-        return transfer(reader, true, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), true);
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset) throws IOException {
+        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
     /**
@@ -3355,6 +3431,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3371,8 +3448,8 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close) throws IOException {
-        return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), close);
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset, boolean close) throws IOException {
+        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
     /**
@@ -3383,6 +3460,8 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3396,13 +3475,14 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
-        return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), close, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
+        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
     /**
@@ -3413,6 +3493,8 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3424,13 +3506,14 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
-        return transfer(reader, true, Channels.newWriter(Channels.newChannel(outStream), outCharset.name()), true, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
     /**
@@ -3441,6 +3524,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3450,13 +3534,13 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, String outCharset) throws IOException {
-        return transfer(reader, true, Channels.newWriter(Channels.newChannel(outStream), outCharset), true);
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset) throws IOException {
+        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
     /**
@@ -3467,6 +3551,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3478,13 +3563,13 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 26.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close) throws IOException {
-        return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset), close);
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset, boolean close) throws IOException {
+        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
     /**
@@ -3495,6 +3580,8 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3508,13 +3595,14 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
-        return transfer(reader, close, Channels.newWriter(Channels.newChannel(outStream), outCharset), close, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
+        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
     /**
@@ -3525,6 +3613,8 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
      * @param reader
@@ -3536,13 +3626,14 @@ public class IOUtils {
      * @return
      * @throws IOException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2021. 1. 14.
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
-        return transfer(reader, true, Channels.newWriter(Channels.newChannel(outStream), outCharset), true, readBufferSize);
+    @Deprecated(since = "3.0.0", forRemoval = true)
+    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
     /**
@@ -3575,6 +3666,7 @@ public class IOUtils {
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
      * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param reader
@@ -3587,8 +3679,9 @@ public class IOUtils {
      * @since 2021. 1. 14.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
+    @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, Writer writer, int readBufferSize) throws IOException {
-        return transfer(reader, true, writer, true, readBufferSize);
+        return transfer(reader, true, writer, true);
     }
 
     /**

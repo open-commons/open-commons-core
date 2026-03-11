@@ -183,40 +183,6 @@ public class IntegerUtils {
     }
 
     /**
-     * Return a radix used for <b><code>value</code></b>.
-     * 
-     * @param value
-     * @return
-     * 
-     * @since 2014. 7. 10.
-     * 
-     * @deprecated Use {@link NumberUtils#radix(String)}, instead of.
-     */
-    public static int radix(String value) {
-
-        char token = value.charAt(0);
-
-        // detect 0(zero).
-        if (token == '0') {
-            // real Zero value.
-            if (value.length() < 2) {
-                return 10;
-            }
-
-            token = value.charAt(1);
-            // detect 'Hexa'.
-            if (token == 'X' || token == 'x') {
-                return 0x10;
-            }
-
-            // decide 'Octal'.
-            return 010;
-        }
-
-        return 10;
-    }
-
-    /**
      * int 타입의 데이타를 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환합니다.
      * 
      * @param value

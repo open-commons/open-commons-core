@@ -26,6 +26,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
@@ -35,13 +36,12 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import open.commons.core.reflect.FieldTypeVariable;
 import open.commons.core.reflect.GenericTypeVariable;
 import open.commons.core.util.IFilter;
-
-import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 /**
  * 
@@ -49,7 +49,6 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
  * @since 2011. 1. 2.
  * 
  */
-@SuppressWarnings("restriction")
 public class ReflectionUtils {
 
     /**
@@ -224,32 +223,57 @@ public class ReflectionUtils {
 
     /**
      * Generic이 사용된 메소드에서 실제로 사용된 타입 정보를 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 6. 17.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching 적용 및 표준 API 전환
+     * </pre>
+     *
      * @param method
+     *            검사할 메소드
      * @param paramIndex
-     *            찾고자 하는 파라미터 순서
+     *            파라미터 순서 (0-based)
      * @param actualTypeIndex
-     *            Actual Type 순서
-     * @return
+     *            Actual Type 순서 (0-based)
+     * @return 실제 타입 {@link Class}, 찾을 수 없는 경우 null
+     * 
+     * @since 2019. 6. 17.
+     * @version 3.0.0
      */
     public static Class<?> getActualTypeArgument(Method method, int paramIndex, int actualTypeIndex) {
-        Class<?> rtnClass = null;
+        Type[] genericParameterTypes = method.getGenericParameterTypes();
 
-        Type paramType = method.getGenericParameterTypes()[paramIndex];
+        // 배열 인덱스 범위 체크 (안전한 코드를 위해 권장)
+        if (paramIndex < 0 || paramIndex >= genericParameterTypes.length) {
+            return null;
+        }
 
-        if (paramType instanceof ParameterizedTypeImpl) {
-            ParameterizedTypeImpl paramTypeImpl = (ParameterizedTypeImpl) paramType;
+        Type paramType = genericParameterTypes[paramIndex];
 
-            Type actualType = paramTypeImpl.getActualTypeArguments()[actualTypeIndex];
+        // 1. 내부 구현체 대신 표준 인터페이스인 ParameterizedType 사용
+        // 2. Pattern Matching for instanceof (Java 16+) 적용
+        if (paramType instanceof ParameterizedType pType) {
+            Type[] actualTypes = pType.getActualTypeArguments();
 
-            if (actualType instanceof Class) {
-                rtnClass = (Class<?>) actualType;
-            } else {
-                rtnClass = actualType.getClass();
+            if (actualTypeIndex < 0 || actualTypeIndex >= actualTypes.length) {
+                return null;
+            }
+
+            Type actualType = actualTypes[actualTypeIndex];
+
+            // 3. 타입 결정 로직 개선
+            if (actualType instanceof Class<?> clazz) {
+                return clazz;
+            } else if (actualType instanceof ParameterizedType innerPType) {
+                // 중첩 제네릭(예: List<Map<String, Integer>>) 대응
+                return (Class<?>) innerPType.getRawType();
             }
         }
 
-        return rtnClass;
+        return null;
     }
 
     /**
@@ -303,38 +327,34 @@ public class ReflectionUtils {
     /**
      * 주어진 어노테이션이 설정된 {@link Constructor}와 어노테이션 객체를 반환합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 6. 17.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching, Stream API 적용
+     * </pre>
+     * 
      * @param object
      * @param annotationClass
      * @return
+     * 
+     * @since 2019. 6. 17.
+     * @version 3.0.0
      *
      */
     public static final <T extends Annotation> Map<Constructor<?>, T> getAnnotatedConstructors(Object object, Class<T> annotationClass) {
-        AssertUtils2.notNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
+        // 1. 유효성 검사
+        AssertUtils2.notNulls("object와 annotationClass는 null일 수 없습니다.", object, annotationClass);
 
-        Map<Constructor<?>, T> annoConstructors = new HashMap<Constructor<?>, T>();
+        // 2. Pattern Matching for instanceof
+        Class<?> implClass = (object instanceof Class<?> clazz) ? clazz : object.getClass();
 
-        Class<?> implClass = null;
-
-        if (object instanceof Class) {
-            implClass = (Class<?>) object;
-        } else {
-            implClass = object.getClass();
-        }
-
-        Constructor<?>[] constructors = implClass.getDeclaredConstructors();
-
-        boolean oldAccessible = false;
-        for (Constructor<?> c : constructors) {
-            oldAccessible = c.isAccessible();
-
-            c.setAccessible(true);
-            if (c.isAnnotationPresent(annotationClass)) {
-                annoConstructors.put(c, c.getAnnotation(annotationClass));
-            }
-            c.setAccessible(oldAccessible);
-        }
-
-        return annoConstructors;
+        // 3. Stream API 및 Reflection API 최적화
+        return Arrays.stream(implClass.getDeclaredConstructors())//
+                .filter(c -> {
+                    return c.isAnnotationPresent(annotationClass);
+                }).collect(Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)));
     }
 
     /**
@@ -353,48 +373,38 @@ public class ReflectionUtils {
 
     /**
      * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 12.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 02. 26.        parkjunhong77@gmail.com         JDK 25 마이그레이션: Pattern Matching, Stream API 적용
+     * </pre>
+     *
      * @param object
+     *            대상 객체 또는 클래스
      * @param annotationClass
-     * @return
-     * 
+     *            찾고자 하는 어노테이션 클래스
+     * @param filter
+     *            사용자 정의 필터
+     * @return 필드와 어노테이션 매핑 정보
      * @see Class#getDeclaredFields()
      */
     public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass, IFilter<T> filter) {
-        AssertUtils2.notNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
+        // 1. 파라미터 유효성 검증
+        AssertUtils2.notNulls("object와 annotationClass는 null일 수 없습니다.", object, annotationClass);
 
-        Map<Field, T> annotatedFields = new HashMap<Field, T>();
+        // 2. Pattern Matching for instanceof (Java 16+)
+        Class<?> implClass = (object instanceof Class<?> clazz) ? clazz : object.getClass();
 
-        Class<?> implClass = null;
-
-        if (object instanceof Class) {
-            implClass = (Class<?>) object;
-        } else {
-            implClass = object.getClass();
-        }
-
-        Field[] fields = implClass.getDeclaredFields();
-
-        boolean oldAccessible = false;
-        T anno = null;
-        for (Field f : fields) {
-            oldAccessible = f.isAccessible();
-
-            try {
-                f.setAccessible(true);
-
-                anno = f.getAnnotation(annotationClass);
-
-                if (anno != null && filter.filter(anno, f)) {
-                    annotatedFields.put(f, anno);
-                }
-
-            } finally {
-                f.setAccessible(oldAccessible);
-            }
-        }
-
-        return annotatedFields;
+        // 3. Stream API를 이용한 필터링 및 수집
+        return Arrays.stream(implClass.getDeclaredFields()) //
+                .filter(f -> {
+                    T anno = f.getAnnotation(annotationClass);
+                    // 어노테이션 존재 여부 및 필터 조건 확인
+                    return anno != null && (filter == null || filter.filter(anno, f));
+                }).collect(Collectors.toUnmodifiableMap(f -> f, f -> f.getAnnotation(annotationClass)));
     }
 
     /**
@@ -437,8 +447,7 @@ public class ReflectionUtils {
      * @return <b><code>nullable</code></b>.
      */
     public static <T extends Annotation> T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
-        AssertUtils2.notNulls("Neither accessObj and annotationClass MUST be null. accessObj: " + accessObj + ", annotationClass: " + annotationClass, accessObj,
-                annotationClass);
+        AssertUtils2.notNulls("Neither accessObj and annotationClass MUST be null. accessObj: " + accessObj + ", annotationClass: " + annotationClass, accessObj, annotationClass);
 
         return accessObj.getAnnotation(annotationClass);
     }
@@ -459,40 +468,35 @@ public class ReflectionUtils {
     }
 
     /**
-     * 객체에서 주어진 타입에 맞는 {@link Field} 목록을 반환합니다.
+     * 객체에서 주어진 타입에 맞는 {@link Field} 목록을 반환합니다. *
      * 
-     * @param instance
-     *            객체
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 06. 17.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching, Stream API 적용 및 접근 제어 로직 최적화
+     * </pre>
+     * 
+     * * @param instance 객체 또는 클래스
+     * 
      * @param fieldType
-     *            찾고자하는 필드 타입
-     * @return
+     *            찾고자 하는 필드 타입
+     * @return 필드 목록 (불변 리스트)
+     * 
+     * @since 2019. 6. 17.
+     * @version 3.0.0
      * 
      * @see Class#isAssignableFrom(Class)
      * @see Class#getDeclaredFields()
      */
     public static List<Field> getDeclaredFields(Object instance, Class<?> fieldType) {
-        ArrayList<Field> fields = new ArrayList<Field>();
+        // 1. Pattern Matching for instanceof (Java 16+)
+        // 타입 체크와 변수 선언을 동시에 처리하여 캐스팅 코드 제거
+        Class<?> clazz = (instance instanceof Class<?> c) ? c : instance.getClass();
 
-        Class<?> clazz = null;
-
-        if (instance instanceof Class) {
-            clazz = (Class<?>) instance;
-        } else {
-            clazz = instance.getClass();
-        }
-
-        boolean accessible = false;
-        for (Field field : clazz.getDeclaredFields()) {
-            accessible = field.isAccessible();
-
-            if (fieldType.isAssignableFrom(field.getType())) {
-                fields.add(field);
-            }
-
-            field.setAccessible(accessible);
-        }
-
-        return fields;
+        // 2. Stream API 및 List.toList() (Java 16+) 적용
+        return Arrays.stream(clazz.getDeclaredFields()).filter(field -> fieldType.isAssignableFrom(field.getType())).toList();
     }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -540,54 +544,77 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환합니다.
+     * 주어진 객체에서 {@link Field}의 값을 추출해서 문자열로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 6. 18.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 다중 예외 처리
+     * </pre>
      * 
      * @param field
+     *            대상 필드
      * @param instance
+     *            대상 객체
      * @return {@link Field}의 값. 값이 없거나 예외가 발생한 경우 빈 문자열.
+     * 
+     * @since 2014. 6. 18.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static String getValue(Field field, Object instance) {
-        String rtnValue = "";
-        try {
-            boolean accessible = field.isAccessible();
-            field.setAccessible(true);
-
-            Object value = field.get(instance);
-
-            field.setAccessible(accessible);
-            if (value != null) {
-                rtnValue = value.toString();
-            }
-
-        } catch (IllegalArgumentException e) {
-        } catch (IllegalAccessException e) {
-        }
-        return rtnValue;
+        Object value = getValue(field, instance, null);
+        return Objects.toString(value, null);
     }
 
     /**
      * 주어진 객체에서 {@link Field}의 값을 추출해서 반환합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 6. 18.        parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 다중 예외 처리
+     * </pre>
+     * 
      * @param field
+     *            대상 필드
      * @param instance
-     * @return {@link Field}의 값. 값이 없거나 예외가 발생한 경우 빈 문자열.
+     *            대상 객체
+     * @param defaultValue
+     *            기본값
+     * @return {@link Field}의 값. 예외 발생 시 defaultValue 반환.
+     * 
+     * @since 2014. 6. 18.
+     * @version 3.0.0
+     * 
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static Object getValue(Field field, Object instance, Object defaultValue) {
-        Object rtnValue = defaultValue;
+        // 필드와 인스턴스가 모두 null인 경우 정적 필드가 아님에도 접근하려 하면 오류가 발생할 수 있음
+        if (field == null) {
+            return defaultValue;
+        }
+
+        // JDK 9+ : canAccess()를 사용하여 현재 접근 가능 여부를 먼저 확인
+        if (!field.canAccess(instance)) {
+            // JDK 9+ : setAccessible(true) 대신 trySetAccessible() 권장
+            // 모듈 경계 등으로 인해 접근이 불가능한 경우 예외를 던지는 대신 false를 반환함
+            if (!field.trySetAccessible()) {
+                return defaultValue;
+            }
+        }
 
         try {
-
-            boolean accessible = field.isAccessible();
-            field.setAccessible(true);
-
-            rtnValue = field.get(instance);
-
-            field.setAccessible(accessible);
-
-        } catch (IllegalArgumentException e) {
-        } catch (IllegalAccessException e) {
+            Object value = field.get(instance);
+            return (value != null) ? value : defaultValue;
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            // 다중 예외 처리(Multi-catch) 적용
+            return defaultValue;
         }
-        return rtnValue;
     }
 
     @SuppressWarnings("unchecked")
@@ -599,12 +626,21 @@ public class ReflectionUtils {
     /**
      * <b>NOTE:</b> The parameter <code><b>field</b></code> MUST be allowed to access.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 2. 27.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 canAccess 체크 추가
+     * </pre>
+     * 
      * @param object
      * @param field
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      * @throws NullPointerException
      * @throws ExceptionInInitializerError
+     * 
+     * @since 2014. 4. 2.
      */
     public static void resetField(Object object, Field field) throws IllegalArgumentException, IllegalAccessException, NullPointerException, ExceptionInInitializerError {
 
@@ -647,9 +683,21 @@ public class ReflectionUtils {
     }
 
     /**
+     * 주어진 객체의 필드 값을 강제로 초기화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 4. 2.      parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 27.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 canAccess 체크 추가
+     * </pre>
      * 
      * @param object
+     *            대상 객체
      * @param field
+     *            초기화할 필드
+     * 
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      * @throws SecurityException
@@ -657,22 +705,24 @@ public class ReflectionUtils {
      * @throws ExceptionInInitializerError
      * 
      * @since 2014. 4. 2.
+     * @version 3.0.0
      */
     public static void resetFieldForced(Object object, Field field)
             throws IllegalArgumentException, IllegalAccessException, SecurityException, NullPointerException, ExceptionInInitializerError {
 
-        AssertUtils2.notNulls("Neither object and field MUST be null. object: " + object + ", field: " + field, object, field);
+        AssertUtils2.notNulls("object와 field는 null일 수 없습니다. object: " + object + ", field: " + field, object, field);
 
-        boolean accessible = field.isAccessible();
-
-        try {
-            field.setAccessible(true);
-
-            resetField(object, field);
-
-        } finally {
-            field.setAccessible(accessible);
+        // 1. JDK 9+ : canAccess(object)를 통해 현재 접근 가능 여부 확인
+        // 2. trySetAccessible()을 사용하여 안전하게 접근 권한 획득 시도
+        // 3. 기존의 isAccessible() 사용 및 복구 로직은 권장되지 않으므로 최신 관례에 따라 처리합니다.
+        if (!field.canAccess(object)) {
+            if (!field.trySetAccessible()) {
+                // 모듈 시스템에 의해 접근이 차단된 경우 예외 발생 또는 로깅
+                throw new IllegalAccessException("필드에 접근할 수 없습니다 (모듈 캡슐화 등): " + field.getName());
+            }
         }
+
+        resetField(object, field);
     }
 
     /**

@@ -141,38 +141,6 @@ public class NetUtils {
      * @since 2015. 3. 4.
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * @deprecated Use {@link NetUtils#intToIPv4(int)}.
-     */
-    public static String intToIp(int ip) {
-        StringBuffer sb = new StringBuffer();
-
-        sb.append(ip >> 24 & 0xFF);
-        sb.append('.');
-        sb.append(ip >> 16 & 0xFF);
-        sb.append('.');
-        sb.append(ip >> 8 & 0xFF);
-        sb.append('.');
-        sb.append(ip & 0xFF);
-
-        return sb.toString();
-    }
-
-    /**
-     * IPv4 범위에 포함되는 {@link Integer}값을 IPv4 포맷 문자열로 변경합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2015. 3. 4.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param ip
-     * @return
-     *
-     * @since 2015. 3. 4.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static String intToIPv4(int ip) {
         StringBuffer sb = new StringBuffer();

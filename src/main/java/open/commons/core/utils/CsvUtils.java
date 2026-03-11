@@ -44,12 +44,14 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,8 +64,16 @@ import open.commons.core.csv.ReadAt;
 import open.commons.core.csv.WriteAt;
 import open.commons.core.test.StopWatch;
 
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.CSVWriter;
+import com.opencsv.CSVWriterBuilder;
+import com.opencsv.ICSVParser;
+import com.opencsv.ICSVWriter;
+import com.opencsv.exceptions.CsvException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * 
@@ -75,25 +85,33 @@ public class CsvUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(CsvUtils.class);
 
+    // 리플렉션 메타데이터 캐싱 (Thread-Safe)
+    private static final Map<Class<?>, List<MethodInfo<WriteAt>>> WRITE_CACHE = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, List<MethodInfo<ReadAt>>> READ_CACHE = new ConcurrentHashMap<>();
+
     // prevent to create an instance.
     private CsvUtils() {
     }
 
     /**
      * 객체를 {@link String}[]로 변환하는 함수를 제공합니다. <br>
+     * *
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 리플렉션 캐싱 및 가변 상태 제거
      * </pre>
      *
-     * @return
+     * @param <E>
+     *            데이터 타입
+     * @return 객체를 문자열 배열로 변환하는 함수 (Function&lt;E, String[]&gt;)
      *
      * @since 2022. 3. 17.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * @version 3.0.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
     public static final <E> Function<E, String[]> defaultCreator() {
         return object -> {
@@ -102,38 +120,32 @@ public class CsvUtils {
             }
 
             Class<?> type = object.getClass();
-            List<Method> methods = AnnotationUtils.getAnnotatedMethodsAllHierarchy(type, WriteAt.class);
 
-            // 반환할 데이터
-            String[] data = ArrayUtils.initArray(methods.size(), "");
+            // 캐시에서 정렬된 메소드 정보 획득
+            List<MethodInfo<WriteAt>> methods = WRITE_CACHE.computeIfAbsent(type,
+                    k -> AnnotationUtils.getAnnotatedMethodsAllHierarchy(k, WriteAt.class).stream()
+                            .map(m -> new MethodInfo<>(m, m.getAnnotation(WriteAt.class), m.getAnnotation(WriteAt.class).index()))
+                            .sorted(Comparator.comparingInt(info -> info.index)).toList());
 
-            methods.stream() //
-                    .forEach(m -> {
-                        WriteAt anno = m.getAnnotation(WriteAt.class);
-                        final int index = anno.index();
-                        boolean accessible = m.isAccessible();
-                        try {
-                            // 접근 허용
-                            m.setAccessible(true);
+            // 최대 인덱스 기반 배열 크기 결정
+            int maxIdx = methods.stream().mapToInt(info -> info.index).max().orElse(-1);
+            String[] data = ArrayUtils.initArray(maxIdx + 1, "");
 
-                            Object value = m.invoke(object);
-
-                            if (value != null) {
-                                data[index] = value.toString();
-                            } else if (anno.nullIsEmpty()) {
-                                data[index] = "";
-                            } else {
-                                data[index] = null;
-                            }
-                        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | IndexOutOfBoundsException e) {
-                            String errMsg = String.format("'%s' 객체의 값을 배열로 변환하는 도중 에러가 발생하였습니다. 배열크기: %s, 메소드=%s, 위치=%s", type.getName(), data.length, m.getName(), index);
-                            logger.error(errMsg, e);
-                            throw ExceptionUtils.newException(RuntimeException.class, e, errMsg);
-                        } finally {
-                            // 접근성 복구
-                            m.setAccessible(accessible);
-                        }
-                    });
+            for (MethodInfo<WriteAt> info : methods) {
+                try {
+                    Object value = info.method.invoke(object);
+                    if (value != null) {
+                        data[info.index] = value.toString();
+                    } else if (info.annotation.nullIsEmpty()) {
+                        data[info.index] = "";
+                    } else {
+                        data[info.index] = null;
+                    }
+                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    String errMsg = String.format("'%s' 객체 변환 에러. 메소드=%s, 위치=%s", type.getName(), info.method.getName(), info.index);
+                    throw ExceptionUtils.newException(RuntimeException.class, e, errMsg);
+                }
+            }
 
             return data;
         };
@@ -141,74 +153,64 @@ public class CsvUtils {
 
     /**
      * 주어진 타입에 해당하는 객체를 생성한 후, 문자열 배열에서 데이터를 추출하여 값을 설정하는 함수를 제공합니다. <br>
+     * *
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 11.    parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: newInstance() 교체 및 캐싱 적용
      * </pre>
      *
      * @param <E>
+     *            데이터 타입
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
-     * @return
+     *            {Class&lt;E&gt;} 데이터 타입 (NOT nullable)
+     * @return 배열에서 객체로 데이터를 복원하는 함수 (Function&lt;String[], E&gt;)
      *
      * @since 2021. 11. 11.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * @see ReadAt
+     * @version 3.0.0
+     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static final <E> Function<String[], E> defaultCreator(Class<E> type) {
+    public static final <E> Function<String[], E> defaultCreator(@Nonnull Class<E> type) {
+        AssertUtils2.notNulls(type);
+
+        // 메소드 정보 캐싱
+        List<MethodInfo<ReadAt>> readMethods = READ_CACHE.computeIfAbsent(type, k -> AnnotationUtils.getAnnotatedMethodsAllHierarchy(k, ReadAt.class).stream().peek(m -> {
+            if (m.getParameterTypes().length != 1) {
+                throw new UnsupportedOperationException("파라미터는 1개여야 합니다: " + m.getName());
+            }
+        }).map(m -> new MethodInfo<>(m, m.getAnnotation(ReadAt.class), m.getAnnotation(ReadAt.class).index())).toList());
+
         return arr -> {
             try {
-                E o = type.newInstance();
-                AnnotationUtils.getAnnotatedMethodsAllHierarchy(type, ReadAt.class) //
-                        .stream() //
-                        .collect(Collectors.toMap(m -> m, m -> m.getAnnotation(ReadAt.class))) //
-                        .forEach((m, anno) -> {
-                            // 파라미터 타입
-                            int index = anno.index();
-                            String value = null;
-                            if (index < arr.length) {
-                                boolean accessible = m.isAccessible();
-                                try {
-                                    if (m.getParameterTypes().length != 1) {
-                                        throw new UnsupportedOperationException(String.format("'%s'가 설정된 메소드는 반드시 파라미터가 1개이어야 합니다. 메소드=%s, 파라미터개수=%,d",
-                                                ReadAt.class.getCanonicalName(), m, m.getParameterTypes().length));
-                                    }
+                // JDK 9+ 표준 생성 방식
+                E o = type.getDeclaredConstructor().newInstance();
 
-                                    // 접근허용
-                                    m.setAccessible(true);
+                for (MethodInfo<ReadAt> info : readMethods) {
+                    if (info.index < arr.length) {
+                        String value = arr[info.index];
+                        if (value != null)
+                            value = value.trim();
 
-                                    // 데이터 변환
-                                    value = FunctionUtils.runIf(arr[index], s -> s != null, (Function<String, String>) s -> s.trim(), (String) null);
-                                    Class<?> argType = m.getParameterTypes()[0];
-                                    Object arg = null;
-                                    if (String.class.equals(argType)) {
-                                        arg = value;
-                                    } else if (!StringUtils.isNullOrEmptyString(value)) {
-                                        arg = ConvertUtils.toPrimitiveTypeValue(argType, value, anno.unsigned());
-                                    }
+                        Class<?> argType = info.method.getParameterTypes()[0];
+                        Object arg = null;
 
-                                    // 객체에 설정
-                                    if (arg != null) {
-                                        m.invoke(o, arg);
-                                    }
-                                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | UnsupportedOperationException e) {
-                                    String errMsg = String.format("'%s' 객체의 값을 설정하는 도중 에러가 발생하였습니다. 메소드=%s, 값=%s", type.getName(), m.getName(), arr[index]);
-                                    logger.error(errMsg, e);
-                                    throw ExceptionUtils.newException(RuntimeException.class, e, errMsg);
-                                } finally {
-                                    // 접근성 복구
-                                    m.setAccessible(accessible);
-                                }
-                            }
-                        });
+                        if (String.class.equals(argType)) {
+                            arg = value;
+                        } else if (!StringUtils.isNullOrEmptyString(value)) {
+                            arg = ConvertUtils.toPrimitiveTypeValue(argType, value, info.annotation.unsigned());
+                        }
+
+                        if (arg != null) {
+                            info.method.invoke(o, arg);
+                        }
+                    }
+                }
                 return o;
-            } catch (InstantiationException | IllegalAccessException e) {
-                String errMsg = String.format("'%s' 객체를 생성하는 도중 에러가 발생하였습니다.", type.getName());
-                logger.error(errMsg, e);
+            } catch (Exception e) {
+                String errMsg = String.format("'%s' 객체 복원 에러", type.getName());
                 throw ExceptionUtils.newException(RuntimeException.class, e, errMsg);
             }
         };
@@ -222,6 +224,7 @@ public class CsvUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2021. 11. 12.        parkjunohng77@gmail.com         최초 작성
+     * 2026. 2. 26.         parkjunhong77@gmail.com         (3.0.0) OpenCSV 5.9 Builder 패턴 적용
      * </pre>
      *
      * @param reader
@@ -235,8 +238,20 @@ public class CsvUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static CSVReader newCSVReader(Reader reader, CsvFileConfig config) {
-        return new CSVReader(reader, config.getSeparator(), config.getQuotechar(), config.getEscape(), config.getSkip(), config.isStrictQuotes(),
-                config.isIgnoreLeadingWhiteSpace());
+        // 1. 파싱 관련 상세 설정 (구분자, 인용구, 이스케이프 등)
+        ICSVParser parser = new CSVParserBuilder() //
+                .withSeparator(config.getSeparator()) //
+                .withQuoteChar(config.getQuotechar()) //
+                .withEscapeChar(config.getEscape()) //
+                .withStrictQuotes(config.isStrictQuotes()) //
+                .withIgnoreLeadingWhiteSpace(config.isIgnoreLeadingWhiteSpace()) //
+                .build();
+
+        // 2. Reader 생성 및 Skip 라인 설정
+        return new CSVReaderBuilder(reader) //
+                .withSkipLines(config.getSkip()) //
+                .withCSVParser(parser) //
+                .build();
     }
 
     /**
@@ -247,6 +262,7 @@ public class CsvUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2021. 11. 12.        parkjunohng77@gmail.com         최초 작성
+     * 2026. 2. 26.         parkjunhong77@gmail.com         (3.0.0) OpenCSV 5.9 Builder 패턴 적용 및 LineEnd 설정 추가 및 리턴타입 변경 ({@link CSVWriter} -> {@link ICSVWriter})
      * </pre>
      *
      * @param writer
@@ -259,8 +275,13 @@ public class CsvUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    private static CSVWriter newCSVWriter(Writer writer, CsvWriteConfig config) {
-        return new CSVWriter(writer, config.getSeparator(), config.getQuotechar(), config.getEscape());
+    private static ICSVWriter newCSVWriter(Writer writer, CsvWriteConfig config) {
+        return new CSVWriterBuilder(writer) //
+                .withSeparator(config.getSeparator()) //
+                .withQuoteChar(config.getQuotechar()) //
+                .withEscapeChar(config.getEscape()) //
+                .withLineEnd(config.getLineEnd()) // 사용자가 추가하신 줄바꿈 문자열 설정
+                .build();
     }
 
     /**
@@ -704,7 +725,7 @@ public class CsvUtils {
                 data.add(e);
             }
             return Result.success(data);
-        } catch (IOException e) {
+        } catch (IOException | CsvException e) {
             String errMsg = String.format("CSV 파일을 읽는 도중 에러가 발생하였습니다. 원인=%s", e.getMessage());
             logger.error(errMsg, e);
             throw new IOException(errMsg, e);
@@ -4943,77 +4964,6 @@ public class CsvUtils {
     }
 
     /**
-     * 객체를 CSV 파일로 저장합니다.<br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2022. 3. 17.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     * 
-     * @param <E>
-     *            CSV 파일을 읽어서 생성할 데이터 모델. {@link WriteAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
-     * @param data
-     *            데이터
-     * @param writer
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
-     * @param header
-     *            헤더
-     * @param creator
-     *            객체를 전달받아 {@link String}[] 데이터를 생성하는 함수.<br>
-     *            객체의 <code>getter</code> 메소드에 {@link WriteAt}을 설정한다면, {@link #defaultCreator()} 를 사용하거나
-     *            {@link #write(Collection, CSVWriter, String[], Consumer, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
-     * @param beforeCreation
-     *            String[]로 변환하기 전 작업.
-     * @param close
-     *            {@link CSVWriter} close 여부.( see {@link AutoCloseable#close()})
-     * @return
-     * @throws IOException
-     *
-     * @since 2022. 3. 17.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close)
-            throws IOException {
-
-        StopWatch watch = new StopWatch();
-        watch.start();
-
-        long count = 0;
-        try {
-            // 헤더 확인
-            if (header != null) {
-                writer.writeNext(header);
-            }
-
-            for (E d : data) {
-                if (beforeCreation != null) {
-                    beforeCreation.accept(d);
-                }
-                writer.writeNext(creator.apply(d));
-
-                count++;
-            }
-
-            return Result.success(count);
-        } catch (Exception e) {
-            String errMsg = String.format("CSV 파일을 읽는 도중 에러가 발생하였습니다. 원인=%s", e.getMessage());
-            logger.error(errMsg, e);
-            throw new IOException(errMsg, e);
-        } finally {
-            if (close) {
-                IOUtils.close(writer);
-            }
-            watch.stop();
-
-            logger.trace(String.format("Data=%,d, Elasped=%s", data.size(), watch.getAsPretty()));
-        }
-    }
-
-    /**
      * 여러 개의 객체를 CSV 파일로 저장합니다. <br>
      * 
      * <pre>
@@ -5278,6 +5228,78 @@ public class CsvUtils {
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close) throws IOException {
         return write(data, new FileOutputStream(file), config, header, creator, beforeCreation, close);
+    }
+
+    /**
+     * 객체를 CSV 파일로 저장합니다.<br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2022. 3. 17.     parkjunohng77@gmail.com     최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com     (3.0.0) CSVWriter 데이터 유형 변경 ({@link CSVWriter} -> {@link ICSVWriter})
+     * </pre>
+     * 
+     * @param <E>
+     *            CSV 파일을 읽어서 생성할 데이터 모델. {@link WriteAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
+     * @param data
+     *            데이터
+     * @param writer
+     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     * @param header
+     *            헤더
+     * @param creator
+     *            객체를 전달받아 {@link String}[] 데이터를 생성하는 함수.<br>
+     *            객체의 <code>getter</code> 메소드에 {@link WriteAt}을 설정한다면, {@link #defaultCreator()} 를 사용하거나
+     *            {@link #write(Collection, CSVWriter, String[], Consumer, boolean)}를 호출하여도 됨.<br>
+     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     * @param beforeCreation
+     *            String[]로 변환하기 전 작업.
+     * @param close
+     *            {@link ICSVWriter} close 여부.( see {@link AutoCloseable#close()})
+     * @return
+     * @throws IOException
+     *
+     * @since 2022. 3. 17.
+     * @version 1.8.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    public static <E> Result<Long> write(Collection<E> data, ICSVWriter writer, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close)
+            throws IOException {
+
+        StopWatch watch = new StopWatch();
+        watch.start();
+
+        long count = 0;
+        try {
+            // 헤더 확인
+            if (header != null) {
+                writer.writeNext(header);
+            }
+
+            for (E d : data) {
+                if (beforeCreation != null) {
+                    beforeCreation.accept(d);
+                }
+                writer.writeNext(creator.apply(d));
+
+                count++;
+            }
+
+            return Result.success(count);
+        } catch (Exception e) {
+            String errMsg = String.format("CSV 파일을 읽는 도중 에러가 발생하였습니다. 원인=%s", e.getMessage());
+            logger.error(errMsg, e);
+            throw new IOException(errMsg, e);
+        } finally {
+            if (close) {
+                IOUtils.close(writer);
+            }
+            watch.stop();
+
+            logger.trace(String.format("Data=%,d, Elasped=%s", data.size(), watch.getAsPretty()));
+        }
     }
 
     /**
@@ -6368,5 +6390,19 @@ public class CsvUtils {
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close) throws IOException {
         return write(data, newCSVWriter(writer, config), header, creator, beforeCreation, close);
+    }
+
+    private static class MethodInfo<A> {
+        final Method method;
+        final A annotation;
+        final int index;
+
+        MethodInfo(Method method, A annotation, int index) {
+            this.method = method;
+            this.annotation = annotation;
+            this.index = index;
+            // 캐싱 시점에 접근 권한을 획득하여 런타임 동시성 장애 방지
+            method.trySetAccessible();
+        }
     }
 }

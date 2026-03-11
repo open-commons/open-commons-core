@@ -73,9 +73,22 @@ import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Setter;
 import open.commons.core.exception.TransformationFailedException;
 import open.commons.core.function.PentagonFunction;
-import open.commons.core.utils.ObjectTransformer.StepPlan.ContainerKind;
+
+import jakarta.annotation.Nonnull;
 
 /**
+ * 
+ * 
+ * 
+ * <br>
+ * 
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자			|	내용
+ * ------------------------------------------
+ * 2025. 9. 5.      parkjunhong77@gmai.com      최초 작성
+ * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 25 마이그레이션.
+ * </pre>
  * 
  * @since 2025. 9. 5.
  * @version 2.1.0
@@ -116,7 +129,7 @@ public class ObjectTransformer {
      * 2025. 9. 5.      parkjunhong77@gmail.com     데이터 설정함수 prefix 추가 (putXXX 지원)
      * </pre>
      */
-    private static final Pattern METHOD_SETTER = Pattern.compile("^(set|add)(.+)$");
+    private static final Pattern METHOD_SETTER = Pattern.compile("^(set|add|put)(.+)$");
 
     /**
      * Method에 설정된 {@link Setter} 어노테이션 값을 이용해서 "속성" 이름을 제공합니다.<br>
@@ -173,7 +186,7 @@ public class ObjectTransformer {
         return name;
     };
 
-    private static final Function<Method, Class<?>> RETURN_TYPE = m -> m.getReturnType();
+    private static final Function<Method, Class<?>> RETURN_TYPE = Method::getReturnType;
     private static final Function<Method, Class<?>> PARAMETER_TYPE = m -> m.getParameterTypes()[0];
 
     /**
@@ -214,29 +227,29 @@ public class ObjectTransformer {
     private ObjectTransformer() {
     }
 
-    /** Type을 가능한 한 Class로 환산한다. 불가하면 null */
+    // [최적화] Pattern Matching 적용으로 불필요한 캐스팅 제거
     private static Class<?> asClass(Type t) {
-        if (t instanceof Class) {
-            return (Class<?>) t;
-        } else if (t instanceof ParameterizedType) {
+        if (t instanceof Class<?> c) {
+            return c;
+        } else if (t instanceof ParameterizedType pt //
+                && pt.getRawType() instanceof Class<?> rt) {
             // 예: List<Foo>라면 rawType = List.class를 반환
-            Type rt = ((ParameterizedType) t).getRawType();
-            return (rt instanceof Class) ? (Class<?>) rt : null;
-        } else if (t instanceof WildcardType) {
+            return rt;
+        } else if (t instanceof WildcardType wt) {
             // ? extends X 또는 ? super X -> 우선 상한(upper bound) 사용
-            Type[] ub = ((WildcardType) t).getUpperBounds();
-            if (ub != null && ub.length > 0)
+            Type[] ub = wt.getUpperBounds();
+            if (ub != null && ub.length > 0) {
                 return asClass(ub[0]);
-            Type[] lb = ((WildcardType) t).getLowerBounds();
-            if (lb != null && lb.length > 0)
+            }
+            Type[] lb = wt.getLowerBounds();
+            if (lb != null && lb.length > 0) {
                 return asClass(lb[0]);
-            return null;
-        } else if (t instanceof TypeVariable) {
-            // T extends X & Y ... -> 첫 상한을 사용
-            Type[] bounds = ((TypeVariable<?>) t).getBounds();
-            if (bounds != null && bounds.length > 0)
+            }
+        } else if (t instanceof TypeVariable<?> tv) {
+            Type[] bounds = tv.getBounds();
+            if (bounds != null && bounds.length > 0) {
                 return asClass(bounds[0]);
-            return null;
+            }
         }
         return null;
     }
@@ -246,9 +259,10 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
+     * 2025. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션 및 코드 최적화
      * </pre>
      *
      * @param srcClass
@@ -276,146 +290,31 @@ public class ObjectTransformer {
         // 3-1) 각 step을 (b,a)->void 로 “미리” 합성
         final List<MethodHandle> mhSteps = new ArrayList<>(steps.size());
 
-        MethodHandle getter = null;
-        MethodHandle setter = null;
-        MethodHandle conv = null;
-        MethodHandle converted = null;
-        MethodHandle step = null;
         for (StepPlan plan : steps) {
             try {
-                // (A)->val
-                if (!plan.getter.isAccessible()) {
-                    plan.getter.setAccessible(true);
-                }
-                if (!plan.setter.isAccessible()) {
-                    plan.setter.setAccessible(true);
-                }
-                getter = lookup.unreflect(plan.getter);
+                // 모듈 시스템에 안전한 접근 권한 획득
+                plan.getter.trySetAccessible();
+                plan.setter.trySetAccessible();
+
+                MethodHandle getter = lookup.unreflect(plan.getter);
                 // (Object)->Object 로 어댑터
                 getter = MethodHandles.explicitCastArguments(getter, MethodType.methodType(Object.class, Object.class));
 
-                // ===== 1) deep=false 또는 SCALAR =====
-                if (!plan.deepConvert || plan.kind == ContainerKind.SCALAR) {
-                    setter = lookup.unreflect(plan.setter);
-                    setter = MethodHandles.explicitCastArguments(setter, MethodType.methodType(void.class, Object.class, Object.class));
+                MethodHandle step;
 
-                    Class<?> srcType = plan.getter.getReturnType();
-                    Class<?> dstType = plan.setter.getParameterTypes()[0];
-
-                    conv = buildValueConverterMH(lookup, srcClass, srcType, lookupSrcSuper, targetClass, dstType, lookupTargetSuper, converters, plan.property, plan.converter,
-                            plan.deepConvert, plan.useGlobalConverter);
-
-                    converted = MethodHandles.filterReturnValue(getter, conv); // (a)->val'
-                    step = MethodHandles.collectArguments(setter, 1, converted); // (b,a)->void
-                    step = MethodHandles.explicitCastArguments(step, MethodType.methodType(void.class, Object.class, Object.class));
-                    mhSteps.add(step);
-                    continue;
+                // Switch Expressions를 통한 제어 흐름 분리
+                if (!plan.deepConvert || plan.kind() == ContainerKind.SCALAR) {
+                    step = buildPlanScalarStep(lookup, plan, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters, getter);
+                } else {
+                    step = switch (plan.kind()) {
+                        case ARRAY -> buildPlanArrayStep(lookup, plan, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters, getter);
+                        case COLLECTION -> buildPlanCollectionStep(lookup, plan, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters, getter);
+                        case MAP -> buildPlanMapStep(lookup, plan, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters, getter);
+                        default -> throw new IllegalStateException("지원하지 않는 컨테이너 타입입니다: " + plan.kind());
+                    };
                 }
+                mhSteps.add(step);
 
-                // ===== 2) ARRAY =====
-                if (plan.kind == ContainerKind.ARRAY) {
-                    Class<?> srcFieldClass = componentTypeOfReturn(plan.getter);
-                    Class<?> targetFieldClass = plan.setter.getParameterTypes()[0].getComponentType();
-                    MethodHandle fieldConv = buildElementConverterMH(lookup, srcClass, srcFieldClass, targetClass, targetFieldClass, lookupSrcSuper, lookupTargetSuper, converters,
-                            plan.property, plan.deepConvert, plan.useGlobalConverter);
-
-                    setter = lookup.unreflect(plan.setter);
-                    step = makeDeepArrayStep(lookup, getter, setter, fieldConv, targetFieldClass);
-                    mhSteps.add(step);
-                    continue;
-                }
-
-                // ===== 3) COLLECTION =====
-                if (plan.kind == ContainerKind.COLLECTION) {
-
-                    // 1) 컨테이너 단위 컨버터 우선 (setXxx(Collection) 1-파라미터일 때만)
-                    if (plan.setter.getParameterCount() == 1 //
-                            && plan.converter != null //
-                            && plan.converter != StepPlan.IDENTITY_CONVERT) {
-
-                        // (Object)->Object 로 바인드
-                        MethodHandle convContainer = lookup.findVirtual(Function.class //
-                                , "apply" //
-                                , MethodType.methodType(Object.class, Object.class)) //
-                                .bindTo(plan.converter);
-
-                        setter = lookup.unreflect(plan.setter);
-                        setter = MethodHandles.explicitCastArguments(setter, MethodType.methodType(void.class, Object.class, Object.class));
-
-                        // (a)->convertedContainer
-                        converted = MethodHandles.filterReturnValue(getter, convContainer);
-                        // (b,a)->void
-                        step = MethodHandles.collectArguments(setter, 1, converted);
-                        step = MethodHandles.explicitCastArguments(step, MethodType.methodType(void.class, Object.class, Object.class));
-                        mhSteps.add(step);
-                        continue; // deep 경로 건너뜀
-                    }
-
-                    // 2) adder or 컨테이너 컨버터 없음 → deep 요소 변환
-                    if (plan.adderStyle) {
-                        // addXxx(E) — 요소 단위 추가
-                        Class<?> srcElemClass = elementTypeOfGetter(plan.getter);
-                        Class<?> targetElemClass = plan.setter.getParameterTypes()[0];
-                        MethodHandle elemConv = buildElementConverterMH(lookup, srcClass, srcElemClass, targetClass, targetElemClass, lookupSrcSuper, lookupTargetSuper, converters,
-                                plan.property, plan.deepConvert, plan.useGlobalConverter);
-
-                        setter = lookup.unreflect(plan.setter); // addXxx(E)
-                        step = makeDeepCollectionAddStep(lookup, getter, setter, elemConv);
-                        mhSteps.add(step);
-                    } else {
-                        // setXxx(Collection<E>)
-                        Class<?> srcElemClass = elementTypeOfGetter(plan.getter);
-                        Class<?> dstParam = plan.setter.getParameterTypes()[0];
-                        Class<?> targetElemClass = genericElementTypeOfSetter(plan.setter).orElse(Object.class);
-                        MethodHandle elemConv = buildElementConverterMH(lookup, srcClass, srcElemClass, targetClass, targetElemClass, lookupSrcSuper, lookupTargetSuper, converters,
-                                plan.property, plan.deepConvert, plan.useGlobalConverter);
-
-                        @SuppressWarnings("rawtypes")
-                        Class<? extends Collection> dstImpl = pickCollectionImpl(dstParam);
-                        setter = lookup.unreflect(plan.setter);
-                        step = makeDeepCollectionSetStep(lookup, getter, setter, elemConv, dstImpl);
-                        mhSteps.add(step);
-                    }
-                    continue;
-                }
-
-                // ===== 4) MAP =====
-                if (plan.kind == ContainerKind.MAP) {
-                    if (plan.putStyle) {
-                        // putXxx(K,V): 항목 단위 삽입
-                        Class<?>[] pts = plan.setter.getParameterTypes();
-                        Class<?> kDst = pts[0], vDst = pts[1];
-                        Class<?> kSrc = mapKeyTypeOfGetter(plan.getter);
-                        Class<?> vSrc = mapValTypeOfGetter(plan.getter);
-
-                        MethodHandle kConv = buildElementConverterMH(lookup, srcClass, kSrc, targetClass, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
-                                plan.deepConvert, plan.useGlobalConverter);
-                        MethodHandle vConv = buildElementConverterMH(lookup, srcClass, vSrc, targetClass, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
-                                plan.deepConvert, plan.useGlobalConverter);
-
-                        setter = lookup.unreflect(plan.setter); // putXxx(K,V)
-                        step = makeDeepMapPutStep(lookup, getter, setter, kConv, vConv);
-                        mhSteps.add(step);
-                    } else {
-                        // setXxx(Map<K,V>)
-                        Class<?> dstParam = plan.setter.getParameterTypes()[0];
-                        Class<?> kDst = mapKeyTypeOfSetter(plan.setter).orElse(Object.class);
-                        Class<?> vDst = mapValTypeOfSetter(plan.setter).orElse(Object.class);
-                        Class<?> kSrc = mapKeyTypeOfGetter(plan.getter);
-                        Class<?> vSrc = mapValTypeOfGetter(plan.getter);
-
-                        MethodHandle kConv = buildValueConverterMH(lookup, srcClass, kSrc, targetClass, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
-                                plan.useGlobalConverter);
-                        MethodHandle vConv = buildValueConverterMH(lookup, srcClass, vSrc, targetClass, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
-                                plan.useGlobalConverter);
-
-                        @SuppressWarnings("rawtypes")
-                        Class<? extends Map> dstImpl = pickMapImpl(dstParam);
-                        setter = lookup.unreflect(plan.setter);
-                        step = makeDeepMapSetStep(lookup, getter, setter, kConv, vConv, dstImpl);
-                        mhSteps.add(step);
-                    }
-                }
             } catch (Throwable t) {
                 LOGGER.error("데이터 변환설정 = {}, src={}, target={}", plan, srcClass, targetClass);
                 throw new TransformationFailedException(srcClass, targetClass, String.format("데이터 변환 함수 생성 도중 오류가 발생하였습니다. plan=%s", plan), t);
@@ -426,12 +325,11 @@ public class ObjectTransformer {
         CallSite site = null;
         try {
             // 3-2) 루프 본체: (target, src, mhStepArr)->void
-            impl = //
-                    lookup.findStatic( //
-                            // 또는 별도 Fast 클래스
-                            ObjectTransformer.class, "runSteps" //
-                            , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
-                    );
+            impl = lookup.findStatic( //
+                    // 또는 별도 Fast 클래스
+                    ObjectTransformer.class, "runSteps" //
+                    , MethodType.methodType(void.class, MethodHandle[].class, Object.class, Object.class) //
+            );
 
             // 3-3) LMF로 BiConsumer<Object,Object> 생성
             site = LambdaMetafactory.metafactory( //
@@ -446,7 +344,8 @@ public class ObjectTransformer {
 
             // 캡처할 배열을 정확 타입으로 전달 (invokeExact 권장)
             MethodHandle[] mhStepArr = mhSteps.toArray(new MethodHandle[0]);
-            return (BiConsumer<Object, Object>) site.getTarget().invoke(mhStepArr);
+            return (BiConsumer<Object, Object>) site.getTarget().invokeExact(mhStepArr);
+
         } catch (Throwable t) {
             LOGGER.error("lookup = {}", lookup);
             LOGGER.error("impl   = {}", impl);
@@ -480,6 +379,244 @@ public class ObjectTransformer {
 
         // 나머지는 nested copier fallback
         return makeNestedCopierAsConverter(lookup, srcElemClass, lookupSrcSuper, targetElemClass, lookupTargetSuper, converters);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 3. 10.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param lookup
+     * @param plan
+     *            데이터 유형 변환 요청에 따른 계획
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 클래스 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 클래스 정보 이관 여부
+     * @param converters
+     *            데이터 변환 함수
+     * @param getter
+     *            원본 데이터 제공 함수
+     * @return
+     * @throws Exception
+     *
+     * @since 2026. 3. 10.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static MethodHandle buildPlanArrayStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
+            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
+        Class<?> srcFieldClass = componentTypeOfReturn(plan.getter);
+        Class<?> targetFieldClass = plan.setter.getParameterTypes()[0].getComponentType();
+
+        MethodHandle fieldConv = buildElementConverterMH(lookup, srcClass, srcFieldClass, targetClass, targetFieldClass, lookupSrcSuper, lookupTargetSuper, converters,
+                plan.property, plan.deepConvert, plan.useGlobalConverter);
+        MethodHandle setter = lookup.unreflect(plan.setter);
+
+        return makeDeepArrayStep(lookup, getter, setter, fieldConv, targetFieldClass);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 3. 10.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param lookup
+     * @param plan
+     *            데이터 유형 변환 요청에 따른 계획
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 클래스 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 클래스 정보 이관 여부
+     * @param converters
+     *            데이터 변환 함수
+     * @param getter
+     *            원본 데이터 제공 함수
+     * @return
+     * @throws Exception
+     *
+     * @since 2026. 3. 10.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static MethodHandle buildPlanCollectionStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
+            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
+
+        // 1) 컨테이너 단위 컨버터 우선 (setXxx(Collection) 1-파라미터일 때만)
+        if (plan.setter.getParameterCount() == 1 //
+                && plan.converter() != null //
+                && plan.converter() != StepPlan.IDENTITY_CONVERT) {
+            // (Object)->Object 로 바인드
+            MethodHandle convContainer = lookup.findVirtual(Function.class //
+                    , "apply" //
+                    , MethodType.methodType(Object.class, Object.class))//
+                    .bindTo(plan.converter());
+
+            MethodHandle setter = lookup.unreflect(plan.setter);
+            setter = MethodHandles.explicitCastArguments(setter, MethodType.methodType(void.class, Object.class, Object.class));
+
+            // (a)->convertedContainer
+            MethodHandle converted = MethodHandles.filterReturnValue(getter, convContainer);
+            // (b,a)->void
+            MethodHandle step = MethodHandles.collectArguments(setter, 1, converted);
+            return MethodHandles.explicitCastArguments(step, MethodType.methodType(void.class, Object.class, Object.class));
+        }
+
+        Class<?> srcElemClass = elementTypeOfGetter(plan.getter);
+        // 2) adder or 컨테이너 컨버터 없음 → deep 요소 변환
+        if (plan.adderStyle()) {
+            // addXxx(E) — 요소 단위 추가
+            Class<?> targetElemClass = plan.setter.getParameterTypes()[0];
+            MethodHandle elemConv = buildElementConverterMH(lookup, srcClass, srcElemClass, targetClass, targetElemClass, lookupSrcSuper, lookupTargetSuper, converters,
+                    plan.property, plan.deepConvert, plan.useGlobalConverter);
+            MethodHandle setter = lookup.unreflect(plan.setter);
+            return makeDeepCollectionAddStep(lookup, getter, setter, elemConv);
+        } else {
+            // setXxx(Collection<E>)
+            Class<?> dstParam = plan.setter.getParameterTypes()[0];
+            Class<?> targetElemClass = genericElementTypeOfSetter(plan.setter).orElse(Object.class);
+            MethodHandle elemConv = buildElementConverterMH(lookup, srcClass, srcElemClass, targetClass, targetElemClass, lookupSrcSuper, lookupTargetSuper, converters,
+                    plan.property, plan.deepConvert, plan.useGlobalConverter);
+
+            @SuppressWarnings("rawtypes")
+            Class<? extends Collection> dstImpl = pickCollectionImpl(dstParam);
+            MethodHandle setter = lookup.unreflect(plan.setter);
+            return makeDeepCollectionSetStep(lookup, getter, setter, elemConv, dstImpl);
+        }
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 3. 10.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param lookup
+     * @param plan
+     *            데이터 유형 변환 요청에 따른 계획
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 클래스 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 클래스 정보 이관 여부
+     * @param converters
+     *            데이터 변환 함수
+     * @param getter
+     *            원본 데이터 제공 함수
+     * @return
+     * @throws Exception
+     *
+     * @since 2026. 3. 10.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static MethodHandle buildPlanMapStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
+            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
+        if (plan.putStyle()) {
+            // putXxx(K,V): 항목 단위 삽입
+            Class<?> kDst = plan.setter.getParameterTypes()[0], vDst = plan.setter.getParameterTypes()[1];
+            Class<?> kSrc = mapKeyTypeOfGetter(plan.getter), vSrc = mapValTypeOfGetter(plan.getter);
+
+            MethodHandle kConv = buildElementConverterMH(lookup, srcClass, kSrc, targetClass, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert,
+                    plan.useGlobalConverter);
+            MethodHandle vConv = buildElementConverterMH(lookup, srcClass, vSrc, targetClass, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property, plan.deepConvert,
+                    plan.useGlobalConverter);
+
+            MethodHandle setter = lookup.unreflect(plan.setter);
+            return makeDeepMapPutStep(lookup, getter, setter, kConv, vConv);
+        } else {
+            // setXxx(Map<K,V>)
+            Class<?> dstParam = plan.setter.getParameterTypes()[0];
+            Class<?> kDst = mapKeyTypeOfSetter(plan.setter).orElse(Object.class);
+            Class<?> vDst = mapValTypeOfSetter(plan.setter).orElse(Object.class);
+            Class<?> kSrc = mapKeyTypeOfGetter(plan.getter), vSrc = mapValTypeOfGetter(plan.getter);
+
+            MethodHandle kConv = buildValueConverterMH(lookup, srcClass, kSrc, targetClass, kDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
+                    plan.useGlobalConverter);
+            MethodHandle vConv = buildValueConverterMH(lookup, srcClass, vSrc, targetClass, vDst, lookupSrcSuper, lookupTargetSuper, converters, plan.property,
+                    plan.useGlobalConverter);
+
+            @SuppressWarnings("rawtypes")
+            Class<? extends Map> dstImpl = pickMapImpl(dstParam);
+            MethodHandle setter = lookup.unreflect(plan.setter);
+            return makeDeepMapSetStep(lookup, getter, setter, kConv, vConv, dstImpl);
+        }
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 3. 10.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param lookup
+     * @param plan
+     *            데이터 유형 변환 요청에 따른 계획
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 클래스 정보 이관 여부
+     * @param targetClass
+     *            대상 데이터 유형
+     * @param lookupTargetSuper
+     *            대상 데이터 상위 클래스 정보 이관 여부
+     * @param converters
+     *            데이터 변환 함수
+     * @param getter
+     *            원본 데이터 제공 함수
+     * @return
+     * @throws Exception
+     *
+     * @since 2026. 3. 10.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static MethodHandle buildPlanScalarStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
+            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
+        MethodHandle setter = lookup.unreflect(plan.setter);
+        setter = MethodHandles.explicitCastArguments(setter, MethodType.methodType(void.class, Object.class, Object.class));
+
+        Class<?> srcType = plan.getter.getReturnType();
+        Class<?> dstType = plan.setter.getParameterTypes()[0];
+
+        MethodHandle conv = buildValueConverterMH(lookup, srcClass, srcType, lookupSrcSuper, targetClass, dstType, lookupTargetSuper, converters, plan.property, plan.converter,
+                plan.deepConvert, plan.useGlobalConverter);
+        MethodHandle converted = MethodHandles.filterReturnValue(getter, conv); // (a)->val'
+        MethodHandle step = MethodHandles.collectArguments(setter, 1, converted); // (b,a)->void
+        return MethodHandles.explicitCastArguments(step, MethodType.methodType(void.class, Object.class, Object.class));
     }
 
     private static MethodHandle buildValueConverterMH(MethodHandles.Lookup lookup, Class<?> srcParentClass, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetParentClass,
@@ -570,9 +707,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param src
@@ -631,9 +768,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param b
@@ -674,9 +811,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param b
@@ -719,9 +856,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param b
@@ -743,7 +880,7 @@ public class ObjectTransformer {
                 setter.invoke(b, (Object) null);
                 return;
             }
-            Collection dst = (Collection) dstImpl.newInstance();
+            Collection dst = dstImpl.getDeclaredConstructor().newInstance();
             if (src.getClass().isArray()) {
                 int len = Array.getLength(src);
                 for (int i = 0; i < len; i++) {
@@ -768,9 +905,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param b
@@ -811,9 +948,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param b
@@ -837,7 +974,7 @@ public class ObjectTransformer {
                 return;
             }
             Map src = (Map) srcObj;
-            Map dst = dstImpl.newInstance();
+            Map dst = dstImpl.getDeclaredConstructor().newInstance();
             for (Object eObj : src.entrySet()) {
                 Map.Entry e = (Map.Entry) eObj;
                 Object k2 = kConv.invoke(e.getKey());
@@ -939,9 +1076,9 @@ public class ObjectTransformer {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 5.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 9. 5.      parkjunhong77@gmail.com         최초 작성
      * 2025. 10. 2.     parkjunhong77@gmail.com         try-catch-finally 구조와 실패 처리 적용
      * </pre>
      *
@@ -1024,6 +1161,87 @@ public class ObjectTransformer {
         }
 
         return types;
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 10.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 유형 정의.
+     * @param <T>
+     *            신규 데이터 유형 정의.
+     * @param srcClass
+     *            입력 데이터 유형
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetClass
+     *            데이터를 전달받은 객체 유형
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @return
+     *
+     * @since 2026. 3. 10.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unchecked")
+    public static <S, T> BiConsumer<S, T> getTransformer(@Nonnull Class<S> srcClass, boolean lookupSrcSuper, @Nonnull Class<T> targetClass, boolean lookupTargetSuper) {
+        return (BiConsumer<S, T>) getTransformer(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, null);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 10.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <S>
+     *            입력 데이터 유형 정의.
+     * @param <T>
+     *            신규 데이터 유형 정의.
+     * @param srcClass
+     *            입력 데이터 유형
+     * @param lookupSrcSuper
+     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
+     * @param targetClass
+     *            데이터를 전달받은 객체 유형
+     * @param lookupTargetSuper
+     *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * @param fieldConverters
+     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
+     *            <ul>
+     *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
+     *            <li>타입 변환 함수
+     *            </ul>
+     * @return
+     *
+     * @since 2026. 3. 10.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static <S, T> BiConsumer<Object, Object> getTransformer(@Nonnull Class<S> srcClass, boolean lookupSrcSuper, @Nonnull Class<T> targetClass, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> fieldConverters) {
+
+        // 데이터 변환함수가 null 인 경우
+        CopierKey key = new CopierKey(srcClass, targetClass, lookupSrcSuper, lookupTargetSuper,
+                // convertersId 또는 고정 Registry ID
+                System.identityHashCode(checkConvertersOrDefault(fieldConverters)) //
+        );
+
+        return getOrBuildCopier(key, () -> buildCopier(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, checkConvertersOrDefault(fieldConverters)));
     }
 
     private static boolean isPojo(Class<?> c) {
@@ -1432,8 +1650,9 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
-     * 2021. 11. 22.        parkjunohng77@gmail.com      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * 2020. 12. 8.     parkjunohng77@gmail.com     최초 작성
+     * 2021. 11. 22.    parkjunohng77@gmail.com     Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 25 마이그레이션 적용.
      * </pre>
      *
      * @param <S>
@@ -1448,7 +1667,7 @@ public class ObjectTransformer {
      *            데이터를 전달받을 새로운 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
-     * @param converters
+     * @param fieldConverters
      *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
@@ -1463,7 +1682,7 @@ public class ObjectTransformer {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
 
         AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
 
@@ -1475,15 +1694,7 @@ public class ObjectTransformer {
         }
 
         try {
-            // 데이터 변환함수가 null 인 경우
-            CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
-                    // convertersId 또는 고정 Registry ID
-                    System.identityHashCode(checkConvertersOrDefault(converters)) //
-            );
-
-            BiConsumer<Object, Object> copier = getOrBuildCopier(key,
-                    () -> buildCopier(src.getClass(), lookupSrcSuper, target.getClass(), lookupTargetSuper, checkConvertersOrDefault(converters)));
-
+            BiConsumer<Object, Object> copier = getTransformer(src.getClass(), lookupSrcSuper, target.getClass(), lookupTargetSuper, fieldConverters);
             copier.accept(target, src);
 
             return target;
@@ -1516,91 +1727,49 @@ public class ObjectTransformer {
         return c;
     }
 
-    static final class CopierKey {
-        final Class<?> srcClass;
-        final Class<?> targetClass;
-        final boolean lookupSrcSuper;
-        final boolean lookupDstSuper;
-        final int convertersId;
-
-        /**
-         *
-         * @param srcClass
-         *            원본 데이터 유형
-         * @param targetClass
-         *            변환 데이터 유형
-         * @param lookupSrcSuper
-         *            원본 데이터 상위 클래스 정보 전환 여부
-         * @param lookupDstSuper
-         *            변환 데이터 상위 클래스 정보 전환 여부
-         * @param convertersId
-         *            변환기 식별정보
-         *
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         */
-        public CopierKey(Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
-            this.srcClass = srcClass;
-            this.targetClass = targetClass;
-            this.lookupSrcSuper = lookupSrcSuper;
-            this.lookupDstSuper = lookupDstSuper;
-            this.convertersId = convertersId;
-        }
-
-        /**
-         *
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         *
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            CopierKey other = (CopierKey) obj;
-            return convertersId == other.convertersId && Objects.equals(targetClass, other.targetClass) && lookupDstSuper == other.lookupDstSuper
-                    && lookupSrcSuper == other.lookupSrcSuper && Objects.equals(srcClass, other.srcClass);
-        }
-
-        /**
-         *
-         * @since 2025. 9. 4.
-         * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
-         *
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-            return Objects.hash(convertersId, targetClass, lookupDstSuper, lookupSrcSuper, srcClass);
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("CopierKey [srcClass=");
-            builder.append(srcClass);
-            builder.append(", targetClass=");
-            builder.append(targetClass);
-            builder.append(", lookupSrcSuper=");
-            builder.append(lookupSrcSuper);
-            builder.append(", lookupDstSuper=");
-            builder.append(lookupDstSuper);
-            builder.append(", convertersId=");
-            builder.append(convertersId);
-            builder.append("]");
-            return builder.toString();
-        }
+    static enum ContainerKind {
+        SCALAR, ARRAY, COLLECTION, MAP
     }
 
-    // 다른 스레드가 먼저 호출하면 안전하게 '완성될 때까지' 대기
+    /**
+     * 식별정보 모델
+     * 
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자           |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) Record 도입으로 불필요한 보일러플레이트 제거
+     * </pre>
+     * 
+     * @param srcClass
+     *            원본 데이터 유형
+     * @param targetClass
+     *            변환 데이터 유형
+     * @param lookupSrcSuper
+     *            원본 데이터 상위 클래스 정보 전환 여부
+     * @param lookupDstSuper
+     *            변환 데이터 상위 클래스 정보 전환 여부
+     * @param convertersId
+     *            변환기 식별정보
+     *
+     * @since 2025. 9. 4.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    record CopierKey(Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
+    }
+
+    /**
+     * 다른 스레드가 먼저 호출하면 안전하게 '완성될 때까지' 대기
+     * 
+     * @since 2025. 9. 4.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
     static final class CopierStub implements BiConsumer<Object, Object> {
         private final CountDownLatch ready = new CountDownLatch(1);
         volatile BiConsumer<Object, Object> delegate;
@@ -1619,55 +1788,66 @@ public class ObjectTransformer {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException("CopierStub 대기 중 Interrupt 발생", e);
             }
-
             if (initializationError != null) {
                 throw new RuntimeException("CopierStub 초기화 실패: 빌더 함수 실행 중 예외 발생", initializationError);
             }
-
             delegate.accept(dst, src);
-        }
-
-        void set(BiConsumer<Object, Object> real) {
-            this.delegate = real;
-            this.ready.countDown();
         }
 
         void fail(Throwable error) {
             this.initializationError = error;
             this.ready.countDown();
         }
+
+        void set(BiConsumer<Object, Object> real) {
+            this.delegate = real;
+            this.ready.countDown();
+        }
     }
 
-    static final class StepPlan {
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 4.      parkjunohng77@gmail.com     최초 작성
+     * 2025. 9. 5.      parkjunhong77@gmail.com     deepConvert, containerKind, addStyple, putStyle 추가
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) Record 도입으로 간결하고 불변성(Immutable)을 보장하는 객체 설계
+     * </pre>
+     * 
+     * @param property
+     *            속성 이름<br>
+     *            <li>{@link Getter#name()}
+     *            <li>{@link Setter#name()}
+     * @param getter
+     *            원본 클래스의 'getter' 메소드.
+     * @param setter
+     *            대상 클래스의 'setter' 메소드
+     * @param converter
+     *            데이터 형변환 함수.
+     * @param useGlobalConverter
+     *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     * @param deepConvert
+     *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
+     * @param containerKind
+     *            'container' 유형
+     * @param addStyle
+     *            'container' 데이터 추가 'addXXX' 스타일. (addXXX(E) (1 param))
+     * @param putStyle
+     *            'container' 데이터 추가 'putXXX' 스타일. (putXxx(K,V) (2 params))
+     * 
+     * @since 2025. 9. 4.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * @see {@link Setter#useGlobalConverter()}
+     */
+    record StepPlan(String property, Method getter, Method setter, Function<?, ?> converter, boolean useGlobalConverter, boolean deepConvert, ContainerKind kind,
+            boolean adderStyle, boolean putStyle) {
 
         static final Function<?, ?> IDENTITY_CONVERT = o -> o;
-        /**
-         * 속성 이름<br>
-         * 
-         * @see {@link Getter#name()}
-         * @see {@link Setter#name()}
-         */
-        final String property;
-        /** 원본 클래스의 'getter' 메소드. */
-        final Method getter;
-        /** 대상 클래스의 'setter' 메소드 */
-        final Method setter;
-        /** 데이터 형변환 함수. */
-        final Function<?, ?> converter;
-        /**
-         * <i><code>srcClass#srcFieldClass-&gt;property-&gt;targetClass#targetFieldClass<code></i> 로 식별되는 '변환 함수'가 없는 경우<br>
-         * <i><code>null#srcFieldClass-&gt;null->&gt;null#targetFieldClass</code></i>로 식별되는 '변환 함수'가 있다면 사용할지 여부<br>
-         * 
-         * @see {@link Setter#useGlobalConverter()}
-         */
-        final boolean useGlobalConverter;
-        /** '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부 */
-        final boolean deepConvert;
-        final ContainerKind kind;
-        /** addXXX(E) (1 param) */
-        final boolean adderStyle;
-        /** putXxx(K,V) (2 params) */
-        final boolean putStyle;
 
         /**
          * <br>
@@ -1702,7 +1882,7 @@ public class ObjectTransformer {
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
         public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity) {
-            this(property, getter, setter, converterOrIdentity, false, false, null, false, false);
+            this(property, getter, setter, converterOrIdentity, false, false, ContainerKind.SCALAR, false, false);
         }
 
         /**
@@ -1724,7 +1904,7 @@ public class ObjectTransformer {
          *            원본 클래스의 'getter' 메소드.
          * @param setter
          *            대상 클래스의 'setter' 메소드
-         * @param converterOrIdentity
+         * @param converter
          *            데이터 형변환 함수.
          * @param useGlobalConverter
          *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
@@ -1740,44 +1920,17 @@ public class ObjectTransformer {
          * @version 2.1.0
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
-        public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity, boolean useGlobalConverter, boolean deepConvert,
-                ContainerKind containerKind, boolean addStyle, boolean putStyle) {
+        public StepPlan(String property, Method getter, Method setter, Function<?, ?> converter, boolean useGlobalConverter, boolean deepConvert, ContainerKind kind,
+                boolean adderStyle, boolean putStyle) {
             this.property = property;
             this.getter = getter;
             this.setter = setter;
-            this.converter = converterOrIdentity != null ? converterOrIdentity : IDENTITY_CONVERT;
+            this.converter = converter != null ? converter : IDENTITY_CONVERT;
             this.useGlobalConverter = useGlobalConverter;
             this.deepConvert = deepConvert;
-            this.kind = containerKind;
-            this.adderStyle = addStyle;
+            this.kind = kind;
+            this.adderStyle = adderStyle;
             this.putStyle = putStyle;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder();
-            builder.append("StepPlan [property=");
-            builder.append(property);
-            builder.append(", getter=");
-            builder.append(getter);
-            builder.append(", setter=");
-            builder.append(setter);
-            builder.append(", converter=");
-            builder.append(converter);
-            builder.append(", deepConvert=");
-            builder.append(deepConvert);
-            builder.append(", kind=");
-            builder.append(kind);
-            builder.append(", adderStyle=");
-            builder.append(adderStyle);
-            builder.append(", putStyle=");
-            builder.append(putStyle);
-            builder.append("]");
-            return builder.toString();
-        }
-
-        static enum ContainerKind {
-            SCALAR, ARRAY, COLLECTION, MAP
         }
     }
 }

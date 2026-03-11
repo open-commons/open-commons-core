@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * 

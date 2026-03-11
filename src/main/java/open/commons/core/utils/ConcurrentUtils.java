@@ -33,9 +33,8 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Concurrent/Parallel/Async Programming을 위한 유틸 클래스 <BR>
@@ -104,16 +103,25 @@ public class ConcurrentUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T, U> List<U> executeAsync(@Nonnull Collection<T> data, @Nonnull Function<T, U> actor, @Nonnull Executor executor) {
-        // #1. 작업을 병렬로 실행
+        AssertUtils2.notNulls(data, actor, executor);
+
+        // #1. 작업을 병렬로 실행 (supplyAsync)
         List<CompletableFuture<U>> jobs = data.stream() //
-                .map(d -> CompletableFuture.supplyAsync(() -> actor.apply(d), executor))//
-                .collect(Collectors.toList());
+                .map(d -> CompletableFuture.supplyAsync(() -> actor.apply(d), executor)) //
+                .toList();
+
         // #2. 작업 완료 후 처리
         return waitAndApply(jobs);
     }
 
     /**
      * 여러 개의 처리 결과를 하나의 데이터에 적용하는 작업을 병렬로 수행합니다. <br>
+     * <p>
+     * <b>[동시성(Concurrency) 주의사항]</b><br>
+     * 다수의 스레드가 동시에 <code>bucket</code> 객체의 상태를 변경하므로, 전달되는 <code>bucket</code>은 반드시 <b>스레드 안전(Thread-Safe)한 객체</b>여야
+     * 합니다. (예: {@link java.util.concurrent.ConcurrentHashMap}, 락이 구현된 객체 등)
+     * </p>
+     *
      * 
      * <pre>
      * [개정이력]
@@ -123,12 +131,11 @@ public class ConcurrentUtils {
      * </pre>
      *
      * @param <T>
+     *            입력 데이터 유형
      * @param bucket
-     *            처리 결과를 적용할 객체
+     *            처리 결과를 적용할 타겟 객체 (Thread-Safe 권장)
      * @param actors
      *            수행할 작업들
-     * @param executor
-     *            작업 실행 환경
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
@@ -149,8 +156,9 @@ public class ConcurrentUtils {
      * </pre>
      *
      * @param <T>
+     *            입력 데이터 유형
      * @param bucket
-     *            처리 결과를 적용할 객체
+     *            처리 결과를 적용할 타겟 객체 (Thread-Safe 권장)
      * @param actors
      *            수행할 작업들
      * @param executor
@@ -161,15 +169,15 @@ public class ConcurrentUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <T> void executeAsync(@Nonnull T bucket, @Nonnull Collection<Consumer<T>> actors, @Nonnull Executor executor) {
+        AssertUtils2.notNulls(bucket, actors, executor);
+
         // #1. 작업을 병렬로 실행
-        List<CompletableFuture<Object>> jobs = actors.stream() //
-                .map(actor -> CompletableFuture.supplyAsync(() -> {
-                    actor.accept(bucket);
-                    return null;
-                }, executor)) //
-                .collect(Collectors.toList());
-        // #2. 작업 완료 후 처리
-        waitAndApply(jobs);
+        CompletableFuture<?>[] jobs = actors.stream() //
+                .map(actor -> CompletableFuture.runAsync(() -> actor.accept(bucket), executor)) //
+                .toArray(CompletableFuture[]::new);
+
+        // #2. 모든 작업 완료 대기
+        CompletableFuture.allOf(jobs).join();
     }
 
     /**
@@ -183,8 +191,10 @@ public class ConcurrentUtils {
      * </pre>
      *
      * @param <U>
+     *            결과 데이터 유형
      * @param jobs
-     * @return
+     *            대기할 비동기 작업 목록
+     * @return 모든 작업의 결과 목록
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
@@ -192,8 +202,9 @@ public class ConcurrentUtils {
      */
     private static <U> List<U> waitAndApply(List<CompletableFuture<U>> jobs) {
         // #2. 모든 작업 완료 대기
-        CompletableFuture<Void> allDone = CompletableFuture.allOf(jobs.toArray(new CompletableFuture[0]));
-        // #3. 결과 수집
-        return allDone.thenApply(v -> jobs.stream().map(CompletableFuture::join).collect(Collectors.toList())).join();
+        CompletableFuture<Void> allDone = CompletableFuture.allOf(jobs.toArray(CompletableFuture[]::new));
+
+        // #3. 결과 수집 (Stream.toList()를 활용하여 불변 리스트 반환)
+        return allDone.thenApply(_ -> jobs.stream().map(CompletableFuture::join).toList()).join();
     }
 }

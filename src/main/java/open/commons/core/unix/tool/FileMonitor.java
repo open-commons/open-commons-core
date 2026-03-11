@@ -45,7 +45,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.log.LogUtils;
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.IOUtils;
 import open.commons.core.utils.ThreadUtils;
@@ -657,7 +656,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
                 new Thread(service).start();
 
-                LogUtils.log("(new 'Service')", "service: " + service + ", directory: " + directory + ", recursive: " + recursive);
+                System.out.printf("(new 'Service') service: %s, directory, %s, recursive: %s", service, directory, recursive);
             }
         }
 
@@ -788,7 +787,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
                         addFileContextWriter(fcWriter);
                         break;
                     } else {
-                        LogUtils.error("(Cause a looping) watch: " + wsKey + ", file: " + file.getAbsolutePath());
+                        System.err.printf("(Cause a looping) watch: %s, file: %s", wsKey, file.getAbsolutePath());
                     }
                 }
             }
@@ -796,7 +795,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     }
 
     public void start() throws IOException {
-        boolean debugging = LogUtils.setEnabled(true);
 
         Object config = null;
 
@@ -853,8 +851,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         } else {
             defaultFcWriter = new FileContextConsoleWriter(verboseTimestamp, verboseFilename, verboseDirectory);
         }
-
-        LogUtils.setEnabled(debugging);
 
         new Thread(this).start();
     }
@@ -1125,7 +1121,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
             service.stop(null);
 
-            LogUtils.log("(unregister 'Service')", "service: " + service.toString() + ", directory: " + directory);
+            System.out.printf("(unregister 'Service') service: %s, directory: %s", service.toString(), directory);
         }
     }
 

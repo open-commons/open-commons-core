@@ -27,11 +27,15 @@
 package open.commons.core.lang;
 
 import java.lang.reflect.Field;
-import java.util.HashSet;
-
-import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import open.commons.core.utils.IOUtils;
+
+import jakarta.annotation.Resource;
 
 /**
  * {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로 해제({@link AutoCloseable#close()})하는 기능을 제공.
@@ -44,47 +48,60 @@ public interface CloseableContainer extends AutoCloseable {
 
     /**
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 7. 1.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 1.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 4.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 캐싱 적용 및 잠재적 어노테이션 타겟 버그 수정
      * </pre>
      *
      * @throws Exception
+     *             자원 해제 중 예외 발생 시
      *
      * @since 2021. 7. 1.
+     * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.AutoCloseable#close()
      */
     @Override
     default void close() throws Exception {
-        
-        HashSet<AutoCloseable> resources = new HashSet<>();
 
-        Field[] fields = getClass().getDeclaredFields();
+        // 1. 캐시에서 리소스 필드 목록 획득 (최초 1회만 리플렉션 스캔 수행)
+        List<Field> resourceFields = CacheHolder.FIELDS_CACHE.computeIfAbsent(getClass(), clazz -> Arrays.stream(clazz.getDeclaredFields())
+                // 기존 fieldClass.isAnnotationPresent -> field.isAnnotationPresent 로 수정
+                .filter(f -> f.isAnnotationPresent(Resource.class) && AutoCloseable.class.isAssignableFrom(f.getType())) //
+                // JDK 25: 캡슐화 대응 및 실행 시점 성능 극대화
+                .peek(f -> f.trySetAccessible()).toList());
 
-        Class<?> fieldClass = null;
-        boolean accessible = false;
-        for (Field field : fields) {
-            fieldClass = field.getType();
-            if (fieldClass.isAnnotationPresent(Resource.class) //
-                    && AutoCloseable.class.isAssignableFrom(fieldClass)) {
-                accessible = field.isAccessible();
-                try {
-                    field.setAccessible(true);
-                    resources.add((AutoCloseable) field.get(this));
-                } catch (Exception e) {
-                    throw new RuntimeException("Fail to initialize a " + Resource.class.getName() + " instance.", e);
-                } finally {
-                    field.setAccessible(accessible);
-                }
+        // 2. 캐시된 필드를 사용하여 인스턴스 값 추출 및 중복 제거
+        AutoCloseable[] resources = resourceFields.stream().map(f -> {
+            try {
+                return (AutoCloseable) f.get(this);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Fail to access a " + Resource.class.getName() + " instance field: " + f.getName(), e);
             }
-        }
+        }).filter(Objects::nonNull)
+                // 기존 HashSet을 대체하는 Stream API 중복 제거
+                .distinct() //
+                .toArray(AutoCloseable[]::new);
 
-        // Release Resources.
-        IOUtils.close(resources.toArray(new AutoCloseable[0]));
+        // 3. 자원 해제
+        IOUtils.close(resources);
+    }
+
+    /**
+     * 클래스별 닫기 가능한 리소스 필드 메타데이터 캐시가 private 으로 선언되어 외부 클래스나 구현체에서는 절대 접근 불가
+     * 
+     * @since 2026. 3. 4.
+     * @version 3.0.0.
+     */
+    static final class CacheHolder {
+        private static final Map<Class<?>, List<Field>> FIELDS_CACHE = new ConcurrentHashMap<>();
+
+        private CacheHolder() {
+        };
     }
 }

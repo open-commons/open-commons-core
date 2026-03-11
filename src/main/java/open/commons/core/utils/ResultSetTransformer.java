@@ -244,8 +244,7 @@ public class ResultSetTransformer {
                 }
 
                 // setter: (Object,Object)->void
-                if (!plan.setter.isAccessible())
-                    plan.setter.setAccessible(true);
+                plan.setter.trySetAccessible();
 
                 // #1. reader 준비
                 // reader: (ResultSet,int)->Object -> 인덱스 바인딩 → (ResultSet)->Object
@@ -564,7 +563,7 @@ public class ResultSetTransformer {
 
         // 2-3) RowMapper 준비/캐시
         final RowKey key = new RowKey(objectType, tags, mdSig);
-        final Function<ResultSet, Object> mapper = ROW_MAPPER_CACHE.computeIfAbsent(key, k -> buildRowMapper(objectType, md, tags));
+        final Function<ResultSet, Object> mapper = ROW_MAPPER_CACHE.computeIfAbsent(key, _ -> buildRowMapper(objectType, md, tags));
 
         // 2-4) 실행
         try {

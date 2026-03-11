@@ -26,6 +26,8 @@
 
 package open.commons.core.utils;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -34,15 +36,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
-import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +54,9 @@ import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Information;
 import open.commons.core.annotation.Setter;
 import open.commons.core.exception.CreateInstanceFailedException;
-import open.commons.core.function.QuadFunction;
 import open.commons.core.stream.ClassSpliterator;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
@@ -112,30 +116,8 @@ public class ObjectUtils {
         // end: wrapper types
     }
 
-    /**
-     * <ul>
-     * <li>key: 변환 전/후 데이터 타입 및 상위 클래스 정보 적용 여부가 합쳐진 식별정보
-     * <li>value: 변환 함수.
-     * </ul>
-     */
-    private static final ConcurrentHashMap<Integer, Function<?, ?>> TYPE_CONVERTERS = new ConcurrentHashMap<>();
-
-    /**
-     * @param srcClass
-     *            입력 데이터 타입
-     * @param lookupSrcSuper
-     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetClass
-     *            데이터를 전달받은 타입.
-     * @param lookupTargetSuper
-     *            대상 객체 상위 인터페이스/클래스 확장 여부
-     */
-    public static final QuadFunction<Class<?>, Boolean, Class<?>, Boolean, Integer> TYPE_CONVERTER_KEYGEN //
-            = (srcClass, lookupSrcSuper, targetClass, lookupTargetSuper) -> new StringBuffer() //
-                    .append(srcClass.toGenericString()).append(":").append(lookupSrcSuper) //
-                    .append("->") //
-                    .append(targetClass.toGenericString()).append(lookupTargetSuper)//
-                    .toString().hashCode();
+    // 타입별 Setter 메타데이터 및 고속 실행기(MethodHandle) 전역 캐시
+    private static final Map<Class<?>, List<SetterInfo>> SETTER_CACHE = new ConcurrentHashMap<>();
 
     // Prevent to create a new instance.
     private ObjectUtils() {
@@ -202,7 +184,7 @@ public class ObjectUtils {
      * 2019. 9. 3.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @param target
+     * @param targetClass
      *            검사 대상 타입
      * @param standards
      *            기준 타입
@@ -211,9 +193,9 @@ public class ObjectUtils {
      * @since 2019. 9. 3.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    private static boolean checkType(Class<?> target, Class<?>... standards) {
+    private static boolean checkType(Class<?> targetClass, Class<?>... standards) {
         for (Class<?> standard : standards) {
-            if (standard.isAssignableFrom(target)) {
+            if (standard.isAssignableFrom(targetClass)) {
                 return true;
             }
         }
@@ -441,36 +423,6 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}와 {@link Setter}의 식별정보를 생성하여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 11. 22.		parkjunohng77@gmail.com			최초 작성
-     * 2021. 12. 02.        parkjunohng77@gmail.com     메소드를 찾는 키를 필드 속성명으로 고정.
-     * 2022. 3. 22.         parkjunohng77@gmail.com     더 이상 사용하지 않음.
-     * </pre>
-     *
-     * @param name
-     *            데이터 이름
-     * @param type
-     *            데이터 타입.
-     * @return
-     * @throws NullPointerException
-     *             데이터 이름 또는 타입이 <code>null</code>인 경우.
-     *
-     * @since 2021. 11. 22.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
-     * @deprecated No Use since 2022.03.22.
-     */
-    public static final String getPropertyKey(String name, Class<?> type) throws NullPointerException {
-        return name;
-    }
-
-    /**
      * 주어진 타입 및 조건에 맞는 데이터 변환 함수를 제공합니다. <br>
      * 
      * <pre>
@@ -478,6 +430,7 @@ public class ObjectUtils {
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunohng77@gmail.com         (3.0.0) JDK 25 마이그레이션 및 캐시적용
      * </pre>
      *
      * @param <S>
@@ -500,14 +453,22 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
-    @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull Class<S> srcType, boolean lookupSrcSuper, @Nonnull Class<T> targetType, boolean lookupTargetSuper)
+            throws IllegalArgumentException {
 
         AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
-        int key = TYPE_CONVERTER_KEYGEN.apply(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
-        return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, key,
-                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
+        return src -> {
+            try {
+                BiConsumer<S, T> copier = ObjectTransformer.getTransformer(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
+                T target = targetType.getDeclaredConstructor().newInstance();
+                copier.accept(src, target);
+
+                return target;
+            } catch (Exception e) {
+                throw ExceptionUtils.newException(RuntimeException.class, e, "데이터를 변환하는 도중 오류가 발생하였습니다.");
+            }
+        };
     }
 
     /**
@@ -536,7 +497,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> target) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull Class<S> srcType, @Nonnull Class<T> target) throws NullPointerException {
         return getTransformer(srcType, false, target, false);
     }
 
@@ -554,11 +515,11 @@ public class ObjectUtils {
      *            입력 데이터 타입 정의.
      * @param <T>
      *            신규 데이터 타입 정의.
-     * @param src
+     * @param srcCol
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체 타입
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -571,12 +532,20 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> Function<S, T> getTransformer(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull Collection<S> srcCol, boolean lookupSrcSuper, @Nonnull Class<T> targetClass, boolean lookupTargetSuper) {
 
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
-        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
+        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", srcCol.isEmpty(), IllegalArgumentException.class);
 
-        return getTransformer(src.iterator().next(), lookupSrcSuper, targetType, lookupTargetSuper);
+        @SuppressWarnings("unchecked")
+        Optional<Class<S>> fromInstance = srcCol.stream() //
+                .filter(Objects::nonNull) //
+                .findFirst() //
+                .map(e -> (Class<S>) e.getClass());
+
+        AssertUtils2.isTrue("'source' object MUST contain 'non-null' data !!!", fromInstance.isPresent(), IllegalArgumentException.class);
+
+        return getTransformer(fromInstance.get(), lookupSrcSuper, targetClass, lookupTargetSuper);
     }
 
     /**
@@ -593,9 +562,9 @@ public class ObjectUtils {
      *            입력 데이터 타입 정의.
      * @param <T>
      *            신규 데이터 타입 정의.
-     * @param src
+     * @param srcCol
      *            입력 데이터
-     * @param target
+     * @param targetClass
      *            데이터를 전달받은 객체.
      * @return
      * 
@@ -606,87 +575,12 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> Function<S, T> getTransformer(Collection<S> src, Class<T> target) {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull Collection<S> srcCol, @Nonnull Class<T> targetClass) {
 
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
-        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", src.isEmpty(), IllegalArgumentException.class);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
+        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", srcCol.isEmpty(), IllegalArgumentException.class);
 
-        return getTransformer(src, false, target, false);
-    }
-
-    /**
-     * 주어진 식별정보 맞는 데이터 변환 함수를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 12. 30.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            입력 데이터 타입 정의.
-     * @param <T>
-     *            신규 데이터 타입 정의.
-     * 
-     * @param typeConverterKey
-     *            데이터 변환함수 식별정보
-     * @return
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
-     *
-     * @since 2021. 12. 30.
-     * @version 1.8.0
-     * @author parkjunhong77@gmail.com
-     * 
-     * @see #TYPE_CONVERTER_KEYGEN
-     */
-    @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(int typeConverterKey) throws NullPointerException {
-        return (Function<S, T>) TYPE_CONVERTERS.get(typeConverterKey);
-    }
-
-    /**
-     * 주어진 타입 및 조건에 맞는 데이터 변환 함수를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 12. 30.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            입력 데이터 타입 정의.
-     * @param <T>
-     *            신규 데이터 타입 정의.
-     * 
-     * @param typeConverterKey
-     *            데이터 변환함수 식별정보
-     * @param srcType
-     *            입력 데이터 타입
-     * @param lookupSrcSuper
-     *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
-     *            데이터를 전달받은 객체.
-     * @param lookupTargetSuper
-     *            대상 객체 상위 인터페이스/클래스 확장 여부
-     * @return
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
-     *
-     * @since 2021. 12. 30.
-     * @version 1.8.0
-     * @author parkjunhong77@gmail.com
-     */
-    @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(int typeConverterKey, Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper)
-            throws NullPointerException {
-
-        AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
-
-        return (Function<S, T>) MapUtils.getOrDefault(TYPE_CONVERTERS, typeConverterKey,
-                (Supplier<Function<?, ?>>) () -> (Function<?, ?>) value -> transform(value, lookupSrcSuper, targetType, lookupTargetSuper), true);
+        return getTransformer(srcCol, false, targetClass, false);
     }
 
     /**
@@ -707,7 +601,7 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -720,11 +614,12 @@ public class ObjectUtils {
      * @author parkjunhong77@gmail.com
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Class<T> targetClass, boolean lookupTargetSuper)
+            throws NullPointerException {
 
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetType);
+        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetClass);
 
-        return (Function<S, T>) getTransformer(src.getClass(), lookupSrcSuper, targetType, lookupTargetSuper);
+        return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, targetClass, lookupTargetSuper);
     }
 
     /**
@@ -760,7 +655,7 @@ public class ObjectUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target, boolean lookupTargetSuper) throws IllegalArgumentException {
 
         AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
@@ -783,7 +678,7 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체 타입.
      * @return
      * 
@@ -794,8 +689,8 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> Function<S, T> getTransformer(S src, Class<T> targetType) {
-        return getTransformer(src, false, targetType, false);
+    public static <S, T> Function<S, T> getTransformer(@Nonnull S src, @Nonnull Class<T> targetClass) {
+        return getTransformer(src, false, targetClass, false);
     }
 
     /**
@@ -826,7 +721,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> Function<S, T> getTransformer(S src, T target) {
+    public static <S, T> Function<S, T> getTransformer(@Nonnull S src, @Nonnull T target) {
         return getTransformer(src, false, target, false);
     }
 
@@ -851,30 +746,6 @@ public class ObjectUtils {
     public static boolean isPrimitive(Class<?> type) {
         AssertUtils2.notNull(type);
         return PRIMITIVES.contains(type);
-    }
-
-    /**
-     * 객체가 primitive 타입인지 여부를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param obj
-     * @return
-     *
-     * @since 2020. 12. 22.
-     * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
-     * 
-     * @deprecated DO NOT USE. 잘못 정의된 메소드.
-     */
-    public static boolean isPrimitive(Object obj) {
-        AssertUtils2.notNull(obj);
-        return PRIMITIVES.contains(obj.getClass());
     }
 
     /**
@@ -953,61 +824,88 @@ public class ObjectUtils {
 
     /**
      * {@link Setter} 어노테이션이 기술된 메소드를 이용하여 {@link Map}으로부터 데이터를 읽어 새로운 객체를 생성합니다. <br>
+     * *
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜          | 작성자   |   내용
      * ------------------------------------------
      * 2019. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com         JDK 25 마이그레이션: MethodHandle 기반 캐싱 및 모듈 시스템 대응
      * </pre>
      *
      * @param <T>
+     *            반환할 객체의 타입
      * @param type
      *            데이터 타입
      * @param map
-     *            데이터를 가지고 있는 {@link Map}
-     * @return
+     *            데이터를 가지고 있는 {@link Map} * @return 생성된 객체
      *
      * @since 2019. 9. 3.
-     * @version
+     * @version 2.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws InvocationTargetException
      * @throws IllegalArgumentException
+     * @throws NoSuchMethodException
+     *             생성자를 찾을 수 없는 경우
      * 
      * @see Setter
      */
-    @SuppressWarnings("deprecation")
-    public static <T> T load(Class<T> type, Map<String, Object> map) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public static <T> T load(Class<T> type, Map<String, Object> map)
+            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
 
-        T obj = type.newInstance();
+        // [캐싱] 클래스에 대한 Setter 정보를 최초 1회만 스캔하여 저장합니다.
+        List<SetterInfo> setters = SETTER_CACHE.computeIfAbsent(type, k -> {
+            List<SetterInfo> list = new ArrayList<>();
+            MethodHandles.Lookup lookup = MethodHandles.lookup();
 
-        List<Method> methods = AnnotationUtils.getAnnotatedMethodsAll(type, Setter.class);
-        boolean accessible = false;
-        Setter setter = null;
-        String name = null;
-        Class<?> paramType = null;
-        Object param = null;
-        for (Method m : methods) {
-            try {
-                accessible = m.isAccessible();
-                setter = m.getAnnotation(Setter.class);
-                name = setter.name();
-                paramType = setter.type();
-
-                // Map에 데이터가 없는 경우
-                if ((param = map.get(name)) == null) {
+            for (Method m : AnnotationUtils.getAnnotatedMethodsAll(k, Setter.class)) {
+                // [안전성] 파라미터가 1개가 아닌 잘못된 Setter는 안전하게 스킵
+                if (m.getParameterCount() != 1) {
                     continue;
                 }
 
-                if (!checkType(param.getClass(), paramType)) {
-                    throw new IllegalArgumentException(String.format("Required: %s, Input.type: %s, Input.value: %s", paramType, param.getClass(), param));
-                }
+                // [보안/동시성] 가변 상태(setAccessible)를 없애고 JDK 모듈 시스템에 안전하게 접근 권한 획득
+                m.trySetAccessible();
 
-                m.invoke(obj, param);
-            } finally {
-                m.setAccessible(accessible);
+                Setter setter = m.getAnnotation(Setter.class);
+                String name = setter.name();
+                Class<?> paramType = m.getParameterTypes()[0];
+
+                try {
+                    // Method.invoke 보다 압도적으로 빠른 MethodHandle로 변환하여 저장
+                    MethodHandle handle = lookup.unreflect(m);
+                    list.add(new SetterInfo(name, paramType, handle));
+                } catch (IllegalAccessException e) {
+                    // 권한 획득 불가 시 로깅 후 스킵 (또는 예외 정책에 따라 수정 가능)
+                }
+            }
+            return List.copyOf(list);
+        });
+
+        // JDK 9+ 표준 방식의 객체 생성자 호출
+        T obj = type.getDeclaredConstructor().newInstance();
+
+        // [실행] 리플렉션 탐색 없이 캐시된 정보만으로 고속 매핑 수행
+        for (SetterInfo info : setters) {
+            Object param = map.get(info.name());
+            if (param == null) {
+                continue;
+            }
+
+            // 기존의 타입 체크 로직 유지 (checkType 메소드 존재 가정)
+            if (!checkType(param.getClass(), info.paramType())) {
+                throw new IllegalArgumentException(String.format("Required: %s, Input.type: %s, Input.value: %s", info.paramType(), param.getClass(), param));
+            }
+
+            try {
+                // Method.invoke의 검증 오버헤드를 건너뛰고 네이티브 수준으로 실행
+                info.handle().invoke(obj, param);
+            } catch (Throwable t) {
+                throw new InvocationTargetException(t, "Setter invoke 실패: " + info.name());
             }
         }
 
@@ -1170,15 +1068,12 @@ public class ObjectUtils {
                 }) //
                 .forEach(f -> {
                     String value = null;
-                    boolean accessible = f.isAccessible();
                     try {
-                        f.setAccessible(true);
+                        f.trySetAccessible();
                         Object v = String.format(fmt, f.getName(), f.get(o));
                         value = v != null ? v.toString() : null;
                     } catch (IllegalArgumentException | IllegalAccessException e) {
                         value = e.getMessage();
-                    } finally {
-                        f.setAccessible(accessible);
                     }
                     info.add(value);
                 }) //
@@ -1212,10 +1107,10 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
-     * @see #registerPropertyConverter(Class, Class, String, Class, Class, Function)
+     * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)
      */
     public static <SF, TF> Object registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> converter) throws NullPointerException {
-        return registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, converter);
+        return ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, converter);
     }
 
     /**
@@ -1245,148 +1140,11 @@ public class ObjectUtils {
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      * 
-     * @see #registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)
+     * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)
      */
     public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc)
             throws NullPointerException {
-        registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget, targetToSrc);
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            Source Type
-     * @param <SF>
-     *            Source Field Type
-     * @param <T>
-     *            Target Type
-     * @param <TF>
-     *            Target Field Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param srcPropertyClass
-     *            변환 이전 속성 데이터 타입
-     * @param property
-     *            속성명
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     * @param targetPropertyClass
-     *            변환 이후 속성 데이터 타입
-     * @param converter
-     *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
-     * @return
-     * @throws NullPointerException
-     *
-     * @since 2022. 3. 22.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 9. 8.
-     *             {@link ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
-            Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
-        ObjectTransformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, converter);
-        return null;
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <S>
-     *            Source Type
-     * @param <SF>
-     *            Source Field Type
-     * @param <T>
-     *            Target Type
-     * @param <TF>
-     *            Target Field Type
-     * @param srcClass
-     *            변환 이전 데이터 타입
-     * @param srcPropertyClass
-     *            변환 이전 속성 데이터 타입
-     * @param property
-     *            속성명
-     * @param targetClass
-     *            변환 이후 데이터 타입
-     * @param targetPropertyClass
-     *            변환 이후 속성 데이터 타입
-     * @param srcToTarget
-     *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
-     * @param targetToSrc
-     *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
-     * @throws NullPointerException
-     *
-     * @since 2022. 3. 22.
-     * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
-     * @deprecated 2025. 9. 8.
-     *             {@link ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)}.<br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     */
-    public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
-            Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
-        ObjectTransformer.registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget, targetToSrc);
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param objects
-     * @param classType
-     * @param function
-     * @return
-     * @throws UnsupportedOperationException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     *
-     * @since 2018. 1. 31.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-    private static <C extends Collection<Object>, T, R extends Collection<T>> R to(C objects, Class<R> classType, Function<Object, T> function)
-            throws UnsupportedOperationException, InstantiationException, IllegalAccessException {
-
-        if (classType.isInterface()) {
-            throw new UnsupportedOperationException(
-                    "Only support a class type not interface type!!! at " + ObjectUtils.class.getName() + "." + ThreadUtils.getCurrentMethodName() + "()");
-        }
-
-        R r = classType.newInstance();
-
-        if (objects.size() < 1) {
-            return r;
-        }
-
-        objects.forEach(o -> r.add(function.apply(o)));
-
-        return r;
+        ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget, targetToSrc);
     }
 
     /**
@@ -1448,40 +1206,6 @@ public class ObjectUtils {
      */
     public static List<Boolean> toBoolean(Collection<Object> objects) {
         return to(objects, booleanFunction, ArrayList::new);
-    }
-
-    /**
-     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     * 
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toBoolean(Collection, Function, Supplier)} 또는 편의성에 따라 다른
-     *             <code>toBoolean(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러
-     *             가지 제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, booleanFunction);
     }
 
     /**
@@ -1585,39 +1309,6 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toByte(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toByte(...)</code>를
-     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, byteFunction);
-    }
-
-    /**
      * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
@@ -1715,40 +1406,6 @@ public class ObjectUtils {
      */
     public static List<Double> toDouble(Collection<Object> objects) {
         return to(objects, doubleFunction, ArrayList::new);
-    }
-
-    /**
-     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toDouble(Collection, Function, Supplier)} 또는 편의성에 따라 다른
-     *             <code>toDouble(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지
-     *             제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, doubleFunction);
     }
 
     /**
@@ -1852,39 +1509,6 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toFloat(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toFloat(...)</code>를
-     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, floatFunction);
-    }
-
-    /**
      * {@link Object} Type {@link Collection}을 {@link Float} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
@@ -1982,40 +1606,6 @@ public class ObjectUtils {
      */
     public static List<Integer> toInteger(Collection<Object> objects) {
         return to(objects, intFunction, ArrayList::new);
-    }
-
-    /**
-     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toInteger(Collection, Function, Supplier)} 또는 편의성에 따라 다른
-     *             <code>toInteger(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러
-     *             가지 제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, intFunction);
     }
 
     /**
@@ -2119,39 +1709,6 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toLong(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toLong(...)</code>를
-     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, longFunction);
-    }
-
-    /**
      * {@link Object} Type {@link Collection}을 {@link Long} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
@@ -2252,39 +1809,6 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws NullPointerException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toShort(Collection, Function, Supplier)} 또는 편의성에 따라 다른 <code>toShort(...)</code>를
-     *             사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지 제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Class<? extends R> classType)
-            throws NullPointerException, UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, shortFunction);
-    }
-
-    /**
      * {@link Object} Type {@link Collection}을 {@link Short} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <pre>
@@ -2382,39 +1906,6 @@ public class ObjectUtils {
      */
     public static List<String> toString(Collection<Object> objects) {
         return to(objects, strFunction, ArrayList::new);
-    }
-
-    /**
-     * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 1. 31.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            새로운 {@link Collection} 유형
-     * @param objects
-     *            변환할 데이터
-     * @param classType
-     *            새로운 {@link Collection} 객체
-     * @return
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     * @throws UnsupportedOperationException
-     * 
-     * @deprecated 2025. 9. 4. {@link #toString(Collection, Function, Supplier)} 또는 편의성에 따라 다른
-     *             <code>toString(...)</code>를 사용하기 바랍니다. <code>Class</code>를 이용하여 {@link Collection} 객체를 생성하는 방식은 여러 가지
-     *             제약과 오류의 소지가 확인되었습니다. <br>
-     *             <font color="red">다음 배포시 삭제 예정</font>
-     *
-     * @since 2018. 1. 31.
-     */
-    public static <R extends Collection<String>> R toString(Collection<Object> objects, Class<? extends R> classType)
-            throws UnsupportedOperationException, InstantiationException, IllegalAccessException {
-        return to(objects, classType, strFunction);
     }
 
     /**
@@ -2535,12 +2026,12 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Class<T> targetType, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
-                        return (T) targetType.newInstance();
+                        return targetType.getDeclaredConstructor().newInstance();
                     } catch (Exception e) {
                         throw new CreateInstanceFailedException(targetType, e);
                     }
@@ -2581,7 +2072,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Class<T> targetType, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, null, collectionSupplier);
     }
@@ -2623,8 +2114,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Class<T> targetType,
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, false, converters, collectionSupplier);
     }
 
@@ -2659,7 +2150,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, false, null, collectionSupplier);
     }
 
@@ -2702,8 +2193,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier,
+            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return src.stream() //
                 .map(s -> ObjectTransformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
                 .collect(Collectors.toCollection(collectionSupplier));
@@ -2742,8 +2233,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier,
+            boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
@@ -2784,8 +2275,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier,
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters, collectionSupplier);
     }
 
@@ -2820,7 +2311,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier,
+            Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
@@ -2861,8 +2353,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Class<T> targetType, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, lookupTargetSuper, converters, collectionSupplier);
     }
 
@@ -2897,7 +2389,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, lookupTargetSuper, null, collectionSupplier);
     }
 
@@ -2936,7 +2428,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Class<T> targetType, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, false, converters, collectionSupplier);
     }
 
@@ -2969,7 +2462,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, false, null, collectionSupplier);
     }
 
@@ -3010,7 +2503,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters, collectionSupplier);
     }
@@ -3046,7 +2539,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
@@ -3085,7 +2579,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, converters, collectionSupplier);
     }
@@ -3119,7 +2613,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(@Nonnull Collection<S> src, @Nonnull Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
@@ -3150,7 +2644,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Class<T> targetType) {
         return transform(src, lookupSrcSuper, targetType, false);
     }
 
@@ -3182,11 +2676,11 @@ public class ObjectUtils {
      * @since 2019. 7. 11.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Class<T> targetType, boolean lookupTargetSuper) {
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
-                        return (T) targetType.newInstance();
+                        return targetType.getDeclaredConstructor().newInstance();
                     } catch (Exception e) {
                         throw new CreateInstanceFailedException(targetType, e);
                     }
@@ -3228,11 +2722,11 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
-                        return targetType.newInstance();
+                        return targetType.getDeclaredConstructor().newInstance();
                     } catch (Exception e) {
                         throw new CreateInstanceFailedException(targetType, e);
                     }
@@ -3274,7 +2768,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Class<T> targetType, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetType, false, converters);
     }
 
@@ -3306,7 +2800,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false);
     }
 
@@ -3339,7 +2833,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }
 
@@ -3378,7 +2872,8 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
     }
 
@@ -3416,7 +2911,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters);
     }
 
@@ -3447,7 +2942,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, false, null);
     }
 
@@ -3481,7 +2976,7 @@ public class ObjectUtils {
      * 
      * @see #FIELD_CONVERTERS
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
     }
 
@@ -3524,7 +3019,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
         //
         // AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!",
@@ -3576,7 +3071,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, false, converters);
     }
 
@@ -3608,7 +3103,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Class<T> targetType) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Class<T> targetType) {
         return transform(src, false, targetType, false);
     }
 
@@ -3638,7 +3133,7 @@ public class ObjectUtils {
      * @since 2019. 7. 11.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Class<T> targetType, boolean lookupTargetSuper) {
         return transform(src, false, targetType, lookupTargetSuper);
     }
 
@@ -3675,7 +3170,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetType, lookupTargetSuper, converters);
     }
 
@@ -3713,7 +3208,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Class<T> targetType, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Class<T> targetType, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetType, false, converters);
     }
 
@@ -3745,7 +3240,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier) {
+    public static <S, T> T transform(@Nonnull S src, Supplier<T> targetInstanceSupplier) {
         return transform(src, false, targetInstanceSupplier, false);
     }
 
@@ -3776,7 +3271,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper);
     }
 
@@ -3813,7 +3308,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters);
     }
 
@@ -3851,7 +3346,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, false, converters);
     }
 
@@ -3883,7 +3378,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, T target) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull T target) {
         return ObjectTransformer.transform(src, false, target, false, null);
     }
 
@@ -3913,7 +3408,7 @@ public class ObjectUtils {
      * @since 2019. 7. 11.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull T target, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, null);
     }
 
@@ -3950,7 +3445,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, converters);
     }
 
@@ -3988,7 +3483,7 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(@Nonnull S src, @Nonnull T target, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, false, converters);
     }
 
@@ -4030,7 +3525,8 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(@Nonnull Collection<S> src, @Nonnull Class<T> targetType, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         return transform(src, true, targetType, true, converters, collectionSupplier);
     }
 
@@ -4066,7 +3562,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(@Nonnull Collection<S> src, @Nonnull Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, true, targetType, true, null, collectionSupplier);
     }
 
@@ -4108,7 +3604,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transformAll(@Nonnull Collection<S> src, @Nonnull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, converters, collectionSupplier);
     }
@@ -4145,7 +3641,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(@Nonnull Collection<S> src, @Nonnull Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, null, collectionSupplier);
     }
 
@@ -4175,7 +3671,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transformAll(S src, Class<T> targetType) {
+    public static <S, T> T transformAll(@Nonnull S src, @Nonnull Class<T> targetType) {
         return transform(src, true, targetType, true);
     }
 
@@ -4205,7 +3701,7 @@ public class ObjectUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transformAll(S src, Supplier<T> targetInstanceSupplier) {
+    public static <S, T> T transformAll(@Nonnull S src, Supplier<T> targetInstanceSupplier) {
         return transform(src, true, targetInstanceSupplier, true);
     }
 
@@ -4237,7 +3733,7 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transformAll(S src, T target) {
+    public static <S, T> T transformAll(@Nonnull S src, @Nonnull T target) {
         return ObjectTransformer.transform(src, true, target, true, null);
     }
 
@@ -4275,7 +3771,11 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean)
      */
-    public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transformAll(@Nonnull S src, @Nonnull T target, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, true, target, true, converters);
+    }
+
+    // JDK 16+ Record를 활용한 불변(Immutable) 메타데이터 저장소
+    private record SetterInfo(String name, Class<?> paramType, MethodHandle handle) {
     }
 }

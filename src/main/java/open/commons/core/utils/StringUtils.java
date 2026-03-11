@@ -42,11 +42,10 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import javax.annotation.Nonnull;
-import javax.validation.constraints.NotBlank;
-
-import open.commons.core.log.LogUtils;
 import open.commons.core.prog.StrLenRvrOrderingEntry;
+
+import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * 
@@ -2079,7 +2078,6 @@ public class StringUtils {
                 sb.append(toUpperCase(strings[i], 0));
             } else {
                 System.err.println("Oops! zero_string_element: " + string + "'s " + i + "th");
-                System.err.println(LogUtils.logCallStack());
             }
         }
 
@@ -3142,49 +3140,6 @@ public class StringUtils {
     }
 
     /**
-     * 
-     * @param string
-     *            문자열
-     * @return <BR>
-     * @since 2011. xx. xx.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
-     * @deprecated 기존 특정한 프로젝트에서 사용하기 위해서 만든 메소드. 이후 이 클래스가 범용적으로 사용되면서 함께 유지되었던 것인데 더 이상의 지원은 없으며 기능보장을 하지 않음.
-     */
-    public static String toFieldname(String string) {
-        if (string.length() < 2) {
-            return string.toLowerCase();
-        } else {
-
-            if (string.contains(".")) {
-                int dot = indexOf(string, '.', 1);
-                return toFieldname(string.substring(0, dot)) + ".get" + toUpperCase(toFieldname(string.substring(dot + 1)), 0) + "()";
-            } else if (string.contains("->")) {
-                int arrow = string.indexOf("->");
-                return toFieldname(string.substring(0, arrow)) + ".get" + toUpperCase(toFieldname(string.substring(arrow + 2)), 0) + "()";
-            } else {
-                if (isAllUppercase(string.replace("_", ""))) {
-                    return string;
-                } else {
-                    // count of '_'
-                    int ulCount = countOf(string, '_');
-                    if (ulCount == string.length())
-                        return string;
-                    else {
-                        if (string.contains("_"))
-                            return toLowerCase(removeUnderlineAndNextUppercaseOtherLowcase(string), 0);
-                        else {
-                            if (isAllUppercase(string))
-                                return string.toLowerCase();
-                            return toLowerCase(string, 0);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
      * 예)
      * <ul>
@@ -3333,7 +3288,6 @@ public class StringUtils {
             return new String(cs);
         } else {
             System.err.println("index=" + index + ", string: " + string);
-            System.err.println(LogUtils.logCallStack());
             return string;
         }
     }
@@ -3562,7 +3516,7 @@ public class StringUtils {
             cs[index] = Character.toUpperCase(cs[index]);
             return new String(cs);
         } else {
-            System.err.println("index=" + index + ", string: " + string + " " + LogUtils.logCallStack());
+            System.err.println("index=" + index + ", string: " + string);
             return string;
         }
     }
