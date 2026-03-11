@@ -56,6 +56,8 @@ import java.util.Vector;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import jakarta.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,8 +65,6 @@ import open.commons.core.CommonProperties;
 import open.commons.core.Result;
 import open.commons.core.io.IRandomAccessible;
 import open.commons.core.util.ArrayItr;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * 

@@ -66,6 +66,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,8 +75,6 @@ import open.commons.core.annotation.Getter;
 import open.commons.core.annotation.Setter;
 import open.commons.core.exception.TransformationFailedException;
 import open.commons.core.function.PentagonFunction;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * 

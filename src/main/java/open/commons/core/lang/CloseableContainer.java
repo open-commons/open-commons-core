@@ -33,9 +33,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import open.commons.core.utils.IOUtils;
-
 import jakarta.annotation.Resource;
+
+import open.commons.core.utils.IOUtils;
 
 /**
  * {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로 해제({@link AutoCloseable#close()})하는 기능을 제공.

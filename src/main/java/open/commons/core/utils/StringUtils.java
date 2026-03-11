@@ -42,10 +42,10 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import open.commons.core.prog.StrLenRvrOrderingEntry;
-
 import jakarta.annotation.Nonnull;
 import jakarta.validation.constraints.NotBlank;
+
+import open.commons.core.prog.StrLenRvrOrderingEntry;
 
 /**
  * 

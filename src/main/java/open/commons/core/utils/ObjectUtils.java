@@ -47,6 +47,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import jakarta.annotation.Nonnull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,8 +57,6 @@ import open.commons.core.annotation.Information;
 import open.commons.core.annotation.Setter;
 import open.commons.core.exception.CreateInstanceFailedException;
 import open.commons.core.stream.ClassSpliterator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.

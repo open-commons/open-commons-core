@@ -31,9 +31,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import open.commons.core.utils.ArrayUtils;
-
 import jakarta.annotation.Resource;
+
+import open.commons.core.utils.ArrayUtils;
 
 /**
  * 다수 개의 {@link AutoCloseable}를 한번에 {@link #close()} 할 수 있도록 지원하는 클래스.
