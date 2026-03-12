@@ -34,7 +34,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Concurrent/Parallel/Async Programming을 위한 유틸 클래스 <BR>
@@ -72,7 +72,7 @@ public class ConcurrentUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T, U> List<U> executeAsync(@Nonnull Collection<T> data, @Nonnull Function<T, U> actor) {
+    public static <T, U> List<U> executeAsync(@NonNull Collection<T> data, @NonNull Function<T, U> actor) {
         return executeAsync(data, actor, ForkJoinPool.commonPool());
     }
 
@@ -102,7 +102,7 @@ public class ConcurrentUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T, U> List<U> executeAsync(@Nonnull Collection<T> data, @Nonnull Function<T, U> actor, @Nonnull Executor executor) {
+    public static <T, U> List<U> executeAsync(@NonNull Collection<T> data, @NonNull Function<T, U> actor, @NonNull Executor executor) {
         AssertUtils2.notNulls(data, actor, executor);
 
         // #1. 작업을 병렬로 실행 (supplyAsync)
@@ -141,7 +141,7 @@ public class ConcurrentUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> void executeAsync(@Nonnull T bucket, @Nonnull Collection<Consumer<T>> actors) {
+    public static <T> void executeAsync(@NonNull T bucket, @NonNull Collection<Consumer<T>> actors) {
         executeAsync(bucket, actors, ForkJoinPool.commonPool());
     }
 
@@ -168,7 +168,7 @@ public class ConcurrentUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> void executeAsync(@Nonnull T bucket, @Nonnull Collection<Consumer<T>> actors, @Nonnull Executor executor) {
+    public static <T> void executeAsync(@NonNull T bucket, @NonNull Collection<Consumer<T>> actors, @NonNull Executor executor) {
         AssertUtils2.notNulls(bucket, actors, executor);
 
         // #1. 작업을 병렬로 실행

@@ -56,7 +56,7 @@ import java.util.Vector;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,7 +115,7 @@ public class IOUtils {
      * @param closeables
      *            {@link AutoCloseable} 객체들.
      */
-    public static void close(@Nonnull AutoCloseable... closeables) {
+    public static void close(@NonNull AutoCloseable... closeables) {
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -144,7 +144,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static void close(@Nonnull Collection<AutoCloseable> closeables) {
+    public static void close(@NonNull Collection<AutoCloseable> closeables) {
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -234,7 +234,7 @@ public class IOUtils {
      * @param inStream
      * @return {@link BufferedReader} 객체, {@link InputStream}인 <code>null</code>인 경우 <code>null</code>반환.
      */
-    public static BufferedReader getReader(@Nonnull InputStream inStream) {
+    public static BufferedReader getReader(@NonNull InputStream inStream) {
         return getReader(inStream, (Charset) null);
     }
 
@@ -255,7 +255,7 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(@Nonnull InputStream inStream, Charset cs) {
+    public static BufferedReader getReader(@NonNull InputStream inStream, Charset cs) {
         return inStream != null //
                 ? new BufferedReader(new InputStreamReader(inStream, Objects.requireNonNullElse(cs, Charset.defaultCharset()))) //
                 : null;
@@ -269,7 +269,7 @@ public class IOUtils {
      * 
      * @since 2014. 6. 24.
      */
-    public static BufferedReader getReader(@Nonnull InputStream inStream, String charsetName) {
+    public static BufferedReader getReader(@NonNull InputStream inStream, String charsetName) {
         return getReader(inStream, charsetName != null ? Charset.forName(charsetName) : null);
     }
 
@@ -290,7 +290,7 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(@Nonnull Path path) {
+    public static BufferedReader getReader(@NonNull Path path) {
         return getReader(path, (Charset) null);
     }
 
@@ -313,7 +313,7 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(@Nonnull Path path, Charset cs) {
+    public static BufferedReader getReader(@NonNull Path path, Charset cs) {
 
         if (path == null)
             return null;
@@ -345,7 +345,7 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static BufferedReader getReader(@Nonnull Path path, String charsetName) {
+    public static BufferedReader getReader(@NonNull Path path, String charsetName) {
         return getReader(path, requireCharset(charsetName));
     }
 
@@ -1275,7 +1275,7 @@ public class IOUtils {
      * @see #readFully(InputStream, boolean) since 1.6.5
      * @see #readFully(InputStream, int, boolean) since 1.6.5
      */
-    public static byte[] readFully(@Nonnull InputStream inStream) {
+    public static byte[] readFully(@NonNull InputStream inStream) {
         return readFully(inStream, true);
     }
 
@@ -1301,7 +1301,7 @@ public class IOUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @see #readFully(InputStream, int, boolean)
      */
-    public static byte[] readFully(@Nonnull InputStream inStream, final boolean close) {
+    public static byte[] readFully(@NonNull InputStream inStream, final boolean close) {
         try {
             return inStream.readAllBytes();
         } catch (IOException e) {
@@ -1339,7 +1339,7 @@ public class IOUtils {
      * @version 1.6.5
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static byte[] readFully(@Nonnull InputStream inStream, final int bufferSize, final boolean close) {
+    public static byte[] readFully(@NonNull InputStream inStream, final int bufferSize, final boolean close) {
         return readFully(inStream, close);
     }
 
@@ -1579,7 +1579,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull InputStream inStream) throws IOException {
+    public static List<String> readLines(@NonNull InputStream inStream) throws IOException {
         return readLines(inStream, Charset.defaultCharset(), -1);
     }
 
@@ -1604,7 +1604,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull InputStream inStream, Charset charset) throws IOException {
+    public static List<String> readLines(@NonNull InputStream inStream, Charset charset) throws IOException {
         return readLines(inStream, charset, -1);
     }
 
@@ -1634,7 +1634,7 @@ public class IOUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull InputStream inStream, @Nonnull Charset charset, final long lineCount) throws IOException {
+    public static List<String> readLines(@NonNull InputStream inStream, @NonNull Charset charset, final long lineCount) throws IOException {
         AssertUtils2.notNulls(inStream, charset);
 
         // BufferedReader 라이프사이클(close)은 호출자의 책임이므로 try-with-resources는 생략합니다.
@@ -1672,7 +1672,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull InputStream inStream, long lineCount) throws IOException {
+    public static List<String> readLines(@NonNull InputStream inStream, long lineCount) throws IOException {
         return readLines(inStream, Charset.defaultCharset(), lineCount);
     }
 
@@ -1695,7 +1695,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull InputStream inStream, String charsetName) throws IOException {
+    public static List<String> readLines(@NonNull InputStream inStream, String charsetName) throws IOException {
         return readLines(inStream, charsetName, -1);
     }
 
@@ -1722,7 +1722,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull InputStream inStream, String charsetName, long lineCount) throws IOException {
+    public static List<String> readLines(@NonNull InputStream inStream, String charsetName, long lineCount) throws IOException {
         return readLines(inStream, requireCharset(charsetName), lineCount);
     }
 
@@ -1746,7 +1746,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull Path path) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@NonNull Path path) throws FileNotFoundException, IOException {
         return readLines(path, Charset.defaultCharset(), -1);
     }
 
@@ -1772,7 +1772,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull Path path, Charset charset) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@NonNull Path path, Charset charset) throws FileNotFoundException, IOException {
         return readLines(path, charset, -1);
     }
 
@@ -1800,7 +1800,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull Path path, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@NonNull Path path, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
         return readLines(path.toFile(), charset, lineCount);
     }
 
@@ -1826,7 +1826,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull Path path, final long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(@NonNull Path path, final long lineCount) throws FileNotFoundException, IOException {
         return readLines(path, Charset.defaultCharset(), lineCount);
     }
 
@@ -1851,7 +1851,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull Path path, String charsetName) throws IOException {
+    public static List<String> readLines(@NonNull Path path, String charsetName) throws IOException {
         return readLines(path, charsetName, -1);
     }
 
@@ -1878,7 +1878,7 @@ public class IOUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static List<String> readLines(@Nonnull Path path, String charsetName, long lineCount) throws IOException {
+    public static List<String> readLines(@NonNull Path path, String charsetName, long lineCount) throws IOException {
         Charset charset = Charset.isSupported(charsetName) //
                 ? Charset.forName(charsetName) //
                 : Charset.defaultCharset();
@@ -2051,7 +2051,7 @@ public class IOUtils {
      *            읽어올 데이터 길이
      * @return InputStream으로부터 읽어온 데이터. 예외가 발생하는 경우 <code>null</code> 반환.
      */
-    public static byte[] readStream(@Nonnull InputStream inStream, final int length) {
+    public static byte[] readStream(@NonNull InputStream inStream, final int length) {
         return readStream(inStream, length, true);
     }
 
@@ -2079,7 +2079,7 @@ public class IOUtils {
      * @version 3.0.0.
      * @author parkjunohng77@gmail.com
      */
-    public static byte[] readStream(@Nonnull InputStream inStream, final int length, boolean close) {
+    public static byte[] readStream(@NonNull InputStream inStream, final int length, boolean close) {
         try {
             return inStream.readNBytes(length);
         } catch (IOException e) {
@@ -2169,7 +2169,7 @@ public class IOUtils {
      * @see InputStream#close()
      * @see OutputStream#close()
      */
-    public static int transfer(@Nonnull InputStream inStream, boolean closeInput, @Nonnull OutputStream outStream, boolean closeOutput) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, boolean closeInput, @NonNull OutputStream outStream, boolean closeOutput) throws IOException {
         try {
             long transferred = inStream.transferTo(outStream);
             outStream.flush();
@@ -2214,7 +2214,7 @@ public class IOUtils {
      * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, boolean closeInput, @Nonnull OutputStream outStream, boolean closeOutput, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, boolean closeInput, @NonNull OutputStream outStream, boolean closeOutput, int readBufferSize) throws IOException {
         return transfer(inStream, closeInput, outStream, closeOutput);
     }
 
@@ -2252,7 +2252,7 @@ public class IOUtils {
      * @see InputStreamReader
      * @see OutputStreamReader
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull Charset inCharset, boolean closeInput, @Nonnull OutputStream outStream, @Nonnull Charset outCharset,
+    public static int transfer(@NonNull InputStream inStream, @NonNull Charset inCharset, boolean closeInput, @NonNull OutputStream outStream, @NonNull Charset outCharset,
             boolean closeOutput) throws IOException {
 
         // 입력과 출력의 인코딩이 동일하다면, 문자(Char) 디코딩을 생략하고 순수 바이트(Byte) 고속 복사를 수행합니다.
@@ -2294,7 +2294,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      * @see InputStreamReader
      */
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -2329,7 +2329,7 @@ public class IOUtils {
      * @see InputStreamReader
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -2358,7 +2358,7 @@ public class IOUtils {
      * 
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, @Nonnull OutputStream outStream, Charset outCharset) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, @NonNull OutputStream outStream, Charset outCharset) throws IOException {
         return transfer(inStream, inCharset, true, outStream, outCharset, true);
     }
 
@@ -2391,7 +2391,7 @@ public class IOUtils {
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, @Nonnull OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, @NonNull OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
         return transfer(inStream, inCharset, true, outStream, outCharset, true);
     }
 
@@ -2417,7 +2417,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, Writer writer) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), true, writer, true);
     }
 
@@ -2445,7 +2445,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), close, writer, close);
     }
 
@@ -2477,7 +2477,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), close, writer, close);
     }
 
@@ -2507,7 +2507,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, Charset inCharset, Writer writer, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, Charset inCharset, Writer writer, int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), true, writer, true);
     }
 
@@ -2535,7 +2535,7 @@ public class IOUtils {
      * 
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream) throws IOException {
         return transfer(inStream, true, outStream, true);
     }
 
@@ -2561,7 +2561,7 @@ public class IOUtils {
      * 
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, boolean close) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, boolean close) throws IOException {
         return transfer(inStream, close, outStream, close);
     }
 
@@ -2591,7 +2591,7 @@ public class IOUtils {
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, boolean close, int readBufferSize) throws IOException {
         return transfer(inStream, close, outStream, close);
     }
 
@@ -2619,7 +2619,7 @@ public class IOUtils {
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      * 
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, Charset charset) throws IOException {
         return transfer(inStream, true, outStream, true);
     }
 
@@ -2648,7 +2648,7 @@ public class IOUtils {
      * 
      * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset, boolean close) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, Charset charset, boolean close) throws IOException {
         return transfer(inStream, close, outStream, close);
     }
 
@@ -2681,7 +2681,7 @@ public class IOUtils {
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, Charset charset, boolean close, int readBufferSize) throws IOException {
         return transfer(inStream, close, outStream, close);
     }
 
@@ -2713,7 +2713,7 @@ public class IOUtils {
      * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, Charset charset, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, Charset charset, int readBufferSize) throws IOException {
         return transfer(inStream, true, outStream, true);
     }
 
@@ -2744,7 +2744,7 @@ public class IOUtils {
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, int readBufferSize) throws IOException {
         return transfer(inStream, true, outStream, true);
     }
 
@@ -2773,7 +2773,7 @@ public class IOUtils {
      * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
      * 
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, String charset) throws IOException {
         return transfer(inStream, true, outStream, true);
     }
 
@@ -2802,7 +2802,7 @@ public class IOUtils {
      * 
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset, boolean close) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, String charset, boolean close) throws IOException {
         return transfer(inStream, close, outStream, close);
     }
 
@@ -2835,7 +2835,7 @@ public class IOUtils {
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, String charset, boolean close, int readBufferSize) throws IOException {
         return transfer(inStream, close, outStream, close);
     }
 
@@ -2867,7 +2867,7 @@ public class IOUtils {
      * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, @Nonnull OutputStream outStream, String charset, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, @NonNull OutputStream outStream, String charset, int readBufferSize) throws IOException {
         return transfer(inStream, charset, true, outStream, charset, true);
     }
 
@@ -2902,7 +2902,7 @@ public class IOUtils {
      * @see #requireCharset(String)
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeInput, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput)
+    public static int transfer(@NonNull InputStream inStream, String inCharset, boolean closeInput, @NonNull OutputStream outStream, String outCharset, boolean closeOutput)
             throws IOException {
         return transfer(inStream, requireCharset(inCharset), closeInput, outStream, requireCharset(outCharset), closeOutput);
     }
@@ -2940,7 +2940,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeInput, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput,
+    public static int transfer(@NonNull InputStream inStream, String inCharset, boolean closeInput, @NonNull OutputStream outStream, String outCharset, boolean closeOutput,
             int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), closeInput, new OutputStreamWriter(outStream, outCharset), closeOutput, readBufferSize);
     }
@@ -2971,7 +2971,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -3005,7 +3005,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -3037,7 +3037,7 @@ public class IOUtils {
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      * 
      */
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, @Nonnull OutputStream outStream, String outCharset) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, @NonNull OutputStream outStream, String outCharset) throws IOException {
         return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
     }
 
@@ -3072,7 +3072,7 @@ public class IOUtils {
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, @Nonnull OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, @NonNull OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
         return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
     }
 
@@ -3099,7 +3099,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, Writer writer) throws IOException {
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
     }
 
@@ -3128,7 +3128,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
     }
 
@@ -3161,7 +3161,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
     }
 
@@ -3192,7 +3192,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(@Nonnull InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
+    public static int transfer(@NonNull InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
     }
 
@@ -3223,7 +3223,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
+    public static int transfer(Reader reader, boolean closeReader, @NonNull OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3258,7 +3258,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize)
+    public static int transfer(Reader reader, boolean closeReader, @NonNull OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize)
             throws IOException {
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
@@ -3290,7 +3290,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
+    public static int transfer(Reader reader, boolean closeReader, @NonNull OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3325,7 +3325,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(Reader reader, boolean closeReader, @Nonnull OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
+    public static int transfer(Reader reader, boolean closeReader, @NonNull OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3419,7 +3419,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, Charset outCharset) throws IOException {
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
@@ -3448,7 +3448,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset, boolean close) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, Charset outCharset, boolean close) throws IOException {
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3481,7 +3481,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3512,7 +3512,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
@@ -3539,7 +3539,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, String outCharset) throws IOException {
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
@@ -3568,7 +3568,7 @@ public class IOUtils {
      * 
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset, boolean close) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, String outCharset, boolean close) throws IOException {
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3601,7 +3601,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3632,7 +3632,7 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
-    public static int transfer(Reader reader, @Nonnull OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+    public static int transfer(Reader reader, @NonNull OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 

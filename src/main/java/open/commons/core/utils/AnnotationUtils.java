@@ -32,7 +32,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * 
@@ -63,7 +63,7 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     @SafeVarargs
-    public static boolean existAllAnnotations(@Nonnull AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
+    public static boolean existAllAnnotations(@NonNull AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
         AssertUtils2.notNull("대상 객체는 'null'일 수 없습니다", accObj);
 
         for (Class<? extends Annotation> annoClass : annoClasses) {
@@ -100,7 +100,7 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static List<Field> getAnnotatedFields(@Nonnull Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Field> getAnnotatedFields(@NonNull Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
         AssertUtils2.notNull("클래스는 'null'일 수 없습니다", typeClass);
         AssertUtils2.notNull("어노테이션 클래스는 'null'일 수 없습니다", annotationClass);
 
@@ -164,7 +164,7 @@ public class AnnotationUtils {
      * 
      * @see #getAnnotatedFields(Class, Class)
      */
-    public static List<Field> getAnnotatedFields(@Nonnull Object object, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Field> getAnnotatedFields(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
         return getAnnotatedFields(object.getClass(), annotationClass);
     }
 
@@ -193,7 +193,7 @@ public class AnnotationUtils {
      * @see Class#getFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getFields()) // create fields stream
                 .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
                 .collect(Collectors.toList());
@@ -257,7 +257,7 @@ public class AnnotationUtils {
      * @see Class#getFields()
      * @see #getAnnotatedFieldsAll(Class, Class)
      */
-    public static List<Field> getAnnotatedFieldsAll(@Nonnull Object object, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Field> getAnnotatedFieldsAll(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
         return getAnnotatedFieldsAll(object.getClass(), annotationClass);
     }
 
@@ -286,7 +286,7 @@ public class AnnotationUtils {
      * @see Class#getFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getFields()) // create fields stream
                 .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
         ;
@@ -347,7 +347,7 @@ public class AnnotationUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static Stream<Field> getAnnotatedFieldsAllAsStream(@Nonnull Object object, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
         return getAnnotatedFieldsAllAsStream(object.getClass(), annotationClass);
     }
 
@@ -437,7 +437,7 @@ public class AnnotationUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com) * @see Class#getDeclaredMethods()
      */
-    public static List<Method> getAnnotatedMethods(Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethods(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
 
         return Arrays.stream(typeClass.getDeclaredMethods()) //
                 .filter(m -> m.isAnnotationPresent(annotationClass)) //
@@ -496,7 +496,7 @@ public class AnnotationUtils {
      * 
      * @see Class#getDeclaredMethods()
      */
-    public static List<Method> getAnnotatedMethods(@Nonnull Object object, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethods(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
         return getAnnotatedMethods(object.getClass(), annotationClass);
     }
 
@@ -521,7 +521,7 @@ public class AnnotationUtils {
      * 
      * @see Class#getMethods()
      */
-    public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
                 .collect(Collectors.toList());
@@ -578,7 +578,7 @@ public class AnnotationUtils {
      * 
      * @see Class#getMethods()
      */
-    public static List<Method> getAnnotatedMethodsAll(@Nonnull Object object, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethodsAll(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
         return getAnnotatedMethodsAll(object.getClass(), annotationClass);
     }
 
@@ -604,7 +604,7 @@ public class AnnotationUtils {
      * @see Class#getMethods()
      */
     @SafeVarargs
-    public static List<Method> getAnnotatedMethodsAll(@Nonnull Object object, Class<? extends Annotation>... annoClasses) {
+    public static List<Method> getAnnotatedMethodsAll(@NonNull Object object, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedMethodsAll(object.getClass(), annoClasses);
     }
 
@@ -660,7 +660,7 @@ public class AnnotationUtils {
      * @since 2020. 11. 9.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, @Nonnull Class<? extends Annotation> annotationClass) {
+    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
         ;
@@ -722,7 +722,7 @@ public class AnnotationUtils {
      * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
      */
     @SafeVarargs
-    public static List<Method> getAnnotatedMethodsAllHierarchy(@Nonnull Object object, Class<? extends Annotation>... annoClasses) {
+    public static List<Method> getAnnotatedMethodsAllHierarchy(@NonNull Object object, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedMethodsAllHierarchy(object.getClass(), annoClasses);
     }
 

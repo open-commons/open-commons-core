@@ -4,6 +4,9 @@
     + com.google.code.findbugs:jsr305:3.0.2
   + Add
     + org.jspecify:jspecify:1.0.0
+- Code
+  + Update
+    + jakarta.annotation.Nonnull -&gt; org.jspecify.annotations.NonNull
 
 [2026/02/26]
 - SNAPSHOT: 3.0.0-SHAPSHOT
@@ -40,7 +43,7 @@
 
 [2025/10/21]
 - Modify
-  + 제너릭 반환 타입 일치 및 @Nonnull 추가
+  + 제너릭 반환 타입 일치 및 @NonNull 추가
     + open.commons.core.utils.CollectionUtils
     + open.commons.core.utils.MapUtils
     + open.commons.core.utils.StreamUtils

@@ -53,7 +53,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -173,7 +173,7 @@ public class CsvUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static final <E> Function<String[], E> defaultCreator(@Nonnull Class<E> type) {
+    public static final <E> Function<String[], E> defaultCreator(@NonNull Class<E> type) {
         AssertUtils2.notNulls(type);
 
         // 메소드 정보 캐싱

@@ -42,7 +42,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 import jakarta.validation.constraints.NotBlank;
 
 import open.commons.core.prog.StrLenRvrOrderingEntry;
@@ -2941,7 +2941,7 @@ public class StringUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, @Nonnull Collection<String> prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, @NonNull Collection<String> prefixes) {
 
         for (String prefix : prefixes) {
             if (startsWithIgnoreCase(string, prefix)) {
@@ -2961,7 +2961,7 @@ public class StringUtils {
      *            접두어들
      * @return
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, @Nonnull String... prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, @NonNull String... prefixes) {
 
         for (String prefix : prefixes) {
             if (startsWithIgnoreCase(string, prefix)) {
@@ -2992,7 +2992,7 @@ public class StringUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static boolean startsWithOneOf(String string, @Nonnull Collection<String> prefixes) {
+    public static boolean startsWithOneOf(String string, @NonNull Collection<String> prefixes) {
 
         for (String prefix : prefixes) {
             if (string.startsWith(prefix)) {
@@ -3012,7 +3012,7 @@ public class StringUtils {
      *            접두어들
      * @return
      */
-    public static boolean startsWithOneOf(String string, @Nonnull String... prefixes) {
+    public static boolean startsWithOneOf(String string, @NonNull String... prefixes) {
 
         for (String prefix : prefixes) {
             if (string.startsWith(prefix)) {

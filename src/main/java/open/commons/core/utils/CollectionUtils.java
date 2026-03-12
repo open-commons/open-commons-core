@@ -56,7 +56,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import open.commons.core.TwoValueObject;
 import open.commons.core.collection.FIFOMap;
@@ -326,8 +326,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, KEY extends Comparable<KEY>, R> TwoValueObject<List<R>, List<R>> alignBy( //
-            @Nonnull List<E> data1, @Nonnull List<E> data2 //
-            , @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, R> transformer, @Nonnull Function<KEY, R> emptyCreator //
+            @NonNull List<E> data1, @NonNull List<E> data2 //
+            , @NonNull Function<E, KEY> keyProvider, @NonNull Function<E, R> transformer, @NonNull Function<KEY, R> emptyCreator //
     ) {
         return alignBy(data1, keyProvider, transformer, emptyCreator, data2, keyProvider, transformer, emptyCreator);
     }
@@ -361,8 +361,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, KEY extends Comparable<KEY>> TwoValueObject<List<E>, List<E>> alignBy( //
-            @Nonnull List<E> data1, @Nonnull List<E> data2 //
-            , @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<KEY, E> emptyCreator //
+            @NonNull List<E> data1, @NonNull List<E> data2 //
+            , @NonNull Function<E, KEY> keyProvider, @NonNull Function<KEY, E> emptyCreator //
     ) {
         return alignBy(data1, keyProvider, d -> d, emptyCreator, data2, keyProvider, d -> d, emptyCreator);
     }
@@ -406,9 +406,9 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R> TwoValueObject<List<R>, List<R>> alignBy( //
-            @Nonnull List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , @Nonnull List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
-            , @Nonnull Function<KEY, R> emptyCreator //
+            @NonNull List<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1 //
+            , @NonNull List<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2 //
+            , @NonNull Function<KEY, R> emptyCreator //
     ) {
         return alignBy(data1, keyProvider1, transformer1, emptyCreator, data2, keyProvider2, transformer2, emptyCreator);
     }
@@ -456,8 +456,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R1, R2> TwoValueObject<List<R1>, List<R2>> alignBy( //
-            @Nonnull List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R1> transformer1, @Nonnull Function<KEY, R1> emptyCreator1 //
-            , @Nonnull List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R2> transformer2, @Nonnull Function<KEY, R2> emptyCreator2 //
+            @NonNull List<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R1> transformer1, @NonNull Function<KEY, R1> emptyCreator1 //
+            , @NonNull List<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R2> transformer2, @NonNull Function<KEY, R2> emptyCreator2 //
     ) {
         AssertUtils2.notNulls(data1, keyProvider1, transformer1, emptyCreator1, data2, keyProvider2, transformer2, emptyCreator2);
 
@@ -520,9 +520,9 @@ public class CollectionUtils {
      * 
      * @since 2014. 6. 30.
      */
-    public static void clear(@Nonnull Collection<?>... cols) {
+    public static void clear(@NonNull Collection<?>... cols) {
 
-        for (@Nonnull
+        for (@NonNull
         Collection<?> col : cols) {
             if (col != null) {
                 col.clear();
@@ -553,7 +553,7 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> void concatenate(@Nonnull Collection<S> data, @Nonnull Function<S, T> transformer, Consumer<T> aggregator) {
+    public static <S, T> void concatenate(@NonNull Collection<S> data, @NonNull Function<S, T> transformer, Consumer<T> aggregator) {
         data.stream().map(transformer).forEach(aggregator);
     }
 
@@ -583,7 +583,7 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T, U> U concatenate(@Nonnull Collection<S> data, @Nonnull Function<S, T> transformer, @Nonnull Function<List<T>, U> aggregator) {
+    public static <S, T, U> U concatenate(@NonNull Collection<S> data, @NonNull Function<S, T> transformer, @NonNull Function<List<T>, U> aggregator) {
         return aggregator.apply(data.stream().map(transformer).collect(Collectors.toList()));
     }
 
@@ -641,8 +641,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, TREE, KEY> List<TREE> createTree(//
-            @Nonnull List<E> data, @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, KEY> parentKeyProvider //
-            , @Nonnull Function<E, TREE> transformer, @Nonnull BiConsumer<TREE, TREE> addChild //
+            @NonNull List<E> data, @NonNull Function<E, KEY> keyProvider, @NonNull Function<E, KEY> parentKeyProvider //
+            , @NonNull Function<E, TREE> transformer, @NonNull BiConsumer<TREE, TREE> addChild //
     ) {
         AssertUtils2.notNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
 
@@ -693,7 +693,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K> Map<K, List<E>> elementToListValuedMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen) {
+    public static <E, K> Map<K, List<E>> elementToListValuedMap(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen) {
         return StreamUtils.toMap(col.stream(), keyGen, v -> v);
     }
 
@@ -717,7 +717,7 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, C extends Collection<E>> void get(@Nonnull Collection<E> col, @Nonnull Predicate<E> p, @Nonnull C newCol) {
+    public static <E, C extends Collection<E>> void get(@NonNull Collection<E> col, @NonNull Predicate<E> p, @NonNull C newCol) {
         for (E e : col) {
             if (p.test(e)) {
                 newCol.add(e);
@@ -749,7 +749,7 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, C extends Collection<E>> C get(@Nonnull Collection<E> col, @Nonnull Predicate<E> p, @Nonnull Class<C> type)
+    public static <E, C extends Collection<E>> C get(@NonNull Collection<E> col, @NonNull Predicate<E> p, @NonNull Class<C> type)
             throws InstantiationException, IllegalAccessException {
         try {
             // Stream API와 Collectors.toCollection을 활용한 선언적 파이프라인
@@ -800,7 +800,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E> Collection<E> getIgnoreCase(@Nonnull Map<String, E> map, String keyIgnoreCase) {
+    public static <E> Collection<E> getIgnoreCase(@NonNull Map<String, E> map, String keyIgnoreCase) {
         return map.entrySet().stream() //
                 .filter(entry -> entry.getKey().equalsIgnoreCase(keyIgnoreCase)) //
                 .map(entry -> entry.getValue()) //
@@ -828,11 +828,11 @@ public class CollectionUtils {
      * @version 1.8.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E> boolean has(@Nonnull Collection<E> col, @Nonnull Predicate<E> p) {
+    public static <E> boolean has(@NonNull Collection<E> col, @NonNull Predicate<E> p) {
         return col.parallelStream().anyMatch(p);
     }
 
-    public static <T> boolean isNullOrEmpty(@Nonnull Collection<T> col) {
+    public static <T> boolean isNullOrEmpty(@NonNull Collection<T> col) {
         return col == null || col.size() < 1;
     }
 
@@ -860,7 +860,7 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K> Map<K, List<E>> listElementToListValuedMap(@Nonnull Collection<List<E>> col, @Nonnull Function<E, K> keyGen) {
+    public static <E, K> Map<K, List<E>> listElementToListValuedMap(@NonNull Collection<List<E>> col, @NonNull Function<E, K> keyGen) {
         // 1. col.stream() : Collection<List<E>>를 Stream<List<E>>로 변환
         return col.stream()
                 // 2. flatMap(Collection::stream) : 중첩된 리스트들을 평탄화하여 하나의 Stream<E>로 병합
@@ -988,7 +988,7 @@ public class CollectionUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> List<E> newList(@Nonnull Collection<E> col, E elem) {
+    public static <E> List<E> newList(@NonNull Collection<E> col, E elem) {
         return newList(col, elem, true);
     }
 
@@ -1016,7 +1016,7 @@ public class CollectionUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> List<E> newList(@Nonnull Collection<E> col, E elem, boolean addIfNull) {
+    public static <E> List<E> newList(@NonNull Collection<E> col, E elem, boolean addIfNull) {
         if (elem == null && !addIfNull) {
             if (col != null) {
                 return new ArrayList<>(col);
@@ -1419,7 +1419,7 @@ public class CollectionUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> Set<E> newSet(@Nonnull Collection<E> col, E elem) {
+    public static <E> Set<E> newSet(@NonNull Collection<E> col, E elem) {
         return newSet(col, elem, true);
     }
 
@@ -1447,7 +1447,7 @@ public class CollectionUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> Set<E> newSet(@Nonnull Collection<E> col, E elem, boolean addIfNull) {
+    public static <E> Set<E> newSet(@NonNull Collection<E> col, E elem, boolean addIfNull) {
         if (elem == null && !addIfNull) {
             if (col != null) {
                 return new HashSet<>(col);
@@ -1843,7 +1843,7 @@ public class CollectionUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> Vector<E> newVector(@Nonnull Collection<E> col, E elem) {
+    public static <E> Vector<E> newVector(@NonNull Collection<E> col, E elem) {
         return newVector(col, elem, true);
     }
 
@@ -1871,7 +1871,7 @@ public class CollectionUtils {
      * @version _._._
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> Vector<E> newVector(@Nonnull Collection<E> col, E elem, boolean addIfNull) {
+    public static <E> Vector<E> newVector(@NonNull Collection<E> col, E elem, boolean addIfNull) {
         if (elem == null && !addIfNull) {
             if (col != null) {
                 return new Vector<>(col);
@@ -2163,7 +2163,7 @@ public class CollectionUtils {
      *            <b><code>true: asc, false: desc</code></b>
      * @return
      */
-    public static <E extends Comparable<E>> Collection<E> order(@Nonnull Collection<E> col, boolean asc) {
+    public static <E extends Comparable<E>> Collection<E> order(@NonNull Collection<E> col, boolean asc) {
         ConcurrentSkipListSet<E> orderedSet = new ConcurrentSkipListSet<E>(asc ? new AscComparator<E>() : new DescComparator<E>());
         orderedSet.addAll(col);
         return orderedSet;
@@ -2178,7 +2178,7 @@ public class CollectionUtils {
      *            <b><code>true: asc, false: desc</code></b>
      * @return
      */
-    public static <E extends Comparable<E>> Collection<E> order(@Nonnull Collection<E> col, @Nonnull Comparator<E> comparator) {
+    public static <E extends Comparable<E>> Collection<E> order(@NonNull Collection<E> col, @NonNull Comparator<E> comparator) {
         ConcurrentSkipListSet<E> orderedSet = new ConcurrentSkipListSet<E>(comparator);
         orderedSet.addAll(col);
         return orderedSet;
@@ -2227,7 +2227,7 @@ public class CollectionUtils {
      * @since 2012. 02. 15.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K extends Comparable<K>, V> Map<K, V> orderMap(Map<K, V> map, @Nonnull Comparator<K> comparator) {
+    public static <K extends Comparable<K>, V> Map<K, V> orderMap(Map<K, V> map, @NonNull Comparator<K> comparator) {
         Map<K, V> returnedMap = new ConcurrentSkipListMap<K, V>(comparator);
         returnedMap.putAll(map);
 
@@ -2256,7 +2256,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> parallelSort(@Nonnull Collection<T> data, @Nonnull Comparator<T> sorter) {
+    public static <T> List<T> parallelSort(@NonNull Collection<T> data, @NonNull Comparator<T> sorter) {
         return data.parallelStream() //
                 .sorted(sorter)//
                 .collect(Collectors.toList());
@@ -2286,7 +2286,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> parallelSort(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter) {
+    public static <T> List<T> parallelSort(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter) {
         return data.parallelStream() //
                 .filter(filter) // 필터 적용
                 .sorted(sorter)// 정렬
@@ -2320,7 +2320,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(@Nonnull Collection<E> data1, Collection<E> data2, @Nonnull Function<E, KEY> keyProvider) {
+    public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(@NonNull Collection<E> data1, Collection<E> data2, @NonNull Function<E, KEY> keyProvider) {
         return parallelSortAndMerge(data1, keyProvider, d -> d, data2, keyProvider, d -> d, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
 
@@ -2356,7 +2356,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge(@Nonnull Collection<E> data1, Collection<E> data2, @Nonnull Function<E, KEY> keyProvider,
+    public static <E, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge(@NonNull Collection<E> data1, Collection<E> data2, @NonNull Function<E, KEY> keyProvider,
             Function<E, R> transformer) {
         return parallelSortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
@@ -2399,8 +2399,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge( //
-            Collection<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , Collection<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
+            Collection<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1 //
+            , Collection<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2 //
     ) {
         return parallelSortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
@@ -2443,9 +2443,9 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge( //
-            Collection<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , Collection<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
-            , @Nonnull Comparator<KEY> comparator //
+            Collection<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1 //
+            , Collection<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2 //
+            , @NonNull Comparator<KEY> comparator //
     ) {
         List<E1> sortedData1 = data1.parallelStream().sorted((o1, o2) -> keyProvider1.apply(o1).compareTo(keyProvider1.apply(o2))).collect(Collectors.toList());
         List<E2> sortedData2 = data2.parallelStream().sorted((o1, o2) -> keyProvider2.apply(o1).compareTo(keyProvider2.apply(o2))).collect(Collectors.toList());
@@ -2459,7 +2459,7 @@ public class CollectionUtils {
      * @param col
      * @return 첫번째 데이터. 없는 경우 <code>null</code>.
      */
-    public static <E> E pick(@Nonnull Collection<E> col) {
+    public static <E> E pick(@NonNull Collection<E> col) {
         E elem = null;
 
         Iterator<E> itr = col.iterator();
@@ -2572,7 +2572,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unused")
-    public static <T> List<T> sort(@Nonnull Collection<T> data, @Nonnull Comparator<T> sorter) {
+    public static <T> List<T> sort(@NonNull Collection<T> data, @NonNull Comparator<T> sorter) {
         return sort(data, o -> true, sorter);
     }
 
@@ -2600,7 +2600,7 @@ public class CollectionUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> sort(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter) {
+    public static <T> List<T> sort(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter) {
         AssertUtils2.notNulls(data, filter, sorter);
         return data.stream() //
                 .filter(filter) // 필터 적용
@@ -2634,7 +2634,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2, @Nonnull Function<E, KEY> keyProvider) {
+    public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2, @NonNull Function<E, KEY> keyProvider) {
         return sort(data1, keyProvider, d -> d, data2, keyProvider, d -> d, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
 
@@ -2668,7 +2668,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY extends Comparable<KEY>, R> List<R> sort(List<E> data1, List<E> data2, @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, R> transformer) {
+    public static <E, KEY extends Comparable<KEY>, R> List<R> sort(List<E> data1, List<E> data2, @NonNull Function<E, KEY> keyProvider, @NonNull Function<E, R> transformer) {
         return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
 
@@ -2704,8 +2704,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY, R> List<R> sort(List<E> data1, List<E> data2, @Nonnull Function<E, KEY> keyProvider, @Nonnull Function<E, R> transformer,
-            @Nonnull Comparator<KEY> comparator) {
+    public static <E, KEY, R> List<R> sort(List<E> data1, List<E> data2, @NonNull Function<E, KEY> keyProvider, @NonNull Function<E, R> transformer,
+            @NonNull Comparator<KEY> comparator) {
         return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, comparator);
     }
 
@@ -2746,8 +2746,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sort( //
-            List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
+            List<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1 //
+            , List<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2 //
     ) {
         return sort(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
@@ -2800,9 +2800,9 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY, R> List<R> sort( //
-            @Nonnull List<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1, //
-            @Nonnull List<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2, //
-            @Nonnull Comparator<KEY> comparator //
+            @NonNull List<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1, //
+            @NonNull List<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2, //
+            @NonNull Comparator<KEY> comparator //
     ) {
         AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
 
@@ -2884,7 +2884,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(@Nonnull Collection<E> data1, Collection<E> data2, @Nonnull Function<E, KEY> keyProvider) {
+    public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(@NonNull Collection<E> data1, Collection<E> data2, @NonNull Function<E, KEY> keyProvider) {
         return sortAndMerge(data1, keyProvider, d -> d, data2, keyProvider, d -> d, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
 
@@ -2920,8 +2920,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, KEY extends Comparable<KEY>, R> List<R> sortAndMerge(@Nonnull Collection<E> data1, Collection<E> data2, @Nonnull Function<E, KEY> keyProvider,
-            @Nonnull Function<E, R> transformer) {
+    public static <E, KEY extends Comparable<KEY>, R> List<R> sortAndMerge(@NonNull Collection<E> data1, Collection<E> data2, @NonNull Function<E, KEY> keyProvider,
+            @NonNull Function<E, R> transformer) {
         return sortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
 
@@ -2963,8 +2963,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sortAndMerge( //
-            Collection<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , Collection<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
+            Collection<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1 //
+            , Collection<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2 //
     ) {
         return sortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, (Comparator<KEY>) (k1, k2) -> k1.compareTo(k2));
     }
@@ -3010,9 +3010,9 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E1, E2, KEY, R> List<R> sortAndMerge( //
-            Collection<E1> data1, @Nonnull Function<E1, KEY> keyProvider1, @Nonnull Function<E1, R> transformer1 //
-            , Collection<E2> data2, @Nonnull Function<E2, KEY> keyProvider2, @Nonnull Function<E2, R> transformer2 //
-            , @Nonnull Comparator<KEY> comparator //
+            Collection<E1> data1, @NonNull Function<E1, KEY> keyProvider1, @NonNull Function<E1, R> transformer1 //
+            , Collection<E2> data2, @NonNull Function<E2, KEY> keyProvider2, @NonNull Function<E2, R> transformer2 //
+            , @NonNull Comparator<KEY> comparator //
     ) {
         // null 방어 로직 추가 (시니어의 습관)
         AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
@@ -3138,7 +3138,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> E[] toArray(@Nonnull Collection<E> col, @Nonnull Class<E> type) {
+    public static <E> E[] toArray(@NonNull Collection<E> col, @NonNull Class<E> type) {
         if (col == null) {
             return (E[]) Array.newInstance(type, 0);
         }
@@ -3175,8 +3175,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer,
-            @Nonnull Supplier<COL> collectionSupplier) {
+    public static <E, NE, COL extends Collection<NE>> COL toCollection(@NonNull Collection<E> col, @NonNull Function<E, NE> transformer,
+            @NonNull Supplier<COL> collectionSupplier) {
         return StreamUtils.toCollection(col.stream(), transformer, collectionSupplier);
     }
 
@@ -3211,8 +3211,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
-            @Nonnull BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>> COL toCollection(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper,
+            @NonNull BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
         return StreamUtils.toCollection(col.stream(), keyMapper, valueMapper, mergeFunction, collectionFactory);
     }
 
@@ -3241,7 +3241,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE> List<NE> toList(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer) {
+    public static <E, NE> List<NE> toList(@NonNull Collection<E> col, @NonNull Function<E, NE> transformer) {
         return toCollection(col, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
@@ -3274,7 +3274,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE, L extends List<NE>> L toList(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer, @Nonnull Supplier<L> listSupplier) {
+    public static <E, NE, L extends List<NE>> L toList(@NonNull Collection<E> col, @NonNull Function<E, NE> transformer, @NonNull Supplier<L> listSupplier) {
         return toCollection(col, transformer, listSupplier);
     }
 
@@ -3300,7 +3300,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> toList(@Nonnull Collection<T> col) {
+    public static <T> List<T> toList(@NonNull Collection<T> col) {
         return toList(col, (Supplier<List<T>>) ArrayList<T>::new);
     }
 
@@ -3326,7 +3326,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T, COL extends Collection<T>> COL toList(@Nonnull Collection<T> col, @Nonnull Supplier<COL> collectionSupplier) {
+    public static <T, COL extends Collection<T>> COL toList(@NonNull Collection<T> col, @NonNull Supplier<COL> collectionSupplier) {
         return toCollection(col, d -> d, collectionSupplier);
     }
 
@@ -3356,7 +3356,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> List<V> toList(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction) {
+    public static <K, V> List<V> toList(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, d -> d, mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
 
@@ -3390,8 +3390,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, LIST extends List<V>> LIST toList(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
-            @Nonnull Supplier<LIST> listFactory) {
+    public static <K, V, LIST extends List<V>> LIST toList(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction,
+            @NonNull Supplier<LIST> listFactory) {
         return toCollection(col, keyMapper, d -> d, mergeFunction, listFactory);
     }
 
@@ -3423,8 +3423,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> List<V> toList(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
-            @Nonnull BinaryOperator<V> mergeFunction) {
+    public static <K, V> List<V> toList(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper,
+            @NonNull BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
 
@@ -3458,8 +3458,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, LIST extends List<V>> LIST toList(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
-            @Nonnull BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
+    public static <K, V, LIST extends List<V>> LIST toList(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper,
+            @NonNull BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, listFactory);
     }
 
@@ -3481,7 +3481,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2018. 9. 12.
      */
-    public static <E, NE> List<NE> toList(Stream<E> stream, @Nonnull Function<E, NE> transformer) {
+    public static <E, NE> List<NE> toList(Stream<E> stream, @NonNull Function<E, NE> transformer) {
         return StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
@@ -3520,7 +3520,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      */
-    public static <E, K> Map<K, E> toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyMapper) {
+    public static <E, K> Map<K, E> toMap(@NonNull Collection<E> col, @NonNull Function<E, K> keyMapper) {
         return toMap(col, keyMapper, (Supplier<Map<K, E>>) HashMap<K, E>::new);
     }
 
@@ -3555,7 +3555,7 @@ public class CollectionUtils {
      * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
+    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull Function<E, V> valueGen) {
         AssertUtils2.notNulls(col, keyGen, valueGen);
 
         // 비한정적 와일드카드(?, ?)를 사용하여 원시 타입(Raw Type) 경고를 방지하고 제네릭 안정성을 유지합니다.
@@ -3597,7 +3597,7 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, K, M extends Map<K, E>> M toMap( //
-            @Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull M map //
+            @NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull M map //
     ) {
         AssertUtils2.notNulls(col, keyGen, map);
 
@@ -3645,7 +3645,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * 
      */
-    public static <E, K, M extends Map<K, E>> M toMap(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyMapper, @Nonnull Supplier<M> mapSupplier) {
+    public static <E, K, M extends Map<K, E>> M toMap(@NonNull Collection<E> col, @NonNull Function<E, K> keyMapper, @NonNull Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, d -> d, (_, d2) -> d2, mapSupplier);
     }
 
@@ -3676,7 +3676,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Map<K, V> toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction) {
+    public static <K, V> Map<K, V> toMap(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction) {
         return StreamUtils.toMap(col.stream(), keyMapper, d -> d, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
@@ -3710,8 +3710,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U> Map<K, U> toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
-            @Nonnull Function<V, U> transformer) {
+    public static <K, V, U> Map<K, U> toMap(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction,
+            @NonNull Function<V, U> transformer) {
         return toMap(col, keyMapper, mergeFunction, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
@@ -3747,8 +3747,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
-            @Nonnull Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction,
+            @NonNull Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, mergeFunction, transformer, mapSupplier);
     }
 
@@ -3781,8 +3781,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, M extends Map<K, V>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
-            @Nonnull Supplier<M> mapSupplier) {
+    public static <K, V, M extends Map<K, V>> M toMap(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction,
+            @NonNull Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, d -> d, mergeFunction, mapSupplier);
     }
 
@@ -3817,8 +3817,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M> Map<K, U> toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction,
-            @Nonnull BinaryOperator<U> mergeFunction) {
+    public static <K, V, U, M> Map<K, U> toMap(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, U> valueFunction,
+            @NonNull BinaryOperator<U> mergeFunction) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
@@ -3856,8 +3856,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, U> valueFunction,
-            @Nonnull BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, U> valueFunction,
+            @NonNull BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -3896,7 +3896,7 @@ public class CollectionUtils {
      * 
      * @see #toMap(Collection, Function)
      */
-    public static <E, K> Map<K, E> toMap(Enumeration<E> col, @Nonnull Function<E, K> keyGen) {
+    public static <E, K> Map<K, E> toMap(Enumeration<E> col, @NonNull Function<E, K> keyGen) {
         return toMap(Collections.list(col), keyGen);
     }
 
@@ -3929,7 +3929,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull BiFunction<E, Integer, K> keyGen, @NonNull BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -3970,8 +3970,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV( //
-            @Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, //
-            @Nonnull BiFunction<E, Integer, V> valueGen, @Nonnull Class<M> mapClass //
+            @NonNull Collection<E> col, @NonNull BiFunction<E, Integer, K> keyGen, //
+            @NonNull BiFunction<E, Integer, V> valueGen, @NonNull Class<M> mapClass //
     ) {
         AssertUtils2.notNulls(col, keyGen, valueGen, mapClass);
 
@@ -4018,7 +4018,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull BiFunction<E, Integer, K> keyGen, @NonNull BiFunction<E, Integer, V> valueGen,
             M map) {
 
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
@@ -4061,7 +4061,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull BiFunction<E, Integer, K> keyGen, @NonNull Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -4098,7 +4098,7 @@ public class CollectionUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull BiFunction<E, Integer, K> keyGen, @NonNull Function<E, V> valueGen,
             Class<M> mapClass) {
 
         M map;
@@ -4144,8 +4144,8 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull BiFunction<E, Integer, K> keyGen, @Nonnull Function<E, V> valueGen,
-            @Nonnull M map) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull BiFunction<E, Integer, K> keyGen, @NonNull Function<E, V> valueGen,
+            @NonNull M map) {
 
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
@@ -4187,7 +4187,7 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -4224,7 +4224,7 @@ public class CollectionUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull BiFunction<E, Integer, V> valueGen,
             Class<M> mapClass) {
         M map;
         try {
@@ -4271,8 +4271,8 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull BiFunction<E, Integer, V> valueGen,
-            @Nonnull M map) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull BiFunction<E, Integer, V> valueGen,
+            @NonNull M map) {
 
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
@@ -4314,7 +4314,7 @@ public class CollectionUtils {
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 15.
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
     }
 
@@ -4351,7 +4351,7 @@ public class CollectionUtils {
      * @version 3.0.0
      * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      */
-    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, @Nonnull Function<E, V> valueGen, Class<M> mapClass) {
+    public static <E, K, V, M extends Map<K, V>> M toMapHSV(@NonNull Collection<E> col, @NonNull Function<E, K> keyGen, @NonNull Function<E, V> valueGen, Class<M> mapClass) {
 
         M map;
         try {
@@ -4403,8 +4403,8 @@ public class CollectionUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     public static <E, K, V, M extends Map<K, V>> M toMapHSV( //
-            @Nonnull Collection<E> col, @Nonnull Function<E, K> keyGen, //
-            @Nonnull Function<E, V> valueGen, @Nonnull M map //
+            @NonNull Collection<E> col, @NonNull Function<E, K> keyGen, //
+            @NonNull Function<E, V> valueGen, @NonNull M map //
     ) {
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
@@ -4437,7 +4437,7 @@ public class CollectionUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> topN(@Nonnull Collection<T> data, @Nonnull Comparator<T> sorter, int limit) {
+    public static <T> List<T> topN(@NonNull Collection<T> data, @NonNull Comparator<T> sorter, int limit) {
         return topN(data, _ -> true, sorter, limit);
     }
 
@@ -4467,7 +4467,7 @@ public class CollectionUtils {
      * @version 2.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> topN(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter, int limit) {
+    public static <T> List<T> topN(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter, int limit) {
         return topN(data, filter, sorter, limit, TopNStrategy.AUTO, false);
     }
 
@@ -4506,7 +4506,7 @@ public class CollectionUtils {
      * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서 {@link TopNStrategy}를 선택하는 설정값을 변경할 수
      *      있습니다.
      */
-    public static <T> List<T> topN(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter, int limit, TopNStrategy strategy,
+    public static <T> List<T> topN(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter, int limit, TopNStrategy strategy,
             boolean expensiveComparator) {
         AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
@@ -4577,7 +4577,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> topnByFullSort(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter, int limit) {
+    public static <T> List<T> topnByFullSort(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter, int limit) {
         AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
@@ -4618,7 +4618,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> topnByHeap(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter, int limit) {
+    public static <T> List<T> topnByHeap(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter, int limit) {
         AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
@@ -4677,7 +4677,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> List<T> topnByQuickselect(@Nonnull Collection<T> data, @Nonnull Predicate<T> filter, @Nonnull Comparator<T> sorter, int limit) {
+    public static <T> List<T> topnByQuickselect(@NonNull Collection<T> data, @NonNull Predicate<T> filter, @NonNull Comparator<T> sorter, int limit) {
         AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
@@ -4728,7 +4728,7 @@ public class CollectionUtils {
      * @version 1.6.17
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E> Set<E> toSet(@Nonnull Collection<E> col) {
+    public static <E> Set<E> toSet(@NonNull Collection<E> col) {
         return toSet(col, (Supplier<Set<E>>) HashSet<E>::new);
     }
 
@@ -4757,7 +4757,7 @@ public class CollectionUtils {
      * @version
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, NE> Set<NE> toSet(@Nonnull Collection<E> col, @Nonnull Function<E, NE> transformer) {
+    public static <E, NE> Set<NE> toSet(@NonNull Collection<E> col, @NonNull Function<E, NE> transformer) {
         return StreamUtils.toCollection(col.stream(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
@@ -4785,7 +4785,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <E, SET extends Set<E>> SET toSet(@Nonnull Collection<E> col, @Nonnull Supplier<SET> setSupplier) {
+    public static <E, SET extends Set<E>> SET toSet(@NonNull Collection<E> col, @NonNull Supplier<SET> setSupplier) {
         return StreamUtils.toCollection(col.stream(), setSupplier);
     }
 
@@ -4815,7 +4815,7 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Set<V> toSet(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction) {
+    public static <K, V> Set<V> toSet(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -4848,8 +4848,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, SET extends Set<V>> SET toSet(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull BinaryOperator<V> mergeFunction,
-            @Nonnull Supplier<SET> setFactory) {
+    public static <K, V, SET extends Set<V>> SET toSet(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull BinaryOperator<V> mergeFunction,
+            @NonNull Supplier<SET> setFactory) {
         return toCollection(col, keyMapper, d -> d, mergeFunction, setFactory);
     }
 
@@ -4883,8 +4883,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V> Set<V> toSet(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
-            @Nonnull BinaryOperator<V> mergeFunction) {
+    public static <K, V> Set<V> toSet(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper,
+            @NonNull BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
@@ -4920,8 +4920,8 @@ public class CollectionUtils {
      * @version 2.1.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <K, V, SET extends Set<V>> SET toSet(@Nonnull Collection<V> col, @Nonnull Function<V, K> keyMapper, @Nonnull Function<V, V> valueMapper,
-            @Nonnull BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
+    public static <K, V, SET extends Set<V>> SET toSet(@NonNull Collection<V> col, @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper,
+            @NonNull BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, setFactory);
     }
 
@@ -4948,7 +4948,7 @@ public class CollectionUtils {
      * 
      * @see {@link Object#toString()}, {@link AbstractCollection#toString()}
      */
-    public static String toString(@Nonnull Collection<?> col) {
+    public static String toString(@NonNull Collection<?> col) {
         StringBuffer sb = new StringBuffer();
 
         for (Object obj : col) {
@@ -4969,7 +4969,7 @@ public class CollectionUtils {
      * 
      * @see #toString(Collection, String, String, String)
      */
-    public static <T> String toString(@Nonnull Collection<T> col, String delim) {
+    public static <T> String toString(@NonNull Collection<T> col, String delim) {
         return toString(col, delim, "", "");
     }
 
@@ -4985,7 +4985,7 @@ public class CollectionUtils {
      * @since 2012. 02. 22.
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <T> String toString(@Nonnull Collection<T> col, String delim, String prefix, String suffix) {
+    public static <T> String toString(@NonNull Collection<T> col, String delim, String prefix, String suffix) {
         StringBuffer sb = new StringBuffer();
         if (col != null && col.size() > 0) {
 
@@ -5134,7 +5134,7 @@ public class CollectionUtils {
          * @version 2.1.0
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
-        private static <T> int partitionByComparator(List<T> data, @Nonnull Comparator<T> sorter, int left, int right, int pivotIdx) {
+        private static <T> int partitionByComparator(List<T> data, @NonNull Comparator<T> sorter, int left, int right, int pivotIdx) {
             T pivotVal = data.get(pivotIdx);
             swap(data, pivotIdx, right);
             int store = left;
@@ -5168,7 +5168,7 @@ public class CollectionUtils {
          * @version 2.1.0
          * @author Park Jun-Hong (parkjunhong77@gmail.com)
          */
-        private static <T> void quickselectTopNInPlace(List<T> data, @Nonnull Comparator<T> sorter, int limit) {
+        private static <T> void quickselectTopNInPlace(List<T> data, @NonNull Comparator<T> sorter, int limit) {
             int left = 0;
             int right = data.size() - 1;
             int target = limit - 1;

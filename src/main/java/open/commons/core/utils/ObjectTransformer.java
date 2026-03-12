@@ -66,7 +66,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1193,7 +1193,7 @@ public class ObjectTransformer {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> BiConsumer<S, T> getTransformer(@Nonnull Class<S> srcClass, boolean lookupSrcSuper, @Nonnull Class<T> targetClass, boolean lookupTargetSuper) {
+    public static <S, T> BiConsumer<S, T> getTransformer(@NonNull Class<S> srcClass, boolean lookupSrcSuper, @NonNull Class<T> targetClass, boolean lookupTargetSuper) {
         return (BiConsumer<S, T>) getTransformer(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, null);
     }
 
@@ -1232,7 +1232,7 @@ public class ObjectTransformer {
      * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    private static <S, T> BiConsumer<Object, Object> getTransformer(@Nonnull Class<S> srcClass, boolean lookupSrcSuper, @Nonnull Class<T> targetClass, boolean lookupTargetSuper,
+    private static <S, T> BiConsumer<Object, Object> getTransformer(@NonNull Class<S> srcClass, boolean lookupSrcSuper, @NonNull Class<T> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> fieldConverters) {
 
         // 데이터 변환함수가 null 인 경우
@@ -1682,7 +1682,7 @@ public class ObjectTransformer {
      * @version 1.8.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static <S, T> T transform(@Nonnull S src, boolean lookupSrcSuper, @Nonnull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
+    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
 
         AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
 
