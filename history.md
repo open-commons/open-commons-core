@@ -1,3 +1,10 @@
+[2026/03/12]
+- Dependencies
+  + Delete
+    + com.google.code.findbugs:jsr305:3.0.2
+  + Add
+    + org.jspecify:jspecify:1.0.0
+
 [2026/02/26]
 - SNAPSHOT: 3.0.0-SHAPSHOT
 - Migration JDK 1.8 to JDK 25
