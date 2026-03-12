@@ -7,6 +7,24 @@
 - Code
   + Update
     + jakarta.annotation.Nonnull -&gt; org.jspecify.annotations.NonNull
+- Add
+  + open.commons.core.utils.Base64Utils
+    + decode(byte[])
+    + decode(byte[], byte[])
+    + decode(ByteBuffer)
+    + decode(String)
+    + decodeFromUrlSafeString(byte[])
+    + decodeFromUrlSafeString(byte[], Charset)
+    + decodeFromUrlSafeString(String)
+    + decodeFromUrlSafeString(String, Charset)
+    + decodeToString(byte[])
+    + decodeToString(String)
+    + encode(byte[])
+    + encode(ByteBuffer)
+    + encodeToString(byte[])
+    + encodeToUrlSafeString(byte[])
+    + encodeToUrlSafeString(String)
+    + encodeToUrlSafeString(String, Charset)
 
 [2026/02/26]
 - SNAPSHOT: 3.0.0-SHAPSHOT

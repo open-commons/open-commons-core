@@ -42,8 +42,9 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.NonNull;
 import jakarta.validation.constraints.NotBlank;
+
+import org.jspecify.annotations.NonNull;
 
 import open.commons.core.prog.StrLenRvrOrderingEntry;
 

@@ -42,6 +42,7 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -57,7 +58,6 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.NonNull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -2111,7 +2111,7 @@ public class IOUtils {
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static Charset requireCharset(Charset charset) {
-        return charset != null ? charset : Charset.defaultCharset();
+        return charset != null ? charset : StandardCharsets.UTF_8;
     }
 
     /**
@@ -2136,7 +2136,7 @@ public class IOUtils {
         return charset != null //
                 ? Charset.isSupported(charset) //
                         ? Charset.forName(charset) //
-                        : Charset.defaultCharset() //
+                        : StandardCharsets.UTF_8 //
                 : Charset.defaultCharset();
     }
 
