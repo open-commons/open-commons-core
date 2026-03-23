@@ -21,13 +21,17 @@ package open.commons.core;
 
 import java.io.IOException;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Properties;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * 공통 프로퍼티 제공 클래스 <BR>
  * 
  * @since 2012. 01. 30.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class CommonProperties {
 
@@ -49,11 +53,16 @@ public class CommonProperties {
      * @param key
      * @return <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Properties#get(Object)
+     * 
+     * @throws NullPointerException
+     *             {@code key}가 null인 경우
      */
-    public static String getProperty(String key) {
+    public static @Nullable String getProperty(String key) {
+        Objects.requireNonNull(key);
+
         return COMMON_PROPS.getProperty(key);
     }
 
@@ -62,9 +71,14 @@ public class CommonProperties {
      * @param keyPrefix
      * @return <BR>
      * @since 2012. 01. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * 
+     * @throws NullPointerException
+     *             {@code keyPrefix}가 {@code null}인 경우 발생.
      */
     public static Properties subProperteis(String keyPrefix) {
+        Objects.requireNonNull(keyPrefix);
+
         Properties prop = new Properties();
 
         String key = null;

@@ -45,6 +45,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.function.Predicates;
 
 /**
  * 'deprecated' 된 메소드들은 {@link FunctionUtils}를 통해서 제공됩니다.
@@ -79,7 +84,7 @@ import org.jspecify.annotations.NonNull;
  * 
  * @since 2020. 4. 10.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  * 
  */
 public class StreamUtils {
@@ -88,7 +93,30 @@ public class StreamUtils {
     private StreamUtils() {
     }
 
-    static final <T> Function<T, T> ID() {
+    /**
+     * {@link Function#identity()}가 현재 <b><i>{@code JSpecify}</i></b> 스펙을 지원하지 않기 때문에 우선적으로 동일한 기능을 구현해서 제공합니다.<br>
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 17.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @return
+     *
+     * @since 2026. 3. 17.
+     * @version 3.0.0
+     * 
+     * @see NonNull
+     * @see Nullable
+     * @see NullMarked
+     * @see NullUnmarked
+     */
+    public static final <T> Function<T, T> identity() {
         return o -> o;
     }
 
@@ -135,10 +163,10 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(@NonNull Stream<E> stream, @NonNull Function<E, NE> transformer, @NonNull Supplier<COL> collectionSupplier) {
-        return toCollection(stream, TRUE(), transformer, collectionSupplier);
+    public static <E, NE, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+        return toCollection(stream, Predicates.alwaysTrue(), transformer, collectionSupplier);
     }
 
     /**
@@ -169,10 +197,9 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(@NonNull Stream<E> stream, @NonNull Predicate<E> filter, @NonNull Function<E, NE> transformer,
-            @NonNull Supplier<COL> collectionSupplier) {
+    public static <E, NE, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
         AssertUtils2.notNulls(stream, filter, transformer, collectionSupplier);
         return stream.filter(filter).map(transformer).collect(Collectors.toCollection(collectionSupplier));
     }
@@ -201,10 +228,10 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, COL extends Collection<E>> COL toCollection(@NonNull Stream<E> stream, @NonNull Predicate<E> filter, @NonNull Supplier<COL> collectionSupplier) {
-        return toCollection(stream, filter, ID(), collectionSupplier);
+    public static <E, COL extends Collection<E>> COL toCollection(Stream<E> stream, Predicate<E> filter, Supplier<COL> collectionSupplier) {
+        return toCollection(stream, filter, identity(), collectionSupplier);
     }
 
     /**
@@ -229,15 +256,15 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, COL extends Collection<E>> COL toCollection(@NonNull Stream<E> stream, @NonNull Supplier<COL> collectionSupplier) {
-        return toCollection(stream, TRUE(), ID(), collectionSupplier);
+    public static <E, COL extends Collection<E>> COL toCollection(Stream<E> stream, Supplier<COL> collectionSupplier) {
+        return toCollection(stream, Predicates.alwaysTrue(), identity(), collectionSupplier);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -266,16 +293,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
-        return toCollection(stream, TRUE(), keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
+    public static <K, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
+            Supplier<COL> collectionFactory) {
+        return toCollection(stream, Predicates.alwaysTrue(), keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -308,16 +335,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper,
-            @NonNull Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, @NonNull Supplier<M> mapSupplier, @NonNull Supplier<COL> collectionFactory) {
-        return toCollection(stream, TRUE(), keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
+    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<COL> collectionFactory) {
+        return toCollection(stream, Predicates.alwaysTrue(), keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -348,16 +375,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(@NonNull Stream<V> stream, @NonNull Predicate<V> filter, @NonNull Function<V, K> keyMapper,
-            @NonNull Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, @NonNull Supplier<COL> collectionFactory) {
+    public static <K, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
         return toCollection(stream, filter, keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -393,13 +420,13 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection( //
-            @NonNull Stream<V> stream, @NonNull Predicate<V> filter, //
-            @NonNull Function<V, K> keyMapper, @NonNull Function<V, V> valueMapper, //
-            @NonNull BinaryOperator<V> mergeFunction, @NonNull Supplier<M> mapSupplier, //
-            @NonNull Supplier<COL> collectionFactory //
+            Stream<V> stream, Predicate<V> filter, //
+            Function<V, K> keyMapper, Function<V, V> valueMapper, //
+            BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, //
+            Supplier<COL> collectionFactory //
     ) {
         AssertUtils2.notNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
 
@@ -415,7 +442,7 @@ public class StreamUtils {
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link List}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -438,14 +465,14 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE> List<NE> toList(@NonNull Stream<E> stream, @NonNull Function<E, NE> transformer) {
-        return toCollection(stream, TRUE(), transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
+    public static <E, NE> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
+        return toCollection(stream, Predicates.alwaysTrue(), transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link List}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -470,14 +497,14 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE, LIST extends List<NE>> LIST toList(@NonNull Stream<E> stream, @NonNull Function<E, NE> transformer, @NonNull Supplier<LIST> listSupplier) {
-        return toCollection(stream, TRUE(), transformer, listSupplier);
+    public static <E, NE, LIST extends List<NE>> LIST toList(Stream<E> stream, Function<E, NE> transformer, Supplier<LIST> listSupplier) {
+        return toCollection(stream, Predicates.alwaysTrue(), transformer, listSupplier);
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link List}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -502,14 +529,14 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE> List<NE> toList(@NonNull Stream<E> stream, @NonNull Predicate<E> filter, @NonNull Function<E, NE> transformer) {
+    public static <E, NE> List<NE> toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
         return toCollection(stream, filter, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link List}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -536,16 +563,15 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE, LIST extends List<NE>> LIST toList(@NonNull Stream<E> stream, @NonNull Predicate<E> filter, @NonNull Function<E, NE> transformer,
-            @NonNull Supplier<LIST> listSupplier) {
+    public static <E, NE, LIST extends List<NE>> LIST toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<LIST> listSupplier) {
         return toCollection(stream, filter, transformer, listSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
      * 
      * <pre>
      * [개정이력]
@@ -576,16 +602,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            @NonNull Function<V, U> transformer, Supplier<M> mapSupplier) {
-        return toMap(stream, TRUE(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
+            Supplier<M> mapSupplier) {
+        return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
      * 
      * <pre>
      * [개정이력]
@@ -613,22 +639,22 @@ public class StreamUtils {
      * @param mapSupplier
      *            최종 결과 {@link Map} 객체를 제공하는 함수.
      * @param mergeMapSupplier
-     *            데이터를 동일한 식별정보(<code>keyMapper</code>)로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
+     *            데이터를 동일한 식별정보({@code keyMapper})로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
      * @return
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            @NonNull Function<V, U> transformer, Supplier<M> mapSupplier, @NonNull Supplier<? extends Map<K, V>> mergeMapSupplier) {
-        return toMap(stream, TRUE(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
+    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
+            Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
+        return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
     }
 
     /**
-     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환(<code>V => U by 'valueFunction'</code>)하여
+     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V => U by 'valueFunction'})하여
      * {@link Map}으로 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>listSupplier</code>를 통해서 제공되는 {@link List} 객체에 추가됩니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code listSupplier}를 통해서 제공되는 {@link List} 객체에 추가됩니다.
      * 
      * <pre>
      * [개정이력]
@@ -653,15 +679,15 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U> Map<K, List<U>> toMap(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper, @NonNull Function<V, U> valueFunction) {
-        return toMap(stream, TRUE(), keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
+    public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction) {
+        return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
     }
 
     /**
      * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
      * <br>
      * <br>
      * 
@@ -694,17 +720,17 @@ public class StreamUtils {
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper, @NonNull Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
-        return toMap(stream, TRUE(), keyMapper, valueFunction, mergeFunction, mapSupplier);
+    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction,
+            Supplier<M> mapSupplier) {
+        return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
     /**
-     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환(<code>V => U by 'valueFunction'</code>)하여
+     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V => U by 'valueFunction'})하여
      * {@link Map}으로 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>listSupplier</code>를 통해서 제공되는 {@link List} 객체에 추가됩니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code listSupplier}를 통해서 제공되는 {@link List} 객체에 추가됩니다.
      * 
      * <pre>
      * [개정이력]
@@ -733,17 +759,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, M extends Map<K, List<U>>> M toMap(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper, @NonNull Function<V, U> valueFunction,
-            @NonNull Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, List<U>>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier) {
         return toMap(stream, keyMapper, valueFunction, mapSupplier, (Supplier<List<U>>) ArrayList<U>::new);
     }
 
     /**
-     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환(<code>V => U by 'valueFunction'</code>)하여
+     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V => U by 'valueFunction'})하여
      * {@link Map}으로 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>listSupplier</code>를 통해서 제공되는 {@link List} 객체에 추가됩니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code listSupplier}를 통해서 제공되는 {@link List} 객체에 추가됩니다.
      * 
      * <pre>
      * [개정이력]
@@ -776,16 +801,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(@NonNull Stream<V> stream, @NonNull Function<V, K> keyMapper,
-            @NonNull Function<V, U> valueFunction, Supplier<M> mapSupplier, @NonNull Supplier<COL> collectionSupplier) {
-        return toMap(stream, TRUE(), keyMapper, valueFunction, mapSupplier, collectionSupplier);
+    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
+        return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mapSupplier, collectionSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
      * 
      * <pre>
      * [개정이력]
@@ -818,16 +843,16 @@ public class StreamUtils {
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Stream<V> stream, @NonNull Predicate<V> filter, @NonNull Function<V, K> keyMapper,
-            BinaryOperator<V> mergeFunction, Function<V, U> transformer, @NonNull Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer, Supplier<M> mapSupplier) {
         return toMap(stream, filter, keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U)
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U)
      * 합니다.
      *
      * <pre>
@@ -859,22 +884,22 @@ public class StreamUtils {
      * @param mapSupplier
      *            최종 결과 {@link Map} 객체를 제공하는 함수.
      * @param mergeMapSupplier
-     *            데이터를 동일한 식별정보(<code>keyMapper</code>)로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
+     *            데이터를 동일한 식별정보({@code keyMapper})로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
      * @return 데이터가 병합 및 변환된 새로운 맵
      *
      * @since 2025. 8. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <K, V, U, M extends Map<K, U>> M toMap( //
-            @NonNull Stream<V> stream, @NonNull Predicate<V> filter, @NonNull Function<V, K> keyMapper, //
-            @NonNull BinaryOperator<V> mergeFunction, @NonNull Function<V, U> transformer, //
-            @NonNull Supplier<M> mapSupplier, @NonNull Supplier<? extends Map<K, V>> mergeMapSupplier //
+            Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, //
+            BinaryOperator<V> mergeFunction, Function<V, U> transformer, //
+            Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier //
     ) {
         AssertUtils2.notNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
 
         // 1. 내부 처리용 Map을 먼저 완성합니다.
-        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, ID(), mergeFunction, mergeMapSupplier);
+        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, Function.identity(), mergeFunction, mergeMapSupplier);
 
         // 2. 두 번째 Stream을 생성하지 않고 직접 순회하여 타겟 Map에 값을 할당(Transformation)합니다.
         // 불필요한 충돌(Conflict) 검사를 피하고 성능을 극대화합니다.
@@ -885,9 +910,9 @@ public class StreamUtils {
     }
 
     /**
-     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환(<code>V => U by 'valueFunction'</code>)하여
+     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V => U by 'valueFunction'})하여
      * {@link Map}으로 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>listSupplier</code>를 통해서 제공되는 {@link List} 객체에 추가됩니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code listSupplier}를 통해서 제공되는 {@link List} 객체에 추가됩니다.
      * 
      * <pre>
      * [개정이력]
@@ -914,16 +939,15 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U> Map<K, List<U>> toMap(@NonNull Stream<V> stream, @NonNull Predicate<V> filter, @NonNull Function<V, K> keyMapper,
-            @NonNull Function<V, U> valueFunction) {
+    public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction) {
         return toMap(stream, filter, keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
     }
 
     /**
      * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>mergeFunction</code>를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
      * <br>
      * <br>
      * 
@@ -958,22 +982,28 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(@NonNull Stream<V> stream, @NonNull Predicate<V> filter, @NonNull Function<V, K> keyMapper,
-            @NonNull Function<V, U> valueFunction, @NonNull BinaryOperator<U> mergeFunction, @NonNull Supplier<M> mapSupplier) {
+    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
         return stream//
                 .filter(filter) //
                 .collect( //
                         Collectors.toMap( //
-                                v -> Objects.requireNonNull( //
+                                v -> Objects.requireNonNull(
+                                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
                                         keyMapper.apply(v) // V -@-> K
                                         , "keyMapper returned 'null'") //
-                                , v -> Objects.requireNonNull( //
+                                , v -> Objects.requireNonNull(
+                                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
                                         valueFunction.apply(v) // V => U
                                         , "valueFunction returned 'null'") //
-                                , (a, b) -> Objects.requireNonNull( //
+                                , (a, b) -> Objects.requireNonNull(
+                                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
                                         mergeFunction.apply(a, b) // U + U => U
                                         , "mergeFunction returned 'null'") //
                                 , mapSupplier) //
@@ -981,9 +1011,9 @@ public class StreamUtils {
     }
 
     /**
-     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환(<code>V => U by 'valueFunction'</code>)하여
+     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V => U by 'valueFunction'})하여
      * {@link Map}으로 제공합니다. <br>
-     * 단, <code>keyMapper</code>에 해당하는 값이 동일한 경우 <code>listSupplier</code>를 통해서 제공되는 {@link List} 객체에 추가됩니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code listSupplier}를 통해서 제공되는 {@link List} 객체에 추가됩니다.
      * 
      * <pre>
      * [개정이력]
@@ -1018,10 +1048,10 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(@NonNull Stream<V> stream, @NonNull Predicate<V> filter, @NonNull Function<V, K> keyMapper,
-            @NonNull Function<V, U> valueFunction, Supplier<M> mapSupplier, @NonNull Supplier<COL> collectionSupplier) {
+    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
         AssertUtils2.notNulls(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);
         return stream //
                 .filter(filter) //
@@ -1035,7 +1065,7 @@ public class StreamUtils {
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1058,14 +1088,14 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE> Set<NE> toSet(@NonNull Stream<E> stream, @NonNull Function<E, NE> transformer) {
-        return toCollection(stream, TRUE(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
+    public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
+        return toCollection(stream, Predicates.alwaysTrue(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1090,14 +1120,14 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE, SET extends Set<NE>> SET toSet(@NonNull Stream<E> stream, @NonNull Function<E, NE> transformer, @NonNull Supplier<SET> setSupplier) {
-        return toCollection(stream, TRUE(), transformer, setSupplier);
+    public static <E, NE, SET extends Set<NE>> SET toSet(Stream<E> stream, Function<E, NE> transformer, Supplier<SET> setSupplier) {
+        return toCollection(stream, Predicates.alwaysTrue(), transformer, setSupplier);
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1122,14 +1152,14 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE> Set<NE> toSet(@NonNull Stream<E> stream, @NonNull Predicate<E> filter, @NonNull Function<E, NE> transformer) {
+    public static <E, NE> Set<NE> toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
         return toCollection(stream, filter, transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
     /**
-     * {@link Stream}에 포함된 데이터를 변형(<code>transformer</code>)하여 {@link Set}에 담아 제공합니다. <br>
+     * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1156,14 +1186,9 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <E, NE, SET extends Set<NE>> SET toSet(@NonNull Stream<E> stream, @NonNull Predicate<E> filter, @NonNull Function<E, NE> transformer,
-            @NonNull Supplier<SET> setSupplier) {
+    public static <E, NE, SET extends Set<NE>> SET toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<SET> setSupplier) {
         return toCollection(stream, filter, transformer, setSupplier);
-    }
-
-    static final <T> Predicate<T> TRUE() {
-        return _ -> true;
     }
 }

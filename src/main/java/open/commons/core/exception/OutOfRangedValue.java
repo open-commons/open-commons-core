@@ -16,9 +16,13 @@
 
 package open.commons.core.exception;
 
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
+
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class OutOfRangedValue extends RuntimeException {
 
@@ -30,28 +34,38 @@ public class OutOfRangedValue extends RuntimeException {
 
     private Object value;
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
+     */
     public OutOfRangedValue(Object value, Object min, Object max) {
-        this(value, min, max, "");
+        this(value, min, max, null, null);
     }
 
-    public OutOfRangedValue(Object value, Object min, Object max, String message) {
-        super(message + "[value: " + value + ", max: " + max + ", min: " + min + "]");
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
+     */
+    public OutOfRangedValue(Object value, Object min, Object max, @Nullable String message) {
+        this(value, min, max, message, null);
+    }
+
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
+     */
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
+     */
+    public OutOfRangedValue(Object value, Object min, Object max, @Nullable String message, @Nullable Throwable cause) {
+        ObjectUtils.requireNonNulls(value, min, max);
+
+        super(message + "[value: " + value + ", max: " + max + ", min: " + min + "]", cause);
 
         this.value = value;
         this.min = min;
         this.max = max;
-    }
-
-    public OutOfRangedValue(String message) {
-        super(message);
-    }
-
-    public OutOfRangedValue(String message, Throwable throwable) {
-        super(message, throwable);
-    }
-
-    public OutOfRangedValue(Throwable throwable) {
-        super(throwable);
     }
 
     public Object getMax() {

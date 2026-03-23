@@ -16,15 +16,21 @@
 
 package open.commons.core.lang;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.utils.StringUtils;
 
+/**
+ * 
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class JavaField {
 
-    private String accessor = "";
+    private @Nullable String accessor = "";
     private String type;
     private String var;
-    private String value;
-    private String comment = "";
+    private @Nullable String value;
+    private @Nullable String comment = "";
 
     public JavaField(String type, String var) {
         this(null, type, var, null, null);
@@ -34,7 +40,7 @@ public class JavaField {
         this(null, type, var, val, null);
     }
 
-    public JavaField(String acc, String type, String var, String val, String comment) {
+    public JavaField(@Nullable String acc, String type, String var, @Nullable String val, @Nullable String comment) {
         accessor = acc;
         this.type = type;
         this.var = var;
@@ -45,14 +51,14 @@ public class JavaField {
     /**
      * @return the accessor
      */
-    public String getAccessor() {
+    public @Nullable String getAccessor() {
         return accessor;
     }
 
     /**
      * @return the comment
      */
-    public String getComment() {
+    public @Nullable String getComment() {
         return comment;
     }
 
@@ -66,7 +72,7 @@ public class JavaField {
     /**
      * @return the value
      */
-    public String getValue() {
+    public @Nullable String getValue() {
         return value;
     }
 

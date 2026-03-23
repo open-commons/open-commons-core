@@ -60,7 +60,7 @@ public class DataUtils {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2014. 9. 26.
      */
     public static void hide(Collection<?> objects) throws IllegalArgumentException, IllegalAccessException {
@@ -92,7 +92,7 @@ public class DataUtils {
      *
      * @since 2014. 9. 26.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static void hide(final Object object) throws IllegalArgumentException, IllegalAccessException {
         if (object == null) {

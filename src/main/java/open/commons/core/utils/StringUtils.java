@@ -44,8 +44,6 @@ import java.util.stream.Stream;
 
 import jakarta.validation.constraints.NotBlank;
 
-import org.jspecify.annotations.NonNull;
-
 import open.commons.core.prog.StrLenRvrOrderingEntry;
 
 /**
@@ -53,7 +51,7 @@ import open.commons.core.prog.StrLenRvrOrderingEntry;
  * <BR>
  * 
  * @since 2011. 06. 23.
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class StringUtils {
     public static final String MULTI_LINED_COMMENT_BEGIN = "^(\\s*)/\\*(.*)$";
@@ -143,7 +141,7 @@ public class StringUtils {
      *  - BI: <b>Back-Index</b> of a character in a String
      * 
      * [Formula]
-     *  - <code><b>NI + BI + 1 = SL</b></code>
+     *  - {@code <b>NI + BI + 1 = SL</b>}
      * 
      * [Background]
      * string        : 1 | 2 | 3 | 4 | 5 | 1 | 2 | 3 | 4 | 5
@@ -159,7 +157,7 @@ public class StringUtils {
      * @param c
      * @return <BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] backIndiceOf(String string, char c) {
         if (string.indexOf(c) < 0) {
@@ -203,7 +201,7 @@ public class StringUtils {
      *  - BI: <b>Back-Index</b> of a character in a String
      * 
      * [Formula]
-     *  - <code><b>NI + BI + 1 = SL</b></code>
+     *  - {@code <b>NI + BI + 1 = SL</b>}
      * 
      * [Background]
      * string        : 1 | 2 | 3 | 4 | 5 | 1 | 2 | 3 | 4 | 5
@@ -218,7 +216,7 @@ public class StringUtils {
      * @param searchedString
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] backIndiceOf(String sourceString, String searchedString) {
         if (searchedString.length() == 1) {
@@ -253,7 +251,7 @@ public class StringUtils {
      *  - BI: <b>Back-Index</b> of a character in a String
      * 
      * [Formula]
-     *  - <code><b>NI + BI + 1 = SL</b></code>
+     *  - {@code <b>NI + BI + 1 = SL</b>}
      * 
      * [Background]
      * string        : 1 | 2 | 3 | 4 | 5 | 1 | 2 | 3 | 4 | 5
@@ -269,14 +267,14 @@ public class StringUtils {
      * @param SL
      *            the length of a string <BR>
      * @exception NullPointerException
-     *                if an <code>array</code> is null.
+     *                if an {@code array} is null.
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static void backwarding(int[] array, final int SL) {
         /**
-         * [Formula] - <code><b>NI + BI + 1 = SL</b></code>
+         * [Formula] - {@code <b>NI + BI + 1 = SL</b>}
          */
         for (int i = 0; i < array.length; i++) {
             array[i] = SL - array[i] - 1;
@@ -301,7 +299,7 @@ public class StringUtils {
      *
      * @since 2022. 1. 5.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String compact(String str, int len) {
         AssertUtils2.notNull(str);
@@ -339,7 +337,7 @@ public class StringUtils {
      *
      * @since 2020. 1. 16
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String concat(List<String> strings, String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
         AssertUtils2.notNull(delimeter);
@@ -381,7 +379,7 @@ public class StringUtils {
      *
      * @since 2019. 10. 15.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String concat(String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
         AssertUtils2.notNull(delimeter);
@@ -418,13 +416,13 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> String concatenate(String delimeter, boolean startsWithDelimeter, Collection<T> data) {
         if (data.isEmpty()) {
             return "";
         } else {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             Iterator<T> itr = data.iterator();
 
             Object datum = itr.next();
@@ -466,13 +464,13 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> String concatenate(String delimeter, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
         if (data.isEmpty()) {
             return "";
         } else {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             Iterator<T> itr = data.iterator();
 
             T datum = itr.next();
@@ -514,7 +512,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <K, V, R> String concatenate(String delimeter, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
         return concatenate(delimeter, startsWithDelimeter, data.entrySet(), gen);
@@ -539,14 +537,14 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String concatenate(String delimeter, boolean startsWithDelimeter, Object... strings) {
         if (strings.length < 1) {
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (startsWithDelimeter) {
             sb.append(delimeter);
         }
@@ -579,14 +577,14 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String concatenate(String delimeter, boolean startsWithDelimeter, String... strings) {
         if (strings.length < 1) {
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (startsWithDelimeter) {
             sb.append(delimeter);
         }
@@ -608,7 +606,7 @@ public class StringUtils {
      * @param data
      *            데이터
      * @return
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 17.
      */
     public static <T> String concatenate(String delimeter, Collection<T> data) {
@@ -635,7 +633,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #concatenate(String, boolean, Collection, Function)
      */
@@ -663,7 +661,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <K, V, R> String concatenate(String delimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
         return concatenate(delimeter, false, data, gen);
@@ -683,7 +681,7 @@ public class StringUtils {
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(data[0]);
 
         for (int i = 1; i < data.length; i++) {
@@ -709,7 +707,7 @@ public class StringUtils {
 
     /**
      * 대상 문자열에 주어진 문자열이 포함되어 있는지 여부를 제공합니다. <br>
-     * 단 하나의 문자열만 포함되어 있어도 <code>true</code>를 반환합니다.
+     * 단 하나의 문자열만 포함되어 있어도 {@code true}를 반환합니다.
      * 
      * <pre>
      * [개정이력]
@@ -725,7 +723,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean contains(String string, CharSequence... strs) {
         for (CharSequence str : strs) {
@@ -739,7 +737,7 @@ public class StringUtils {
     /**
      * 문자열이 배열에 포함된 문자열을 모두 포함하고 있는지 여부를 제공합니다.
      * 
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @date 2012. 1. 6.
      * 
      * @param string
@@ -779,7 +777,7 @@ public class StringUtils {
      *            문자열
      * @return
      * @since 2012. 7. 7.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean containsIgnorecase(String container, String string) {
         if (container == null || string == null)
@@ -855,7 +853,7 @@ public class StringUtils {
      * @return
      *
      * @since 2019. 6. 28.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean containsWhitespace(String string) {
         for (char c : string.toCharArray()) {
@@ -926,7 +924,7 @@ public class StringUtils {
             return string;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(string.substring(0, length - 4));
         sb.append(" ...");
@@ -1000,7 +998,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 주어진 <b><code>suffix</code></b>로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
+     * 문자열이 주어진 <b>{@code suffix}</b>로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      *            문자열
@@ -1075,7 +1073,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean exists(String target, Collection<String> strings) {
         for (String str : strings) {
@@ -1102,7 +1100,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean exists(String target, String... strings) {
         return strings != null ? exists(target, Arrays.asList(strings)) : false;
@@ -1123,7 +1121,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean existsIgnoreCase(String target, Collection<String> strings) {
         for (String str : strings) {
@@ -1150,7 +1148,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 9. 25.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean existsIgnoreCase(String target, String... strings) {
         return strings != null ? existsIgnoreCase(target, Arrays.asList(strings)) : false;
@@ -1173,7 +1171,7 @@ public class StringUtils {
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static void flushBuffer(StringBuffer buf, ArrayList<String> list) {
         if (buf.length() < 1) {
@@ -1277,7 +1275,7 @@ public class StringUtils {
      * @param string
      *            문자열
      * @param delimiter
-     * @return 마지막 문자열. 구분자가 존재하지 않는 경우 <code>null</code>을 반환합니다.
+     * @return 마지막 문자열. 구분자가 존재하지 않는 경우 {@code null}을 반환합니다.
      */
     public static String getLast(String string, String delimiter) {
         String rtnString = null;
@@ -1303,7 +1301,7 @@ public class StringUtils {
      * @param ordinal
      * @return <BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(String sourceString, char c, int ordinal) {
         int[] indice = indiceOf(sourceString, c);
@@ -1336,7 +1334,7 @@ public class StringUtils {
      * @return
      * 
      *         <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 1. 6.
      */
     public static int indexOf(String sourceString, String searchedString, int ordinal) {
@@ -1380,7 +1378,7 @@ public class StringUtils {
      *            비교 시작 위치
      * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생합니다.
      *         <ul>
-     *         <li>주어진 문자열이 <code>null</code>
+     *         <li>주어진 문자열이 {@code null}
      *         <li>비교 시작 값이 음수
      *         <li>주어진 문자열이 길이가 비교 시작값보다 작은 경우
      *         <li>주어진 문자열의 길이가 0
@@ -1416,7 +1414,7 @@ public class StringUtils {
      * @param str2
      * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생합니다.
      *         <ul>
-     *         <li>주어진 문자열이 <code>null</code>
+     *         <li>주어진 문자열이 {@code null}
      *         <li>주어진 문자열의 길이가 0
      *         </ul>
      * 
@@ -1436,8 +1434,8 @@ public class StringUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             <code>string</code>값이 <code>null</code>인 경우 <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     *             {@code string}값이 {@code null}인 경우 <BR>
+     * 
      * @since 2011. 11. 06.
      */
     public static int[] indiceOf(String string, char c) {
@@ -1456,7 +1454,7 @@ public class StringUtils {
      * @param searchedString
      * @return <BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(String sourceString, String searchedString) {
         if (searchedString.length() == 1) {
@@ -1492,7 +1490,7 @@ public class StringUtils {
      *            문자열
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isAllLowcase(String string) {
         return !containsUppercase(string);
@@ -1505,7 +1503,7 @@ public class StringUtils {
      *            문자열
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isAllUppercase(String string) {
         return !containsLowcase(string);
@@ -1597,14 +1595,14 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
+     * 주어진 문자열이 {@code null}이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
      * 
      * @param string
      *            문자열
      * @return
      * 
      *         <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 11.
      */
     public static boolean isNullOrEmptyString(String string) {
@@ -1616,12 +1614,12 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들 모두 <code>null</code>이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
+     * 주어진 문자열들 모두 {@code null}이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
      * 
      * @param strings
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isNullOrEmptyStringAnd(String... strings) {
         for (String string : strings) {
@@ -1634,12 +1632,12 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들 중에 <code>null</code>이거나 trim() 처리후 빈 문자열인지 포함되어 있는지 여부를 반환합니다.
+     * 주어진 문자열들 중에 {@code null}이거나 trim() 처리후 빈 문자열인지 포함되어 있는지 여부를 반환합니다.
      * 
      * @param strings
      * @return <BR>
      * @since 2012. 01. 19.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isNullOrEmptyStringOr(String... strings) {
         for (String string : strings) {
@@ -1672,13 +1670,13 @@ public class StringUtils {
     }
 
     /**
-     * Returns whether <b><code>string</code></b> is a whitespace or not.
+     * Returns whether <b>{@code string}</b> is a whitespace or not.
      * 
      * @param string
      *            문자열
      * @return
      * @since 2012. 6. 28.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isWhiteSpace(String string) {
         if (string != null) {
@@ -1709,7 +1707,7 @@ public class StringUtils {
      *
      * @since 2023. 11. 27.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int lastIndexOf(String string, char c) {
 
@@ -1743,7 +1741,7 @@ public class StringUtils {
      *
      * @since 2025. 9. 19.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String leftPad(String str, int padding, char padChar) {
         if (str == null) {
@@ -1763,7 +1761,7 @@ public class StringUtils {
     }
 
     /**
-     * <b><code>long</code></b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
+     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
      * 
      * @param l
@@ -1775,7 +1773,7 @@ public class StringUtils {
     }
 
     /**
-     * <b><code>long</code></b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
+     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      * 
      * @param l
      * @param length
@@ -1863,7 +1861,7 @@ public class StringUtils {
      *            문자열
      * @return <BR>
      * @since 2012. 02. 16.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String ltrimSpecific(String string, char c) {
         char[] cStr = string.toCharArray();
@@ -1889,7 +1887,7 @@ public class StringUtils {
      *            지우고자 하는 문자열
      * @return 새로운 문자열<BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String ltrimSpecific(String sourceString, String targetString) {
         if (sourceString.indexOf(targetString) != 0) {
@@ -1966,7 +1964,7 @@ public class StringUtils {
      *
      * @since 2025. 8. 27.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String notBlank(String string) {
         AssertUtils2.notNull(string);
@@ -1989,7 +1987,7 @@ public class StringUtils {
      *
      * @since 2025. 8. 29.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String[] notBlanks(String... strings) {
         for (String string : strings) {
@@ -2016,7 +2014,7 @@ public class StringUtils {
      * @param n
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2011. 6. 23.
      */
     public static String nTimesString(String string, int n) {
@@ -2071,7 +2069,7 @@ public class StringUtils {
      */
     public static String removeUnderlineAndNextUppercase(String string) {
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String[] strings = string.split(toRegExString("_"));
 
         for (int i = 0; i < strings.length; i++) {
@@ -2109,7 +2107,7 @@ public class StringUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String replace(String string, char o, char n) {
         if (string != null) {
@@ -2330,7 +2328,7 @@ public class StringUtils {
      *
      * @since 2025. 9. 19.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String rightPad(String str, int padding, char padChar) {
         if (str == null) {
@@ -2378,7 +2376,7 @@ public class StringUtils {
      * @param c
      * @return <BR>
      * @since 2012. 02. 16.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String rtrimSpecific(String string, char c) {
         char[] cStr = string.toCharArray();
@@ -2406,7 +2404,7 @@ public class StringUtils {
      *            지우고자 하는 문자열
      * @return 새로운 문자열<BR>
      * @since 2012. 02. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String rtrimSpecific(String sourceString, String targetString) {
         if (sourceString.lastIndexOf(targetString) != sourceString.length() - targetString.length()) {
@@ -2489,7 +2487,7 @@ public class StringUtils {
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String[] split(String string, String delim, Function<String, String> post) {
         return split(string, delim, post, 0);
@@ -2517,7 +2515,7 @@ public class StringUtils {
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String[] split(String string, String delim, Function<String, String> post, int limit) {
 
@@ -2550,7 +2548,7 @@ public class StringUtils {
      *
      * @since 2023. 8. 24.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String splitAndDelimiter(String string, int size, String delimeter) {
         List<String> splited = new ArrayList<>();
@@ -2646,7 +2644,7 @@ public class StringUtils {
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Collection<String> splitAsCollection(String string, String delim, Function<String, String> post) {
         Collection<String> col = new ArrayList<String>();
@@ -2703,7 +2701,7 @@ public class StringUtils {
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Set<String> splitAsSet(String string, String delim, Function<String, String> post) {
         HashSet<String> set = new HashSet<String>();
@@ -2775,7 +2773,7 @@ public class StringUtils {
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post) {
         return splitWithoutBracket(string, delim, post, 0);
@@ -2803,7 +2801,7 @@ public class StringUtils {
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post, int limit) {
         String[] rtnStrings = string.split("[" + delim + "]", limit);
@@ -2833,7 +2831,7 @@ public class StringUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean startsWithDigit(String string) {
         if (string == null || string.trim().isEmpty()) {
@@ -2860,7 +2858,7 @@ public class StringUtils {
      *
      * @since 2022. 4. 1.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean startswithHangul(String string) {
         if (string == null) {
@@ -2889,7 +2887,7 @@ public class StringUtils {
      *
      * @since 2022. 4. 1.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean startswithHangul(String string, boolean trim) {
         if (string == null) {
@@ -2902,7 +2900,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열이 주어진 <b><code>prefix</code></b>로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
+     * 문자열이 주어진 <b>{@code prefix}</b>로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      * @param prefix
@@ -2940,9 +2938,9 @@ public class StringUtils {
      *
      * @since 2025. 7. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, @NonNull Collection<String> prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, Collection<String> prefixes) {
 
         for (String prefix : prefixes) {
             if (startsWithIgnoreCase(string, prefix)) {
@@ -2962,7 +2960,7 @@ public class StringUtils {
      *            접두어들
      * @return
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, @NonNull String... prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, String... prefixes) {
 
         for (String prefix : prefixes) {
             if (startsWithIgnoreCase(string, prefix)) {
@@ -2991,9 +2989,9 @@ public class StringUtils {
      *
      * @since 2025. 7. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static boolean startsWithOneOf(String string, @NonNull Collection<String> prefixes) {
+    public static boolean startsWithOneOf(String string, Collection<String> prefixes) {
 
         for (String prefix : prefixes) {
             if (string.startsWith(prefix)) {
@@ -3013,7 +3011,7 @@ public class StringUtils {
      *            접두어들
      * @return
      */
-    public static boolean startsWithOneOf(String string, @NonNull String... prefixes) {
+    public static boolean startsWithOneOf(String string, String... prefixes) {
 
         for (String prefix : prefixes) {
             if (string.startsWith(prefix)) {
@@ -3107,7 +3105,7 @@ public class StringUtils {
      * @param field
      * @return <BR>
      * @since 2012. 2. 6.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toBeanGetterName(String field) {
         return "get" + toUpperCase(field, 0);
@@ -3134,7 +3132,7 @@ public class StringUtils {
      * @param field
      * @return <BR>
      * @since 2012. 2. 6.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toBeanSetterName(String field) {
         return "set" + toUpperCase(field, 0);
@@ -3160,7 +3158,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toKebabCase(String camelCase) {
         return toKebabCase0(camelCase, false);
@@ -3198,7 +3196,7 @@ public class StringUtils {
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static String toKebabCase0(String camelCase, boolean isSplitNum) {
 
@@ -3243,7 +3241,7 @@ public class StringUtils {
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toKebabCaseNum(String camelCase) {
         return toKebabCase0(camelCase, true);
@@ -3257,7 +3255,7 @@ public class StringUtils {
      * @return
      * 
      *         <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 10.
      */
     public static String toLowerCamelCase(String... strings) {
@@ -3308,7 +3306,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toPascalCase(String camelCase) {
         ArrayList<String> strs = new ArrayList<>();
@@ -3336,7 +3334,7 @@ public class StringUtils {
      */
     public static String toRegExString(String string) {
         char[] cs = string.toCharArray();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         StringBuffer builder = new StringBuffer();
         String cstr = null;
@@ -3374,7 +3372,7 @@ public class StringUtils {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toSnakeCase(String camelCase) {
         return toSnakeCase0(camelCase, false);
@@ -3399,7 +3397,7 @@ public class StringUtils {
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static String toSnakeCase0(String camelCase, boolean isSplitNum) {
         ArrayList<String> strs = new ArrayList<>();
@@ -3441,14 +3439,14 @@ public class StringUtils {
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toSnakeCaseNum(String camelCase) {
         return toSnakeCase0(camelCase, true);
     }
 
     /**
-     * 주어진 문자열이 <code>null</code>이거나 빈문자열인 경우<code>defaultValue</code>에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
+     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우{@code defaultValue}에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
      * 
      * @param string
      *            문자열
@@ -3457,7 +3455,7 @@ public class StringUtils {
      * 
      *         <BR>
      * @since 2012. 01. 17.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toString(String string, String defaultValue) {
         return isNullOrEmptyString(string) ? defaultValue : string;
@@ -3470,7 +3468,7 @@ public class StringUtils {
             case 1:
                 return objects[0].toString();
             default:
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 sb.append(objects[0]);
                 for (int i = 1; i < objects.length; i++) {
                     sb.append(objects[i]);
@@ -3488,7 +3486,7 @@ public class StringUtils {
      * 
      *         <BR>
      * @since 2012. 01. 10.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toUpperCamelCase(String... strings) {
         if (strings == null || strings.length < 1) {
@@ -3539,7 +3537,7 @@ public class StringUtils {
      * <BR>
      * 
      * @since 2012. 3. 5.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static final class OneCharacterString {
         private final String string;
@@ -3558,7 +3556,7 @@ public class StringUtils {
          * @return
          * 
          * @since 2012. 3. 5.
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          */
         public String c2str() {
             return c2str;
@@ -3569,7 +3567,7 @@ public class StringUtils {
          * 
          *         <BR>
          * @since 2012. 3. 5.
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          */
         public final char getC() {
             return c;
@@ -3579,7 +3577,7 @@ public class StringUtils {
          * @return the string
          * 
          *         <BR>
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          * @since 2012. 3. 5.
          */
         public final String getString() {
@@ -3590,7 +3588,7 @@ public class StringUtils {
          * @return
          * 
          * @since 2012. 3. 5.
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          * 
          * @see java.lang.Object#toString()
          */

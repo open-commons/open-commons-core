@@ -28,10 +28,14 @@
  */
 package open.commons.core.lang;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.concurrent.Mutex;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 6. 20.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public abstract class AbstractRunnable implements IRunnable {
@@ -61,7 +65,7 @@ public abstract class AbstractRunnable implements IRunnable {
 
     protected boolean stoppedNormally = false;
 
-    protected Thread executor;
+    protected @Nullable Thread executor;
     protected Mutex mutexExecutor = new Mutex("executor");
 
     protected boolean isRunning = false;
@@ -106,7 +110,7 @@ public abstract class AbstractRunnable implements IRunnable {
      *
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public void join() {
         join(0, 0);
@@ -125,7 +129,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * @param millis
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public void join(long millis) {
         join(millis, 0);
@@ -145,11 +149,12 @@ public abstract class AbstractRunnable implements IRunnable {
      * @param nanos
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
+    @SuppressWarnings("null")
     public void join(long millis, int nanos) {
         try {
-            if (executor == null) {
+            if (this.executor == null) {
                 Thread.currentThread().join(millis, nanos);
             } else {
                 this.executor.join(millis, nanos);
@@ -196,12 +201,14 @@ public abstract class AbstractRunnable implements IRunnable {
         this.isRunning = true;
 
         if (startedExternally) {
-            executor = Thread.currentThread();
+            this.executor = Thread.currentThread();
         } else {
-            executor = new Thread(this);
-            executor.setDaemon(daemon);
+            Thread t = new Thread(this);
+            t.setDaemon(daemon);
             startedInternally = true;
-            executor.start();
+            t.start();
+
+            this.executor = t;
         }
 
         afterStartup();
@@ -234,7 +241,7 @@ public abstract class AbstractRunnable implements IRunnable {
         synchronized (mutexExecutor) {
             try {
                 if (executor != null) {
-                    executor.interrupt();
+                    this.executor.interrupt();
                 }
             } catch (Exception ignored) {
             }

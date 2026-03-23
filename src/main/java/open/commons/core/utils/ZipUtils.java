@@ -50,7 +50,7 @@ import open.commons.core.function.IOTripleFunction;
  * 압축 및 해제를 지원하는 유틸리티 클래스입니다.
  * 
  * @since 2018. 9. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class ZipUtils {
 
@@ -89,7 +89,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static boolean decompress(Path inputFile, Charset inCharset, Path output, IOTripleFunction<Path, Charset, Path, Boolean> decompressor) throws IOException {
 
@@ -127,7 +127,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean ungzip(File inputFile, Charset inCharset, File outputFile) throws IOException {
         return ungzip(inputFile.toPath(), inCharset, outputFile.toPath());
@@ -152,7 +152,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean ungzip(File inputFile, File outputFile) throws IOException {
         return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
@@ -180,7 +180,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean ungzip(Path inputFile, Charset inCharset, Path outputFile) throws IOException {
         return decompress(inputFile, inCharset, outputFile, (inPath, _, outPath) -> {
@@ -213,7 +213,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean ungzip(Path inputFile, Path outputFile) throws IOException {
         return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
@@ -240,7 +240,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean ungzip(String inputFile, Charset inCharset, String outputFile) throws IOException {
         return ungzip(new File(inputFile), inCharset, new File(outputFile));
@@ -265,7 +265,7 @@ public class ZipUtils {
      *
      * @since 2023. 8. 2.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean ungzip(String inputFile, String outputFile) throws IOException {
         return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
@@ -292,7 +292,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean unzip(File inputFile, Charset inCharset, File outputDir) throws IOException {
         return unzip(inputFile.toPath(), inCharset, outputDir.toPath());
@@ -317,7 +317,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean unzip(File inputFile, File outputDir) throws IOException {
         return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
@@ -345,7 +345,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean unzip(Path inputFile, Charset inCharset, Path outputDir) throws IOException {
         return decompress(inputFile, inCharset, outputDir, (infile, cs, outdir) -> {
@@ -405,7 +405,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean unzip(Path inputFile, Path outputDir) throws IOException {
         return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
@@ -432,7 +432,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean unzip(String inputFile, Charset inCharset, String outputDir) throws IOException {
         return unzip(new File(inputFile), inCharset, new File(outputDir));
@@ -457,7 +457,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean unzip(String inputFile, String outputDir) throws IOException {
         return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
@@ -490,7 +490,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean zip(File input, Charset inCharset, File output, Charset outCharset, int compressionLevel) throws IOException {
 
@@ -594,7 +594,7 @@ public class ZipUtils {
      *
      * @since 2021. 11. 9.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean zip(String input, Charset inCharset, String output, Charset outCharset, int compressionLevel) throws IOException {
         return zip(new File(input), inCharset, new File(output), outCharset, compressionLevel);

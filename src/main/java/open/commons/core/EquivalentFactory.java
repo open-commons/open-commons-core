@@ -26,12 +26,16 @@ package open.commons.core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * primitive 타입으로 이루어진 배열들을 비교해주는 {@link IEquivalent} 객체 팩토리 클래스
  * 
  * @since 2012. 03. 22.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class EquivalentFactory {
 
@@ -43,7 +47,7 @@ public class EquivalentFactory {
     private static final IEquivalent<boolean[]> booleanEquiv = new IEquivalent<boolean[]>() {
 
         @Override
-        public boolean equals(boolean[] t1, boolean[] t2) {
+        public boolean equals(boolean @Nullable [] t1, boolean @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -71,7 +75,7 @@ public class EquivalentFactory {
     private static final IEquivalent<byte[]> byteEquiv = new IEquivalent<byte[]>() {
 
         @Override
-        public boolean equals(byte[] t1, byte[] t2) {
+        public boolean equals(byte @Nullable [] t1, byte @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -99,7 +103,7 @@ public class EquivalentFactory {
     private static final IEquivalent<char[]> charEquiv = new IEquivalent<char[]>() {
 
         @Override
-        public boolean equals(char[] t1, char[] t2) {
+        public boolean equals(char @Nullable [] t1, char @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -127,7 +131,7 @@ public class EquivalentFactory {
     private static final IEquivalent<double[]> doubleEquiv = new IEquivalent<double[]>() {
 
         @Override
-        public boolean equals(double[] t1, double[] t2) {
+        public boolean equals(double @Nullable [] t1, double @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -157,7 +161,7 @@ public class EquivalentFactory {
     private static final IEquivalent<float[]> floatEquiv = new IEquivalent<float[]>() {
 
         @Override
-        public boolean equals(float[] t1, float[] t2) {
+        public boolean equals(float @Nullable [] t1, float @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -185,7 +189,7 @@ public class EquivalentFactory {
     private static final IEquivalent<int[]> intEquiv = new IEquivalent<int[]>() {
 
         @Override
-        public boolean equals(int[] t1, int[] t2) {
+        public boolean equals(int @Nullable [] t1, int @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -213,7 +217,7 @@ public class EquivalentFactory {
     private static final IEquivalent<long[]> longEquiv = new IEquivalent<long[]>() {
 
         @Override
-        public boolean equals(long[] t1, long[] t2) {
+        public boolean equals(long @Nullable [] t1, long @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -241,7 +245,7 @@ public class EquivalentFactory {
     private static final IEquivalent<short[]> shortEquiv = new IEquivalent<short[]>() {
 
         @Override
-        public boolean equals(short[] t1, short[] t2) {
+        public boolean equals(short @Nullable [] t1, short @Nullable [] t2) {
             if (t1 != null && t2 != null) {
                 int l = t1.length;
 
@@ -269,7 +273,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<boolean[]> booleanArrayEquiv() {
 
@@ -281,7 +285,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<byte[]> byteArrayEquiv() {
 
@@ -293,7 +297,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<char[]> charArrayEquiv() {
 
@@ -305,7 +309,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<double[]> doubleArrayEquiv() {
 
@@ -317,7 +321,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<float[]> floatArrayEquiv() {
 
@@ -331,9 +335,14 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * 
+     * @throws NullPointerException
+     *             {@code key}가 {@code null}인 경우 발생.
      */
-    public static IEquivalent<?> get(Object key) {
+    public static @Nullable IEquivalent<?> get(Object key) {
+        Objects.requireNonNull(key);
+
         synchronized (factory) {
             return factory.get(key);
         }
@@ -345,7 +354,7 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unchecked")
     public static <T> IEquivalent<T> getDefault() {
@@ -357,7 +366,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<int[]> intArrayEquiv() {
 
@@ -369,7 +378,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<long[]> longArrayEquiv() {
 
@@ -384,9 +393,14 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * 
+     * @throws NullPointerException
+     *             {@code equivalent}가 {@code null}인 경우 발생.
      */
-    public static IEquivalent<?> register(Object key, IEquivalent<?> equivalent) {
+    public static @Nullable IEquivalent<?> register(@Nullable Object key, IEquivalent<?> equivalent) {
+        Objects.requireNonNull(equivalent);
+
         synchronized (factory) {
             if (key != null) {
                 return factory.put(key, equivalent);
@@ -401,7 +415,7 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static IEquivalent<short[]> shortArrayEquiv() {
 

@@ -36,8 +36,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import open.commons.core.database.annotation.AQueryIndex;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
+ * 
+ * @since 2013. 11. 8.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public abstract class AbstractQueryParameter implements IQueryParameter {
 
@@ -63,7 +65,7 @@ public abstract class AbstractQueryParameter implements IQueryParameter {
      *
      * @since 2021. 6. 18.
      * @version 1.9.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @see open.commons.core.database.IQueryParameter#toParameters()
      */
     @Override

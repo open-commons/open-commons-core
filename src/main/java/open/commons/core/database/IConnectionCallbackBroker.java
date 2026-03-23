@@ -46,7 +46,8 @@ import java.sql.SQLException;
  * 
  * @param <T>
  * @since 2019. 2. 19.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public interface IConnectionCallbackBroker {
 
@@ -62,7 +63,7 @@ public interface IConnectionCallbackBroker {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 19.
      */
     String getQuery();
@@ -81,10 +82,9 @@ public interface IConnectionCallbackBroker {
      * @param con
      * @return
      * @throws SQLException
-     *             TODO
      *
      * @since 2020. 10. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public PreparedStatement getStatement(Connection con) throws SQLException;
 
@@ -98,7 +98,7 @@ public interface IConnectionCallbackBroker {
      * 2019. 2. 19.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @param stmt
      * @since 2019. 2. 19.
      */

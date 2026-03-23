@@ -30,7 +30,7 @@ package open.commons.core.validation;
 /**
  * 
  * @since 2014. 4. 11.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public abstract class NamedTokenValidator<T> implements ITokenValidator<T> {
 
@@ -49,18 +49,18 @@ public abstract class NamedTokenValidator<T> implements ITokenValidator<T> {
     }
 
     /**
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return "DefaultTokenValidator [name=" + name + "]";
-    }
-
-    /**
      * @see open.commons.core.validation.ITokenValidator#isPositive()
      */
     @Override
     public boolean isPositive() {
         return true;
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "DefaultTokenValidator [name=" + name + "]";
     }
 }

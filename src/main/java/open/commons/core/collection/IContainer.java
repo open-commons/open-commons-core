@@ -31,13 +31,16 @@ package open.commons.core.collection;
 /**
  * 이 인터페이스의 목적은 동일한 타입의 객체간 포함관계에 대한 확인 기능을 지원하는 것이다.<br>
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  * 
  * @param <T>
+ * 
+ * @since 2012. 7. 30.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public interface IContainer<T> {
     /**
-     * Return whether or not a <b><code>contained</code></b> is belonged to a <b><code>container</code></b>.
+     * Return whether or not a <b>{@code contained}</b> is belonged to a <b>{@code container}</b>.
      * 
      * @param container
      * @param contained

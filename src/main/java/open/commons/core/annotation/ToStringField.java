@@ -34,8 +34,8 @@ import java.lang.annotation.Target;
 /**
  * DAO 클래스 필드 중 ToString() 메소드에서 사용되는 필드를 지정.
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
- * 
+ * @since 2012. 10. 20.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

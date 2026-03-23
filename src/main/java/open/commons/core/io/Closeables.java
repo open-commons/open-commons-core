@@ -30,10 +30,14 @@ import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 import jakarta.annotation.Resource;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.utils.ArrayUtils;
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 다수 개의 {@link AutoCloseable}를 한번에 {@link #close()} 할 수 있도록 지원하는 클래스.
@@ -48,7 +52,8 @@ import open.commons.core.utils.ArrayUtils;
  * </pre>
  * 
  * @since 2018. 9. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Resource
 public class Closeables implements AutoCloseable {
@@ -74,14 +79,16 @@ public class Closeables implements AutoCloseable {
         this.quietly = quietly;
     }
 
-    public void addAll(AutoCloseable... closeables) {
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code closeables})에 'null'이 포함된 경우 발생.
+     */
+    public void addAll(AutoCloseable @Nullable... closeables) {
         if (closeables == null) {
             return;
         }
 
-        if (this.closeables == null) {
-            this.closeables = new ArrayList<>();
-        }
+        ObjectUtils.requireNonNulls((Object[]) closeables);
 
         this.closeables.addAll(Arrays.asList(closeables));
     }
@@ -130,20 +137,16 @@ public class Closeables implements AutoCloseable {
      *
      * @since 2018. 9. 10.
      */
-    public void prepend(AutoCloseable... closeables) {
+    public void prepend(AutoCloseable @Nullable... closeables) {
         if (closeables == null) {
             return;
         }
 
+        // 기존 데이타 순서 뒤집기
+        Collections.reverse(this.closeables);
+
         // 입력데이타 순서 뒤집기
         closeables = ArrayUtils.reverse(closeables);
-
-        if (this.closeables == null) {
-            this.closeables = new ArrayList<>();
-        } else {
-            // 기존 데이타 순서 뒤집기
-            Collections.reverse(this.closeables);
-        }
 
         // 뒤집힌 순서대로 추가
         this.closeables.addAll(Arrays.asList(closeables));
@@ -168,10 +171,15 @@ public class Closeables implements AutoCloseable {
      * @param quiet
      *            예외발생 여부
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code closeable})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 11.
      */
     public static AutoCloseable closeable(AutoCloseable closeable, boolean quiet) {
+        Objects.requireNonNull(closeable);
+
         return new ThrowableCloseable(closeable, quiet);
     }
 
@@ -188,10 +196,15 @@ public class Closeables implements AutoCloseable {
      * @param closeables
      *            {@link Closeable} ...
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code closeables})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 10.
      */
     public static Closeables list(AutoCloseable... closeables) {
+        ObjectUtils.requireNonNulls((Object[]) closeables);
+
         Closeables c = new Closeables(false);
         c.addAll(closeables);
 
@@ -242,10 +255,6 @@ public class Closeables implements AutoCloseable {
          * @since 2018. 9. 11.
          */
         private ThrowableCloseable(AutoCloseable closeable, boolean quiet) {
-            if (closeable == null) {
-                throw new IllegalArgumentException("AutoCloseable instance MUST NOT be null.");
-            }
-
             this.closeable = closeable;
             this.quiet = quiet;
         }

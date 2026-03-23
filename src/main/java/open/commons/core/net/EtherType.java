@@ -30,7 +30,7 @@ package open.commons.core.net;
 /**
  * 
  * @since 2014. 5. 30.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class EtherType {
 

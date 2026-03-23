@@ -21,6 +21,7 @@ package open.commons.core.concurrent;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -30,12 +31,15 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
+
 /**
- * 
- * <BR>
  * 
  * @since 2012. 01. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class FixedThreadPoolService implements ExecutorService {
 
@@ -45,43 +49,47 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param executor
      * 
      * @exception IllegalArgumentException
-     *                {@link ExecutorService} 객체가 <code>null</code>인 경우 <BR>
+     *                {@link ExecutorService} 객체가 {@code null}인 경우
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code executor})가 {@code null}인 경우 발생.
      */
     public FixedThreadPoolService(ExecutorService executor) {
-        if (executor == null) {
-            throw new IllegalArgumentException("executor must not be 'null': executor=" + executor);
-        }
-
+        Objects.requireNonNull(executor, "executor must not be 'null'");
         this.executor = executor;
     }
 
     /**
      * 
      * @param nThreads
-     *            <BR>
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Executors#newFixedThreadPool(int)
      */
     public FixedThreadPoolService(int nThreads) {
-        executor = Executors.newFixedThreadPool(nThreads);
+        executor = Objects.requireNonNull(Executors.newFixedThreadPool(nThreads));
     }
 
     /**
      * 
      * @param nThreads
      * @param threadFactory
-     *            <BR>
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code threadFactory})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Executors#newFixedThreadPool(int, ThreadFactory)
      */
     public FixedThreadPoolService(int nThreads, ThreadFactory threadFactory) {
-        executor = Executors.newFixedThreadPool(nThreads, threadFactory);
+        Objects.requireNonNull(threadFactory, "threadFactory");
+        executor = Objects.requireNonNull(Executors.newFixedThreadPool(nThreads, threadFactory));
     }
 
     /**
@@ -91,14 +99,18 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param unit
      * @return
      * @throws InterruptedException
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#awaitTermination(long, java.util.concurrent.TimeUnit)
      */
+    @SuppressWarnings("null")
     @Override
     public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
+        Objects.requireNonNull(unit);
         return executor.awaitTermination(timeout, unit);
     }
 
@@ -107,22 +119,28 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @param command
      * 
+     * @throws NullPointerException
+     *             파라미터({@code command})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.Executor#execute(java.lang.Runnable)
      */
+    @SuppressWarnings("null")
     @Override
     public void execute(Runnable command) {
+        Objects.requireNonNull(command);
+
         executor.execute(command);
     }
 
     /**
      * 실제 서비스 객체를 반환합니다.
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public ExecutorService getService() {
         return executor;
@@ -134,15 +152,20 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param tasks
      * @return
      * @throws InterruptedException
+     * @throws NullPointerException
+     *             파라미터({@code tasks})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection)
      */
+    @SuppressWarnings("null")
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks) throws InterruptedException {
-        return executor.invokeAll(tasks);
+        Objects.requireNonNull(tasks);
+
+        return Objects.requireNonNull(executor.invokeAll(tasks));
     }
 
     /**
@@ -153,15 +176,20 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param unit
      * @return
      * @throws InterruptedException
+     * @throws NullPointerException
+     *             파라미터({@code tasks, unit})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection, long, java.util.concurrent.TimeUnit)
      */
+    @SuppressWarnings("null")
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException {
-        return executor.invokeAll(tasks, timeout, unit);
+        ObjectUtils.requireNonNulls(tasks, unit);
+
+        return Objects.requireNonNull(executor.invokeAll(tasks, timeout, unit));
     }
 
     /**
@@ -171,14 +199,19 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * @throws InterruptedException
      * @throws ExecutionException
+     * @throws NullPointerException
+     *             파라미터({@code tasks})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#invokeAny(java.util.Collection)
      */
+    @SuppressWarnings("null")
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks) throws InterruptedException, ExecutionException {
+        Objects.requireNonNull(tasks);
+
         return executor.invokeAny(tasks);
     }
 
@@ -189,17 +222,23 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param timeout
      * @param unit
      * @return
+     * 
      * @throws InterruptedException
      * @throws ExecutionException
      * @throws TimeoutException
+     * @throws NullPointerException
+     *             파라미터({@code tasks, unit})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#invokeAny(java.util.Collection, long, java.util.concurrent.TimeUnit)
      */
+    @SuppressWarnings("null")
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        ObjectUtils.requireNonNulls(tasks, unit);
+
         return executor.invokeAny(tasks, timeout, unit);
     }
 
@@ -209,7 +248,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#isShutdown()
      */
@@ -224,7 +263,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#isTerminated()
      */
@@ -237,7 +276,7 @@ public class FixedThreadPoolService implements ExecutorService {
      * Forwarding to a {@link ExecutorService} instance.
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#shutdown()
      */
@@ -253,13 +292,13 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#shutdownNow()
      */
     @Override
     public List<Runnable> shutdownNow() {
-        return executor.shutdownNow();
+        return Objects.requireNonNull(executor.shutdownNow());
     }
 
     /**
@@ -268,13 +307,19 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param task
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code task})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.util.concurrent.Callable)
      */
+    @SuppressWarnings("null")
     @Override
     public <T> Future<T> submit(Callable<T> task) {
+        Objects.requireNonNull(task);
+
         return executor.submit(task);
     }
 
@@ -284,13 +329,19 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param task
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code task})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.lang.Runnable)
      */
+    @SuppressWarnings("null")
     @Override
     public Future<?> submit(Runnable task) {
+        Objects.requireNonNull(task);
+
         return executor.submit(task);
     }
 
@@ -301,23 +352,29 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param result
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code tasks})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.lang.Runnable, java.lang.Object)
      */
+    @SuppressWarnings("null")
     @Override
-    public <T> Future<T> submit(Runnable task, T result) {
+    public <T> Future<T> submit(Runnable task, @Nullable T result) {
+        Objects.requireNonNull(task);
+
         return executor.submit(task, result);
     }
 
     /**
      * 현재 실행되고 있는 명령이 모두 종료한 후에 서비스를 종료시킨다.
      * 
-     * <BR>
+     * 
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ExecutorService#isTerminated()
      * @see ExecutorService#shutdown()
@@ -336,10 +393,8 @@ public class FixedThreadPoolService implements ExecutorService {
     /**
      * 현재 서비스를 종료 시킨다.
      * 
-     * <BR>
-     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ExecutorService#shutdownNow()
      */
@@ -349,7 +404,27 @@ public class FixedThreadPoolService implements ExecutorService {
         }
     }
 
+    /**
+     * 실행 중인 작업을 종료합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2012. 1. 20.         parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param pool
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code pool})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 1. 20.
+     * 
+     */
     public static void shutdownAndAwaitTermination(ExecutorService pool) {
+        Objects.requireNonNull(pool);
+
         pool.shutdown(); // Disable new tasks from being submitted
         try {
             // Wait a while for existing tasks to terminate

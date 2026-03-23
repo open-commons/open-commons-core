@@ -28,10 +28,18 @@
 */
 package open.commons.core.collection;
 
+import org.jspecify.annotations.Nullable;
+
+/**
+ * 
+ * @param <T>
+ * @since 2012. 7. 30
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class DefaultContainer<T> extends AContainer<T> {
 
     @Override
-    public boolean contains(T container, T contained) {
+    public boolean contains(@Nullable T container, @Nullable T contained) {
         return checkNull(container, contained) && container == contained;
     }
 

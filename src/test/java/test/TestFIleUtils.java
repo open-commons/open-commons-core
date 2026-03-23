@@ -37,7 +37,7 @@ import open.commons.core.utils.StringUtils;
  * 
  * @since 2023. 11. 15.
  * @version _._._
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TestFIleUtils {
 
@@ -54,7 +54,7 @@ public class TestFIleUtils {
      *
      * @since 2023. 11. 15.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TestFIleUtils() {
     }
@@ -89,7 +89,7 @@ public class TestFIleUtils {
         String data = "/home/parkjunhong/Downloads/test-open-commons => " + System.currentTimeMillis() + "\n";
 
         try {
-             FileUtils.write(abspath, data, false);
+            FileUtils.write(abspath, data, false);
         } catch (IOException e) {
             e.printStackTrace();
         }

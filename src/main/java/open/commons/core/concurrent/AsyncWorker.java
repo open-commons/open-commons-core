@@ -35,6 +35,7 @@ import open.commons.core.lang.DefaultRunnable;
  * @since 2022. 7. 12.
  * @version 2.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public abstract class AsyncWorker<E> extends DefaultRunnable {
 
@@ -53,7 +54,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public AsyncWorker() {
     }
@@ -72,7 +73,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public void add(E data) {
         if (data == null) {
@@ -87,7 +88,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * 
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.lang.DefaultRunnable#afterStop()
      */
@@ -110,7 +111,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public void clear() {
         this.queue.clear();
@@ -121,7 +122,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * 
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.lang.DefaultRunnable#close()
      */
@@ -141,11 +142,11 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * 2022. 7. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @return 첫번째 데이터. 비어 있는 경우 <code>null</code>.
+     * @return 첫번째 데이터. 비어 있는 경우 {@code null}.
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     protected final E get() {
         return this.queue.poll();
@@ -165,7 +166,7 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     protected final int size() {
         return this.queue.size();

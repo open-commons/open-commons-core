@@ -35,7 +35,7 @@ import java.util.Date;
  * <BR>
  * 
  * @since 2012. 03. 13.
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class FilenameUtils {
 

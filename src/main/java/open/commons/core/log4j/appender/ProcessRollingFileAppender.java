@@ -29,6 +29,7 @@ package open.commons.core.log4j.appender;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.Deflater;
@@ -55,6 +56,10 @@ import org.apache.logging.log4j.core.config.plugins.validation.constraints.Requi
 import org.apache.logging.log4j.core.net.Advertiser;
 import org.apache.logging.log4j.core.util.Booleans;
 import org.apache.logging.log4j.core.util.Integers;
+import org.jspecify.annotations.NullUnmarked;
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 동일한 실행파일의 프로세스별로 서로 다른 로그파일을 생성할 수 있도록 지원하는 클래스.<br>
@@ -75,6 +80,7 @@ import org.apache.logging.log4j.core.util.Integers;
  * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
  * 
  */
+@NullUnmarked
 @Plugin(name = ProcessRollingFileAppender.PLUGIN_NAME, category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
 public final class ProcessRollingFileAppender extends AbstractOutputStreamAppender<RollingFileManager> {
 
@@ -92,15 +98,16 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
 
     private static final int DEFAULT_BUFFER_SIZE = 8192;
 
-    private final String fileName;
+    private final @Nullable String fileName;
 
-    private final String filePattern;
+    private final @Nullable String filePattern;
 
-    private Object advertisement;
-    private final Advertiser advertiser;
+    private @Nullable Object advertisement;
+    private final @Nullable Advertiser advertiser;
 
-    private ProcessRollingFileAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter, final RollingFileManager manager, final String fileName,
-            final String filePattern, final boolean ignoreExceptions, final boolean immediateFlush, final Advertiser advertiser) {
+    private ProcessRollingFileAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter, final RollingFileManager manager,
+            final @Nullable String fileName, final @Nullable String filePattern, final boolean ignoreExceptions, final boolean immediateFlush,
+            final @Nullable Advertiser advertiser) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, null, manager);
         if (advertiser != null) {
             final Map<String, String> configuration = new HashMap<>(layout.getContentFormat());
@@ -120,7 +127,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      *            The LogEvent.
      */
     @Override
-    public void append(final LogEvent event) {
+    public void append(@SuppressWarnings("null") final LogEvent event) {
         getManager().checkRollover(event);
         super.append(event);
     }
@@ -130,7 +137,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * 
      * @return The file name.
      */
-    public String getFileName() {
+    public @Nullable String getFileName() {
         return fileName;
     }
 
@@ -139,7 +146,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * 
      * @return The file pattern.
      */
-    public String getFilePattern() {
+    public @Nullable String getFilePattern() {
         return filePattern;
     }
 
@@ -155,7 +162,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
     }
 
     @Override
-    public boolean stop(final long timeout, final TimeUnit timeUnit) {
+    public boolean stop(final long timeout, @SuppressWarnings("null") final TimeUnit timeUnit) {
         setStopping();
         final boolean stopped = super.stop(timeout, timeUnit, false);
         if (advertiser != null) {
@@ -203,6 +210,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @return A ProcessRollingFileAppender.
      * @deprecated Use {@link #newBuilder()}.
      */
+    @SuppressWarnings("null")
     @Deprecated
     public static <B extends Builder<B>> ProcessRollingFileAppender createAppender(
             // @formatter:off
@@ -249,12 +257,17 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @param context
      *            속성값
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code contextName 또는 contextHolder 또는 context})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 18.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean registerContext(String contextName, String contextHolder, String context) {
+        ObjectUtils.requireNonNulls(contextName, contextHolder, context);
+
         if (CUSTOM_CONTEXT_CONFIG.containsKey(contextName) || CUSTOM_CONTEXT_CONFIG.containsValue(contextHolder)) {
             return false;
         } else {
@@ -271,15 +284,16 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      *            The type to build
      * @since 2.7
      */
+    @NullUnmarked
     public static class Builder<B extends Builder<B>> extends AbstractOutputStreamAppender.Builder<B>
             implements org.apache.logging.log4j.core.util.Builder<ProcessRollingFileAppender> {
 
         @PluginBuilderAttribute
-        private String fileName;
+        private @Nullable String fileName;
 
         @PluginBuilderAttribute
         @Required
-        private String filePattern;
+        private @Nullable String filePattern;
 
         @PluginBuilderAttribute
         private boolean append = true;
@@ -289,31 +303,31 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
 
         @PluginElement("Policy")
         @Required
-        private TriggeringPolicy policy;
+        private @Nullable TriggeringPolicy policy;
 
         @PluginElement("Strategy")
-        private RolloverStrategy strategy;
+        private @Nullable RolloverStrategy strategy;
 
         @PluginBuilderAttribute
         private boolean advertise;
 
         @PluginBuilderAttribute
-        private String advertiseUri;
+        private @Nullable String advertiseUri;
 
         @PluginBuilderAttribute
         private boolean createOnDemand;
 
         @PluginBuilderAttribute
-        private String filePermissions;
+        private @Nullable String filePermissions;
 
         @PluginBuilderAttribute
-        private String fileOwner;
+        private @Nullable String fileOwner;
 
         @PluginBuilderAttribute
-        private String fileGroup;
+        private @Nullable String fileGroup;
 
         @Override
-        public ProcessRollingFileAppender build() {
+        public @Nullable ProcessRollingFileAppender build() {
             // Even though some variables may be annotated with @Required, we must still perform validation here for
             // call sites that build builders programmatically.
             final boolean isBufferedIo = isBufferedIo();
@@ -353,7 +367,13 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             updateFilePattern(PROCESS_CONTEXT, PROCESS_CONTEXT_HOLDER);
             // start - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
             CUSTOM_CONTEXT_CONFIG.forEach((ctx, holder) -> {
-                updateFilename(ctx, holder);
+                updateFilename(Objects.requireNonNull( //
+                        ctx //
+                ), Objects.requireNonNull(
+                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                        holder //
+                ));
                 updateFilePattern(ctx, holder);
             });
             // end - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
@@ -367,39 +387,44 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
 
             manager.initialize();
 
-            return new ProcessRollingFileAppender(getName(), layout, getFilter(), manager, fileName, filePattern, isIgnoreExceptions(), isImmediateFlush(),
-                    advertise ? getConfiguration().getAdvertiser() : null);
+            return new ProcessRollingFileAppender(Objects.requireNonNull( //
+                    getName() //
+            ), Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    layout //
+            ), getFilter(), manager, fileName, filePattern, isIgnoreExceptions(), isImmediateFlush(), advertise ? getConfiguration().getAdvertiser() : null);
         }
 
-        public String getAdvertiseUri() {
+        public @Nullable String getAdvertiseUri() {
             return advertiseUri;
         }
 
-        public String getFileGroup() {
+        public @Nullable String getFileGroup() {
             return fileGroup;
         }
 
-        public String getFileName() {
+        public @Nullable String getFileName() {
             return fileName;
         }
 
-        public String getFileOwner() {
+        public @Nullable String getFileOwner() {
             return fileOwner;
         }
 
-        public String getFilePattern() {
+        public @Nullable String getFilePattern() {
             return filePattern;
         }
 
-        public String getFilePermissions() {
+        public @Nullable String getFilePermissions() {
             return filePermissions;
         }
 
-        public TriggeringPolicy getPolicy() {
+        public @Nullable TriggeringPolicy getPolicy() {
             return policy;
         }
 
-        public RolloverStrategy getStrategy() {
+        public @Nullable RolloverStrategy getStrategy() {
             return strategy;
         }
 
@@ -419,6 +444,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             return locking;
         }
 
+        @SuppressWarnings("null") // apply to 'this.filename.replace(...)
         private void updateFilename(String contextName, String contextHolder) {
             if (this.fileName != null && this.fileName.contains(contextHolder)) {
                 String context = ThreadContext.get(contextName);
@@ -428,6 +454,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             }
         }
 
+        @SuppressWarnings("null") // apply to 'this.filePattern.replace(...)
         private void updateFilePattern(String contextName, String contextHolder) {
             if (this.filePattern != null && this.filePattern.contains(contextHolder)) {
                 String context = ThreadContext.get(contextName);

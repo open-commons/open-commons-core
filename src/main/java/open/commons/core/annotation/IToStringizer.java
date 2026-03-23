@@ -26,13 +26,22 @@
 */
 package open.commons.core.annotation;
 
+import org.jspecify.annotations.Nullable;
+
+/**
+ * 
+ * 
+ * @since 2012.11. 8.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public interface IToStringizer {
 
-    String fieldToString(Object fieldValue);
+    @Nullable
+    String fieldToString(@Nullable Object fieldValue);
 
     public static final class NullToStringizer implements IToStringizer {
         @Override
-        public String fieldToString(Object fieldValue) {
+        public @Nullable String fieldToString(@Nullable Object fieldValue) {
             String toString = null;
             if (fieldValue != null) {
                 toString = fieldValue.toString();

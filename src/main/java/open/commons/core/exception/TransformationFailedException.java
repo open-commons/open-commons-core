@@ -26,12 +26,19 @@
 
 package open.commons.core.exception;
 
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
+
 /**
  * 데이터 '형 변환' 도중 오류가 발생했을 때.
  * 
  * @since 2025. 9. 8.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TransformationFailedException extends RuntimeException {
 
@@ -55,10 +62,13 @@ public class TransformationFailedException extends RuntimeException {
      *            원본 데이터 유형
      * @param targetClass
      *            대상 데이터 유형
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass) {
         this(srcClass, targetClass, null, null, true, true);
@@ -79,12 +89,15 @@ public class TransformationFailedException extends RuntimeException {
      * @param targetClass
      *            대상 데이터 유형
      * @param message
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, String message) {
+    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message) {
         this(srcClass, targetClass, message, null, true, true);
     }
 
@@ -104,12 +117,15 @@ public class TransformationFailedException extends RuntimeException {
      *            대상 데이터 유형
      * @param message
      * @param cause
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, String message, Throwable cause) {
+    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause) {
         this(srcClass, targetClass, message, cause, true, true);
     }
 
@@ -131,36 +147,21 @@ public class TransformationFailedException extends RuntimeException {
      * @param cause
      * @param enableSuppression
      * @param writableStackTrace
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
+        ObjectUtils.requireNonNulls(srcClass, targetClass);
+
         super(message, cause, enableSuppression, writableStackTrace);
         this.srcClass = srcClass;
         this.targetClass = targetClass;
-    }
-
-    /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     * 
-     * @param cause
-     *
-     * @since 2025. 9. 8.
-     * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     */
-
-    public TransformationFailedException(Throwable cause) {
-        this(null, null, null, cause, true, true);
     }
 
     /**
@@ -181,7 +182,7 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, Throwable cause) {
         this(srcClass, targetClass, null, cause, true, true);
@@ -191,7 +192,7 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Throwable#getLocalizedMessage()
      */
@@ -200,9 +201,9 @@ public class TransformationFailedException extends RuntimeException {
 
         StringBuilder builder = new StringBuilder();
         builder.append("src=");
-        builder.append(this.srcClass != null ? this.srcClass.getName() : "null");
+        builder.append(this.srcClass.getName());
         builder.append(", target=");
-        builder.append(this.targetClass != null ? this.targetClass.getName() : "null");
+        builder.append(this.targetClass.getName());
 
         Object o = null;
         if ((o = getCause()) != null) {
@@ -214,14 +215,18 @@ public class TransformationFailedException extends RuntimeException {
             builder.append(o);
         }
 
-        return builder.toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
-    
+
     /**
      *
      * @since 2025. 9. 9.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Throwable#getMessage()
      */

@@ -33,6 +33,7 @@ import java.util.function.Supplier;
  * @since 2025. 8. 12.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface ThrowableRunner {

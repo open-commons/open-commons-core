@@ -27,11 +27,11 @@
 package open.commons.core.lang;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.MapUtils;
 
 /**
@@ -40,6 +40,7 @@ import open.commons.core.utils.MapUtils;
  * @since 2025. 6. 24.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ThreadLocalContextService {
 
@@ -60,13 +61,17 @@ public class ThreadLocalContextService {
      * </pre>
      *
      * @param type
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static void clear(Object type) {
-        AssertUtils2.notNull("Thread Context 의 식별정보는 null 일 수 없습니다.", type);
+        Objects.requireNonNull(type, "Thread Context 의 식별정보는 null 일 수 없습니다.");
+
         synchronized (mutex) {
             IThreadLocalContext tc = CONTEXTS.remove(type);
             if (tc != null) {
@@ -89,7 +94,7 @@ public class ThreadLocalContextService {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static void clearAll() {
         synchronized (mutex) {
@@ -111,15 +116,22 @@ public class ThreadLocalContextService {
      *
      * @param type
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
+    @SuppressWarnings("null") // apply to 's' as parameter of MapUtils.getOrDefault(...)
     public static IThreadLocalContext context(Object type) {
-        AssertUtils2.notNull("Thread Context 의 식별정보는 null 일 수 없습니다.", type);
+        Objects.requireNonNull(type, "Thread Context 의 식별정보는 null 일 수 없습니다.");
+
         synchronized (mutex) {
-            Supplier<IThreadLocalContext> s = () -> new ThreadLocalContext(ThreadLocal.withInitial(HashMap::new));
+            Supplier<IThreadLocalContext> s = () -> new ThreadLocalContext(Objects.requireNonNull( //
+                    ThreadLocal.withInitial(HashMap::new) //
+            ));
             return MapUtils.getOrDefault(CONTEXTS, type, s, true);
         }
     }

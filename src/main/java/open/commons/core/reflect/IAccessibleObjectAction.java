@@ -29,6 +29,12 @@ package open.commons.core.reflect;
 import java.lang.reflect.AccessibleObject;
 import java.util.Iterator;
 
+/**
+ * 
+ * @param <T>
+ * @since 2014. 9. 26.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public interface IAccessibleObjectAction<T extends AccessibleObject> {
 
     public Object act(Object instance, Iterator<T> itr);

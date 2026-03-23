@@ -43,7 +43,7 @@ import open.commons.core.function.Runner;
  * 
  * @since 2020. 8. 29.
  * @version 1.7.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  * 
  */
 public class FunctionUtils {
@@ -85,7 +85,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <S, T, U, V, W, X> Supplier<X> build(BiFunction<S, T, U> action, S param1, T param2 //
             , BiFunction<V, W, X> onSuccess, V osParam1, Function<U, W> osParam2 //
@@ -131,7 +131,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R, X> Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2 //
             , Function<R, X> onSuccess //
@@ -176,7 +176,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <S, T, U, X> Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam, Function<Throwable, X> onError) {
         return () -> {
@@ -216,7 +216,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R, X> Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
         return () -> {
@@ -254,7 +254,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 11.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
         return build(action, param, onSuccess, t -> t.getMessage());
@@ -285,7 +285,7 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 12.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess, Function<Throwable, String> onError) {
         return () -> {
@@ -328,7 +328,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <R, X> Supplier<X> build(Supplier<R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
         return () -> {
@@ -366,7 +366,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess) {
         return build(action, onSuccess, t -> t.getMessage());
@@ -397,7 +397,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <R> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
         return () -> {
@@ -438,7 +438,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess) {
         return build(param1, param2, action, onSuccess, t -> t.getMessage());
@@ -471,7 +471,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 10.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <R, T, U> Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
         return () -> {
@@ -506,7 +506,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <R> Result<R> getOnAsync(Future<Result<R>> future) {
         if (future == null) {
@@ -541,7 +541,7 @@ public class FunctionUtils {
      *
      * @since 2021. 5. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T ifThenElse(Supplier<Boolean> condition, Supplier<T> then, Supplier<T> elze) {
         return condition.get() ? then.get() : elze.get();
@@ -568,7 +568,7 @@ public class FunctionUtils {
      *
      * @since 2021. 5. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T ifThenElse(Supplier<Boolean> condition, T then, T elze) {
         return condition.get() ? then : elze;
@@ -591,7 +591,7 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')이 <code>null</code>이 아닌 경우 {@link Runner}('then') 를 실행합니다. <br>
+     * 전달받은 값('value')이 {@code null}이 아닌 경우 {@link Runner}('then') 를 실행합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -605,7 +605,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static void runIf(Object value, Runner then) {
         if (value != null) {
@@ -614,7 +614,7 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')이 <code>null</code>이 아닌 경우 {@link Runner}('then'), <code>null</code>인 경우 {@link Runner}('elze')를
+     * 전달받은 값('value')이 {@code null}이 아닌 경우 {@link Runner}('then'), {@code null}인 경우 {@link Runner}('elze')를
      * 실행합니다. <br>
      * 
      * <pre>
@@ -630,7 +630,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static void runIf(Object value, Runner then, Runner elze) {
         if (value != null) {
@@ -641,7 +641,7 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')이 <code>null</code>이 아닌 경우 {@link Consumer}('then')가 처리합니다. <br>
+     * 전달받은 값('value')이 {@code null}이 아닌 경우 {@link Consumer}('then')가 처리합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -656,7 +656,7 @@ public class FunctionUtils {
      *
      * @since 2025. 8. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> void runIf(T value, Consumer<T> then) {
         if (value != null) {
@@ -665,7 +665,7 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')에 대한 검증결과({@link Predicate}) 값이 <code>true</code> 경우 {@link Consumer}('then')가 처리합니다. <br>
+     * 전달받은 값('value')에 대한 검증결과({@link Predicate}) 값이 {@code true} 경우 {@link Consumer}('then')가 처리합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -681,7 +681,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> void runIf(T value, Predicate<T> p, Consumer<T> then) {
         if (p.test(value)) {
@@ -690,7 +690,7 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')에 대한 검증결과({@link Predicate}) 값이 <code>true</code> 경우 {@link Consumer}('then'), <code>false</code>인
+     * 전달받은 값('value')에 대한 검증결과({@link Predicate}) 값이 {@code true} 경우 {@link Consumer}('then'), {@code false}인
      * 경우 {@link Consumer}('elze')가 처리합니다. <br>
      * 
      * <pre>
@@ -708,7 +708,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> void runIf(T value, Predicate<T> p, Consumer<T> then, Consumer<T> elze) {
         if (p.test(value)) {
@@ -739,7 +739,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run) {
         return test.test(value) ? run.apply(value) : null;
@@ -769,7 +769,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
         return test.test(value) ? run.apply(value) : defaultValue;
@@ -798,7 +798,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
         return test.test(value) ? run.apply(value) : defaultValue.get();
@@ -826,7 +826,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     // public static <T, R> R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
     // return test.test(value) ? run.apply(value) : defaultValue;
@@ -857,7 +857,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run) {
         return test.test(value) ? run.apply(param.apply(value)) : null;
@@ -890,7 +890,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
         return test.test(value) ? run.apply(param.apply(value)) : defaultValue;
@@ -922,7 +922,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 7. 22.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
         return test.test(value) ? run.apply(param.apply(value)) : defaultValue.get();
@@ -954,7 +954,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     // public static <T, U, R> R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R
     // defaultValue) {
@@ -990,7 +990,7 @@ public class FunctionUtils {
      *            실행 함수
      *
      * @since 2020. 8. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U> void runIf(T value, Predicate<T> test, Supplier<U> param, Consumer<U> run) {
         if (test.test(value)) {
@@ -1022,7 +1022,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
         return test.test(value) ? run.apply(param.get()) : null;
@@ -1055,7 +1055,7 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {
         return test.test(value) ? run.apply(param.get()) : defaultValue;
@@ -1087,7 +1087,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 7. 21.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
         return test.test(value) ? run.apply(param.get()) : defaultValue.get();
@@ -1119,7 +1119,7 @@ public class FunctionUtils {
      * @return
      *
      * @since 2020. 6. 14.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     // public static <T, U, R> R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R
     // defaultValue) {
@@ -1149,7 +1149,7 @@ public class FunctionUtils {
      *            실행 함수
      *
      * @since 2020. 8. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U> void runIf(T value, Predicate<T> test, U param, Consumer<U> run) {
         if (test.test(value)) {
@@ -1168,7 +1168,7 @@ public class FunctionUtils {
      * </pre>
      * 
      * @param filterIn
-     *            (positive) 데이터 검증. <code>true</code>인 경우 포함된다.
+     *            (positive) 데이터 검증. {@code true}인 경우 포함된다.
      * @param actions
      *            기능 정의
      *
@@ -1178,7 +1178,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <R> Optional<R> runOnAsync(Predicate<R> filterIn, Supplier<R>... actions) {
@@ -1205,7 +1205,7 @@ public class FunctionUtils {
      * </pre>
      * 
      * @param filterIn
-     *            (positive) 데이터 검증. <code>true</code>인 경우 포함된다.
+     *            (positive) 데이터 검증. {@code true}인 경우 포함된다.
      * @param actions
      *            기능 정의
      *
@@ -1215,7 +1215,7 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 7.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <R> Optional<R> runOnSync(Predicate<R> filterIn, Supplier<R>... actions) {

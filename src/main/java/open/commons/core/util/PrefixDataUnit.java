@@ -34,25 +34,32 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 거리/무게 등 여러 가지 단위에 대한 접두어.<br>
- * 용량 데이터 타입을 <b><code>long({@link Long})</code></b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
+ * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
  * 
  * @since 2021. 11. 5.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public enum PrefixDataUnit {
     /**
      * base = 1<br>
      * <ul>
      * <li>UP: {@link #KILO}
-     * <li>DOWN: <code>null</code>
+     * <li>DOWN: {@code null}
      * </ul>
      */
-    BASE("", BigDecimal.valueOf(10).pow(0)),
+    BASE("", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(0)//
+    )),
     /**
      * <b>K</b>ilo, K = 10 ^ 3<br>
      * <ul>
@@ -60,7 +67,10 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #BASE}
      * </ul>
      */
-    KILO("K", BigDecimal.valueOf(10).pow(3)),
+    KILO("K", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(3)//
+    )),
     /**
      * <b>M</b>ega, M = 10 ^ 6<br>
      * <ul>
@@ -68,7 +78,10 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #KILO}
      * </ul>
      */
-    MEGA("M", BigDecimal.valueOf(10).pow(6)),
+    MEGA("M", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(6)//
+    )),
     /**
      * <b>G</b>iga, G = 10 ^ 9<br>
      * <ul>
@@ -76,7 +89,10 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #MEGA}
      * </ul>
      */
-    GIGA("G", BigDecimal.valueOf(10).pow(9)),
+    GIGA("G", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(9)//
+    )),
     /**
      * <b>T</b>era, T = 10 ^ 12<br>
      * <ul>
@@ -84,7 +100,10 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #GIGA}
      * </ul>
      */
-    TERA("T", BigDecimal.valueOf(10).pow(12)),
+    TERA("T", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(12)//
+    )),
     /**
      * <b>P</b>eta, P = 10 ^ 15<br>
      * <ul>
@@ -92,7 +111,10 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #TERA}
      * </ul>
      */
-    PETA("P", BigDecimal.valueOf(10).pow(15)),
+    PETA("P", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(15)//
+    )),
     /**
      * <b>E</b>xa, E = 10 ^ 18<br>
      * <ul>
@@ -100,7 +122,10 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #PETA}
      * </ul>
      */
-    EXA("E", BigDecimal.valueOf(10).pow(18)),
+    EXA("E", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(18)//
+    )),
     /**
      * <b>Z</b>etta, Z = 10 ^ 21<br>
      * <ul>
@@ -108,15 +133,21 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #EXA}
      * </ul>
      */
-    ZETTA("Z", BigDecimal.valueOf(10).pow(21)),
+    ZETTA("Z", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(21)//
+    )),
     /**
      * <b>Y</b>otta, Y = 10 ^ 24<br>
      * <ul>
-     * <li>UP: <code>null</code>
+     * <li>UP: {@code null}
      * <li>DOWN: {@link #ZETTA}
      * </ul>
      */
-    YOTTA("Y", BigDecimal.valueOf(10).pow(24)),
+    YOTTA("Y", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            BigDecimal.valueOf(10).pow(24)//
+    )),
     //
     ;
 
@@ -128,11 +159,19 @@ public enum PrefixDataUnit {
         List<PrefixDataUnit> units = Arrays.asList(values());
         // 오름차순
         Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num));
-        BOTTOM_UP = Collections.unmodifiableList(units);
+        BOTTOM_UP = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Collections.unmodifiableList(units) //
+        );
         // 내림차순
         units = Arrays.asList(values());
         Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num) * -1);
-        TOP_DOWN = Collections.unmodifiableList(units);
+        TOP_DOWN = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Collections.unmodifiableList(units) //
+        );
     }
 
     /** 표기 문자열 */
@@ -141,8 +180,13 @@ public enum PrefixDataUnit {
     private BigDecimal num;
 
     private PrefixDataUnit(String str, BigDecimal num) {
+
         this.str = str;
-        this.num = num.setScale(10, RoundingMode.HALF_UP);
+        this.num = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                num.setScale(10, RoundingMode.HALF_UP) //
+        );
     }
 
     /**
@@ -160,15 +204,24 @@ public enum PrefixDataUnit {
      * @param unit
      *            변환 단위
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #convertHasRemain(long, PrefixDataUnit)
      */
     public BigDecimal convert(long size, PrefixDataUnit unit) {
-        return convert(size, unit, false)[0];
+        Objects.requireNonNull(unit);
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                convert(size, unit, false)[0] //
+        );
     }
 
     /**
@@ -188,12 +241,17 @@ public enum PrefixDataUnit {
      * @param alsoSubUnit
      *            하위 단위 포함 변환 여부.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public BigDecimal[] convert(long size, PrefixDataUnit unit, boolean alsoSubUnit) {
+        Objects.requireNonNull(unit);
+
         return alsoSubUnit //
                 ? convert(size, unit, PrefixDataUnit.BASE) //
                 : convert(size, unit, unit);
@@ -216,12 +274,17 @@ public enum PrefixDataUnit {
      * @param littleUnit
      *            변환범위 끝 단위.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bigUnit 또는 littleUnit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public BigDecimal[] convert(long size, PrefixDataUnit bigUnit, PrefixDataUnit littleUnit) {
+        ObjectUtils.requireNonNulls(bigUnit, littleUnit);
+
         if (bigUnit.num.compareTo(littleUnit.num) < 0) {
             throw new IllegalArgumentException(String.format("변환단위가 잘못되었습니다. big=%s, little=%s", bigUnit, littleUnit));
         }
@@ -247,7 +310,11 @@ public enum PrefixDataUnit {
 
         converted.add(bytes.divide(units.get(i).num));
 
-        return converted.toArray(new BigDecimal[0]);
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                converted.toArray(new BigDecimal[0]) //
+        );
     }
 
     /**
@@ -260,36 +327,24 @@ public enum PrefixDataUnit {
      * 2021. 11. 5.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @return 하위 단위. 현재 단위가 가장 하위인 경우 <code>null</code> 반환.
+     * @return 하위 단위. 현재 단위가 가장 하위인 경우 {@code null} 반환.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public PrefixDataUnit down() {
-        switch (this) {
-            case BASE:
-                return null;
-            case KILO:
-                return BASE;
-            case MEGA:
-                return KILO;
-            case GIGA:
-                return MEGA;
-            case TERA:
-                return GIGA;
-            case PETA:
-                return TERA;
-            case EXA:
-                return PETA;
-            case ZETTA:
-                return EXA;
-            case YOTTA:
-                return ZETTA;
-            default:
-                // unreachable code
-                throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'");
-        }
+        return switch (this) {
+            case BASE -> BASE;
+            case KILO -> BASE;
+            case MEGA -> KILO;
+            case GIGA -> MEGA;
+            case TERA -> GIGA;
+            case PETA -> TERA;
+            case EXA -> PETA;
+            case ZETTA -> EXA;
+            case YOTTA -> ZETTA;
+        };
     }
 
     /**
@@ -297,7 +352,7 @@ public enum PrefixDataUnit {
      * @return a string of an instance of {@link PrefixDataUnit}
      *
      * @since 2021. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public String get() {
         return this.str;
@@ -305,13 +360,17 @@ public enum PrefixDataUnit {
 
     /**
      * @since 2021. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Enum#toString()
      */
     @Override
     public String toString() {
-        return String.join(":", name(), this.str, this.num.toString());
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                String.join(":", name(), this.str, this.num.toString()) //
+        );
     }
 
     /**
@@ -324,36 +383,24 @@ public enum PrefixDataUnit {
      * 2021. 11. 5.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @return 상위 단위. 현재 단위가 가장 상위인 경우 <code>null</code> 반환.
+     * @return 상위 단위. 현재 단위가 가장 상위인 경우 {@code null} 반환.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public PrefixDataUnit up() {
-        switch (this) {
-            case BASE:
-                return KILO;
-            case KILO:
-                return MEGA;
-            case MEGA:
-                return GIGA;
-            case GIGA:
-                return TERA;
-            case TERA:
-                return PETA;
-            case PETA:
-                return EXA;
-            case EXA:
-                return ZETTA;
-            case ZETTA:
-                return YOTTA;
-            case YOTTA:
-                return null;
-            default:
-                // unreachable code
-                throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'");
-        }
+        return switch (this) {
+            case BASE -> KILO;
+            case KILO -> MEGA;
+            case MEGA -> GIGA;
+            case GIGA -> TERA;
+            case TERA -> PETA;
+            case PETA -> EXA;
+            case EXA -> ZETTA;
+            case ZETTA -> YOTTA;
+            case YOTTA -> YOTTA;
+        };
     }
 
     /**
@@ -364,7 +411,7 @@ public enum PrefixDataUnit {
      * @return an instance of {@link PrefixDataUnit}
      *
      * @since 2021. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see #get(String, boolean)
      */
@@ -374,37 +421,38 @@ public enum PrefixDataUnit {
 
     /**
      *
-     * @param str
+     * @param unitStr
      *            a string for an instance of {@link PrefixDataUnit}.
      * @param ignoreCase
-     *            ignore <code><b>case-sensitive</b></code> or not.
+     *            ignore {@code <b>case-sensitive</b>} or not.
      *
      * @return an instance of {@link PrefixDataUnit}
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code unitSTr})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static PrefixDataUnit get(String str, boolean ignoreCase) {
-
-        if (str == null) {
-            throw new IllegalArgumentException("'str' MUST NOT be null. input: " + str);
-        }
+    public static PrefixDataUnit get(String unitStr, boolean ignoreCase) {
+        Objects.requireNonNull(unitStr);
 
         if (ignoreCase) {
             for (PrefixDataUnit value : values()) {
-                if (value.str.equalsIgnoreCase(str)) {
+                if (value.str.equalsIgnoreCase(unitStr)) {
                     return value;
                 }
             }
         } else {
             for (PrefixDataUnit value : values()) {
-                if (value.str.equals(str)) {
+                if (value.str.equals(unitStr)) {
                     return value;
                 }
             }
         }
 
-        throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + str);
+        throw new IllegalArgumentException(
+                "Unexpected 'str' value of 'BinaryDataUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + unitStr);
     }
 
     private static List<String> values0() {

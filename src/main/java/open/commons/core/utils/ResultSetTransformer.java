@@ -72,7 +72,7 @@ import open.commons.core.exception.TransformationFailedException;
  * 
  * @since 2025. 9. 8.
  * @version 2.1.0
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ResultSetTransformer {
 
@@ -87,7 +87,7 @@ public class ResultSetTransformer {
     }
 
     /**
-     * <code>(setterMH bound, notNullable, colName, target, value) -> void</code> <br>
+     * {@code (setterMH bound, notNullable, colName, target, value) -> void} <br>
      * 
      * <pre>
      * [개정이력]
@@ -104,7 +104,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static void applyNullPolicy(MethodHandle setter, boolean nullable, String columnName, Object target, Object value) {
@@ -164,7 +164,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static Object boolWasNullBoolean(ResultSet rs, int idx) throws SQLException {
@@ -213,7 +213,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static Function<ResultSet, Object> buildRowMapper(Class<?> entityType, ResultSetMetaData md, List<String> tags) {
 
@@ -340,7 +340,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle constructorMH(MethodHandles.Lookup lookup, Class<?> cls) throws NoSuchMethodException, IllegalAccessException {
         MethodHandle h = lookup.findConstructor(cls, MethodType.methodType(void.class)); // ()V
@@ -418,7 +418,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static Object materialize(MethodHandle ctor, MethodHandle[] steps, ResultSet rs) {
@@ -452,7 +452,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle mhObj(MethodHandles.Lookup lookup, String name, Class<?> returnType) throws NoSuchMethodException, IllegalAccessException {
         MethodHandle h = lookup.findVirtual(ResultSet.class //
@@ -486,7 +486,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle mhWrapFromBigDecimal(MethodHandles.Lookup lookup, String convStaticName) throws NoSuchMethodException, IllegalAccessException {
         // reader: (ResultSet,int)->Object (BigDecimal)
@@ -515,7 +515,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle mhWrapFromPrimWasNull(MethodHandles.Lookup lookup, String staticName) throws NoSuchMethodException, IllegalAccessException {
         // 직접 구현
@@ -546,7 +546,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unchecked")
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
@@ -602,7 +602,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static Object readAsByteArrayInputStream(ResultSet rs, int idx) throws SQLException {
@@ -637,7 +637,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle readerForType(MethodHandles.Lookup lookup, Class<?> columnType) throws NoSuchMethodException, IllegalAccessException {
 
@@ -761,7 +761,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static List<ColumnPlan> scanColumnPlans(Class<?> type) {
         final List<ColumnPlan> list = new ArrayList<>();
@@ -808,7 +808,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static Class<?> unwrap(Class<?> c) {
         if (c == Integer.class)
@@ -847,7 +847,7 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle wrapIgnoreSQLException(MethodHandles.Lookup lookup, MethodHandle step) throws NoSuchMethodException, IllegalAccessException {
         MethodHandle wrapper = lookup.findStatic(ResultSetTransformer.class, "tryIgnoreSql", MethodType.methodType(void.class, MethodHandle.class, Object.class, ResultSet.class));

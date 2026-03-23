@@ -39,18 +39,23 @@ import java.nio.file.WatchEvent.Kind;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentSkipListSet;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.concurrent.Mutex;
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.IOUtils;
+import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.ThreadUtils;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 5. 23.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyListener {
@@ -131,7 +136,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         sb.append("              Default is infinite.\n");
         sb.append(" -vd        : set enable directory verbose.\n");
 
-        HELP_MESSAGE = sb.toString();
+        HELP_MESSAGE = Objects.requireNonNull(sb.toString());
     }
 
     static String vfLength = "";
@@ -160,18 +165,18 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
     private Mutex fcwMutex = new Mutex("FILE_CONTEXT_WRITER");
     private Set<IFileContextWriter> fcWriters = new HashSet<IFileContextWriter>();
-    private IFileContextWriter defaultFcWriter;
+    private @Nullable IFileContextWriter defaultFcWriter;
 
     private Mutex wsMutex = new Mutex("WATCH_SERVICE");
     private ConcurrentHashMap<String, DirectoryWatchService> watchServices = new ConcurrentHashMap<String, DirectoryWatchService>();
     private ConcurrentHashMap<String, Boolean> wsRecursive = new ConcurrentHashMap<String, Boolean>();
 
     /** file modify handler */
-    private FileModifyHandler fmHandler;
+    private @Nullable FileModifyHandler fmHandler;
     /** file create handler */
-    private FileCreateHandler fcHandler;
+    private @Nullable FileCreateHandler fcHandler;
     /** file delete handler */
-    private FileDeleteHandler fdHandler;
+    private @Nullable FileDeleteHandler fdHandler;
 
     private boolean running = true;
 
@@ -186,13 +191,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            writer to add.
      * 
      * @return whether to add or not.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code writer})가 {@code null}인 경우 발생.
      */
     public boolean addFileContextWriter(IFileContextWriter writer) {
+        Objects.requireNonNull(writer);
+
         boolean added = false;
-        if (writer != null) {
-            synchronized (fcwMutex) {
-                added = fcWriters.add(writer);
-            }
+        synchronized (fcwMutex) {
+            added = fcWriters.add(writer);
         }
 
         return added;
@@ -217,10 +225,13 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
-    public int compareTo(IFileModifyListener o) {
+    public int compareTo(@Nullable IFileModifyListener o) {
+        if (o == null)
+            return -1;
         return name().compareTo(o.name());
     }
 
+    @Nullable
     FileContext getContext() {
         FileContext context = null;
         while (true) {
@@ -242,7 +253,28 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         return running ? context : null;
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2013. 5. 23.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param args
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code args})가 {@code null}인 경우 발생.
+     *
+     * @since 2013. 5. 23.
+     */
     public boolean init(String[] args) {
+        Objects.requireNonNull(args);
+
         String arg = null;
         boolean ready = false;
         for (int i = 0; i <= args.length - 1;) {
@@ -250,7 +282,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
             // parse '-d'
             if (ARGS_DIR.equals(arg)) {
-                setConfig(CONFIG_DIRS, args[i + 1]);
+                setConfig(CONFIG_DIRS, Objects.requireNonNull(args[i + 1]));
 
                 ready = true;
 
@@ -259,7 +291,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             } else
             // parse '-f'
             if (ARGS_FILE.equals(arg)) {
-                setConfig(CONFIG_FILES, args[i + 1]);
+                setConfig(CONFIG_FILES, Objects.requireNonNull(args[i + 1]));
 
                 ready = true;
 
@@ -268,7 +300,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             } else
             // parse '-o'
             if (ARGS_OUTPUT_FILES.equals(arg)) {
-                setConfig(CONFIG_OUTPUT_FILES, args[i + 1]);
+                setConfig(CONFIG_OUTPUT_FILES, Objects.requireNonNull(args[i + 1]));
 
                 i += 2;
             } else
@@ -294,7 +326,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             if (arg.startsWith(ARGS_VF)) {
                 String[] vf = arg.split(":");
                 if (vf.length > 1) {
-                    setConfig(CONFIG_VERBOSE_FILENAME, vf[1]);
+                    setConfig(CONFIG_VERBOSE_FILENAME, Objects.requireNonNull(vf[1]));
                 }
 
                 i++;
@@ -344,7 +376,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     @Override
     public String name() {
-        return toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                toString() //
+        );
     }
 
     /**
@@ -367,11 +403,17 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param files
      *            files or files in directories to register.
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * 
      * @see {@link #register(File)}
      */
+    @SuppressWarnings("null")
     public void register(File... files) throws IOException {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         for (File file : files) {
             register(file);
         }
@@ -382,12 +424,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param file
      *            directory to register
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * 
      * @see {@link #registerFile(File, boolean)}<br>
      *      {@link #registerDirectory(File)}
      */
     public void register(File file) throws IOException {
+        Objects.requireNonNull(file);
 
         if (file.isFile()) {
             registerFile(file, true);
@@ -402,8 +448,13 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param files
      *            files or files in directories to register.
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      */
+    @SuppressWarnings("null")
     public void register(String... files) throws IOException {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         for (String file : files) {
             register(file);
         }
@@ -415,10 +466,14 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param file
      *            fully qualified path to register.
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * 
      * @see {@link #register(File)}
      */
     public void register(String file) throws IOException {
+        Objects.requireNonNull(file);
+
         register(new File(file));
     }
 
@@ -430,10 +485,14 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param directories
      *            directories to register.
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * 
      * @see {@link #registerDirectory(File, boolean)}
      */
     public void registerDirectory(boolean recursive, File... directories) throws IOException {
+        ObjectUtils.requireNonNulls((Object[]) directories);
+
         for (File dir : directories) {
             if (dir.isDirectory()) {
                 registerDirectory(dir, recursive);
@@ -446,10 +505,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param directory
      *            directory to contain files to register.
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
+     * 
      * @see {@link #registerDirectory(File, boolean)}
      */
     public void registerDirectory(File directory) throws IOException {
+        Objects.requireNonNull(directory);
+
         registerDirectory(directory, false);
     }
 
@@ -458,11 +523,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param directories
      *            directories to register
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우.
      * 
      * @see {@link #registerDirectory(boolean, File...)}
      */
     public void registerDirectory(File... directories) throws IOException {
+        ObjectUtils.requireNonNulls((Object[]) directories);
+
         for (File dir : directories) {
             if (dir.isDirectory()) {
                 registerDirectory(dir);
@@ -478,19 +548,24 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param recursive
      *            whether sub-directories is registered or not.
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * 
      * @see {@link #register(File)}<br>
      *      {@link #registerDirectory(boolean, File...)}<br>
      *      {@link #registerFile(boolean, File...)}
      */
     public void registerDirectory(File directory, boolean recursive) throws IOException {
+        Objects.requireNonNull(directory);
 
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory + " is not a directory.");
         }
 
         // watch service
-        DirectoryWatchService service = registerWatchService(directory.getCanonicalPath(), recursive, false);
+        DirectoryWatchService service = registerWatchService(Objects.requireNonNull( //
+                directory.getCanonicalPath() //
+        ), recursive, false);
 
         if (service.isDedicated()) {
             service.setDedicated(false);
@@ -502,7 +577,10 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         directory.listFiles(new FileFilter() {
 
             @Override
-            public boolean accept(File pathname) {
+            public boolean accept(@Nullable File pathname) {
+                if (pathname == null)
+                    return false;
+
                 if (pathname.isFile()) {
                     subFiles.add(pathname);
                 } else if (pathname.isDirectory()) {
@@ -513,10 +591,20 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             }
         });
 
-        registerFile(false, subFiles.toArray(new File[0]));
+        // files
+        registerFile(false, Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                subFiles.toArray(new File[0]) //
+        ));
 
+        // directories
         if (recursive) {
-            registerDirectory(true, subDirs.toArray(new File[0]));
+            registerDirectory(true, Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    subDirs.toArray(new File[0]) //
+            ));
         }
     }
 
@@ -527,25 +615,37 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            등록할 디렉토리
      * @param recursive
      *            하위 디렉토리 포함 여부
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      * 
      * @see {@link #registerDirectory(File, boolean)}
      */
     public void registerDirectory(String dir, boolean recursive) throws IOException {
-        registerDirectory(new File(dir).getCanonicalFile(), recursive);
+        Objects.requireNonNull(dir);
+
+        registerDirectory(Objects.requireNonNull( //
+                new File(dir).getCanonicalFile() //
+        ), recursive);
     }
 
     /**
      * Register files. Allow not directory.
      * 
      * @param dedicated
-     *            TODO
      * @param files
      *            to register.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우.
+     * 
      * 
      * @see {@link #register(File)}
      */
     public void registerFile(boolean dedicated, File... files) {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         for (File file : files) {
             if (file.isFile()) {
                 registerFile(file, dedicated);
@@ -557,13 +657,17 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * Register files. Allow not a directory.
      * 
      * @param dedicated
-     *            TODO
      * @param files
      *            to register.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우.
      * 
      * @see {@link #register(File)}
      */
     public void registerFile(boolean dedicated, String... files) {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         for (String file : files) {
             registerFile(new File(file), dedicated);
         }
@@ -575,14 +679,21 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param file
      *            file to register.
      * @param dedicated
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     public void registerFile(File file, boolean dedicated) {
+        Objects.requireNonNull(file);
+
         if (!file.isFile()) {
             throw new IllegalArgumentException(file + " is not a file.");
         }
 
         // register a watch service to directory contains this file.
-        DirectoryWatchService service = registerWatchService(file.getParentFile().getAbsolutePath(), false, dedicated);
+        DirectoryWatchService service = registerWatchService(Objects.requireNonNull( //
+                file.getParentFile().getAbsolutePath() //
+        ), false, dedicated);
         if (service.isDedicated()) {
             service.addFiles(file.getAbsolutePath());
         }
@@ -608,39 +719,56 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param file
      * @param dedicated
-     *            TODO
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * 
      * @see @ link #registerFile(File)}
      */
     public void registerFile(String file, boolean dedicated) throws IOException {
-        registerFile(new File(file).getCanonicalFile(), dedicated);
+        Objects.requireNonNull(file);
+
+        registerFile(Objects.requireNonNull( //
+                new File(file).getCanonicalFile() //
+        ), dedicated);
     }
 
     /**
      * Register
      * 
      * @param path
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
      * 
      * @see {@link #register(File)}
      */
     public void registerPath(Path path) throws IOException {
-        register(path.toFile());
+        Objects.requireNonNull(path);
+
+        register(Objects.requireNonNull( //
+                path.toFile() //
+        ));
     }
 
     /**
      * 
      * @param directory
-     *            <b><code>NOT nullable</code></b>.
+     *            <b>{@code NOT nullable}</b>.
      * @param recursive
      *            whether monitor sub-directories are current or newly or not.
      * @param dedicated
      *            whether monitor only one file or not.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * @return
      * @return
      */
     private DirectoryWatchService registerWatchService(String directory, boolean recursive, boolean dedicated) {
+        Objects.requireNonNull(directory);
 
         DirectoryWatchService service = null;
 
@@ -668,8 +796,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param writers
      *            writers to remove.
+     * @throws NullPointerException
+     *             파라미터({@code writers})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      */
     public void removeFileContextWriter(IFileContextWriter... writers) {
+        ObjectUtils.requireNonNulls((Object[]) writers);
+
         for (IFileContextWriter writer : writers) {
             if (writer != null) {
                 removeFileContextWriter(writer);
@@ -685,7 +817,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @return whether to remove or not.
      */
-    public boolean removeFileContextWriter(IFileContextWriter writer) {
+    public boolean removeFileContextWriter(@Nullable IFileContextWriter writer) {
         boolean removed = false;
 
         if (writer != null) {
@@ -735,7 +867,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         Thread.currentThread().setName(otn);
     }
 
-    public void setConfig(String key, Object value) {
+    public void setConfig(@Nullable String key, Object value) {
         if (key != null) {
             configs.put(key, value);
         }
@@ -748,7 +880,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         for (int i = 0; i < dirArr.length; i++) {
             dirArgs = dirArr[i].trim().split("[" + FmConstants.DIR_OPT_DELIMITER + "]");
 
-            registerDirectory(dirArgs[0].trim() // directory
+            registerDirectory(Objects.requireNonNull(dirArgs[0].trim()) // directory
                     , dirArgs.length > 1 ? // check recursive
                             dirArgs[1].equals("0") ? false : true : false);
         }
@@ -758,7 +890,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         String[] fileArr = files.split("[" + FmConstants.FILE_DELIMITER + "]");
 
         for (int i = 0; i < fileArr.length; i++) {
-            registerFile(fileArr[i].trim(), true);
+            registerFile(Objects.requireNonNull(fileArr[i].trim()), true);
         }
     }
 
@@ -860,7 +992,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see open.commons.core.unix.tool.IRunnable#stop(String)
      */
     @Override
-    public void stop(String pathname) {
+    public void stop(@Nullable String pathname) {
 
         running = false;
 
@@ -896,12 +1028,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param file
      *            directory to unregister
      * 
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
+     * 
      * 
      * @see {@link #unregisterFile(File)}<br>
      *      {@link #unregisterDirectory(File)}
      */
     public void unregister(File file) throws FileNotFoundException {
+        Objects.requireNonNull(file);
 
         if (file.isFile()) {
             unregisterFile(file);
@@ -916,11 +1052,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param file
      *            fully qualified path to unregister.
      * 
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregister(File)}
      */
     public void unregister(String file) throws FileNotFoundException {
+        Objects.requireNonNull(file);
+
         unregister(new File(file));
     }
 
@@ -932,11 +1072,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param directories
      *            directories to unregister.
      * 
+     * @throws NullPointerException
+     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregisterDirectory(File, boolean)}
      */
     public void unregisterDirectory(boolean recursive, File... directories) throws FileNotFoundException {
+        ObjectUtils.requireNonNulls((Object[]) directories);
+
         for (File dir : directories) {
             if (dir.isDirectory()) {
                 unregisterDirectory(dir, recursive);
@@ -949,6 +1093,9 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param directory
      *            directory to contain files to unregister.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      */
     public void unregisterDirectory(File directory) throws FileNotFoundException {
@@ -961,11 +1108,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param directories
      *            directories to unregister
      * 
+     * @throws NullPointerException
+     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregisterDirectory(boolean, File...)}
      */
+    @SuppressWarnings("null") // apply to 'dir'
     public void unregisterDirectory(File... directories) throws FileNotFoundException {
+        ObjectUtils.requireNonNulls((Object[]) directories);
+
         for (File dir : directories) {
             unregisterDirectory(dir);
         }
@@ -979,6 +1131,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param recursive
      *            whether sub-directories is unregistered or not.
      * 
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregister(File)}<br>
@@ -986,13 +1140,14 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *      {@link #unregisterFile(File...)}
      */
     public void unregisterDirectory(File directory, boolean recursive) throws FileNotFoundException {
+        Objects.requireNonNull(directory);
 
         if (directory.isFile()) {
             throw new IllegalArgumentException(directory + " is not a directory.");
         }
 
         // watch servicie
-        unregisterWatchService(directory.getAbsolutePath());
+        unregisterWatchService(Objects.requireNonNull(directory.getAbsolutePath()));
 
         final ArrayList<File> subFiles = new ArrayList<File>();
         final ArrayList<File> subDirs = new ArrayList<File>();
@@ -1000,7 +1155,10 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         directory.listFiles(new FileFilter() {
 
             @Override
-            public boolean accept(File pathname) {
+            public boolean accept(@Nullable File pathname) {
+                if (pathname == null)
+                    return false;
+
                 if (pathname.isFile()) {
                     subFiles.add(pathname);
                 } else {
@@ -1011,10 +1169,16 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             }
         });
 
-        unregisterFile(subFiles.toArray(new File[0]));
+        unregisterFile(Objects.requireNonNull( //
+                subFiles.toArray(new File[0]) //
+        ));
 
         if (recursive) {
-            unregisterDirectory(true, subDirs.toArray(new File[0]));
+            unregisterDirectory(true, Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    subDirs.toArray(new File[0]) //
+            ));
         }
     }
 
@@ -1026,11 +1190,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param recursive
      *            하위 디렉토리 포함 여부
      * 
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregisterDirectory(File, boolean)}
      */
     public void unregisterDirectory(String dir, boolean recursive) throws FileNotFoundException {
+        Objects.requireNonNull(dir);
+
         unregisterDirectory(new File(dir), recursive);
     }
 
@@ -1053,9 +1221,13 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param files
      *            to unregister.
      * 
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * @see {@link #unregister(File)}
      */
     public void unregisterFile(File... files) {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         for (File file : files) {
             if (file.isFile()) {
                 unregisterFile(file);
@@ -1068,8 +1240,13 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param file
      *            file to unregister.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     public void unregisterFile(File file) {
+        Objects.requireNonNull(file);
+
         if (file.isDirectory()) {
             throw new IllegalArgumentException(file + " is not a file.");
         }
@@ -1095,29 +1272,38 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param path
      * 
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregister(File)}
      */
+    @SuppressWarnings("null")
     public void unregisterPath(Path path) throws FileNotFoundException {
+        Objects.requireNonNull(path);
+
         unregister(path.toFile());
     }
 
     /**
      * 
      * @param directory
-     *            <b><code>NOT nullable</code></b>.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
+     * 
      */
     void unregisterWatchService(String directory) {
+        Objects.requireNonNull(directory);
 
         DirectoryWatchService service = null;
 
         synchronized (wsMutex) {
-            service = watchServices.remove(directory);
+            service = this.watchServices.remove(directory);
         }
 
         if (service != null) {
-            wsRecursive.remove(directory);
+            this.wsRecursive.remove(directory);
 
             service.stop(null);
 
@@ -1130,7 +1316,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see open.commons.core.unix.tool.IFileWatchListener#watch(String, java.nio.file.WatchEvent.Kind)
      */
     @Override
-    public void watch(String pathname, Kind<?> kind) {
+    public void watch(String pathname, @Nullable Kind<?> kind) {
+        Objects.requireNonNull(pathname);
 
         if (StandardWatchEventKinds.ENTRY_CREATE.equals(kind)) {
             queue(pathname, createQueue, cqMutex);
@@ -1143,14 +1330,14 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
     private void writeContext(FileContext context) {
 
-        synchronized (fcwMutex) {
-            if (fcWriters.size() < 1) {
+        synchronized (this.fcwMutex) {
+            if (this.fcWriters.size() < 1 && this.defaultFcWriter != null) {
                 try {
-                    defaultFcWriter.write(context);
+                    this.defaultFcWriter.write(context);
                 } catch (IOException ignored) {
                 }
             } else {
-                for (IFileContextWriter writer : fcWriters) {
+                for (IFileContextWriter writer : this.fcWriters) {
                     try {
                         writer.write(context);
                     } catch (IOException ignored) {
@@ -1214,13 +1401,14 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     /**
      * File Create Handler
      * 
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      */
     class FileCreateHandler implements IRunnable {
 
         boolean running = true;
 
+        @Nullable
         String getPathname() {
             String pathname = null;
 
@@ -1250,6 +1438,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         @Override
         public void run() {
 
+            @SuppressWarnings("null")
             String otn = ThreadUtils.setThreadName(FileCreateHandler.class.getSimpleName());
 
             String pathname = null;
@@ -1288,7 +1477,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
          * @see open.commons.core.unix.tool.IRunnable#stop(String)
          */
         @Override
-        public void stop(String pathname) {
+        public void stop(@Nullable String pathname) {
             running = false;
 
             synchronized (cqMutex) {
@@ -1300,13 +1489,14 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     /**
      * File Delete Handler
      * 
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      */
     class FileDeleteHandler implements IRunnable {
 
         boolean running = true;
 
+        @Nullable
         String getPathname() {
             String pathname = null;
 
@@ -1336,6 +1526,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         @Override
         public void run() {
 
+            @SuppressWarnings("null")
             String otn = ThreadUtils.setThreadName(FileDeleteHandler.class.getSimpleName());
 
             String pathname = null;
@@ -1379,7 +1570,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
          * @see open.commons.core.unix.tool.IRunnable#stop(String)
          */
         @Override
-        public void stop(String pathname) {
+        public void stop(@Nullable String pathname) {
             running = false;
 
             synchronized (dqMutex) {
@@ -1391,7 +1582,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     /**
      * File Modify Handler
      * 
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      */
     class FileModifyHandler implements IRunnable {
@@ -1402,12 +1593,13 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
         boolean running = true;
 
-        void addFileModifyListener(IFileModifyListener l) {
+        void addFileModifyListener(@Nullable IFileModifyListener l) {
             if (l != null) {
                 listeners.add(l);
             }
         }
 
+        @Nullable
         String getPathname() {
             String pathname = null;
 
@@ -1437,6 +1629,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         @Override
         public void run() {
 
+            @SuppressWarnings("null")
             String otn = ThreadUtils.setThreadName(FileModifyHandler.class.getSimpleName());
 
             String pathname = null;
@@ -1530,7 +1723,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
          * @see open.commons.core.unix.tool.IRunnable#stop(String)
          */
         @Override
-        public void stop(String pathname) {
+        public void stop(@Nullable String pathname) {
             running = false;
 
             synchronized (mqMutex) {

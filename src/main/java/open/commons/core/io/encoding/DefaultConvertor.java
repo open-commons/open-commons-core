@@ -33,7 +33,12 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.CharBuffer;
+import java.util.Objects;
 
+import org.jspecify.annotations.Nullable;
+
+@Deprecated(since = "3.0.0", forRemoval = true)
+@SuppressWarnings({ "null", "removal" })
 public class DefaultConvertor implements IEncodingConvertor {
 
     protected static final int READ_BUFFER_SIZE = 512;
@@ -108,11 +113,14 @@ public class DefaultConvertor implements IEncodingConvertor {
     }
 
     /**
-     * 
+     *
+     * @since 2026. 3. 17.
+     * @version 3.0.0
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -120,27 +128,8 @@ public class DefaultConvertor implements IEncodingConvertor {
         if (getClass() != obj.getClass())
             return false;
         DefaultConvertor other = (DefaultConvertor) obj;
-        if (inputEncoding == null) {
-            if (other.inputEncoding != null)
-                return false;
-        } else if (!inputEncoding.equals(other.inputEncoding))
-            return false;
-        if (outputEncoding == null) {
-            if (other.outputEncoding != null)
-                return false;
-        } else if (!outputEncoding.equals(other.outputEncoding))
-            return false;
-        if (inStream == null) {
-            if (other.inStream != null)
-                return false;
-        } else if (!inStream.equals(other.inStream))
-            return false;
-        if (outStream == null) {
-            if (other.outStream != null)
-                return false;
-        } else if (!outStream.equals(other.outStream))
-            return false;
-        return true;
+        return Objects.equals(inStream, other.inStream) && Objects.equals(inputEncoding, other.inputEncoding) && Objects.equals(outStream, other.outStream)
+                && Objects.equals(outputEncoding, other.outputEncoding);
     }
 
     /**
@@ -172,18 +161,15 @@ public class DefaultConvertor implements IEncodingConvertor {
     }
 
     /**
-     * 
+     *
+     * @since 2026. 3. 17.
+     * @version 3.0.0
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((inputEncoding == null) ? 0 : inputEncoding.hashCode());
-        result = prime * result + ((outputEncoding == null) ? 0 : outputEncoding.hashCode());
-        result = prime * result + ((inStream == null) ? 0 : inStream.hashCode());
-        result = prime * result + ((outStream == null) ? 0 : outStream.hashCode());
-        return result;
+        return Objects.hash(inStream, inputEncoding, outStream, outputEncoding);
     }
 
     @Override

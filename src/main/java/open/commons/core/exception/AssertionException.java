@@ -27,8 +27,11 @@
 
 package open.commons.core.exception;
 
+import org.jspecify.annotations.Nullable;
+
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2014. 3. 25.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class AssertionException extends RuntimeException {
@@ -50,7 +53,7 @@ public class AssertionException extends RuntimeException {
      *            the detail message. The detail message is saved for later retrieval by the {@link #getMessage()}
      *            method.
      */
-    public AssertionException(String message) {
+    public AssertionException(@Nullable String message) {
         super(message);
     }
 
@@ -67,23 +70,8 @@ public class AssertionException extends RuntimeException {
      *            value is permitted, and indicates that the cause is nonexistent or unknown.)
      * @since 1.4
      */
-    public AssertionException(String message, Throwable cause) {
+    public AssertionException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
-    }
-
-    /**
-     * Constructs a new runtime exception with the specified cause and a detail message of
-     * <tt>(cause==null ? null : cause.toString())</tt> (which typically contains the class and detail message of
-     * <tt>cause</tt>). This constructor is useful for runtime exceptions that are little more than wrappers for other
-     * throwables.
-     * 
-     * @param cause
-     *            the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt>
-     *            value is permitted, and indicates that the cause is nonexistent or unknown.)
-     * @since 1.4
-     */
-    public AssertionException(Throwable cause) {
-        super(cause);
     }
 
     /**
@@ -102,8 +90,23 @@ public class AssertionException extends RuntimeException {
      * 
      * @since 1.7
      */
-    protected AssertionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected AssertionException(@Nullable String message, @Nullable Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
+    }
+
+    /**
+     * Constructs a new runtime exception with the specified cause and a detail message of
+     * <tt>(cause==null ? null : cause.toString())</tt> (which typically contains the class and detail message of
+     * <tt>cause</tt>). This constructor is useful for runtime exceptions that are little more than wrappers for other
+     * throwables.
+     * 
+     * @param cause
+     *            the cause (which is saved for later retrieval by the {@link #getCause()} method). (A <tt>null</tt>
+     *            value is permitted, and indicates that the cause is nonexistent or unknown.)
+     * @since 1.4
+     */
+    public AssertionException(@Nullable Throwable cause) {
+        super(cause);
     }
 
 }

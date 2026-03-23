@@ -15,24 +15,35 @@
  */
 
 /*
-* 
-*/
+ *
+ * This file is generated under this project, "open-commons-core".
+ *
+ * Date  : 2012. 1. 20.
+ *
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ */
+
 package open.commons.core.io;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.AssertUtils2;
+import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StringUtils;
 
 /**
  * 
- * <BR>
- * 
  * @since 2012. 01. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class FileExtensionExclusive implements FileFilter {
 
@@ -45,12 +56,17 @@ public class FileExtensionExclusive implements FileFilter {
      * 
      * @param exts
      *            파일 확장자
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code exts})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
      * @see Set#addAll(Collection)
      */
     public FileExtensionExclusive(Collection<String> exts) {
+        AssertUtils2.collectionNotNull(exts);
+
         extensioins.addAll(exts);
     }
 
@@ -58,10 +74,16 @@ public class FileExtensionExclusive implements FileFilter {
      * 
      * @param exts
      *            파일 확장자
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code exts})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
+     * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public FileExtensionExclusive(String... exts) {
+        ObjectUtils.requireNonNulls((Object[]) exts);
+
         for (String ext : exts) {
             extensioins.add(ext);
         }
@@ -72,28 +94,36 @@ public class FileExtensionExclusive implements FileFilter {
      * @return
      * 
      * @since 2012. 01. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.io.FileFilter#accept(java.io.File)
      */
     @Override
-    public boolean accept(File pathname) {
+    public boolean accept(@Nullable File pathname) {
+        if (pathname == null) {
+            return false;
+        }
+
         if (!pathname.isFile()) {
             return false;
         } else {
-            return !StringUtils.endsWithOneOf(pathname.getName(), extensioins.toArray(new String[] {}));
+            return !StringUtils.endsWithOneOf(Objects.requireNonNull( //
+                    pathname.getName() //
+            ), Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    extensioins.toArray(String[]::new) //
+            ));
         }
     }
 
-    public void add(String ext) {
-        synchronized (extensioins) {
-            if (ext != null) {
-                extensioins.add(ext);
-            }
-        }
-    }
-
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code exts})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
+     */
     public void add(String... exts) {
+        ObjectUtils.requireNonNulls((Object[]) exts);
+
         synchronized (extensioins) {
             for (String ext : exts) {
                 extensioins.add(ext);
@@ -101,11 +131,20 @@ public class FileExtensionExclusive implements FileFilter {
         }
     }
 
-    public void remove(String ext) {
+    public void add(@Nullable String ext) {
+        synchronized (extensioins) {
+            if (ext != null) {
+                extensioins.add(ext);
+            }
+        }
+    }
+
+    public void remove(@Nullable String ext) {
         synchronized (extensioins) {
             if (ext != null) {
                 extensioins.remove(ext);
             }
         }
     }
+
 }

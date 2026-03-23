@@ -31,6 +31,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+@Deprecated(since = "3.0.0", forRemoval = true)
+@SuppressWarnings({ "removal" })
 public class FileConvertor extends DefaultConvertor {
 
     /**

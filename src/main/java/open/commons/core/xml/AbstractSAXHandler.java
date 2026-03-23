@@ -52,7 +52,7 @@ import open.commons.core.utils.StringUtils;
  * </pre>
  * 
  * @since 2019. 1. 25.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public abstract class AbstractSAXHandler extends DefaultHandler {
 

@@ -28,10 +28,18 @@ package open.commons.core.annotation;
 
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
+
+/**
+ * 
+ * 
+ * @since 2012. 11. 10
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class MapStringizer implements IToStringizer {
 
     @Override
-    public String fieldToString(Object fieldValue) {
+    public @Nullable String fieldToString(@Nullable Object fieldValue) {
         String toString = null;
         if (fieldValue != null) {
             Map<?, ?> map = (Map<?, ?>) fieldValue;

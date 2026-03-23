@@ -30,12 +30,12 @@ package open.commons.core.validation.token;
 /**
  * 
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public interface IValidResult {
 
-    public boolean valid();
-
     public String message();
+
+    public boolean valid();
 
 }

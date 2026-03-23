@@ -28,17 +28,19 @@ package open.commons.core.lang;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
-import open.commons.core.utils.AssertUtils2;
+import org.jspecify.annotations.Nullable;
 
 /**
  * {@link ThreadLocal}를 보다 편하게 사용하기 위한 클래스.<br>
  * 이 클래스의 객체가 생성될 때마다 내부적으로 새로운 {@link ThreadLocal} 객체를 사용하기 때문에<br>
- * 동일한 영역에서는 <code>singleton</code> 형태로 사용하는 것을 추천합니다.
+ * 동일한 영역에서는 {@code singleton} 형태로 사용하는 것을 추천합니다.
  * 
  * @since 2025. 6. 24.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ThreadLocalContext implements IThreadLocalContext {
 
@@ -56,14 +58,17 @@ public class ThreadLocalContext implements IThreadLocalContext {
      * </pre>
      *
      * @param context
-     *            {@link ThreadLocal} 객체. (<code>NOT NULL</code>)
-     *
+     *            {@link ThreadLocal} 객체. ({@code NOT NULL})
+     * @throws NullPointerException
+     *             파라미터({@code context})가 {@code null}인 경우 발생.
+     * 
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public ThreadLocalContext(ThreadLocal<Map<Object, Object>> context) {
-        AssertUtils2.notNull(context);
+        Objects.requireNonNull(context);
+
         this.context = context;
     }
 
@@ -71,7 +76,6 @@ public class ThreadLocalContext implements IThreadLocalContext {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see open.commons.core.lang.IThreadLocalContext#clear()
      */
@@ -81,15 +85,18 @@ public class ThreadLocalContext implements IThreadLocalContext {
     }
 
     /**
-     *
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
+     * 
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      *
      * @see open.commons.core.lang.IThreadLocalContext#contains(java.lang.String)
      */
     @Override
     public boolean contains(Object key) {
+        Objects.requireNonNull(key);
+
         return get0().containsKey(key);
     }
 
@@ -97,55 +104,67 @@ public class ThreadLocalContext implements IThreadLocalContext {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.lang.IThreadLocalContext#context()
      */
     @Override
     public Map<Object, Object> context() {
-        return Collections.unmodifiableMap(get0());
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Collections.unmodifiableMap(get0()) //
+        );
     }
 
     /**
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.lang.IThreadLocalContext#get(java.lang.Object)
      */
     @Override
-    public Object get(Object key) {
+    public @Nullable Object get(Object key) {
         return get0().get(key);
     }
 
     private Map<Object, Object> get0() {
-        return this.context.get();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                this.context.get() //
+        );
     }
 
     /**
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.lang.IThreadLocalContext#remove(java.lang.Object)
      */
     @Override
-    public Object remove(Object key) {
+    public @Nullable Object remove(Object key) {
         return get0().remove(key);
     }
 
     /**
-     *
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
+     * 
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.lang.IThreadLocalContext#set(java.lang.Object, java.lang.Object)
      */
     @Override
     public void set(Object key, Object value) {
+        Objects.requireNonNull(key);
+
         get0().put(key, value);
     }
 

@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-/**
-* @title CommonUtils
-* @since 2011. 09. 29.
-*/
+/*
+ *
+ * This file is generated under this project, "open-commons-core".
+ *
+ * Date  : 2011. 9. 29.
+ *
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ */
+
 package open.commons.core.io;
 
 import java.io.File;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * @since 2011. 09. 29.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface IFileHandler {
@@ -33,14 +41,12 @@ public interface IFileHandler {
     /**
      * 파일명을 표현하는 패턴 문자열을 반환합니다.
      * 
-     * @return {@link IFileHandler}가 처리할 파일 확장자. <code>null</code>인 경우는 모든 파일을 처리합니다.
+     * @return {@link IFileHandler}가 처리할 파일 확장자. {@code null}인 경우는 모든 파일을 처리합니다.
      * @throws Exception
      * 
-     *             <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
      */
-    public String getFilenamePattern() throws Exception;
+    public @Nullable String getFilenamePattern() throws Exception;
 
     /**
      * 주어진 파일을 처리합니다.
@@ -48,8 +54,6 @@ public interface IFileHandler {
      * @param file
      * @throws Exception
      * 
-     *             <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 17.
      */
     public void handleFile(File file) throws Exception;

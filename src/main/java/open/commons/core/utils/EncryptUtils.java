@@ -41,7 +41,7 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * 
  * @since 2018. 11. 20.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class EncryptUtils {
 
@@ -75,7 +75,7 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      * 
      * @see #decrypt(String, String, String, byte[], String)
@@ -114,7 +114,7 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      */
     public static String decrypt(String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
@@ -151,7 +151,7 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      */
     public static String decrypt(String algorithm, String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
@@ -191,7 +191,7 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      * 
      * @see #encrypt(String, String, String, String, String)
@@ -230,7 +230,7 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      */
     public static byte[] encrypt(String key, String keyCharset, String plainText, String textCharset) //
@@ -268,7 +268,7 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      */
     public static byte[] encrypt(String algorithm, String key, String keyCharset, String plainText, String textCharset) //
@@ -306,7 +306,7 @@ public class EncryptUtils {
      * @return
      * @throws UnsupportedEncodingException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 11. 20.
      */
     private static SecretKeySpec keySpec(String algorithm, String key, String charset) throws UnsupportedEncodingException {

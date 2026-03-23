@@ -45,7 +45,7 @@ import open.commons.core.date.YearMonthDay;
  * </pre>
  * 
  * @since 2011. 07. 12.
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class DateUtil {
 
@@ -235,7 +235,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int diffDay(int y1, int m1, int d1, int y2, int m2, int d2) {
         return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
@@ -263,7 +263,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int diffDay(String y1, String m1, String d1, String y2, String m2, String d2) {
         return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
@@ -286,7 +286,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static int diffDay0(Calendar cal1, Calendar cal2) {
         long time1 = cal1.getTimeInMillis();
@@ -318,7 +318,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int diffDayToNow(Calendar cal) {
         return diffDay(cal, Calendar.getInstance());
@@ -339,7 +339,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int diffDayToNow(Date date) {
         return diffDay0(newCalendar(date), Calendar.getInstance());
@@ -363,7 +363,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int diffDayToNow(int year, int month, int day) {
         return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
@@ -387,7 +387,7 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int diffDayToNow(String year, String month, String day) {
         return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
@@ -408,7 +408,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 9. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Calendar getCalendar(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -432,7 +432,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 9. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Date getDate(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -784,7 +784,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static long getTimestamp(Calendar cal, int field, int amount) {
         cal.add(field, amount);
@@ -808,7 +808,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 9. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static long getTimestamp(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -834,7 +834,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, SimpleDateFormat dateFormat) {
@@ -859,7 +859,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, String format) {
@@ -884,7 +884,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Date date, String format) {
@@ -909,7 +909,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String getTimestampString(long timestamp, SimpleDateFormat dateFormat) {
         return dateFormat.format(new Date(timestamp));
@@ -933,7 +933,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String getTimestampString(long timestamp, String format) {
         return new SimpleDateFormat(format).format(new Date(timestamp));
@@ -955,7 +955,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see SimpleDateFormat
      */
     public static String getTimestampString(String format) {
@@ -988,7 +988,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see SimpleDateFormat
      */
     public static String getTimeString(Calendar cal) {
@@ -1021,7 +1021,7 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String getTimeString(long timestamp) {
         return new SimpleDateFormat("HHmmss").format(new Date(timestamp));
@@ -1059,7 +1059,7 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 시간(<b><code>date</code></b>)에서 주어진 값(<b><code>timeValue</code></b>, <b><code>timeField</code></b>) 이상 경과 했는지를
+     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과 했는지를
      * 반환합니다.
      * 
      * @param calendar
@@ -1074,7 +1074,7 @@ public class DateUtil {
      * @return
      * 
      * @exception NullPointerException
-     *                if <b><code>calendar</code></b> is null.
+     *                if <b>{@code calendar}</b> is null.
      */
     public static boolean isPast(Calendar calendar, Date date, int timeField, int timeValue) {
         calendar.set(timeField, timeValue);
@@ -1082,7 +1082,7 @@ public class DateUtil {
     }
 
     /**
-     * 현재 시간이 주어진 시간(<b><code>date</code></b>)에서 주어진 값(<b><code>timeValue</code></b>, <b><code>timeField</code></b>) 이상
+     * 현재 시간이 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상
      * 경과 했는지를 반환합니다.
      * 
      * @param date
@@ -1155,7 +1155,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Calendar newCalendar(int year, int month, int date) {
         return newCalendar(year, month, date, 0, 0, 0);
@@ -1186,7 +1186,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Calendar newCalendar(int year, int month, int date, int hourOfDay, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
@@ -1229,7 +1229,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Calendar newCalendar(String year, String month, String date) {
         return newCalendar(year, month, date, null, null, null);
@@ -1260,7 +1260,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Calendar newCalendar(String year, String month, String date, String hourOfDay, String minute, String second) {
         Calendar calendar = Calendar.getInstance();
@@ -1270,7 +1270,7 @@ public class DateUtil {
     }
 
     private static String pad(int i) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if (i < 10) {
             sb.append('0');
@@ -1332,7 +1332,7 @@ public class DateUtil {
      *
      * @since 2021. 2. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Calendar resetDateFields(int... dateFields) {
 
@@ -1430,7 +1430,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toISOFormat(Long timestamp) {
         AssertUtils2.notNull(timestamp);
@@ -1495,7 +1495,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toISOFormatNoTZ(Long timestamp) {
         AssertUtils2.notNull(timestamp);
@@ -1635,7 +1635,7 @@ public class DateUtil {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toString(Long timestamp, String pattern) {
         return new SimpleDateFormat(pattern).format(new Date(timestamp));

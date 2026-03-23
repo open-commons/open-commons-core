@@ -28,6 +28,7 @@ package open.commons.core.net;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * DNS Record Type
@@ -35,6 +36,7 @@ import java.util.List;
  * @since 2022. 2. 11.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * 
  * @see <a href=
  *      "https://en.wikipedia.org/wiki/List_of_DNS_record_types">https://en.wikipedia.org/wiki/List_of_DNS_record_types</a>
@@ -813,7 +815,7 @@ public enum DnsRecordType {
      * @return
      *
      * @since 2022. 2. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String getDesc() {
         return this.desc;
@@ -823,7 +825,7 @@ public enum DnsRecordType {
      * @return type id
      *
      * @since 2022. 2. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public int getId() {
         return this.id;
@@ -837,7 +839,11 @@ public enum DnsRecordType {
      */
     @Override
     public String toString() {
-        return String.join(":", name(), this.type);
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                String.join(":", name(), this.type) //
+        );
     }
 
     /**
@@ -846,6 +852,9 @@ public enum DnsRecordType {
      *            a string for {@link DnsRecordType} instance.
      *
      * @return an instance of {@link DnsRecordType}
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2022. 2. 11.
      * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
@@ -861,18 +870,18 @@ public enum DnsRecordType {
      * @param type
      *            a string for an instance of {@link DnsRecordType}.
      * @param ignoreCase
-     *            ignore <code><b>case-sensitive</b></code> or not.
+     *            ignore {@code <b>case-sensitive</b>} or not.
      *
      * @return an instance of {@link DnsRecordType}
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2022. 2. 11.
      * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
      */
     public static DnsRecordType get(String type, boolean ignoreCase) {
-
-        if (type == null) {
-            throw new IllegalArgumentException("'type' MUST NOT be null. input: " + type);
-        }
+        Objects.requireNonNull(type, "'type' MUST NOT be null. input: " + type);
 
         if (ignoreCase) {
             for (DnsRecordType value : values()) {

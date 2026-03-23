@@ -28,10 +28,13 @@ package open.commons.core.concurrent;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.lang.DefaultRunnable;
 
@@ -39,7 +42,8 @@ import open.commons.core.lang.DefaultRunnable;
  * Consumer & Provider 형식의 데이터 공유를 지원하는 클래스.
  * 
  * @since 2018. 5. 29.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public abstract class ConcurrentWorker<E> extends DefaultRunnable {
 
@@ -88,9 +92,9 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public boolean contains(E o) {
+    public boolean contains(@Nullable E o) {
         synchronized (this.mutexQueue) {
             return this.queue.contains(o);
         }
@@ -108,7 +112,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     protected void doneJob() {
         mutexWJC.lock();
@@ -129,7 +133,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2020. 8. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see Queue#poll()
      */
     protected Collection<E> flush() {
@@ -159,7 +163,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 1. 25.
      * @see Queue#poll()
      */
@@ -195,10 +199,10 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2020. 8. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see Queue#poll()
      */
-    protected E get(boolean nowait) {
+    protected @Nullable E get(boolean nowait) {
         // #1. 처리할 데이터 획득.
         synchronized (this.mutexQueue) {
             if (nowait) {
@@ -223,7 +227,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 2. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public int getJobCount() {
         mutexWJC.lock();
@@ -246,14 +250,35 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 25.
+     * 
      */
     protected final Object getMutexForQueue() {
         return this.mutexQueue;
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 25.     parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param data
+     *
+     * @since 2019. 1. 25.
+     * @version 3.0.0
+     * 
+     * 
+     * @throws NullPointerException
+     *             {@code data}가 null인 경우
+     */
     public void push(Collection<E> data) {
+        Objects.requireNonNull(data);
 
         if (!isRunning()) {
             return;
@@ -281,10 +306,14 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @param data
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @since 2019. 1. 25.
+     * 
+     * 
+     * @throws NullPointerException
+     *             {@code data}가 {@code null}인 경우 발생.
      */
     public void push(E data) {
+        Objects.requireNonNull(data);
 
         if (!isRunning()) {
             return;
@@ -314,7 +343,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2019. 10. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public boolean remainsWorkJob() {
         mutexWJC.lock();
@@ -340,9 +369,9 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public boolean remove(E o) {
+    public boolean remove(@Nullable E o) {
         synchronized (this.mutexQueue) {
             return this.queue.remove(o);
         }
@@ -369,7 +398,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2018. 5. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     protected int size() {
         return queue.size();

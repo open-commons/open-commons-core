@@ -30,11 +30,14 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Vector;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * List using Binary Sort.
  * 
- * @since 2025. 03. 11 from {@link open.commons.core.util.BinarySortedList}
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2019. 1. 22.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
 
@@ -92,15 +95,16 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      *
      * @since 2019. 1. 9.
      */
-    public BinarySortedList(boolean asc, Comparator<E> comparator) {
-        init(asc, comparator);
+    public BinarySortedList(boolean asc, @Nullable Comparator<E> comparator) {
+        this.asc = asc;
+        this.comparator = comparator != null ? comparator : DEFAULT_COMPARATOR;
     }
 
     /**
      * @param c
      * @since 2019. 1. 22.
      */
-    public BinarySortedList(Collection<? extends E> c) {
+    public BinarySortedList(@Nullable Collection<? extends E> c) {
         this(true, null);
 
         boolean inserted = addAll(c);
@@ -125,7 +129,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      *            데이터 비교 연산자
      * @since 2019. 1. 9.
      */
-    public BinarySortedList(Comparator<E> comparator) {
+    public BinarySortedList(@Nullable Comparator<E> comparator) {
         this(true, comparator);
     }
 
@@ -134,8 +138,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * @since 2019. 1. 22.
      */
     public BinarySortedList(int initialCapacity) {
-        super(initialCapacity);
-        init(true, null);
+        this(initialCapacity, 0);
     }
 
     /**
@@ -145,7 +148,8 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      */
     public BinarySortedList(int initialCapacity, int capacityIncrement) {
         super(initialCapacity, capacityIncrement);
-        init(true, null);
+        this.asc = true;
+        this.comparator = DEFAULT_COMPARATOR;
     }
 
     /**
@@ -175,7 +179,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * @see java.util.ArrayList#addAll(java.util.Collection)
      */
     @Override
-    public synchronized boolean addAll(Collection<? extends E> c) {
+    public synchronized boolean addAll(@Nullable Collection<? extends E> c) {
         if (c == null || c.isEmpty()) {
             return false;
         }
@@ -191,7 +195,7 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
      * @see java.util.ArrayList#addAll(int, java.util.Collection)
      */
     @Override
-    public boolean addAll(int index, Collection<? extends E> c) {
+    public boolean addAll(int index, @Nullable Collection<? extends E> c) {
         throw new UnsupportedOperationException("CANNOT set an index of an element. Use addAll(Collection<E>)");
     }
 
@@ -238,11 +242,6 @@ public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
         }
         // 최적의 삽입 위치 반환
         return low;
-    }
-
-    private void init(boolean asc, Comparator<E> comparator) {
-        this.asc = asc;
-        this.comparator = comparator != null ? comparator : DEFAULT_COMPARATOR;
     }
 
     /**

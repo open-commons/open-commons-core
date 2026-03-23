@@ -29,7 +29,8 @@
 package open.commons.core;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class TwoValueObject<F, S> {

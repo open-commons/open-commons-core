@@ -35,6 +35,11 @@ import java.util.function.Consumer;
 
 import jakarta.annotation.Resource;
 
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.AssertUtils2;
+import open.commons.core.utils.ObjectUtils;
+
 /**
  * 
  * <pre>
@@ -46,7 +51,8 @@ import jakarta.annotation.Resource;
  * </pre>
  * 
  * @since 2018. 9. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Resource
 public class Consumers<T> implements Closeable {
@@ -71,39 +77,39 @@ public class Consumers<T> implements Closeable {
         this.consumer = consumer;
     }
 
-    public void add(T removable) {
+    public void add(@Nullable T removable) {
         if (removable == null) {
             return;
-        }
-
-        if (this.resources == null) {
-            this.resources = new ArrayList<>();
         }
 
         this.resources.add(removable);
     }
 
-    public void addAll(Collection<T> removables) {
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code removables})에 'null'이 포함된 경우 발생.
+     */
+    public void addAll(@Nullable Collection<T> removables) {
         if (removables == null) {
             return;
         }
 
-        if (this.resources == null) {
-            this.resources = new ArrayList<>();
-        }
+        AssertUtils2.collectionNotNull(removables);
 
         this.resources.addAll(removables);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code removables})에 'null'이 포함된 경우 발생.
+     */
     @SafeVarargs
-    public final void addAll(T... removables) {
+    public final void addAll(T @Nullable... removables) {
         if (removables == null) {
             return;
         }
 
-        if (this.resources == null) {
-            this.resources = new ArrayList<>();
-        }
+        ObjectUtils.requireNonNulls((Object[]) removables);
 
         this.resources.addAll(Arrays.asList(removables));
     }

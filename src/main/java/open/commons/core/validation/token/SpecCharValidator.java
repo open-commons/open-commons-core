@@ -32,7 +32,7 @@ import open.commons.core.validation.DefaultTokenValidator;
 /**
  * 
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class SpecCharValidator extends DefaultTokenValidator<Character> {
 

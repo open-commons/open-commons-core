@@ -26,11 +26,16 @@
 */
 package open.commons.core.collection;
 
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
+
 /**
  * 값과 정렬을 위한 값을 제공하는 클래스. <BR>
  * 
  * @since 2012. 3. 8.
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com) *
+ * 
  */
 public class OrderingKey<T extends Comparable<T>> implements Comparable<OrderingKey<T>> {
 
@@ -46,7 +51,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @param o
      *            정렬에 사용되는 값 <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public OrderingKey(Object v, T o) {
         value = v;
@@ -58,46 +63,35 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
+    @SuppressWarnings("null")
     @Override
     public int compareTo(OrderingKey<T> o) {
         return order.compareTo(o.order);
     }
 
     /**
-     * @param obj
-     * @return
+     *
+     * @since 2026. 3. 13.
+     * @version 3.0.0
      * 
-     * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-
         OrderingKey<T> other = (OrderingKey<T>) obj;
-        if (order == null) {
-            if (other.order != null)
-                return false;
-        } else if (!order.equals(other.order))
-            return false;
-        if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
-            return false;
-        return true;
+        return Objects.equals(order, other.order) && Objects.equals(value, other.value);
     }
 
     /**
@@ -105,7 +99,7 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * 
      *         <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public T getOrder() {
         return order;
@@ -116,37 +110,34 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * 
      *         <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public Object getValue() {
         return value;
     }
 
     /**
-     * @return
+     *
+     * @since 2026. 3. 13.
+     * @version 3.0.0
      * 
-     * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((order == null) ? 0 : order.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
+        return Objects.hash(order, value);
     }
 
     /**
      * @return
      * 
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Object#toString()
      */
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         return "value:" + value + "(" + value.getClass() + "), order:" + order + "(" + order.getClass() + ")";

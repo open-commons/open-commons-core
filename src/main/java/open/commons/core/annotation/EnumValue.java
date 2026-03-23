@@ -35,7 +35,8 @@ import java.lang.annotation.Target;
 /**
  * 
  * @since 2018. 4. 24.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -54,7 +55,7 @@ public @interface EnumValue {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 4. 24.
      */
     Class<?> value();

@@ -31,7 +31,7 @@ package open.commons.core.utils;
 import java.lang.Character.UnicodeBlock;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  * 
  */
 public class CharUtils {
@@ -58,7 +58,7 @@ public class CharUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #isKorean(int)
      */
     public static final boolean isKorean(char c) {
@@ -79,7 +79,7 @@ public class CharUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static final boolean isKorean(int c) {
         UnicodeBlock b = Character.UnicodeBlock.of(c);

@@ -30,7 +30,8 @@ package open.commons.core.io;
  * 
  * @since 2020. 11. 13.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public interface IRandomAccessible {
 
@@ -48,7 +49,7 @@ public interface IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     int getLength();
 
@@ -66,7 +67,7 @@ public interface IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     int getNextPosition();
 
@@ -84,7 +85,7 @@ public interface IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     int getPosition();
 }

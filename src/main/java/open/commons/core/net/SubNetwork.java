@@ -30,9 +30,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import open.commons.core.utils.ObjectUtils;
+
+/**
+ * @since 2015. 4. 15.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class SubNetwork {
 
     private static final String REGEX_IPV4 = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\."//
@@ -43,11 +50,23 @@ public class SubNetwork {
     private static final String CIDR_NOTATION = REGEX_IPV4 + "\\s*/\\s*([1-9]|[1-2][0-9]|3[0-2])\\s*";
 
     protected static final String TO_STRING_FORMAT = "%-10s: %-35s / %s";
-    private Pattern patternIPv4 = Pattern.compile(REGEX_IPV4);
+    private static final Pattern PATTERN_IPV4 = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            Pattern.compile(REGEX_IPV4) //
+    );
     @SuppressWarnings("unused")
-    private Pattern patternIPv4Strict = Pattern.compile(REGEX_IPV4_STRICT);
+    private static final Pattern PATTERN_IPV4_STRICT = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            Pattern.compile(REGEX_IPV4_STRICT) //
+    );
 
-    private Pattern patternCidrNotation = Pattern.compile(CIDR_NOTATION);
+    private static final Pattern PATTERN_CIDR_NOTATION = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            Pattern.compile(CIDR_NOTATION) //
+    );
 
     private String ipv4;
     private String netmask;
@@ -70,15 +89,18 @@ public class SubNetwork {
      * @throws IllegalArgumentException
      *             if the parameter is invalid, i.e. does not match n.n.n.n/m where n=1-3 decimal digits, m = 1-3
      *             decimal digits in range 1-32
+     * @throws NullPointerException
+     *             파라미터({@code cidrNotation})가 {@code null}인 경우 발생.
      */
     public SubNetwork(String cidrNotation) throws IllegalArgumentException {
+        Objects.requireNonNull(cidrNotation);
 
-        Matcher m = patternCidrNotation.matcher(cidrNotation);
-        if (m.matches()) {
-            calculate(dotValueToIPv4Expr(m.group(1), m.group(2), m.group(3), m.group(4)), Integer.parseInt(m.group(5)));
-        } else {
+        Matcher m = PATTERN_CIDR_NOTATION.matcher(cidrNotation);
+        if (!m.matches()) {
             throw new IllegalArgumentException("Invalid CIDR notation. arg: " + cidrNotation);
         }
+
+        this(dotValueToIPv4Expr(m.group(1), m.group(2), m.group(3), m.group(4)), Integer.parseInt(m.group(5)));
     }
 
     /**
@@ -86,13 +108,26 @@ public class SubNetwork {
      * @param ipv4
      * @param subnetMask
      * @throws NullPointerException
-     *             Thrown if an argument is null.
+     *             파라미터({@code ipv4})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             Thrown if an argument is not matched to {@link #REGEX_IPV4} or CIDR is not valid.
      * @since Apr 13, 2015
      */
     public SubNetwork(String ipv4, int subnetMask) throws NullPointerException, IllegalArgumentException {
-        calculate(ipv4, subnetMask);
+        Objects.requireNonNull(ipv4);
+
+        NetInfo info = calculate(ipv4, subnetMask);
+
+        this.ipv4 = info.ipv4;
+        this.ipBin = info.ipBin;
+        this.netmask = info.netmask;
+        this.netmaskInt = info.netmaskInt;
+        this.netmaskBin = info.netmaskBin;
+        this.network = info.network;
+        this.networkBin = info.networkBin;
+        this.broadcast = info.broadcast;
+        this.broadcastBin = info.broadcastBin;
+        this.hostPartBin = info.hostPartBin;
     }
 
     /**
@@ -102,15 +137,17 @@ public class SubNetwork {
      * @param mask
      *            A dotted decimal netmask e.g. "255.255.0.0"
      * @throws NullPointerException
-     *             Thrown if an argument is null.
+     *             파라미터({@code ipv4 또는 mask})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             if the address or mask is invalid, i.e. does not match n.n.n.n where n=1-3 decimal digits and the
      *             mask is not all zeros
      * 
      * @since Apr 13, 2015
      */
-    public SubNetwork(String ipv4Address, String mask) {
-        calculate(ipv4Address, dottedDecimalNetmaskToIntValue(mask));
+    public SubNetwork(String ipv4, String mask) {
+        ObjectUtils.requireNonNulls(ipv4, mask);
+
+        this(ipv4, dottedDecimalNetmaskToIntValue(mask));
     }
 
     private String binValueToIPv4Expr(int intValue) {
@@ -126,82 +163,32 @@ public class SubNetwork {
      *
      * @since Apr 15, 2015
      */
-    private void calculate(String ipv4, int netmask) throws IllegalArgumentException {
+    private NetInfo calculate(String ipv4, int netmask) throws IllegalArgumentException {
         if (netmask < 1 || netmask > 31) {
             throw new IllegalArgumentException("Illegal Subnet Mask. Subnet mask: " + netmask);
         }
 
-        this.ipv4 = ipv4;
-
-        Matcher m = patternIPv4.matcher(ipv4);
+        Matcher m = PATTERN_IPV4.matcher(ipv4);
         if (m.matches()) {
-            this.ipBin = ipv4ToBinValue(ipv4);
+            int ipBin = ipv4ToBinValue(ipv4);
 
-            this.netmask = maskToIPv4Expr(netmask);
-            this.netmaskInt = netmask;
+            String netmaskStr = maskToIPv4Expr(netmask);
+            int netmaskInt = netmask;
 
-            this.netmaskBin = maskToBinValue(netmask);
+            int netmaskBin = maskToBinValue(netmask);
 
-            this.networkBin = (int) (this.ipBin & this.netmaskBin);
-            this.network = binValueToIPv4Expr(networkBin);
+            int networkBin = (int) (ipBin & netmaskBin);
+            String network = binValueToIPv4Expr(networkBin);
 
-            this.broadcastBin = this.networkBin | ~(this.netmaskBin);
-            this.broadcast = binValueToIPv4Expr(this.broadcastBin);
+            int broadcastBin = networkBin | ~netmaskBin;
+            String broadcast = binValueToIPv4Expr(broadcastBin);
 
-            this.hostPartBin = this.ipBin ^ this.networkBin;
+            int hostPartBin = ipBin ^ networkBin;
+
+            return new NetInfo(ipv4, ipBin, netmaskStr, netmaskInt, netmaskBin, network, networkBin, broadcast, broadcastBin, hostPartBin);
         } else {
             throw new IllegalArgumentException("A parameters is not matched to " + REGEX_IPV4 + ". parameter: " + ipv4);
         }
-    }
-
-    private int[] dottedDecimalAddressToIntArr(String ipv4) {
-        Matcher m = patternIPv4.matcher(ipv4);
-
-        if (!m.matches()) {
-            throw new IllegalArgumentException("A parameters is not matched to " + REGEX_IPV4 + ". Subnet mask: " + netmask);
-        }
-
-        int[] maskBits = new int[4];
-        maskBits[0] = Integer.parseInt(m.group(1));
-        maskBits[1] = Integer.parseInt(m.group(2));
-        maskBits[2] = Integer.parseInt(m.group(3));
-        maskBits[3] = Integer.parseInt(m.group(4));
-
-        return maskBits;
-    }
-
-    private int dottedDecimalNetmaskToIntValue(String mask) {
-        int[] maskBits = dottedDecimalAddressToIntArr(mask);
-
-        int netmask = 0;
-        boolean broken = false;
-        for (int maskBit : maskBits) {
-            for (int i = 7; i > -1; i--) {
-                if ((maskBit & (int) Math.pow(2, i)) < 1) {
-                    broken = true;
-                    break;
-                }
-                netmask++;
-            }
-
-            if (broken) {
-                break;
-            }
-        }
-
-        return netmask;
-    }
-
-    private String dotValueToIPv4Expr(Object... values) {
-        StringBuffer ipv4Expr = new StringBuffer();
-
-        ipv4Expr.append(values[0]);
-        for (int i = 1; i < values.length; i++) {
-            ipv4Expr.append('.');
-            ipv4Expr.append(values[i]);
-        }
-
-        return ipv4Expr.toString();
     }
 
     /**
@@ -306,11 +293,23 @@ public class SubNetwork {
         return ((this.netmaskBin & other) ^ this.networkBin) == 0;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code ipv4})가 {@code null}인 경우 발생.
+     */
     public boolean matched(String ipv4) {
+        Objects.requireNonNull(ipv4);
+
         return matched(ipv4ToBinValue(ipv4), false);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code ipv4})가 {@code null}인 경우 발생.
+     */
     public boolean matched(String ipv4, boolean logged) {
+        Objects.requireNonNull(ipv4);
+
         return matched(ipv4ToBinValue(ipv4), logged);
     }
 
@@ -334,7 +333,8 @@ public class SubNetwork {
 
     @Override
     public String toString() {
-        StringBuffer toString = new StringBuffer();
+        StringBuilder toString = new StringBuilder();
+
         toString.append(String.format(TO_STRING_FORMAT, "Address", toWellFormed32bitBinaryString(ipBin), ipv4));
         toString.append('\n');
         toString.append(String.format(TO_STRING_FORMAT, "Mask", toWellFormed32bitBinaryString(maskToBinValue(netmaskInt)), netmask + " (/" + netmaskInt + ")"));
@@ -347,7 +347,11 @@ public class SubNetwork {
         toString.append('\n');
         toString.append(String.format("%-10s: %s / %s", "Available", getAddressesCount(), getAddresses()));
 
-        return toString.toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                toString.toString() //
+        );
     }
 
     private String toWellFormed32bitBinaryString(int value) {
@@ -358,7 +362,7 @@ public class SubNetwork {
         char[] src = Integer.toBinaryString(value).toCharArray();
         System.arraycopy(src, 0, str, 32 - src.length, src.length);
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 32; i++) {
             // split for 8-bit
@@ -373,7 +377,94 @@ public class SubNetwork {
             }
         }
 
-        return sb.toString().trim();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                sb.toString().trim() //
+        );
+    }
+
+    private static int[] dottedDecimalAddressToIntArr(String ipv4) {
+        Matcher m = PATTERN_IPV4.matcher(ipv4);
+
+        if (!m.matches()) {
+            throw new IllegalArgumentException("A parameters is not matched to " + REGEX_IPV4 + ".");
+        }
+
+        int[] maskBits = new int[4];
+        maskBits[0] = Integer.parseInt(m.group(1));
+        maskBits[1] = Integer.parseInt(m.group(2));
+        maskBits[2] = Integer.parseInt(m.group(3));
+        maskBits[3] = Integer.parseInt(m.group(4));
+
+        return maskBits;
+    }
+
+    private static int dottedDecimalNetmaskToIntValue(String mask) {
+        int[] maskBits = dottedDecimalAddressToIntArr(mask);
+
+        int netmask = 0;
+        boolean broken = false;
+        for (int maskBit : maskBits) {
+            for (int i = 7; i > -1; i--) {
+                if ((maskBit & (int) Math.pow(2, i)) < 1) {
+                    broken = true;
+                    break;
+                }
+                netmask++;
+            }
+
+            if (broken) {
+                break;
+            }
+        }
+
+        return netmask;
+    }
+
+    private static String dotValueToIPv4Expr(Object... values) {
+        StringBuffer ipv4Expr = new StringBuffer();
+
+        ipv4Expr.append(values[0]);
+        for (int i = 1; i < values.length; i++) {
+            ipv4Expr.append('.');
+            ipv4Expr.append(values[i]);
+        }
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                ipv4Expr.toString() //
+        );
+    }
+
+    /**
+     * 
+     * @param ipv4
+     *            IPv4 주소
+     * @param ipBin
+     *            IPv4 이진값
+     * @param netmask
+     *            넷마스크
+     * @param netmaskInt
+     *            넷마스크 숫자값
+     * @param netmaskBin넷마스크
+     *            이진값
+     * @param network
+     *            네트워크
+     * @param networkBin
+     *            네트워크 이진값
+     * @param broadcast
+     *            브로드캐스트 주소
+     * @param broadcastBin
+     *            브로드캐스트 이진값
+     * @param hostPartBin
+     * @since 2026. 3. 19.
+     * @version 3.0.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    private static record NetInfo(String ipv4, int ipBin, String netmask, int netmaskInt, int netmaskBin, String network, int networkBin, String broadcast, int broadcastBin,
+            int hostPartBin) {
     }
 
 }

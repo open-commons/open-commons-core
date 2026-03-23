@@ -29,10 +29,13 @@
 package open.commons.core.unix.tool;
 
 import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchEvent;
+import java.nio.file.WatchEvent.Kind;
+
+import org.jspecify.annotations.Nullable;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 5. 23.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface IFileWatchListener {
@@ -45,6 +48,9 @@ public interface IFileWatchListener {
      *            <li>{@link StandardWatchEventKinds#ENTRY_MODIFY}
      *            <li>{@link StandardWatchEventKinds#ENTRY_DELETE}
      *            </ul>
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code pathname})가 {@code null}인 경우 발생.
      */
-    void watch(String pathname, WatchEvent.Kind<?> kind);
+    void watch(String pathname, @Nullable Kind<?> kind);
 }

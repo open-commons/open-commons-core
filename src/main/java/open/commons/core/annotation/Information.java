@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
  * 해당 변수에 값이 설정될 때 로그를 남길 필요가 있는 경우
  * 
  * @since 2021. 11. 3.
- * @version
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Retention(RUNTIME)
 @Target({ FIELD })

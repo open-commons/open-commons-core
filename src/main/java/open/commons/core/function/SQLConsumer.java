@@ -31,6 +31,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.annotation.ColumnValue;
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.ObjectUtils;
@@ -46,7 +48,8 @@ import open.commons.core.utils.SQLUtils;
  * @param <T>
  *            the type of the input to the operation
  *
- * @since 1.8
+ * @since 2019. 2. 19.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 @FunctionalInterface
 public interface SQLConsumer<T> {
@@ -68,11 +71,13 @@ public interface SQLConsumer<T> {
      *            the operation to perform after this operation
      * @return a composed {@code Consumer} that performs in sequence this operation followed by the {@code after}
      *         operation
+     * 
      * @throws NullPointerException
-     *             if {@code after} is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default SQLConsumer<T> andThen(SQLConsumer<? super T> after) {
         Objects.requireNonNull(after);
+
         return (T t) -> {
             accept(t);
             after.accept(t);
@@ -93,10 +98,13 @@ public interface SQLConsumer<T> {
      * @param params
      *            쿼리 파라미터.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code params})가 {@code null}인 경우 발생.
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object... params) {
         return setParametersAndRelease(true, params);
@@ -120,10 +128,11 @@ public interface SQLConsumer<T> {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see SQLUtils#setParameters(PreparedStatement, int, Object, String...)
      */
-    public static SQLConsumer<PreparedStatement> setParameters(Object param, String... columnNames) {
+    @SuppressWarnings("null") // apply to 'stmt'
+    public static SQLConsumer<PreparedStatement> setParameters(Object param, String @Nullable... columnNames) {
         if (ObjectUtils.isWrapper(param) //
                 || String.class.equals(param.getClass()) //
         ) {
@@ -151,12 +160,17 @@ public interface SQLConsumer<T> {
      *            파라미터 자원 해제 여부.
      * @param params
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code params})가 {@code null}인 경우 발생.
      *
      * @since 2021. 7. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static SQLConsumer<PreparedStatement> setParametersAndRelease(boolean autoRelease, Object... params) {
+        Objects.requireNonNull(params);
+
         return stmt -> {
             for (int i = 0; i < params.length; i++) {
                 stmt.setObject(i + 1, params[i]);

@@ -39,7 +39,7 @@ import open.commons.core.util.PrefixDataUnit;
  * 
  * @since 2021. 11. 4.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class UnitUtils {
 
@@ -84,7 +84,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -110,7 +110,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
@@ -136,7 +136,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #binaryStorageAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit) {
@@ -167,7 +167,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean trim) {
@@ -212,7 +212,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit, boolean pretty, boolean trim) {
@@ -237,7 +237,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -269,7 +269,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -302,7 +302,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -331,14 +331,14 @@ public class UnitUtils {
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String binaryStorageAsStringNoUnit(long bytes, BinaryDataUnit unit, boolean pretty) {
         return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, false);
     }
 
     private static String concat(Object... objs) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (Object o : objs) {
             sb.append(o.toString());
         }
@@ -364,7 +364,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see PrefixDataUnit#convert(long, PrefixDataUnit)
      */
@@ -390,7 +390,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
      */
@@ -416,7 +416,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #convertAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
      */
     public static String convertAlsoSubUnitAsString(long bytes, PrefixDataUnit unit) {
@@ -445,7 +445,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
@@ -477,7 +477,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
      */
@@ -519,7 +519,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -547,7 +547,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -579,7 +579,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
@@ -612,7 +612,7 @@ public class UnitUtils {
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String convertAsStringNoUnit(long bytes, PrefixDataUnit unit, boolean pretty) {
         return convertAsString(bytes, PrefixDataUnit.BASE, unit, pretty, false);

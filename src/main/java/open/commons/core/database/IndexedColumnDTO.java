@@ -17,9 +17,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.csv.AbstractCsvData;
 import open.commons.core.csv.CsvConfig;
@@ -30,13 +34,51 @@ import open.commons.core.utils.StringUtils;
 
 /**
  * @since 2020. 11. 4.
- * @version
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class IndexedColumnDTO extends AbstractCsvData {
 
     /** 클래스별 리플렉션 메타데이터 캐시 */
-    private static final Map<Class<?>, CachedMetadata> METADATA_CACHE = new ConcurrentHashMap<>();
+    private static final Map<Class<?>, HeaderMetadata> CACHE_HEADER_METADATA = new ConcurrentHashMap<>();
+
+    /** 헤더 메타데이터 생성 함수 */
+    @SuppressWarnings("null") // apply to 'List<String> headers, List<Method> methods, List<Method> valueMethods'
+    private static final Function<Class<?>, HeaderMetadata> HEADER_METADATA_GEN = clazz -> {
+        // 1. 헤더 추출 로직 (클래스 계층 순회)
+        Map<String, Field> headerFields = new HashMap<>();
+        Class<?> cls = clazz;
+
+        while (cls != null && !cls.equals(Object.class)) {
+            List<Field> fields = AnnotationUtils.getAnnotatedFieldsAll(cls, AQueryIndex.class);
+            for (Field f : fields) {
+                Field of = headerFields.get(f.getName());
+                // 하위 클래스의 필드가 상위 클래스의 필드를 섀도잉하는 경우 유지
+                if (of == null || of.getDeclaringClass().isAssignableFrom(f.getDeclaringClass())) {
+                    headerFields.put(f.getName(), f);
+                }
+            }
+            cls = cls.getSuperclass();
+        }
+
+        // 인덱스 기준으로 정렬 후 스네이크 케이스 문자열로 변환하여 불변 리스트 생성
+        List<String> headers = //
+                headerFields.values().stream() //
+                        .sorted(Comparator.comparingInt(f -> f.getAnnotation(AQueryIndex.class).index())) //
+                        .map(f -> StringUtils.toSnakeCase(Objects.requireNonNull(f.getName()))) //
+                        .toList();
+
+        // 2. 값 추출 메서드 로직
+        List<Method> methods = AnnotationUtils.getAnnotatedMethodsAll(clazz, AQueryIndex.class);
+        List<Method> valueMethods = //
+                methods.stream() //
+                        .sorted(Comparator.comparingInt(m -> m.getAnnotation(AQueryIndex.class).index())) //
+                        // JDK 25: 호출 성능 극대화를 위해 접근 권한 미리 확보
+                        .peek(Method::trySetAccessible) //
+                        .toList();
+
+        return new HeaderMetadata(headers, valueMethods);
+    };
 
     /**
      * <br>
@@ -50,7 +92,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2020. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see CsvConfig#DEFAULT_SEPARATOR
      * @see CsvConfig.DEFAULT_QUOTE_CHARACTER
      * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
@@ -74,7 +116,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2022. 4. 7.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @see CsvConfig.DEFAULT_QUOTE_CHARACTER
      * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
      */
@@ -101,7 +143,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2022. 4. 7.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @see CsvConfig.DEFAULT_ESCAPE_CHARACTER
      */
     public IndexedColumnDTO(char separator, char quote, char escape) {
@@ -123,7 +165,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.csv.AbstractCsvData#getHeaders()
      */
@@ -147,40 +189,14 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2026. 3. 4.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    private CachedMetadata getMetadata() {
-        return METADATA_CACHE.computeIfAbsent(getClass(), clazz -> {
-            // 1. 헤더 추출 로직 (클래스 계층 순회)
-            Map<String, Field> headerFields = new HashMap<>();
-            Class<?> cls = clazz;
-
-            while (cls != null && !cls.equals(Object.class)) {
-                List<Field> fields = AnnotationUtils.getAnnotatedFieldsAll(cls, AQueryIndex.class);
-                for (Field f : fields) {
-                    Field of = headerFields.get(f.getName());
-                    // 하위 클래스의 필드가 상위 클래스의 필드를 섀도잉하는 경우 유지
-                    if (of == null || of.getDeclaringClass().isAssignableFrom(f.getDeclaringClass())) {
-                        headerFields.put(f.getName(), f);
-                    }
-                }
-                cls = cls.getSuperclass();
-            }
-
-            // 인덱스 기준으로 정렬 후 스네이크 케이스 문자열로 변환하여 불변 리스트 생성
-            List<String> headers = headerFields.values().stream().sorted(Comparator.comparingInt(f -> f.getAnnotation(AQueryIndex.class).index()))
-                    .map(f -> StringUtils.toSnakeCase(f.getName())).toList();
-
-            // 2. 값 추출 메서드 로직
-            List<Method> methods = AnnotationUtils.getAnnotatedMethodsAll(clazz, AQueryIndex.class);
-            List<Method> valueMethods = methods.stream() //
-                    .sorted(Comparator.comparingInt(m -> m.getAnnotation(AQueryIndex.class).index())) //
-                    // JDK 25: 호출 성능 극대화를 위해 접근 권한 미리 확보
-                    .peek(Method::trySetAccessible) //
-                    .toList();
-
-            return new CachedMetadata(headers, valueMethods);
-        });
+    private HeaderMetadata getMetadata() {
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                CACHE_HEADER_METADATA.computeIfAbsent(getClass(), HEADER_METADATA_GEN) //
+        );
     }
 
     /**
@@ -199,16 +215,19 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public List<Supplier<String>> getValues() {
+    @SuppressWarnings("null")
+    public List<Supplier<@Nullable String>> getValues() {
         // 캐시된 정렬 메서드들을 현재 인스턴스(this)에 바인딩하여 Supplier로 변환
-        return getMetadata().valueMethods().stream().map(m -> (Supplier<String>) new MethodBase(this, m)).collect(Collectors.toCollection(ArrayList::new));
+        return getMetadata().valueMethods().stream() //
+                .map(m -> (Supplier<String>) new MethodBase(this, m)) //
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
      * 헤더(필드명) 목록과 값을 추출할 메서드 목록을 보관하는 불변 레코드
      */
-    private record CachedMetadata(List<String> headers, List<Method> valueMethods) {
+    private record HeaderMetadata(List<String> headers, List<Method> valueMethods) {
     }
 }

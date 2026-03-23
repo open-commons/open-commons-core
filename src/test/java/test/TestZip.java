@@ -35,7 +35,7 @@ import open.commons.core.utils.ZipUtils;
  * 
  * @since 2021. 11. 9.
  * @version _._._
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TestZip {
 
@@ -52,7 +52,7 @@ public class TestZip {
      *
      * @since 2021. 11. 9.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TestZip() {
     }

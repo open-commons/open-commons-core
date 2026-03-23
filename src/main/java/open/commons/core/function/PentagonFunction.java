@@ -50,11 +50,12 @@ import java.util.function.Function;
  * @param <R>
  *            the type of the result of the function
  *
- * @see Function
- * @since 1.8
  * @since 2016. 7. 26.
+ * @version 1.8.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @see Function
+ * 
  */
 @FunctionalInterface
 public interface PentagonFunction<T, U, V, W, X, R> {
@@ -69,11 +70,13 @@ public interface PentagonFunction<T, U, V, W, X, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
+     * 
      * @throws NullPointerException
-     *             if after is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default <Y> PentagonFunction<T, U, V, W, X, Y> andThen(Function<? super R, ? extends Y> after) {
         Objects.requireNonNull(after);
+
         return (T t, U u, V v, W w, X x) -> after.apply(apply(t, u, v, w, x));
     }
 

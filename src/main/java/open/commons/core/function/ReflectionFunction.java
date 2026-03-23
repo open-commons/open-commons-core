@@ -43,6 +43,7 @@ import java.util.function.Function;
  * @since 2021. 11. 11.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface ReflectionFunction<T, R> {
@@ -57,15 +58,17 @@ public interface ReflectionFunction<T, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
+     * 
      * @throws NullPointerException
-     *             if after is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      * 
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     default <V> ReflectionFunction<T, V> andThen(Function<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
+
         return (T t) -> after.apply(apply(t));
     }
 
@@ -83,7 +86,7 @@ public interface ReflectionFunction<T, R> {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     R apply(T t) throws ReflectiveOperationException;
 }

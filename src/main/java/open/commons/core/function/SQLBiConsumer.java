@@ -44,8 +44,11 @@ import java.util.function.Consumer;
  * @param <U>
  *            the type of the second argument to the operation
  *
+ * @since 2019. 2. 19.
+ * @version 1.8.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * @see Consumer
- * @since 1.8
  */
 @FunctionalInterface
 public interface SQLBiConsumer<T, U> {
@@ -69,8 +72,9 @@ public interface SQLBiConsumer<T, U> {
      *            the operation to perform after this operation
      * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation
+     * 
      * @throws NullPointerException
-     *             if {@code after} is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default SQLBiConsumer<T, U> andThen(SQLBiConsumer<? super T, ? super U> after) {
         Objects.requireNonNull(after);

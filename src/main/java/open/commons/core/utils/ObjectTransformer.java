@@ -66,7 +66,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +90,7 @@ import open.commons.core.function.PentagonFunction;
  * 
  * @since 2025. 9. 5.
  * @version 2.1.0
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ObjectTransformer {
 
@@ -99,10 +98,10 @@ public class ObjectTransformer {
 
     /**
      * 셀프 참조 및 상호참조 형태의 클래스인 경우에 대해 중복 처리 금지를 위한 '식별정보' 관리.<br>
-     * <code>
+     * {@code 
      * (src) -> (copierToken -> dst)<br>
      * 둘 다 identity 비교를 쓰기 위해 IdentityHashMap 중첩
-     * </code>
+     * }
      */
     private static final ThreadLocal<IdentityHashMap<Object, IdentityHashMap<Object, Object>>> TL_VISITED = new ThreadLocal<>();
 
@@ -278,7 +277,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static BiConsumer<Object, Object> buildCopier(Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters) {
@@ -411,7 +410,7 @@ public class ObjectTransformer {
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle buildPlanArrayStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
             boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
@@ -456,7 +455,7 @@ public class ObjectTransformer {
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle buildPlanCollectionStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
             boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
@@ -535,7 +534,7 @@ public class ObjectTransformer {
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle buildPlanMapStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
             boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
@@ -601,7 +600,7 @@ public class ObjectTransformer {
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static MethodHandle buildPlanScalarStep(MethodHandles.Lookup lookup, StepPlan plan, Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass,
             boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, MethodHandle getter) throws Exception {
@@ -699,7 +698,7 @@ public class ObjectTransformer {
 
     /**
      * 
-     * <code>(src)->Object : src가 null이면 null, (src,copier) 이미 있으면 캐시 반환, 아니면 새로 만들어 채움</code>
+     * {@code (src)->Object : src가 null이면 null, (src,copier) 이미 있으면 캐시 반환, 아니면 새로 만들어 채움}
      * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, Class, Class, boolean, boolean, Map, String, boolean)},
      * {@link #buildValueConverterMH(java.lang.invoke.MethodHandles.Lookup, Class, Class, boolean, Class, Class, boolean, Map, String, Function, boolean, boolean)}에서
      * 호출하는 'MethodHandle' 대상. <br>
@@ -720,7 +719,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static Object convertPojoElem(Object src, BiConsumer<Object, Object> copier, MethodHandle ctor) {
@@ -781,7 +780,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static void deepCopyArray(Object b, Object a, MethodHandle getter, MethodHandle setter, MethodHandle elemConv, Class<?> dstElem) {
@@ -800,7 +799,7 @@ public class ObjectTransformer {
             }
             setter.invoke(b, dstArr);
         } catch (Throwable t) {
-            throw new TransformationFailedException(t);
+            throw new TransformationFailedException(b.getClass(), a.getClass());
         }
     }
 
@@ -823,7 +822,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings({ "rawtypes", "unused" })
     private static void deepCopyCollectionAdd(Object b, Object a, MethodHandle getter, MethodHandle adder, MethodHandle elemConv) {
@@ -845,7 +844,7 @@ public class ObjectTransformer {
                 }
             }
         } catch (Throwable t) {
-            throw new TransformationFailedException(t);
+            throw new TransformationFailedException(b.getClass(), a.getClass());
         }
     }
 
@@ -869,7 +868,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
     private static void deepCopyCollectionSet(Object b, Object a, MethodHandle getter, MethodHandle setter, MethodHandle elemConv, Class<? extends Collection> dstImpl) {
@@ -894,7 +893,7 @@ public class ObjectTransformer {
             }
             setter.invoke(b, dst);
         } catch (Throwable t) {
-            throw new TransformationFailedException(t);
+            throw new TransformationFailedException(b.getClass(), a.getClass());
         }
     }
 
@@ -918,7 +917,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings({ "rawtypes", "unused" })
     private static void deepCopyMapPut(Object b, Object a, MethodHandle getter, MethodHandle put, MethodHandle kConv, MethodHandle vConv) {
@@ -937,7 +936,7 @@ public class ObjectTransformer {
                 put.invoke(b, k2, v2);
             }
         } catch (Throwable t) {
-            throw new TransformationFailedException(t);
+            throw new TransformationFailedException(b.getClass(), a.getClass());
         }
     }
 
@@ -962,7 +961,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
     private static void deepCopyMapSet(Object b, Object a, MethodHandle getter, MethodHandle setter, MethodHandle kConv, MethodHandle vConv, Class<? extends Map> dstImpl) {
@@ -982,7 +981,7 @@ public class ObjectTransformer {
             }
             setter.invoke(b, dst);
         } catch (Throwable t) {
-            throw new TransformationFailedException(t);
+            throw new TransformationFailedException(b.getClass(), a.getClass());
         }
     }
 
@@ -1051,12 +1050,12 @@ public class ObjectTransformer {
      * @param converters
      *            변환 함수들
      * @param useGlobalConverter
-     *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
      * @return
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static <S, SF, T, TF> Function<?, ?> getFieldConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
             Class<TF> targetPropertyClass, Map<String, Function<?, ?>> converters, boolean useGlobalConverter) {
@@ -1087,7 +1086,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 5.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static BiConsumer<Object, Object> getOrBuildCopier(CopierKey key, Supplier<BiConsumer<Object, Object>> builder) {
 
@@ -1146,7 +1145,7 @@ public class ObjectTransformer {
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static Set<Class<?>> getPropertyConvertedTypes(Class<?> type) {
         Set<Class<?>> types = new HashSet<>();
@@ -1189,10 +1188,10 @@ public class ObjectTransformer {
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> BiConsumer<S, T> getTransformer(@NonNull Class<S> srcClass, boolean lookupSrcSuper, @NonNull Class<T> targetClass, boolean lookupTargetSuper) {
+    public static <S, T> BiConsumer<S, T> getTransformer(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
         return (BiConsumer<S, T>) getTransformer(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, null);
     }
 
@@ -1220,7 +1219,7 @@ public class ObjectTransformer {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param fieldConverters
-     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
+     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
@@ -1229,9 +1228,9 @@ public class ObjectTransformer {
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    private static <S, T> BiConsumer<Object, Object> getTransformer(@NonNull Class<S> srcClass, boolean lookupSrcSuper, @NonNull Class<T> targetClass, boolean lookupTargetSuper,
+    private static <S, T> BiConsumer<Object, Object> getTransformer(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> fieldConverters) {
 
         // 데이터 변환함수가 null 인 경우
@@ -1542,7 +1541,7 @@ public class ObjectTransformer {
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
             Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
@@ -1598,7 +1597,7 @@ public class ObjectTransformer {
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
             Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
@@ -1611,7 +1610,7 @@ public class ObjectTransformer {
     /**
      * {@link #buildCopier(Class, boolean, Class, boolean, Map)}에서 호출하는 'MethodHandle' 대상으로, 데이터를 이관하는 메소드들의 실행을
      * 담당합니다.<br>
-     * <code>LMF가 호출할 루프 본체</code>로써 실제 데이터 형변환을 실행합니다. <br>
+     * {@code LMF가 호출할 루프 본체}로써 실제 데이터 형변환을 실행합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1628,7 +1627,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     private static void runSteps(MethodHandle[] steps, Object target, Object src) {
@@ -1667,21 +1666,21 @@ public class ObjectTransformer {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param fieldConverters
-     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
+     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
      * 
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      * @return
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
 
         AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
 
@@ -1757,7 +1756,7 @@ public class ObjectTransformer {
      *
      * @since 2025. 9. 4.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     record CopierKey(Class<?> srcClass, Class<?> targetClass, boolean lookupSrcSuper, boolean lookupDstSuper, int convertersId) {
     }
@@ -1767,7 +1766,7 @@ public class ObjectTransformer {
      * 
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     static final class CopierStub implements BiConsumer<Object, Object> {
         private final CountDownLatch ready = new CountDownLatch(1);
@@ -1827,7 +1826,7 @@ public class ObjectTransformer {
      * @param converter
      *            데이터 형변환 함수.
      * @param useGlobalConverter
-     *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
      * @param deepConvert
      *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
      * @param containerKind
@@ -1839,7 +1838,7 @@ public class ObjectTransformer {
      * 
      * @since 2025. 9. 4.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see {@link Setter#useGlobalConverter()}
      */
@@ -1878,7 +1877,7 @@ public class ObjectTransformer {
          *            데이터 형변환 함수.
          * @since 2025. 9. 4.
          * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          */
         public StepPlan(String property, Method getter, Method setter, Function<?, ?> converterOrIdentity) {
             this(property, getter, setter, converterOrIdentity, false, false, ContainerKind.SCALAR, false, false);
@@ -1906,7 +1905,7 @@ public class ObjectTransformer {
          * @param converter
          *            데이터 형변환 함수.
          * @param useGlobalConverter
-         *            <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+         *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
          * @param deepConvert
          *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
          * @param containerKind
@@ -1917,7 +1916,7 @@ public class ObjectTransformer {
          *            'container' 데이터 추가 'putXXX' 스타일
          * @since 2025. 9. 5.
          * @version 2.1.0
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          */
         public StepPlan(String property, Method getter, Method setter, Function<?, ?> converter, boolean useGlobalConverter, boolean deepConvert, ContainerKind kind,
                 boolean adderStyle, boolean putStyle) {

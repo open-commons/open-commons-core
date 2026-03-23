@@ -34,7 +34,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * Array을 Iterator로 감싼 클래스.
  * 
  * @since 2019. 10. 24.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
 
@@ -72,7 +73,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * @return
      *
      * @since 2020. 11. 13.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Iterable#iterator()
      */
@@ -111,7 +112,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public void reset() {
         try {
@@ -134,7 +135,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      *
      *
      * @since 2019. 10. 24.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public void rollback() {
         try {

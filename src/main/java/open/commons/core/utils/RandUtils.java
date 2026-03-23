@@ -33,7 +33,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  * 
  */
 public class RandUtils {
@@ -54,10 +54,6 @@ public class RandUtils {
             h = 31 * h + string.charAt(i);
         }
         return h;
-    }
-
-    public static long x64HashCode(String string) {
-        return hash(string) * 31 + hash(string);
     }
 
     /**
@@ -131,5 +127,9 @@ public class RandUtils {
         }
 
         return rn;
+    }
+
+    public static long x64HashCode(String string) {
+        return hash(string) * 31 + hash(string);
     }
 }

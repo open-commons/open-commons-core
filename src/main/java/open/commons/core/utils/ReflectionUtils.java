@@ -45,7 +45,7 @@ import open.commons.core.util.IFilter;
 
 /**
  * 
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * @since 2011. 1. 2.
  * 
  */
@@ -79,7 +79,7 @@ public class ReflectionUtils {
      * @param fieldname
      * @return <BR>
      * @since 2012. 02. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getDeclaredFields()
      */
@@ -99,7 +99,7 @@ public class ReflectionUtils {
      * @param fieldname
      * @return <BR>
      * @since 2012. 02. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getFields()
      */
@@ -118,7 +118,7 @@ public class ReflectionUtils {
      * @param targetClass
      *            {@link TypeVariable}이 사용된 클래스.
      * @param lastCopy
-     *            <b><code>typeVarClasses</code></b>의 개수가 <b><code>targetClass</code></b>의 실제 {@link TypeVariable} 개수보다
+     *            <b>{@code typeVarClasses}</b>의 개수가 <b>{@code targetClass}</b>의 실제 {@link TypeVariable} 개수보다
      *            적은 경우 마지막 값으로 채울지 여부.
      * @param typeVarClasses
      *            {@link TypeVariable}로 사용될 클래스.
@@ -425,7 +425,7 @@ public class ReflectionUtils {
      * @return
      *
      * @since 2019. 6. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getMethods()
      */
@@ -444,7 +444,7 @@ public class ReflectionUtils {
      * 
      * @param accessObj
      * @param annotationClass
-     * @return <b><code>nullable</code></b>.
+     * @return <b>{@code nullable}</b>.
      */
     public static <T extends Annotation> T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
         AssertUtils2.notNulls("Neither accessObj and annotationClass MUST be null. accessObj: " + accessObj + ", annotationClass: " + annotationClass, accessObj, annotationClass);
@@ -562,7 +562,7 @@ public class ReflectionUtils {
      * 
      * @since 2014. 6. 18.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getValue(Field field, Object instance) {
         Object value = getValue(field, instance, null);
@@ -591,7 +591,7 @@ public class ReflectionUtils {
      * @since 2014. 6. 18.
      * @version 3.0.0
      * 
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Object getValue(Field field, Object instance, Object defaultValue) {
         // 필드와 인스턴스가 모두 null인 경우 정적 필드가 아님에도 접근하려 하면 오류가 발생할 수 있음
@@ -624,7 +624,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * <b>NOTE:</b> The parameter <code><b>field</b></code> MUST be allowed to access.
+     * <b>NOTE:</b> The parameter {@code <b>field</b>} MUST be allowed to access.
      * 
      * <pre>
      * [개정이력]
@@ -743,7 +743,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * Return whether a parameter is subclass of <b><code>candidates</code></b> or not.
+     * Return whether a parameter is subclass of <b>{@code candidates}</b> or not.
      * 
      * @param target
      * @param candidates
@@ -764,7 +764,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * Return all Class<?> of super-classes of a <b><code>parameter</code></b>.
+     * Return all Class<?> of super-classes of a <b>{@code parameter}</b>.
      * 
      * @param object
      * @param candidates

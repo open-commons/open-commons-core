@@ -31,9 +31,13 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.EquivalentFactory;
 import open.commons.core.utils.ArrayUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.CheckUtils;
 import open.commons.core.utils.StringUtils;
 
@@ -42,8 +46,15 @@ import open.commons.core.utils.StringUtils;
  * 
  * @since 2012. 3. 9.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class PathElement implements Iterable<String> {
+
+    private static final String DEFAULT_SEPARATOR = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            File.separator //
+    );
 
     /** 구분자 */
     private String separator;
@@ -63,9 +74,9 @@ public class PathElement implements Iterable<String> {
     /** 경로 개수 */
     private int elemCount = 0;
 
-    Object mtxPaths = new Object();
+    private final Object mtxPaths = new Object();
 
-    String[] paths;
+    private String @Nullable [] paths;
 
     /**
      * 시스템의 파일 경로 구분자를 사용하는 기본 생성자.
@@ -73,12 +84,12 @@ public class PathElement implements Iterable<String> {
      * <BR>
      * 
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see PathElement#PathElement(String)
      */
     public PathElement() {
-        this(File.separator);
+        this(DEFAULT_SEPARATOR);
     }
 
     /**
@@ -87,13 +98,12 @@ public class PathElement implements Iterable<String> {
      * @param delimiter
      *            경로 구분자 <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public PathElement(char separator) {
-
-        sepChar = new char[] { separator };
-
-        this.separator = new String(sepChar);
+        this(Objects.requireNonNull( //
+                String.valueOf(separator) //
+        ));
     }
 
     /**
@@ -103,10 +113,10 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public PathElement(char[] elems, int[][] elemLength) {
-        this(File.separator, elems, elemLength);
+        this(DEFAULT_SEPARATOR, elems, elemLength);
     }
 
     /**
@@ -115,10 +125,10 @@ public class PathElement implements Iterable<String> {
      * @param elems
      *            경로를 구성하는 문자열들 <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public PathElement(String... elems) {
-        this(File.separator);
+        this(DEFAULT_SEPARATOR);
 
         CheckUtils.checkNull((Object[]) elems);
 
@@ -135,17 +145,16 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public PathElement(String separator) {
-        if (separator == null) {
-            throw new IllegalArgumentException(new NullPointerException("A delimiter must not be 'null': delimiter=null"));
-        } else if (StringUtils.isNullOrEmptyString(separator)) {
+        Objects.requireNonNull(separator, "A delimiter must not be 'null': delimiter=null");
+
+        if (StringUtils.isNullOrEmptyString(separator)) {
             throw new IllegalArgumentException("A delimiter must not be 'empty string': delimiter=" + separator);
         }
 
-        this.separator = separator;
-        sepChar = separator.toCharArray();
+        this(separator, new char[0], new int[0][]);
     }
 
     /**
@@ -158,15 +167,12 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public PathElement(String separator, char[] elems, int[][] elemLength) {
-        this(separator);
-
-        if (elems == null || elemLength == null) {
-            throw new PathElementException(
-                    "Parameters (char[] elems, int[][] elemLength) must not be null both of them: elems=" + Arrays.toString(elems) + ", elemLength=" + elemLength);
-        }
+        AssertUtils2.notNulls("Parameters (char[] elems, int[][] elemLength) must not be null both of them: elems=" + Arrays.toString(elems) + ", elemLength=" + elemLength //
+                , PathElementException.class //
+                , elems, elemLength);
 
         if (elems.length != elemLength[elemLength.length - 1][2]) {
             throw new PathElementException("A character array of 'Path element's does not match to 'Path element's Length info: elems.length=" + elems.length + ", final-Length="
@@ -184,6 +190,13 @@ public class PathElement implements Iterable<String> {
             }
         }
 
+        this.separator = separator;
+        this.sepChar = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                separator.toCharArray() //
+        );
+
         this.elems = elems;
         this.elemLength = elemLength;
         this.elemCount = elemLength.length;
@@ -195,7 +208,7 @@ public class PathElement implements Iterable<String> {
      * @param path
      *            <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public void add(char path) {
         char[] npc = new char[] { path };
@@ -210,11 +223,15 @@ public class PathElement implements Iterable<String> {
      * @param path
      *            <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public void add(String path) {
+    public void add(@Nullable String path) {
         if (path != null) {
-            char[] npc = path.toCharArray();
+            char[] npc = Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    path.toCharArray() //
+            );
             synchronized (mtxPaths) {
                 createPathValue(npc);
             }
@@ -227,13 +244,11 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #add(String)
      */
-    public void addAll(char... paths) {
-        CheckUtils.checkNull(paths);
-
+    public void addAll(char @Nullable... paths) {
         if (paths != null) {
             synchronized (mtxPaths) {
                 for (char path : paths) {
@@ -249,17 +264,18 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #add(String)
      */
-    public void addAll(List<String> paths) {
-        CheckUtils.checkNull(paths);
+    public void addAll(@Nullable List<String> paths) {
 
         if (paths != null) {
             synchronized (mtxPaths) {
                 for (String path : paths) {
-                    createPathValue(path.toCharArray());
+                    createPathValue(Objects.requireNonNull( //
+                            path.toCharArray() //
+                    ));
                 }
             }
         }
@@ -271,17 +287,18 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #add(String)
      */
-    public void addAll(String... paths) {
-        CheckUtils.checkNull((Object[]) paths);
+    public void addAll(String @Nullable... paths) {
 
         if (paths != null) {
             synchronized (mtxPaths) {
                 for (String path : paths) {
-                    createPathValue(path.toCharArray());
+                    createPathValue(Objects.requireNonNull( //
+                            path.toCharArray() //
+                    ));
                 }
             }
         }
@@ -300,10 +317,14 @@ public class PathElement implements Iterable<String> {
         synchronized (mtxPaths) {
 
             /** 구분자 */
-            separator = File.separator;
+            separator = DEFAULT_SEPARATOR;
 
             /** 구분자 문자 배열 */
-            sepChar = separator.toCharArray();
+            sepChar = Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    separator.toCharArray() //
+            );
 
             /** 경로들의 문자배열 */
             elems = new char[0];
@@ -326,10 +347,11 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Object#clone()
      */
+    @SuppressWarnings("null")
     public PathElement clone() {
         PathElement clone = new PathElement(this.separator);
 
@@ -350,9 +372,9 @@ public class PathElement implements Iterable<String> {
      * @param path
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public boolean contains(String path) {
+    public boolean contains(@Nullable String path) {
         if (path != null) {
             int pl = path.length();
 
@@ -383,7 +405,9 @@ public class PathElement implements Iterable<String> {
 
                 System.arraycopy(elems, el[0], elemChars, 0, el[1]);
 
-                if (equalsChars(path.toCharArray(), elemChars)) {
+                if (equalsChars(Objects.requireNonNull( //
+                        path.toCharArray() //
+                ), elemChars)) {
                     return true;
                 }
             }
@@ -399,7 +423,7 @@ public class PathElement implements Iterable<String> {
      * @param npc
      *            <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private void createPathValue(char[] npc) {
         elems = ArrayUtils.merge(elems, npc);
@@ -419,12 +443,12 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -442,10 +466,7 @@ public class PathElement implements Iterable<String> {
         if (!Arrays.equals(elems, other.elems))
             return false;
 
-        if (separator == null) {
-            if (other.separator != null)
-                return false;
-        } else if (!separator.equals(other.separator))
+        if (!separator.equals(other.separator))
             return false;
 
         return true;
@@ -458,7 +479,7 @@ public class PathElement implements Iterable<String> {
      * @param c2
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private boolean equalsChars(char[] c1, char[] c2) {
         for (int i = 0; i < c1.length; i++) {
@@ -474,7 +495,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public int getElemCount() {
         synchronized (mtxPaths) {
@@ -487,7 +508,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public int[][] getElementLengths() {
         synchronized (mtxPaths) {
@@ -500,7 +521,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public char[] getElements() {
         synchronized (mtxPaths) {
@@ -514,14 +535,18 @@ public class PathElement implements Iterable<String> {
      * @param index
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String getPath(int index) {
         synchronized (mtxPaths) {
             checkIndex(index);
 
             if (paths != null) {
-                return paths[index];
+                return Objects.requireNonNull(
+                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                        paths[index] //
+                );
             }
 
             char[] path = new char[elemLength[index][1]];
@@ -535,20 +560,19 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String[] getPaths() {
-
         synchronized (mtxPaths) {
             if (elemCount < 1) {
-                return null;
+                return new String[0];
             }
 
-            if (paths != null) {
-                return ArrayUtils.copyOf(paths, paths.length);
+            if (this.paths != null) {
+                return ArrayUtils.copyOf(this.paths, this.paths.length);
             } else {
-                paths = getPaths_internal(elemCount);
-                return paths;
+                this.paths = getPaths_internal(this.elemCount);
+                return this.paths;
             }
         }
     }
@@ -560,14 +584,16 @@ public class PathElement implements Iterable<String> {
      *            inclusive
      * @return <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String[] getPaths(int index) {
         synchronized (mtxPaths) {
             checkIndex(index);
 
-            if (paths != null) {
-                return ArrayUtils.copyOf(paths, index + 1);
+            if (this.paths != null) {
+                return ArrayUtils.copyOf(Objects.requireNonNull( //
+                        this.paths //
+                ), index + 1);
             } else {
                 return getPaths_internal(index + 1);
             }
@@ -580,7 +606,7 @@ public class PathElement implements Iterable<String> {
      * @param count
      * @return <BR>
      * @since 2012. 03. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private String[] getPaths_internal(int count) {
         String[] paths = new String[count];
@@ -599,7 +625,7 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String getSeparator() {
         return separator;
@@ -609,7 +635,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Object#hashCode()
      */
@@ -620,7 +646,7 @@ public class PathElement implements Iterable<String> {
         result = prime * result + elemCount;
         result = prime * result + Arrays.hashCode(elemLength);
         result = prime * result + Arrays.hashCode(elems);
-        result = prime * result + ((separator == null) ? 0 : separator.hashCode());
+        result = prime * result + separator.hashCode();
         return result;
     }
 
@@ -630,7 +656,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Iterable#iterator()
      */
@@ -648,7 +674,7 @@ public class PathElement implements Iterable<String> {
      * 
      *                <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String remove() {
         synchronized (mtxPaths) {
@@ -674,14 +700,14 @@ public class PathElement implements Iterable<String> {
 
     /**
      * 경로 구분자를 변경한 후, 이전 구분자를 반환합니다. <br>
-     * 구분자는 <code>null</code>이 될 수 없다.
+     * 구분자는 {@code null}이 될 수 없다.
      * 
      * @param delimiter
      * @return 이전 구분자.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String setSeparator(char separator) {
         synchronized (mtxPaths) {
@@ -694,23 +720,28 @@ public class PathElement implements Iterable<String> {
 
     /**
      * 경로 구분자를 변경한 후, 이전 구분자를 반환합니다. <br>
-     * 구분자는 <code>null</code>이 될 수 없다.
+     * 구분자는 {@code null}이 될 수 없다.
      * 
      * @param delimiter
-     * @return 이전 구분자. 파라미터가 <code>null</code>인 경우 변경을 하지 않고, <code>null</code>을 반환하다. <BR>
+     * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다. <BR>
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code separator})가 {@code null}인 경우 발생.
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public String setSeparator(String separator) {
-        if (separator != null) {
-            synchronized (mtxPaths) {
-                String latestValue = this.separator;
-                this.separator = separator;
-                this.sepChar = separator.toCharArray();
-                return latestValue;
-            }
-        } else {
-            return null;
+        Objects.requireNonNull(separator);
+
+        synchronized (mtxPaths) {
+            String latestValue = this.separator;
+            this.separator = separator;
+            this.sepChar = Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    separator.toCharArray() //
+            );
+            return latestValue;
         }
     }
 
@@ -718,7 +749,7 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.lang.Object#toString()
      */
@@ -775,7 +806,6 @@ public class PathElement implements Iterable<String> {
         private Object mtx = new Object();
 
         StringItr(String[] elems) {
-
             itrArray = elems;
             length = itrArray.length;
         }
@@ -784,7 +814,7 @@ public class PathElement implements Iterable<String> {
          * @return
          * 
          * @since 2012. 03. 14.
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          * 
          * @see java.util.Iterator#hasNext()
          */
@@ -801,7 +831,7 @@ public class PathElement implements Iterable<String> {
          * @except ArrayIndexOutOfBoundsException
          * 
          * @since 2012. 03. 14.
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          * 
          * @see java.util.Iterator#next()
          */
@@ -809,7 +839,11 @@ public class PathElement implements Iterable<String> {
         public String next() {
             synchronized (mtx) {
                 remove();
-                return itrArray[pos];
+                return Objects.requireNonNull(
+                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                        itrArray[pos] //
+                );
             }
         }
 
@@ -817,7 +851,7 @@ public class PathElement implements Iterable<String> {
          * 
          * 
          * @since 2012. 03. 14.
-         * @author Park Jun-Hong (parkjunhong77@gmail.com)
+         * 
          * 
          * @see java.util.Iterator#remove()
          */

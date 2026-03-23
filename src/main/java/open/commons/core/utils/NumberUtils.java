@@ -31,7 +31,7 @@ import java.util.function.Function;
 /**
  * 
  * @since 2014. 7. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class NumberUtils {
 
@@ -75,7 +75,7 @@ public class NumberUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
 
     public static String hex(String str) {
@@ -83,7 +83,7 @@ public class NumberUtils {
     }
 
     /**
-     * Return a radix used for <b><code>value</code></b>.
+     * Return a radix used for <b>{@code value}</b>.
      * 
      * @param value
      * @return
@@ -164,24 +164,24 @@ public class NumberUtils {
 
     public static enum IntegerType {
         // start - Wrapper Classes : 2014. 7. 10., Park_Jun_Hong_(parkjunhong77@gmail.com)
-        /** The type is <code>Byte.class</code> */
+        /** The type is {@code Byte.class} */
         BYTE(Byte.class), //
-        /** The type is <code>Short.class</code> */
+        /** The type is {@code Short.class} */
         SHORT(Short.class), //
-        /** The type is <code>Integer.class</code> */
+        /** The type is {@code Integer.class} */
         INTEGER(Integer.class), //
-        /** The type is <code>Long.class</code> */
+        /** The type is {@code Long.class} */
         LONG(Long.class) //
         // end - Wrapper Classes : 2014. 7. 10.
 
         // start - primitive Classes : 2014. 7. 10., Park_Jun_Hong_(parkjunhong77@gmail.com)
-        /** The type is <code>byte.class</code> */
+        /** The type is {@code byte.class} */
         ,Byte(byte.class), //
-        /** The type is <code>short.class</code> */
+        /** The type is {@code short.class} */
         Short(short.class), //
-        /** The type is <code>int.class</code> */
+        /** The type is {@code int.class} */
         Int(int.class), //
-        /** The type is <code>long.class</code> */
+        /** The type is {@code long.class} */
         Long(long.class), //
         // end - primitive Classes : 2014. 7. 10.
 

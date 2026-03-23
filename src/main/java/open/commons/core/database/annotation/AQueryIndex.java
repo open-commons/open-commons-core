@@ -33,7 +33,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 11. 8.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 @Documented
@@ -57,7 +58,7 @@ public @interface AQueryIndex {
      *
      * @since 2020. 12. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     String name() default "";
 }

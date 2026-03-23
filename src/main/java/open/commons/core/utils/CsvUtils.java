@@ -47,13 +47,13 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,10 +78,11 @@ import com.opencsv.exceptions.CsvException;
  * 
  * @since 2021. 11. 11.
  * @version 1.8.0
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class CsvUtils {
 
+    @SuppressWarnings("null")
     private static final Logger logger = LoggerFactory.getLogger(CsvUtils.class);
 
     // 리플렉션 메타데이터 캐싱 (Thread-Safe)
@@ -90,6 +91,32 @@ public class CsvUtils {
 
     // prevent to create an instance.
     private CsvUtils() {
+    }
+
+    /**
+     * 문자열셋을 객체를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 16.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param charset
+     *            문자열 셋.
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
+     *
+     * @since 2026. 3. 16.
+     * @version 3.0.0
+     * 
+     */
+    public static Charset charset(String charset) {
+        Objects.requireNonNull(charset);
+        return Objects.requireNonNull(Charset.forName(charset));
     }
 
     /**
@@ -110,7 +137,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static final <E> Function<E, String[]> defaultCreator() {
         return object -> {
@@ -170,9 +197,9 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static final <E> Function<String[], E> defaultCreator(@NonNull Class<E> type) {
+    public static final <E> Function<String[], E> defaultCreator(Class<E> type) {
         AssertUtils2.notNulls(type);
 
         // 메소드 정보 캐싱
@@ -234,7 +261,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static CSVReader newCSVReader(Reader reader, CsvFileConfig config) {
         // 1. 파싱 관련 상세 설정 (구분자, 인용구, 이스케이프 등)
@@ -272,7 +299,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static ICSVWriter newCSVWriter(Writer writer, CsvWriteConfig config) {
         return new CSVWriterBuilder(writer) //
@@ -300,7 +327,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @see #objectsToArray(Collection, Function)
      */
     public static <E> String[][] objectsToArray(Collection<E> objects) {
@@ -326,7 +353,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> String[][] objectsToArray(Collection<E> objects, Function<E, String[]> creator) {
         String[][] array2d = new String[objects.size()][];
@@ -355,7 +382,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <E> String[][] objectsToArray(E... objects) {
@@ -381,7 +408,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #objectsToArray(Collection, Function)
      */
@@ -407,7 +434,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #objectToArray(Object, Function)
      */
@@ -434,7 +461,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> String[] objectToArray(E object, Function<E, String[]> creator) {
         return creator.apply(object);
@@ -453,16 +480,16 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), (Consumer<E>) null, close);
@@ -481,9 +508,9 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -493,7 +520,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), afterCreation, close);
@@ -512,9 +539,9 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -523,7 +550,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, Predicate<E> validator, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), validator, null, close);
@@ -542,9 +569,9 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -556,7 +583,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, Predicate<E> validator, Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), validator, afterCreation, close);
@@ -575,12 +602,12 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -588,7 +615,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -609,12 +636,12 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -624,7 +651,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Function<String[], E> creator, Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, creator, (Predicate<E>) null, afterCreation, close);
@@ -643,12 +670,12 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -658,7 +685,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -680,12 +707,12 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -697,7 +724,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Function<String[], E> creator, Predicate<E> validator, Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -762,7 +789,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -770,7 +797,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -802,7 +829,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -812,7 +839,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -845,9 +872,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -855,7 +882,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -888,9 +915,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -900,7 +927,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -931,7 +958,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -939,7 +966,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -971,7 +998,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -981,7 +1008,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -1014,9 +1041,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1024,7 +1051,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -1056,9 +1083,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1068,7 +1095,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -1098,7 +1125,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1106,7 +1133,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Class<E> type, boolean close)
             throws IOException {
@@ -1136,7 +1163,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1146,7 +1173,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Class<E> type, Predicate<E> validator,
             boolean close) throws IOException {
@@ -1177,9 +1204,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1187,7 +1214,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Function<String[], E> creator,
             boolean close) throws IOException {
@@ -1217,9 +1244,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1229,7 +1256,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -1257,7 +1284,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1265,7 +1292,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, charset, CsvFileConfig.DEFAULT_SKIP_LINE_COUNT, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -1292,7 +1319,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1302,7 +1329,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Class<E> type, Predicate<E> validator, boolean close)
             throws IOException {
@@ -1331,9 +1358,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1341,7 +1368,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -1370,9 +1397,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1382,7 +1409,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Function<String[], E> creator, Predicate<E> validator,
             boolean close) throws IOException {
@@ -1408,7 +1435,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1416,7 +1443,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, charset, CsvFileConfig.DEFAULT_SKIP_LINE_COUNT, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
@@ -1441,7 +1468,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1451,7 +1478,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Class<E> type, Predicate<E> validator, boolean close)
             throws IOException {
@@ -1478,9 +1505,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1488,7 +1515,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(inputStream, charset, 0, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -1514,9 +1541,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1526,7 +1553,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Function<String[], E> creator, Predicate<E> validator, boolean close)
             throws IOException {
@@ -1560,7 +1587,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1568,7 +1595,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -1602,7 +1629,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -1612,7 +1639,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -1646,7 +1673,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1656,7 +1683,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -1690,7 +1717,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -1702,7 +1729,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -1738,9 +1765,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1748,7 +1775,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -1783,9 +1810,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1795,7 +1822,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -1828,7 +1855,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1836,7 +1863,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -1869,7 +1896,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1879,7 +1906,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -1913,9 +1940,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -1923,7 +1950,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -1957,9 +1984,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -1969,7 +1996,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -2001,7 +2028,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2009,7 +2036,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Class<E> type, boolean close)
             throws IOException {
@@ -2040,7 +2067,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2050,7 +2077,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Class<E> type,
             Predicate<E> validator, boolean close) throws IOException {
@@ -2083,9 +2110,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2093,7 +2120,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Function<String[], E> creator,
             boolean close) throws IOException {
@@ -2125,9 +2152,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2137,7 +2164,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -2167,7 +2194,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2175,7 +2202,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Class<E> type, boolean close)
             throws IOException {
@@ -2205,7 +2232,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2215,7 +2242,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Class<E> type, Predicate<E> validator,
             boolean close) throws IOException {
@@ -2246,9 +2273,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2256,7 +2283,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -2287,9 +2314,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2299,7 +2326,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -2327,7 +2354,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2335,7 +2362,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, charset, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -2362,7 +2389,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2372,7 +2399,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Class<E> type, Predicate<E> validator, boolean close)
             throws IOException {
@@ -2401,9 +2428,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2411,7 +2438,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -2440,9 +2467,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2452,7 +2479,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Function<String[], E> creator, Predicate<E> validator,
             boolean close) throws IOException {
@@ -2473,18 +2500,18 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param inputStream
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -2505,11 +2532,11 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param inputStream
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -2518,7 +2545,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -2539,11 +2566,11 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param inputStream
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2552,7 +2579,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -2573,11 +2600,11 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param inputStream
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -2588,7 +2615,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -2610,14 +2637,14 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param inputStream
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2625,7 +2652,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -2646,14 +2673,14 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param inputStream
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2663,7 +2690,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -2696,7 +2723,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2704,7 +2731,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -2736,7 +2763,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2746,7 +2773,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -2779,9 +2806,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2789,7 +2816,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -2822,9 +2849,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2834,7 +2861,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -2865,7 +2892,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param creator
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2873,7 +2900,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes //
             , Class<E> type, boolean close) throws IOException {
@@ -2907,13 +2934,13 @@ public class CsvUtils {
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @param creator
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @return
      * @throws IOException
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes //
             , Class<E> type, Predicate<E> validator, boolean close) throws IOException {
@@ -2945,9 +2972,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -2955,7 +2982,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes //
             , Function<String[], E> creator, boolean close) throws IOException {
@@ -2986,9 +3013,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -2998,7 +3025,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes //
             , Function<String[], E> creator, Predicate<E> validator, boolean close) throws IOException {
@@ -3028,7 +3055,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3036,7 +3063,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Class<E> type, boolean close) throws IOException {
@@ -3066,7 +3093,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3076,7 +3103,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Class<E> type, Predicate<E> validator, boolean close) throws IOException {
@@ -3107,9 +3134,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3117,7 +3144,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Function<String[], E> creator, boolean close) throws IOException {
@@ -3148,9 +3175,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3160,7 +3187,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Function<String[], E> creator, Predicate<E> validator, boolean close) throws IOException {
@@ -3188,7 +3215,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3196,7 +3223,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, Charset.defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -3223,7 +3250,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3233,7 +3260,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Class<E> type, Predicate<E> validator, boolean close)
             throws IOException {
@@ -3262,9 +3289,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3272,7 +3299,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -3301,9 +3328,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3313,7 +3340,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Function<String[], E> creator, Predicate<E> validator,
             boolean close) throws IOException {
@@ -3339,7 +3366,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3347,7 +3374,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Class<E> type, boolean close) throws IOException {
         readAsList(inputStream, skip, separator, defaultCreator(type), close);
@@ -3373,7 +3400,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3383,7 +3410,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Class<E> type, Predicate<E> validator, boolean close) throws IOException {
         readAsList(inputStream, skip, separator, defaultCreator(type), validator, close);
@@ -3410,9 +3437,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3420,7 +3447,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(inputStream, Charset.defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
@@ -3446,9 +3473,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3458,7 +3485,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Function<String[], E> creator, Predicate<E> validator, boolean close)
             throws IOException {
@@ -3479,18 +3506,18 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, boolean close) throws IOException {
         return readAsList(newCSVReader(reader, config), type, close);
@@ -3509,11 +3536,11 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -3522,7 +3549,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(newCSVReader(reader, config), type, afterCreation, close);
@@ -3541,11 +3568,11 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3554,7 +3581,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, Predicate<E> validator, boolean close) throws IOException {
         return readAsList(newCSVReader(reader, config), type, validator, close);
@@ -3573,11 +3600,11 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -3588,7 +3615,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, Predicate<E> validator, Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -3608,14 +3635,14 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3623,7 +3650,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -3644,14 +3671,14 @@ public class CsvUtils {
      * @param <E>
      *            CSV 파일을 읽어서 생성할 데이터 모델. {@link ReadAt}이 설정된 메소드를 호출하여 데이터를 설정합니다.
      * @param reader
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param config
-     *            CSV 파일을 읽기 위한 설정 (<b><code>NOT nullable</code></b>)
+     *            CSV 파일을 읽기 위한 설정 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3661,7 +3688,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ReadAt
      */
@@ -3693,7 +3720,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3701,7 +3728,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -3733,7 +3760,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -3743,7 +3770,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -3776,7 +3803,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3786,7 +3813,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -3818,7 +3845,7 @@ public class CsvUtils {
      * @param strictQuotes
      * @param ignoreLeadingWhiteSpace
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -3830,7 +3857,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -3864,9 +3891,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3874,7 +3901,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -3907,9 +3934,9 @@ public class CsvUtils {
      * @param ignoreLeadingWhiteSpace
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -3919,7 +3946,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace //
@@ -3951,7 +3978,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -3959,7 +3986,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -3990,7 +4017,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -4000,7 +4027,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -4031,7 +4058,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4041,7 +4068,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -4072,7 +4099,7 @@ public class CsvUtils {
      *            Escape 문자
      * @param strictQuotes
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -4084,7 +4111,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -4116,9 +4143,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4126,7 +4153,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -4158,9 +4185,9 @@ public class CsvUtils {
      * @param strictQuotes
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4170,7 +4197,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip //
             , char separator, char quotechar, char escape, boolean strictQuotes //
@@ -4200,7 +4227,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4208,7 +4235,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
@@ -4236,7 +4263,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -4246,7 +4273,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -4275,7 +4302,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4285,7 +4312,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, Predicate<E> validator, boolean close)
             throws IOException {
@@ -4314,7 +4341,7 @@ public class CsvUtils {
      * @param escape
      *            Escape 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -4326,7 +4353,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, Predicate<E> validator,
             Consumer<E> afterCreation, boolean close) throws IOException {
@@ -4357,9 +4384,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4367,7 +4394,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -4397,9 +4424,9 @@ public class CsvUtils {
      *            Escape 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4409,7 +4436,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Function<String[], E> creator, Predicate<E> validator,
             boolean close) throws IOException {
@@ -4436,7 +4463,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4444,7 +4471,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
@@ -4471,7 +4498,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -4481,7 +4508,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -4509,7 +4536,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4519,7 +4546,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, Predicate<E> validator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
@@ -4546,7 +4573,7 @@ public class CsvUtils {
      * @param quotechar
      *            문자열 묶음 문자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -4558,7 +4585,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, Predicate<E> validator, Consumer<E> afterCreation,
             boolean close) throws IOException {
@@ -4587,9 +4614,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4597,7 +4624,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
@@ -4625,9 +4652,9 @@ public class CsvUtils {
      *            문자열 묶음 문자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4637,7 +4664,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Function<String[], E> creator, Predicate<E> validator, boolean close)
             throws IOException {
@@ -4663,7 +4690,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4671,7 +4698,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4696,7 +4723,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param afterCreation
      *            객체 생성 후 작업.
      * @param close
@@ -4706,7 +4733,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4731,7 +4758,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4741,7 +4768,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, Predicate<E> validator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4766,7 +4793,7 @@ public class CsvUtils {
      * @param separator
      *            데이터 구분자
      * @param type
-     *            데이터 타입. (<b><code>NOT nullable</code></b>)
+     *            데이터 타입. (<b>{@code NOT nullable}</b>)
      * @param validator
      *            데이터 검증 함수.
      * @param afterCreation
@@ -4778,7 +4805,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, Predicate<E> validator, Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -4805,9 +4832,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param close
      *            {@link InputStream} close 여부.( see {@link AutoCloseable#close()})
      * @return
@@ -4815,7 +4842,7 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4841,9 +4868,9 @@ public class CsvUtils {
      *            데이터 구분자
      * @param creator
      *            {@link String}[]를 전달받아 데이터를 생성하는 함수.<br>
-     *            객체의 <code>setter</code> 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
+     *            객체의 {@code setter} 메소드에 {@link ReadAt}을 설정한다면, {@link #defaultCreator(Class)} 를 사용하거나
      *            {@link #readAsList(InputStream, CsvFileConfig, Class, Predicate, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param validator
      *            데이터 검증 함수.
      * @param close
@@ -4853,7 +4880,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Function<String[], E> creator, Predicate<E> validator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4875,7 +4902,7 @@ public class CsvUtils {
      * @param data
      *            데이터
      * @param writer
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param header
      *            헤더
      * @param beforeCreation
@@ -4887,7 +4914,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, (String[]) null, beforeCreation, close);
@@ -4908,12 +4935,12 @@ public class CsvUtils {
      * @param data
      *            데이터
      * @param writer
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param creator
      *            객체를 전달받아 {@link String}[] 데이터를 생성하는 함수.<br>
-     *            객체의 <code>getter</code> 메소드에 {@link WriteAt}을 설정한다면, {@link #defaultCreator()} 를 사용하거나
+     *            객체의 {@code getter} 메소드에 {@link WriteAt}을 설정한다면, {@link #defaultCreator()} 를 사용하거나
      *            {@link #write(Collection, CSVWriter, String[], Consumer, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param beforeCreation
      *            String[]로 변환하기 전 작업.
      * @param close
@@ -4923,7 +4950,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, null, creator, beforeCreation, close);
@@ -4944,7 +4971,7 @@ public class CsvUtils {
      * @param data
      *            데이터
      * @param writer
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param header
      *            헤더
      * @param beforeCreation
@@ -4956,7 +4983,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, String[] header, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, header, defaultCreator(), beforeCreation, close);
@@ -4986,7 +5013,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, file, config, defaultCreator(), close);
@@ -5018,7 +5045,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, file, config, defaultCreator(), beforeCreation, close);
@@ -5050,7 +5077,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, file, config, null, creator, null, close);
@@ -5084,7 +5111,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -5117,7 +5144,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String[] header, boolean close) throws IOException {
         return write(data, file, config, header, defaultCreator(), close);
@@ -5151,7 +5178,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String[] header, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, file, config, header, defaultCreator(), beforeCreation, close);
@@ -5185,7 +5212,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String[] header, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, file, config, header, creator, null, close);
@@ -5222,7 +5249,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -5245,14 +5272,14 @@ public class CsvUtils {
      * @param data
      *            데이터
      * @param writer
-     *            CSV 데이터 (<b><code>NOT nullable</code></b>)
+     *            CSV 데이터 (<b>{@code NOT nullable}</b>)
      * @param header
      *            헤더
      * @param creator
      *            객체를 전달받아 {@link String}[] 데이터를 생성하는 함수.<br>
-     *            객체의 <code>getter</code> 메소드에 {@link WriteAt}을 설정한다면, {@link #defaultCreator()} 를 사용하거나
+     *            객체의 {@code getter} 메소드에 {@link WriteAt}을 설정한다면, {@link #defaultCreator()} 를 사용하거나
      *            {@link #write(Collection, CSVWriter, String[], Consumer, boolean)}를 호출하여도 됨.<br>
-     *            <font color="red">(<b><code>NOT nullable</code></b>)</font>
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param beforeCreation
      *            String[]로 변환하기 전 작업.
      * @param close
@@ -5262,7 +5289,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, ICSVWriter writer, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -5325,7 +5352,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, outputStream, config, defaultCreator(), close);
@@ -5357,7 +5384,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, outputStream, config, defaultCreator(), beforeCreation, close);
@@ -5389,7 +5416,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, outputStream, config, null, creator, null, close);
@@ -5423,7 +5450,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -5456,7 +5483,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String[] header, boolean close) throws IOException {
         return write(data, outputStream, config, header, defaultCreator(), close);
@@ -5490,7 +5517,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String[] header, Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -5525,7 +5552,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String[] header, Function<E, String[]> creator, boolean close)
             throws IOException {
@@ -5562,7 +5589,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String[] header, Function<E, String[]> creator,
             Consumer<E> beforeCreation, boolean close) throws IOException {
@@ -5595,7 +5622,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, boolean close, OpenOption... options) throws IOException {
         return write(data, path, config, defaultCreator(), close, options);
@@ -5629,7 +5656,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Consumer<E> beforeCreation, boolean close, OpenOption... options)
             throws IOException {
@@ -5664,7 +5691,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Function<E, String[]> creator, boolean close, OpenOption... options)
             throws IOException {
@@ -5701,7 +5728,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close,
             OpenOption... options) throws IOException {
@@ -5736,7 +5763,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, boolean close, OpenOption... options) throws IOException {
         return write(data, path, config, header, defaultCreator(), close, options);
@@ -5772,7 +5799,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, Consumer<E> beforeCreation, boolean close, OpenOption... options)
             throws IOException {
@@ -5809,7 +5836,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, Function<E, String[]> creator, boolean close, OpenOption... options)
             throws IOException {
@@ -5849,7 +5876,7 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close, OpenOption... options) throws IOException {
@@ -5880,7 +5907,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, filepath, config, defaultCreator(), close);
@@ -5912,7 +5939,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, filepath, config, defaultCreator(), beforeCreation, close);
@@ -5944,7 +5971,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, filepath, config, null, creator, null, close);
@@ -5978,7 +6005,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -6011,7 +6038,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String[] header, boolean close) throws IOException {
         return write(data, filepath, config, header, defaultCreator(), close);
@@ -6045,7 +6072,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String[] header, Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -6080,7 +6107,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String[] header, Function<E, String[]> creator, boolean close)
             throws IOException {
@@ -6117,7 +6144,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -6148,7 +6175,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, writer, config, defaultCreator(), close);
@@ -6180,7 +6207,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, config, defaultCreator(), beforeCreation, close);
@@ -6212,7 +6239,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, writer, config, null, creator, null, close);
@@ -6246,7 +6273,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, Function<E, String[]> creator, Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -6279,7 +6306,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String[] header, boolean close) throws IOException {
         return write(data, writer, config, header, defaultCreator(), close);
@@ -6313,7 +6340,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String[] header, Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, config, header, defaultCreator(), beforeCreation, close);
@@ -6347,7 +6374,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String[] header, Function<E, String[]> creator, boolean close)
             throws IOException {
@@ -6384,7 +6411,7 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String[] header, Function<E, String[]> creator, Consumer<E> beforeCreation,
             boolean close) throws IOException {

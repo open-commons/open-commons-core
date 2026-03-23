@@ -19,9 +19,11 @@
 */
 package open.commons.core.utils;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.DefaultEquivalent;
 import open.commons.core.IEquivalent;
@@ -36,55 +38,49 @@ import open.commons.core.IEquivalent;
 public class CheckUtils {
 
     /**
-     * 파라미터들에 대한 <code>null</code> 확인을 합니다.
+     * 파라미터들에 대한 {@code null} 확인을 합니다.
      * 
      * @param col
      *            확인하고자 하는 데이타 <BR>
-     * @since 2012. 02. 16.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
-     * @see NullPointerException 파라미터가 <code>null</code>인 경우.
+     * @throws NullPointerException
+     *             파라미터({@code col})가 {@code null}인 경우 발생.
+     * @since 2012. 02. 16.
+     * 
      */
-    public static <T> void checkNull(Collection<T> col) {
-        if (col != null) {
-            if (col.size() > 0) {
-                Iterator<T> itr = col.iterator();
+    public static <T> void checkNull(@Nullable Collection<T> col) {
+        Objects.requireNonNull(col);
 
-                int i = 0;
-                do {
-                    T value = itr.next();
+        if (col.size() > 0) {
+            Iterator<T> itr = col.iterator();
 
-                    if (value == null) {
-                        throw new NullPointerException("An element is null: index=" + i + ", col=" + col);
-                    }
-                    i++;
+            int i = 0;
+            do {
+                T value = itr.next();
 
-                } while (itr.hasNext());
-            }
-        } else {
-            throw new NullPointerException("A parameter(T... objs) must not be null.");
+                if (value == null) {
+                    throw new NullPointerException("An element is null: index=" + i + ", col=" + col);
+                }
+                i++;
+
+            } while (itr.hasNext());
         }
     }
 
     /**
-     * 파라미터들에 대한 <code>null</code> 확인을 합니다.
+     * 파라미터들에 대한 {@code null} 확인을 합니다.
      * 
      * @param objs
      *            확인하고자 하는 데이타 <BR>
-     * @since 2012. 02. 16.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code objs})가 {@code null}인 경우 발생.
      * 
-     * @see NullPointerException 파라미터가 <code>null</code>인 경우.
+     * @since 2012. 02. 16.
+     *
+     * @see ObjectUtils#requireNonNulls(Object...)
      */
-    public static void checkNull(Object... objs) {
-        if (objs != null) {
-            for (int i = 0; i < objs.length; i++) {
-                if (objs[i] == null)
-                    throw new NullPointerException("An element is null: index=" + i + ", objs=" + Arrays.toString(objs));
-            }
-        } else {
-            throw new NullPointerException("A parameter(T... objs) must not be null.");
-        }
+    public static void checkNull(Object @Nullable... objs) {
+        ObjectUtils.requireNonNulls((Object[]) objs);
     }
 
     public static boolean containsNull(Object... objs) {
@@ -107,7 +103,7 @@ public class CheckUtils {
      * @param t2
      * @return <BR>
      * @since 2012. 03. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> boolean equals(T t1, T t2) {
         return equals(t1, t2, null);
@@ -120,7 +116,7 @@ public class CheckUtils {
      * @param equivalent
      * @return <BR>
      * @since 2012. 03. 21.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> boolean equals(T t1, T t2, IEquivalent<T> equivalent) {
 

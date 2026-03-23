@@ -30,17 +30,21 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 입력된 순서대로 정렬되는 {@link Map}
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
- * 
  * @param <K>
  * @param <V>
+ * 
+ * @since 2012. 11. 6.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class FIFOMap<K, V> implements Map<K, V> {
 
@@ -54,7 +58,7 @@ public class FIFOMap<K, V> implements Map<K, V> {
     /** ordered values */
     private TreeMap<Integer, V> orderedValues = new TreeMap<Integer, V>();
 
-    public Entry<K, V> atFirst() {
+    public @Nullable Entry<K, V> atFirst() {
         Iterator<Entry<K, V>> itr = entrySet().iterator();
 
         return itr.hasNext() ? itr.next() : null;
@@ -73,7 +77,7 @@ public class FIFOMap<K, V> implements Map<K, V> {
      *
      *
      * @since 2021. 5. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.util.Map#clear()
      */
@@ -86,12 +90,12 @@ public class FIFOMap<K, V> implements Map<K, V> {
     }
 
     @Override
-    public synchronized boolean containsKey(Object key) {
+    public synchronized boolean containsKey(@Nullable Object key) {
         return this.orderedKeys.containsValue(key);
     }
 
     @Override
-    public synchronized boolean containsValue(Object value) {
+    public synchronized boolean containsValue(@Nullable Object value) {
         return this.orderedValues.containsValue(value);
     }
 
@@ -99,11 +103,9 @@ public class FIFOMap<K, V> implements Map<K, V> {
     public synchronized Set<Map.Entry<K, V>> entrySet() {
         Set<Entry<K, V>> entrySet = new FIFOSet<Map.Entry<K, V>>();
 
-        K key = null;
-        V value = null;
         for (Entry<Integer, K> keyEntry : this.orderedKeys.entrySet()) {
-            key = keyEntry.getValue();
-            value = this.orderedValues.get(keyEntry.getKey());
+            K key = keyEntry.getValue();
+            V value = this.orderedValues.get(keyEntry.getKey());
 
             entrySet.add(new FIFOEntry(key, value));
         }
@@ -111,8 +113,9 @@ public class FIFOMap<K, V> implements Map<K, V> {
         return entrySet;
     }
 
+    @SuppressWarnings("null")
     @Override
-    public synchronized V get(Object key) {
+    public synchronized @Nullable V get(@Nullable Object key) {
         Integer sequence = this.keys.get(key);
 
         return sequence != null ? this.orderedValues.get(sequence) : null;
@@ -132,22 +135,21 @@ public class FIFOMap<K, V> implements Map<K, V> {
         return keySet;
     }
 
+    @SuppressWarnings("null")
     @Override
-    public synchronized V put(K key, V value) {
-        V oldValue = null;
-
+    public synchronized @Nullable V put(K key, V value) {
         if (key != null) {
             Integer sequence = null;
             if (keys.containsKey(key)) {
                 sequence = this.keys.get(key);
-                oldValue = this.orderedValues.put(sequence, value);
+                return this.orderedValues.put(sequence, value);
             } else {
                 try {
                     sequence = this.seqSeed.getAndIncrement();
 
                     this.keys.put(key, sequence);
                     this.orderedKeys.put(sequence, key);
-                    oldValue = this.orderedValues.put(sequence, value);
+                    return this.orderedValues.put(sequence, value);
                 } catch (Exception e) {
                     if (sequence != null) {
                         this.seqSeed.set(sequence);
@@ -156,11 +158,11 @@ public class FIFOMap<K, V> implements Map<K, V> {
             }
         }
 
-        return oldValue;
+        return null;
     }
 
     @Override
-    public synchronized void putAll(Map<? extends K, ? extends V> m) {
+    public synchronized void putAll(@Nullable Map<? extends K, ? extends V> m) {
         if (m != null) {
             for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
                 put(entry.getKey(), entry.getValue());
@@ -168,20 +170,19 @@ public class FIFOMap<K, V> implements Map<K, V> {
         }
     }
 
+    @SuppressWarnings("null")
     @Override
-    public synchronized V remove(Object key) {
-        V value = null;
-
+    public synchronized @Nullable V remove(@Nullable Object key) {
         if (key != null) {
             Integer sequence = this.keys.remove(key);
 
             if (sequence != null) {
                 this.orderedKeys.remove(sequence);
-                value = this.orderedValues.remove(sequence);
+                return this.orderedValues.remove(sequence);
             }
         }
 
-        return value;
+        return null;
     }
 
     @Override
@@ -197,16 +198,14 @@ public class FIFOMap<K, V> implements Map<K, V> {
             return "{}";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append('{');
 
         Entry<K, V> entry = null;
-        K key = null;
-        V value = null;
         do {
             entry = itr.next();
-            key = entry.getKey();
-            value = entry.getValue();
+            K key = entry.getKey();
+            V value = entry.getValue();
 
             sb.append(key == this ? "(this Map)" : key);
             sb.append('=');
@@ -222,23 +221,18 @@ public class FIFOMap<K, V> implements Map<K, V> {
 
         sb.append('}');
 
-        return sb.toString();
+        return Objects.requireNonNull(sb.toString());
     }
 
     @Override
     public synchronized Collection<V> values() {
-        return this.orderedValues.values();
+        return Objects.requireNonNull(this.orderedValues.values());
     }
 
     public class FIFOEntry implements Entry<K, V> {
 
         private K key;
-
         private V value;
-
-        private FIFOEntry(K k) {
-            this.key = k;
-        }
 
         private FIFOEntry(K k, V v) {
             this.key = k;

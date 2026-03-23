@@ -29,17 +29,19 @@
 package open.commons.core.lang;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 6. 20.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface IControllable {
 
-    public void start();
-
-    public void stop();
+    public boolean isRunning();
 
     public void ready();
 
-    public boolean isRunning();
+    public void start();
+
+    public void stop();
 
 }

@@ -37,8 +37,8 @@ import java.lang.annotation.Target;
  * 컬럼의 제한조건을 설정하는 어노테이션.
  * 
  * @since 2020. 11. 9.
- * @version
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Retention(RUNTIME)
 @Target({ FIELD, METHOD })

@@ -26,6 +26,8 @@
 
 package open.commons.core.lang;
 
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,11 +45,16 @@ import org.slf4j.LoggerFactory;
  * </pre>
  * 
  * @since 2019. 2. 19.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class AbstractCloseable implements CloseableContainer {
 
-    protected Logger logger = LoggerFactory.getLogger(getClass());
+    protected Logger logger = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            LoggerFactory.getLogger(getClass()) //
+    );
 
     /**
      * 

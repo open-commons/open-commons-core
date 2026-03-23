@@ -1,20 +1,6 @@
-/*
- * Copyright 2011 Park Jun-Hong (parkjunhong77@gmail.com)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 /**
- * {@link java.util.Collections} 및 배열을 위한 메소드를 제공하는 클래스들
+ * 이 패키지 내의 모든 클래스, 인터페이스, 메서드 파라미터 및 반환값은<br>
+ * 명시적으로 {@link org.jspecify.annotations.Nullable} 선언되지 않는 경우, 변수, 반환데이터 등은 기본적으로 {@code Non-Null}로 취급됩니다.
  */
+@org.jspecify.annotations.NullMarked
 package open.commons.core.collection;

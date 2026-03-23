@@ -40,6 +40,7 @@ import java.lang.reflect.Method;
  * @since 2022. 3. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Retention(RUNTIME)
 @Target(METHOD)
@@ -59,12 +60,12 @@ public @interface WriteAt {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     int index();
 
     /**
-     * 데이터가 <code>null</code>인 경우 '빈 문자열' <br>
+     * 데이터가 {@code null}인 경우 '빈 문자열' <br>
      * 
      * <pre>
      * [개정이력]
@@ -77,7 +78,7 @@ public @interface WriteAt {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean nullIsEmpty() default true;
 }

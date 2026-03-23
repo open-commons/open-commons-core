@@ -29,7 +29,9 @@
 package open.commons.core.lang;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 6. 20.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface IRunnable extends Runnable, IControllable {
@@ -48,7 +50,6 @@ public interface IRunnable extends Runnable, IControllable {
      *            데몬형태 구동 여부
      *
      * @since 2019. 10. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      * @version 1.6.16
      */
     public void start(boolean daemon);

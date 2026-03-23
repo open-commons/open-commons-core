@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+@Deprecated(since = "3.0.0", forRemoval = true)
 public interface IEncodingConvertor {
 
     /**

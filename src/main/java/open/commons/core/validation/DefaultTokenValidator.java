@@ -37,7 +37,7 @@ import open.commons.core.utils.AssertUtils2;
 /**
  * 
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
 

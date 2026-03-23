@@ -27,9 +27,19 @@
 package open.commons.core.io;
 
 import java.io.File;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.FileUtils;
 
+/**
+ * 
+ * 
+ * @since 2013. 7. 5.
+ * @version _._._
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class FileCopyHandler implements IFileHandler {
 
     private String targetDir;
@@ -39,12 +49,17 @@ public class FileCopyHandler implements IFileHandler {
     }
 
     @Override
-    public String getFilenamePattern() throws Exception {
+    public @Nullable String getFilenamePattern() throws Exception {
         return null;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     */
     @Override
     public void handleFile(File file) throws Exception {
+        Objects.requireNonNull(file);
 
         File targetDir = new File(this.targetDir);
         if (!targetDir.exists()) {

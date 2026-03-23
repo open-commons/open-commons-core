@@ -28,18 +28,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.NonNull;
-
 /**
- * 
- * <BR>
- * 
  * @since 2012. 2. 6.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class AnnotationUtils {
 
@@ -57,14 +54,18 @@ public class AnnotationUtils {
      * @param annoClasses
      *            어노테이션 타입.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code accObj 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     @SafeVarargs
-    public static boolean existAllAnnotations(@NonNull AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
-        AssertUtils2.notNull("대상 객체는 'null'일 수 없습니다", accObj);
+    public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
+        Objects.requireNonNull(accObj);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
 
         for (Class<? extends Annotation> annoClass : annoClasses) {
             if (!accObj.isAnnotationPresent(annoClass)) {
@@ -89,26 +90,32 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}이거나 {@code annoClass}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2019. 5. 29.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getDeclaredFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static List<Field> getAnnotatedFields(@NonNull Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
-        AssertUtils2.notNull("클래스는 'null'일 수 없습니다", typeClass);
-        AssertUtils2.notNull("어노테이션 클래스는 'null'일 수 없습니다", annotationClass);
+    public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(typeClass, annoClass);
 
-        return Arrays.stream(typeClass.getDeclaredFields()) //
-                .filter(f -> f.isAnnotationPresent(annotationClass)) //
-                // 호출자의 편의를 위해 미리 접근 권한 확보 시도
-                .peek(Field::trySetAccessible) //
-                .toList();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getDeclaredFields()) //
+                        .filter(f -> f.isAnnotationPresent(annoClass)) //
+                        // 호출자의 편의를 위해 미리 접근 권한 확보 시도
+                        .peek(Field::trySetAccessible) //
+                        .toList() //
+        );
     }
 
     /**
@@ -128,13 +135,23 @@ public class AnnotationUtils {
      * @param annoClasses
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2026. 3. 4.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
+    // apply to 'f', 'Collectors.toList()'
+    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+        Objects.requireNonNull(typeClass);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+
         return Arrays.stream(typeClass.getDeclaredFields())// create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
                 .collect(Collectors.toList());
@@ -154,18 +171,23 @@ public class AnnotationUtils {
      *
      * @param object
      *            대상 객체
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 6.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #getAnnotatedFields(Class, Class)
      */
-    public static List<Field> getAnnotatedFields(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
-        return getAnnotatedFields(object.getClass(), annotationClass);
+    public static List<Field> getAnnotatedFields(Object object, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(object, annoClass);
+
+        return getAnnotatedFields(object.getClass(), annoClass);
     }
 
     /**
@@ -182,21 +204,35 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     *
      *
      * @since 2019. 5. 29.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
-        return Arrays.stream(typeClass.getFields()) // create fields stream
-                .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
-                .collect(Collectors.toList());
+    // apply to 'Collectors.toList()'
+    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+    @SuppressWarnings("null")
+    public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(typeClass, annoClass);
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getFields()) // create fields stream
+                        .filter(f -> f.isAnnotationPresent(annoClass)) // check annotation
+                        .collect(Collectors.toList()) //
+        );
     }
 
     /**
@@ -217,18 +253,34 @@ public class AnnotationUtils {
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      *
+     * 
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     * 
      * @since 2020. 11. 9.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
+    // apply to 'f', 'Collectors.toList()'
+    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
-        return Arrays.stream(typeClass.getFields()) // create fields stream
-                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
-                .collect(Collectors.toList());
+        Objects.requireNonNull(typeClass);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getFields()) // create fields stream
+                        .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
+                        .collect(Collectors.toList()) //
+        );
     }
 
     /**
@@ -246,19 +298,24 @@ public class AnnotationUtils {
      *
      * @param object
      *            대상 객체
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
      *
      * @since 2017. 9. 26.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getFields()
      * @see #getAnnotatedFieldsAll(Class, Class)
      */
-    public static List<Field> getAnnotatedFieldsAll(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
-        return getAnnotatedFieldsAll(object.getClass(), annotationClass);
+    public static List<Field> getAnnotatedFieldsAll(Object object, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(object, annoClass);
+
+        return getAnnotatedFieldsAll(object.getClass(), annoClass);
     }
 
     /**
@@ -275,21 +332,29 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 9.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getFields()
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
-    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
-        return Arrays.stream(typeClass.getFields()) // create fields stream
-                .filter(f -> f.isAnnotationPresent(annotationClass)) // check annotation
-        ;
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(typeClass, annoClass);
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getFields()) // create fields stream
+                        .filter(f -> f.isAnnotationPresent(annoClass)) // check annotation //
+        );
     }
 
     /**
@@ -311,18 +376,31 @@ public class AnnotationUtils {
      * @param annoClasses
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2020. 11. 9.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
+    // apply to 'f'.
+    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+    @SuppressWarnings("null")
     @SafeVarargs
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
-        return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
-                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
-        ;
+        Objects.requireNonNull(typeClass);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
+                        .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
+        );
     }
 
     /**
@@ -339,16 +417,22 @@ public class AnnotationUtils {
      *
      * @param object
      *            대상 객체
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code object 또는 annoClass})가 {@code null} 인 경우 발생.
      *
+     * 
      * @since 2021. 11. 3.
      * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static Stream<Field> getAnnotatedFieldsAllAsStream(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
-        return getAnnotatedFieldsAllAsStream(object.getClass(), annotationClass);
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Object object, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(object, annoClass);
+
+        return getAnnotatedFieldsAllAsStream(object.getClass(), annoClass);
     }
 
     /**
@@ -368,13 +452,19 @@ public class AnnotationUtils {
      * @param annoClasses
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
+     * 
      * @since 2022. 9. 2.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+        Objects.requireNonNull(typeClass);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
 
         Class<?> type = typeClass;
 
@@ -404,13 +494,19 @@ public class AnnotationUtils {
      * @param annoClasses
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
-     *
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code object 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     * 
      * @since 2022. 9. 2.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
+        Objects.requireNonNull(object);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+
         return getAnnotatedFieldsAllHierarchy(object.getClass(), annoClasses);
     }
 
@@ -429,21 +525,28 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 메서드 목록
      *
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 5. 29.
-     * @version 3.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com) * @see Class#getDeclaredMethods()
+     * @version 3.0.0 * @see Class#getDeclaredMethods()
      */
-    public static List<Method> getAnnotatedMethods(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation> annoClass) {
+        ObjectUtils.requireNonNulls(typeClass, annoClass);
 
-        return Arrays.stream(typeClass.getDeclaredMethods()) //
-                .filter(m -> m.isAnnotationPresent(annotationClass)) //
-                // 호출 시 예외를 방지하기 위해 캡슐화 우회 시도
-                .peek(Method::trySetAccessible) //
-                .toList();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getDeclaredMethods()) //
+                        .filter(m -> m.isAnnotationPresent(annoClass)) //
+                        // 호출 시 예외를 방지하기 위해 캡슐화 우회 시도
+                        .peek(Method::trySetAccessible) //
+                        .toList() //
+        );
     }
 
     /**
@@ -461,16 +564,31 @@ public class AnnotationUtils {
      * @param typeClass
      * @param annoClasses
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
+     * 
      * @since 2026. 3. 4.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
+    // apply to 'm', 'Collectors.toList()'
+    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
-        return Arrays.stream(typeClass.getDeclaredMethods()) // create methods stream
-                .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
-                .collect(Collectors.toList());
+        Objects.requireNonNull(typeClass);
+        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                Arrays.stream(typeClass.getDeclaredMethods()) // create methods stream
+                        .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
+                        .collect(Collectors.toList()) //
+        );
     }
 
     /**
@@ -487,17 +605,17 @@ public class AnnotationUtils {
      *
      * @param object
      *            대상 객체
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 메소드 목록
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2012. 2. 6.
      * 
      * @see Class#getDeclaredMethods()
      */
-    public static List<Method> getAnnotatedMethods(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
-        return getAnnotatedMethods(object.getClass(), annotationClass);
+    public static List<Method> getAnnotatedMethods(Object object, Class<? extends Annotation> annoClass) {
+        return getAnnotatedMethods(object.getClass(), annoClass);
     }
 
     /**
@@ -512,18 +630,18 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getMethods()
      */
-    public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
+    public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation> annoClass) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
-                .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
+                .filter(m -> m.isAnnotationPresent(annoClass)) // check annotation
                 .collect(Collectors.toList());
     }
 
@@ -545,7 +663,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see Class#getMethods()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
@@ -569,17 +687,17 @@ public class AnnotationUtils {
      *
      * @param object
      *            대상 객체
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 9. 26.
      * 
      * @see Class#getMethods()
      */
-    public static List<Method> getAnnotatedMethodsAll(@NonNull Object object, @NonNull Class<? extends Annotation> annotationClass) {
-        return getAnnotatedMethodsAll(object.getClass(), annotationClass);
+    public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation> annoClass) {
+        return getAnnotatedMethodsAll(object.getClass(), annoClass);
     }
 
     /**
@@ -600,11 +718,11 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see Class#getMethods()
      */
     @SafeVarargs
-    public static List<Method> getAnnotatedMethodsAll(@NonNull Object object, Class<? extends Annotation>... annoClasses) {
+    public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedMethodsAll(object.getClass(), annoClasses);
     }
 
@@ -626,7 +744,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
@@ -653,16 +771,16 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 메소드 목록
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, @NonNull Class<? extends Annotation> annotationClass) {
+    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
-                .filter(m -> m.isAnnotationPresent(annotationClass)) // check annotation
+                .filter(m -> m.isAnnotationPresent(annoClass)) // check annotation
         ;
     }
 
@@ -684,7 +802,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -713,16 +831,16 @@ public class AnnotationUtils {
      *
      * @param typeClass
      *            대상 클래스
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 어노테이션 클래스
      * @return 어노테이션이 적용된 메소드 목록
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
      */
     @SafeVarargs
-    public static List<Method> getAnnotatedMethodsAllHierarchy(@NonNull Object object, Class<? extends Annotation>... annoClasses) {
+    public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
         return getAnnotatedMethodsAllHierarchy(object.getClass(), annoClasses);
     }
 
@@ -730,16 +848,16 @@ public class AnnotationUtils {
      * 객체에서 어노테이션 타입에 맞는 객체를 반환합니다.
      * 
      * @param accessObj
-     * @param annotationClass
+     * @param annoClass
      * @return
      */
-    public static <T extends Annotation> T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
+    public static <T extends Annotation> T getAnnotation(AccessibleObject accessObj, Class<T> annoClass) {
         T annotation = null;
 
         try {
             if (accessObj != null //
-                    && accessObj.isAnnotationPresent(annotationClass)) {
-                annotation = accessObj.getAnnotation(annotationClass);
+                    && accessObj.isAnnotationPresent(annoClass)) {
+                annotation = accessObj.getAnnotation(annoClass);
             }
         } catch (Exception e) {
         }
@@ -759,19 +877,19 @@ public class AnnotationUtils {
      * </pre>
      *
      * @param clazz
-     * @param annotationClass
+     * @param annoClass
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2012. 2. 6.
      */
-    public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annotationClass) {
+    public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annoClass) {
         T annotation = null;
 
         try {
             if (clazz != null //
-                    && clazz.isAnnotationPresent(annotationClass)) {
-                annotation = clazz.getAnnotation(annotationClass);
+                    && clazz.isAnnotationPresent(annoClass)) {
+                annotation = clazz.getAnnotation(annoClass);
             }
         } catch (Exception e) {
         }
@@ -802,7 +920,7 @@ public class AnnotationUtils {
 
     /**
      * 
-     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환합니다.
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 {@code null}을 반환합니다.
      * 
      * <br>
      * 
@@ -814,31 +932,31 @@ public class AnnotationUtils {
      * </pre>
      *
      * @param obj
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 {@link Annotation} 타입
-     * @return {@link AnnotationFormatError} 또는 <code>null</code>
+     * @return {@link AnnotationFormatError} 또는 {@code null}
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <A extends Annotation> A hasAnnotation(Class<?> type, Class<A> annotationClass) {
-        return type.getAnnotation(annotationClass);
+    public static <A extends Annotation> A hasAnnotation(Class<?> type, Class<A> annoClass) {
+        return type.getAnnotation(annoClass);
     }
 
     /**
-     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 <code>null</code>을 반환합니다.
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 {@code null}을 반환합니다.
      * 
      * @param obj
-     * @param annotationClass
+     * @param annoClass
      *            찾고자 하는 {@link Annotation} 타입
-     * @return {@link AnnotationFormatError} 또는 <code>null</code>
+     * @return {@link AnnotationFormatError} 또는 {@code null}
      * @since 2012. 2. 6.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @throws NullPointerException
      */
-    public static <A extends Annotation> A hasAnnotation(Object obj, Class<A> annotationClass) {
-        return obj.getClass().getAnnotation(annotationClass);
+    public static <A extends Annotation> A hasAnnotation(Object obj, Class<A> annoClass) {
+        return obj.getClass().getAnnotation(annoClass);
     }
 
     /**
@@ -847,10 +965,10 @@ public class AnnotationUtils {
      * @param obj
      * @return
      * @throws NullPointerException
-     *             주어진 객체가 <code>null</code>인 경우
+     *             주어진 객체가 {@code null}인 경우
      * 
      * @since 2012. 02. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Class#isAnnotation()
      */
@@ -871,19 +989,19 @@ public class AnnotationUtils {
      *
      * @param type
      *            {@link Annotation}이 존재하는지 확인하고자 하는 타입
-     * @param annotationClass
+     * @param annoClass
      *            {@link Annotation} 객체
      * @return
      * @throws NullPointerException
-     *             주어진 객체나, Annotation 타입이 <code>null</code>인 경우
+     *             주어진 객체나, Annotation 타입이 {@code null}인 경우
      * 
      * @return
      *
      * @since 2019. 5. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <A extends Annotation> boolean isAnnotationPresent(Class<?> type, Class<A> annotationClass) {
-        return type.isAnnotationPresent(annotationClass);
+    public static <A extends Annotation> boolean isAnnotationPresent(Class<?> type, Class<A> annoClass) {
+        return type.isAnnotationPresent(annoClass);
     }
 
     /**
@@ -891,16 +1009,16 @@ public class AnnotationUtils {
      * 
      * @param obj
      *            {@link Annotation}이 존재하는지 확인하고자 하는 객체
-     * @param annotationClass
+     * @param annoClass
      *            {@link Annotation} 객체
      * @return
      * @throws NullPointerException
-     *             주어진 객체나, Annotation 타입이 <code>null</code>인 경우
+     *             주어진 객체나, Annotation 타입이 {@code null}인 경우
      * 
      * @since 2012. 02. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <A extends Annotation> boolean isAnnotationPresent(Object obj, Class<A> annotationClass) {
-        return obj.getClass().isAnnotationPresent(annotationClass);
+    public static <A extends Annotation> boolean isAnnotationPresent(Object obj, Class<A> annoClass) {
+        return obj.getClass().isAnnotationPresent(annoClass);
     }
 }

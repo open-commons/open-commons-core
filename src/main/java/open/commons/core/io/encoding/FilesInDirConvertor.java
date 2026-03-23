@@ -32,6 +32,8 @@ import java.io.OutputStream;
 
 import open.commons.core.io.FileRecursiveHandler;
 
+@Deprecated(since = "3.0.0", forRemoval = true)
+@SuppressWarnings({ "null", "removal" })
 public abstract class FilesInDirConvertor implements IEncodingConvertor {
 
     protected FileRecursiveHandler handler;

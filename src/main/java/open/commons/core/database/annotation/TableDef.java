@@ -37,8 +37,8 @@ import java.lang.annotation.Target;
 import open.commons.core.annotation.ColumnValue;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
- * 
+ * @since 2013. 7. 12.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -46,8 +46,8 @@ import open.commons.core.annotation.ColumnValue;
 public @interface TableDef {
     /**
      * 컬럼 정렬 여부. <br>
-     * 설정값이 <code>true</code>인 경우 {@link ColumnValue#order()}을 이용하여 컬럼을 정렬합니다.<br>
-     * <code>false</code>인 경우 {@link ColumnValue#name()}의 값을 오름차순 정렬을 합니다.
+     * 설정값이 {@code true}인 경우 {@link ColumnValue#order()}을 이용하여 컬럼을 정렬합니다.<br>
+     * {@code false}인 경우 {@link ColumnValue#name()}의 값을 오름차순 정렬을 합니다.
      * 
      * <pre>
      * [개정이력]
@@ -60,7 +60,7 @@ public @interface TableDef {
      *
      * @since 2022. 1. 7.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ColumnValue
      */
@@ -80,7 +80,7 @@ public @interface TableDef {
      *
      * @since 2013. 7. 12.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     String table();
 }

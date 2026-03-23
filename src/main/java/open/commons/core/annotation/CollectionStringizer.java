@@ -28,13 +28,21 @@ package open.commons.core.annotation;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.Nullable;
+
+/**
+ * 
+ * 
+ * @since 2012. 11. 8.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class CollectionStringizer implements IToStringizer {
 
     public CollectionStringizer() {
     }
 
     @Override
-    public String fieldToString(Object fieldValue) {
+    public @Nullable String fieldToString(@Nullable Object fieldValue) {
         String toString = null;
 
         if (fieldValue != null) {

@@ -38,16 +38,16 @@ import java.util.function.Function;
  * This is a <a href="package-summary.html">functional interface</a> whose functional method is
  * {@link #apply(Object, Object)}.
  * 
- * @subject : SQL 접속 Function
- *
  * @param <T>
  *            the type of the first argument to the function
  * @param <U>
  *            the type of the second argument to the function
  * @param <R>
  *            the type of the result of the function
- *
- * @revision_history : Park_Jun_Hong_(parkjunhong77@gmail.com), 2017. 8. 21., 1.0
+ * 
+ * @since 2017. 8. 21.
+ * @version 1.0.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @see Function
  */
@@ -63,11 +63,13 @@ public interface SQLBiFunction<T, U, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
+     * 
      * @throws NullPointerException
-     *             if after is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default <V> SQLBiFunction<T, U, V> andThen(Function<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
+
         return (T t, U u) -> after.apply(apply(t, u));
     }
 

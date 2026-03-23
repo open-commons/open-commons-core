@@ -40,7 +40,7 @@ import open.commons.core.utils.CollectionUtils;
  * SAX Element TEXT Data Converter
  * 
  * @since 2019. 1. 24.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class SaxTextConverter {
 

@@ -34,24 +34,31 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 컴퓨터 저장장치 용량 단위. (예: 디스크, 메모리, ...)<br>
- * 용량 데이터 타입을 <b><code>long({@link Long})</code></b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
+ * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
  * 
  * @since 2021. 11. 4.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * 
  * @see <a href="https://en.wikipedia.org/wiki/International_Electrotechnical_Commission">IEC</a>
  */
+// [PATCH] JDK 표준 API의 JSpecify 미지원 우회용
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 제거.
+@SuppressWarnings("null")
 public enum BinaryDataUnit {
     /**
      * byte = 2 ^ 0 byte (8 bits)<br>
      * <ul>
      * <li>UP: {@link #KILO}
-     * <li>DOWN: <code>null</code>
+     * <li>DOWN: {@code null}
      * </ul>
      */
     BYTE("byte", BigDecimal.valueOf(2).pow(0)),
@@ -114,7 +121,7 @@ public enum BinaryDataUnit {
     /**
      * <b>Yo</b>tta <b>bi</b>nary byte, YiB = 2 ^ 80 bytes<br>
      * <ul>
-     * <li>UP: <code>null</code>
+     * <li>UP: {@code null}
      * <li>DOWN: {@link #ZETTA}
      * </ul>
      */
@@ -144,7 +151,11 @@ public enum BinaryDataUnit {
 
     private BinaryDataUnit(String str, BigDecimal num) {
         this.str = str;
-        this.num = num.setScale(10, RoundingMode.HALF_UP);
+        this.num = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                num.setScale(10, RoundingMode.HALF_UP) //
+        );
     }
 
     /**
@@ -165,12 +176,12 @@ public enum BinaryDataUnit {
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #convertHasRemain(long, BinaryDataUnit)
      */
     public BigDecimal convert(long size, BinaryDataUnit unit) {
-        return convert(size, unit, false)[0];
+        return Objects.requireNonNull(convert(size, unit, false)[0]);
     }
 
     /**
@@ -191,11 +202,15 @@ public enum BinaryDataUnit {
      *            변환범위 끝 단위.
      * @return
      *
+     * @throws NullPointerException
+     *             파라미터({@code bigUnit 또는 littleUnit})가 {@code null}인 경우 발생.
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public BigDecimal[] convert(long size, BinaryDataUnit bigUnit, BinaryDataUnit littleUnit) {
+        ObjectUtils.requireNonNulls(bigUnit, littleUnit);
+
         if (bigUnit.num.compareTo(littleUnit.num) < 0) {
             throw new IllegalArgumentException(String.format("변환단위가 잘못되었습니다. big=%s, little=%s", bigUnit, littleUnit));
         }
@@ -221,7 +236,9 @@ public enum BinaryDataUnit {
 
         converted.add(bytes.divide(units.get(i).num));
 
-        return converted.toArray(new BigDecimal[0]);
+        return Objects.requireNonNull( // [PATCH] JDK가 JSpecify 를 지원하지 않는 시점에 적용.
+                converted.toArray(new BigDecimal[0]) //
+        );
     }
 
     /**
@@ -242,11 +259,15 @@ public enum BinaryDataUnit {
      *            하위 단위 포함 변환 여부.
      * @return
      *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public BigDecimal[] convert(long size, BinaryDataUnit unit, boolean alsoSubUnit) {
+        Objects.requireNonNull(unit);
+
         return alsoSubUnit //
                 ? convert(size, unit, BinaryDataUnit.BYTE) //
                 : convert(size, unit, unit);
@@ -262,36 +283,24 @@ public enum BinaryDataUnit {
      * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @return 하위 단위. 현재 단위가 가장 하위인 경우 <code>null</code> 반환.
+     * @return 하위 단위. 현재 단위가 가장 하위인 경우 <b><i>{@code {@link #BYTE} (자신)}</i></b>.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public BinaryDataUnit down() {
-        switch (this) {
-            case BYTE:
-                return null;
-            case KIBI:
-                return BYTE;
-            case MEBI:
-                return KIBI;
-            case GIBI:
-                return MEBI;
-            case TEBI:
-                return GIBI;
-            case PEBI:
-                return TEBI;
-            case EXBI:
-                return PEBI;
-            case ZIBI:
-                return EXBI;
-            case YOBI:
-                return ZIBI;
-            default:
-                // unreachable code
-                throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'");
-        }
+        return switch (this) {
+            case BYTE -> BYTE;
+            case KIBI -> BYTE;
+            case MEBI -> KIBI;
+            case GIBI -> MEBI;
+            case TEBI -> GIBI;
+            case PEBI -> TEBI;
+            case EXBI -> PEBI;
+            case ZIBI -> EXBI;
+            case YOBI -> ZIBI;
+        };
     }
 
     /**
@@ -299,7 +308,7 @@ public enum BinaryDataUnit {
      * @return a string of an instance of {@link BinaryDataUnit}
      *
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public String get() {
         return this.str;
@@ -307,13 +316,17 @@ public enum BinaryDataUnit {
 
     /**
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Enum#toString()
      */
     @Override
     public String toString() {
-        return String.join(":", name(), this.str, this.num.toString());
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                String.join(":", name(), this.str, this.num.toString()) //
+        );
     }
 
     /**
@@ -326,36 +339,24 @@ public enum BinaryDataUnit {
      * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @return 상위 단위. 현재 단위가 가장 상위인 경우 <code>null</code> 반환.
+     * @return 상위 단위. 현재 단위가 가장 상위인 경우 {@code null} 반환.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public BinaryDataUnit up() {
-        switch (this) {
-            case BYTE:
-                return KIBI;
-            case KIBI:
-                return MEBI;
-            case MEBI:
-                return GIBI;
-            case GIBI:
-                return TEBI;
-            case TEBI:
-                return PEBI;
-            case PEBI:
-                return EXBI;
-            case EXBI:
-                return ZIBI;
-            case ZIBI:
-                return YOBI;
-            case YOBI:
-                return null;
-            default:
-                // unreachable code
-                throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'");
-        }
+        return switch (this) {
+            case BYTE -> KIBI;
+            case KIBI -> MEBI;
+            case MEBI -> GIBI;
+            case GIBI -> TEBI;
+            case TEBI -> PEBI;
+            case PEBI -> EXBI;
+            case EXBI -> ZIBI;
+            case ZIBI -> YOBI;
+            case YOBI -> YOBI;
+        };
     }
 
     /**
@@ -366,7 +367,7 @@ public enum BinaryDataUnit {
      * @return an instance of {@link BinaryDataUnit}
      *
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see #get(String, boolean)
      */
@@ -376,37 +377,38 @@ public enum BinaryDataUnit {
 
     /**
      *
-     * @param str
+     * @param unitStr
      *            a string for an instance of {@link BinaryDataUnit}.
      * @param ignoreCase
-     *            ignore <code><b>case-sensitive</b></code> or not.
+     *            ignore {@code <b>case-sensitive</b>} or not.
      *
      * @return an instance of {@link BinaryDataUnit}
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code unitStr})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static BinaryDataUnit get(String str, boolean ignoreCase) {
-
-        if (str == null) {
-            throw new IllegalArgumentException("'str' MUST NOT be null. input: " + str);
-        }
+    public static BinaryDataUnit get(String unitStr, boolean ignoreCase) {
+        Objects.requireNonNull(unitStr);
 
         if (ignoreCase) {
             for (BinaryDataUnit value : values()) {
-                if (value.str.equalsIgnoreCase(str)) {
+                if (value.str.equalsIgnoreCase(unitStr)) {
                     return value;
                 }
             }
         } else {
             for (BinaryDataUnit value : values()) {
-                if (value.str.equals(str)) {
+                if (value.str.equals(unitStr)) {
                     return value;
                 }
             }
         }
 
-        throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + str);
+        throw new IllegalArgumentException(
+                "Unexpected 'str' value of 'BinaryDataUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + unitStr);
     }
 
     private static List<String> values0() {

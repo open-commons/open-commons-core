@@ -27,11 +27,14 @@
 package open.commons.core.stream;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-import open.commons.core.utils.AssertUtils2;
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.utils.ConvertUtils;
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * Object의 {@link Class}를 제공하는 객체.
@@ -39,6 +42,7 @@ import open.commons.core.utils.ConvertUtils;
  * @since 2021. 12. 3.
  * @version 0.3.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ClassSpliterator implements Spliterator<Class<?>> {
 
@@ -61,12 +65,16 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @param data
      *            데이터
      * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public ClassSpliterator(boolean forceToPrimitive, Object... data) {
-        AssertUtils2.notNulls(data);
+        ObjectUtils.requireNonNulls((Object[]) data);
+
         this.forceToPrimitive = forceToPrimitive;
         this.data = data;
     }
@@ -84,9 +92,12 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @param data
      *            데이터
      * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public ClassSpliterator(Object... data) {
         this(false, data);
@@ -96,7 +107,7 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      *
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.util.Spliterator#characteristics()
      */
@@ -109,7 +120,7 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      *
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.util.Spliterator#estimateSize()
      */
@@ -119,15 +130,18 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
     }
 
     /**
+     * @throws NullPointerException
+     *             파라미터({@code action})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
-     *
+     * 
      * @see java.util.Spliterator#tryAdvance(java.util.function.Consumer)
      */
+    @SuppressWarnings("null")
     @Override
     public boolean tryAdvance(Consumer<? super Class<?>> action) {
+        Objects.requireNonNull(action);
 
         if (pos < this.data.length) {
             action.accept(this.data[pos] != null //
@@ -146,12 +160,12 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      *
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.util.Spliterator#trySplit()
      */
     @Override
-    public Spliterator<Class<?>> trySplit() {
+    public @Nullable Spliterator<Class<?>> trySplit() {
         return null;
     }
 }

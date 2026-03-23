@@ -38,15 +38,20 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.HashSet;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.concurrent.Mutex;
 import open.commons.core.utils.FileUtils;
 import open.commons.core.utils.IOUtils;
+import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.ThreadUtils;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
+ * @since 2013. 5. 24.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class DirectoryWatchService implements IRunnable {
 
@@ -56,7 +61,7 @@ public class DirectoryWatchService implements IRunnable {
 
     private boolean running = true;
 
-    private WatchService watchService = null;
+    private @Nullable WatchService watchService;
 
     private boolean recursive = false;
 
@@ -69,10 +74,15 @@ public class DirectoryWatchService implements IRunnable {
      * 
      * @param fileMonitor
      * @param directory
-     *            must be <b><code>ABSOLUTE PATHNAME</code></b>
+     *            must be <b>{@code ABSOLUTE PATHNAME}</b>
      * @param resurvice
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code fileMonitor 또는 directory})가 {@code null}인 경우 발생.
      */
     public DirectoryWatchService(FileMonitor fileMonitor, String directory, boolean resurvice) {
+        ObjectUtils.requireNonNulls(fileMonitor, directory);
+
         this.fileMonitor = fileMonitor;
         this.directory = directory;
         this.recursive = resurvice;
@@ -84,8 +94,12 @@ public class DirectoryWatchService implements IRunnable {
      * @param files
      *            files to monitor
      * 
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}인 경우 발생.
      */
     public void addFiles(String... files) {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         synchronized (filesMutex) {
             if (dedicated) {
                 for (String file : files) {
@@ -120,6 +134,7 @@ public class DirectoryWatchService implements IRunnable {
      * 
      * @see java.lang.Runnable#run()
      */
+    @SuppressWarnings("null")
     @Override
     public void run() {
 
@@ -131,20 +146,22 @@ public class DirectoryWatchService implements IRunnable {
             otn = ThreadUtils.setThreadName(FileUtils.getFileName(directory));
 
             // create a WatcherService object for monitoring directories
-            watchService = FileSystems.getDefault().newWatchService();
+            this.watchService = FileSystems.getDefault().newWatchService();
+
+            Objects.requireNonNull(this.watchService, "'Watch Service'는 반드시 설정되어야 합니다.");
 
             // getting the path object for the directory given by users
             path = Paths.get(directory);
 
             // register the events to be notified by the program
-            path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
+            path.register(this.watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
 
-//            LogStringContainer log = LogStringFactory.getContainer(10, 5, 0, "\n");
+            // LogStringContainer log = LogStringFactory.getContainer(10, 5, 0, "\n");
 
             // infinite loop will take events
             while (running) {
 
-                WatchKey key = watchService.take();
+                WatchKey key = this.watchService.take();
 
                 for (WatchEvent<?> watchEvent : key.pollEvents()) {
 
@@ -193,7 +210,7 @@ public class DirectoryWatchService implements IRunnable {
                 fileMonitor.unregisterWatchService(directory);
             }
 
-            IOUtils.close(watchService);
+            IOUtils.close(this.watchService);
         }
 
         files.clear();
@@ -223,18 +240,19 @@ public class DirectoryWatchService implements IRunnable {
      * 
      * @see open.commons.core.unix.tool.IRunnable#stop(String)
      */
+    @SuppressWarnings("null")
     @Override
-    public void stop(String pathname) {
+    public void stop(@Nullable String pathname) {
 
         if (running) {
 
             running = false;
 
-            synchronized (watchService) {
+            synchronized (this.watchService) {
 
                 try {
-                    watchService.close();
-                    watchService.notifyAll();
+                    this.watchService.close();
+                    this.watchService.notifyAll();
 
                 } catch (IOException ignored) {
                     ignored.printStackTrace();

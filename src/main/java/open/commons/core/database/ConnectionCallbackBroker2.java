@@ -30,7 +30,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.function.Function;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * {@link Function}을 지원하기 위해서 추가된 클래스.
@@ -38,19 +42,20 @@ import java.util.function.Function;
  * @param <T>
  *            {@link PreparedStatement} 에 데이터를 설정하는 객체 타입.
  * @since 2019. 2. 19.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @see ConnectionCallbackBroker
  */
-public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbackBroker {
+public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnectionCallbackBroker {
 
     private final String query;
 
+    @Nullable
     private T setter;
 
     /**
      * 실행 쿼리가 Stored Procedure를 실행하는지 여부<br>
-     * 기본설정은 {@link PreparedStatement} 를 기반으로 동작하지만, <code>true</code> 인 경우 {@link CallableStatement} 를 기반으로 동작합니다.
+     * 기본설정은 {@link PreparedStatement} 를 기반으로 동작하지만, {@code true} 인 경우 {@link CallableStatement} 를 기반으로 동작합니다.
      */
     private boolean forStoredProcedure;
 
@@ -69,9 +74,14 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *            SQL 쿼리
      * @param setter
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
+     * 
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code query})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 19.
      */
-    public ConnectionCallbackBroker2(String query, T setter) {
+    public ConnectionCallbackBroker2(String query, @Nullable T setter) {
         this(query, setter, false);
     }
 
@@ -92,9 +102,15 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * @param forStoredProcedure
      *            실행 쿼리가 Stored Procedure를 실행하는지 여부
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code query})가 {@code null}인 경우 발생.
+     * 
      * @since 2020. 10. 29.
      */
-    public ConnectionCallbackBroker2(String query, T setter, boolean forStoredProcedure) {
+    public ConnectionCallbackBroker2(String query, @Nullable T setter, boolean forStoredProcedure) {
+        Objects.requireNonNull(query);
+
         this.query = query;
         this.setter = setter;
         this.forStoredProcedure = forStoredProcedure;
@@ -114,26 +130,38 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *
      * @since 2019. 2. 22.
      */
-    public T getSetter() {
+    public @Nullable T getSetter() {
         return setter;
     }
 
     /**
      * @throws SQLException
+     * @throws NullPointerException
+     *             파라미터({@code con})가 {@code null}인 경우 발생.
+     * 
      * @since 2020. 10. 29.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see open.commons.core.database.IConnectionCallbackBroker#getStatement(java.sql.Connection)
      */
     @Override
     public final PreparedStatement getStatement(Connection con) throws SQLException {
-        return forStoredProcedure ? con.prepareCall(getQuery()) : con.prepareStatement(getQuery());
+        Objects.requireNonNull(con);
+
+        return forStoredProcedure //
+                ? Objects.requireNonNull(con.prepareCall(getQuery())) //
+                : Objects.requireNonNull(con.prepareStatement(getQuery()));
     }
 
     /**
+     * @throws NullPointerException
+     *             파라미터({@code stmt})가 {@code null}인 경우 발생.
+     * 
      * @see open.commons.core.database.IConnectionCallbackBroker#set(PreparedStatement)
      */
     @Override
     public void set(PreparedStatement stmt) throws SQLException {
+        Objects.requireNonNull(stmt);
+
         if (this.setter != null) {
             set(stmt, setter);
         }
@@ -151,8 +179,11 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *
      * @param stmt
      * @param setter
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code stmt, setter})가 {@code null}인 경우 발생.
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 19.
      */
     protected abstract void set(PreparedStatement stmt, T setter) throws SQLException;
@@ -163,7 +194,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *
      * @since 2019. 2. 22.
      */
-    public void setSetter(T setter) {
+    public void setSetter(@Nullable T setter) {
         this.setter = setter;
     }
 
@@ -178,6 +209,6 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
         builder.append(", setter=");
         builder.append(setter);
         builder.append("]");
-        return builder.toString();
+        return Objects.requireNonNull(builder.toString());
     }
 }

@@ -19,11 +19,18 @@
 */
 package open.commons.core.prog;
 
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
+
 /**
  * String Length Reverse Ordering Entry
  * 
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * @since 2011. 09. 18.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class StrLenRvrOrderingEntry implements Comparable<StrLenRvrOrderingEntry> {
@@ -35,7 +42,13 @@ public class StrLenRvrOrderingEntry implements Comparable<StrLenRvrOrderingEntry
     private final String value;
 
     public StrLenRvrOrderingEntry(String k, String v) {
-        key = k.trim();
+        ObjectUtils.requireNonNulls(k, v);
+
+        key = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                k.trim() //
+        );
         len = k.length();
 
         value = v;
@@ -46,7 +59,10 @@ public class StrLenRvrOrderingEntry implements Comparable<StrLenRvrOrderingEntry
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
-    public int compareTo(StrLenRvrOrderingEntry o) {
+    public int compareTo(@Nullable StrLenRvrOrderingEntry o) {
+        if (o == null)
+            return -1;
+
         if (len != o.len) {
             return o.len - len;
         } else {

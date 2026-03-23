@@ -24,12 +24,15 @@
 */
 package open.commons.core;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 
  * <BR>
  * 
  * @since 2012. 03. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class DefaultEquivalent<T> implements IEquivalent<T> {
 
@@ -39,12 +42,12 @@ public class DefaultEquivalent<T> implements IEquivalent<T> {
      * @return
      * 
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see open.commons.core.IEquivalent#equals(java.lang.Object, java.lang.Object)
      */
     @Override
-    public boolean equals(T t1, T t2) {
+    public boolean equals(@Nullable T t1, @Nullable T t2) {
         if (t1 != null && t2 != null) {
             return t1.equals(t2);
         } else {
@@ -53,16 +56,16 @@ public class DefaultEquivalent<T> implements IEquivalent<T> {
     }
 
     /**
-     * 주어진 객체가 모두 <code>null</code>이 아닌 경우를 제외한 경우 비교하는 기능성 메소드<br>
-     * 결과는 모두 <code>null</code>이면 <code>true</code>, 그렇지 않으면 <code>false</code> 를 반환합니다.
+     * 주어진 객체가 모두 {@code null}이 아닌 경우를 제외한 경우 비교하는 기능성 메소드<br>
+     * 결과는 모두 {@code null}이면 {@code true}, 그렇지 않으면 {@code false} 를 반환합니다.
      * 
      * @param t1
      * @param t2
      * @return <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    protected final boolean nullEquals(T t1, T t2) {
+    protected final boolean nullEquals(@Nullable T t1, @Nullable T t2) {
         if (t1 == null && t2 == null) {
             return true;
         } else {

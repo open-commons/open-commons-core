@@ -39,10 +39,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.database.annotation.ColumnConf;
 import open.commons.core.database.annotation.TableDef;
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 데이터베이스 테이블 엔티티를 위한 기본 구현체입니다.
@@ -53,22 +57,52 @@ import open.commons.core.database.annotation.TableDef;
  * ------------------------------------------
  * 2026. 3. 4.          parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 클래스 레벨 캐싱 적용 및 reflection 최적화
  * </pre>
- *
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 7. 12.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com) *
+ * 
  */
 public abstract class DefaultTableEntity implements ITableEntity {
 
-    /** 클래스별 테이블 메타데이터 캐시 */
-    private static final Map<Class<?>, TableMetadata> METADATA_CACHE = new ConcurrentHashMap<>();
+    /** 메타데이터 생성 함수. */
+    private static Function<Class<?>, TableMetadata> TABLE_METADATA_GEN = clazz -> {
+        // 1. 테이블 이름 조회
+        @Nullable
+        TableDef tableDef = clazz.getAnnotation(TableDef.class);
+        @SuppressWarnings("null")
+        String tableName = tableDef != null ? tableDef.table() : null;
 
-    protected final String CLASS = getClass().getSimpleName();
+        // 2. 어노테이션된 모든 필드 추출 및 접근 권한 설정
+        List<ColumnMeta> all = Arrays.stream(clazz.getDeclaredFields()) //
+                .filter(f -> f.isAnnotationPresent(ColumnConf.class)) //
+                .peek(f -> f.trySetAccessible()) //
+                .map(f -> new ColumnMeta(f, f.getAnnotation(ColumnConf.class))) //
+                .toList();
+
+        // 3. 인덱스 맵 구성 (중복 허용)
+        Map<Integer, List<ColumnMeta>> indexMap = all.stream().collect(Collectors.groupingBy(m -> m.config().index()));
+
+        // 4. 모든 인덱스 셋 (정렬됨)
+        Set<Integer> allIndices = new TreeSet<>(indexMap.keySet());
+
+        return new TableMetadata(tableName, all, indexMap, allIndices);
+    };
+
+    /** 클래스별 테이블 메타데이터 캐시 */
+    private static final Map<Class<?>, TableMetadata> CACHE_TABLE_METADATA = new ConcurrentHashMap<>();
+
+    protected final String CLASS = Objects.requireNonNull(getClass().getSimpleName());
 
     public DefaultTableEntity() {
     }
 
     @Override
-    public int compareTo(ITableEntity o) {
-        return toString().compareTo(o.toString());
+    public int compareTo(@Nullable ITableEntity o) {
+        if (o == null) {
+            return -1;
+        } else {
+            return toString().compareTo(o.toString());
+        }
     }
 
     /**
@@ -86,7 +120,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
      *
      * @since 2021. 6. 18.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @Override
     public final int count() {
@@ -98,11 +132,17 @@ public abstract class DefaultTableEntity implements ITableEntity {
         return createInsertQuery(getTableName());
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code table})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createInsertQuery(String table) {
+        Objects.requireNonNull(table, "테이블 이름이 설정되지 않았습니다.");
+
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO ").append(table).append(" (").append(serializeColumns(getAllColumns())).append(") VALUES (").append(serializeValues(getAllValues())).append(");");
-        return query.toString();
+        return Objects.requireNonNull(query.toString());
     }
 
     private String createKV(Collection<ColumnConf> columns, Collection<String> values, String concatenator) {
@@ -116,45 +156,82 @@ public abstract class DefaultTableEntity implements ITableEntity {
                 sb.append(" ").append(concatenator).append(" ").append(itrCols.next().column()).append("=").append(itrVals.next());
             }
         }
-        return sb.toString();
+        return Objects.requireNonNull(sb.toString());
     }
 
+    /**
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code selects, where})가 {@code null}인 경우 발생.
+     *
+     * @see open.commons.core.database.ITableEntity#createSelectQuery(java.util.Collection, int[])
+     */
     @Override
     public String createSelectQuery(Collection<Integer> selects, int... where) {
+        ObjectUtils.requireNonNulls(selects, where);
+
         return createSelectQuery(getTableName(), selects, where);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createSelectQuery(int... where) {
+        Objects.requireNonNull(where);
+
         return createSelectQuery(getTableName(), getAllIndice(), where);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code table, selects, where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createSelectQuery(String table, Collection<Integer> selects, int... where) {
+        ObjectUtils.requireNonNullsWithMessage(table, selects, where);
+
         StringBuilder query = new StringBuilder();
         query.append("SELECT ").append(serializeColumns(getColumns(selects)));
-        if (table != null) {
-            query.append(" FROM ").append(table);
-        }
+        query.append(" FROM ").append(table);
 
-        if (where != null && where.length > 0) {
+        if (where.length > 0) {
             query.append(" WHERE ").append(createKV(getColumns(where), getValues(where), "AND"));
         }
-        return query.toString();
+        return Objects.requireNonNull(query.toString());
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code table, where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createSelectQuery(String table, int... where) {
+        ObjectUtils.requireNonNullsWithMessage(table, where);
+
         return createSelectQuery(table, getAllIndice(), where);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code updates, where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createUpdateQuery(Collection<Integer> updates, int... where) {
+        ObjectUtils.requireNonNulls(updates, where);
+
         return createUpdateQuery(getTableName(), updates, where);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createUpdateQuery(int... where) {
+        Objects.requireNonNull(where);
+
         Collection<Integer> allColumns = new TreeSet<>(getAllIndice());
         for (int i : where) {
             allColumns.remove(i);
@@ -162,19 +239,31 @@ public abstract class DefaultTableEntity implements ITableEntity {
         return createUpdateQuery(getTableName(), allColumns, where);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code table, updates, where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createUpdateQuery(String table, Collection<Integer> updates, int... where) {
+        ObjectUtils.requireNonNullsWithMessage(table, updates, where);
+
         StringBuilder query = new StringBuilder();
         query.append("UPDATE ").append(table).append(" SET ").append(createKV(getColumns(updates), getValues(updates), ","));
 
-        if (where != null && where.length > 0) {
+        if (where.length > 0) {
             query.append(" WHERE ").append(createKV(getColumns(where), getValues(where), "AND"));
         }
-        return query.toString();
+        return Objects.requireNonNull(query.toString());
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code table, where})가 {@code null}인 경우 발생.
+     */
     @Override
     public String createUpdateQuery(String table, int... where) {
+        ObjectUtils.requireNonNullsWithMessage(table, where);
+
         Collection<Integer> allColumns = new TreeSet<>(getAllIndice());
         for (int i : where) {
             allColumns.remove(i);
@@ -196,11 +285,18 @@ public abstract class DefaultTableEntity implements ITableEntity {
 
     private Collection<ColumnConf> getColumns(Collection<Integer> indice) {
         TableMetadata meta = getMetadata();
-        return indice.stream().map(i -> meta.indexMap().get(i)).filter(Objects::nonNull).flatMap(List::stream).map(ColumnMeta::config).toList();
+
+        return Objects.requireNonNull(indice.stream() //
+                .map(i -> meta.indexMap().get(i)) //
+                .filter(Objects::nonNull) //
+                .flatMap(List::stream) //
+                .map(ColumnMeta::config) //
+                .filter(Objects::nonNull) //
+                .toList());
     }
 
     private Collection<ColumnConf> getColumns(int... indice) {
-        return getColumns(Arrays.stream(indice).boxed().toList());
+        return getColumns(Objects.requireNonNull(Arrays.stream(indice).boxed().toList()));
     }
 
     /**
@@ -216,23 +312,13 @@ public abstract class DefaultTableEntity implements ITableEntity {
      * @return {@link TableMetadata} 객체
      */
     private TableMetadata getMetadata() {
-        return METADATA_CACHE.computeIfAbsent(getClass(), clazz -> {
-            // 1. 테이블 이름 조회
-            TableDef tableDef = clazz.getAnnotation(TableDef.class);
-            String tableName = (tableDef != null) ? tableDef.table() : null;
+        TableMetadata cached = Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                CACHE_TABLE_METADATA.computeIfAbsent(getClass(), TABLE_METADATA_GEN) //
+        );
 
-            // 2. 어노테이션된 모든 필드 추출 및 접근 권한 설정
-            List<ColumnMeta> all = Arrays.stream(clazz.getDeclaredFields()).filter(f -> f.isAnnotationPresent(ColumnConf.class)).peek(f -> f.trySetAccessible())
-                    .map(f -> new ColumnMeta(f, f.getAnnotation(ColumnConf.class))).toList();
-
-            // 3. 인덱스 맵 구성 (중복 허용)
-            Map<Integer, List<ColumnMeta>> indexMap = all.stream().collect(Collectors.groupingBy(m -> m.config().index()));
-
-            // 4. 모든 인덱스 셋 (정렬됨)
-            Set<Integer> allIndices = new TreeSet<>(indexMap.keySet());
-
-            return new TableMetadata(tableName, all, indexMap, allIndices);
-        });
+        return cached;
     }
 
     private String getTableName() {
@@ -256,23 +342,36 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     private Collection<String> getValues(int... indice) {
-        return getValues(Arrays.stream(indice).boxed().toList());
+        return getValues(Objects.requireNonNull( //
+                Arrays.stream(indice).boxed().toList() //
+        ));
     }
 
     private Object getValueSafe(Field field) {
         try {
-            return field.get(this);
+            return Objects.requireNonNull(//
+                    field.get(this) //
+            );
         } catch (IllegalAccessException e) {
-            return null;
+            throw new IllegalArgumentException(e);
         }
     }
 
+    @SuppressWarnings("null")
     private String serializeColumns(Collection<ColumnConf> columns) {
-        return columns.stream().map(ColumnConf::column).collect(Collectors.joining(", "));
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                columns.stream().map(ColumnConf::column).collect(Collectors.joining(", ")) //
+        );
     }
 
     private String serializeValues(Collection<String> values) {
-        return String.join(", ", values);
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                String.join(", ", values) //
+        );
     }
 
     /**
@@ -317,7 +416,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
      * 2026. 3. 4.          parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 클래스 레벨 캐싱 적용 및 reflection 최적화
      * </pre>
      *
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.database.ITableEntity#toParameters()
      */

@@ -33,8 +33,7 @@ package open.commons.core.concurrent;
  * 
  * @since 2019. 2. 20.
  * @version 1.6.3
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
- * 
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public interface IJobFinishedListener<E> {
 

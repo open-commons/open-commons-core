@@ -23,10 +23,13 @@ package open.commons.core.io;
 import java.io.File;
 import java.io.FileFilter;
 
+import org.jspecify.annotations.Nullable;
+
 /***
  * 
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * @since 2011. 10. 07.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class SvnDirExclusive implements FileFilter {
@@ -36,7 +39,10 @@ public class SvnDirExclusive implements FileFilter {
      * @see java.io.FileFilter#accept(java.io.File)
      */
     @Override
-    public boolean accept(File pathname) {
+    public boolean accept(@Nullable File pathname) {
+        if (pathname == null) {
+            return false;
+        }
         return pathname.isDirectory() && !pathname.getAbsolutePath().endsWith(".svn");
     }
 

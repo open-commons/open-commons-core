@@ -28,18 +28,27 @@ package open.commons.core.database;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.function.SQLConsumer;
 
 /**
  * 
  * @since 2019. 2. 22.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
-public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLConsumer<PreparedStatement>> {
+public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNull SQLConsumer<PreparedStatement>> {
 
     /**
      * @param query
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code query})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 22.
      */
     public DefaultConCallbackBroker2(String query) {
@@ -50,9 +59,13 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      * 
      * @param query
      * @param setter
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code query})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 22.
      */
-    public DefaultConCallbackBroker2(String query, SQLConsumer<PreparedStatement> setter) {
+    public DefaultConCallbackBroker2(String query, @Nullable SQLConsumer<PreparedStatement> setter) {
         this(query, setter, false);
     }
 
@@ -73,9 +86,12 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * @param forStoredProcedure
      *            실행 쿼리가 Stored Procedure를 실행하는지 여부
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code query})가 {@code null}인 경우 발생.
      * @since 2020. 10. 29.
      */
-    public DefaultConCallbackBroker2(String query, SQLConsumer<PreparedStatement> setter, boolean forStoredProcedure) {
+    public DefaultConCallbackBroker2(String query, @Nullable SQLConsumer<PreparedStatement> setter, boolean forStoredProcedure) {
         super(query, setter, forStoredProcedure);
     }
 
@@ -98,6 +114,6 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
         builder.append(", setter=");
         builder.append(getSetter());
         builder.append("]");
-        return builder.toString();
+        return Objects.requireNonNull(builder.toString());
     }
 }

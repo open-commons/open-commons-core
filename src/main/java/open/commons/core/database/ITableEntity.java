@@ -32,7 +32,9 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 7. 12.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface ITableEntity extends Comparable<ITableEntity> {
@@ -45,14 +47,14 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public int count();
 
     /**
-     * <b><b><code>insert</code></b> 쿼리를 생성합니다.
+     * <b><b>{@code insert}</b> 쿼리를 생성합니다.
      * 
      * @return
      */
     public String createInsertQuery();
 
     /**
-     * <b><b><code>insert</code></b> 쿼리를 생성합니다.
+     * <b><b>{@code insert}</b> 쿼리를 생성합니다.
      * 
      * @param table
      * 
@@ -61,44 +63,44 @@ public interface ITableEntity extends Comparable<ITableEntity> {
     public String createInsertQuery(String table);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성합니다.
+     * <b>{@code select}</b> 쿼리를 생성합니다.
      * 
      * @param selects
      *            가져올 컬럼명
      * @param where
-     *            <b><code>where</code></b> clause에 사용될 컬럼.
+     *            <b>{@code where}</b> clause에 사용될 컬럼.
      * @return
      */
     public String createSelectQuery(Collection<Integer> selects, int... where);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성합니다.
+     * <b>{@code select}</b> 쿼리를 생성합니다.
      * 
      * @param where
-     *            <b><code>where</code></b> clause에 사용될 컬럼
+     *            <b>{@code where}</b> clause에 사용될 컬럼
      * 
      * @return
      */
     public String createSelectQuery(int... where);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성합니다.
+     * <b>{@code select}</b> 쿼리를 생성합니다.
      * 
      * @param table
      * @param selects
      *            가져올 컬럼명
      * @param where
-     *            <b><code>where</code></b> clause에 사용될 컬럼.
+     *            <b>{@code where}</b> clause에 사용될 컬럼.
      * @return
      */
     public String createSelectQuery(String table, Collection<Integer> selects, int... where);
 
     /**
-     * <b><code>select</code></b> 쿼리를 생성합니다.
+     * <b>{@code select}</b> 쿼리를 생성합니다.
      * 
      * @param table
      * @param where
-     *            <b><code>where</code></b> clause에 사용될 컬럼
+     *            <b>{@code where}</b> clause에 사용될 컬럼
      * 
      * @return
      */
@@ -109,49 +111,49 @@ public interface ITableEntity extends Comparable<ITableEntity> {
      * @param updates
      *            갱신될 컬럼
      * @param where
-     *            <b><code>where</code></b> clause에 사용될 컬럼
+     *            <b>{@code where}</b> clause에 사용될 컬럼
      * 
      * @return
      */
     public String createUpdateQuery(Collection<Integer> updates, int... where);
 
     /**
-     * <b><code>update</code></b> 쿼리를 생성합니다.
+     * <b>{@code update}</b> 쿼리를 생성합니다.
      * 
      * @param where
-     *            <b><code>where</code></b>clause에 사용될 컬럼
+     *            <b>{@code where}</b>clause에 사용될 컬럼
      * 
      * @return
      */
     public String createUpdateQuery(int... where);
 
     /**
-     * <b><code>Update</code></b> 쿼리를 생성합니다.
+     * <b>{@code Update}</b> 쿼리를 생성합니다.
      * 
      * @param table
      * 
      * @param updates
      *            갱신될 컬럼
      * @param where
-     *            <b><code>where</code></b> clause에 사용될 컬럼
+     *            <b>{@code where}</b> clause에 사용될 컬럼
      * 
      * @return
      */
     public String createUpdateQuery(String table, Collection<Integer> updates, int... where);
 
     /**
-     * <b><b><code>update</code></b> 쿼리를 생성합니다.
+     * <b><b>{@code update}</b> 쿼리를 생성합니다.
      * 
      * @param table
      * @param where
-     *            <b><code>where</code></b>clause에 사용될 컬럼
+     *            <b>{@code where}</b>clause에 사용될 컬럼
      * 
      * @return
      */
     public String createUpdateQuery(String table, int... where);
 
     /**
-     * 주어진 <b><code>index</code></b>에 해당하는 {@link Field}에 값을 설정합니다.
+     * 주어진 <b>{@code index}</b>에 해당하는 {@link Field}에 값을 설정합니다.
      * 
      * @param index
      * @param value

@@ -22,6 +22,7 @@ package open.commons.core.utils;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
@@ -190,7 +191,11 @@ public class ConvertUtils {
      *         </ul>
      */
     public static Class<?> getWrapperClass(Class<?> class_) {
-        return primitiveTypesWrapperClass.containsKey(class_) ? primitiveTypesWrapperClass.get(class_) : class_;
+        return primitiveTypesWrapperClass.containsKey(class_) ? Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                primitiveTypesWrapperClass.get(class_) //
+        ) : class_;
     }
 
     /**
@@ -211,7 +216,7 @@ public class ConvertUtils {
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isAssignableFrom(Class<?> srcType, Class<?> targetType) {
 
@@ -255,7 +260,7 @@ public class ConvertUtils {
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <S, T> boolean isAssignableFrom(S srcObject, T targetObject) {
         return isAssignableFrom(srcObject.getClass(), targetObject.getClass());
@@ -341,12 +346,12 @@ public class ConvertUtils {
      * @param value
      *            데이터 문자열
      * @param unsigned
-     *            <b><code>primitiveType</code></b>이 int ({@link Integer}), long ({@link Long})인 경우 unsigned 여부
+     *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long ({@link Long})인 경우 unsigned 여부
      * @return
      *
      * @since 2022. 3. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T toPrimitiveTypeValue(Class<T> primitiveType, String value, boolean unsigned) {
 
@@ -382,7 +387,7 @@ public class ConvertUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Class<?> translateToPrimitive(Class<?> srcType) {
         if (Boolean.class.equals(srcType)) {

@@ -28,13 +28,19 @@ package open.commons.core.csv;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 import java.util.function.Supplier;
+
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class MethodBase implements Supplier<String> {
 
@@ -53,11 +59,17 @@ public class MethodBase implements Supplier<String> {
      *
      * @param owner
      * @param method
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code owner, method})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public MethodBase(Object owner, Method method) {
+        ObjectUtils.requireNonNulls(owner, method);
+
         this.owner = owner;
         this.method = method;
     }
@@ -75,12 +87,12 @@ public class MethodBase implements Supplier<String> {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.util.function.Supplier#get()
      */
     @Override
-    public String get() {
+    public @Nullable String get() {
         try {
             Object val = this.method.invoke(this.owner);
             return val == null ? null : val.toString();
@@ -93,7 +105,7 @@ public class MethodBase implements Supplier<String> {
      *
      * @since 2023. 10. 26.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
@@ -105,6 +117,6 @@ public class MethodBase implements Supplier<String> {
         builder.append(", owner=");
         builder.append(owner.getClass());
         builder.append("]");
-        return builder.toString();
+        return Objects.requireNonNull(builder.toString());
     }
 }

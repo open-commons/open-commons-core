@@ -47,6 +47,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +63,7 @@ import open.commons.core.function.TripleFunction;
 /**
  * 
  * @since 2017. 9. 22.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class SQLUtils {
 
@@ -101,7 +102,7 @@ public class SQLUtils {
      * @param str
      *            메소드 이름
      * 
-     * @return 패턴과 매칭되지 않는 경우 <code>null</code>을 반환합니다.
+     * @return 패턴과 매칭되지 않는 경우 {@code null}을 반환합니다.
      */
     public static final BiFunction<Pattern, String, String> METHOD_MATCHER = (ptn, str) -> {
         Matcher m = ptn.matcher(str);
@@ -152,7 +153,7 @@ public class SQLUtils {
      *         예) 00000000000000000120: 18: 길이 오류, 19th: null 오류
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see ColumnConstraint
      */
     public static char[] checkColumnConstraints(Object obj) {
@@ -228,7 +229,7 @@ public class SQLUtils {
      *             </ul>
      *
      * @since 2019. 6. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see ColumnDecl
      */
@@ -299,7 +300,7 @@ public class SQLUtils {
      *
      * @since 2022. 11. 24.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getColumnName(ColumnDef clmnDef, Method method) {
         return getColumnName(clmnDef.name(), clmnDef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
@@ -323,7 +324,7 @@ public class SQLUtils {
      *
      * @since 2022. 11. 24.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getColumnName(ColumnValue clmnValue, Method method) {
         return getColumnName(clmnValue.name(), clmnValue.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
@@ -347,7 +348,7 @@ public class SQLUtils {
      *
      * @since 2020. 09. 24.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see ColumnValue
      * @see ColumnValue#name()
@@ -389,14 +390,14 @@ public class SQLUtils {
      *
      * @param clmnName
      * @param clmnNameType
-     *            <code>NOT Null</code>
+     *            {@code NOT Null}
      * @param defaultClmnName
-     *            <code>NOT Empty</code>
+     *            {@code NOT Empty}
      * @return
      *
      * @since 2022. 11. 25.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getColumnName(String clmnName, ColumnNameType clmnNameType, String defaultClmnName) {
         return getColumnName(clmnName, clmnNameType, () -> defaultClmnName);
@@ -422,7 +423,7 @@ public class SQLUtils {
      *
      * @since 2022. 11. 24.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static String getColumnName(String clmnName, ColumnNameType clmnNameType, Supplier<String> defaultClmnName) {
         // 설정된 컬럼명이 빈 문자열이 경우 처리
@@ -477,7 +478,7 @@ public class SQLUtils {
      *
      * @since 2022. 1. 7.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isSortedColumns(Class<?> entityType) {
         TableDef anno = AnnotationUtils.getAnnotation(entityType, TableDef.class);
@@ -500,7 +501,7 @@ public class SQLUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int lengthOnOracle(String str) {
         int len = 0;
@@ -537,7 +538,7 @@ public class SQLUtils {
      * @throws InvocationTargetException
      * @throws SQLException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 9. 5.
      */
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
@@ -563,9 +564,9 @@ public class SQLUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static int setParameters(PreparedStatement stmt, int index, Object obj, String... columnNames) throws SQLException {
+    public static int setParameters(PreparedStatement stmt, int index, Object obj, String @Nullable... columnNames) throws SQLException {
         // #1. @ColumnValue 어노테이션이 설정된 Method 조회
         Class<?> type = obj.getClass();
         List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(type);
@@ -767,7 +768,7 @@ public class SQLUtils {
      *
      * @since 2022. 1. 7.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static void sortColumns(Class<?> entityType, List<Method> columnBindingMethods) {
 

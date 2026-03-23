@@ -34,14 +34,12 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import org.jspecify.annotations.NonNull;
-
 /**
  * Concurrent/Parallel/Async Programming을 위한 유틸 클래스 <BR>
  * 
  * @since 2025. 9. 30.
  * @version 2.1.0
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ConcurrentUtils {
 
@@ -70,9 +68,9 @@ public class ConcurrentUtils {
      *
      * @since 2025. 9. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T, U> List<U> executeAsync(@NonNull Collection<T> data, @NonNull Function<T, U> actor) {
+    public static <T, U> List<U> executeAsync(Collection<T> data, Function<T, U> actor) {
         return executeAsync(data, actor, ForkJoinPool.commonPool());
     }
 
@@ -100,9 +98,9 @@ public class ConcurrentUtils {
      *
      * @since 2025. 9. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T, U> List<U> executeAsync(@NonNull Collection<T> data, @NonNull Function<T, U> actor, @NonNull Executor executor) {
+    public static <T, U> List<U> executeAsync(Collection<T> data, Function<T, U> actor, Executor executor) {
         AssertUtils2.notNulls(data, actor, executor);
 
         // #1. 작업을 병렬로 실행 (supplyAsync)
@@ -118,7 +116,7 @@ public class ConcurrentUtils {
      * 여러 개의 처리 결과를 하나의 데이터에 적용하는 작업을 병렬로 수행합니다. <br>
      * <p>
      * <b>[동시성(Concurrency) 주의사항]</b><br>
-     * 다수의 스레드가 동시에 <code>bucket</code> 객체의 상태를 변경하므로, 전달되는 <code>bucket</code>은 반드시 <b>스레드 안전(Thread-Safe)한 객체</b>여야
+     * 다수의 스레드가 동시에 {@code bucket} 객체의 상태를 변경하므로, 전달되는 {@code bucket}은 반드시 <b>스레드 안전(Thread-Safe)한 객체</b>여야
      * 합니다. (예: {@link java.util.concurrent.ConcurrentHashMap}, 락이 구현된 객체 등)
      * </p>
      *
@@ -139,9 +137,9 @@ public class ConcurrentUtils {
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T> void executeAsync(@NonNull T bucket, @NonNull Collection<Consumer<T>> actors) {
+    public static <T> void executeAsync(T bucket, Collection<Consumer<T>> actors) {
         executeAsync(bucket, actors, ForkJoinPool.commonPool());
     }
 
@@ -166,9 +164,9 @@ public class ConcurrentUtils {
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T> void executeAsync(@NonNull T bucket, @NonNull Collection<Consumer<T>> actors, @NonNull Executor executor) {
+    public static <T> void executeAsync(T bucket, Collection<Consumer<T>> actors, Executor executor) {
         AssertUtils2.notNulls(bucket, actors, executor);
 
         // #1. 작업을 병렬로 실행
@@ -198,7 +196,7 @@ public class ConcurrentUtils {
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static <U> List<U> waitAndApply(List<CompletableFuture<U>> jobs) {
         // #2. 모든 작업 완료 대기

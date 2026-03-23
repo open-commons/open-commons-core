@@ -26,12 +26,17 @@
 
 package open.commons.core.exception;
 
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
+
 /**
  * {@link Class#newInstance()}를 이용하여 새로운 객체를 생성하는 것이 실패할 경우 발생하는 {@link RuntimeException}.
  * 
  * @since 2025. 8. 30.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * 
  * @see Class#newInstance()
  * @see InstantiationException
@@ -60,13 +65,19 @@ public class CreateInstanceFailedException extends RuntimeException {
      *            오류 메시지.
      * @param cause
      *            오류 정보.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objectType})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public CreateInstanceFailedException(Class<?> objectType, String message, Throwable cause) {
+    public CreateInstanceFailedException(Class<?> objectType, @Nullable String message, @Nullable Throwable cause) {
+        Objects.requireNonNull(objectType);
+
         super(message, cause);
+
         this.objectType = objectType;
     }
 
@@ -84,12 +95,17 @@ public class CreateInstanceFailedException extends RuntimeException {
      *            데이터 유형.
      * @param cause
      *            오류 정보.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objectType})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public CreateInstanceFailedException(Class<?> objectType, Throwable cause) {
+    public CreateInstanceFailedException(Class<?> objectType, @Nullable Throwable cause) {
+        Objects.requireNonNull(objectType);
+
         super(cause);
         this.objectType = objectType;
     }
@@ -98,7 +114,7 @@ public class CreateInstanceFailedException extends RuntimeException {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
@@ -113,7 +129,11 @@ public class CreateInstanceFailedException extends RuntimeException {
             builder.append(msg);
         }
         builder.append("]");
-        return builder.toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
 
 }

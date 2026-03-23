@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 /**
  * 
  * @since 2014. 6. 3.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class DateUtil2 {
 
@@ -88,7 +88,7 @@ public class DateUtil2 {
     public static final Pattern yyyyMMDD_HHmmss = Pattern.compile(REGEX_yyyyMMDD_HHmmss);
 
     private static String pad(int i) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if (i < 10) {
             sb.append('0');

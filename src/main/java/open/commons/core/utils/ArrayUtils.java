@@ -36,6 +36,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.DefaultEquivalent;
 import open.commons.core.EquivalentFactory;
 import open.commons.core.IEquivalent;
@@ -47,7 +49,7 @@ import open.commons.core.collection.IContainer;
  * 배열에 대한 기능성 메소드를 제공하는 클래스 <BR>
  * 
  * @since 2012. 02. 21.
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @SuppressWarnings("unchecked")
 public class ArrayUtils {
@@ -61,7 +63,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] add(boolean[] array, boolean value) {
 
@@ -94,7 +96,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] add(boolean[] array, boolean... values) {
         return merge(array, values);
@@ -109,7 +111,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] add(byte[] array, byte value) {
         byte[] newArray = null;
@@ -141,7 +143,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] add(byte[] array, byte... values) {
         return merge(array, values);
@@ -156,7 +158,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] add(char[] array, char value) {
         char[] newArray = null;
@@ -189,7 +191,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static char[] add(char[] array, char... values) {
         return merge(array, values);
@@ -204,7 +206,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] add(double[] array, double value) {
         double[] newArray = null;
@@ -237,7 +239,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static double[] add(double[] array, double... values) {
         return merge(array, values);
@@ -252,7 +254,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] add(float[] array, float value) {
         float[] newArray = null;
@@ -285,7 +287,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static float[] add(float[] array, float... values) {
         return merge(array, values);
@@ -300,7 +302,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] add(int[] array, int value) {
         int[] newArray = null;
@@ -333,7 +335,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int[] add(int[] array, int... values) {
         return merge(array, values);
@@ -348,7 +350,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] add(long[] array, long value) {
         long[] newArray = null;
@@ -381,7 +383,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static long[] add(long[] array, long... values) {
         return merge(array, values);
@@ -396,7 +398,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] add(short[] array, short value) {
         short[] newArray = null;
@@ -429,7 +431,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static short[] add(short[] array, short... values) {
         return merge(array, values);
@@ -440,17 +442,17 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return a new array contains new <code>value</code> or null if both of parameters are <code>null</code>.
+     * @return a new array contains new {@code value} or null if both of parameters are {@code null}.
      * 
-     * @Exception {@link ArrayStoreException} - <code>T</code> is Wrapper Class of primitive types and
-     *            <code>value</code> is the primitive type's value.
+     * @Exception {@link ArrayStoreException} - {@code T} is Wrapper Class of primitive types and
+     *            {@code value} is the primitive type's value.
      *            <p>
      *            e.g. add(new Boolean[] { true }, false);
      *            </p>
      * 
      *            <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] add(T[] array, T value) {
 
@@ -491,7 +493,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <T> T[] add(T[] array, T... values) {
@@ -507,7 +509,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] addIfAbsent(boolean[] array, boolean value) {
         if (contains(array, value)) {
@@ -526,7 +528,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] addIfAbsent(byte[] array, byte value) {
         if (contains(array, value)) {
@@ -551,7 +553,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
 
     public static byte[] addIfAbsent(byte[] array, byte... values) {
@@ -578,7 +580,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] addIfAbsent(char[] array, char value) {
         if (contains(array, value)) {
@@ -603,7 +605,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static char[] addIfAbsent(char[] array, char... values) {
         if (values == null || values.length < 1) {
@@ -629,7 +631,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] addIfAbsent(double[] array, double value) {
         if (contains(array, value)) {
@@ -654,7 +656,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static double[] addIfAbsent(double[] array, double... values) {
         if (values == null || values.length < 1) {
@@ -680,7 +682,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] addIfAbsent(float[] array, float value) {
         if (contains(array, value)) {
@@ -705,7 +707,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static float[] addIfAbsent(float[] array, float... values) {
         if (values == null || values.length < 1) {
@@ -731,7 +733,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] addIfAbsent(int[] array, int value) {
         if (contains(array, value)) {
@@ -756,7 +758,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int[] addIfAbsent(int[] array, int... values) {
         if (values == null || values.length < 1) {
@@ -782,7 +784,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] addIfAbsent(long[] array, long value) {
         if (contains(array, value)) {
@@ -807,7 +809,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static long[] addIfAbsent(long[] array, long... values) {
         if (values == null || values.length < 1) {
@@ -833,7 +835,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] addIfAbsent(short[] array, short value) {
         if (contains(array, value)) {
@@ -858,7 +860,7 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static short[] addIfAbsent(short[] array, short... values) {
         if (values == null || values.length < 1) {
@@ -880,17 +882,17 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return a new array contains new <code>value</code> or null if both of parameters are <code>null</code>.
+     * @return a new array contains new {@code value} or null if both of parameters are {@code null}.
      * 
-     * @Exception {@link ArrayStoreException} - <code>T</code> is Wrapper Class of primitive types and
-     *            <code>value</code> is the primitive type's value.
+     * @Exception {@link ArrayStoreException} - {@code T} is Wrapper Class of primitive types and
+     *            {@code value} is the primitive type's value.
      *            <p>
      *            e.g. add(new Boolean[] { true }, false);
      *            </p>
      * 
      *            <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] addIfAbsent(T[] array, T value) {
         if (contains(array, value)) {
@@ -901,8 +903,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 길이(<b><code>length</code></b>)만큼 주어진 배열(<b><code>classes</code></b>) 로부터 데이터를 복사하여 새로운 배열을 반환합니다.<br>
-     * 주어진 배열(<b><code>classes</code></b>)의 길이가 주어진 길이(<b><code>length</code></b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
+     * 주어진 길이(<b>{@code length}</b>)만큼 주어진 배열(<b>{@code classes}</b>) 로부터 데이터를 복사하여 새로운 배열을 반환합니다.<br>
+     * 주어진 배열(<b>{@code classes}</b>)의 길이가 주어진 길이(<b>{@code length}</b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
      * 
      * @param length
      * @param classes
@@ -946,11 +948,11 @@ public class ArrayUtils {
      *
      * @param <T>
      * @param arr
-     * @return {@link List} 또는 <code>null</code>.
+     * @return {@link List} 또는 {@code null}.
      *
      * @since 2023. 7. 25.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> List<T> asList(T[] arr) {
         return arr != null ? Arrays.asList(arr) : null;
@@ -976,7 +978,7 @@ public class ArrayUtils {
      *
      * @since 2023. 7. 25.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> List<R> asList(T[] arr, Function<T, R> f) {
         if (arr == null) {
@@ -1014,7 +1016,7 @@ public class ArrayUtils {
      * @param value
      *            값 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static void checkRange(int min, int max, int... values) {
         for (int index : values) {
@@ -1031,7 +1033,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 <code>null</code>인 경우.
+     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(byte[] v1, byte[] v2) {
 
@@ -1063,7 +1065,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 <code>null</code>인 경우.
+     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(char[] v1, char[] v2) {
 
@@ -1095,7 +1097,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 <code>null</code>인 경우.
+     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(double[] v1, double[] v2) {
 
@@ -1127,7 +1129,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 <code>null</code>인 경우.
+     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(float[] v1, float[] v2) {
 
@@ -1159,7 +1161,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 <code>null</code>인 경우.
+     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(int[] v1, int[] v2) {
 
@@ -1191,7 +1193,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 <code>null</code>인 경우.
+     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static <T extends Comparable<T>> int comparable(T[] v1, T[] v2) {
 
@@ -1222,7 +1224,7 @@ public class ArrayUtils {
             return null;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         int i = 0;
 
@@ -1259,7 +1261,7 @@ public class ArrayUtils {
             return null;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         int i = 0;
 
@@ -1278,7 +1280,7 @@ public class ArrayUtils {
             return null;
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         int i = 0;
 
@@ -1293,7 +1295,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a concatenated string of elements of <b><code>the given array</code></b>.
+     * Returns a concatenated string of elements of <b>{@code the given array}</b>.
      * 
      * @param array
      * @param delimiter
@@ -1316,7 +1318,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a concatenated string of elements of <b><code>the given array</code></b>.
+     * Returns a concatenated string of elements of <b>{@code the given array}</b>.
      * 
      * @param array
      * @param delimiter
@@ -1571,7 +1573,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] copy(boolean[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         boolean[] newArr = new boolean[indice.length];
@@ -1602,7 +1604,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] copy(byte[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         byte[] newArr = new byte[indice.length];
@@ -1633,7 +1635,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] copy(char[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         char[] newArr = new char[indice.length];
@@ -1664,7 +1666,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] copy(double[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         double[] newArr = new double[indice.length];
@@ -1695,7 +1697,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] copy(float[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         float[] newArr = new float[indice.length];
@@ -1726,7 +1728,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] copy(int[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         int[] newArr = new int[indice.length];
@@ -1757,7 +1759,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] copy(long[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         long[] newArr = new long[indice.length];
@@ -1788,7 +1790,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] copy(short[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         short[] newArr = new short[indice.length];
@@ -1819,7 +1821,7 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] copy(T[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType().getComponentType(), indice.length);
@@ -2095,7 +2097,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
         return copyOf(original, newLength, (Class<T[]>) original.getClass(), clone);
@@ -2155,7 +2157,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType, Function<U, T> clone) {
         T[] copy = ((Object) newType == (Object) Object[].class) //
@@ -2534,7 +2536,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
         return copyOfRange(original, from, to, (Class<T[]>) original.getClass(), clone);
@@ -2606,7 +2608,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType, Function<U, T> clone) {
         int newLength = to - from;
@@ -2629,7 +2631,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(boolean[] array, boolean value) {
 
@@ -2655,7 +2657,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(byte[] array, byte value) {
 
@@ -2681,7 +2683,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(char[] array, char value) {
 
@@ -2707,7 +2709,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(double[] array, double value) {
 
@@ -2733,7 +2735,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(float[] array, float value) {
 
@@ -2759,7 +2761,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(int[] array, int value) {
 
@@ -2785,7 +2787,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(long[] array, long value) {
 
@@ -2811,7 +2813,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int countOf(short[] array, short value) {
 
@@ -2837,7 +2839,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int countOf(T[] array, T value) {
         return countOf(array, value, null);
@@ -2850,7 +2852,7 @@ public class ArrayUtils {
      * @param value
      * @return <BR>
      * @since 2012. 03. 27.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int countOf(T[] array, T value, IEquivalent<T> equivalent) {
 
@@ -2874,7 +2876,7 @@ public class ArrayUtils {
     }
 
     public static <T> String elementString(T[] array, String delimiter) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (array.length > 0) {
             sb.append(array[0]);
         }
@@ -2903,7 +2905,7 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 15.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> List<Entry<Integer, T>> entrySet(T[] array) {
         if (array == null) {
@@ -2929,7 +2931,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> boolean equals(T[] array1, T[] array2) {
         return equals(array1, array2, null);
@@ -3061,7 +3063,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 14.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> boolean equals(T[] array1, T[] array2, IEquivalent<T> equivalent) {
         if (array1 != null && array2 != null) {
@@ -3136,7 +3138,7 @@ public class ArrayUtils {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T getFirst(T[] array) {
         Objects.requireNonNull(array);
@@ -3219,7 +3221,7 @@ public class ArrayUtils {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T getLast(T[] array) throws NullPointerException, ArrayIndexOutOfBoundsException {
         Objects.requireNonNull(array);
@@ -3267,7 +3269,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3296,7 +3298,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3325,7 +3327,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(char[] array, Function<Character, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3354,7 +3356,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(double[] array, Function<Double, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3383,7 +3385,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(float[] array, Function<Float, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3412,7 +3414,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(int[] array, Function<Integer, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3441,7 +3443,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(long[] array, Function<Long, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3470,7 +3472,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static int indexOf(short[] array, Function<Short, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3499,7 +3501,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int indexOf(T[] array, Function<T, Boolean> c) {
         for (int i = 0; i < array.length; i++) {
@@ -3513,13 +3515,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(boolean[] array, boolean value) {
         if (array != null) {
@@ -3554,7 +3556,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(boolean[] array, boolean[] values) {
         if (array != null && values != null) {
@@ -3604,13 +3606,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(byte[] array, byte value) {
         if (array != null) {
@@ -3645,7 +3647,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(byte[] array, byte[] values) {
         if (array != null && values != null) {
@@ -3695,13 +3697,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(char[] array, char value) {
         if (array != null) {
@@ -3736,7 +3738,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(char[] array, char[] values) {
         if (array != null && values != null) {
@@ -3786,13 +3788,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(double[] array, double value) {
         if (array != null) {
@@ -3827,7 +3829,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(double[] array, double[] values) {
         if (array != null && values != null) {
@@ -3877,13 +3879,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(float[] array, float value) {
         if (array != null) {
@@ -3918,7 +3920,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(float[] array, float[] values) {
         if (array != null && values != null) {
@@ -3968,13 +3970,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(int[] array, int value) {
         if (array != null) {
@@ -4009,7 +4011,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(int[] array, int[] values) {
         if (array != null && values != null) {
@@ -4058,13 +4060,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(long[] array, long value) {
         if (array != null) {
@@ -4099,7 +4101,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(long[] array, long[] values) {
         if (array != null && values != null) {
@@ -4149,13 +4151,13 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(short[] array, short value) {
         if (array != null) {
@@ -4190,7 +4192,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] indiceOf(short[] array, short[] values) {
         if (array != null && values != null) {
@@ -4240,7 +4242,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
@@ -4248,7 +4250,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int[] indiceOf(T[] array, T value) {
         return indiceOf(array, value, null);
@@ -4256,7 +4258,7 @@ public class ArrayUtils {
 
     /**
      * 주어진 배열에서 찾고자 하는 값이 존재하는 인덱스 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @param array
      * @param value
@@ -4266,7 +4268,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int[] indiceOf(T[] array, T value, IEquivalent<T> equivalent) {
         if (array != null) {
@@ -4305,7 +4307,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int[] indiceOf(T[] array, T[] values) {
         if (array != null && values != null) {
@@ -4326,7 +4328,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> int[] indiceOfArray(T[] array, T[] values, IEquivalent<T[]> equi) {
         if (array != null && values != null) {
@@ -4376,7 +4378,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4395,7 +4397,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4414,7 +4416,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4433,7 +4435,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4452,7 +4454,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4471,7 +4473,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4490,7 +4492,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4509,7 +4511,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4528,7 +4530,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 값으로 채워지는, 길이 <b><code>l</code></b>인 배열을 생성합니다.
+     * 주어진 값으로 채워지는, 길이 <b>{@code l}</b>인 배열을 생성합니다.
      * 
      * @param length
      *            배열의 길이
@@ -4556,9 +4558,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] insert(boolean[] array, boolean value, int index) {
         if (array != null) {
@@ -4593,7 +4595,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] insert(boolean[] array, boolean value, int... indice) {
         if (array != null && indice != null) {
@@ -4644,9 +4646,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] insert(byte[] array, byte value, int index) {
         if (array != null) {
@@ -4681,7 +4683,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] insert(byte[] array, byte value, int... indice) {
         if (array != null && indice != null) {
@@ -4732,9 +4734,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] insert(char[] array, char value, int index) {
         if (array != null) {
@@ -4769,7 +4771,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] insert(char[] array, char value, int... indice) {
         if (array != null && indice != null) {
@@ -4820,9 +4822,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] insert(double[] array, double value, int index) {
         if (array != null) {
@@ -4857,7 +4859,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] insert(double[] array, double value, int... indice) {
         if (array != null && indice != null) {
@@ -4908,9 +4910,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] insert(float[] array, float value, int index) {
         if (array != null) {
@@ -4945,7 +4947,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] insert(float[] array, float value, int... indice) {
         if (array != null && indice != null) {
@@ -4996,9 +4998,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] insert(int[] array, int value, int index) {
         if (array != null) {
@@ -5033,7 +5035,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] insert(int[] array, int value, int... indice) {
         if (array != null && indice != null) {
@@ -5084,9 +5086,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] insert(long[] array, long value, int index) {
         if (array != null) {
@@ -5121,7 +5123,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] insert(long[] array, long value, int... indice) {
         if (array != null && indice != null) {
@@ -5171,7 +5173,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] insert(short[] array, short value, int... indice) {
         if (array != null && indice != null) {
@@ -5222,9 +5224,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] insert(short[] array, short value, int index) {
         if (array != null) {
@@ -5260,9 +5262,9 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우 <BR>
+     *                주어진 배열이 {@code null}인 경우 <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] insert(T[] array, T value, int index) {
         if (array != null) {
@@ -5297,7 +5299,7 @@ public class ArrayUtils {
      * @param indice
      * @return <BR>
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] insert(T[] array, T value, int... indice) {
         if (array != null && indice != null) {
@@ -5343,11 +5345,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] merge(boolean[]... arrays) {
 
@@ -5396,7 +5398,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] merge(boolean[] arr1, boolean[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5419,11 +5421,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] merge(byte[]... arrays) {
 
@@ -5472,7 +5474,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] merge(byte[] arr1, byte[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5507,7 +5509,7 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama@naver.com)
      */
-    public static byte[] merge(byte[] arr1, byte[] arr2, int length) {
+    public static byte[] merge(byte @Nullable [] arr1, byte @Nullable [] arr2, int length) {
         if (arr1 != null && arr2 != null) {
             byte[] merged = new byte[arr1.length + length];
 
@@ -5528,11 +5530,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] merge(char[]... arrays) {
 
@@ -5581,9 +5583,9 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static char[] merge(char[] arr1, char[] arr2) {
+    public static char[] merge(char @Nullable [] arr1, char @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             char[] merged = new char[arr1.length + arr2.length];
 
@@ -5604,11 +5606,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] merge(double[]... arrays) {
 
@@ -5656,7 +5658,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] merge(double[] arr1, double[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5679,11 +5681,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] merge(float[]... arrays) {
 
@@ -5731,7 +5733,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] merge(float[] arr1, float[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5754,11 +5756,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] merge(int[]... arrays) {
 
@@ -5806,7 +5808,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] merge(int[] arr1, int[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5829,11 +5831,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] merge(long[]... arrays) {
 
@@ -5881,7 +5883,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] merge(long[] arr1, long[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5904,11 +5906,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] merge(short[]... arrays) {
 
@@ -5956,7 +5958,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] merge(short[] arr1, short[] arr2) {
         if (arr1 != null && arr2 != null) {
@@ -5979,11 +5981,11 @@ public class ArrayUtils {
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
      * 
      * @param arrays
-     * @return 합쳐진 배열. 모든 배열이 <code>null</code>인 경우 <code>null</code>을 반환합니다.
+     * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] merge(T[]... arrays) {
 
@@ -6031,7 +6033,7 @@ public class ArrayUtils {
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @see {@link Array#newInstance(Class, int)}
      */
 
@@ -6074,7 +6076,7 @@ public class ArrayUtils {
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      */
     public static Object[] objectArray(Object value, Object[] array) {
@@ -6112,7 +6114,7 @@ public class ArrayUtils {
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      */
     public static Object[] objectArray(Object[] array, Object... values) {
@@ -6134,14 +6136,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] prepend(boolean[] array, boolean value) {
         boolean[] newArray = null;
@@ -6160,7 +6162,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * <br>
      * 
@@ -6177,7 +6179,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] prepend(boolean[] array, boolean... values) {
         return merge(values, array);
@@ -6185,14 +6187,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] prepend(byte[] array, byte value) {
         byte[] newArray = null;
@@ -6211,7 +6213,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6226,7 +6228,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] prepend(byte[] array, byte... values) {
         return merge(values, array);
@@ -6234,14 +6236,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] prepend(char[] array, char value) {
         char[] newArray = null;
@@ -6260,7 +6262,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6275,7 +6277,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] prepend(char[] array, char... values) {
         return merge(values, array);
@@ -6283,14 +6285,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] prepend(double[] array, double value) {
         double[] newArray = null;
@@ -6309,7 +6311,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6324,7 +6326,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] prepend(double[] array, double... values) {
         return merge(values, array);
@@ -6332,14 +6334,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] prepend(float[] array, float value) {
         float[] newArray = null;
@@ -6358,7 +6360,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6373,7 +6375,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] prepend(float[] array, float... values) {
         return merge(values, array);
@@ -6381,14 +6383,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] prepend(int[] array, int value) {
         int[] newArray = null;
@@ -6407,7 +6409,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6422,7 +6424,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] prepend(int[] array, int... values) {
         return merge(values, array);
@@ -6430,14 +6432,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] prepend(long[] array, long value) {
         long[] newArray = null;
@@ -6456,7 +6458,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6471,7 +6473,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] prepend(long[] array, long... values) {
         return merge(values, array);
@@ -6479,14 +6481,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] prepend(short[] array, short value) {
         short[] newArray = null;
@@ -6505,7 +6507,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6520,7 +6522,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] prepend(short[] array, short... values) {
         return merge(values, array);
@@ -6528,14 +6530,14 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다.
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다.
      * 
      * @param array
      * @param value
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] prepend(T[] array, T value) {
 
@@ -6562,7 +6564,7 @@ public class ArrayUtils {
 
     /**
      * 기존 배열에 새로운 데이터를 맨 앞에 추가한 후, 새로운 배열을 반환합니다.<br>
-     * 배열이 <code>null</code>인 경우 새로운 배열을 생성한 후 추가합니다. <br>
+     * 배열이 {@code null}인 경우 새로운 배열을 생성한 후 추가합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -6577,7 +6579,7 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <T> T[] prepend(T[] array, T... values) {
@@ -6592,11 +6594,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] removeAll(boolean[] array, boolean value) {
 
@@ -6648,11 +6650,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] removeAll(byte[] array, byte value) {
 
@@ -6704,11 +6706,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] removeAll(char[] array, char value) {
 
@@ -6759,11 +6761,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] removeAll(double[] array, double value) {
 
@@ -6814,11 +6816,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] removeAll(float[] array, float value) {
 
@@ -6869,11 +6871,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] removeAll(int[] array, int value) {
 
@@ -6924,11 +6926,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] removeAll(long[] array, long value) {
 
@@ -6979,11 +6981,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] removeAll(short[] array, short value) {
 
@@ -7079,11 +7081,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] removeAll(T[] array, T value) {
         return removeAll(array, value, null);
@@ -7099,11 +7101,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] removeAll(T[] array, T value, IEquivalent<T> equivalent) {
 
@@ -7151,13 +7153,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] removeAt(boolean[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7173,13 +7175,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] removeAt(byte[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7195,13 +7197,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] removeAt(char[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7217,13 +7219,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] removeAt(double[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7239,13 +7241,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] removeAt(float[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7261,13 +7263,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] removeAt(int[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7283,13 +7285,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] removeAt(long[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7305,13 +7307,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] removeAt(short[] array, int index) {
         if (index > -1 && index < array.length) {
@@ -7327,13 +7329,13 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 <code>index</code>에 해당하는 값을 제거한 배열을 반환합니다.
+     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
      * 
      * @param array
      * @param index
      * @return <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
 
     public static <T> T[] removeAt(T[] array, int index) {
@@ -7357,11 +7359,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] removeFirst(boolean[] array, boolean value) {
         if (array != null) {
@@ -7387,11 +7389,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] removeFirst(byte[] array, byte value) {
         if (array != null) {
@@ -7417,11 +7419,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] removeFirst(char[] array, char value) {
         if (array != null) {
@@ -7447,11 +7449,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] removeFirst(double[] array, double value) {
         if (array != null) {
@@ -7477,11 +7479,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] removeFirst(float[] array, float value) {
         if (array != null) {
@@ -7507,11 +7509,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] removeFirst(int[] array, int value) {
         if (array != null) {
@@ -7537,11 +7539,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] removeFirst(long[] array, long value) {
         if (array != null) {
@@ -7567,11 +7569,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] removeFirst(short[] array, short value) {
         if (array != null) {
@@ -7602,11 +7604,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] removeFirst(T[] array, T value) {
         return removeFirst(array, value, null);
@@ -7622,11 +7624,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] removeFirst(T[] array, T value, IEquivalent<T> equivalent) {
         if (array != null) {
@@ -7655,11 +7657,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] removeLast(boolean[] array, boolean value) {
         if (array != null) {
@@ -7685,11 +7687,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] removeLast(byte[] array, byte value) {
         if (array != null) {
@@ -7715,11 +7717,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] removeLast(char[] array, char value) {
         if (array != null) {
@@ -7745,11 +7747,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] removeLast(double[] array, double value) {
         if (array != null) {
@@ -7775,11 +7777,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] removeLast(float[] array, float value) {
         if (array != null) {
@@ -7805,11 +7807,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] removeLast(int[] array, int value) {
         if (array != null) {
@@ -7835,11 +7837,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] removeLast(long[] array, long value) {
         if (array != null) {
@@ -7865,11 +7867,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] removeLast(short[] array, short value) {
         if (array != null) {
@@ -7896,11 +7898,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] removeLast(T[] array, T value) {
         return removeLast(array, value, null);
@@ -7916,11 +7918,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] removeLast(T[] array, T value, IEquivalent<T> equivalent) {
         if (array != null) {
@@ -7952,7 +7954,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] replaceAll(boolean[] array, boolean target, boolean[] data) {
         if (array != null && data != null) {
@@ -8003,7 +8005,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean data) {
         if (array != null && target != null) {
@@ -8023,7 +8025,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean[] data) {
         if (array != null && target != null && data != null) {
@@ -8084,7 +8086,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] replaceAll(byte[] array, byte target, byte[] data) {
         if (array != null && data != null) {
@@ -8135,7 +8137,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] replaceAll(byte[] array, byte[] target, byte data) {
         if (array != null && target != null) {
@@ -8154,7 +8156,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] replaceAll(byte[] array, byte[] target, byte[] data) {
         if (array != null && target != null && data != null) {
@@ -8215,7 +8217,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] replaceAll(char[] array, char target, char[] data) {
         if (array != null && data != null) {
@@ -8268,7 +8270,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] replaceAll(char[] array, char[] target, char data) {
         if (array != null && target != null) {
@@ -8288,7 +8290,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] replaceAll(char[] array, char[] target, char[] data) {
         if (array != null && target != null && data != null) {
@@ -8350,7 +8352,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] replaceAll(double[] array, double target, double[] data) {
         if (array != null && data != null) {
@@ -8401,7 +8403,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] replaceAll(double[] array, double[] target, double data) {
         if (array != null && target != null) {
@@ -8421,7 +8423,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] replaceAll(double[] array, double[] target, double[] data) {
         if (array != null && target != null && data != null) {
@@ -8482,7 +8484,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] replaceAll(float[] array, float target, float[] data) {
         if (array != null && data != null) {
@@ -8533,7 +8535,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] replaceAll(float[] array, float[] target, float data) {
         if (array != null && target != null) {
@@ -8553,7 +8555,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] replaceAll(float[] array, float[] target, float[] data) {
         if (array != null && target != null && data != null) {
@@ -8614,7 +8616,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] replaceAll(int[] array, int target, int[] data) {
         if (array != null && data != null) {
@@ -8665,7 +8667,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] replaceAll(int[] array, int[] target, int data) {
         if (array != null && target != null) {
@@ -8684,7 +8686,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] replaceAll(int[] array, int[] target, int[] data) {
         if (array != null && target != null && data != null) {
@@ -8745,7 +8747,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] replaceAll(long[] array, long target, long[] data) {
         if (array != null && data != null) {
@@ -8796,7 +8798,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] replaceAll(long[] array, long[] target, long data) {
         if (array != null && target != null) {
@@ -8815,7 +8817,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] replaceAll(long[] array, long[] target, long[] data) {
         if (array != null && target != null && data != null) {
@@ -8876,7 +8878,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] replaceAll(short[] array, short target, short[] data) {
         if (array != null && data != null) {
@@ -8927,7 +8929,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] replaceAll(short[] array, short[] target, short data) {
         if (array != null && target != null) {
@@ -8947,7 +8949,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] replaceAll(short[] array, short[] target, short[] data) {
         if (array != null && target != null && data != null) {
@@ -9008,7 +9010,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] replaceAll(T[] array, T target, T[] data) {
         return replaceAllToArray(array, target, data, null);
@@ -9023,7 +9025,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] replaceAll(T[] array, T[] target, T data) {
         return replaceAllToData(array, target, data, null);
@@ -9038,7 +9040,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] replaceAll(T[] array, T[] target, T[] data) {
         return replaceAll(array, target, data, null);
@@ -9053,7 +9055,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] replaceAll(T[] array, T[] target, T[] data, IEquivalent<T[]> equivalent) {
         if (array != null && target != null && data != null) {
@@ -9112,11 +9114,11 @@ public class ArrayUtils {
      * @param data
      *            새로운 데이타 배열
      * @param equivalent
-     *            <code>T</code>가 동일한지를 판단하는 비교자
+     *            {@code T}가 동일한지를 판단하는 비교자
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] replaceAllToArray(T[] array, T target, T[] data, IEquivalent<T> equivalent) {
         if (array != null && data != null) {
@@ -9167,7 +9169,7 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] replaceAllToData(T[] array, T[] target, T data, IEquivalent<T[]> equivalent) {
         if (array != null && target != null) {
@@ -9216,12 +9218,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>boolean</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>boolean</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[] reverse(boolean[] array) {
 
@@ -9240,12 +9242,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>byte</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>byte</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] reverse(byte[] array) {
 
@@ -9264,12 +9266,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>char</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>char</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] reverse(char[] array) {
 
@@ -9288,12 +9290,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>double</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>double</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[] reverse(double[] array) {
 
@@ -9312,12 +9314,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>float</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>float</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[] reverse(float[] array) {
 
@@ -9336,12 +9338,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>int</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>int</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[] reverse(int[] array) {
 
@@ -9360,12 +9362,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>long</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>long</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[] reverse(long[] array) {
 
@@ -9384,12 +9386,12 @@ public class ArrayUtils {
     }
 
     /**
-     * <code><b>long</b></code> 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code <b>long</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[] reverse(short[] array) {
 
@@ -9413,7 +9415,7 @@ public class ArrayUtils {
      * @param array
      * @return <BR>
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
 
     public static <T> T[] reverse(T[] array) {
@@ -9556,7 +9558,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[][] split(boolean[] array, boolean value) {
 
@@ -9613,7 +9615,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[][] split(byte[] array, byte value) {
 
@@ -9670,7 +9672,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[][] split(char[] array, char value) {
 
@@ -9727,7 +9729,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[][] split(double[] array, double value) {
 
@@ -9784,7 +9786,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[][] split(int[] array, int value) {
 
@@ -9841,7 +9843,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[][] split(long[] array, long value) {
 
@@ -9898,7 +9900,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[][] split(short[] array, short value) {
 
@@ -9956,7 +9958,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[][] split(T[] array, T value) {
         return split(array, value, null);
@@ -10019,7 +10021,7 @@ public class ArrayUtils {
      * 
      *         <BR>
      * @since 2012. 03. 20.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[][] split(T[] array, T value, IEquivalent<T> equivalent) {
 
@@ -10093,7 +10095,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 24.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] splitAfter(T[] array, Function<T, Boolean> at) {
         T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
@@ -10136,7 +10138,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] splitAt(T[] array, Function<T, Boolean> at, Function<T, T> post) {
 
@@ -10176,7 +10178,7 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T[] splitBefore(T[] array, Function<T, Boolean> at) {
         T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
@@ -10203,11 +10205,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean[][] subArrays(boolean[] array, int index, boolean inclusive) {
         if (array != null) {
@@ -10246,11 +10248,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[][] subArrays(byte[] array, int index, boolean inclusive) {
 
@@ -10290,11 +10292,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[][] subArrays(char[] array, int index, boolean inclusive) {
 
@@ -10334,11 +10336,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static double[][] subArrays(double[] array, int index, boolean inclusive) {
 
@@ -10378,11 +10380,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static float[][] subArrays(float[] array, int index, boolean inclusive) {
 
@@ -10422,11 +10424,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int[][] subArrays(int[] array, int index, boolean inclusive) {
 
@@ -10466,11 +10468,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static long[][] subArrays(long[] array, int index, boolean inclusive) {
 
@@ -10510,11 +10512,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static short[][] subArrays(short[] array, int index, boolean inclusive) {
 
@@ -10556,11 +10558,11 @@ public class ArrayUtils {
      * @return
      * 
      * @exception IllegalArgumentException
-     *                주어진 배열이 <code>null</code>인 경우
+     *                주어진 배열이 {@code null}인 경우
      * 
      *                <BR>
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
 
     public static <T> Object[][] subArrays(T[] array, int index, boolean inclusive) {
@@ -10676,11 +10678,11 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toString(Object[] array) {
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append('[');
         if (array.length > 0) {
@@ -10866,7 +10868,7 @@ public class ArrayUtils {
      *
      * @since 2023. 7. 25.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T, R> R[] transform(T[] arr, Function<T, R> f) {
         if (arr == null) {
@@ -10904,7 +10906,7 @@ public class ArrayUtils {
          * @return
          *
          * @since 2021. 8. 15.
-         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+         * 
          *
          * @see java.util.Map.Entry#getKey()
          */
@@ -10926,7 +10928,7 @@ public class ArrayUtils {
          * @return
          *
          * @since 2021. 8. 15.
-         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+         * 
          *
          * @see java.util.Map.Entry#getValue()
          */
@@ -10949,7 +10951,7 @@ public class ArrayUtils {
          * @return
          *
          * @since 2021. 8. 15.
-         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+         * 
          *
          * @see java.util.Map.Entry#setValue(java.lang.Object)
          */

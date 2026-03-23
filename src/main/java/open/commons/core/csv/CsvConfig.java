@@ -26,6 +26,8 @@
 
 package open.commons.core.csv;
 
+import java.util.Objects;
+
 /**
  * CSV 데이터 설정 클래스.<br>
  * 
@@ -39,7 +41,8 @@ package open.commons.core.csv;
  * 
  * @since 2021. 6. 25.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class CsvConfig extends CsvCommon {
 
@@ -64,7 +67,7 @@ public class CsvConfig extends CsvCommon {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -92,7 +95,7 @@ public class CsvConfig extends CsvCommon {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -121,7 +124,7 @@ public class CsvConfig extends CsvCommon {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -149,7 +152,7 @@ public class CsvConfig extends CsvCommon {
      *            escape 문자
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public CsvConfig(char separator, char quotechar, char escape) {
         this(separator, quotechar, escape, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -177,7 +180,7 @@ public class CsvConfig extends CsvCommon {
      *            데이터 앞쪽의 whitespace 제거 여부
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes) {
         this(separator, quotechar, escape, strictQuotes, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -205,7 +208,7 @@ public class CsvConfig extends CsvCommon {
      *            데이터 앞쪽의 whitespace 제거 여부
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace) {
         super(separator, quotechar, escape);
@@ -310,13 +313,14 @@ public class CsvConfig extends CsvCommon {
      * @return
      *
      * @since 2021. 6. 25.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("CsvConfig [separator=");
         builder.append(separator);
         builder.append(", quotechar=");
@@ -328,7 +332,10 @@ public class CsvConfig extends CsvCommon {
         builder.append(", ignoreLeadingWhiteSpace=");
         builder.append(ignoreLeadingWhiteSpace);
         builder.append("]");
-        return builder.toString();
+
+        return Objects.requireNonNull(//
+                builder.toString() //
+        );
     }
 
 }

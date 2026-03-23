@@ -37,8 +37,6 @@ import java.util.function.Function;
  * This is a <a href="package-summary.html">functional interface</a> whose functional method is
  * {@link #apply(Object, Object, Object)}.
  *
- * @subject : Triple Argument Function
- * 
  * @param <T>
  *            the type of the first argument to the function
  * @param <U>
@@ -48,10 +46,11 @@ import java.util.function.Function;
  * @param <R>
  *            the type of the result of the function
  *
- * @see Function
- * @since 1.8
+ * @since 2017. 9. 14
+ * @since 1.0.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * @author : Park_Jun_Hong_(parkjunhong77@gmail.com), 2017. 9. 14., 1.0
+ * @see Function
  */
 @FunctionalInterface
 public interface TripleFunction<T, U, V, R> {
@@ -67,10 +66,11 @@ public interface TripleFunction<T, U, V, R> {
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
      * @throws NullPointerException
-     *             if after is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default <W> TripleFunction<T, U, V, W> andThen(Function<? super R, ? extends W> after) {
         Objects.requireNonNull(after);
+
         return (T t, U u, V v) -> after.apply(apply(t, u, v));
     }
 

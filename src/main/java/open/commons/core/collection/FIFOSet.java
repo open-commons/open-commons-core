@@ -31,16 +31,20 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 추가된 순서대로 정렬되는 {@link Set}
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
- * 
  * @param <E>
+ * 
+ * @since 2012. 11. 6.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class FIFOSet<E> implements Set<E> {
 
@@ -72,6 +76,7 @@ public class FIFOSet<E> implements Set<E> {
         return added;
     }
 
+    @SuppressWarnings("null")
     @Override
     public synchronized boolean addAll(Collection<? extends E> c) {
 
@@ -90,16 +95,17 @@ public class FIFOSet<E> implements Set<E> {
     }
 
     @Override
-    public synchronized boolean contains(Object o) {
+    public synchronized boolean contains(@Nullable Object o) {
         return this.values.contains(o);
     }
 
+    @SuppressWarnings("null")
     @Override
     public synchronized boolean containsAll(Collection<?> c) {
         return this.values.containsAll(c);
     }
 
-    private boolean eq(E e, Object o) {
+    private boolean eq(@Nullable E e, @Nullable Object o) {
         if (e != null && o != null) {
             return e.equals(o);
         } else if (e != null || o != null) {
@@ -116,11 +122,11 @@ public class FIFOSet<E> implements Set<E> {
 
     @Override
     public synchronized Iterator<E> iterator() {
-        return this.orderedValues.values().iterator();
+        return Objects.requireNonNull(this.orderedValues.values().iterator());
     }
 
     @Override
-    public synchronized boolean remove(Object o) {
+    public synchronized boolean remove(@Nullable Object o) {
         boolean removed = false;
 
         // if (!values.contains(o)) {
@@ -145,6 +151,7 @@ public class FIFOSet<E> implements Set<E> {
         return removed;
     }
 
+    @SuppressWarnings("null")
     @Override
     public synchronized boolean removeAll(Collection<?> c) {
         boolean removed = false;
@@ -156,6 +163,7 @@ public class FIFOSet<E> implements Set<E> {
         return removed;
     }
 
+    @SuppressWarnings("null")
     @Override
     public synchronized boolean retainAll(Collection<?> c) {
         return this.values.retainAll(c);
@@ -168,17 +176,18 @@ public class FIFOSet<E> implements Set<E> {
 
     @Override
     public synchronized Object[] toArray() {
-        return this.orderedValues.values().toArray();
+        return Objects.requireNonNull(this.orderedValues.values().toArray());
     }
 
+    @SuppressWarnings("null")
     @Override
     public synchronized <T> T[] toArray(T[] a) {
-        return this.orderedValues.values().toArray(a);
+        return Objects.requireNonNull(this.orderedValues.values().toArray(a));
     }
 
     @Override
     public String toString() {
-        return this.orderedValues.values().toString();
+        return Objects.requireNonNull(this.orderedValues.values().toString());
     }
 
 }

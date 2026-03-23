@@ -57,6 +57,7 @@ import java.lang.annotation.Target;
  * @since 2021. 11. 11.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Retention(RUNTIME)
 @Target(METHOD)
@@ -75,7 +76,7 @@ public @interface ReadAt {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     int index();
 
@@ -93,12 +94,12 @@ public @interface ReadAt {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean skippable() default false;
 
     /**
-     * 데이터 타입이 int ({@link Integer}), long ({@link Long})인 경우 <b><code>unsigned</code></b>를 지원하기 위함. <br>
+     * 데이터 타입이 int ({@link Integer}), long ({@link Long})인 경우 <b>{@code unsigned}</b>를 지원하기 위함. <br>
      * 
      * <pre>
      * [개정이력]
@@ -111,7 +112,7 @@ public @interface ReadAt {
      *
      * @since 2022. 3. 15.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean unsigned() default false;
 }

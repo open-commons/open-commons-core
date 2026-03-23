@@ -29,7 +29,8 @@ package open.commons.core.collection;
 /**
  * 
  * @since 2015. 1. 5.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public interface IKeyExtractor<K, V> {
     public K getKey(V value);

@@ -29,7 +29,7 @@ import open.commons.core.utils.NumberUtils.IntegerType;
  * int 및 {@link Integer}에 데이타 처리를 위한 메소드 제공 클래스 <BR>
  * 
  * @since 2012. 2. 8.
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class IntegerUtils {
 
@@ -46,7 +46,7 @@ public class IntegerUtils {
      * @param values
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #byteArrayToInt(byte[])
      */
@@ -115,7 +115,7 @@ public class IntegerUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String hex(String str) {
         return concat("", "0x", str);
@@ -183,19 +183,19 @@ public class IntegerUtils {
     }
 
     /**
-     * int 타입의 데이타를 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환합니다.
+     * int 타입의 데이타를 32단위의 이진법 표기로 변환한 {@code <b>char</b>} 배열로 반환합니다.
      * 
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toBinary32CharArray(int value) {
         return toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH);
     }
 
     /**
-     * int 타입의 데이타를 원하는 길이의 32단위의 이진법 표기로 변환한 <code><b>char</b></code> 배열로 반환합니다.<br>
+     * int 타입의 데이타를 원하는 길이의 32단위의 이진법 표기로 변환한 {@code <b>char</b>} 배열로 반환합니다.<br>
      * 단, 반환되는 배열은 이진법 표기의 오른쪽값에서부터 채워진다.
      * 
      * @param value
@@ -204,7 +204,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toBinary32CharArray(int value, int length) {
         return toCharArray(Integer.toBinaryString(value), length);
@@ -216,7 +216,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toBinary32String(int value) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH));
@@ -231,7 +231,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toBinary32String(int value, int length) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), length));
@@ -243,7 +243,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static byte[] toByteArray(int value) {
         byte[] returnedValue = new byte[4];
@@ -262,7 +262,7 @@ public class IntegerUtils {
      * @param values
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #toByteArray(int)
      */
@@ -292,7 +292,7 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 <code><b>char</b></code> 배열로 변환한 후 반환합니다.
+     * 정수형 데이타를 원하는 길이의 {@code <b>char</b>} 배열로 변환한 후 반환합니다.
      * 
      * @param value
      *            문자열로 표현된 정수형 데이타
@@ -301,7 +301,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toCharArray(String value, int length) {
         char[] str = new char[length];
@@ -320,27 +320,27 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 16진수형태의 8자리 <code><b>char</b></code> 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
+     * 정수형 데이타를 16진수형태의 8자리 {@code <b>char</b>} 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      * 
      * @param value
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toHexCharArray(int value) {
         return toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH);
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 <code><b>char</b></code> 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.<br>
+     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 {@code <b>char</b>} 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.<br>
      * 단, 반환되는 배열은 16진수표기의 오른쪽값에서부터 채워진다.
      * 
      * @param value
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toHexCharArray(int value, int length) {
         return toCharArray(Integer.toHexString(value), length);
@@ -353,7 +353,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toHexString(int value) {
         return String.valueOf(toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH));
@@ -368,7 +368,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toHexString(int value, boolean padding) {
         String hexValue = toHexString(value);
@@ -393,7 +393,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toHexString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toHexString(value), length));
@@ -406,7 +406,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toHexString(String value) {
         return toHexString(Integer.parseInt(value));
@@ -421,7 +421,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toHexString(String value, boolean padding) {
         return toHexString(Integer.parseInt(value), padding);
@@ -435,7 +435,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 2. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toHexString(String value, int length) {
         return toHexString(Integer.parseInt(value), length);
@@ -456,7 +456,7 @@ public class IntegerUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toIPv4(int nums) {
         int[] ar = new int[4];
@@ -482,7 +482,7 @@ public class IntegerUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toIPv4(int[] nums) {
         int[] ar = new int[4];
@@ -491,27 +491,27 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 8진수 형태의 <code><b>char</b></code> 배열로 반환합니다.
+     * 정수형 데이타를 8진수 형태의 {@code <b>char</b>} 배열로 반환합니다.
      * 
      * @param value
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toOctalCharArray(int value) {
         return toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH);
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 8진수 형태의 <code><b>char</b></code> 배열로 반환합니다.<br>
+     * 정수형 데이타를 원하는 길이의 8진수 형태의 {@code <b>char</b>} 배열로 반환합니다.<br>
      * 단, 반환되는 배열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      * 
      * @param value
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static char[] toOctalCharArray(int value, int length) {
         return toCharArray(Integer.toOctalString(value), length);
@@ -524,7 +524,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toOctalString(int value) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH));
@@ -539,7 +539,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toOctalString(int value, boolean padding) {
         String octValue = toOctalString(value);
@@ -564,7 +564,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toOctalString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), length));
@@ -577,7 +577,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toOctalString(String value) {
         return toOctalString(Integer.parseInt(value));
@@ -592,7 +592,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toOctalString(String value, boolean padding) {
         return toOctalString(Integer.parseInt(value), padding);
@@ -606,7 +606,7 @@ public class IntegerUtils {
      * @return
      * 
      * @since 2012. 02. 22.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toOctalString(String value, int length) {
         return toOctalString(Integer.parseInt(value), length);
@@ -618,7 +618,7 @@ public class IntegerUtils {
      * @param value
      * @return <BR>
      * @since 2012. 2. 9.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String toWellFormed32bitBinaryString(int value) {
         char[] str = new char[32];
@@ -628,7 +628,7 @@ public class IntegerUtils {
         char[] src = Integer.toBinaryString(value).toCharArray();
         System.arraycopy(src, 0, str, 32 - src.length, src.length);
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 32; i++) {
             // split for 8-bit

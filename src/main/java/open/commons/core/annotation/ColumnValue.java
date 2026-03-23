@@ -43,7 +43,8 @@ import open.commons.core.annotation.ColumnDef.ColumnNameType;
  * 
  * @since 2020. 1. 22.
  * @version 1.6.17
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * 
  * @see PreparedStatement
  * @see PreparedStatement#setObject(int, Object)
@@ -70,7 +71,7 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     boolean caseSensitive() default false;
 
@@ -96,7 +97,7 @@ public @interface ColumnValue {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see ColumnDef#columnNameType()
      */
@@ -117,13 +118,13 @@ public @interface ColumnValue {
      *
      * @since 2025. 4. 9.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     String columnType() default "";
 
     /**
      * 컬럼 정의시 'DEFAULT' 설정에 따라서 생성되는 데이터 여부 <br>
-     * 이 값이 <code>true</code>인 경우, 쿼리 생성에 포함되지 않습니다.
+     * 이 값이 {@code true}인 경우, 쿼리 생성에 포함되지 않습니다.
      * 
      * <pre>
      * [개정이력]
@@ -136,7 +137,7 @@ public @interface ColumnValue {
      *
      * @since 2022. 11. 1.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean defaultColumn() default false;
 
@@ -180,7 +181,7 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     String name() default "";
 
@@ -199,7 +200,7 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     int order() default Integer.MAX_VALUE;
 
@@ -217,7 +218,7 @@ public @interface ColumnValue {
      *
      * @since 2022. 11. 1.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean primaryKey() default false;
 
@@ -235,7 +236,7 @@ public @interface ColumnValue {
      *
      * @since 2021. 11. 29.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean updatable() default false;
 
@@ -254,7 +255,7 @@ public @interface ColumnValue {
      *
      * @since 2021. 12. 1.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     String variableBinding() default "?";
 }

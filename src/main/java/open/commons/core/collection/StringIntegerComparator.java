@@ -29,20 +29,30 @@
 package open.commons.core.collection;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * 문자열로 표현된 integer/long 값에 대한 {@link Comparator}
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 6. 20.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class StringIntegerComparator implements Comparator<String> {
 
     /**
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+     * 
+     * @throws NullPointerException
+     *             {@code o1 또는 o2}가 {@code null}인 경우 발생.
      */
+    @SuppressWarnings("null")
     @Override
     public int compare(String o1, String o2) {
+        Objects.requireNonNull(o1, "Cannot parse null string");
+        Objects.requireNonNull(o2, "Cannot parse null string");
+
         int i1 = Integer.parseInt(o1);
         int i2 = Integer.parseInt(o2);
 

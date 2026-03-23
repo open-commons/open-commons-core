@@ -39,7 +39,8 @@ import java.lang.annotation.Target;
  * 생성되는 객체의 메소드에 설정합니다.
  * 
  * @since 2019. 6. 20.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * 
  * @see Getter
  */
@@ -62,7 +63,7 @@ public @interface Setter {
      *
      * @since 2025. 9. 5.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     boolean deepConvert() default true;
 
@@ -70,8 +71,8 @@ public @interface Setter {
     String name() default "";
 
     /**
-     * <code>srcClass/srcFieldClass/property/targetClass/targetFieldClass</code> 로 식별되는 '변환 함수'가 없는 경우<br>
-     * <code>null/srcFieldClass/null/null/targetFieldClass</code>로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     * {@code srcClass/srcFieldClass/property/targetClass/targetFieldClass} 로 식별되는 '변환 함수'가 없는 경우<br>
+     * {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
      */
     boolean useGlobalConverter() default false;
 

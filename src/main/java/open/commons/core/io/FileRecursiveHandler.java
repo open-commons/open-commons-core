@@ -14,24 +14,33 @@
  * limitations under the License.
  */
 
-/**
-* @title CommonUtils
-* @since 2011. 09. 29.
-*/
+/*
+ *
+ * This file is generated under this project, "open-commons-core".
+ *
+ * Date  : 2012. 11. 2.
+ *
+ * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ */
 package open.commons.core.io;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.concurrent.Mutex;
 import open.commons.core.utils.ArrayUtils;
 
 /**
  * 
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * @since 2012. 11. 02.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class FileRecursiveHandler {
@@ -40,8 +49,8 @@ public class FileRecursiveHandler {
     private static final FileFilter DEFAULT_DIR_FILTER = new FileFilter() {
 
         @Override
-        public boolean accept(File pathname) {
-            return pathname.isDirectory();
+        public boolean accept(@Nullable File pathname) {
+            return pathname == null ? false : pathname.isDirectory();
         }
     };
 
@@ -49,8 +58,8 @@ public class FileRecursiveHandler {
     private static final FileFilter DEFAULT_FILE_FILTER = new FileFilter() {
 
         @Override
-        public boolean accept(File file) {
-            return file.isFile();
+        public boolean accept(@Nullable File file) {
+            return file == null ? false : file.isFile();
         }
     };
 
@@ -76,7 +85,7 @@ public class FileRecursiveHandler {
      *            검색을 위한 최상위 위치의 절대 경로 문자열
      * 
      *            <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 18.
      * @see #FileRecursiveHandler(String, FileFilter, FileFilter)
      */
@@ -94,17 +103,21 @@ public class FileRecursiveHandler {
      * @param dirfilter
      *            하위 디렉토리 검색을 위한 필터
      * 
-     *            <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
-    public FileRecursiveHandler(String rootpath, FileFilter filefilter, FileFilter dirfilter) {
+    public FileRecursiveHandler(String rootpath, @Nullable FileFilter filefilter, @Nullable FileFilter dirfilter) {
         this.rootpath = rootpath;
         this.filefilter = filefilter == null ? DEFAULT_FILE_FILTER : filefilter;
         this.dirfilter = dirfilter == null ? DEFAULT_DIR_FILTER : dirfilter;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     */
     protected final void $handle$(File file) {
+        Objects.requireNonNull(file);
+
         if (file.isFile()) {
             handleFile(file);
         } else {
@@ -120,12 +133,14 @@ public class FileRecursiveHandler {
      * 파일 처리 핸들러를 추가합니다.
      * 
      * @param handle
+     * @throws NullPointerException
+     *             파라미터({@code handle})가 {@code null}인 경우 발생.
      * 
-     *            <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public void addFileHandler(IFileHandler handle) {
+        Objects.requireNonNull(handle);
+
         filehandlers.add(handle);
     }
 
@@ -142,7 +157,11 @@ public class FileRecursiveHandler {
     }
 
     public final String errorLog() {
-        return logpool.toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                logpool.toString() //
+        );
     }
 
     public long getDirCount() {
@@ -166,70 +185,32 @@ public class FileRecursiveHandler {
      * 
      * <BR>
      * 
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 18.
      * 
      */
     public void handle() {
-        if (rootpath != null) {
-            if (filehandlers.size() > 0) {
-                File root = new File(rootpath);
-                $handle$(root);
-            } else {
-                throw new IllegalStateException("no file handler: " + filehandlers.size());
-            }
-
+        if (filehandlers.size() > 0) {
+            File root = new File(rootpath);
+            $handle$(root);
         } else {
-            throw new NullPointerException("rootpath: " + rootpath);
+            throw new IllegalStateException("no file handler: " + filehandlers.size());
         }
     }
 
     /**
      * @param dir
-     *            <BR>
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     protected final void handleDir(File dir) {
+        Objects.requireNonNull(dir);
+
         countUpDir();
 
-        // File[] subfiles = dir.listFiles(filefilter);
-        // File[] subdirs = dir.listFiles(dirfilter);
-
-        /**
-         * 성능 향상. 아래는 성능 테스트 결과
-         * 
-         * <pre>
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * [RESULT] tested Count: 1,    copyOf: 278,012 ns
-         * [RESULT] tested Count: 1, listFiles: 342,831 ns
-         * ------------------------------------------------
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * [RESULT] tested Count: 10,    copyOf: 1,685,276 ns
-         * [RESULT] tested Count: 10, listFiles: 2,516,240 ns
-         * ------------------------------------------------
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * [RESULT] tested Count: 100,    copyOf: 15,721,666 ns
-         * [RESULT] tested Count: 100, listFiles: 22,459,084 ns
-         * ------------------------------------------------
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: copyOf
-         * >>> begin: TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * <<< end  : TEST_MAIN.test(...).new Runnable() {...}.run: listFiles
-         * [RESULT] tested Count: 1,000,    copyOf: 128,987,516 ns
-         * [RESULT] tested Count: 1,000, listFiles: 189,525,668 ns
-         * ------------------------------------------------
-         * </pre>
-         */
         File[] readfiles = dir.listFiles();
 
         File[] subfiles = new File[readfiles.length];
@@ -248,15 +229,25 @@ public class FileRecursiveHandler {
         subdirs = ArrayUtils.copyOf(subdirs, j);
 
         for (File $file : subfiles) {
-            handleFile($file);
+            if ($file != null) {
+                handleFile($file);
+            }
         }
 
         for (File $dir : subdirs) {
-            $handle$($dir);
+            if ($dir != null) {
+                $handle$($dir);
+            }
         }
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     */
     protected final void handleFile(File file) {
+        Objects.requireNonNull(file);
+
         countUpFile();
 
         String fn = file.getName();
@@ -286,11 +277,14 @@ public class FileRecursiveHandler {
      * 
      * @param handle
      * 
-     *            <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code handle})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 01. 18.
      */
     public void removeFileHandler(IFileHandler handle) {
+        Objects.requireNonNull(handle);
+
         filehandlers.remove(handle);
     }
 
@@ -310,7 +304,7 @@ public class FileRecursiveHandler {
      * 
      * <BR>
      * 
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 18.
      */
     public final void resetErrorLog() {
@@ -324,10 +318,10 @@ public class FileRecursiveHandler {
      *            디렉토리 필터
      * 
      *            <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 18.
      */
-    public void setDirFilter(FileFilter dirfilter) {
+    public void setDirFilter(@Nullable FileFilter dirfilter) {
         this.dirfilter = dirfilter == null ? DEFAULT_DIR_FILTER : dirfilter;
     }
 
@@ -338,10 +332,10 @@ public class FileRecursiveHandler {
      *            파일 필터s
      * 
      *            <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @since 2012. 01. 18.
      */
-    public void setFileFilter(FileFilter filefilter) {
+    public void setFileFilter(@Nullable FileFilter filefilter) {
         this.filefilter = filefilter == null ? DEFAULT_FILE_FILTER : filefilter;
     }
 
@@ -350,21 +344,16 @@ public class FileRecursiveHandler {
      * 
      * @param rootpath
      * @return 기존 최상위 절대 경로
-     * @throws IllegalArgumentException
-     *             - <code>rootpath</code> 가 <code>null</code>인 경우
+     * @throws NullPointerException
+     *             파라미터({@code rootpath})가 {@code null}인 경우 발생.
      * 
-     *             <BR>
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * @since 2012. 01. 18.
      */
     public String setRootPath(String rootpath) {
-        if (rootpath != null) {
-            String tr = this.rootpath;
-            this.rootpath = rootpath;
+        Objects.requireNonNull(rootpath);
+        String tr = this.rootpath;
+        this.rootpath = rootpath;
 
-            return tr;
-        } else {
-            throw new IllegalArgumentException("rootpaht must not be null: rootpath=" + rootpath);
-        }
+        return tr;
     }
 }

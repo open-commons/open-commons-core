@@ -30,23 +30,35 @@ package open.commons.core.reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.GenericDeclaration;
 import java.lang.reflect.TypeVariable;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2014. 4. 1.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class FieldTypeVariable {
 
-    private String fieldName;
+    private @Nullable Field field;
 
-    private String typeVarName;
+    private @Nullable String fieldName;
 
-    private Field field;
+    private @Nullable String typeVarName;
 
-    private TypeVariable<? extends GenericDeclaration> typeVariable;
+    private @Nullable TypeVariable<? extends GenericDeclaration> typeVariable;
 
+    /**
+     *
+     * @since 2026. 3. 19.
+     * @version 3.0.0
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -54,51 +66,74 @@ public class FieldTypeVariable {
         if (getClass() != obj.getClass())
             return false;
         FieldTypeVariable other = (FieldTypeVariable) obj;
-        if (field == null) {
-            if (other.field != null)
-                return false;
-        } else if (!field.equals(other.field))
-            return false;
-        return true;
+        return Objects.equals(field, other.field);
     }
 
-    public Field getField() {
+    public @Nullable Field getField() {
         return field;
     }
 
-    public String getFieldName() {
+    public @Nullable String getFieldName() {
         return fieldName;
     }
 
-    public TypeVariable<? extends GenericDeclaration> getTypeVariable() {
+    public @Nullable TypeVariable<? extends GenericDeclaration> getTypeVariable() {
         return typeVariable;
     }
 
-    public String getTypeVarName() {
+    public @Nullable String getTypeVarName() {
         return typeVarName;
     }
 
+    /**
+     *
+     * @since 2026. 3. 19.
+     * @version 3.0.0
+     *
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((field == null) ? 0 : field.hashCode());
-        return result;
+        return Objects.hash(field);
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code field})가 {@code null}인 경우 발생.
+     */
     public void setField(Field field) {
+        Objects.requireNonNull(field);
+
         this.field = field;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code fieldName})가 {@code null}인 경우 발생.
+     */
     public void setFieldName(String fieldName) {
+        Objects.requireNonNull(fieldName);
+
         this.fieldName = fieldName;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code typeVariable})가 {@code null}인 경우 발생.
+     */
     public void setTypeVariable(TypeVariable<? extends GenericDeclaration> typeVariable) {
+        Objects.requireNonNull(typeVariable);
+
         this.typeVariable = typeVariable;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code typeVarName})가 {@code null}인 경우 발생.
+     */
     public void setTypeVarName(String typeVarName) {
+        Objects.requireNonNull(typeVarName);
+
         this.typeVarName = typeVarName;
     }
 

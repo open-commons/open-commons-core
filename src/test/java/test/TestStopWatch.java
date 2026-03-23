@@ -33,12 +33,13 @@ import open.commons.core.utils.ThreadUtils;
  * 
  * @since 2022. 1. 5.
  * @version _._._
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TestStopWatch {
 
     /**
      * <br>
+     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
@@ -49,29 +50,28 @@ public class TestStopWatch {
      *
      * @since 2022. 1. 5.
      * @version _._._
-     * @author  Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TestStopWatch() {
     }
-    
+
     public static void main(String[] args) {
         stat();
-    } 
-    
-    
+    }
+
     static void stat() {
         StopWatch watch = new StopWatch();
         watch.start();
-        
+
         ThreadUtils.sleep(1000);
         watch.record("1234567890");
         ThreadUtils.sleep(1000);
         watch.record("12345678901234");
-//        ThreadUtils.sleep(1000);
-        
+        // ThreadUtils.sleep(1000);
+
         watch.stop();
-        
+
         System.out.println(watch.stats());
-        
+
     }
 }

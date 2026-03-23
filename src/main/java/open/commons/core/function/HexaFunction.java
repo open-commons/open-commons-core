@@ -39,7 +39,8 @@ import java.util.function.Function;
  * 
  * @since 2020. 1. 30.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface HexaFunction<T, U, V, W, X, Y, R> {
@@ -61,13 +62,17 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      *
      * @since 2020. 1. 30.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     default <Z> HexaFunction<T, U, V, W, X, Y, Z> andThen(Function<? super R, ? extends Z> after) {
         Objects.requireNonNull(after);
+
         return (T t, U u, V v, W w, X x, Y y) -> after.apply(apply(t, u, v, w, x, y));
     }
 
@@ -91,7 +96,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      *
      * @since 2020. 1. 30.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     R apply(T t, U u, V v, W w, X x, Y y);
 }

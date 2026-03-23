@@ -26,6 +26,8 @@
 
 package open.commons.core.csv;
 
+import java.util.Objects;
+
 import com.opencsv.ICSVWriter;
 
 /**
@@ -34,6 +36,7 @@ import com.opencsv.ICSVWriter;
  * @since 2022. 3. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public abstract class CsvCommon {
 
@@ -76,7 +79,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -102,7 +105,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -128,7 +131,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_LINE_END
@@ -154,7 +157,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public CsvCommon(char separator, char quotechar, char escape) {
         this(separator, quotechar, escape, DEFAULT_LINE_END);
@@ -175,12 +178,17 @@ public abstract class CsvCommon {
      * @param quotechar
      * @param escape
      * @param lineEnd
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code lineEnd})가 {@code null}인 경우 발생.
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public CsvCommon(char separator, char quotechar, char escape, String lineEnd) {
+        Objects.requireNonNull(lineEnd);
+
         this.separator = separator;
         this.quotechar = quotechar;
         this.escape = escape;
@@ -201,7 +209,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #escape
      */
@@ -224,7 +232,7 @@ public abstract class CsvCommon {
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #lineEnd
      */
@@ -247,7 +255,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #quotechar
      */
@@ -270,7 +278,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #separator
      */
@@ -294,7 +302,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #escape
      */
@@ -315,13 +323,18 @@ public abstract class CsvCommon {
      * @param lineEnd
      *            the lineEnd to set
      *
+     *
+     * @throws NullPointerException
+     *             파라미터({@code lineEnd})가 {@code null}인 경우 발생.
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #lineEnd
      */
     public void setLineEnd(String lineEnd) {
+        Objects.requireNonNull(lineEnd);
+
         this.lineEnd = lineEnd;
     }
 
@@ -340,7 +353,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #quotechar
      */
@@ -363,7 +376,7 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #separator
      */
@@ -375,13 +388,14 @@ public abstract class CsvCommon {
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("CsvCommon [separator=");
         builder.append(separator);
         builder.append(", quotechar=");
@@ -391,7 +405,12 @@ public abstract class CsvCommon {
         builder.append(", lineEnd=");
         builder.append(lineEnd);
         builder.append("]");
-        return builder.toString();
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
 
 }

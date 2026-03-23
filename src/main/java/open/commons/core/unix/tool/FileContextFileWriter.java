@@ -32,14 +32,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.jspecify.annotations.Nullable;
+
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 5. 23.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class FileContextFileWriter extends AbstractContextWriter {
 
     private final File file;
-    private FileWriter writer;
+    private @Nullable FileWriter writer;
 
     public FileContextFileWriter(File file) {
         this.file = file;
@@ -65,6 +69,7 @@ public class FileContextFileWriter extends AbstractContextWriter {
      * 
      * @see open.commons.core.unix.tool.IFileContextWriter#write(open.commons.core.unix.tool.IFileModifyListener.FileContext)
      */
+    @SuppressWarnings("null")
     @Override
     public void write(open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
         writer = new FileWriter(file, true);
@@ -72,6 +77,6 @@ public class FileContextFileWriter extends AbstractContextWriter {
         write(writer, context);
         writer.write('\n');
 
-        writer.close();
+        close();
     }
 }

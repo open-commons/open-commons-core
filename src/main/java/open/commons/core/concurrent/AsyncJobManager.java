@@ -29,9 +29,11 @@ package open.commons.core.concurrent;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReentrantLock;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +48,11 @@ import open.commons.core.utils.ExceptionUtils;
  *            {@link Future}가 제공하는 데이터 타입.
  * @since 2020. 11. 10.
  * @version 1.8.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class AsyncJobManager<K, V> {
 
+    @SuppressWarnings("null")
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // private HashMap<K, Future<V>> ASYNC_JOBS = new HashMap<>();
@@ -99,9 +103,9 @@ public class AsyncJobManager<K, V> {
      *
      * @since 2020. 11. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public Future<?> get(K key) {
+    public @Nullable Future<?> get(@Nullable K key) {
         if (key == null) {
             return null;
         }
@@ -132,9 +136,9 @@ public class AsyncJobManager<K, V> {
      *
      * @since 2024. 5. 9.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public Map<K, Future<?>> getJobs() {
+    public @Nullable Map<K, Future<?>> getJobs() {
         ReentrantLock lock = LOCK;
         lock.lock();
         try {
@@ -161,9 +165,9 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public boolean has(K key) {
+    public boolean has(@Nullable K key) {
         if (key == null) {
             return true;
         }
@@ -196,10 +200,9 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    // public boolean register(K key, Future<V> job) {
-    public boolean register(K key, Future<?> job) {
+    public boolean register(@Nullable K key, @Nullable Future<?> job) {
         if (key == null || job == null) {
             return false;
         }
@@ -239,10 +242,10 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     // public Future<V> unregister(K key) {
-    public Future<?> unregister(K key) {
+    public @Nullable Future<?> unregister(@Nullable K key) {
         if (key == null) {
             return null;
         }
@@ -264,7 +267,7 @@ public class AsyncJobManager<K, V> {
      * 
      * @since 2020. 11. 11.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static class Builder {
 
@@ -291,7 +294,7 @@ public class AsyncJobManager<K, V> {
          *
          * @since 2020. 11. 10.
          * @version 1.8.0
-         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+         * 
          */
         @SuppressWarnings("unchecked")
         public static <K> AsyncJobManager<K, ?> getManager(Object holder) {
@@ -300,14 +303,14 @@ public class AsyncJobManager<K, V> {
             lock.lock();
 
             try {
-                AsyncJobManager<K, ?> m = null;
                 if (SINGLETON.containsKey(holder)) {
-                    m = (AsyncJobManager<K, ?>) SINGLETON.get(holder);
+                    return (AsyncJobManager<K, ?>) Objects.requireNonNull(SINGLETON.get(holder));
                 } else {
-                    m = new AsyncJobManager<K, Object>();
+                    AsyncJobManager<K, ?> m = new AsyncJobManager<K, Object>();
                     SINGLETON.put(holder, m);
+
+                    return m;
                 }
-                return m;
             } catch (Throwable t) {
                 throw ExceptionUtils.newException(RuntimeException.class, t, "Occurs an unknown case");
             } finally {

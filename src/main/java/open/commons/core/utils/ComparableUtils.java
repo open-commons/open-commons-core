@@ -87,7 +87,7 @@ public class ComparableUtils {
      *
      * @since 2021. 8. 15.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T extends Comparable<T>> int compare(T o1, T o2) {
         if (o1 == o2) {

@@ -34,7 +34,7 @@ package open.commons.core.validation;
  * @param <T>
  *            {data}
  * @since 2014. 9. 17.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public interface IValidator<D, T> {
 

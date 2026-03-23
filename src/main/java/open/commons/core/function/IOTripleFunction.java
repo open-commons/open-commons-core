@@ -51,7 +51,8 @@ import java.util.function.Function;
  * 
  * @since 2023. 8. 2.
  * @version 2.0.0
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunohng77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface IOTripleFunction<T, U, V, R> {

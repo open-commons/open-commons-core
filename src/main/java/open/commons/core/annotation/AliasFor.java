@@ -193,13 +193,12 @@ import open.commons.core.utils.AnnotationUtils;
 public @interface AliasFor {
 
     /**
-     * Alias for {@link #attribute}.
+     * The type of annotation in which the aliased {@link #attribute} is declared.
      * <p>
-     * Intended to be used instead of {@link #attribute} when {@link #annotation} is not declared &mdash; for example:
-     * {@code @AliasFor("value")} instead of {@code @AliasFor(attribute = "value")}.
+     * Defaults to {@link Annotation}, implying that the aliased attribute is declared in the same annotation as
+     * <em>this</em> attribute.
      */
-    @AliasFor("attribute")
-    String value() default "";
+    Class<? extends Annotation> annotation() default Annotation.class;
 
     /**
      * The name of the attribute that <em>this</em> attribute is an alias for.
@@ -210,11 +209,12 @@ public @interface AliasFor {
     String attribute() default "";
 
     /**
-     * The type of annotation in which the aliased {@link #attribute} is declared.
+     * Alias for {@link #attribute}.
      * <p>
-     * Defaults to {@link Annotation}, implying that the aliased attribute is declared in the same annotation as
-     * <em>this</em> attribute.
+     * Intended to be used instead of {@link #attribute} when {@link #annotation} is not declared &mdash; for example:
+     * {@code @AliasFor("value")} instead of {@code @AliasFor(attribute = "value")}.
      */
-    Class<? extends Annotation> annotation() default Annotation.class;
+    @AliasFor("attribute")
+    String value() default "";
 
 }

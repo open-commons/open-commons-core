@@ -28,8 +28,9 @@
 package open.commons.core.io;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
+ * @since 2014. 3. 25.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public interface IMarshaller<T> {
 

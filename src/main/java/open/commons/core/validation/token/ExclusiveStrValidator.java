@@ -32,17 +32,9 @@ import open.commons.core.validation.DefaultTokenValidator;
 /**
  * 
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class ExclusiveStrValidator extends DefaultTokenValidator<CharSequence> {
-
-    /**
-     * @see open.commons.core.validation.DefaultTokenValidator#validate(java.lang.Object)
-     */
-    @Override
-    public boolean validate(CharSequence token) {
-        return !super.validate(token);
-    }
 
     /**
      * 
@@ -50,5 +42,13 @@ public class ExclusiveStrValidator extends DefaultTokenValidator<CharSequence> {
      */
     public ExclusiveStrValidator() {
         super("제외시킬 문자열");
+    }
+
+    /**
+     * @see open.commons.core.validation.DefaultTokenValidator#validate(java.lang.Object)
+     */
+    @Override
+    public boolean validate(CharSequence token) {
+        return !super.validate(token);
     }
 }

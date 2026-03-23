@@ -37,7 +37,7 @@ import java.lang.annotation.Target;
  * XML 데이터에서 Element의 TEXT 값이 객체의 값으로 사용되는 것을 위한 어노테이션.
  * 
  * @since 2019. 1. 24.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 @Documented
 @Retention(RUNTIME)

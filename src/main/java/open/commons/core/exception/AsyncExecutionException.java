@@ -26,12 +26,15 @@
 
 package open.commons.core.exception;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 비동기 작업 실행 도중 발생하는 예외 클래스.
  * 
  * @since 2021. 9. 14.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class AsyncExecutionException extends RuntimeException {
 
@@ -50,7 +53,7 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public AsyncExecutionException() {
     }
@@ -69,9 +72,9 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public AsyncExecutionException(String message) {
+    public AsyncExecutionException(@Nullable String message) {
         super(message);
     }
 
@@ -90,9 +93,9 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public AsyncExecutionException(String message, Throwable cause) {
+    public AsyncExecutionException(@Nullable String message, @Nullable Throwable cause) {
         super(message, cause);
     }
 
@@ -113,9 +116,9 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public AsyncExecutionException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public AsyncExecutionException(@Nullable String message, @Nullable Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
@@ -133,9 +136,9 @@ public class AsyncExecutionException extends RuntimeException {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public AsyncExecutionException(Throwable cause) {
+    public AsyncExecutionException(@Nullable Throwable cause) {
         super(cause);
     }
 

@@ -31,8 +31,11 @@ package open.commons.core.io;
  * 
  * @since 2020. 11. 12.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
+@Deprecated(since = "3.0.0", forRemoval = true)
+@SuppressWarnings("null")
 public class TextLineInfo implements IRandomAccessible {
     /** 파일 경로 */
     private String filepath;
@@ -69,7 +72,7 @@ public class TextLineInfo implements IRandomAccessible {
      * @return
      *
      * @since 2020. 11. 12.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.io.IRandomAccessible#getLength()
      */
@@ -167,7 +170,7 @@ public class TextLineInfo implements IRandomAccessible {
      * @return
      *
      * @since 2020. 11. 13.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */

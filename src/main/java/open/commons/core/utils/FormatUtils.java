@@ -200,7 +200,7 @@ public class FormatUtils {
      * @param digit
      * @return <BR>
      * @since 2012. 3. 8.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int getCommaCount(String digit) {
         char[] digitSrc = digit.toCharArray();

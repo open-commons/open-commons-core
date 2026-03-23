@@ -28,10 +28,15 @@
  */
 package open.commons.core.unix.tool;
 
+import org.jspecify.annotations.Nullable;
+
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 5. 23.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface IRunnable extends Runnable {
-    void stop(String pathname);
+
+    void stop(@Nullable String pathname);
 }

@@ -30,19 +30,22 @@ package open.commons.core.text;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.TwoValueObject;
 import open.commons.core.text.NamedTemplate.NamingParser.NamedToken;
+import open.commons.core.utils.AssertUtils2;
+import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StreamUtils;
 
 /**
- * The escape character is <b><code>$</code></b>.
+ * The escape character is <b>{@code $}</b>.
  * 
  * <pre>
  *  String pattern = "{my name}: Hi~. My is {my name}. What's your name?\n{your_name}: Hi~. My name is {your_name}. Nice to meet you.\n{my name}: Me too!";
@@ -67,23 +70,26 @@ import open.commons.core.utils.StreamUtils;
  *  System.out.println(getter.format());
  *  --------------------
  *  (result):
- *  <code>
+ *  {@code 
  *  public String getBirth() {
  *      return this.birth;
  *  }
- *  </code>
- * 
+ *  }
  * </pre>
  * 
- * <b>2014. 11. 10</b>
+ * <br>
  * 
  * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자			|	내용
+ * ------------------------------------------
+ * 2014. 4. 8.     parkjunohng77@gmail.com     최초 작성
+ * 2014. 11. 10.    parkjunohng77@gmail.com     Support '{?name}'. '?' means that {name} is optional.
  * </pre>
  * 
- * 
  * @since 2014. 4. 8.
- * @since 2014. 11. 10. Support '{?name}'. '?' means that {name} is optional.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class NamedTemplate {
 
@@ -91,11 +97,27 @@ public class NamedTemplate {
 
     private boolean trim;
     /**
-     * <b><code>key</code></b>: the name of a location at which a value is<br>
-     * <b><code>value</code></b>: value
+     * <b>{@code key}</b>: the name of a location at which a value is<br>
+     * <b>{@code value}</b>: value
      */
     private Map<String, Object> values = new ConcurrentHashMap<String, Object>();
 
+    /**
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 4. 17.     parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param pattern
+     *            a string represents a pattern
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 17.
+     */
     public NamedTemplate(String pattern) {
         this(pattern, true);
     }
@@ -106,9 +128,15 @@ public class NamedTemplate {
      *            a string represents a pattern
      * @param trim
      *            whether a name is trimmed or not.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 17.
      */
     public NamedTemplate(String pattern, boolean trim) {
+        Objects.requireNonNull(pattern);
+
         this.pattern = pattern;
         this.trim = trim;
     }
@@ -122,23 +150,49 @@ public class NamedTemplate {
      *            a value
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 23.
      */
     public NamedTemplate addValue(String name, Object value) {
+        Objects.requireNonNull(name);
+
         this.values.put(trim ? name.trim() : name, value);
 
         return this;
     }
 
-    public NamedTemplate addValues(Map<String, Object> values) {
-        if (trim) {
-            for (Entry<String, Object> entry : values.entrySet()) {
-                this.values.put(entry.getKey().trim(), entry.getValue());
-            }
-        } else {
-            this.values.putAll(values);
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 4. 13.         parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param newValues
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code values})가 {@code null}이거나 '키'가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 13.
+     */
+    public NamedTemplate addValues(Map<String, Object> newValues) {
+        Objects.requireNonNull(newValues);
 
-        }
+        newValues.forEach((name, value) -> {
+            Objects.requireNonNull(name);
+
+            if (trim) {
+                name = name.trim();
+            }
+            this.values.put(name, value);
+        });
 
         return this;
     }
@@ -157,6 +211,31 @@ public class NamedTemplate {
         return format(this.pattern, this.values, trim);
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 4. 13.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param values
+     *            새로운 데이터
+     * @param attached
+     *            기존 데이터에 추가 여부. <b><i>{@code false}</i></b>인 경우, 새로운 데이터로 변경.
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code values})가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 13.
+     * 
+     * @see #addValues(Map)
+     * @see #setValues(Map)
+     */
     public String format(Map<String, Object> values, boolean attached) {
         if (attached) {
             addValues(values);
@@ -167,7 +246,28 @@ public class NamedTemplate {
         return format(this.pattern, this.values, trim);
     }
 
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2014. 4. 13.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param values
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code values})가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 13.
+     */
     public NamedTemplate setValues(Map<String, Object> values) {
+        Objects.requireNonNull(values);
+
         this.values.clear();
 
         addValues(values);
@@ -183,11 +283,17 @@ public class NamedTemplate {
      *            data
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code pattern 또는 values})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
+     *             발생.
+     * 
      * @since 2014. 4. 8.
      * 
      * @see #format(String, Map, boolean)
      */
     public static String format(String pattern, Map<String, Object> values) {
+        ObjectUtils.requireNonNulls(pattern, values);
+
         return format(pattern, values, true);
     }
 
@@ -201,9 +307,14 @@ public class NamedTemplate {
      *            whether a name is trimmed or not.
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code pattern 또는 values})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우 발생.
+     * 
      * @since 2014. 4. 8.
      */
     public static String format(String pattern, Map<String, Object> values, boolean trim) {
+        Objects.requireNonNull(pattern);
+        AssertUtils2.collectionNotNull(Objects.requireNonNull(values.keySet()));
 
         NamingParser parser = new NamingParser(pattern, trim);
         parser.parse();
@@ -227,10 +338,15 @@ public class NamedTemplate {
      * @param name
      * @param value
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code pattern 또는 name})가 {@code null}인 경우 발생.
      *
      * @since 2014. 9. 5.
      */
     public static String format(String pattern, String name, Object value) {
+        ObjectUtils.requireNonNulls(pattern, name);
+
         Map<String, Object> values = new ConcurrentSkipListMap<String, Object>();
         values.put(name, value);
         return format(pattern, values, true);
@@ -248,15 +364,20 @@ public class NamedTemplate {
      *
      * @param pattern
      * @return
-     *
+     * @throws NullPointerException
+     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Set<TwoValueObject<String, Boolean>> getNames(String pattern) {
+        Objects.requireNonNull(pattern);
+
         NamingParser parser = new NamingParser(pattern, true);
         parser.parse();
-        return StreamUtils.toSet(parser.tokens.stream(), NamedToken::isName, t -> new TwoValueObject<>(t.value(), t.isMandatory()));
+        return StreamUtils.toSet(Objects.requireNonNull( //
+                parser.tokens.stream() //
+        ), NamedToken::isName, t -> new TwoValueObject<>(t.value(), t.isMandatory()));
     }
 
     static class NamingParser {
@@ -273,6 +394,8 @@ public class NamedTemplate {
         private StringBuffer nonameBuf = new StringBuffer();
 
         /**
+         * @param pattern
+         *            문자열 패턴
          * 
          * @since 2014. 4. 8.
          */
@@ -283,8 +406,11 @@ public class NamedTemplate {
         /**
          * 
          * @param pattern
+         *            문자열 패턴
+         * 
          * @param trim
-         *            Whether the name of a location which a value is at is trimmed or not.
+         *            '데이터 이름'에 trim() 을 적용할지 여부.
+         * 
          * @since 2014. 4. 8.
          */
         NamingParser(String pattern, boolean trim) {
@@ -306,17 +432,29 @@ public class NamedTemplate {
 
                 if (token.isName()) {
                     buf.append(value(name, values //
-                            , token.isMandatory ? new StringBuffer().append('{').append(name).append('}').toString() : ""));
+                            , token.isMandatory ? Objects.requireNonNull(
+                                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                                    String.join(name, "{", "}") //
+                            ) : ""));
                 } else {
                     buf.append(name);
                 }
             }
 
-            return buf.toString();
+            return Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    buf.toString() //
+            );
         }
 
         Iterator<NamedToken> names() {
-            return tokens.iterator();
+            return Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    tokens.iterator() //
+            );
         }
 
         void parse() {
@@ -345,7 +483,9 @@ public class NamedTemplate {
                         }
 
                         if (nonameBuf.length() > 0) {
-                            tokens.add(new NamedToken(nonameBuf.toString(), false));
+                            tokens.add(new NamedToken(Objects.requireNonNull( //
+                                    nonameBuf.toString() //
+                            ), false));
                             nonameBuf.setLength(0);
                         }
 
@@ -361,7 +501,7 @@ public class NamedTemplate {
                     } else {
                         if (opened) {
                             if (nameBuf.length() > 0) {
-                                tokens.add(new NamedToken(trimmed ? nameBuf.toString().trim() : nameBuf.toString(), true));
+                                tokens.add(new NamedToken(trimmed ? Objects.requireNonNull(nameBuf.toString().trim()) : Objects.requireNonNull(nameBuf.toString()), true));
                                 nameBuf.setLength(0);
                             }
                         } else {
@@ -394,7 +534,7 @@ public class NamedTemplate {
             }
 
             if (nonameBuf.length() > 0) {
-                tokens.add(new NamedToken(nonameBuf.toString(), false));
+                tokens.add(new NamedToken(Objects.requireNonNull(nonameBuf.toString()), false));
 
                 nonameBuf.setLength(0);
             }
@@ -416,9 +556,15 @@ public class NamedTemplate {
         }
 
         private static String value(String key, Map<String, Object> values, String defaultValue) {
+            ObjectUtils.requireNonNulls(key, values);
+
             Object value = values.get(key);
 
-            return value != null ? value.toString() : defaultValue;
+            return value != null ? Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    value.toString() //
+            ) : defaultValue;
         }
 
         class NamedToken {
@@ -437,12 +583,12 @@ public class NamedTemplate {
              *
              * @since 2025. 8. 26.
              * @version 2.1.0
-             * @author Park Jun-Hong (parkjunhong77@gmail.com)
+             * 
              *
              * @see java.lang.Object#equals(java.lang.Object)
              */
             @Override
-            public boolean equals(Object obj) {
+            public boolean equals(@Nullable Object obj) {
                 if (this == obj)
                     return true;
                 if (obj == null)
@@ -463,7 +609,7 @@ public class NamedTemplate {
              *
              * @since 2025. 8. 26.
              * @version 2.1.0
-             * @author Park Jun-Hong (parkjunhong77@gmail.com)
+             * 
              *
              * @see java.lang.Object#hashCode()
              */
@@ -479,7 +625,7 @@ public class NamedTemplate {
             /**
              * @since 2025. 8. 26.
              * @version 2.1.0
-             * @author Park Jun-Hong (parkjunhong77@gmail.com)
+             * 
              */
             public boolean isMandatory() {
                 return isMandatory;

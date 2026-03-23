@@ -34,7 +34,7 @@ import java.net.SocketException;
  * 
  * 
  * @since 2015. 3. 4.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class NetUtils {
     /**
@@ -89,7 +89,7 @@ public class NetUtils {
      * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환합니다.
      * 
      * @param ni
-     * @return <b><code>nullable</code></b>.
+     * @return <b>{@code nullable}</b>.
      *
      * @since 2015. 3. 4.
      */
@@ -107,7 +107,7 @@ public class NetUtils {
      * {@link NetworkInterface}에 포함된 {@link InterfaceAddress}중에서 IPV4에 해당하는 {@link InterfaceAddress}를 반환합니다.
      * 
      * @param name
-     * @return <b><code>nullable</code></b>.
+     * @return <b>{@code nullable}</b>.
      * 
      * @throws SocketException
      *
@@ -140,10 +140,10 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String intToIPv4(int ip) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(ip >> 24 & 0xFF);
         sb.append('.');
@@ -171,7 +171,7 @@ public class NetUtils {
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #REGEX_IPV4
      * @see #REGEX_IPV4_STRICT
      */
@@ -194,7 +194,7 @@ public class NetUtils {
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #REGEX_IPV4_IPV6
      * @see #REGEX_IPV4_IPV6_STRICT
      */
@@ -217,7 +217,7 @@ public class NetUtils {
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #REGEX_IPV6
      * @see #REGEX_IPV6_STRICT
      */
@@ -241,13 +241,13 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toPrettyString(byte[] mac) {
 
         String macStr = toString(mac);
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int pos = 0;
         for (char c : macStr.toCharArray()) {
             if (pos > 0 && pos % 2 == 0) {
@@ -278,7 +278,7 @@ public class NetUtils {
      *
      * @since 2015. 3. 4.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toString(byte[] mac) {
         return ByteUtils.hexBinString(mac);
@@ -299,7 +299,7 @@ public class NetUtils {
      *
      * @since 2023. 1. 5.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String typeOf(String ipAddr) {
         return ipAddr == null //

@@ -26,14 +26,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.Result;
 import open.commons.core.config.exception.PropertyNoSeedException;
 import open.commons.core.config.exception.PropertySelfReferenceException;
+import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.OrderingUtils;
 
 /**
@@ -73,21 +77,22 @@ import open.commons.core.utils.OrderingUtils;
  * 
  * @since 2012. 02. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class ReferenceableProperties extends Properties {
     /** ${key} 형태의 문자열을 처리하는 정규식 */
     private static final String referencingRegEx = "^([^$]*)\\$\\{\\s*([^(\\{|\\|\\s|\\})]+)\\s*[}]([^}].*)?$";
 
     /** {@link #referencingRegEx}를 처리하는 패턴 객체 */
-    private static final Pattern referencingPattern = Pattern.compile(referencingRegEx);
-
-    /** 프로퍼티의 {@code key=value} 중에 다른 {@code key}를 참조하지 않는 값들 */
-    transient private final Map<String, String> keyReferencing = new HashMap<String, String>();
-    /** 프로퍼티의 {@code key=value] 중에 다른 {@code key}를 참조하는 값들 */
-    transient private final Map<String, String> keyReferenced = new HashMap<String, String>();
+    private static final Pattern referencingPattern = Objects.requireNonNull(Pattern.compile(referencingRegEx));
 
     /** */
     private static final long serialVersionUID = 1L;
+    /** 프로퍼티의 {@code key=value} 중에 다른 {@code key}를 참조하지 않는 값들 */
+    transient private final Map<String, String> keyReferencing = new HashMap<String, String>();
+
+    /** 프로퍼티의 {@code key=value] 중에 다른 {@code key}를 참조하는 값들 */
+    transient private final Map<String, String> keyReferenced = new HashMap<String, String>();
 
     boolean readyReferencing = true;
 
@@ -97,13 +102,13 @@ public class ReferenceableProperties extends Properties {
         referencing();
     }
 
-    public ReferenceableProperties(Properties defaults) {
+    public ReferenceableProperties(@Nullable Properties defaults) {
         super(defaults);
 
         referencing();
     }
 
-    public ReferenceableProperties(ReferenceableProperties defaults) {
+    public ReferenceableProperties(@Nullable ReferenceableProperties defaults) {
         super(defaults);
 
         referencing();
@@ -124,31 +129,50 @@ public class ReferenceableProperties extends Properties {
         return entrySet;
     }
 
-    private boolean isReferencingValue(String value) {
+    private boolean isReferencingValue(@Nullable String value) {
         return referencingPattern.matcher(value).matches();
     }
 
     /**
      * @param inStream
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.Properties#load(java.io.InputStream)
      */
+    @SuppressWarnings("null")
     @Override
     public synchronized void load(InputStream inStream) throws IOException {
+        Objects.requireNonNull(inStream);
+
         super.load(inStream);
 
         referencing();
     }
 
+    /**
+     * @param inStreams
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStreams})가 'null' 또는 {@code null}을 포함한 경우 발생.
+     * 
+     * @since 2012. 02. 15.
+     * 
+     * 
+     */
     public synchronized void load(InputStream... inStreams) throws IOException {
+        ObjectUtils.requireNonNulls((Object[]) inStreams);
+
         readyReferencing = false;
 
         for (InputStream inStream : inStreams) {
-            load(inStream);
+            if (inStream != null) {
+                load(inStream);
+            }
         }
 
         readyReferencing = true;
@@ -159,24 +183,44 @@ public class ReferenceableProperties extends Properties {
     /**
      * @param reader
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see java.util.Properties#load(java.io.Reader)
      */
+    @SuppressWarnings("null")
     @Override
     public synchronized void load(Reader reader) throws IOException {
+        Objects.requireNonNull(reader);
+
         super.load(reader);
 
         referencing();
     }
 
+    /**
+     * @param reader
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code readers})가 'null', 또는 'null'은 포함한 경우 발생.
+     * 
+     * @since 2012. 02. 15.
+     * 
+     * 
+     * @see java.util.Properties#load(java.io.Reader)
+     */
     public synchronized void load(Reader... readers) throws IOException {
+        ObjectUtils.requireNonNulls((Object[]) readers);
+
         readyReferencing = false;
 
         for (Reader reader : readers) {
-            load(reader);
+            if (reader != null) {
+                load(reader);
+            }
         }
 
         readyReferencing = true;
@@ -188,24 +232,41 @@ public class ReferenceableProperties extends Properties {
      * @param in
      * @throws IOException
      * @throws InvalidPropertiesFormatException
+     * @throws NullPointerException
+     *             파라미터({@code in})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      * 
-     * @see java.util.Properties#loadFromXML(java.io.InputStream)
      */
+    @SuppressWarnings("null")
     @Override
     public synchronized void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
+        Objects.requireNonNull(in);
+
         super.loadFromXML(in);
 
         referencing();
     }
 
+    /**
+     * @param in
+     * @throws IOException
+     * @throws InvalidPropertiesFormatException
+     * @throws NullPointerException
+     *             파라미터({@code ins})가 'null' 또는 {@code null}을 포함한 경우 발생.
+     * 
+     * @since 2012. 02. 15.
+     * 
+     */
     public synchronized void loadFromXML(InputStream... ins) throws IOException, InvalidPropertiesFormatException {
+        ObjectUtils.requireNonNulls((Object[]) ins);
+
         readyReferencing = false;
 
         for (InputStream in : ins) {
-            loadFromXML(in);
+            if (in != null) {
+                loadFromXML(in);
+            }
         }
 
         readyReferencing = true;
@@ -218,7 +279,7 @@ public class ReferenceableProperties extends Properties {
      * 
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private void readyResolveRef() {
         keyReferencing.clear();
@@ -259,7 +320,10 @@ public class ReferenceableProperties extends Properties {
         Result<String> result = null;
         for (java.util.Map.Entry<String, String> entry : keyReferencing.entrySet()) {
             String key = entry.getKey();
-            result = resolveRef0(key, entry.getValue());
+            if (key == null) {
+                continue;
+            }
+            result = resolveRef0(key, Objects.requireNonNull(entry.getValue(), "'keyReferencing'의 값(value)는 {@code null}을 허용하지 않습니다."));
 
             if (result.getResult()) {
                 keyReferenced.put(key, result.getData());
@@ -283,8 +347,7 @@ public class ReferenceableProperties extends Properties {
     }
 
     private Result<String> resolveRef0(String keyOfInput, String input) {
-
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         Matcher m = referencingPattern.matcher(input);
 
@@ -306,7 +369,6 @@ public class ReferenceableProperties extends Properties {
                 varRef = m.group(2);
                 // check 'self-reference'
                 if (keyOfInput.equals(varRef)) {
-
                     throw new PropertySelfReferenceException("'" + OrderingUtils.intToOrdinal(refIndex) + "' reference is invalid: key=" + keyOfInput + ", value=" + input);
                 }
 
@@ -330,7 +392,7 @@ public class ReferenceableProperties extends Properties {
                 }
             } while (true);
 
-            input = sb.toString();
+            input = Objects.requireNonNull(sb.toString());
 
             return new Result<String>(input, !isReferencingValue(input));
         } else {

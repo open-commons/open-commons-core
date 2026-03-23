@@ -36,7 +36,7 @@ import java.util.Optional;
 /**
  * 
  * @since 2017. 12. 4.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class MathUtils {
 
@@ -144,7 +144,7 @@ public class MathUtils {
      * @param values
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 12. 4.
      */
     public static <T extends Comparable<T>> T max(Collection<T> values) {
@@ -174,7 +174,7 @@ public class MathUtils {
      * @return
      *
      * @since 2020. 9. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <T extends Comparable<T>> T max(T... values) {
@@ -196,7 +196,7 @@ public class MathUtils {
      * @param values
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 12. 4.
      */
     public static <T extends Comparable<T>> T min(Collection<T> values) {
@@ -227,7 +227,7 @@ public class MathUtils {
      * @return
      *
      * @since 2020. 9. 2.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
     public static <T extends Comparable<T>> T min(T... values) {

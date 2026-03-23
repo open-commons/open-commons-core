@@ -29,11 +29,16 @@ package open.commons.core.csv;
 import java.lang.reflect.Field;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
+
 /**
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class FieldBase implements Supplier<String> {
 
@@ -52,11 +57,17 @@ public class FieldBase implements Supplier<String> {
      *
      * @param owner
      * @param method
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code owner, field})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public FieldBase(Object owner, Field field) {
+        ObjectUtils.requireNonNulls(owner, field);
+
         this.owner = owner;
         this.field = field;
     }
@@ -74,12 +85,12 @@ public class FieldBase implements Supplier<String> {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.util.function.Supplier#get()
      */
     @Override
-    public String get() {
+    public @Nullable String get() {
         try {
             Object val = this.field.get(this.owner);
             return val == null ? null : val.toString();

@@ -37,7 +37,8 @@ import java.sql.ResultSet;
  * {@link ResultSet}으로부터 데이터를 추출해 객체를 생성하기 위한 어노테이션.
  * 
  * @since 2017. 9. 22.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.FIELD })
@@ -56,7 +57,7 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 9. 5.
      */
     boolean caseSensitive() default false;
@@ -76,7 +77,7 @@ public @interface ColumnDef {
      * @return
      *
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see ColumnNameType
      */
@@ -96,7 +97,7 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 9. 5.
      */
     String name() default "";
@@ -114,7 +115,7 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 18. (v1.6.3)
      */
     boolean nullable() default true;
@@ -132,7 +133,7 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2018. 5. 4.
      */
     boolean required() default true;
@@ -151,7 +152,7 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2017. 9. 5.
      */
     Class<?> type() default Class.class;
@@ -160,7 +161,7 @@ public @interface ColumnDef {
      * DBMS 컬럼명 표기 타입
      * 
      * @since 2020. 1. 16.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static enum ColumnNameType {
         /**

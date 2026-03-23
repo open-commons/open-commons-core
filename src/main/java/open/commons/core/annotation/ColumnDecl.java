@@ -39,7 +39,8 @@ import open.commons.core.Result;
  * {@link Result}으로부터 만들어진 객체에서 컬럼 값을 얻기 위한 어노테이션.
  * 
  * @since 2019. 6. 17..
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 @Documented
 @Retention(RUNTIME)
@@ -60,7 +61,7 @@ public @interface ColumnDecl {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 6. 17.
      */
     boolean caseSensitive() default false;
@@ -79,7 +80,7 @@ public @interface ColumnDecl {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 6. 17.
      */
     @AliasFor("value")

@@ -33,7 +33,8 @@ import java.util.function.Supplier;
  * 
  * @since 2020. 8. 29.
  * @version 1.7.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface Runner {

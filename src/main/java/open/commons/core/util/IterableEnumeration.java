@@ -28,13 +28,14 @@ package open.commons.core.util;
 
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Objects;
 
 /**
  * {@link Enumeration}을 감싼 {@link Iterable} 클래스.
  * 
  * @since 2019. 6. 28.
- * @version
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class IterableEnumeration<T> implements Iterable<T> {
 
@@ -50,10 +51,17 @@ public class IterableEnumeration<T> implements Iterable<T> {
      * 2019. 6. 28.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param enumeration
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code enumeration})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 6. 28.
-     * @version
+     * 
      */
     public IterableEnumeration(Enumeration<T> enumeration) {
+        Objects.requireNonNull(enumeration);
+
         this.itr = new EnumerationItr(enumeration);
     }
 
@@ -79,10 +87,16 @@ public class IterableEnumeration<T> implements Iterable<T> {
          * 2019. 6. 28.     parkjunohng77@gmail.com         최초 작성
          * </pre>
          *
+         * @param enumeration
+         * 
+         * @throws NullPointerException
+         *             파라미터({@code enumeration})가 {@code null}인 경우 발생.
+         * 
          * @since 2019. 6. 28.
-         * @version
          */
         public EnumerationItr(Enumeration<T> enumeration) {
+            Objects.requireNonNull(enumeration);
+
             this.enumeration = enumeration;
         }
 

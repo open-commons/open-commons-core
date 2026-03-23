@@ -1,3 +1,32 @@
+[2026/03/23]
+- Migration JDK 1.8 to JDK 25
+  + @org.jspecify.annotations.NullMarked 적용 및 대응 코드 추가
+    + open.commons.core
+    + open.commons.core.annotation
+    + open.commons.core.collection
+    + open.commons.core.concurrent
+    + open.commons.core.config
+    + open.commons.core.config.exception
+    + open.commons.core.csv
+    + open.commons.core.database
+    + open.commons.core.database.annotation
+    + open.commons.core.date
+    + open.commons.core.exception
+    + open.commons.core.function
+    + open.commons.core.io
+    + open.commons.core.io.encoding
+    + open.commons.core.lang
+    + open.commons.core.log4j.appender
+    + open.commons.core.net
+    + open.commons.core.path
+    + open.commons.core.prog
+    + open.commons.core.reflect
+    + open.commons.core.stream
+    + open.commons.core.test
+    + open.commons.core.text
+    + open.commons.core.unix.tool
+    + open.commons.core.util
+
 [2026/03/12]
 - Dependencies
   + Delete

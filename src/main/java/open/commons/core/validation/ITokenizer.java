@@ -35,7 +35,7 @@ import java.util.NoSuchElementException;
  * @param <T>
  *            token type
  * @since 2014. 9. 17.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public interface ITokenizer<D, T> {
 

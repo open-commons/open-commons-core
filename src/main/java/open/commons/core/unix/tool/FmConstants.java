@@ -31,7 +31,8 @@ import open.commons.core.utils.FunctuationTable;
 /**
  * Constants File Monitor
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 6. 21.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class FmConstants {

@@ -30,11 +30,14 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 
  * @since 2025. 6. 24.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public interface IThreadLocalContext {
 
@@ -51,7 +54,7 @@ public interface IThreadLocalContext {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public void clear();
 
@@ -68,10 +71,13 @@ public interface IThreadLocalContext {
      * @param key
      *            데이터 식별정보
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public boolean contains(Object key);
 
@@ -88,10 +94,13 @@ public interface IThreadLocalContext {
      * @param key
      *            데이터 식별정보
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     default boolean containsNot(Object key) {
         return !contains(key);
@@ -111,7 +120,7 @@ public interface IThreadLocalContext {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Collections#unmodifiableMap(Map)
      */
@@ -131,16 +140,19 @@ public interface IThreadLocalContext {
      * @param key
      *            데이터 식별정보
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public Object get(Object key);
+    public @Nullable Object get(Object key);
 
     /**
      * 식별정보에 해당하는 데이터를 반환합니다.<br>
-     * 단, {@link #get0()} 에 존재하지 않는 경우 <code>supplier</code> 값을 {@link #CONTEXT}에 추가하고 그 값을 반환합니다. <br>
+     * 단, {@link #get0()} 에 존재하지 않는 경우 {@code supplier} 값을 {@link #CONTEXT}에 추가하고 그 값을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -153,12 +165,17 @@ public interface IThreadLocalContext {
      * @param key
      * @param supplier
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
+    @SuppressWarnings("null") // apply to 'Object o'
     default Object getOrCompute(Object key, Supplier<Object> supplier) {
+        @Nullable
         Object o = get(key);
         if (o == null) {
             o = supplier.get();
@@ -179,12 +196,15 @@ public interface IThreadLocalContext {
      *
      * @param key
      *            데이터 식별정보
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public Object remove(Object key);
+    public @Nullable Object remove(Object key);
 
     /**
      * 새로운 데이터를 설정합니다. <br>
@@ -201,10 +221,13 @@ public interface IThreadLocalContext {
      *            데이터 식별정보
      * @param value
      *            데이터
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see Map#put(Object, Object)
      */

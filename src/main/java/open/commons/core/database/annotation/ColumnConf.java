@@ -35,7 +35,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 7. 12.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 @Documented

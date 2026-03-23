@@ -29,12 +29,15 @@ package open.commons.core.concurrent;
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 멀티쓰레드로 처리되는 서비스 결과를 관리하는 클래스.
  * 
  * @since 2019. 2. 20.
  * @version 1.6.3
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implements IJobFinishedListener<E> {
 
@@ -72,7 +75,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * </pre>
      *
      * @param response
-     *            <b><code>null</code></b> 일 수 있음.
+     *            <b>{@code null}</b> 일 수 있음.
      * @return
      *
      * @since 2019. 2. 20.
@@ -183,7 +186,7 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      */
     @Override
     protected void runInternal() {
-
+        @Nullable
         E e = null;
 
         while (isRunning() && (e = get()) != null) {

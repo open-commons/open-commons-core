@@ -36,7 +36,7 @@ import java.util.List;
 public class ThreadUtils {
 
     /**
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #getMethodName(int)
      */
@@ -62,7 +62,7 @@ public class ThreadUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getMethodName(int distance) {
 

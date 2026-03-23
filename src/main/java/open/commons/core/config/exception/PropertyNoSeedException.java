@@ -26,9 +26,12 @@
 */
 package open.commons.core.config.exception;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * @since 2012. 02. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class PropertyNoSeedException extends RuntimeException {
 
@@ -38,15 +41,15 @@ public class PropertyNoSeedException extends RuntimeException {
         super();
     }
 
-    public PropertyNoSeedException(String msg) {
+    public PropertyNoSeedException(@Nullable String msg) {
         super(msg);
     }
 
-    public PropertyNoSeedException(String msg, Throwable t) {
+    public PropertyNoSeedException(@Nullable String msg, @Nullable Throwable t) {
         super(msg, t);
     }
 
-    public PropertyNoSeedException(Throwable t) {
+    public PropertyNoSeedException(@Nullable Throwable t) {
         super(t);
     }
 }

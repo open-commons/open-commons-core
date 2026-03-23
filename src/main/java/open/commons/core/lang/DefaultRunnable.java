@@ -32,6 +32,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 
 import org.apache.logging.log4j.ThreadContext;
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.ThreadUtils;
 
@@ -42,11 +43,13 @@ import open.commons.core.utils.ThreadUtils;
  * [개정이력]
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
- * xxxx.xx.xx       xxx         최초작성
+ * 2013. 6. 20.         parkjunohng77@gmail.com     최초 작성
  * 2019. 10. 17.        parkjunohng77@gmail.com         {@link #beforeStartup()}에 Process ID 를 {@link ThreadContext}에 'pid'란 이름으로 추가.
  * </pre>
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 6. 20.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public abstract class DefaultRunnable extends AbstractRunnable implements AutoCloseable {
@@ -81,7 +84,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      *
      *
      * @since 2019. 10. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     protected void beforeRun() {
     }
@@ -109,7 +112,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
     public void close() throws Exception {
     }
 
-    protected String getThreadName() {
+    protected @Nullable String getThreadName() {
         return null;
     }
 
@@ -177,7 +180,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      *
      *
      * @since 2019. 10. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     protected abstract void runInternal();
 }

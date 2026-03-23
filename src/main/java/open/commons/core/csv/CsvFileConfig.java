@@ -27,7 +27,9 @@
 package open.commons.core.csv;
 
 import java.nio.charset.Charset;
+import java.util.Objects;
 
+import open.commons.core.utils.CsvUtils;
 import open.commons.core.utils.ExceptionUtils;
 
 /**
@@ -42,7 +44,8 @@ import open.commons.core.utils.ExceptionUtils;
  * 
  * @since 2021. 6. 25.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class CsvFileConfig extends CsvConfig {
 
@@ -68,7 +71,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -80,7 +83,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig() {
         this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                Charset.forName(DEFAULT_CHARSET_NAME));
+                CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -98,7 +101,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -109,7 +112,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig(char separator) {
         this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                Charset.forName(DEFAULT_CHARSET_NAME));
+                CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -129,7 +132,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -139,7 +142,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig(char separator, char quotechar) {
         this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                Charset.forName(DEFAULT_CHARSET_NAME));
+                CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -166,13 +169,21 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @param charset
      *            파일 Charset
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, Charset charset) {
         super(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace);
-        setCharset(charset);
+
+        Objects.requireNonNull(charset);
+
+        this.charset = charset;
+        this.charsetName = Objects.requireNonNull(charset.displayName());
         setSkip(skip);
     }
 
@@ -200,12 +211,16 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @param charset
      *            파일 Charset
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, String charsetName) {
-        this(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, Charset.forName(charsetName));
+        this(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CsvUtils.charset(charsetName));
     }
 
     /**
@@ -224,10 +239,13 @@ public class CsvFileConfig extends CsvConfig {
      *            문자열로 묶어주는 문자
      * @param charset
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -256,7 +274,7 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -264,7 +282,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvFileConfig(char separator, char quotechar, int skip) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, Charset.forName(DEFAULT_CHARSET_NAME));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -283,11 +301,14 @@ public class CsvFileConfig extends CsvConfig {
      *            문자열로 묶어주는 문자
      * @param skip
      *            파일을 읽을 때 최초 무시할 라인 개수
-     * @param charsetName
+     * @param charset
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -315,16 +336,20 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @param charsetName
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
      */
     public CsvFileConfig(char separator, char quotechar, int skip, String charsetName) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, Charset.forName(charsetName));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(charsetName));
     }
 
     /**
@@ -343,10 +368,13 @@ public class CsvFileConfig extends CsvConfig {
      *            문자열로 묶어주는 문자
      * @param charsetName
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -354,7 +382,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_SKIP_LINE_COUNT
      */
     public CsvFileConfig(char separator, char quotechar, String charsetName) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT, Charset.forName(charsetName));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT, CsvUtils.charset(charsetName));
     }
 
     /**
@@ -369,12 +397,16 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @param separator
      *            데이터를 구분하는 문자
-     * @param charsetName
+     * @param charset
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
+     *
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -403,7 +435,7 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -412,7 +444,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvFileConfig(char separator, int skip) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, Charset.forName(DEFAULT_CHARSET_NAME));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -429,12 +461,15 @@ public class CsvFileConfig extends CsvConfig {
      *            데이터를 구분하는 문자
      * @param skip
      *            파일을 읽을 때 최초 무시할 라인 개수
-     * @param charsetName
+     * @param charset
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -461,10 +496,13 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @param charsetName
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -472,7 +510,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
      */
     public CsvFileConfig(char separator, int skip, String charsetName) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, Charset.forName(charsetName));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(charsetName));
     }
 
     /**
@@ -489,10 +527,13 @@ public class CsvFileConfig extends CsvConfig {
      *            데이터를 구분하는 문자
      * @param charsetName
      *            문자열 셋
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -502,7 +543,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig(char separator, String charsetName) {
         this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                Charset.forName(charsetName));
+                CsvUtils.charset(charsetName));
     }
 
     /**
@@ -581,13 +622,18 @@ public class CsvFileConfig extends CsvConfig {
      * @param charset
      *            the charset to set
      *
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 6. 25.
      * @version 1.8.0
      * @see #charset
      */
     public void setCharset(Charset charset) {
+        Objects.requireNonNull(charset);
+
         this.charset = charset;
-        this.charsetName = this.charset.displayName();
+        this.charsetName = Objects.requireNonNull(charset.displayName());
     }
 
     /**
@@ -602,14 +648,20 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @param charsetName
      *            the charsetName to set
+     * 
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
      * @see #charsetName
      */
     public void setCharsetName(String charsetName) {
+        Objects.requireNonNull(charsetName);
+
         this.charsetName = charsetName;
-        this.charset = Charset.forName(charsetName);
+        this.charset = CsvUtils.charset(charsetName);
     }
 
     /**
@@ -649,13 +701,14 @@ public class CsvFileConfig extends CsvConfig {
      * @return
      *
      * @since 2021. 6. 25.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("CsvFileConfig [separator=");
         builder.append(separator);
         builder.append(", quotechar=");
@@ -673,7 +726,12 @@ public class CsvFileConfig extends CsvConfig {
         builder.append(", charsetName=");
         builder.append(charsetName);
         builder.append("]");
-        return builder.toString();
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
 
 }

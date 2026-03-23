@@ -38,238 +38,11 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2025. 9. 8.
  * @version 2.1.0
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TestTransformer {
 
-    public static class A {
-        String name;
-        Aa child;
-        List<Aa> children;
-
-        public A() {
-        }
-
-        public A(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<Aa> getChildren() {
-            if (logging) {
-                System.out.println("[children.G] A=" + this + ", A.children=" + this.children);
-            }
-            return children;
-        }
-
-        @Setter
-        public void setChildren(List<Aa> aa) {
-            this.children = aa;
-            if (logging) {
-                System.out.println("[children.S] A=" + this + ", A.children=" + this.children);
-            }
-        }
-
-        @Getter
-        public Aa getChild() {
-            if (logging) {
-                System.out.println("[child.A] A=" + this + ", A.child=" + this.child);
-            }
-            return child;
-        }
-
-        @Setter
-        public void setChild(Aa child) {
-            this.child = child;
-            if (logging) {
-                System.out.println("[child.S] A=" + this + ", A.child=" + this.child);
-            }
-        }
-    }
-
-    public static class Aa {
-        String name;
-        List<Aaa> children;
-
-        public Aa() {
-        }
-
-        public Aa(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<Aaa> getChildren() {
-            if (logging) {
-                System.out.println("[children.G] Aa=" + this + ", Aa.children=" + this.children);
-            }
-            return children;
-        }
-
-        @Setter
-        public void setChildren(List<Aaa> aaa) {
-            this.children = aaa;
-            if (logging) {
-                System.out.println("[children.S] Aa=" + this + ",  Aa.children=" + this.children);
-            }
-        }
-    }
-
-    public static class Aaa {
-        String name;
-
-        public Aaa() {
-        }
-
-        public Aaa(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    public static class B {
-        String name;
-        public Bb child;
-        List<Bb> children;
-
-        public B() {
-        }
-
-        public B(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<Bb> getChildren() {
-            if (logging) {
-                System.out.println("[children.G] B=" + this + ", B.children=" + this.children);
-            }
-            return children;
-        }
-
-        @Setter(deepConvert = true)
-        public void setChildren(List<Bb> bb) {
-            this.children = bb;
-            if (logging) {
-                System.out.println("[children.S] B=" + this + ", B.children=" + this.children);
-            }
-        }
-
-        @Getter
-        public Bb getChild() {
-            if (logging) {
-                System.out.println("[child.G] B=" + this + ", B.child=" + this.child);
-            }
-            return child;
-        }
-
-        // @Setter(deepConvert = true)
-        @Setter
-        public void setChild(Bb child) {
-            this.child = child;
-            if (logging) {
-                System.out.println("[child.S] B=" + this + ", B.child=" + this.child);
-            }
-        }
-    }
-
-    public static class Bb {
-        String name;
-        List<Bbb> children;
-
-        public Bb() {
-        }
-
-        public Bb(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<Bbb> getChildren() {
-            if (logging) {
-                System.out.println("[children.G] Bb=" + this + ", Bb.children=" + this.children);
-            }
-            return children;
-        }
-
-        @Setter(deepConvert = true)
-        public void setChildren(List<Bbb> bbb) {
-            this.children = bbb;
-            if (logging) {
-                System.out.println("[children.S] Bb=" + this + ", Bb.children=" + this.children);
-            }
-        }
-    }
-
-    public static class Bbb {
-        String name;
-
-        public Bbb() {
-        }
-
-        public Bbb(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public String getName() {
-            return name;
-        }
-
-        @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
+    static boolean logging = false;
 
     static Aa listAa(String name) {
         Aa aa = new Aa(name);
@@ -287,7 +60,30 @@ public class TestTransformer {
         return bb;
     }
 
-    static boolean logging = false;
+    public static void main(String[] args) {
+
+        A1 a1 = new A1();
+        A2 a2 = new A2();
+
+        A3 a2Child = new A3("a2-child");
+        List<A3> a3Children = new ArrayList<>();
+        a3Children.add(new A3("a2-child-child-1"));
+        a3Children.add(new A3("a2-child-child-2"));
+        a3Children.add(new A3("a2-child-child-3"));
+        a3Children.add(new A3("a2-child-child-4"));
+        a2Child.setChildren(a3Children);
+
+        List<A3> a2Children = new ArrayList<>();
+        a2Children.add(a2Child);
+        a2.setContent(a2Children);
+        a1.setChild(a2);
+
+        B1 b1 = ObjectTransformer.transform(a1, true, new B1(), true, null);
+
+        System.out.println("a1=" + a1);
+        System.out.println("b1=" + b1);
+
+    }
 
     static void test1() {
         List<Aa> aChildren = new ArrayList<>();
@@ -342,6 +138,61 @@ public class TestTransformer {
         System.out.println("a2b#1  >>> " + a2b);
         System.out.println();
         System.out.println();
+    }
+
+    public static class A {
+        String name;
+        Aa child;
+        List<Aa> children;
+
+        public A() {
+        }
+
+        public A(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public Aa getChild() {
+            if (logging) {
+                System.out.println("[child.A] A=" + this + ", A.child=" + this.child);
+            }
+            return child;
+        }
+
+        @Getter
+        public List<Aa> getChildren() {
+            if (logging) {
+                System.out.println("[children.G] A=" + this + ", A.children=" + this.children);
+            }
+            return children;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter
+        public void setChild(Aa child) {
+            this.child = child;
+            if (logging) {
+                System.out.println("[child.S] A=" + this + ", A.child=" + this.child);
+            }
+        }
+
+        @Setter
+        public void setChildren(List<Aa> aa) {
+            this.children = aa;
+            if (logging) {
+                System.out.println("[children.S] A=" + this + ", A.children=" + this.children);
+            }
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
     public static class A1 {
@@ -399,23 +250,23 @@ public class TestTransformer {
         }
 
         @Getter
+        public List<A3> getChildren() {
+            return children;
+        }
+
+        @Getter
         public String getName() {
             return name;
         }
 
         @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<A3> getChildren() {
-            return children;
+        public void setChildren(List<A3> children) {
+            this.children = children;
         }
 
         @Setter
-        public void setChildren(List<A3> children) {
-            this.children = children;
+        public void setName(String name) {
+            this.name = name;
         }
 
         @Override
@@ -427,6 +278,121 @@ public class TestTransformer {
             builder.append(children);
             builder.append("]");
             return builder.toString();
+        }
+    }
+
+    public static class Aa {
+        String name;
+        List<Aaa> children;
+
+        public Aa() {
+        }
+
+        public Aa(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public List<Aaa> getChildren() {
+            if (logging) {
+                System.out.println("[children.G] Aa=" + this + ", Aa.children=" + this.children);
+            }
+            return children;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter
+        public void setChildren(List<Aaa> aaa) {
+            this.children = aaa;
+            if (logging) {
+                System.out.println("[children.S] Aa=" + this + ",  Aa.children=" + this.children);
+            }
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class Aaa {
+        String name;
+
+        public Aaa() {
+        }
+
+        public Aaa(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class B {
+        String name;
+        public Bb child;
+        List<Bb> children;
+
+        public B() {
+        }
+
+        public B(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public Bb getChild() {
+            if (logging) {
+                System.out.println("[child.G] B=" + this + ", B.child=" + this.child);
+            }
+            return child;
+        }
+
+        @Getter
+        public List<Bb> getChildren() {
+            if (logging) {
+                System.out.println("[children.G] B=" + this + ", B.children=" + this.children);
+            }
+            return children;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        // @Setter(deepConvert = true)
+        @Setter
+        public void setChild(Bb child) {
+            this.child = child;
+            if (logging) {
+                System.out.println("[child.S] B=" + this + ", B.child=" + this.child);
+            }
+        }
+
+        @Setter(deepConvert = true)
+        public void setChildren(List<Bb> bb) {
+            this.children = bb;
+            if (logging) {
+                System.out.println("[children.S] B=" + this + ", B.children=" + this.children);
+            }
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
         }
     }
 
@@ -481,23 +447,23 @@ public class TestTransformer {
         List<B3> children;
 
         @Getter
+        public List<B3> getChildren() {
+            return children;
+        }
+
+        @Getter
         public String getName() {
             return name;
         }
 
         @Setter
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Getter
-        public List<B3> getChildren() {
-            return children;
+        public void setChildren(List<B3> children) {
+            this.children = children;
         }
 
         @Setter
-        public void setChildren(List<B3> children) {
-            this.children = children;
+        public void setName(String name) {
+            this.name = name;
         }
 
         @Override
@@ -512,30 +478,63 @@ public class TestTransformer {
         }
     }
 
-    public static void main(String[] args) {
+    public static class Bb {
+        String name;
+        List<Bbb> children;
 
-        A1 a1 = new A1();
-        A2 a2 = new A2();
-        
-        A3 a2Child = new A3("a2-child");
-        List<A3> a3Children = new ArrayList<>();
-        a3Children.add(new A3("a2-child-child-1"));
-        a3Children.add(new A3("a2-child-child-2"));
-        a3Children.add(new A3("a2-child-child-3"));
-        a3Children.add(new A3("a2-child-child-4"));
-        a2Child.setChildren(a3Children);
-        
-        List<A3> a2Children = new ArrayList<>();
-        a2Children.add(a2Child);
-        a2.setContent(a2Children);
-        a1.setChild(a2);
-        
-        B1 b1 = ObjectTransformer.transform(a1, true, new B1(), true, null);
-        
-        
-        System.out.println("a1=" + a1);
-        System.out.println("b1=" + b1);
+        public Bb() {
+        }
 
+        public Bb(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public List<Bbb> getChildren() {
+            if (logging) {
+                System.out.println("[children.G] Bb=" + this + ", Bb.children=" + this.children);
+            }
+            return children;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter(deepConvert = true)
+        public void setChildren(List<Bbb> bbb) {
+            this.children = bbb;
+            if (logging) {
+                System.out.println("[children.S] Bb=" + this + ", Bb.children=" + this.children);
+            }
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class Bbb {
+        String name;
+
+        public Bbb() {
+        }
+
+        public Bbb(String name) {
+            this.name = name;
+        }
+
+        @Getter
+        public String getName() {
+            return name;
+        }
+
+        @Setter
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
 }

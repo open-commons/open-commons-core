@@ -29,8 +29,11 @@ package open.commons.core.csv;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.database.annotation.AQueryIndex;
 import open.commons.core.lang.Char;
@@ -40,7 +43,8 @@ import open.commons.core.utils.ExceptionUtils;
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public abstract class AbstractCsvData {
 
@@ -64,7 +68,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public AbstractCsvData() {
         this(CsvConfig.DEFAULT_SEPARATOR, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
@@ -86,7 +90,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public AbstractCsvData(char separator) {
         this(separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
@@ -112,7 +116,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public AbstractCsvData(char separator, char quote, char escape) {
         this.delimiter = separator;
@@ -142,18 +146,18 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unused")
     public final String csv(char delim, char quote, char escape, String nullValue) {
-        List<Supplier<String>> providers = getValues();
+        List<Supplier<@Nullable String>> providers = getValues();
 
         final List<String> csvStr = new ArrayList<>();
         handleValue(providers, delim, quote, escape, nullValue, (str, idx) -> {
             csvStr.add(str);
         });
 
-        return String.join(new Char(delim), csvStr);
+        return Objects.requireNonNull(String.join(new Char(delim), csvStr));
     }
 
     /**
@@ -169,11 +173,11 @@ public abstract class AbstractCsvData {
      * @param delim
      *            CSV 데이터 구분자
      * @param nullValue
-     *            <code>null</code>인 경우 데이터
+     *            {@code null}인 경우 데이터
      * @return
      *
      * @since 2020. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see AQueryIndex
      * @see #csv(char, char, char, String)
@@ -199,7 +203,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #csv(char, char, char, String)
      */
     public final String csv(String nullValue) {
@@ -225,10 +229,10 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public String[] csvArray(char delim, char quote, char escape, String nullValue) {
-        List<Supplier<String>> providers = getValues();
+    public String[] csvArray(char delim, char quote, char escape, @Nullable String nullValue) {
+        List<Supplier<@Nullable String>> providers = getValues();
 
         final String[] csvArr = new String[providers.size()];
         handleValue(providers, delim, quote, escape, nullValue, (str, idx) -> {
@@ -251,16 +255,16 @@ public abstract class AbstractCsvData {
      * @param delim
      *            CSV 데이터 구분자
      * @param nullValue
-     *            <code>null</code>인 경우 데이터
+     *            {@code null}인 경우 데이터
      * @return
      *
      * @since 2020. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see AQueryIndex
      * @see #csv(char, char, char, String)
      */
-    public final String[] csvArray(char delim, String nullValue) {
+    public final String[] csvArray(char delim, @Nullable String nullValue) {
         return csvArray(delim, this.quote, this.escape, nullValue);
     }
 
@@ -281,10 +285,10 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see #csv(char, char, char, String)
      */
-    public final String[] csvArray(String nullValue) {
+    public final String[] csvArray(@Nullable String nullValue) {
         return csvArray(this.delimiter, this.quote, this.escape, nullValue);
     }
 
@@ -344,7 +348,7 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public abstract List<String> getHeaders();
 
@@ -383,9 +387,9 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public abstract List<Supplier<String>> getValues();
+    public abstract List<Supplier<@Nullable String>> getValues();
 
     /**
      * 
@@ -418,12 +422,14 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    private <T extends Supplier<String>> void handleValue(List<T> orderedValues, char delim, char quote, char escape, String nullValue, BiConsumer<String, Integer> consumer) {
+    @SuppressWarnings("null") // apply to 'Supplier<@Nullable String> value'
+    private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delim, char quote, char escape, @Nullable String nullValue,
+            BiConsumer<String, Integer> consumer) {
         int index = 0;
         String str = null;
-        for (Supplier<String> value : orderedValues) {
+        for (Supplier<@Nullable String> value : orderedValues) {
             consumer.accept(processString((str = value.get()) != null ? str : nullValue, delim, quote, escape), index);
             index++;
         }
@@ -450,9 +456,9 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    private String processString(String str, char delim, char quote, char escape) {
+    private @Nullable String processString(@Nullable String str, char delim, char quote, char escape) {
         if (str == null) {
             return null;
         }
@@ -496,12 +502,17 @@ public abstract class AbstractCsvData {
      * @param target
      *            대상 클래스
      * @return 컬럼명 목록
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code target})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T extends AbstractCsvData> List<String> columns(Class<T> target) {
+        Objects.requireNonNull(target);
+
         try {
             // JDK 9+ : Class.newInstance() 대신 getDeclaredConstructor().newInstance() 사용
             // 기본 생성자를 명시적으로 호출하며, 접근 제어자가 비공개일 경우에 대비해 처리할 수도 있습니다.
@@ -529,15 +540,16 @@ public abstract class AbstractCsvData {
      * @param target
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code target})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 4.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see AQueryIndex
      */
     public static <T extends AbstractCsvData> List<String> columns(T target) {
-        if (target == null) {
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "올바르지 않은 데이터 입니다. target=%s", target);
-        }
+        Objects.requireNonNull(target, String.format("올바르지 않은 데이터 입니다. target=%s", target));
         return target.getHeaders();
     }
 }

@@ -36,7 +36,7 @@ import open.commons.core.utils.IntegerUtils;
  * 
  * @since 2020. 12. 17.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class TestByteUtils {
 
@@ -49,6 +49,14 @@ public class TestByteUtils {
         System.out.println(new String(ByteUtils.hexBinStringToByteArray(hexBinStr), "euc-kr"));
         System.out.println("------------------");
         System.out.println(new String(ByteUtils.hexBinStringToByteArray(hexBinStr), "ISO8859-1"));
+    }
+
+    void hexString(byte[] bytes) {
+        System.out.println(ByteUtils.hexBinString("0x", bytes));
+    }
+
+    void macExprString(byte[] bytes) {
+        System.out.println(ByteUtils.toMACExpr(bytes));
     }
 
     void toIPV4(byte[] bytes) {
@@ -89,14 +97,6 @@ public class TestByteUtils {
         System.out.printf("byte(%d) -> int(%d), int=%d\n", b, ByteUtils.toInt(b), (int) b);
 
         System.out.println(ByteUtils.hexBinString(ByteUtils.xor(new byte[] { (byte) 0xff }, new byte[] { (byte) 0x00 })));
-    }
-
-    void hexString(byte[] bytes) {
-        System.out.println(ByteUtils.hexBinString("0x", bytes));
-    }
-
-    void macExprString(byte[] bytes) {
-        System.out.println(ByteUtils.toMACExpr(bytes));
     }
 
     /**

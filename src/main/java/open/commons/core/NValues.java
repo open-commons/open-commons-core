@@ -28,6 +28,9 @@ package open.commons.core;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.CheckUtils;
@@ -36,11 +39,11 @@ import open.commons.core.utils.CheckUtils;
  * 객체를 생성하는 시점에 입력하는 이름으로 여러 개의 데이터를 사용할 수 있는 클래스.<br>
  * {@link Map}과 유사한 성격을 갖는다.
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class NValues {
-    private static final String CLASS = NValues.class.getSimpleName();
+    private static final String CLASS = Objects.requireNonNull(NValues.class.getSimpleName());
 
     private String[] names;
     private Object[] values;
@@ -52,6 +55,7 @@ public class NValues {
      *            데이터 이름들.
      */
     public NValues(String... names) {
+        Objects.requireNonNull(names);
         if (names.length < 1 || CheckUtils.containsNull((Object[]) names)) {
             throw new IllegalArgumentException("Arguments must not contain null. argument: " + Arrays.toString(names));
         }
@@ -65,7 +69,7 @@ public class NValues {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -81,7 +85,8 @@ public class NValues {
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T get(String name) {
+    public <T> @Nullable T get(String name) {
+        @Nullable
         T rtnValue = null;
 
         int index = ArrayUtils.getIndex(names, name);
@@ -111,7 +116,7 @@ public class NValues {
      * @return
      */
     public String[] names() {
-        return Arrays.copyOf(names, names.length);
+        return Objects.requireNonNull(Arrays.copyOf(names, names.length));
     }
 
     /**
@@ -135,7 +140,7 @@ public class NValues {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append(CLASS);
         sb.append(' ');
 
@@ -150,7 +155,7 @@ public class NValues {
             sb.append(values[i]);
         }
 
-        return sb.toString();
+        return Objects.requireNonNull(sb.toString());
     }
 
 }

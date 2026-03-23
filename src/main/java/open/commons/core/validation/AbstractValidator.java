@@ -49,7 +49,7 @@ import open.commons.core.utils.CollectionUtils;
  * @param <T>
  *            {token} 데이터를 검증에 사용될 단위 데이터 타입
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class AbstractValidator<D, T> implements IValidator<D, T> {
 
@@ -310,7 +310,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      */
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(getClass().getSimpleName());
         sb.append("[data: ");

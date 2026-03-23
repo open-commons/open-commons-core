@@ -29,48 +29,52 @@
 package open.commons.core.config;
 
 import java.util.Map.Entry;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 5. 15.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class EntryInstance<K, V> implements Entry<K, V> {
 
     private K key;
 
-    private V value;
+    private @Nullable V value;
 
-    public EntryInstance(K key) {
-        this.key = key;
-    }
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code key})가 {@code null}인 경우 발생.
+     */
+    public EntryInstance(K key, @Nullable V value) {
+        Objects.requireNonNull(key);
 
-    public EntryInstance(K key, V value) {
         this.key = key;
         this.value = value;
     }
 
+    /**
+     *
+     * @since 2026. 3. 13.
+     * @version 3.0.0
+     * 
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-
-        @SuppressWarnings("unchecked")
-        EntryInstance<K, V> other = (EntryInstance<K, V>) obj;
-        if (key == null) {
-            if (other.key != null)
-                return false;
-        } else if (!key.equals(other.key))
-            return false;
-        if (value == null) {
-            if (other.value != null)
-                return false;
-        } else if (!value.equals(other.value))
-            return false;
-        return true;
+        @SuppressWarnings("rawtypes")
+        EntryInstance other = (EntryInstance) obj;
+        return Objects.equals(key, other.key) && Objects.equals(value, other.value);
     }
 
     /**
@@ -86,26 +90,33 @@ public class EntryInstance<K, V> implements Entry<K, V> {
      * 
      * @see java.util.Map.Entry#getValue()
      */
+    @SuppressWarnings("null")
     @Override
     public V getValue() {
         return value;
     }
 
+    /**
+     *
+     * @since 2026. 3. 13.
+     * @version 3.0.0
+     * 
+     *
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        result = prime * result + ((value == null) ? 0 : value.hashCode());
-        return result;
+        return Objects.hash(key, value);
     }
 
     /**
      * 
      * @see java.util.Map.Entry#setValue(java.lang.Object)
      */
+    @SuppressWarnings("null")
     @Override
-    public V setValue(V value) {
+    public V setValue(@Nullable V value) {
+        @Nullable
         V old = this.value;
         this.value = value;
 

@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 /**
  * 
  * @since 2019. 6. 28.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class LangUtils {
 
@@ -48,7 +48,7 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 <code>true</code> 인 경우, 데이타를 {@link Consumer}에게 전달합니다. <br>
+     * {@link Predicate} 가 {@code true} 인 경우, 데이타를 {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -73,7 +73,7 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 <code>true</code> 인 경우 데이타를, <code>false</code>인 경우 기본값을 {@link Consumer}에게 전달합니다. <br>
+     * {@link Predicate} 가 {@code true} 인 경우 데이타를, {@code false}인 경우 기본값을 {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -102,7 +102,7 @@ public class LangUtils {
     }
 
     /**
-     * 데이타가 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
+     * 데이타가 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -123,8 +123,8 @@ public class LangUtils {
     }
 
     /**
-     * 데이타가 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
-     * <code>null</code>인 경우 기본값을 전달합니다.
+     * 데이타가 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
+     * {@code null}인 경우 기본값을 전달합니다.
      * 
      * <pre>
      * [개정이력]
@@ -147,7 +147,7 @@ public class LangUtils {
     }
 
     /**
-     * 문자열이 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
+     * 문자열이 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -168,8 +168,8 @@ public class LangUtils {
     }
 
     /**
-     * 문자열이 <code>null</code>이 아닌 경우, {@link Consumer}에게 전달합니다.<br>
-     * <code>null</code> 인 경우 기본값을 전달합니다.
+     * 문자열이 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다.<br>
+     * {@code null} 인 경우 기본값을 전달합니다.
      * 
      * <pre>
      * [개정이력]
@@ -192,8 +192,8 @@ public class LangUtils {
     }
 
     /**
-     * 데이타가 <code>null</code> 인 경우, 기본값을 전달합니다. <br>
-     * <code>null</code>이 아닌 경우 기본값을 전달합니다.
+     * 데이타가 {@code null} 인 경우, 기본값을 전달합니다. <br>
+     * {@code null}이 아닌 경우 기본값을 전달합니다.
      * 
      * <pre>
      * [개정이력]

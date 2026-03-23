@@ -65,7 +65,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String hexBinString(boolean split, byte... data) {
         return hexBinString("", split, data);
@@ -102,7 +102,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String hexBinString(String prefix, boolean split, byte... data) {
         if (data == null) {
@@ -144,7 +144,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String hexBinString(String prefix, byte... data) {
         return hexBinString(prefix, false, data);
@@ -205,7 +205,7 @@ public class ByteUtils {
      * byte[]를 {@link ByteBuffer}로 변환해서 반환합니다.
      * 
      * @param bytes
-     * @return <b><code>flip mode</code></b> instance.
+     * @return <b>{@code flip mode}</b> instance.
      * 
      * @throws NullPointerException
      *
@@ -287,7 +287,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toIPv4Expr(byte[] bytes) {
         byte[] bs = new byte[4];
@@ -310,7 +310,7 @@ public class ByteUtils {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static String toMACExpr(byte[] bytes) {
         StringJoiner join = new StringJoiner(":");
@@ -390,7 +390,7 @@ public class ByteUtils {
      * </ul>
      * 
      * @param bytes
-     *            <b><code>not nullable.</code></b>
+     *            <b>{@code not nullable.}</b>
      * 
      * @see #upset(byte[])
      */

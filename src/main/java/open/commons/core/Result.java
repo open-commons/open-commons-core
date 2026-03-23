@@ -19,31 +19,45 @@
 */
 package open.commons.core;
 
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
+
 /**
  * true/false 결과와 함께 관련 데이타를 같이 전달해주는 클래스 <BR>
  * 
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * <br>
  * 
- * @since 2014. 6. 27. - add {@link #message}: 성공/실패에 대한 정보
+ * <pre>
+ * [개정이력]
+ *      날짜    	| 작성자			|	내용
+ * ------------------------------------------
+ * 2012. 2. 15.     parkjunhong77@gmail.com     최초 작성
+ * 2014. 6. 27.     parkjunohng77@gmail.com     {@link #message}: 성공/실패에 대한 정보
+ * </pre>
+ * 
  * @since 2012. 02. 15.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public class Result<T> {
 
     /** 결과와 관련된 데이타 */
+    @Nullable
     private T data;
 
     /** true/false 값 */
     private boolean result;
 
     /** 성공/실패에 대한 정보 */
+    @Nullable
     private String message;
 
     /**
      * 결과값과 데이타 값으로 기본값을 사용하는 생성자.<br>
      * <ul>
-     * <li>{@link #data}: <code>null</code>
-     * <li>{@link #result}: <code>false</code>
+     * <li>{@link #data}: {@code null}
+     * <li>{@link #result}: {@code false}
      * </ul>
      * 
      * @see Result#Result(Object, boolean)
@@ -54,39 +68,35 @@ public class Result<T> {
 
     /**
      * 결과 데이타를 가지고 객체를 생성합니다.<br>
-     * {@link #result}에 대한 값은 <code>false</code>로 설정된다.
+     * {@link #result}에 대한 값은 {@code false}로 설정된다.
      * 
      * @param data
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #Result(Object, boolean)
      */
-    public Result(T data) {
+    public Result(@Nullable T data) {
         this(data, false);
     }
 
     /**
-     * 결과 데이타와 <code>true</code>/<code>false</code>를 가지고 객체를 생성합니다.<br>
+     * 결과 데이타와 {@code true}/{@code false}를 가지고 객체를 생성합니다.<br>
      * 
      * @param data
      * @param result
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public Result(T data, boolean result) {
-        // if (data == null) {
-        // throw new IllegalArgumentException("'data' must not be null!!!");
-        // }
-
+    public Result(@Nullable T data, boolean result) {
         this.data = data;
         this.result = result;
     }
 
     /**
-     * 결과를 <code>false</code>로 설정한 후 객체를 반환합니다.
+     * 결과를 {@code false}로 설정한 후 객체를 반환합니다.
      * 
      * @return
      * @since 2012. 05. 30.
@@ -99,7 +109,7 @@ public class Result<T> {
     }
 
     /**
-     * 결과를 <code>true</code>로 설정한 후 객체를 반환합니다.
+     * 결과를 {@code true}로 설정한 후 객체를 반환합니다.
      * 
      * @return
      * @since 2012. 05. 30.
@@ -112,31 +122,24 @@ public class Result<T> {
     }
 
     /**
+     *
+     * @since 2026. 3. 13.
+     * @version 3.0.0
+     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Result other = (Result) obj;
-        if (data == null) {
-            if (other.data != null)
-                return false;
-        } else if (!data.equals(other.data))
-            return false;
-        if (message == null) {
-            if (other.message != null)
-                return false;
-        } else if (!message.equals(other.message))
-            return false;
-        if (result != other.result)
-            return false;
-        return true;
+        Result<T> other = (Result<T>) obj;
+        return Objects.equals(data, other.data) && Objects.equals(message, other.message) && result == other.result;
     }
 
     /**
@@ -145,9 +148,9 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public T getData() {
+    public @Nullable T getData() {
         return this.data;
     }
 
@@ -157,7 +160,7 @@ public class Result<T> {
      * 
      * @since 2014. 6. 27.
      */
-    public String getMessage() {
+    public @Nullable String getMessage() {
         return this.message;
     }
 
@@ -173,23 +176,23 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public boolean getResult() {
         return this.result;
     }
 
     /**
+     *
+     * @since 2026. 3. 13.
+     * @version 3.0.0
+     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((data == null) ? 0 : data.hashCode());
-        result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + (this.result ? 1231 : 1237);
-        return result;
+        return Objects.hash(data, message, result);
     }
 
     /**
@@ -206,7 +209,7 @@ public class Result<T> {
      *
      * @since 2021. 10. 28.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public boolean isError() {
         return !this.getResult();
@@ -226,7 +229,7 @@ public class Result<T> {
      *
      * @since 2021. 10. 28.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @see {@link Result#getResult()} 와 동일한 기능.
      */
     public boolean isSuccess() {
@@ -241,7 +244,7 @@ public class Result<T> {
      * 
      * @updated 2019. 2. 29. Apply chainging, 'return this' since 1.6.3. Before updating, return lastest data.
      */
-    public Result<T> setData(T data) {
+    public Result<T> setData(@Nullable T data) {
         this.data = data;
         return this;
     }
@@ -256,7 +259,7 @@ public class Result<T> {
      * @since 2014. 6. 27.
      * @updated 2019. 2. 26 Apply chaining, 'return this' since 1.6.3.
      */
-    public Result<T> setMessage(String message) {
+    public Result<T> setMessage(@Nullable String message) {
         this.message = message;
         return this;
     }
@@ -280,7 +283,7 @@ public class Result<T> {
      *
      * @since 2020. 2. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public Result<T> setMessage(String format, Object... args) {
         this.message = String.format(format, args);
@@ -294,7 +297,7 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * @updated 2019. 2. 29. Apply chaining, 'return this' since 1.6.3. Before updating, returh latest result.
      */
     public boolean setResult(boolean result) {
@@ -317,7 +320,7 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 4. 11.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
@@ -334,7 +337,7 @@ public class Result<T> {
         builder.append(message);
         builder.append("]");
 
-        return builder.toString();
+        return Objects.requireNonNull(builder.toString());
     }
 
     /**
@@ -353,7 +356,7 @@ public class Result<T> {
      *
      * @since 2020. 11. 20.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <N> Result<N> copyOf(Result<?> o) {
         return new Result<N>(null, o.getResult()).setMessage(o.getMessage());
@@ -375,7 +378,7 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> Result<T> error(String errorMessage) {
         return new Result<T>().setMessage(errorMessage);
@@ -400,15 +403,15 @@ public class Result<T> {
      *
      * @since 2021. 7. 14.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T> Result<T> error(String format, Object... args) {
         return new Result<T>().setMessage(format, args);
     }
 
     /**
-     * {@link Result#getResult()} 가 <code>true</code> 인 경우의 메시지를 선택적으로 제공합니다. <br>
-     * {@link Result#getResult()} 가 <code>false</code> 인 경우 {@link Result#getMessage()}를 제공합니다.
+     * {@link Result#getResult()} 가 {@code true} 인 경우의 메시지를 선택적으로 제공합니다. <br>
+     * {@link Result#getResult()} 가 {@code false} 인 경우 {@link Result#getMessage()}를 제공합니다.
      * 
      * <pre>
      * [개정이력]
@@ -425,9 +428,9 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 11. 3.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <T> String getTrueMessage(Result<T> result, String format, Object... args) {
+    public static <T> @Nullable String getTrueMessage(Result<T> result, String format, Object... args) {
         return result.getResult() ? String.format(format, args) : result.getMessage();
     }
 
@@ -450,7 +453,7 @@ public class Result<T> {
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> Result<T> success(String format, Object... args) {
         return success(null, format, args);
@@ -472,9 +475,9 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <T> Result<T> success(T data) {
+    public static <T> Result<T> success(@Nullable T data) {
         return new Result<T>(data, true);
     }
 
@@ -499,9 +502,9 @@ public class Result<T> {
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T> Result<T> success(T data, String format, Object... args) {
+    public static <T> Result<T> success(@Nullable T data, String format, Object... args) {
         return Result.success(data).setMessage(format, args);
     }
 

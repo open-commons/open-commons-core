@@ -26,12 +26,15 @@
 
 package open.commons.core.lang;
 
+import java.util.Objects;
+
 /**
  * 'char'를 {@link CharSequence}로 제공하는 클래스.
  * 
  * @since 2021. 6. 18.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class Char implements CharSequence {
 
@@ -50,7 +53,7 @@ public class Char implements CharSequence {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public Char(char c) {
         this.c = c;
@@ -70,7 +73,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.CharSequence#charAt(int)
      */
@@ -95,7 +98,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.CharSequence#length()
      */
@@ -119,7 +122,7 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.CharSequence#subSequence(int, int)
      */
@@ -144,12 +147,16 @@ public class Char implements CharSequence {
      * @return
      *
      * @since 2021. 6. 18.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return String.valueOf(c);
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                String.valueOf(c) //
+        );
     }
 }

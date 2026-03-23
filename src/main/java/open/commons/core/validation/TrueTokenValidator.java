@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * 
  * @since 2014. 4. 11.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class TrueTokenValidator<T> extends NamedTokenValidator<T> {
 

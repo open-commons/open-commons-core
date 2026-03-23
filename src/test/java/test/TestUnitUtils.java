@@ -34,7 +34,7 @@ import open.commons.core.utils.UnitUtils;
  * 
  * @since 2021. 11. 5.
  * @version _._._
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TestUnitUtils {
 
@@ -51,7 +51,7 @@ public class TestUnitUtils {
      *
      * @since 2021. 11. 5.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TestUnitUtils() {
     }

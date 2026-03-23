@@ -30,8 +30,12 @@ package open.commons.core.unix.tool;
 
 import java.util.Arrays;
 
+import open.commons.core.utils.ObjectUtils;
+
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
+ * @since 2013. 5. 23.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public interface IFileModifyListener extends Comparable<IFileModifyListener> {
@@ -41,11 +45,34 @@ public interface IFileModifyListener extends Comparable<IFileModifyListener> {
     String name();
 
     public class FileContext {
+        @SuppressWarnings("null")
         private static final String CLASS = FileContext.class.getSimpleName();
+
         final String file;
         final byte[] context;
 
+        /**
+         * 
+         * <br>
+         * 
+         * <pre>
+         * [개정이력]
+         *      날짜    	| 작성자	|	내용
+         * ------------------------------------------
+         * 2013. 5. 23.         parkjunhong77@gmail.com			최초 작성
+         * </pre>
+         *
+         * @param f
+         * @param c
+         * 
+         * @throws NullPointerException
+         *             파라미터({@code f 또는 c})가 {@code null}인 경우 발생.
+         *
+         * @since 2013. 5. 23.
+         */
         public FileContext(String f, byte[] c) {
+            ObjectUtils.requireNonNulls(f, c);
+
             file = f;
             context = c;
         }

@@ -27,8 +27,9 @@
 package open.commons.core.database;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
  * 
+ * @sionce 2013. 11. 8.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public interface IQueryParameter {
 

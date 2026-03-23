@@ -32,7 +32,7 @@ import open.commons.core.utils.NetUtils;
  * 
  * @since 2021. 7. 12.
  * @version _._._
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class TestNetUtils {
 
@@ -49,7 +49,7 @@ public class TestNetUtils {
      *
      * @since 2021. 7. 12.
      * @version _._._
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public TestNetUtils() {
     }

@@ -24,9 +24,12 @@
 */
 package open.commons.core.config.exception;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * @since 2012. 02. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class PropertySelfReferenceException extends RuntimeException {
 
@@ -36,15 +39,15 @@ public class PropertySelfReferenceException extends RuntimeException {
         super();
     }
 
-    public PropertySelfReferenceException(String msg) {
+    public PropertySelfReferenceException(@Nullable String msg) {
         super(msg);
     }
 
-    public PropertySelfReferenceException(String msg, Throwable t) {
+    public PropertySelfReferenceException(@Nullable String msg, @Nullable Throwable t) {
         super(msg, t);
     }
 
-    public PropertySelfReferenceException(Throwable t) {
+    public PropertySelfReferenceException(@Nullable Throwable t) {
         super(t);
     }
 }

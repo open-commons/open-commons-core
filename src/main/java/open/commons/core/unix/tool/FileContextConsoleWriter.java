@@ -31,9 +31,11 @@ package open.commons.core.unix.tool;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Objects;
 
 /**
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 5. 23.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 public final class FileContextConsoleWriter extends AbstractContextWriter {
@@ -61,11 +63,15 @@ public final class FileContextConsoleWriter extends AbstractContextWriter {
     }
 
     /**
+     * @throws NullPointerException
+     *             파라미터({@code context})가 {@code null}인 경우 발생.
      * 
      * @see open.commons.core.unix.tool.IFileContextWriter#write(open.commons.core.unix.tool.IFileModifyListener.FileContext)
      */
     @Override
     public void write(open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
+
+        Objects.requireNonNull(context);
 
         BufferedReader reader = new BufferedReader(new StringReader(contextToString(context)));
 

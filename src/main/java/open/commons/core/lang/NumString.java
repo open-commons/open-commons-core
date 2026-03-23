@@ -29,7 +29,11 @@ package open.commons.core.lang;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.CollectionUtils;
@@ -38,22 +42,26 @@ import open.commons.core.utils.CollectionUtils;
  * 
  * @since 2020. 12. 17.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class NumString<N extends Number> implements CharSequence {
 
-    private final N number;
+    private final @NonNull N number;
 
-    private String string;
+    private @Nullable String string;
 
     /**
      * 
      * @param number
-     *            TODO
+     * @throws NullPointerException
+     *             파라미터({@code number})가 {@code null}인 경우 발생.
+     * 
      * @since 2020. 12. 17.
      */
     public NumString(N number) {
-        AssertUtils2.notNull(null, number, null);
+        Objects.requireNonNull(number);
+
         this.number = number;
     }
 
@@ -71,7 +79,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.CharSequence#charAt(int)
      */
@@ -103,7 +111,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.CharSequence#length()
      */
@@ -113,31 +121,25 @@ public class NumString<N extends Number> implements CharSequence {
     }
 
     private String string() {
-        return string != null ? string : (string = this.number.toString());
+        if (string == null) {
+            string = this.number.toString();
+        }
+
+        return Objects.requireNonNull(string);
     }
 
     /**
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param start
-     * @param end
-     * @return
-     *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
      *
      * @see java.lang.CharSequence#subSequence(int, int)
      */
     @Override
     public CharSequence subSequence(int start, int end) {
-        return string().subSequence(start, end);
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                string().subSequence(start, end) //
+        );
     }
 
     /**
@@ -153,7 +155,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      *
      * @since 2020. 12. 17.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
@@ -175,12 +177,16 @@ public class NumString<N extends Number> implements CharSequence {
      * @param <N>
      * @param nums
      * @return
-     *
+     * @throws NullPointerException
+     *             파라미터({@code nums})가 {@code null}인 경우 발생.
+     * 
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <N extends Number> List<NumString<N>> sequence(Collection<N> nums) {
+        Objects.requireNonNull(nums);
+
         return sequence(n -> new NumString<N>(n), nums);
     }
 
@@ -198,12 +204,17 @@ public class NumString<N extends Number> implements CharSequence {
      * @param f
      * @param nums
      * @return
+     * @throws NullPointerException
+     *             파라미터({@code f 또는 nums})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, Collection<T> nums) {
+        Objects.requireNonNull(f);
+        AssertUtils2.collectionNotNull(nums);
+
         ArrayList<NumString<N>> list = new ArrayList<>();
         for (T n : nums) {
             list.add(f.apply(n));
@@ -226,13 +237,16 @@ public class NumString<N extends Number> implements CharSequence {
      * @param f
      * @param nums
      * @return
-     *
+     * @throws NullPointerException
+     *             파라미터({@code f})가 {@code null}인 경우 발생.
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
-    public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, T... nums) {
+    public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, T @Nullable... nums) {
+        Objects.requireNonNull(f);
+
         return sequence(f, CollectionUtils.newList(nums));
     }
 
@@ -252,10 +266,10 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     @SafeVarargs
-    public static <N extends Number> List<NumString<N>> sequence(N... nums) {
+    public static <N extends Number> List<NumString<N>> sequence(N @Nullable... nums) {
         return sequence(CollectionUtils.newList(nums));
     }
 }

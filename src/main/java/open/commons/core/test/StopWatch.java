@@ -27,11 +27,14 @@
 package open.commons.core.test;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.StringUtils;
 import open.commons.core.utils.TimeUtils;
@@ -49,11 +52,16 @@ import open.commons.core.utils.TimeUtils;
  * </ul>
  * 
  * @since 2019. 2. 20.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class StopWatch {
     /** 종료 구간 식별자 */
-    public static final String LAST = UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString();
+    public static final String LAST = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString() //
+    );
     private final ReentrantLock lock = new ReentrantLock();
     /** 경과시간 기록 */
     private final ConcurrentSkipListMap<String, Record> records = new ConcurrentSkipListMap<>();
@@ -97,12 +105,16 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 20.
      * 
      * @see Map#get(Object)
      */
-    public Long fromBegin(String name) {
+    public @Nullable Long fromBegin(String name) {
+        Objects.requireNonNull(name);
+
         this.lock.lock();
         try {
             Record r = records.get(name);
@@ -112,7 +124,7 @@ public class StopWatch {
         }
     }
 
-    public String fromBeginAsPretty(String name) {
+    public @Nullable String fromBeginAsPretty(String name) {
         return pretty(fromBegin(name));
     }
 
@@ -128,7 +140,7 @@ public class StopWatch {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
     public Long get() {
@@ -156,12 +168,16 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 20.
      * 
      * @see Map#get(Object)
      */
-    public Long get(String name) {
+    public @Nullable Long get(String name) {
+        Objects.requireNonNull(name);
+
         this.lock.lock();
         try {
             Record r = records.get(name);
@@ -183,10 +199,10 @@ public class StopWatch {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
-    public String getAsPretty() {
+    public @Nullable String getAsPretty() {
         return pretty(get());
     }
 
@@ -203,10 +219,14 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 20.
      */
-    public String getAsPretty(String name) {
+    public @Nullable String getAsPretty(String name) {
+        Objects.requireNonNull(name);
+
         Long r = get(name);
         if (r == null) {
             return null;
@@ -228,11 +248,16 @@ public class StopWatch {
      * @param name
      * @return
      *
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     *
      * @since 2022. 1. 5.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public Double getPercentage(String name) {
+        Objects.requireNonNull(name);
+
         this.lock.lock();
         try {
             if (!expect(State.STOPPED)) {
@@ -259,12 +284,16 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 20.
      * 
      * @see Map#containsKey(Object)
      */
     public boolean has(String name) {
+        Objects.requireNonNull(name);
+
         this.lock.lock();
         try {
             return records.containsKey(name);
@@ -284,7 +313,7 @@ public class StopWatch {
      * </pre>
      *
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
     public void pause() {
@@ -314,10 +343,10 @@ public class StopWatch {
      * @param r
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
-    private String pretty(Long r) {
+    private @Nullable String pretty(@Nullable Long r) {
         if (r == null) {
             return null;
         }
@@ -338,10 +367,14 @@ public class StopWatch {
      * @param name
      * @return 기록 정보.
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 20.
      */
     public Long record(String name) {
+        Objects.requireNonNull(name);
+
         this.lock.lock();
         try {
             long cur = System.nanoTime();
@@ -384,10 +417,14 @@ public class StopWatch {
      * @param name
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     * 
      * @since 2019. 2. 20.
      */
     public Long recordAndPause(String name) {
+        Objects.requireNonNull(name);
+
         this.lock.lock();
         try {
             Long r = record(name);
@@ -409,7 +446,7 @@ public class StopWatch {
      * </pre>
      *
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
     public void reset() {
@@ -444,7 +481,7 @@ public class StopWatch {
      *
      * @throws IllegalStateException
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
     public StopWatch start() throws IllegalStateException {
@@ -484,7 +521,7 @@ public class StopWatch {
      *
      * @since 2022. 1. 5.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #stats(boolean)
      */
@@ -509,8 +546,9 @@ public class StopWatch {
      *
      * @since 2022. 1. 5.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
+    @SuppressWarnings("null")
     public String stats(boolean alsoLast) {
         this.lock.lock();
         try {
@@ -558,7 +596,7 @@ public class StopWatch {
      * @return
      * @throws IllegalStateException
      * 
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
     public StopWatch stop() throws IllegalStateException {
@@ -591,6 +629,7 @@ public class StopWatch {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("StopWatch [state=");
         builder.append(state);
         builder.append(", begin=");
@@ -608,7 +647,12 @@ public class StopWatch {
         builder.append(", records=");
         builder.append(records);
         builder.append("]");
-        return builder.toString();
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
 
     private void updatePaused(long cur) {
@@ -628,7 +672,7 @@ public class StopWatch {
      *
      * @return
      *
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @since 2019. 2. 20.
      */
     public static StopWatch startNow() {
@@ -669,7 +713,7 @@ public class StopWatch {
          * @param begin
          * @return
          *
-         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+         * 
          * @since 2019. 2. 20.
          */
         public long fromBegin(long begin) {
@@ -688,7 +732,7 @@ public class StopWatch {
          *
          * @return
          *
-         * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+         * 
          * @since 2019. 2. 20.
          */
         public long get() {
@@ -701,6 +745,7 @@ public class StopWatch {
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
+
             builder.append("Record [start=");
             builder.append(start);
             builder.append(", stop=");
@@ -710,7 +755,12 @@ public class StopWatch {
             builder.append(", pausedAcc=");
             builder.append(pausedAcc);
             builder.append("]");
-            return builder.toString();
+
+            return Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    builder.toString() //
+            );
         }
     }
 

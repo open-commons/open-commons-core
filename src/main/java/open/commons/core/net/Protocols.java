@@ -51,7 +51,8 @@ package open.commons.core.net;
  * ipv6-parameters</a>].<br>
  * 
  * @since 2014. 5. 26.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class Protocols {
 

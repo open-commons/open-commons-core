@@ -46,11 +46,13 @@ import java.util.function.Consumer;
  * @param <V>
  *            the type of the third argument to the operation
  *
- * @see Consumer
- * @since 1.8
  * 
  * @since 2017. 7. 20.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @version 1.8.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
+ * @see Consumer
+ * 
  */
 @FunctionalInterface
 public interface TripleConsumer<T, U, V> {
@@ -77,7 +79,7 @@ public interface TripleConsumer<T, U, V> {
      * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation
      * @throws NullPointerException
-     *             if {@code after} is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default TripleConsumer<T, U, V> andThen(TripleConsumer<? super T, ? super U, ? super V> after) {
         Objects.requireNonNull(after);

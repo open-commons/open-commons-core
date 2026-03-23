@@ -26,15 +26,18 @@
 */
 package open.commons.core;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 같은 타입의 2개의 객체가 동일한지를 판단하는 메소드를 제공하는 인터페이스 <BR>
  * 
  * @since 2012. 03. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface IEquivalent<T> {
 
-    public boolean equals(T t1, T t2);
+    public boolean equals(@Nullable T t1, @Nullable T t2);
 
 }

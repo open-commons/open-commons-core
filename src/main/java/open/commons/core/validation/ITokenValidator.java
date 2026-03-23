@@ -34,7 +34,7 @@ import java.util.Set;
  * @param <T>
  *            token type.
  * @since 2014. 4. 10.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public interface ITokenValidator<T> {
 
@@ -52,9 +52,9 @@ public interface ITokenValidator<T> {
      */
     public Set<T> getValidTokens();
 
-    public boolean validate(T token);
-
     public boolean isPositive();
+
+    public boolean validate(T token);
 
     public interface IValidationListener {
         public void listen(boolean valid);

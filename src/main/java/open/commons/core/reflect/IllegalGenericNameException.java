@@ -31,11 +31,10 @@ package open.commons.core.reflect;
  * 
  * Throw this when the value of {@link GenericTypeVariable#getTypeVarName()} is not equal to what you expect.
  * 
- * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2014. 3. 12.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @see GenericTypeVariable
- * 
  */
 public class IllegalGenericNameException extends RuntimeException {
 

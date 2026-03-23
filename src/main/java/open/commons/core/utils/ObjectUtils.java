@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,11 +61,15 @@ import open.commons.core.stream.ClassSpliterator;
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
  * 
  * @since 2018. 1. 31.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  */
 public class ObjectUtils {
 
-    static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
+    static final Logger LOGGER = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            LoggerFactory.getLogger(ObjectUtils.class) //
+    );
 
     private static final Function<Object, Short> shortFunction = o -> Short.parseShort(o.toString());
     private static final Function<Object, Byte> byteFunction = o -> Byte.parseByte(o.toString());
@@ -139,7 +143,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 9. 3.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean checkType(Class<?> target, Class<?> standard) {
 
@@ -190,7 +194,7 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 9. 3.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     private static boolean checkType(Class<?> targetClass, Class<?>... standards) {
         for (Class<?> standard : standards) {
@@ -202,7 +206,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 주어진 배열에 {@code null}이 포함되어 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -220,7 +224,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean containsNull(boolean visitValue, Collection<?> data) {
         for (Object value : data) {
@@ -245,7 +249,7 @@ public class ObjectUtils {
     }
 
     /**
-     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 주어진 배열에 {@code null}이 포함되어 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -263,14 +267,14 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean containsNull(boolean visitValue, Object... array) {
         return containsNull(visitValue, Arrays.asList(array));
     }
 
     /**
-     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 주어진 배열에 {@code null}이 포함되어 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -286,14 +290,14 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean containsNull(Collection<?> data) {
         return containsNull(false, data);
     }
 
     /**
-     * 주어진 배열에 <code>null</code>이 포함되어 있는지 여부를 제공합니다. <br>
+     * 주어진 배열에 {@code null}이 포함되어 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -309,14 +313,14 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean containsNull(Object... array) {
         return containsNull(false, array);
     }
 
     /**
-     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>sup.get()</code>)을 제공합니다. <br>
+     * 주어진 값이 {@code null}인 경우, 기본값({@code sup.get()})을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -337,14 +341,14 @@ public class ObjectUtils {
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T, R> R getOrDefault(T o, @NonNull Function<T, R> manipulator, @NonNull R defaultValue) {
+    public static <T, R> R getOrDefault(T o, Function<T, R> manipulator, R defaultValue) {
         return o != null ? manipulator.apply(o) : defaultValue;
     }
 
     /**
-     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>sup.get()</code>)을 제공합니다. <br>
+     * 주어진 값이 {@code null}인 경우, 기본값({@code sup.get()})을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -365,14 +369,14 @@ public class ObjectUtils {
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T, R> R getOrDefault(T o, @NonNull Function<T, R> manipulator, @NonNull Supplier<R> sup) {
+    public static <T, R> R getOrDefault(T o, Function<T, R> manipulator, Supplier<R> sup) {
         return o != null ? manipulator.apply(o) : sup.get();
     }
 
     /**
-     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>sup.get()</code>)을 제공합니다. <br>
+     * 주어진 값이 {@code null}인 경우, 기본값({@code sup.get()})을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -390,14 +394,14 @@ public class ObjectUtils {
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <T> T getOrDefault(T o, @NonNull Supplier<T> sup) {
+    public static <T> T getOrDefault(T o, Supplier<T> sup) {
         return o != null ? o : sup.get();
     }
 
     /**
-     * 주어진 값이 <code>null</code>인 경우, 기본값(<code>defaultValue</code>)을 제공합니다. <br>
+     * 주어진 값이 {@code null}인 경우, 기본값({@code defaultValue})을 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -415,7 +419,7 @@ public class ObjectUtils {
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T getOrDefault(T o, T defaultValue) {
         return o != null ? o : defaultValue;
@@ -446,14 +450,13 @@ public class ObjectUtils {
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
-    public static <S, T> Function<S, T> getTransformer(@NonNull Class<S> srcType, boolean lookupSrcSuper, @NonNull Class<T> targetType, boolean lookupTargetSuper)
-            throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws IllegalArgumentException {
 
         AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
 
@@ -490,13 +493,13 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체.
      * @return
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
-    public static <S, T> Function<S, T> getTransformer(@NonNull Class<S> srcType, @NonNull Class<T> target) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> target) throws NullPointerException {
         return getTransformer(srcType, false, target, false);
     }
 
@@ -525,13 +528,13 @@ public class ObjectUtils {
      * @return
      * 
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> Function<S, T> getTransformer(@NonNull Collection<S> srcCol, boolean lookupSrcSuper, @NonNull Class<T> targetClass, boolean lookupTargetSuper) {
+    public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
 
         AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
         AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", srcCol.isEmpty(), IllegalArgumentException.class);
@@ -568,13 +571,13 @@ public class ObjectUtils {
      * @return
      * 
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> Function<S, T> getTransformer(@NonNull Collection<S> srcCol, @NonNull Class<T> targetClass) {
+    public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, Class<T> targetClass) {
 
         AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
         AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", srcCol.isEmpty(), IllegalArgumentException.class);
@@ -606,15 +609,14 @@ public class ObjectUtils {
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(@NonNull S src, boolean lookupSrcSuper, @NonNull Class<T> targetClass, boolean lookupTargetSuper)
-            throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws NullPointerException {
 
         AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetClass);
 
@@ -647,14 +649,14 @@ public class ObjectUtils {
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2022. 1. 26.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(@NonNull S src, boolean lookupSrcSuper, @NonNull T target, boolean lookupTargetSuper) throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) throws IllegalArgumentException {
 
         AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
 
@@ -682,13 +684,13 @@ public class ObjectUtils {
      * @return
      * 
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> Function<S, T> getTransformer(@NonNull S src, @NonNull Class<T> targetClass) {
+    public static <S, T> Function<S, T> getTransformer(S src, Class<T> targetClass) {
         return getTransformer(src, false, targetClass, false);
     }
 
@@ -714,13 +716,13 @@ public class ObjectUtils {
      * @return
      * 
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      *
      * @since 2022. 1. 26.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> Function<S, T> getTransformer(@NonNull S src, @NonNull T target) {
+    public static <S, T> Function<S, T> getTransformer(S src, T target) {
         return getTransformer(src, false, target, false);
     }
 
@@ -740,7 +742,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isPrimitive(Class<?> type) {
         AssertUtils2.notNull(type);
@@ -767,7 +769,7 @@ public class ObjectUtils {
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static int isPrimitiveOrWrapper(Class<?> type) {
         return isPrimitive(type) //
@@ -792,7 +794,7 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isWrapper(Class<?> type) {
         AssertUtils2.notNull(type);
@@ -814,10 +816,11 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean isWrapper(Object obj) {
         AssertUtils2.notNull(obj);
+
         return WRAPPER_TYPES.contains(obj.getClass());
     }
 
@@ -842,7 +845,7 @@ public class ObjectUtils {
      *
      * @since 2019. 9. 3.
      * @version 2.0.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @throws IllegalAccessException
      * @throws InstantiationException
@@ -927,7 +930,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Class<?>[] readClasses(boolean forceToPrimitive, Object... objects) {
         return readClassesAsStream(forceToPrimitive, objects) //
@@ -949,7 +952,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Class<?>[] readClasses(Object... objects) {
         return readClasses(false, objects);
@@ -970,7 +973,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Class<?>> readClassesAsList(boolean forceToPrimitive, Object... objects) {
         return readClassesAsStream(forceToPrimitive, objects) //
@@ -992,7 +995,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Class<?>> readClassesAsList(Object... objects) {
         return readClassesAsList(false, objects);
@@ -1013,7 +1016,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Stream<Class<?>> readClassesAsStream(boolean forceToPrimitive, Object... objects) {
         return StreamSupport.stream(new ClassSpliterator(forceToPrimitive, objects), false);
@@ -1034,7 +1037,7 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Stream<Class<?>> readClassesAsStream(Object... objects) {
         return readClassesAsStream(false, objects);
@@ -1055,7 +1058,7 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 3.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static List<String> readInformation(Object o) {
         final String fmt = "%-15s = %s";
@@ -1147,6 +1150,63 @@ public class ObjectUtils {
     }
 
     /**
+     * 파라미터에 {@code null}이 있는지 검증합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 16.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param objects
+     *            검증 대상
+     *
+     * @since 2026. 3. 16.
+     * @version 3.0.0
+     * 
+     */
+    public static Object[] requireNonNulls(Object @Nullable... objects) {
+        return requireNonNullsWithMessage("객체 배열 자체가 null일 수 없습니다.", objects);
+    }
+
+    /**
+     * 파라미터에 {@code null}이 있는지 검증합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 16.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param message
+     *            오류 메시지
+     * @param objects
+     *            검증 대상
+     *
+     * @since 2026. 3. 16.
+     * @version 3.0.0
+     * 
+     */
+    public static Object[] requireNonNullsWithMessage(@Nullable String message, Object @Nullable... objects) {
+        if (message == null) {
+            message = "객체 배열 자체가 null일 수 없습니다.";
+        }
+
+        Objects.requireNonNull(objects, message);
+
+        // Stream 대신 성능이 압도적으로 좋은 일반 for 루프 사용
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] == null) {
+                throw new NullPointerException((i + 1) + "번째 인자가 null입니다.");
+            }
+        }
+
+        return objects;
+    }
+
+    /**
      * 전달받은 데이터를 변환(T => U)한 후, 새로운 {@link Collection}(R)로 제공합니다. <br>
      * 
      * <pre>
@@ -1173,7 +1233,7 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     private static <T, U, R extends Collection<U>> R to(Collection<T> objects, Function<T, U> transformer, Supplier<R> collectionSupplier) {
         AssertUtils2.notNulls(objects, transformer, collectionSupplier);
@@ -1201,7 +1261,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Boolean> toBoolean(Collection<Object> objects) {
         return to(objects, booleanFunction, ArrayList::new);
@@ -1225,7 +1285,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Boolean> toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1253,7 +1313,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1279,7 +1339,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, booleanFunction, collectionSupplier);
@@ -1301,7 +1361,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Byte> toByte(Collection<Object> objects) {
         return to(objects, byteFunction, ArrayList::new);
@@ -1325,7 +1385,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Byte> toByte(Collection<Object> objects, Function<Object, Byte> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1353,7 +1413,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Function<Object, Byte> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1379,7 +1439,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, byteFunction, collectionSupplier);
@@ -1401,7 +1461,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Double> toDouble(Collection<Object> objects) {
         return to(objects, doubleFunction, ArrayList::new);
@@ -1425,7 +1485,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Double> toDouble(Collection<Object> objects, Function<Object, Double> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1453,7 +1513,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Function<Object, Double> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1479,7 +1539,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, doubleFunction, collectionSupplier);
@@ -1501,7 +1561,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Float> toFloat(Collection<Object> objects) {
         return to(objects, floatFunction, ArrayList::new);
@@ -1525,7 +1585,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Float> toFloat(Collection<Object> objects, Function<Object, Float> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1553,7 +1613,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Function<Object, Float> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1579,7 +1639,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, floatFunction, collectionSupplier);
@@ -1601,7 +1661,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Integer> toInteger(Collection<Object> objects) {
         return to(objects, intFunction, ArrayList::new);
@@ -1625,7 +1685,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Integer> toInteger(Collection<Object> objects, Function<Object, Integer> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1653,7 +1713,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Function<Object, Integer> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1679,7 +1739,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, intFunction, collectionSupplier);
@@ -1701,7 +1761,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Long> toLong(Collection<Object> objects) {
         return to(objects, longFunction, ArrayList::new);
@@ -1725,7 +1785,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Long> toLong(Collection<Object> objects, Function<Object, Long> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1753,7 +1813,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Function<Object, Long> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1779,7 +1839,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, longFunction, collectionSupplier);
@@ -1801,7 +1861,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Short> toShort(Collection<Object> objects) {
         return to(objects, shortFunction, ArrayList::new);
@@ -1825,7 +1885,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<Short> toShort(Collection<Object> objects, Function<Object, Short> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1853,7 +1913,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Function<Object, Short> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1879,7 +1939,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, shortFunction, collectionSupplier);
@@ -1901,7 +1961,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<String> toString(Collection<Object> objects) {
         return to(objects, strFunction, ArrayList::new);
@@ -1925,7 +1985,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static List<String> toString(Collection<Object> objects, Function<Object, String> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1953,7 +2013,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<String>> R toString(Collection<Object> objects, Function<Object, String> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1979,7 +2039,7 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <R extends Collection<String>> R toString(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, strFunction, collectionSupplier);
@@ -2023,9 +2083,9 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Class<T> targetType, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
@@ -2069,9 +2129,9 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Class<T> targetType, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, null, collectionSupplier);
     }
@@ -2111,10 +2171,10 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Class<T> targetType,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, false, converters, collectionSupplier);
     }
 
@@ -2147,9 +2207,9 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Class<T> targetType, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, false, null, collectionSupplier);
     }
 
@@ -2190,10 +2250,10 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier,
-            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return src.stream() //
                 .map(s -> ObjectTransformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
                 .collect(Collectors.toCollection(collectionSupplier));
@@ -2230,10 +2290,10 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier,
-            boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
@@ -2272,10 +2332,10 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters, collectionSupplier);
     }
 
@@ -2308,10 +2368,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
@@ -2350,10 +2409,10 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Class<T> targetType, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, lookupTargetSuper, converters, collectionSupplier);
     }
 
@@ -2386,9 +2445,9 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, lookupTargetSuper, null, collectionSupplier);
     }
 
@@ -2425,10 +2484,9 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Class<T> targetType, Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, false, converters, collectionSupplier);
     }
 
@@ -2459,9 +2517,9 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Class<T> targetType, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, false, null, collectionSupplier);
     }
 
@@ -2500,9 +2558,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters, collectionSupplier);
     }
@@ -2536,10 +2594,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
@@ -2576,9 +2633,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, converters, collectionSupplier);
     }
@@ -2610,9 +2667,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T, C extends Collection<T>> C transform(@NonNull Collection<S> src, @NonNull Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
@@ -2639,11 +2696,11 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Class<T> targetType) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType) {
         return transform(src, lookupSrcSuper, targetType, false);
     }
 
@@ -2673,9 +2730,9 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Class<T> targetType, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
@@ -2719,9 +2776,9 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
@@ -2763,11 +2820,11 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Class<T> targetType, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetType, false, converters);
     }
 
@@ -2795,11 +2852,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false);
     }
 
@@ -2830,9 +2887,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }
 
@@ -2869,10 +2926,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
     }
 
@@ -2906,11 +2962,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters);
     }
 
@@ -2937,11 +2993,11 @@ public class ObjectUtils {
      * @return
      *
      * @since 2020. 12. 08.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull T target) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, false, null);
     }
 
@@ -2971,11 +3027,11 @@ public class ObjectUtils {
      * @return
      *
      * @since 2020. 12. 08.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #FIELD_CONVERTERS
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull T target, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, null);
     }
 
@@ -3004,21 +3060,21 @@ public class ObjectUtils {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
-     *            데이터 변환 함수. 이 값이 <code>null</code>인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
+     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
      * 
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 <code>null</code>인 경우
+     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      * @return
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
         //
         // AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!",
@@ -3066,11 +3122,11 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 08.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(@NonNull S src, boolean lookupSrcSuper, @NonNull T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, false, converters);
     }
 
@@ -3097,12 +3153,12 @@ public class ObjectUtils {
      *
      * @since 2019. 6. 20.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Class<T> targetType) {
+    public static <S, T> T transform(S src, Class<T> targetType) {
         return transform(src, false, targetType, false);
     }
 
@@ -3130,9 +3186,9 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Class<T> targetType, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper) {
         return transform(src, false, targetType, lookupTargetSuper);
     }
 
@@ -3167,9 +3223,9 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetType, lookupTargetSuper, converters);
     }
 
@@ -3202,12 +3258,12 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Class<T> targetType, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Class<T> targetType, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetType, false, converters);
     }
 
@@ -3234,12 +3290,12 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(@NonNull S src, Supplier<T> targetInstanceSupplier) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier) {
         return transform(src, false, targetInstanceSupplier, false);
     }
 
@@ -3268,9 +3324,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper);
     }
 
@@ -3305,9 +3361,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters);
     }
 
@@ -3340,12 +3396,12 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, false, converters);
     }
 
@@ -3372,12 +3428,12 @@ public class ObjectUtils {
      *
      * @since 2020. 12. 08.
      * @version
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull T target) {
+    public static <S, T> T transform(S src, T target) {
         return ObjectTransformer.transform(src, false, target, false, null);
     }
 
@@ -3405,9 +3461,9 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull T target, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, null);
     }
 
@@ -3442,9 +3498,9 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, converters);
     }
 
@@ -3477,12 +3533,12 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(@NonNull S src, @NonNull T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, T target, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, false, converters);
     }
 
@@ -3520,12 +3576,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(@NonNull Collection<S> src, @NonNull Class<T> targetType, Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, true, targetType, true, converters, collectionSupplier);
     }
 
@@ -3557,11 +3612,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(@NonNull Collection<S> src, @NonNull Class<T> targetType, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, true, targetType, true, null, collectionSupplier);
     }
 
@@ -3599,11 +3654,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(@NonNull Collection<S> src, @NonNull Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, converters, collectionSupplier);
     }
@@ -3636,11 +3691,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(@NonNull Collection<S> src, @NonNull Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, null, collectionSupplier);
     }
 
@@ -3668,9 +3723,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transformAll(@NonNull S src, @NonNull Class<T> targetType) {
+    public static <S, T> T transformAll(S src, Class<T> targetType) {
         return transform(src, true, targetType, true);
     }
 
@@ -3698,9 +3753,9 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
-    public static <S, T> T transformAll(@NonNull S src, Supplier<T> targetInstanceSupplier) {
+    public static <S, T> T transformAll(S src, Supplier<T> targetInstanceSupplier) {
         return transform(src, true, targetInstanceSupplier, true);
     }
 
@@ -3728,11 +3783,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transformAll(@NonNull S src, @NonNull T target) {
+    public static <S, T> T transformAll(S src, T target) {
         return ObjectTransformer.transform(src, true, target, true, null);
     }
 
@@ -3766,11 +3821,11 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #transform(Object, boolean, Object, boolean)
      */
-    public static <S, T> T transformAll(@NonNull S src, @NonNull T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, true, target, true, converters);
     }
 

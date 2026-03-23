@@ -28,10 +28,18 @@
 */
 package open.commons.core.collection;
 
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
+
+/**
+ * @since 2012. 7. 30.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class StringContainer extends AContainer<String> {
 
     @Override
-    public boolean contains(String container, String contained) {
-        return checkNull(container, contained) && container.contains(contained);
+    public boolean contains(@Nullable String container, @Nullable String contained) {
+        return checkNull(container, contained) && Objects.requireNonNull(container).contains(contained);
     }
 }

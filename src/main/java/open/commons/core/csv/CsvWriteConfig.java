@@ -27,12 +27,16 @@
 package open.commons.core.csv;
 
 import java.nio.charset.Charset;
+import java.util.Objects;
+
+import open.commons.core.utils.CsvUtils;
 
 /**
  * 
  * @since 2022. 3. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class CsvWriteConfig extends CsvCommon {
 
@@ -53,7 +57,7 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -61,7 +65,7 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig() {
-        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, Charset.forName(DEFAULT_CHARSET_NAME));
+        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -77,14 +81,14 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, Charset.forName(DEFAULT_CHARSET_NAME));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -102,13 +106,13 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator, char quotechar) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, Charset.forName(DEFAULT_CHARSET_NAME));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -128,12 +132,12 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator, char quotechar, char escape) {
-        this(separator, quotechar, escape, Charset.forName(DEFAULT_CHARSET_NAME));
+        this(separator, quotechar, escape, CsvUtils.charset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -152,10 +156,14 @@ public class CsvWriteConfig extends CsvCommon {
      *            escape 문자
      * @param charset
      *            파일 Charset
+     * 
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public CsvWriteConfig(char separator, char quotechar, char escape, Charset charset) {
         this(separator, quotechar, escape, DEFAULT_LINE_END, charset);
@@ -181,14 +189,21 @@ public class CsvWriteConfig extends CsvCommon {
      * @param lineEnd
      *            기본 줄바꿈 문자열
      * @param charset
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code lineEnd, charset})가 {@code null}인 경우 발생.
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public CsvWriteConfig(char separator, char quotechar, char escape, String lineEnd, Charset charset) {
         super(separator, quotechar, escape, lineEnd);
-        setCharset(charset);
+
+        Objects.requireNonNull(charset);
+
+        this.charset = charset;
+        this.charsetName = Objects.requireNonNull(charset.displayName());
     }
 
     /**
@@ -205,10 +220,13 @@ public class CsvWriteConfig extends CsvCommon {
      *            문자열로 묶어주는 문자
      * @param charset
      *            파일 Charset
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      */
@@ -229,9 +247,12 @@ public class CsvWriteConfig extends CsvCommon {
      * @param charset
      *            파일 Charset
      *
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
+     * 
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -254,7 +275,7 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #charset
      */
@@ -277,7 +298,7 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #charsetName
      */
@@ -299,15 +320,20 @@ public class CsvWriteConfig extends CsvCommon {
      * @param charset
      *            the charset to set
      *
+     * @throws NullPointerException
+     *             파라미터({@code charset})가 {@code null}인 경우 발생.
+     *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #charset
      */
     public void setCharset(Charset charset) {
+        Objects.requireNonNull(charset);
+
         this.charset = charset;
-        this.charsetName = this.charset.displayName();
+        this.charsetName = Objects.requireNonNull(charset.displayName());
     }
 
     /**
@@ -323,28 +349,34 @@ public class CsvWriteConfig extends CsvCommon {
      * @param charsetName
      *            the charsetName to set
      *
+     * @throws NullPointerException
+     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
+     * 
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see #charsetName
      */
     public void setCharsetName(String charsetName) {
+        Objects.requireNonNull(charsetName);
+
         this.charsetName = charsetName;
-        this.charset = Charset.forName(charsetName);
+        this.charset = CsvUtils.charset(charsetName);
     }
 
     /**
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("CsvWriteConfig [separator=");
         builder.append(separator);
         builder.append(", quotechar=");
@@ -356,6 +388,11 @@ public class CsvWriteConfig extends CsvCommon {
         builder.append(", charsetName=");
         builder.append(charsetName);
         builder.append("]");
-        return builder.toString();
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
 }

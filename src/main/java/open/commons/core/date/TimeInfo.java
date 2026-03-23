@@ -16,46 +16,55 @@
 
 package open.commons.core.date;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.exception.OutOfRangedValue;
 import open.commons.core.utils.StringUtils;
 import open.commons.core.utils.ThreadUtils;
 
 /**
- * <b><code>HHmmssSS</code></b>의 구조를 갖는 시간 정보 클래스. <br>
+ * <b>{@code HHmmssSS}</b>의 구조를 갖는 시간 정보 클래스. <br>
  * 
  * <ul>
- * <li>hour: 0 &le; <b><code>HH</code></b> &le; 99
- * <li>minute 0 &le; <b><code>mm</code></b> &le; 59
- * <li>second 0 &le; <b><code>ss</code></b> &le; 59
- * <li>millisecond 0 &le; <b><code>SS</code></b> &le; 59
+ * <li>hour: 0 &le; <b>{@code HH}</b> &le; 99
+ * <li>minute 0 &le; <b>{@code mm}</b> &le; 59
+ * <li>second 0 &le; <b>{@code ss}</b> &le; 59
+ * <li>millisecond 0 &le; <b>{@code SS}</b> &le; 59
  * </ul>
  * 
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @since 2013. 6. 19.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * 
  */
 public class TimeInfo implements Comparable<TimeInfo> {
 
-    protected final String NAME = getClass().getSimpleName();
-
     public static final int DEFAULT_MIN_DAY = 0x00;
+
     public static final int DEFAULT_MIN_HOUR = 0x00;
     public static final int DEFAULT_MIN_MINUTE = 0x00;
     public static final int DEFAULT_MIN_SECOND = 0x00;
     public static final int DEFAULT_MIN_MILLISECOND = 0x00;
-
     public static final int DEFAULT_MAX_DAY = Integer.MAX_VALUE;
+
     public static final int DEFAULT_MAX_HOUR = 0x18; // 24
     public static final int DEFAULT_MAX_MINUTE = 0x3C; // 59
     public static final int DEFAULT_MAX_SECOND = 0x3C; // 59
     public static final int DEFAULT_MAX_MILLISECOND = 0x03E7; // 999
-
     public static final int FIELD_HOUR = 0x00;
+
     public static final int FIELD_SECOND = 0x02;
     public static final int FIELD_MINUTE = 0x01;
     public static final int FIELD_MILLISECOND = 0x03;
     public static final int FIELD_DAY = 0x04;
+    protected final String NAME = Objects.requireNonNull(
+            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+            getClass().getSimpleName() //
+    );
 
     protected int MIN_DAY = DEFAULT_MIN_DAY;
     protected int MIN_HOUR = DEFAULT_MIN_HOUR;
@@ -86,7 +95,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
     /**
      * 
      * @param second
-     *            0 &le; <b><code>second</code></b> &le; 59
+     *            0 &le; <b>{@code second}</b> &le; 59
      * 
      * @throws IllegalArgumentException
      */
@@ -97,9 +106,9 @@ public class TimeInfo implements Comparable<TimeInfo> {
     /**
      * 
      * @param minute
-     *            0 &le; <b><code>second</code></b> &le; 59
+     *            0 &le; <b>{@code second}</b> &le; 59
      * @param second
-     *            0 &le; <b><code>millisecond</code></b> &le; 59
+     *            0 &le; <b>{@code millisecond}</b> &le; 59
      * @throws IllegalArgumentException
      */
     public TimeInfo(long minute, long second) {
@@ -109,11 +118,11 @@ public class TimeInfo implements Comparable<TimeInfo> {
     /**
      * 
      * @param hour
-     *            0 &le; <b><code>hour</code></b> &le; 99
+     *            0 &le; <b>{@code hour}</b> &le; 99
      * @param minute
-     *            0 &le; <b><code>minute</code></b> &le; 59
+     *            0 &le; <b>{@code minute}</b> &le; 59
      * @param second
-     *            0 &le; <b><code>second</code></b> &le; 59
+     *            0 &le; <b>{@code second}</b> &le; 59
      * @throws IllegalArgumentException
      */
     public TimeInfo(long hour, long minute, long second) {
@@ -123,13 +132,13 @@ public class TimeInfo implements Comparable<TimeInfo> {
     /**
      * 
      * @param hour
-     *            0 &le; <b><code>hour</code></b> &le; 99
+     *            0 &le; <b>{@code hour}</b> &le; 99
      * @param minute
-     *            0 &le; <b><code>minute</code></b> &le; 59
+     *            0 &le; <b>{@code minute}</b> &le; 59
      * @param second
-     *            0 &le; <b><code>second</code></b> &le; 59
+     *            0 &le; <b>{@code second}</b> &le; 59
      * @param millisecond
-     *            0 &le; <b><code>millisecond</code></b> &le; 59
+     *            0 &le; <b>{@code millisecond}</b> &le; 59
      * @throws IllegalArgumentException
      */
     public TimeInfo(long hour, long minute, long second, long millisecond) throws IllegalArgumentException {
@@ -261,7 +270,10 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
-    public int compareTo(TimeInfo o) {
+    public int compareTo(@Nullable TimeInfo o) {
+        if (o == null) {
+            return -1;
+        }
         return numeric() > o.numeric() ? 1 : -1;
     }
 
@@ -270,9 +282,14 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 대소 여부는 {@link #ge(TimeInfo)} 또는 {@link #lt(TimeInfo)}를 이용합니다.
      * 
      * @param other
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code other})가 {@code null}인 경우 발생.
+     * 
      * @return
      */
     public TimeInfo diff(TimeInfo other) {
+        Objects.requireNonNull(other);
 
         long hMs = toMillisecond();
         long oMs = other.toMillisecond();
@@ -285,7 +302,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @param timeInfo
      * @return
      */
-    public <T extends TimeInfo> boolean eq(T timeInfo) {
+    public <T extends TimeInfo> boolean eq(@Nullable T timeInfo) {
         return compareTo(timeInfo) == 0 ? true : false;
     }
 
@@ -300,11 +317,15 @@ public class TimeInfo implements Comparable<TimeInfo> {
             return "0" + v;
         }
 
-        return String.valueOf(v);
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                String.valueOf(v) //
+        );
     }
 
     public String formedValue() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(fit(day));
         sb.append(" day ");
@@ -316,7 +337,11 @@ public class TimeInfo implements Comparable<TimeInfo> {
         sb.append('.');
         sb.append(fit(millisecond));
 
-        return sb.toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                sb.toString() //
+        );
     }
 
     /**
@@ -324,7 +349,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @param timeInfo
      * @return
      */
-    public <T extends TimeInfo> boolean ge(T timeInfo) {
+    public <T extends TimeInfo> boolean ge(@Nullable T timeInfo) {
         return compareTo(timeInfo) < 0 ? false : true;
     }
 
@@ -349,7 +374,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @param timeInfo
      * @return
      */
-    public <T extends TimeInfo> boolean gt(T timeInfo) {
+    public <T extends TimeInfo> boolean gt(@Nullable T timeInfo) {
         return compareTo(timeInfo) > 0 ? true : false;
     }
 
@@ -409,7 +434,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @param timeInfo
      * @return
      */
-    public <T extends TimeInfo> boolean le(T timeInfo) {
+    public <T extends TimeInfo> boolean le(@Nullable T timeInfo) {
         return compareTo(timeInfo) > 0 ? false : true;
     }
 
@@ -418,7 +443,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @param timeInfo
      * @return
      */
-    public <T extends TimeInfo> boolean lt(T timeInfo) {
+    public <T extends TimeInfo> boolean lt(@Nullable T timeInfo) {
         return compareTo(timeInfo) < 0 ? true : false;
     }
 
@@ -541,7 +566,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @return
      */
     public String value() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append(fit(day));
         sb.append(fit(hour));
@@ -549,7 +574,11 @@ public class TimeInfo implements Comparable<TimeInfo> {
         sb.append(fit(second));
         sb.append(fit(millisecond));
 
-        return sb.toString();
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                sb.toString() //
+        );
     }
 
     /**
@@ -570,14 +599,23 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 시간정보 표시 문자열.
      * 
      * @param timeInfo
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code timeInfo})가 {@code null}인 경우 발생.
+     * 
      * @return
      */
     public static TimeInfo createInstance(String timeInfo) {
+        Objects.requireNonNull(timeInfo);
 
         TimeInfo time = null;
 
         if (timeInfo.length() >= 8) {
-            timeInfo = timeInfo.substring(0, 8);
+            timeInfo = Objects.requireNonNull(
+                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                    timeInfo.substring(0, 8) //
+            );
         } else {
             timeInfo = StringUtils.lpad(timeInfo, 8);
         }

@@ -26,8 +26,13 @@
 
 package open.commons.core.concurrent;
 
+import java.util.Objects;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.jspecify.annotations.Nullable;
+
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * JDK 25 환경에 최적화된 ThreadFactory 구현체입니다. *
@@ -40,9 +45,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: SecurityManager 제거 및 Thread.Builder 적용
  * </pre>
  *
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  * @since 2017. 9. 12.
  * @version 3.0.0
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class DefaultThreadFactory implements ThreadFactory {
 
@@ -51,6 +57,7 @@ public class DefaultThreadFactory implements ThreadFactory {
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private final String namePrefix;
     private final ThreadType threadType;
+    @Nullable
     private final ThreadGroup group;
 
     /**
@@ -67,7 +74,7 @@ public class DefaultThreadFactory implements ThreadFactory {
      * @param monitor
      *
      * @since 2017. 9.12
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public DefaultThreadFactory(String monitor) {
         this(monitor, ThreadType.VIRTUAL);
@@ -89,20 +96,31 @@ public class DefaultThreadFactory implements ThreadFactory {
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
+     * 
+     * @throws NullPointerException
+     *             {@code monitor, threadType}가 {@code null}인 경우 발생.
      */
     public DefaultThreadFactory(String monitor, ThreadType threadType) {
+        ObjectUtils.requireNonNulls(monitor, threadType);
+
         this.threadType = threadType;
         this.group = Thread.currentThread().getThreadGroup();
-        this.namePrefix = String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), poolNumber.getAndIncrement());
+        this.namePrefix = Objects.requireNonNull(String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), poolNumber.getAndIncrement()));
     }
 
     /**
      * 
      * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code r})가 {@code null}인 경우 발생.
      */
+    @SuppressWarnings("null")
     @Override
-    public Thread newThread(Runnable r) {
+    public @Nullable Thread newThread(Runnable r) {
+        Objects.requireNonNull(r);
+
         String threadName = namePrefix + threadNumber.getAndIncrement();
 
         return switch (threadType) {

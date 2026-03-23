@@ -61,7 +61,7 @@ import open.commons.core.io.Consumers;
 /**
  * 
  * @since 2019. 8. 8.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * 
  * 
  */
 public class FileUtils {
@@ -99,7 +99,7 @@ public class FileUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean clearDirectory(File dir) {
         if (dir == null || dir.isFile() || dir.list().length < 1) {
@@ -130,7 +130,7 @@ public class FileUtils {
      * @return
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static boolean clearDirectory(String dir) {
         return clearDirectory(new File(dir));
@@ -152,7 +152,7 @@ public class FileUtils {
      * @throws IOException
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static void copyFile(File src, File target) throws IOException {
         Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
@@ -174,7 +174,7 @@ public class FileUtils {
      * @throws IOException
      *
      * @since 2019. 8. 8.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static void copyFile(String src, String target) throws IOException {
         Files.copy(Paths.get(src), Paths.get(target), StandardCopyOption.REPLACE_EXISTING);
@@ -195,7 +195,7 @@ public class FileUtils {
      * @return
      *
      * @since 2020. 11. 5.
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @throws IOException
      * @see Paths#get(String, String...)
      */
@@ -235,9 +235,9 @@ public class FileUtils {
      * @return whether or not a file or directory is deleted.
      * 
      * @exception IllegalArgumentException
-     *                If {@link File} instance is <code>null</code>.
+     *                If {@link File} instance is {@code null}.
      * @since 2012. 03. 13.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static boolean delete(File f, boolean forced) {
         if (f != null) {
@@ -332,10 +332,10 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return file-extension or <code>null</code> if <code>file</code> is <code>null</code> or not a file.
+     * @return file-extension or {@code null} if {@code file} is {@code null} or not a file.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFileExtension(File file) {
         if (file == null) {
@@ -352,10 +352,10 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return file-extension or <code>null</code> if <code>file</code> is <code>null</code>.
+     * @return file-extension or {@code null} if {@code file} is {@code null}.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFileExtension(String file) {
         if (file == null) {
@@ -372,10 +372,10 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return filename or <code>null</code> if <code>file</code> is <code>null</code>.
+     * @return filename or {@code null} if {@code file} is {@code null}.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFileName(String file) {
         if (file == null) {
@@ -391,10 +391,10 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return filename or <code>null</code> if <code>file</code> is <code>null</code>.
+     * @return filename or {@code null} if {@code file} is {@code null}.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFileNameNoExtension(File file) {
         if (file == null) {
@@ -411,10 +411,10 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return filename or <code>null</code> if <code>file</code> is <code>null</code>.
+     * @return filename or {@code null} if {@code file} is {@code null}.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFileNameNoExtension(String file) {
         String filename = getFileName(file);
@@ -431,10 +431,10 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return filepath or <code>null</code> if <code>file</code> is <code>null</code>.
+     * @return filepath or {@code null} if {@code file} is {@code null}.
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFilePath(File file) {
         if (file == null) {
@@ -453,12 +453,12 @@ public class FileUtils {
     /**
      * 
      * @param file
-     * @return filepath or <code>null</code> if <code>file</code> is <code>null</code>.
+     * @return filepath or {@code null} if {@code file} is {@code null}.
      * 
      * @see File#getParent()
      * 
      * @since 2012. 3. 7.
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static String getFilePath(String file) {
         if (file == null) {
@@ -483,11 +483,11 @@ public class FileUtils {
      *            디렉토리 경로
      * @param fileFilters
      *            파일 필터 조건
-     * @return <b><code>nullable</code></b>
+     * @return <b>{@code nullable}</b>
      *
      * @since 2024. 8. 14.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see File#lastModified()
      */
@@ -527,11 +527,11 @@ public class FileUtils {
      *            디렉토리 경로
      * @param fileFilters
      *            파일 필터 조건
-     * @return <b><code>nullable</code></b>
+     * @return <b>{@code nullable}</b>
      *
      * @since 2024. 8. 14.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see File#lastModified()
      */
@@ -609,7 +609,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 8.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
         if (!Files.exists(directory)) {
@@ -655,7 +655,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector) throws IOException {
         try (Stream<Path> stream = Files.list(directory).filter(filter)) {
@@ -680,7 +680,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -707,7 +707,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -732,7 +732,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -759,7 +759,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -784,7 +784,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -811,7 +811,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -840,7 +840,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -870,7 +870,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 18.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      */
     public static Path move(Path source, Path target, CopyOption... options) throws IOException {
         return Files.move(source, target, options);
@@ -896,7 +896,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -925,7 +925,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -954,7 +954,7 @@ public class FileUtils {
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
-     * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+     * 
      * @throws IOException
      * 
      * @see {@link Files#move(Path, Path, CopyOption...)}
@@ -1120,7 +1120,7 @@ public class FileUtils {
 
     public static String toFilepath(String... strings) {
         if (strings.length > 0) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             int i = 0;
             for (; i < strings.length - 1; i++) {
                 sb.append(strings[i] + File.separator);
@@ -1152,7 +1152,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path write(Path filepath, String data, boolean append) throws IOException {
         // 디렉토리 검증
@@ -1195,7 +1195,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path write(Path path, String data, OpenOption... options) throws IOException {
         return Files.write(path, data.getBytes(), options);
@@ -1223,7 +1223,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path write(String dirpath, String filename, String data, boolean append) throws IOException {
         return write(Paths.get(dirpath, filename), data, append);
@@ -1248,7 +1248,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path writeAppend(Path filepath, String data) throws IOException {
         return write(filepath, data, true);
@@ -1272,7 +1272,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path writeAppend(String filepath, String data) throws IOException {
         return write(Paths.get(filepath), data, true);
@@ -1298,7 +1298,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path writeAppend(String dirpath, String filename, String data) throws IOException {
         return write(dirpath, filename, data, true);
@@ -1322,7 +1322,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path writeNew(String filepath, String data) throws IOException {
         return write(Paths.get(filepath), data, false);
@@ -1348,7 +1348,7 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public static Path writeNew(String dirpath, String filename, String data) throws IOException {
         return write(dirpath, filename, data, false);

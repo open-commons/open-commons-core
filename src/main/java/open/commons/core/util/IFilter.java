@@ -27,10 +27,13 @@
 
 package open.commons.core.util;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 
  * @since 2014. 5. 2.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public interface IFilter<T> {
 
@@ -44,14 +47,14 @@ public interface IFilter<T> {
      * 
      * @since 2014. 5. 2.
      */
-    public boolean filter(T target, Object... objects);
+    public boolean filter(@Nullable T target, @Nullable Object @Nullable... objects);
 
     public static class FalseFilter<T> implements IFilter<T> {
         /**
          * @see open.commons.core.util.IFilter#filter(java.lang.Object, Object...)
          */
         @Override
-        public boolean filter(T target, Object... objects) {
+        public boolean filter(@Nullable T target, @Nullable Object @Nullable... objects) {
             return false;
         }
     }
@@ -61,7 +64,7 @@ public interface IFilter<T> {
          * @see open.commons.core.util.IFilter#filter(java.lang.Object, Object...)
          */
         @Override
-        public boolean filter(T target, Object... objects) {
+        public boolean filter(@Nullable T target, @Nullable Object @Nullable... objects) {
             return true;
         }
     }

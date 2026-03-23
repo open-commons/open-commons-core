@@ -35,7 +35,7 @@ import open.commons.core.utils.CsvUtils;
  * 
  * @since 2022. 3. 17.
  * @version _._._
- * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class TestCsvWriteAt {
 
@@ -52,7 +52,7 @@ public class TestCsvWriteAt {
      *
      * @since 2022. 3. 17.
      * @version _._._
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public TestCsvWriteAt() {
     }
@@ -69,14 +69,14 @@ public class TestCsvWriteAt {
 
     static class WriteAtClass {
 
+        @WriteAt(index = 3)
+        public String addr() {
+            return "addr";
+        }
+
         @WriteAt(index = 0)
         public String name() {
             return "name";
-        }
-
-        @WriteAt(index = 1, nullIsEmpty = false)
-        public String nullIsNull() {
-            return null;
         }
 
         @WriteAt(index = 2, nullIsEmpty = true)
@@ -84,9 +84,9 @@ public class TestCsvWriteAt {
             return null;
         }
 
-        @WriteAt(index = 3)
-        public String addr() {
-            return "addr";
+        @WriteAt(index = 1, nullIsEmpty = false)
+        public String nullIsNull() {
+            return null;
         }
     }
 }

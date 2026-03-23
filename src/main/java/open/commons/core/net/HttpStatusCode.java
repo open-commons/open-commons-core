@@ -27,7 +27,10 @@
 
 package open.commons.core.net;
 
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * 
@@ -35,7 +38,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * List_of_HTTP_status_codes</a>
  * 
  * @since 2014. 6. 24.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class HttpStatusCode implements Cloneable {
 
@@ -322,14 +326,6 @@ public class HttpStatusCode implements Cloneable {
 
     private String categoryDesc;
 
-    private HttpStatusCode() {
-        this(Integer.MIN_VALUE, null, null, null, null);
-    }
-
-    private HttpStatusCode(int statusCode, String status) {
-        this(statusCode, status, null, null, null);
-    }
-
     private HttpStatusCode(int statusCode, String status, String desc, String category, String categoryDesc) {
         this.statusCode = statusCode;
         this.status = status;
@@ -343,23 +339,24 @@ public class HttpStatusCode implements Cloneable {
      */
     @Override
     protected Object clone() throws CloneNotSupportedException {
-
-        HttpStatusCode sc = new HttpStatusCode();
-
-        sc.setStatusCode(this.getStatusCode());
-        sc.setStatus(this.getStatus());
-        sc.setDesc(this.getDesc());
-        sc.setCategory(this.category);
-        sc.setCategoryDesc(this.getCategoryDesc());
-
-        return sc;
+        return new HttpStatusCode(//
+                getStatusCode() //
+                , getStatus() //
+                , getDesc() //
+                , getCategory() //
+                , getCategoryDesc() //
+        );
     }
 
     /**
+     *
+     * @since 2026. 3. 19.
+     * @version 3.0.0
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -367,7 +364,6 @@ public class HttpStatusCode implements Cloneable {
         if (getClass() != obj.getClass())
             return false;
         HttpStatusCode other = (HttpStatusCode) obj;
-
         return statusCode == other.statusCode;
     }
 
@@ -422,68 +418,15 @@ public class HttpStatusCode implements Cloneable {
     }
 
     /**
+     *
+     * @since 2026. 3. 19.
+     * @version 3.0.0
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((category == null) ? 0 : category.hashCode());
-        result = prime * result + ((categoryDesc == null) ? 0 : categoryDesc.hashCode());
-        result = prime * result + ((desc == null) ? 0 : desc.hashCode());
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + statusCode;
-        return result;
-    }
-
-    /**
-     * @param category
-     *            the category to set
-     * 
-     * @since 2014. 6. 24.
-     */
-    private void setCategory(String category) {
-        this.category = category;
-    }
-
-    /**
-     * @param categoryDesc
-     *            the categoryDesc to set
-     * 
-     * @since 2014. 6. 24.
-     */
-    private void setCategoryDesc(String categoryDesc) {
-        this.categoryDesc = categoryDesc;
-    }
-
-    /**
-     * @param desc
-     *            the desc to set
-     * 
-     * @since 2014. 6. 24.
-     */
-    private void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    /**
-     * @param status
-     *            the status to set
-     * 
-     * @since 2014. 6. 24.
-     */
-    private void setStatus(String status) {
-        this.status = status;
-    }
-
-    /**
-     * @param statusCode
-     *            the statusCode to set
-     * 
-     * @since 2014. 6. 24.
-     */
-    private void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+        return Objects.hash(statusCode);
     }
 
     /**
@@ -494,7 +437,7 @@ public class HttpStatusCode implements Cloneable {
         return "HttpStatusCodeEntity [statusCode=" + statusCode + ", status=" + status + ", desc=" + desc + ", category=" + category + ", categoryDesc=" + categoryDesc + "]";
     }
 
-    public static HttpStatusCode code(int statusCode) {
+    public static @Nullable HttpStatusCode code(int statusCode) {
         HttpStatusCode sc = httpStatusCodes.get(statusCode);
 
         try {

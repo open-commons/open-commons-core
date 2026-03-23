@@ -26,11 +26,14 @@
 
 package open.commons.core.io;
 
+import java.util.Objects;
+
 /**
  * 
  * @since 2021. 11. 19.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class RandomAccessConfig implements IRandomAccessible {
 
@@ -56,7 +59,7 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public RandomAccessConfig(int position, int length) {
         this(position, length, -1);
@@ -78,7 +81,7 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      */
     public RandomAccessConfig(int position, int length, int nextPosition) {
         this.position = position;
@@ -90,7 +93,7 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.io.IRandomAccessible#getLength()
      */
@@ -103,7 +106,7 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.io.IRandomAccessible#getNextPosition()
      */
@@ -116,7 +119,7 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see open.commons.core.io.IRandomAccessible#getPosition()
      */
@@ -129,13 +132,14 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     * 
      *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
+
         builder.append("RandomAccessConfig [position=");
         builder.append(position);
         builder.append(", length=");
@@ -143,7 +147,12 @@ public class RandomAccessConfig implements IRandomAccessible {
         builder.append(", nextPosition=");
         builder.append(nextPosition);
         builder.append("]");
-        return builder.toString();
+
+        return Objects.requireNonNull(
+                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                builder.toString() //
+        );
     }
 
 }

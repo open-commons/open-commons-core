@@ -42,7 +42,8 @@ import java.util.function.Function;
  *            the type of the result of the function
  * @since 2021. 4. 28.
  * @version 1.8.0
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 @FunctionalInterface
 public interface IOFunction<T, R> {
@@ -57,13 +58,16 @@ public interface IOFunction<T, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
+     * 
      * @throws NullPointerException
-     *             if after is null
+     *             파라미터({@code after})가 {@code null}인 경우 발생.
+     * 
      *
      * @see #compose(Function)
      */
     default <V> IOFunction<T, V> andThen(IOFunction<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
+
         return (T t) -> after.apply(apply(t));
     }
 

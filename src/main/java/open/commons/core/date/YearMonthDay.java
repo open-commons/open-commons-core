@@ -29,14 +29,18 @@ package open.commons.core.date;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
+
+import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.DateUtil;
 
 /**
- * Only <b><code>Year, Month, Day</code></b>
+ * Only <b>{@code Year, Month, Day}</b>
  * 
  * @since 2014. 4. 3.
- * @author Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
  */
 public class YearMonthDay {
 
@@ -60,7 +64,7 @@ public class YearMonthDay {
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(@Nullable Object obj) {
         if (this == obj)
             return true;
         if (obj == null)
@@ -120,13 +124,25 @@ public class YearMonthDay {
         return result;
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
+     */
     public boolean match(Calendar calendar) {
+        Objects.requireNonNull(calendar);
+
         return year == calendar.get(Calendar.YEAR) //
                 && month == calendar.get(Calendar.MONTH) //
                 && day == calendar.get(Calendar.DAY_OF_MONTH); //
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
+     */
     public boolean match(Date date) {
+        Objects.requireNonNull(date);
+
         return match(DateUtil.newCalendar(date));
     }
 
@@ -172,7 +188,12 @@ public class YearMonthDay {
         return "YearMonthDay [year=" + year + ", month=" + month + ", day=" + day + "]";
     }
 
+    /**
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
+     */
     public static YearMonthDay getYMD(Calendar calendar) {
+        Objects.requireNonNull(calendar);
         YearMonthDay ymd = new YearMonthDay();
 
         ymd.year = calendar.get(Calendar.YEAR);
