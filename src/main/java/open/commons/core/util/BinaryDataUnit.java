@@ -151,11 +151,7 @@ public enum BinaryDataUnit {
 
     private BinaryDataUnit(String str, BigDecimal num) {
         this.str = str;
-        this.num = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                num.setScale(10, RoundingMode.HALF_UP) //
-        );
+        this.num = num.setScale(10, RoundingMode.HALF_UP);
     }
 
     /**
@@ -322,11 +318,7 @@ public enum BinaryDataUnit {
      */
     @Override
     public String toString() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                String.join(":", name(), this.str, this.num.toString()) //
-        );
+        return String.join(":", name(), this.str, this.num.toString());
     }
 
     /**

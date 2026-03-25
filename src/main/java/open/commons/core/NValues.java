@@ -155,7 +155,7 @@ public class NValues {
             sb.append(values[i]);
         }
 
-        return Objects.requireNonNull(sb.toString());
+        return sb.toString();
     }
 
 }

@@ -48,6 +48,7 @@ import open.commons.core.utils.ObjectUtils;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
+@SuppressWarnings("null")
 public enum PrefixDataUnit {
     /**
      * base = 1<br>
@@ -56,10 +57,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@code null}
      * </ul>
      */
-    BASE("", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(0)//
-    )),
+    BASE("", BigDecimal.valueOf(10).pow(0)),
     /**
      * <b>K</b>ilo, K = 10 ^ 3<br>
      * <ul>
@@ -67,10 +65,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #BASE}
      * </ul>
      */
-    KILO("K", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(3)//
-    )),
+    KILO("K", BigDecimal.valueOf(10).pow(3)),
     /**
      * <b>M</b>ega, M = 10 ^ 6<br>
      * <ul>
@@ -78,10 +73,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #KILO}
      * </ul>
      */
-    MEGA("M", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(6)//
-    )),
+    MEGA("M", BigDecimal.valueOf(10).pow(6)),
     /**
      * <b>G</b>iga, G = 10 ^ 9<br>
      * <ul>
@@ -89,10 +81,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #MEGA}
      * </ul>
      */
-    GIGA("G", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(9)//
-    )),
+    GIGA("G", BigDecimal.valueOf(10).pow(9)),
     /**
      * <b>T</b>era, T = 10 ^ 12<br>
      * <ul>
@@ -100,10 +89,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #GIGA}
      * </ul>
      */
-    TERA("T", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(12)//
-    )),
+    TERA("T", BigDecimal.valueOf(10).pow(12)),
     /**
      * <b>P</b>eta, P = 10 ^ 15<br>
      * <ul>
@@ -111,10 +97,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #TERA}
      * </ul>
      */
-    PETA("P", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(15)//
-    )),
+    PETA("P", BigDecimal.valueOf(10).pow(15)),
     /**
      * <b>E</b>xa, E = 10 ^ 18<br>
      * <ul>
@@ -122,10 +105,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #PETA}
      * </ul>
      */
-    EXA("E", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(18)//
-    )),
+    EXA("E", BigDecimal.valueOf(10).pow(18)),
     /**
      * <b>Z</b>etta, Z = 10 ^ 21<br>
      * <ul>
@@ -133,10 +113,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #EXA}
      * </ul>
      */
-    ZETTA("Z", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(21)//
-    )),
+    ZETTA("Z", BigDecimal.valueOf(10).pow(21)),
     /**
      * <b>Y</b>otta, Y = 10 ^ 24<br>
      * <ul>
@@ -144,10 +121,7 @@ public enum PrefixDataUnit {
      * <li>DOWN: {@link #ZETTA}
      * </ul>
      */
-    YOTTA("Y", Objects.requireNonNull(// [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            BigDecimal.valueOf(10).pow(24)//
-    )),
+    YOTTA("Y", BigDecimal.valueOf(10).pow(24)),
     //
     ;
 
@@ -159,19 +133,11 @@ public enum PrefixDataUnit {
         List<PrefixDataUnit> units = Arrays.asList(values());
         // 오름차순
         Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num));
-        BOTTOM_UP = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                Collections.unmodifiableList(units) //
-        );
+        BOTTOM_UP = Collections.unmodifiableList(units);
         // 내림차순
         units = Arrays.asList(values());
         Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num) * -1);
-        TOP_DOWN = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                Collections.unmodifiableList(units) //
-        );
+        TOP_DOWN = Collections.unmodifiableList(units);
     }
 
     /** 표기 문자열 */
@@ -182,11 +148,7 @@ public enum PrefixDataUnit {
     private PrefixDataUnit(String str, BigDecimal num) {
 
         this.str = str;
-        this.num = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                num.setScale(10, RoundingMode.HALF_UP) //
-        );
+        this.num = num.setScale(10, RoundingMode.HALF_UP);
     }
 
     /**
@@ -217,11 +179,7 @@ public enum PrefixDataUnit {
     public BigDecimal convert(long size, PrefixDataUnit unit) {
         Objects.requireNonNull(unit);
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                convert(size, unit, false)[0] //
-        );
+        return convert(size, unit, false)[0];
     }
 
     /**
@@ -310,11 +268,7 @@ public enum PrefixDataUnit {
 
         converted.add(bytes.divide(units.get(i).num));
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                converted.toArray(new BigDecimal[0]) //
-        );
+        return converted.toArray(new BigDecimal[0]);
     }
 
     /**
@@ -366,11 +320,7 @@ public enum PrefixDataUnit {
      */
     @Override
     public String toString() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                String.join(":", name(), this.str, this.num.toString()) //
-        );
+        return String.join(":", name(), this.str, this.num.toString());
     }
 
     /**

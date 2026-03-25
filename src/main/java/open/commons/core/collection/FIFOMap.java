@@ -190,6 +190,11 @@ public class FIFOMap<K, V> implements Map<K, V> {
         return this.orderedKeys.size();
     }
 
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         Iterator<Entry<K, V>> itr = entrySet().iterator();
@@ -221,7 +226,7 @@ public class FIFOMap<K, V> implements Map<K, V> {
 
         sb.append('}');
 
-        return Objects.requireNonNull(sb.toString());
+        return sb.toString();
     }
 
     @Override

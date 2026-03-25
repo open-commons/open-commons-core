@@ -133,13 +133,14 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @see java.lang.CharSequence#subSequence(int, int)
      */
+    // 아래 내용에 적용됨.
+    // - string().subSequence(start, end)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public CharSequence subSequence(int start, int end) {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                string().subSequence(start, end) //
-        );
+        return string().subSequence(start, end);
     }
 
     /**

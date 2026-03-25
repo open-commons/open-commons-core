@@ -65,11 +65,12 @@ import open.commons.core.stream.ClassSpliterator;
  */
 public class ObjectUtils {
 
-    static final Logger LOGGER = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            LoggerFactory.getLogger(ObjectUtils.class) //
-    );
+    // 아래 내용에 적용됨.
+    // - LoggerFactory.getLogger(...)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
 
     private static final Function<Object, Short> shortFunction = o -> Short.parseShort(o.toString());
     private static final Function<Object, Byte> byteFunction = o -> Byte.parseByte(o.toString());

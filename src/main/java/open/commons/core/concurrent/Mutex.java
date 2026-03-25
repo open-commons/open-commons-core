@@ -26,8 +26,6 @@
 */
 package open.commons.core.concurrent;
 
-import java.util.Objects;
-
 /**
  * Mutual Exclusive Object with a name.
  * 
@@ -40,11 +38,12 @@ public final class Mutex {
     /**
      * Simple Class Name
      */
-    public static final String SCN = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Mutex.class.getSimpleName() //
-    );
+    // 아래 내용에 적용됨.
+    // - Mutex.class.getSimpleName()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static final String SCN = Mutex.class.getSimpleName();
 
     public final Object mutex = new Object();
     public final String name;

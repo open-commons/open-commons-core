@@ -36,8 +36,8 @@ import org.jspecify.annotations.Nullable;
  * 
  */
 @FunctionalInterface
-public interface IEquivalent<T> {
+public interface IEquivalent<T extends @Nullable Object> {
 
-    public boolean equals(@Nullable T t1, @Nullable T t2);
+    public boolean equals(T t1, T t2);
 
 }

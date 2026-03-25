@@ -19,8 +19,6 @@
 */
 package open.commons.core.prog;
 
-import java.util.Objects;
-
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.ObjectUtils;
@@ -41,14 +39,15 @@ public class StrLenRvrOrderingEntry implements Comparable<StrLenRvrOrderingEntry
 
     private final String value;
 
+    // 아래 내용에 적용됨.
+    // - key = k.trim();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public StrLenRvrOrderingEntry(String k, String v) {
         ObjectUtils.requireNonNulls(k, v);
 
-        key = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                k.trim() //
-        );
+        key = k.trim();
         len = k.length();
 
         value = v;

@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import org.jspecify.annotations.Nullable;
@@ -88,6 +87,11 @@ public class FileExtensionInclusive implements FileFilter {
      * 
      * @see java.io.FileFilter#accept(java.io.File)
      */
+    // 아래 내용에 적용됨.
+    // - return StringUtils.endsWithOneOf(pathname.getName(), extensioins.toArray(String[]::new));
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public boolean accept(@Nullable File pathname) {
         if (pathname == null) {
@@ -97,13 +101,7 @@ public class FileExtensionInclusive implements FileFilter {
         if (!pathname.isFile()) {
             return false;
         } else {
-            return StringUtils.endsWithOneOf(Objects.requireNonNull( //
-                    pathname.getName() //
-            ), Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    extensioins.toArray(String[]::new) //
-            ));
+            return StringUtils.endsWithOneOf(pathname.getName(), extensioins.toArray(String[]::new));
         }
     }
 

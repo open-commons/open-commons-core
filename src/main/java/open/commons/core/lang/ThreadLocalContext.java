@@ -108,13 +108,14 @@ public class ThreadLocalContext implements IThreadLocalContext {
      *
      * @see open.commons.core.lang.IThreadLocalContext#context()
      */
+    // 아래 내용에 적용됨.
+    // - Collections.unmodifiableMap(get0())
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public Map<Object, Object> context() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                Collections.unmodifiableMap(get0()) //
-        );
+        return Collections.unmodifiableMap(get0());
     }
 
     /**
@@ -130,12 +131,13 @@ public class ThreadLocalContext implements IThreadLocalContext {
         return get0().get(key);
     }
 
+    // 아래 내용에 적용됨.
+    // - this.context.get()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private Map<Object, Object> get0() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                this.context.get() //
-        );
+        return this.context.get();
     }
 
     /**

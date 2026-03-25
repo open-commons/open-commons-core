@@ -36,7 +36,7 @@ import org.jspecify.annotations.Nullable;
  * @since 2012. 7. 30
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public abstract class AContainer<T> implements IContainer<T> {
+public abstract class AContainer<T extends @Nullable Object> implements IContainer<T> {
 
     /**
      * 두 객체에 대한 {@code null} 확인 결과를 반환합니다.<br>
@@ -45,7 +45,7 @@ public abstract class AContainer<T> implements IContainer<T> {
      * @param contained
      * @return
      */
-    protected boolean checkNull(@Nullable T container, @Nullable T contained) {
+    protected boolean checkNull( T container, T contained) {
 
         // 1. 'null' cannot contain anything.
         // 2. 'not-null object' does not contain 'null'. - [Park Jun-Hong]: 2012. 7. 30.

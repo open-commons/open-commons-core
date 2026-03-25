@@ -687,8 +687,7 @@ public class StreamUtils {
 
     /**
      * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
-     * <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다. <br>
      * <br>
      * 
      * <pre>
@@ -852,8 +851,7 @@ public class StreamUtils {
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U)
-     * 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
      *
      * <pre>
      * [개정이력]
@@ -947,8 +945,7 @@ public class StreamUtils {
 
     /**
      * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다.
-     * <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다. <br>
      * <br>
      * 
      * <pre>
@@ -991,21 +988,9 @@ public class StreamUtils {
                 .filter(filter) //
                 .collect( //
                         Collectors.toMap( //
-                                v -> Objects.requireNonNull(
-                                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                                        keyMapper.apply(v) // V -@-> K
-                                        , "keyMapper returned 'null'") //
-                                , v -> Objects.requireNonNull(
-                                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                                        valueFunction.apply(v) // V => U
-                                        , "valueFunction returned 'null'") //
-                                , (a, b) -> Objects.requireNonNull(
-                                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                                        mergeFunction.apply(a, b) // U + U => U
-                                        , "mergeFunction returned 'null'") //
+                                v -> keyMapper.apply(v) // V -@-> K
+                                , v -> valueFunction.apply(v) // V => U
+                                , (a, b) -> mergeFunction.apply(a, b) // U + U => U
                                 , mapSupplier) //
                 );
     }

@@ -1,3 +1,8 @@
+[2026/03/25]
+- Updated
+  + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
+    + open.commons.core.utils.AnnotationUtils 까지 완료
+
 [2026/03/23]
 - Migration JDK 1.8 to JDK 25
   + @org.jspecify.annotations.NullMarked 적용 및 대응 코드 추가

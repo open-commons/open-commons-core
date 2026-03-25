@@ -39,12 +39,12 @@ import org.jspecify.annotations.Nullable;
  */
 public class EquivalentFactory {
 
-    private static final IEquivalent<?> DEFAULT_EQUIV = new DefaultEquivalent<Object>();
+    private static final IEquivalent<?> DEFAULT_EQUIV = new DefaultEquivalent<@Nullable Object>();
 
     /**
      * boolean 으로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<boolean[]> booleanEquiv = new IEquivalent<boolean[]>() {
+    private static final IEquivalent<boolean @Nullable []> booleanEquiv = new IEquivalent<boolean @Nullable []>() {
 
         @Override
         public boolean equals(boolean @Nullable [] t1, boolean @Nullable [] t2) {
@@ -72,7 +72,7 @@ public class EquivalentFactory {
     /**
      * byte 로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<byte[]> byteEquiv = new IEquivalent<byte[]>() {
+    private static final IEquivalent<byte @Nullable []> byteEquiv = new IEquivalent<byte @Nullable []>() {
 
         @Override
         public boolean equals(byte @Nullable [] t1, byte @Nullable [] t2) {
@@ -100,7 +100,7 @@ public class EquivalentFactory {
     /**
      * char 로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<char[]> charEquiv = new IEquivalent<char[]>() {
+    private static final IEquivalent<char @Nullable []> charEquiv = new IEquivalent<char @Nullable []>() {
 
         @Override
         public boolean equals(char @Nullable [] t1, char @Nullable [] t2) {
@@ -128,7 +128,7 @@ public class EquivalentFactory {
     /**
      * double 로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<double[]> doubleEquiv = new IEquivalent<double[]>() {
+    private static final IEquivalent<double @Nullable []> doubleEquiv = new IEquivalent<double @Nullable []>() {
 
         @Override
         public boolean equals(double @Nullable [] t1, double @Nullable [] t2) {
@@ -158,7 +158,7 @@ public class EquivalentFactory {
     /**
      * float 으로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<float[]> floatEquiv = new IEquivalent<float[]>() {
+    private static final IEquivalent<float @Nullable []> floatEquiv = new IEquivalent<float @Nullable []>() {
 
         @Override
         public boolean equals(float @Nullable [] t1, float @Nullable [] t2) {
@@ -186,7 +186,7 @@ public class EquivalentFactory {
     /**
      * int 로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<int[]> intEquiv = new IEquivalent<int[]>() {
+    private static final IEquivalent<int @Nullable []> intEquiv = new IEquivalent<int @Nullable []>() {
 
         @Override
         public boolean equals(int @Nullable [] t1, int @Nullable [] t2) {
@@ -214,7 +214,7 @@ public class EquivalentFactory {
     /**
      * long 으로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<long[]> longEquiv = new IEquivalent<long[]>() {
+    private static final IEquivalent<long @Nullable []> longEquiv = new IEquivalent<long @Nullable []>() {
 
         @Override
         public boolean equals(long @Nullable [] t1, long @Nullable [] t2) {
@@ -242,7 +242,7 @@ public class EquivalentFactory {
     /**
      * short로 이루어진 배열들을 이루는 값들이 동일한 인덱스에 해당하는 값들끼리 모두 동일한지를 비교해준다.
      */
-    private static final IEquivalent<short[]> shortEquiv = new IEquivalent<short[]>() {
+    private static final IEquivalent<short @Nullable []> shortEquiv = new IEquivalent<short @Nullable []>() {
 
         @Override
         public boolean equals(short @Nullable [] t1, short @Nullable [] t2) {
@@ -368,8 +368,7 @@ public class EquivalentFactory {
      * @since 2012. 03. 22.
      * 
      */
-    public static IEquivalent<int[]> intArrayEquiv() {
-
+    public static IEquivalent<int @Nullable []> intArrayEquiv() {
         return intEquiv;
     }
 
@@ -380,8 +379,7 @@ public class EquivalentFactory {
      * @since 2012. 03. 22.
      * 
      */
-    public static IEquivalent<long[]> longArrayEquiv() {
-
+    public static IEquivalent<long @Nullable []> longArrayEquiv() {
         return longEquiv;
     }
 

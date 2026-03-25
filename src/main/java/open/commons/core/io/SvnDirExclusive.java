@@ -35,7 +35,6 @@ import org.jspecify.annotations.Nullable;
 public class SvnDirExclusive implements FileFilter {
 
     /**
-     * 
      * @see java.io.FileFilter#accept(java.io.File)
      */
     @Override

@@ -29,7 +29,6 @@ package open.commons.core.log4j.appender;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.Deflater;
@@ -326,6 +325,12 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
         @PluginBuilderAttribute
         private @Nullable String fileGroup;
 
+        // 아래 내용에 적용됨.
+        // - return new ProcessRollingFileAppender(getName(), layout, ...);
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
+
         @Override
         public @Nullable ProcessRollingFileAppender build() {
             // Even though some variables may be annotated with @Required, we must still perform validation here for
@@ -367,13 +372,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             updateFilePattern(PROCESS_CONTEXT, PROCESS_CONTEXT_HOLDER);
             // start - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
             CUSTOM_CONTEXT_CONFIG.forEach((ctx, holder) -> {
-                updateFilename(Objects.requireNonNull( //
-                        ctx //
-                ), Objects.requireNonNull(
-                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                        holder //
-                ));
+                updateFilename(ctx, holder);
                 updateFilePattern(ctx, holder);
             });
             // end - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
@@ -387,13 +386,8 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
 
             manager.initialize();
 
-            return new ProcessRollingFileAppender(Objects.requireNonNull( //
-                    getName() //
-            ), Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    layout //
-            ), getFilter(), manager, fileName, filePattern, isIgnoreExceptions(), isImmediateFlush(), advertise ? getConfiguration().getAdvertiser() : null);
+            return new ProcessRollingFileAppender(getName(), layout, getFilter(), manager, fileName, filePattern, isIgnoreExceptions(), isImmediateFlush(),
+                    advertise ? getConfiguration().getAdvertiser() : null);
         }
 
         public @Nullable String getAdvertiseUri() {

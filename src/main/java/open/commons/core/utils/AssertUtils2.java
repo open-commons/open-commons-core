@@ -58,16 +58,18 @@ public class AssertUtils2 {
     private AssertUtils2() {
     }
 
+    // 아래 내용에 적용됨.
+    // - cons.newInstance(msg)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static void assert0(@Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) throws RuntimeException {
         try {
             Constructor<? extends RuntimeException> cons = exClass != null //
                     ? exClass.getConstructor(String.class) //
                     : AssertionException.class.getConstructor(String.class);
-            throw Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    cons.newInstance(msg) //
-            );
+            throw cons.newInstance(msg) //
+            ;
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         } catch (InstantiationException e) {

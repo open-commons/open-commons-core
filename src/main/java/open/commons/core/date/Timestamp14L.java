@@ -49,11 +49,12 @@ import open.commons.core.utils.StringUtils;
  */
 public class Timestamp14L implements Comparable<Timestamp14L> {
 
-    private static final String CLASS = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Timestamp14L.class.getSimpleName() //
-    );
+    // 아래 내용에 적용됨.
+    // - Timestamp14L.class.getSimpleName()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static final String CLASS = Timestamp14L.class.getSimpleName();
 
     private static final int DATEINFO_LENGTH = 6;
 
@@ -76,11 +77,12 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     ;
 
     private SimpleDateFormat sdf = new SimpleDateFormat(format);
-    private Pattern regexPattern = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Pattern.compile(regex) //
-    );
+    // 아래 내용에 적용됨.
+    // - Pattern.compile(regex)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private Pattern regexPattern = Pattern.compile(regex);
 
     private String year = "0";
 
@@ -170,27 +172,22 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
         return rtnValue;
     }
 
+    // 아래 내용에 적용됨.
+    // - return getCalendar().getTime();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private Date createDatetime(String datetime) {
-        String @Nullable [] dateinfo = match(datetime);
+        String[] dateinfo = match(datetime);
 
-        if (dateinfo != null) {
-            year = dateinfo[YEAR];
-            month = dateinfo[MONTH];
-            day = dateinfo[DAY_OF_YEAR];
-            hour = dateinfo[HOUR_OF_DAY];
-            min = dateinfo[MINUTE];
-            sec = dateinfo[SECOND];
+        this.year = dateinfo[YEAR];
+        this.month = dateinfo[MONTH];
+        this.day = dateinfo[DAY_OF_YEAR];
+        this.hour = dateinfo[HOUR_OF_DAY];
+        this.min = dateinfo[MINUTE];
+        this.sec = dateinfo[SECOND];
 
-            return Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    getCalendar().getTime() //
-            );
-
-        } else {
-            throw new IllegalArgumentException("14자리로된 숫자 정보만 입력 가능합니다. datetime: " + datetime);
-        }
+        return getCalendar().getTime();
     }
 
     public String dateString() {
@@ -388,20 +385,21 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
         return Objects.hash(day, hour, min, month, sec, year);
     }
 
-    private String @Nullable [] match(String datetime) {
-        String @Nullable [] rtnValue = null;
+    private String[] match(String datetime) {
 
         Matcher m = regexPattern.matcher(datetime);
 
         if (m.matches() && m.groupCount() == DATEINFO_LENGTH) {
-            rtnValue = new String[DATEINFO_LENGTH];
+            String[] rtnValue = new String[DATEINFO_LENGTH];
 
             for (int i = 1; i < DATEINFO_LENGTH + 1; i++) {
                 rtnValue[i - 1] = m.group(i);
             }
+
+            return rtnValue;
         }
 
-        return rtnValue;
+        throw new IllegalArgumentException("14자리로된 숫자 정보만 입력 가능합니다. datetime: " + datetime);
     }
 
     /**
@@ -459,11 +457,12 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     }
 
     public static class TimeValue3L {
-        private static final String CLASS = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                TimeValue3L.class.getSimpleName() //
-        );
+        // 아래 내용에 적용됨.
+        // - TimeValue3L.class.getSimpleName()
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
+        private static final String CLASS = TimeValue3L.class.getSimpleName();
 
         private static final String regex = "(\\d*)" // day
                 + "([0-1]\\d{1}|2[0-4])" // hour
@@ -478,11 +477,12 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
         public static final int MINUTE = 0x02;
         public static final int SECOND = 0x03;
 
-        private final Pattern regexPattern = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                Pattern.compile(regex) //
-        );
+        // 아래 내용에 적용됨.
+        // - Pattern.compile(regex)
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
+        private final Pattern regexPattern = Pattern.compile(regex);
 
         private int sign = 0;
 

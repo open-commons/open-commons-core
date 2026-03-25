@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Park Jun-Hong (parkjunhong77@gmail.com)
+ * Copyright 2026 Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,47 +18,46 @@
  *
  * This file is generated under this project, "open-commons-core".
  *
- * Date  : 2019. 2. 19. 오전 11:53:15
+ * Date  : 2026. 3. 25. 오후 1:48:50
  *
- * Author: Park_Jun_Hong_(parkjunhong77@gmail.com)
+ * Author: Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 
-package open.commons.core.lang;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package open.commons.core.utils;
 
 /**
- * 자원을 자동으로 해제하는 클래스.
  * 
- * <br>
- * 
- * <pre>
- * [개정이력]
- *      날짜      | 작성자   |   내용
- * ------------------------------------------
- * xxxx.xx.xx       xxx         최초작성
- * 2019. 10. 17.        parkjunohng77@gmail.com         Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
- * </pre>
- * 
- * @since 2019. 2. 19.
+ * @since 2026. 3. 25.
+ * @version 3.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
-public class AbstractCloseable implements CloseableContainer {
+public class ClassUtils {
+
+    /**
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 25.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     *
+     * @since 2026. 3. 25.
+     * @version 3.0.0
+     */
+    private ClassUtils() {
+    }
 
     // 아래 내용에 적용됨.
-    // - LoggerFactory.getLogger(getClass())
+    // - clazz.getSimpleName();
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    protected Logger logger = LoggerFactory.getLogger(getClass());
-
-    /**
-     * 
-     * @since 2019. 2. 19.
-     */
-    public AbstractCloseable() {
+    public static String getSimpleName(Class<?> clazz) {
+        return clazz.getSimpleName();
     }
+
 }

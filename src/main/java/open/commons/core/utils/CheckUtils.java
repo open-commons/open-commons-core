@@ -105,7 +105,7 @@ public class CheckUtils {
      * @since 2012. 03. 21.
      * 
      */
-    public static <T> boolean equals(T t1, T t2) {
+    public static <T extends @Nullable Object> boolean equals(T t1, T t2) {
         return equals(t1, t2, null);
     }
 
@@ -118,7 +118,7 @@ public class CheckUtils {
      * @since 2012. 03. 21.
      * 
      */
-    public static <T> boolean equals(T t1, T t2, IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> boolean equals(T t1, T t2, @Nullable IEquivalent<T> equivalent) {
 
         if (equivalent == null) {
             equivalent = new DefaultEquivalent<T>();

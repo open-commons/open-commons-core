@@ -38,6 +38,7 @@ import org.jspecify.annotations.Nullable;
 
 import open.commons.core.concurrent.Mutex;
 import open.commons.core.utils.AssertUtils2;
+import open.commons.core.utils.ClassUtils;
 import open.commons.core.utils.ConvertUtils;
 import open.commons.core.utils.ObjectUtils;
 
@@ -51,11 +52,7 @@ import open.commons.core.utils.ObjectUtils;
  */
 public class GenericTypeVariable implements Cloneable {
 
-    protected final String SCN = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            getClass().getSimpleName() //
-    );
+    protected final String SCN = ClassUtils.getSimpleName(getClass());
 
     /** 클래스 생성시 실제 적용된 Generic Parameter Class */
     private Class<?> typeClass;
@@ -143,6 +140,11 @@ public class GenericTypeVariable implements Cloneable {
         return clone;
     }
 
+    // 아래 내용에 적용됨.
+    // - return Collections.unmodifiableList(gpts);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public List<GenericTypeVariable> getGenericTypeVars() {
 
         synchronized (mutex) {
@@ -152,11 +154,7 @@ public class GenericTypeVariable implements Cloneable {
                 gpts.add(gpt);
             }
 
-            return Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    Collections.unmodifiableList(gpts) //
-            );
+            return Collections.unmodifiableList(gpts);
         }
     }
 
@@ -189,6 +187,11 @@ public class GenericTypeVariable implements Cloneable {
         this.typeVarName = genericName;
     }
 
+    // 아래 내용에 적용됨.
+    // - return sb.toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -202,11 +205,7 @@ public class GenericTypeVariable implements Cloneable {
         sb.append(genericTypeVars);
         sb.append(']');
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                sb.toString() //
-        );
+        return sb.toString();
     }
 
     /**

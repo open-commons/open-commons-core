@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.exception.OutOfRangedValue;
+import open.commons.core.utils.ClassUtils;
 import open.commons.core.utils.StringUtils;
 import open.commons.core.utils.ThreadUtils;
 
@@ -60,11 +61,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
     public static final int FIELD_MINUTE = 0x01;
     public static final int FIELD_MILLISECOND = 0x03;
     public static final int FIELD_DAY = 0x04;
-    protected final String NAME = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            getClass().getSimpleName() //
-    );
+
+    protected final String NAME = ClassUtils.getSimpleName(getClass());
 
     protected int MIN_DAY = DEFAULT_MIN_DAY;
     protected int MIN_HOUR = DEFAULT_MIN_HOUR;
@@ -312,18 +310,24 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @param v
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - return String.valueOf(v);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     protected final String fit(long v) {
         if (v < 10) {
             return "0" + v;
         }
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                String.valueOf(v) //
-        );
+        return String.valueOf(v);
     }
 
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String formedValue() {
         StringBuilder sb = new StringBuilder();
 
@@ -337,11 +341,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
         sb.append('.');
         sb.append(fit(millisecond));
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                sb.toString() //
-        );
+        return sb.toString();
     }
 
     /**
@@ -565,6 +565,11 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String value() {
         StringBuilder sb = new StringBuilder();
 
@@ -574,11 +579,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
         sb.append(fit(second));
         sb.append(fit(millisecond));
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                sb.toString() //
-        );
+        return sb.toString();
     }
 
     /**
@@ -605,17 +606,18 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - timeInfo = timeInfo.substring(0, 8);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static TimeInfo createInstance(String timeInfo) {
         Objects.requireNonNull(timeInfo);
 
         TimeInfo time = null;
 
         if (timeInfo.length() >= 8) {
-            timeInfo = Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    timeInfo.substring(0, 8) //
-            );
+            timeInfo = timeInfo.substring(0, 8);
         } else {
             timeInfo = StringUtils.lpad(timeInfo, 8);
         }

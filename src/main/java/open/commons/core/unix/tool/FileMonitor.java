@@ -136,7 +136,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         sb.append("              Default is infinite.\n");
         sb.append(" -vd        : set enable directory verbose.\n");
 
-        HELP_MESSAGE = Objects.requireNonNull(sb.toString());
+        HELP_MESSAGE = Objects.requireNonNull(
+                // [PATCH] JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
+                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
+                sb.toString() //
+        );
     }
 
     static String vfLength = "";
@@ -374,13 +378,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @see open.commons.core.unix.tool.IFileModifyListener#name()
      */
+    // 아래 내용에 적용됨.
+    // - toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String name() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                toString() //
-        );
+        return toString();
+
     }
 
     /**
@@ -555,6 +561,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *      {@link #registerDirectory(boolean, File...)}<br>
      *      {@link #registerFile(boolean, File...)}
      */
+    // 아래 내용에 적용됨.
+    // - subFiles.toArray(new File[0])
+    // - subDirs.toArray(new File[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void registerDirectory(File directory, boolean recursive) throws IOException {
         Objects.requireNonNull(directory);
 
@@ -592,19 +604,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         });
 
         // files
-        registerFile(false, Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                subFiles.toArray(new File[0]) //
-        ));
+        registerFile(false, subFiles.toArray(new File[0]));
 
         // directories
         if (recursive) {
-            registerDirectory(true, Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    subDirs.toArray(new File[0]) //
-            ));
+            registerDirectory(true, subDirs.toArray(new File[0]));
         }
     }
 
@@ -1139,6 +1143,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *      {@link #unregisterDirectory(boolean, File...)}<br>
      *      {@link #unregisterFile(File...)}
      */
+    // 아래 내용에 적용됨.
+    // - subDirs.toArray(new File[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void unregisterDirectory(File directory, boolean recursive) throws FileNotFoundException {
         Objects.requireNonNull(directory);
 
@@ -1174,11 +1183,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         ));
 
         if (recursive) {
-            unregisterDirectory(true, Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    subDirs.toArray(new File[0]) //
-            ));
+            unregisterDirectory(true, subDirs.toArray(new File[0]));
         }
     }
 

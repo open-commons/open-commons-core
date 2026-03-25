@@ -27,6 +27,7 @@ package open.commons.core.io;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -34,7 +35,6 @@ import java.util.Set;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.concurrent.Mutex;
-import open.commons.core.utils.ArrayUtils;
 
 /**
  * 
@@ -156,12 +156,13 @@ public class FileRecursiveHandler {
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - logpool.toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public final String errorLog() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                logpool.toString() //
-        );
+        return logpool.toString();
     }
 
     public long getDirCount() {
@@ -225,8 +226,8 @@ public class FileRecursiveHandler {
             }
         }
 
-        subfiles = ArrayUtils.copyOf(subfiles, i);
-        subdirs = ArrayUtils.copyOf(subdirs, j);
+        subfiles = Arrays.copyOf(subfiles, i);
+        subdirs = Arrays.copyOf(subdirs, j);
 
         for (File $file : subfiles) {
             if ($file != null) {

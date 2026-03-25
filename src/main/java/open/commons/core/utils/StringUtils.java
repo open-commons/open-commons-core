@@ -179,7 +179,7 @@ public class StringUtils {
              * 'index'가 찾고자 하는 문자가 존재하는 경우만 증가되었기 때문이다.
              * 
              */
-            result = ArrayUtils.copyOf(result, index);
+            result = Arrays.copyOf(result, index);
 
             backwarding(result, string.length());
 
@@ -1478,7 +1478,7 @@ public class StringUtils {
             if (result.length == index) {
                 return result;
             } else {
-                return ArrayUtils.copyOf(result, index);
+                return Arrays.copyOf(result, index);
             }
         }
     }

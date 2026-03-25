@@ -50,23 +50,26 @@ public class SubNetwork {
     private static final String CIDR_NOTATION = REGEX_IPV4 + "\\s*/\\s*([1-9]|[1-2][0-9]|3[0-2])\\s*";
 
     protected static final String TO_STRING_FORMAT = "%-10s: %-35s / %s";
-    private static final Pattern PATTERN_IPV4 = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Pattern.compile(REGEX_IPV4) //
-    );
-    @SuppressWarnings("unused")
-    private static final Pattern PATTERN_IPV4_STRICT = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Pattern.compile(REGEX_IPV4_STRICT) //
-    );
+    // 아래 내용에 적용됨.
+    // - Pattern.compile(REGEX_IPV4)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static final Pattern PATTERN_IPV4 = Pattern.compile(REGEX_IPV4);
 
-    private static final Pattern PATTERN_CIDR_NOTATION = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Pattern.compile(CIDR_NOTATION) //
-    );
+    // 아래 내용에 적용됨.
+    // - Pattern.compile(REGEX_IPV4_STRICT)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings({ "unused", "null" })
+    private static final Pattern PATTERN_IPV4_STRICT = Pattern.compile(REGEX_IPV4_STRICT);
+
+    // 아래 내용에 적용됨.
+    // - Pattern.compile(CIDR_NOTATION)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static final Pattern PATTERN_CIDR_NOTATION = Pattern.compile(CIDR_NOTATION);
 
     private String ipv4;
     private String netmask;
@@ -331,29 +334,35 @@ public class SubNetwork {
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
-        StringBuilder toString = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        toString.append(String.format(TO_STRING_FORMAT, "Address", toWellFormed32bitBinaryString(ipBin), ipv4));
-        toString.append('\n');
-        toString.append(String.format(TO_STRING_FORMAT, "Mask", toWellFormed32bitBinaryString(maskToBinValue(netmaskInt)), netmask + " (/" + netmaskInt + ")"));
-        toString.append('\n');
-        toString.append(String.format(TO_STRING_FORMAT, "Network", toWellFormed32bitBinaryString(networkBin), network));
-        toString.append('\n');
-        toString.append(String.format(TO_STRING_FORMAT, "Broadcast", toWellFormed32bitBinaryString(broadcastBin), broadcast));
-        toString.append('\n');
-        toString.append(String.format(TO_STRING_FORMAT, "Host part", toWellFormed32bitBinaryString(hostPartBin), binValueToIPv4Expr(hostPartBin)));
-        toString.append('\n');
-        toString.append(String.format("%-10s: %s / %s", "Available", getAddressesCount(), getAddresses()));
+        sb.append(String.format(TO_STRING_FORMAT, "Address", toWellFormed32bitBinaryString(ipBin), ipv4));
+        sb.append('\n');
+        sb.append(String.format(TO_STRING_FORMAT, "Mask", toWellFormed32bitBinaryString(maskToBinValue(netmaskInt)), netmask + " (/" + netmaskInt + ")"));
+        sb.append('\n');
+        sb.append(String.format(TO_STRING_FORMAT, "Network", toWellFormed32bitBinaryString(networkBin), network));
+        sb.append('\n');
+        sb.append(String.format(TO_STRING_FORMAT, "Broadcast", toWellFormed32bitBinaryString(broadcastBin), broadcast));
+        sb.append('\n');
+        sb.append(String.format(TO_STRING_FORMAT, "Host part", toWellFormed32bitBinaryString(hostPartBin), binValueToIPv4Expr(hostPartBin)));
+        sb.append('\n');
+        sb.append(String.format("%-10s: %s / %s", "Available", getAddressesCount(), getAddresses()));
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                toString.toString() //
-        );
+        return sb.toString();
     }
 
+    // 아래 내용에 적용됨.
+    // - sb.toString().trim()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private String toWellFormed32bitBinaryString(int value) {
         char[] str = new char[32];
 
@@ -377,11 +386,7 @@ public class SubNetwork {
             }
         }
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                sb.toString().trim() //
-        );
+        return sb.toString().trim();
     }
 
     private static int[] dottedDecimalAddressToIntArr(String ipv4) {
@@ -422,6 +427,11 @@ public class SubNetwork {
         return netmask;
     }
 
+    // 아래 내용에 적용됨.
+    // - ipv4Expr.toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String dotValueToIPv4Expr(Object... values) {
         StringBuffer ipv4Expr = new StringBuffer();
 
@@ -431,11 +441,7 @@ public class SubNetwork {
             ipv4Expr.append(values[i]);
         }
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                ipv4Expr.toString() //
-        );
+        return ipv4Expr.toString();
     }
 
     /**

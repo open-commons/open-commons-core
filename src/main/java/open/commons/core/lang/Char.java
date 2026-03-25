@@ -26,8 +26,6 @@
 
 package open.commons.core.lang;
 
-import java.util.Objects;
-
 /**
  * 'char'를 {@link CharSequence}로 제공하는 클래스.
  * 
@@ -151,12 +149,13 @@ public class Char implements CharSequence {
      *
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(c)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                String.valueOf(c) //
-        );
+        return String.valueOf(c);
     }
 }

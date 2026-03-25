@@ -34,7 +34,7 @@ import org.jspecify.annotations.Nullable;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
-public class DefaultEquivalent<T> implements IEquivalent<T> {
+public class DefaultEquivalent<T extends @Nullable Object> implements IEquivalent<T> {
 
     /**
      * @param t1

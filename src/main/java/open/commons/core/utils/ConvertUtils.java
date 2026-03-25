@@ -191,11 +191,9 @@ public class ConvertUtils {
      *         </ul>
      */
     public static Class<?> getWrapperClass(Class<?> class_) {
-        return primitiveTypesWrapperClass.containsKey(class_) ? Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                primitiveTypesWrapperClass.get(class_) //
-        ) : class_;
+        return primitiveTypesWrapperClass.containsKey(class_) //
+                ? Objects.requireNonNull(primitiveTypesWrapperClass.get(class_)) //
+                : class_;
     }
 
     /**

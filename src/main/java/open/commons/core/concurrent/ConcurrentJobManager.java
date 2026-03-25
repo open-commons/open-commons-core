@@ -170,14 +170,14 @@ public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implem
      * @since 2019. 2. 20.
      */
     public void join(long millis) {
-        try {
-            if (millis < 0) {
-                this.executor.join();
-            } else {
-                this.executor.join(millis);
+        if (this.executor != null) {
+            try {
+                this.executor.join(millis < 0 ? 0 : millis);
+            } catch (InterruptedException ignored) {
+                ignored.printStackTrace();
             }
-        } catch (InterruptedException ignored) {
-            ignored.printStackTrace();
+        } else {
+            throw new IllegalArgumentException(getThreadName());
         }
     }
 

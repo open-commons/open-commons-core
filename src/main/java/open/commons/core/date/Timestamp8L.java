@@ -50,11 +50,12 @@ import org.jspecify.annotations.Nullable;
  */
 public class Timestamp8L implements Comparable<Timestamp8L> {
 
-    private static final String CLASS = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Timestamp8L.class.getSimpleName() //
-    );
+    // 아래 내용에 적용됨.
+    // - Timestamp8L.class.getSimpleName()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static final String CLASS = Timestamp8L.class.getSimpleName();
 
     private static final int DATEINFO_LENGTH = 3;
 
@@ -71,11 +72,12 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
     ;
 
     private SimpleDateFormat sdf = new SimpleDateFormat(format);
-    private Pattern regexPattern = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            Pattern.compile(regex) //
-    );
+    // 아래 내용에 적용됨.
+    // - Pattern.compile(regex)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private Pattern regexPattern = Pattern.compile(regex);
 
     private String year = "0";
 
@@ -160,23 +162,19 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
         return rtnValue;
     }
 
+    // 아래 내용에 적용됨.
+    // - return getCalendar().getTime();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private Date createDatetime(String datetime) {
-        String @Nullable [] dateinfo = match(datetime);
+        String[] dateinfo = match(datetime);
 
-        if (dateinfo != null) {
-            year = dateinfo[YEAR];
-            month = dateinfo[MONTH];
-            day = dateinfo[DAY_OF_YEAR];
+        year = dateinfo[YEAR];
+        month = dateinfo[MONTH];
+        day = dateinfo[DAY_OF_YEAR];
 
-            return Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    getCalendar().getTime() //
-            );
-        } else {
-            throw new IllegalArgumentException("14자리로된 숫자 정보만 입력 가능합니다. datetime: " + datetime);
-        }
+        return getCalendar().getTime();
     }
 
     public String dateString() {
@@ -303,20 +301,21 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
         return Objects.hash(day, month, year);
     }
 
-    private String @Nullable [] match(String datetime) {
-        String @Nullable [] rtnValue = null;
+    private String[] match(String datetime) {
 
         Matcher m = regexPattern.matcher(datetime);
 
         if (m.matches() && m.groupCount() == DATEINFO_LENGTH) {
-            rtnValue = new String[DATEINFO_LENGTH];
+            String[] rtnValue = new String[DATEINFO_LENGTH];
 
             for (int i = 1; i < DATEINFO_LENGTH + 1; i++) {
                 rtnValue[i - 1] = m.group(i);
             }
+
+            return rtnValue;
         }
 
-        return rtnValue;
+        throw new IllegalArgumentException("14자리로된 숫자 정보만 입력 가능합니다. datetime: " + datetime);
     }
 
     /**

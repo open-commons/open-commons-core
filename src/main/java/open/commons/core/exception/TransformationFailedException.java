@@ -26,8 +26,6 @@
 
 package open.commons.core.exception;
 
-import java.util.Objects;
-
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.ObjectUtils;
@@ -196,6 +194,11 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @see java.lang.Throwable#getLocalizedMessage()
      */
+    // 아래 내용에 적용됨.
+    // - targets
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
     @Override
     public String getLocalizedMessage() {
 
@@ -215,11 +218,7 @@ public class TransformationFailedException extends RuntimeException {
             builder.append(o);
         }
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                builder.toString() //
-        );
+        return builder.toString();
     }
 
     /**

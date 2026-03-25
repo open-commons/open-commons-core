@@ -70,11 +70,12 @@ import open.commons.core.utils.StreamUtils;
  *  System.out.println(getter.format());
  *  --------------------
  *  (result):
- *  {@code 
- *  public String getBirth() {
- *      return this.birth;
- *  }
- *  }
+ *  {@code
+ * 
+ * public String getBirth() {
+ *     return this.birth;
+ * }
+ * }
  * </pre>
  * 
  * <br>
@@ -308,7 +309,8 @@ public class NamedTemplate {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code pattern 또는 values})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우 발생.
+     *             파라미터({@code pattern 또는 values})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
+     *             발생.
      * 
      * @since 2014. 4. 8.
      */
@@ -418,6 +420,12 @@ public class NamedTemplate {
             this.trimmed = trim;
         }
 
+        // 아래 내용에 적용됨.
+        // - String.join(name, "{", "}")
+        // - return buf.toString();
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         String format(ConcurrentMap<String, Object> values) {
             if (!parsed) {
                 this.tokens.clear();
@@ -432,29 +440,24 @@ public class NamedTemplate {
 
                 if (token.isName()) {
                     buf.append(value(name, values //
-                            , token.isMandatory ? Objects.requireNonNull(
-                                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                                    String.join(name, "{", "}") //
-                            ) : ""));
+                            , token.isMandatory //
+                                    ? String.join(name, "{", "}") //
+                                    : ""));
                 } else {
                     buf.append(name);
                 }
             }
 
-            return Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    buf.toString() //
-            );
+            return buf.toString();
         }
 
+        // 아래 내용에 적용됨.
+        // - return tokens.iterator();
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         Iterator<NamedToken> names() {
-            return Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    tokens.iterator() //
-            );
+            return tokens.iterator();
         }
 
         void parse() {
@@ -555,16 +558,17 @@ public class NamedTemplate {
             }
         }
 
+        // 아래 내용에 적용됨.
+        // - return value != null ? value.toString() : defaultValue;
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         private static String value(String key, Map<String, Object> values, String defaultValue) {
             ObjectUtils.requireNonNulls(key, values);
 
             Object value = values.get(key);
 
-            return value != null ? Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    value.toString() //
-            ) : defaultValue;
+            return value != null ? value.toString() : defaultValue;
         }
 
         class NamedToken {

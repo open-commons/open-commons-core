@@ -288,7 +288,7 @@ public class IntegerUtils {
         barr[2] = (byte) (value >>> 8);
         barr[3] = (byte) value;
 
-        return ArrayUtils.copyOfRange(barr, 4 - length, 4);
+        return Arrays.copyOfRange(barr, 4 - length, 4);
     }
 
     /**

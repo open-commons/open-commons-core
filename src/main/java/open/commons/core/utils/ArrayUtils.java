@@ -46,9 +46,10 @@ import open.commons.core.collection.DefaultContainer;
 import open.commons.core.collection.IContainer;
 
 /**
- * 배열에 대한 기능성 메소드를 제공하는 클래스 <BR>
+ * 배열에 대한 기능성 메소드를 제공하는 클래스
  * 
  * @since 2012. 02. 21.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
 @SuppressWarnings("unchecked")
@@ -61,11 +62,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static boolean[] add(boolean[] array, boolean value) {
+    public static boolean[] add(boolean @Nullable [] array, boolean value) {
 
         boolean[] newArray = null;
 
@@ -86,9 +86,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -98,7 +98,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static boolean[] add(boolean[] array, boolean... values) {
+    public static boolean[] add(boolean @Nullable [] array, boolean @Nullable... values) {
         return merge(array, values);
     }
 
@@ -109,11 +109,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static byte[] add(byte[] array, byte value) {
+    public static byte[] add(byte @Nullable [] array, byte value) {
         byte[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -133,9 +132,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -145,7 +144,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static byte[] add(byte[] array, byte... values) {
+    public static byte[] add(byte @Nullable [] array, byte @Nullable... values) {
         return merge(array, values);
     }
 
@@ -156,11 +155,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static char[] add(char[] array, char value) {
+    public static char[] add(char @Nullable [] array, char value) {
         char[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -181,9 +179,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -193,7 +191,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static char[] add(char[] array, char... values) {
+    public static char[] add(char @Nullable [] array, char @Nullable... values) {
         return merge(array, values);
     }
 
@@ -204,11 +202,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static double[] add(double[] array, double value) {
+    public static double[] add(double @Nullable [] array, double value) {
         double[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -241,7 +238,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static double[] add(double[] array, double... values) {
+    public static double[] add(double @Nullable [] array, double @Nullable... values) {
         return merge(array, values);
     }
 
@@ -252,11 +249,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static float[] add(float[] array, float value) {
+    public static float[] add(float @Nullable [] array, float value) {
         float[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -289,7 +285,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static float[] add(float[] array, float... values) {
+    public static float[] add(float @Nullable [] array, float @Nullable... values) {
         return merge(array, values);
     }
 
@@ -300,11 +296,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static int[] add(int[] array, int value) {
+    public static int[] add(int @Nullable [] array, int value) {
         int[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -337,7 +332,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static int[] add(int[] array, int... values) {
+    public static int[] add(int @Nullable [] array, int @Nullable... values) {
         return merge(array, values);
     }
 
@@ -348,11 +343,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static long[] add(long[] array, long value) {
+    public static long[] add(long @Nullable [] array, long value) {
         long[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -385,7 +379,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static long[] add(long[] array, long... values) {
+    public static long[] add(long @Nullable [] array, long @Nullable... values) {
         return merge(array, values);
     }
 
@@ -396,11 +390,10 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static short[] add(short[] array, short value) {
+    public static short[] add(short @Nullable [] array, short value) {
         short[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -433,7 +426,7 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static short[] add(short[] array, short... values) {
+    public static short[] add(short @Nullable [] array, short @Nullable... values) {
         return merge(array, values);
     }
 
@@ -442,39 +435,44 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return a new array contains new {@code value} or null if both of parameters are {@code null}.
+     * @return a new array contains new {@code value}
      * 
-     * @Exception {@link ArrayStoreException} - {@code T} is Wrapper Class of primitive types and
-     *            {@code value} is the primitive type's value.
-     *            <p>
-     *            e.g. add(new Boolean[] { true }, false);
-     *            </p>
+     * @throws ArrayStoreException
+     *             {@code T} is Wrapper Class of primitive types and {@code value} is the primitive type's value.
+     *             <p>
+     *             e.g. add(new Boolean[] { true }, false);
+     *             </p>
+     * @throws NullPointerException
+     *             파라미터({@code array, value 모두})가 {@code null}인 경우 발생.
      * 
-     *            <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static <T> T[] add(T[] array, T value) {
-
-        T[] newArray = null;
-
+    // 아래 내용에 적용됨.
+    // - (T[]) Array.newInstance(array.getClass().getComponentType(), 1)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] add(T @Nullable [] array, T value) {
         if (array != null && value != null) {
 
             assertComponentType(array, value.getClass());
 
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
             System.arraycopy(array, 0, newArray, 0, array.length);
             newArray[newArray.length - 1] = value;
+
+            return newArray;
         } else if (array != null) {
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
+            return (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
         } else if (value != null) {
-            newArray = (T[]) Array.newInstance(value.getClass(), 1);
+            T[] newArray = (T[]) Array.newInstance(value.getClass(), 1);
             newArray[0] = value;
+
+            return newArray;
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null"));
         }
-
-        return newArray;
     }
 
     /**
@@ -495,9 +493,8 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    @SafeVarargs
-    public static <T> T[] add(T[] array, T... values) {
-        return merge(array, values);
+    public static <T extends @Nullable Object> T[] add(T @Nullable [] array, T @Nullable... values) {
+        return ArrayUtils.<T> merge(array, values);
     }
 
     /**
@@ -507,13 +504,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static boolean[] addIfAbsent(boolean[] array, boolean value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static boolean[] addIfAbsent(boolean @Nullable [] array, boolean value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -526,13 +527,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static byte[] addIfAbsent(byte[] array, byte value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static byte[] addIfAbsent(byte @Nullable [] array, byte value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -543,9 +548,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -555,10 +560,15 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-
-    public static byte[] addIfAbsent(byte[] array, byte... values) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Byte[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static byte[] addIfAbsent(byte @Nullable [] array, byte @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         List<Byte> indice = new ArrayList<>();
@@ -578,13 +588,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static char[] addIfAbsent(char[] array, char value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static char[] addIfAbsent(char @Nullable [] array, char value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -595,9 +609,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -607,9 +621,15 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static char[] addIfAbsent(char[] array, char... values) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Character[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static char[] addIfAbsent(char @Nullable [] array, char @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         List<Character> indice = new ArrayList<>();
@@ -629,13 +649,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static double[] addIfAbsent(double[] array, double value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static double[] addIfAbsent(double @Nullable [] array, double value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -646,9 +670,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -658,9 +682,15 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static double[] addIfAbsent(double[] array, double... values) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Double[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static double[] addIfAbsent(double @Nullable [] array, double @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         List<Double> indice = new ArrayList<>();
@@ -680,13 +710,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static float[] addIfAbsent(float[] array, float value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static float[] addIfAbsent(float @Nullable [] array, float value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -697,9 +731,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -709,9 +743,16 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static float[] addIfAbsent(float[] array, float... values) {
+
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Float[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static float[] addIfAbsent(float @Nullable [] array, float @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         List<Float> indice = new ArrayList<>();
@@ -731,13 +772,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static int[] addIfAbsent(int[] array, int value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static int[] addIfAbsent(int @Nullable [] array, int value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -748,9 +793,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -760,9 +805,15 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static int[] addIfAbsent(int[] array, int... values) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Integer[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static int[] addIfAbsent(int @Nullable [] array, int @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         List<Integer> indice = new ArrayList<>();
@@ -782,13 +833,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static long[] addIfAbsent(long[] array, long value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static long[] addIfAbsent(long @Nullable [] array, long value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -799,9 +854,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -811,9 +866,15 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static long[] addIfAbsent(long[] array, long... values) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Long[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static long[] addIfAbsent(long @Nullable [] array, long @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         List<Long> indice = new ArrayList<>();
@@ -833,13 +894,17 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static short[] addIfAbsent(short[] array, short value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static short[] addIfAbsent(short @Nullable [] array, short value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -850,9 +915,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -862,9 +927,19 @@ public class ArrayUtils {
      * @since 2019. 7. 4.
      * 
      */
-    public static short[] addIfAbsent(short[] array, short... values) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // - indice.toArray(new Short[0])
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static short[] addIfAbsent(short @Nullable [] array, short @Nullable... values) {
         if (values == null || values.length < 1) {
-            return copyOf(array, array.length);
+            if (array != null) {
+                return Arrays.copyOf(array, array.length);
+            } else {
+                return new short[0];
+            }
         }
 
         List<Short> indice = new ArrayList<>();
@@ -884,19 +959,23 @@ public class ArrayUtils {
      * @param value
      * @return a new array contains new {@code value} or null if both of parameters are {@code null}.
      * 
-     * @Exception {@link ArrayStoreException} - {@code T} is Wrapper Class of primitive types and
-     *            {@code value} is the primitive type's value.
+     * @Exception {@link ArrayStoreException} - {@code T} is Wrapper Class of primitive types and {@code value} is the
+     *            primitive type's value.
      *            <p>
      *            e.g. add(new Boolean[] { true }, false);
      *            </p>
      * 
-     *            <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static <T> T[] addIfAbsent(T[] array, T value) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(array, array.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] addIfAbsent(T @Nullable [] array, T value) {
         if (contains(array, value)) {
-            return copyOf(array, array.length);
+            return Arrays.copyOf(array, array.length);
         }
 
         return add(array, value);
@@ -910,9 +989,13 @@ public class ArrayUtils {
      * @param classes
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code classeses})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
+     * 
      * @since 2014. 6. 18.
      */
     public static Class<?>[] adjustByLength(int length, Class<?>... classes) {
+        ObjectUtils.requireNonNulls((Object[]) classes);
 
         Class<?>[] newArray = new Class<?>[length];
         System.arraycopy(classes, 0, newArray, 0, Math.min(length, classes.length));
@@ -926,24 +1009,14 @@ public class ArrayUtils {
         return newArray;
     }
 
-    public static List<Boolean> asList(boolean[] array) {
-        ArrayList<Boolean> list = new ArrayList<Boolean>();
-
-        for (boolean value : array) {
-            list.add(value);
-        }
-
-        return list;
-    }
-
     /**
      * 배열을 {@link List}로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 7. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 7. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -954,7 +1027,7 @@ public class ArrayUtils {
      * @version 2.0.0
      * 
      */
-    public static <T> List<T> asList(T[] arr) {
+    public static <T extends @Nullable Object> @Nullable List<T> asList(T @Nullable [] arr) {
         return arr != null ? Arrays.asList(arr) : null;
     }
 
@@ -963,9 +1036,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 7. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 7. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -980,7 +1053,7 @@ public class ArrayUtils {
      * @version 2.0.0
      * 
      */
-    public static <T, R> List<R> asList(T[] arr, Function<T, R> f) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable List<R> asList(T @Nullable [] arr, Function<T, R> f) {
         if (arr == null) {
             return null;
         }
@@ -999,10 +1072,21 @@ public class ArrayUtils {
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - arr1.getClass().getComponentType()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static <T> void assertComponentType(T[] arr1, Class<?> valueType) {
         assertComponentType(arr1.getClass().getComponentType(), valueType);
     }
 
+    // 아래 내용에 적용됨.
+    // - arr1.getClass().getComponentType()
+    // - arr2.getClass().getComponentType()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static <T> void assertComponentType(T[] arr1, T[] arr2) {
         assertComponentType(arr1.getClass().getComponentType(), arr2.getClass().getComponentType());
     }
@@ -1014,7 +1098,7 @@ public class ArrayUtils {
      * @param max
      *            최대값
      * @param value
-     *            값 <BR>
+     *            값
      * @since 2012. 03. 13.
      * 
      */
@@ -1036,10 +1120,7 @@ public class ArrayUtils {
      *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(byte[] v1, byte[] v2) {
-
-        if (v1 == null || v2 == null) {
-            throw new NullPointerException("arg1: " + v1 + ", arg2: " + v2);
-        }
+        ObjectUtils.requireNonNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1068,10 +1149,7 @@ public class ArrayUtils {
      *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(char[] v1, char[] v2) {
-
-        if (v1 == null || v2 == null) {
-            throw new NullPointerException("arg1: " + Arrays.toString(v1) + ", arg2: " + Arrays.toString(v2));
-        }
+        ObjectUtils.requireNonNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1101,9 +1179,7 @@ public class ArrayUtils {
      */
     public static int comparable(double[] v1, double[] v2) {
 
-        if (v1 == null || v2 == null) {
-            throw new NullPointerException("arg1: " + v1 + ", arg2: " + v2);
-        }
+        ObjectUtils.requireNonNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1133,9 +1209,7 @@ public class ArrayUtils {
      */
     public static int comparable(float[] v1, float[] v2) {
 
-        if (v1 == null || v2 == null) {
-            throw new NullPointerException("arg1: " + v1 + ", arg2: " + v2);
-        }
+        ObjectUtils.requireNonNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1165,9 +1239,7 @@ public class ArrayUtils {
      */
     public static int comparable(int[] v1, int[] v2) {
 
-        if (v1 == null || v2 == null) {
-            throw new NullPointerException("arg1: " + v1 + ", arg2: " + v2);
-        }
+        ObjectUtils.requireNonNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1197,9 +1269,7 @@ public class ArrayUtils {
      */
     public static <T extends Comparable<T>> int comparable(T[] v1, T[] v2) {
 
-        if (v1 == null || v2 == null) {
-            throw new NullPointerException("arg1: " + v1 + ", arg2: " + v2);
-        }
+        ObjectUtils.requireNonNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1219,7 +1289,7 @@ public class ArrayUtils {
         return 0;
     }
 
-    public static String concatenate(byte[] array, char delimiter) {
+    public static @Nullable String concatenate(byte @Nullable [] array, char delimiter) {
         if (array == null || array.length < 1) {
             return null;
         }
@@ -1238,7 +1308,7 @@ public class ArrayUtils {
         return sb.toString();
     }
 
-    public static String concatenate(char[] array, char delimiter) {
+    public static @Nullable String concatenate(char @Nullable [] array, char delimiter) {
         if (array == null || array.length < 1) {
             return null;
         }
@@ -1256,7 +1326,7 @@ public class ArrayUtils {
         return String.valueOf(cs);
     }
 
-    public static String concatenate(float[] array, char delimiter) {
+    public static @Nullable String concatenate(float @Nullable [] array, char delimiter) {
         if (array == null || array.length < 1) {
             return null;
         }
@@ -1275,7 +1345,7 @@ public class ArrayUtils {
         return sb.toString();
     }
 
-    public static String concatenate(int[] array, char delimiter) {
+    public static @Nullable String concatenate(int @Nullable [] array, char delimiter) {
         if (array == null || array.length < 1) {
             return null;
         }
@@ -1301,7 +1371,11 @@ public class ArrayUtils {
      * @param delimiter
      * @return
      */
-    public static <T> String concatenate(T[] array, char delimiter) {
+    // apply to '배열 데이터 null-check'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> @Nullable String concatenate(T @Nullable [] array, char delimiter) {
         if (array == null || array.length < 1) {
             return null;
         }
@@ -1314,7 +1388,8 @@ public class ArrayUtils {
             chars[i] = prepend((array[i] != null ? array[i] : "null").toString().trim().toCharArray(), delimiter);
         }
 
-        return new String(merge(chars));
+        char[] merged = merge(chars);
+        return merged == null ? null : new String(merged);
     }
 
     /**
@@ -1324,7 +1399,11 @@ public class ArrayUtils {
      * @param delimiter
      * @return
      */
-    public static <T> String concatenate(T[] array, String delimiter) {
+    // apply to '배열 데이터 null-check'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> @Nullable String concatenate(T @Nullable [] array, String delimiter) {
         if (array == null || array.length < 1) {
             return null;
         }
@@ -1338,7 +1417,8 @@ public class ArrayUtils {
             chars[i] = merge(delim, (array[i] != null ? array[i] : "null").toString().trim().toCharArray());
         }
 
-        return new String(merge(chars));
+        char[] merged = merge(chars);
+        return merged == null ? null : new String(merged);
     }
 
     /**
@@ -1348,7 +1428,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(boolean[] array, boolean value) {
+    public static boolean contains(boolean @Nullable [] array, boolean value) {
         if (array == null) {
             return false;
         }
@@ -1369,7 +1449,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(byte[] array, byte value) {
+    public static boolean contains(byte @Nullable [] array, byte value) {
         if (array == null) {
             return false;
         }
@@ -1390,7 +1470,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(char[] array, char value) {
+    public static boolean contains(char @Nullable [] array, char value) {
         if (array == null) {
             return false;
         }
@@ -1411,7 +1491,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(double[] array, double value) {
+    public static boolean contains(double @Nullable [] array, double value) {
         if (array == null) {
             return false;
         }
@@ -1432,7 +1512,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(float[] array, float value) {
+    public static boolean contains(float @Nullable [] array, float value) {
         if (array == null) {
             return false;
         }
@@ -1453,7 +1533,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(int[] array, int value) {
+    public static boolean contains(int @Nullable [] array, int value) {
         if (array == null) {
             return false;
         }
@@ -1474,7 +1554,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(long[] array, long value) {
+    public static boolean contains(long @Nullable [] array, long value) {
         if (array == null) {
             return false;
         }
@@ -1495,7 +1575,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static boolean contains(short[] array, short value) {
+    public static boolean contains(short @Nullable [] array, short value) {
         if (array == null) {
             return false;
         }
@@ -1516,7 +1596,7 @@ public class ArrayUtils {
      * @param value
      * @return
      */
-    public static <T> boolean contains(T[] array, T value) {
+    public static <T extends @Nullable Object> boolean contains(T @Nullable [] array, T value) {
         if (array == null) {
             return false;
         }
@@ -1537,7 +1617,7 @@ public class ArrayUtils {
      * @param container
      * @return
      */
-    public static <T> Result<T> containsPart(T[] array, T t, IContainer<T> container) {
+    public static <T extends @Nullable Object> Result<T> containsPart(T @Nullable [] array, T t, @Nullable IContainer<T> container) {
         if (array == null || t == null) {
             return new Result<T>();
         }
@@ -1559,9 +1639,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1570,12 +1650,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static boolean[] copy(boolean[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         boolean[] newArr = new boolean[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1590,9 +1674,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1601,12 +1685,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static byte[] copy(byte[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         byte[] newArr = new byte[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1621,9 +1709,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1632,12 +1720,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static char[] copy(char[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         char[] newArr = new char[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1652,9 +1744,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1663,12 +1755,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static double[] copy(double[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         double[] newArr = new double[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1683,9 +1779,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1694,12 +1790,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static float[] copy(float[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         float[] newArr = new float[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1714,9 +1814,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1725,12 +1825,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static int[] copy(int[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         int[] newArr = new int[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1745,9 +1849,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1756,12 +1860,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static long[] copy(long[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         long[] newArr = new long[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1776,9 +1884,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1787,12 +1895,16 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
     public static short[] copy(short[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         short[] newArr = new short[indice.length];
 
         for (int i = 0; i < indice.length; i++) {
@@ -1807,9 +1919,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1818,12 +1930,20 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
+     * @throws NullPointerException
+     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
      * 
      */
-    public static <T> T[] copy(T[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+    // apply to 'return newArr'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] copy(T[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
+        ObjectUtils.requireNonNulls(arr, indice);
+
         T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType().getComponentType(), indice.length);
 
         for (int i = 0; i < indice.length; i++) {
@@ -1834,335 +1954,41 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with <tt>false</tt> (if necessary) so the copy has the
-     * specified length. For all indices that are valid in both the original array and the copy, the two arrays will
-     * contain identical values. For any indices that are valid in the copy but not the original, the copy will contain
-     * <tt>false</tt>. Such indices will exist if and only if the specified length is greater than that of the original
-     * array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with false elements to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static boolean[] copyOf(boolean[] original, int newLength) {
-        boolean[] copy = new boolean[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with zeros (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>(byte)0</tt>.
-     * Such indices will exist if and only if the specified length is greater than that of the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with zeros to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static byte[] copyOf(byte[] original, int newLength) {
-        byte[] copy = new byte[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with null characters (if necessary) so the copy has the
-     * specified length. For all indices that are valid in both the original array and the copy, the two arrays will
-     * contain identical values. For any indices that are valid in the copy but not the original, the copy will contain
-     * <tt>'\\u000'</tt>. Such indices will exist if and only if the specified length is greater than that of the
-     * original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with null characters to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static char[] copyOf(char[] original, int newLength) {
-        char[] copy = new char[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with zeros (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>0d</tt>. Such
-     * indices will exist if and only if the specified length is greater than that of the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with zeros to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static double[] copyOf(double[] original, int newLength) {
-        double[] copy = new double[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with zeros (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>0f</tt>. Such
-     * indices will exist if and only if the specified length is greater than that of the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with zeros to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static float[] copyOf(float[] original, int newLength) {
-        float[] copy = new float[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with zeros (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>0</tt>. Such
-     * indices will exist if and only if the specified length is greater than that of the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with zeros to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static int[] copyOf(int[] original, int newLength) {
-        int[] copy = new int[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with zeros (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>0L</tt>. Such
-     * indices will exist if and only if the specified length is greater than that of the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with zeros to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static long[] copyOf(long[] original, int newLength) {
-        long[] copy = new long[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with zeros (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>(short)0</tt>.
-     * Such indices will exist if and only if the specified length is greater than that of the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with zeros to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static short[] copyOf(short[] original, int newLength) {
-        short[] copy = new short[newLength];
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with nulls (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>null</tt>.
-     * Such indices will exist if and only if the specified length is greater than that of the original array. The
-     * resulting array is of exactly the same class as the original array.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @return a copy of the original array, truncated or padded with nulls to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     * 
-     */
-    public static <T> T[] copyOf(T[] original, int newLength) {
-        return (T[]) copyOf(original, newLength, original.getClass());
-    }
-
-    /**
-     * deep copy <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 8. 19.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param original
-     * @param newLength
-     * @param clone
-     *            deep copy 함수
-     * @return
-     *
-     * @since 2021. 8. 19.
-     * @version 1.8.0
-     * 
-     */
-    public static <T> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
-        return copyOf(original, newLength, (Class<T[]>) original.getClass(), clone);
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified array, truncating or padding with nulls (if necessary) so the copy has the specified length.
-     * For all indices that are valid in both the original array and the copy, the two arrays will contain identical
-     * values. For any indices that are valid in the copy but not the original, the copy will contain <tt>null</tt>.
-     * Such indices will exist if and only if the specified length is greater than that of the original array. The
-     * resulting array is of the class <tt>newType</tt>.
-     * 
-     * @param original
-     *            the array to be copied
-     * @param newLength
-     *            the length of the copy to be returned
-     * @param newType
-     *            the class of the copy to be returned
-     * @return a copy of the original array, truncated or padded with nulls to obtain the specified length
-     * @throws NegativeArraySizeException
-     *             if <tt>newLength</tt> is negative
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * @throws ArrayStoreException
-     *             if an element copied from <tt>original</tt> is not of a runtime type that can be stored in an array
-     *             of class <tt>newType</tt>
-     * 
-     */
-    public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
-        T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
-        System.arraycopy(original, 0, copy, 0, Math.min(original.length, newLength));
-        return copy;
-    }
-
-    /**
      * deep copyl <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
-     * @param <U>
+     * @param <TT>
      * @param original
      * @param newLength
      * @param newType
      * @param clone
      *            deep copy 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code original 또는 newType 또는 clone})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
      * 
      */
-    public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType, Function<U, T> clone) {
-        T[] copy = ((Object) newType == (Object) Object[].class) //
-                ? (T[]) new Object[newLength] //
-                : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+    // apply to 'return copy'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOf(T[] original, int newLength, Class<? extends U[]> newType, Function<T, U> clone) {
+        ObjectUtils.requireNonNulls(original, newType, clone);
+
+        U[] copy = ((Object) newType == (Object) Object[].class) //
+                ? (U[]) new Object[newLength] //
+                : (U[]) Array.newInstance(newType.getComponentType(), newLength);
 
         final int newArrlen = Math.min(original.length, newLength);
         for (int i = 0; i < newArrlen; i++) {
@@ -2173,417 +1999,33 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>false</tt> is placed in all elements of the copy whose index is
-     * greater than or equal to <tt>original.length - from</tt>. The length of the returned array will be
-     * <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with false
-     *         elements to obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static boolean[] copyOfRange(boolean[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        boolean[] copy = new boolean[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>(byte)0</tt> is placed in all elements of the copy whose index is
-     * greater than or equal to <tt>original.length - from</tt>. The length of the returned array will be
-     * <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with zeros to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static byte[] copyOfRange(byte[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        byte[] copy = new byte[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>'\\u000'</tt> is placed in all elements of the copy whose index is
-     * greater than or equal to <tt>original.length - from</tt>. The length of the returned array will be
-     * <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with null
-     *         characters to obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static char[] copyOfRange(char[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        char[] copy = new char[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>0d</tt> is placed in all elements of the copy whose index is greater
-     * than or equal to <tt>original.length - from</tt>. The length of the returned array will be <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with zeros to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static double[] copyOfRange(double[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        double[] copy = new double[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>0f</tt> is placed in all elements of the copy whose index is greater
-     * than or equal to <tt>original.length - from</tt>. The length of the returned array will be <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with zeros to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static float[] copyOfRange(float[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        float[] copy = new float[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>0</tt> is placed in all elements of the copy whose index is greater
-     * than or equal to <tt>original.length - from</tt>. The length of the returned array will be <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with zeros to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static int[] copyOfRange(int[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        int[] copy = new int[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>0L</tt> is placed in all elements of the copy whose index is greater
-     * than or equal to <tt>original.length - from</tt>. The length of the returned array will be <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with zeros to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static long[] copyOfRange(long[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        long[] copy = new long[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>(short)0</tt> is placed in all elements of the copy whose index is
-     * greater than or equal to <tt>original.length - from</tt>. The length of the returned array will be
-     * <tt>to - from</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with zeros to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static short[] copyOfRange(short[] original, int from, int to) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        short[] copy = new short[newLength];
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
-    }
-
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>null</tt> is placed in all elements of the copy whose index is
-     * greater than or equal to <tt>original.length - from</tt>. The length of the returned array will be
-     * <tt>to - from</tt>.
-     * <p>
-     * The resulting array is of exactly the same class as the original array.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @return a new array containing the specified range from the original array, truncated or padded with nulls to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * 
-     */
-    public static <T> T[] copyOfRange(T[] original, int from, int to) {
-        return copyOfRange(original, from, to, (Class<T[]>) original.getClass());
-    }
-
-    /**
      * deep copy <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
      * @param original
-     * @param from
-     * @param to
+     * @param newLength
      * @param clone
      *            deep copy 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code original})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
      * 
      */
-    public static <T> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
-        return copyOfRange(original, from, to, (Class<T[]>) original.getClass(), clone);
-    }
+    public static <T extends @Nullable Object> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
+        Objects.requireNonNull(original);
 
-    /**
-     * <p>
-     * <b><font color="RED">free against JDK 1.6 </font></b>
-     * </p>
-     * 
-     * Copies the specified range of the specified array into a new array. The initial index of the range (<tt>from</tt>
-     * ) must lie between zero and <tt>original.length</tt>, inclusive. The value at <tt>original[from]</tt> is placed
-     * into the initial element of the copy (unless <tt>from == original.length</tt> or <tt>from == to</tt>). Values
-     * from subsequent elements in the original array are placed into subsequent elements in the copy. The final index
-     * of the range (<tt>to</tt>), which must be greater than or equal to <tt>from</tt>, may be greater than
-     * <tt>original.length</tt>, in which case <tt>null</tt> is placed in all elements of the copy whose index is
-     * greater than or equal to <tt>original.length - from</tt>. The length of the returned array will be
-     * <tt>to - from</tt>. The resulting array is of the class <tt>newType</tt>.
-     * 
-     * @param original
-     *            the array from which a range is to be copied
-     * @param from
-     *            the initial index of the range to be copied, inclusive
-     * @param to
-     *            the final index of the range to be copied, exclusive. (This index may lie outside the array.)
-     * @param newType
-     *            the class of the copy to be returned
-     * @return a new array containing the specified range from the original array, truncated or padded with nulls to
-     *         obtain the required length
-     * @throws ArrayIndexOutOfBoundsException
-     *             if <tt>from &lt; 0</tt> or <tt>from &gt; original.length()</tt>
-     * @throws IllegalArgumentException
-     *             if <tt>from &gt; to</tt>
-     * @throws NullPointerException
-     *             if <tt>original</tt> is null
-     * @throws ArrayStoreException
-     *             if an element copied from <tt>original</tt> is not of a runtime type that can be stored in an array
-     *             of class <tt>newType</tt>.
-     * 
-     */
-    public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType) {
-        int newLength = to - from;
-        if (newLength < 0)
-            throw new IllegalArgumentException(from + " > " + to);
-        T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
-        System.arraycopy(original, from, copy, 0, Math.min(original.length - from, newLength));
-        return copy;
+        return copyOf(original, newLength, (Class<T[]>) original.getClass(), clone);
     }
 
     /**
@@ -2591,9 +2033,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2605,23 +2047,65 @@ public class ArrayUtils {
      * @param clone
      *            deep copy 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code original 또는 newType 또는 clone})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
      * 
      */
-    public static <T, U> T[] copyOfRange(U[] original, int from, int to, Class<? extends T[]> newType, Function<U, T> clone) {
+    // apply to 'return copy'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOfRange(T[] original, int from, int to, Class<? extends U[]> newType, Function<T, U> clone) {
+        ObjectUtils.requireNonNulls(original, newType, clone);
+
         int newLength = to - from;
         if (newLength < 0)
             throw new IllegalArgumentException(from + " > " + to);
-        T[] copy = ((Object) newType == (Object) Object[].class) ? (T[]) new Object[newLength] : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+        U[] copy = ((Object) newType == (Object) Object[].class) //
+                ? (U[]) new Object[newLength] //
+                : (U[]) Array.newInstance(newType.getComponentType(), newLength);
 
         final int newArrlen = Math.min(original.length, newLength);
         for (int i = 0; i < newArrlen; i++) {
-            copy[i] = clone.apply(original[i]);
+            copy[i] = clone.apply(original[from + i]);
         }
 
         return copy;
+    }
+
+    /**
+     * deep copy <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param original
+     * @param from
+     * @param to
+     * @param clone
+     *            deep copy 함수
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code original})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 8. 19.
+     * @version 1.8.0
+     * 
+     */
+    public static <T extends @Nullable Object> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
+        Objects.requireNonNull(original);
+
+        return copyOfRange(original, from, to, (Class<T[]>) original.getClass(), clone);
     }
 
     /**
@@ -2629,11 +2113,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(boolean[] array, boolean value) {
+    public static int countOf(boolean @Nullable [] array, boolean value) {
 
         if (array != null) {
             int count = 0;
@@ -2655,11 +2139,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(byte[] array, byte value) {
+    public static int countOf(byte @Nullable [] array, byte value) {
 
         if (array != null) {
             int count = 0;
@@ -2681,11 +2165,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(char[] array, char value) {
+    public static int countOf(char @Nullable [] array, char value) {
 
         if (array != null) {
             int count = 0;
@@ -2707,11 +2191,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(double[] array, double value) {
+    public static int countOf(double @Nullable [] array, double value) {
 
         if (array != null) {
             int count = 0;
@@ -2733,11 +2217,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(float[] array, float value) {
+    public static int countOf(float @Nullable [] array, float value) {
 
         if (array != null) {
             int count = 0;
@@ -2759,11 +2243,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(int[] array, int value) {
+    public static int countOf(int @Nullable [] array, int value) {
 
         if (array != null) {
             int count = 0;
@@ -2785,11 +2269,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(long[] array, long value) {
+    public static int countOf(long @Nullable [] array, long value) {
 
         if (array != null) {
             int count = 0;
@@ -2811,11 +2295,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static int countOf(short[] array, short value) {
+    public static int countOf(short @Nullable [] array, short value) {
 
         if (array != null) {
             int count = 0;
@@ -2837,12 +2321,12 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static <T> int countOf(T[] array, T value) {
-        return countOf(array, value, null);
+    public static <T extends @Nullable Object> int countOf(T @Nullable [] array, T value) {
+        return ArrayUtils.<T> countOf(array, value, null);
     }
 
     /**
@@ -2850,11 +2334,11 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
      * @since 2012. 03. 27.
      * 
      */
-    public static <T> int countOf(T[] array, T value, IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> int countOf(T @Nullable [] array, T value, @Nullable IEquivalent<T> equivalent) {
 
         if (array != null) {
             int count = 0;
@@ -2875,7 +2359,19 @@ public class ArrayUtils {
         }
     }
 
-    public static <T> String elementString(T[] array, String delimiter) {
+    /**
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     */
+    // 아래 내용에 적용됨.
+    // - sb.toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> String elementString(T[] array, String delimiter) {
+        Objects.requireNonNull(array);
+
         StringBuilder sb = new StringBuilder();
         if (array.length > 0) {
             sb.append(array[0]);
@@ -2894,9 +2390,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2907,7 +2403,7 @@ public class ArrayUtils {
      * @version 1.8.0
      * 
      */
-    public static <T> List<Entry<Integer, T>> entrySet(T[] array) {
+    public static <T extends @Nullable Object> @Nullable List<Entry<Integer, T>> entrySet(T @Nullable [] array) {
         if (array == null) {
             return null;
         }
@@ -2929,12 +2425,12 @@ public class ArrayUtils {
      * @return
      * 
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 14.
      * 
      */
-    public static <T> boolean equals(T[] array1, T[] array2) {
-        return equals(array1, array2, null);
+    public static <T extends @Nullable Object> boolean equals(T @Nullable [] array1, T @Nullable [] array2) {
+        return ArrayUtils.<T> equals(array1, array2, null);
 
     }
 
@@ -2945,112 +2441,112 @@ public class ArrayUtils {
      * 
      * <pre>
      * public static void main(String[] args) {
-     * 		int[] intArr1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr4 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr5 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr6 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr7 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr8 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr9 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
-     * 		int[] intArr0 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr3 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr4 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr5 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr6 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr7 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr8 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr9 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+     *      int[] intArr0 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
      * 
-     * 		int[][] intArrAll1 = { intArr1, intArr2, intArr3, intArr4, intArr5, intArr6, intArr7, intArr8, intArr9, intArr0 };
+     *      int[][] intArrAll1 = { intArr1, intArr2, intArr3, intArr4, intArr5, intArr6, intArr7, intArr8, intArr9, intArr0 };
      * 
-     * 		for( int i = 0; i < intArrAll1.length - 1; i++ ) {
-     * 			System.out.println(Arrays.equals(intArrAll1[i], intArrAll1[i + 1]) + "\narray1: "
-     * 					+ Arrays.toString(intArrAll1[i]) + "\narray2: " + Arrays.toString(intArrAll1[i + 1]) + "\n---");
-     * 		}
+     *      for( int i = 0; i < intArrAll1.length - 1; i++ ) {
+     *          System.out.println(Arrays.equals(intArrAll1[i], intArrAll1[i + 1]) + "\narray1: "
+     *                  + Arrays.toString(intArrAll1[i]) + "\narray2: " + Arrays.toString(intArrAll1[i + 1]) + "\n---");
+     *      }
      * 
-     * 		int[][] intArr11 = { intArr1, intArr6 };
-     * 		int[][] intArr22 = { intArr2, intArr7 };
-     * 		int[][] intArr33 = { intArr3, intArr8 };
-     * 		int[][] intArr44 = { intArr4, intArr9 };
-     * 		int[][] intArr55 = { intArr5, intArr0 };
+     *      int[][] intArr11 = { intArr1, intArr6 };
+     *      int[][] intArr22 = { intArr2, intArr7 };
+     *      int[][] intArr33 = { intArr3, intArr8 };
+     *      int[][] intArr44 = { intArr4, intArr9 };
+     *      int[][] intArr55 = { intArr5, intArr0 };
      * 
-     * 		int[][][] intArrAll2 = { intArr11, intArr22, intArr33, intArr44, intArr55 };
-     * 		for( int i = 0; i < intArrAll2.length - 1; i++ ) {
-     * 			System.out.println(ArrayUtils.equals(intArrAll2[i], intArrAll2[i + 1],
-     * 					PrimitiveTypeArrayEquivFactory.intEquiv())
-     * 					+ "\narray1: "
-     * 					+ Arrays.toString(intArrAll2[i])
-     * 					+ "\narray2: "
-     * 					+ Arrays.toString(intArrAll2[i + 1])
-     * 					+ "\n---");
-     * 		}
+     *      int[][][] intArrAll2 = { intArr11, intArr22, intArr33, intArr44, intArr55 };
+     *      for( int i = 0; i < intArrAll2.length - 1; i++ ) {
+     *          System.out.println(ArrayUtils.equals(intArrAll2[i], intArrAll2[i + 1],
+     *                  PrimitiveTypeArrayEquivFactory.intEquiv())
+     *                  + "\narray1: "
+     *                  + Arrays.toString(intArrAll2[i])
+     *                  + "\narray2: "
+     *                  + Arrays.toString(intArrAll2[i + 1])
+     *                  + "\n---");
+     *      }
      * 
-     * 		int[][][] intArr111 = { intArr11, intArr22 };
-     * 		int[][][] intArr222 = { intArr33, intArr44 };
+     *      int[][][] intArr111 = { intArr11, intArr22 };
+     *      int[][][] intArr222 = { intArr33, intArr44 };
      * 
-     * 		IEquivalent<int[][]> eq = new DefaultEquivalent<int[][]>() {
-     * 			public boolean equals(int[][] t1, int[][] t2) {
-     * 				return ArrayUtils.equals(t1, t2, PrimitiveTypeArrayEquivFactory.intEquiv());
-     * 			}
-     * 		};
+     *      IEquivalent<int[][]> eq = new DefaultEquivalent<int[][]>() {
+     *          public boolean equals(int[][] t1, int[][] t2) {
+     *              return ArrayUtils.equals(t1, t2, PrimitiveTypeArrayEquivFactory.intEquiv());
+     *          }
+     *      };
      * 
-     * 		System.out.println(ArrayUtils.equals(intArr111, intArr222));
-     * 		
-     * 		System.out.println(ArrayUtils.equals(intArr111, intArr222, eq));
-     * 		
-     * 	}
-     * 	
-     * 	결과:
-     * 		
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-     * 		---
-     * 		true
-     * 		array1: [[I@173a10f, [I@530daa]
-     * 		array2: [[I@a62fc3, [I@89ae9e]
-     * 		---
-     * 		true
-     * 		array1: [[I@a62fc3, [I@89ae9e]
-     * 		array2: [[I@1270b73, [I@60aeb0]
-     * 		---
-     * 		true
-     * 		array1: [[I@1270b73, [I@60aeb0]
-     * 		array2: [[I@16caf43, [I@66848c]
-     * 		---
-     * 		true
-     * 		array1: [[I@16caf43, [I@66848c]
-     * 		array2: [[I@8813f2, [I@1d58aae]
-     * 		---
-     * 		false
-     * 		true
+     *      System.out.println(ArrayUtils.equals(intArr111, intArr222));
+     *      
+     *      System.out.println(ArrayUtils.equals(intArr111, intArr222, eq));
+     *      
+     *  }
+     *  
+     *  결과:
+     *      
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      array2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+     *      ---
+     *      true
+     *      array1: [[I@173a10f, [I@530daa]
+     *      array2: [[I@a62fc3, [I@89ae9e]
+     *      ---
+     *      true
+     *      array1: [[I@a62fc3, [I@89ae9e]
+     *      array2: [[I@1270b73, [I@60aeb0]
+     *      ---
+     *      true
+     *      array1: [[I@1270b73, [I@60aeb0]
+     *      array2: [[I@16caf43, [I@66848c]
+     *      ---
+     *      true
+     *      array1: [[I@16caf43, [I@66848c]
+     *      array2: [[I@8813f2, [I@1d58aae]
+     *      ---
+     *      false
+     *      true
      * 
      * </pre>
      * 
@@ -3061,11 +2557,11 @@ public class ArrayUtils {
      * @return
      * 
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 14.
      * 
      */
-    public static <T> boolean equals(T[] array1, T[] array2, IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> boolean equals(T @Nullable [] array1, T @Nullable [] array2, @Nullable IEquivalent<T> equivalent) {
         if (array1 != null && array2 != null) {
             if (array1.length != array2.length) {
                 return false;
@@ -3106,9 +2602,16 @@ public class ArrayUtils {
      * </pre>
      * 
      * @param bytes
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
+     * 
+     * 
      * @see ArrayIndexOutOfBoundsException
      */
     public static byte[] getDecElements(byte[][] bytes) {
+        ObjectUtils.requireNonNulls((Object[]) bytes);
+
         byte[] rtnBytes = new byte[bytes.length];
 
         for (int i = 0; i < bytes.length; i++) {
@@ -3123,9 +2626,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -3166,9 +2669,15 @@ public class ArrayUtils {
      * </pre>
      * 
      * @param bytes
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
+     * 
      * @see ArrayIndexOutOfBoundsException
      */
     public static byte[] getIncElements(byte[][] bytes) {
+        ObjectUtils.requireNonNulls((Object[]) bytes);
+
         byte[] rtnBytes = new byte[bytes.length];
 
         for (int i = 0; i < bytes.length; i++) {
@@ -3181,16 +2690,22 @@ public class ArrayUtils {
     /**
      * 배열에서 찾고자하는 데이터의 인덱스를 반환합니다.
      * 
-     * @param objs
+     * @param objects
      * @param obj
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objs})가 {@code null}인 경우 발생.
+     * 
      * @return 데이터의 인덱스, 없는 경우 -1.
      */
-    public static int getIndex(Object[] objs, Object obj) {
+    public static int getIndex(Object[] objects, Object obj) {
+        Objects.requireNonNull(objects);
+
         int rtnValue = -1;
 
-        for (int i = 0; i < objs.length; i++) {
-            if (objs[i] == obj // check for primitive-type
-                    || objs[i].equals(obj) // check for referenced-type
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] == obj // check for primitive-type
+                    || objects[i].equals(obj) // check for referenced-type
             ) {
                 rtnValue = i;
 
@@ -3206,9 +2721,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -3240,9 +2755,14 @@ public class ArrayUtils {
      * @param bytes
      * @param index
      * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
+     * 
      * @see ArrayIndexOutOfBoundsException
      */
     public static byte[] getPlainElements(byte[][] bytes, int index) {
+        ObjectUtils.requireNonNulls((Object[]) bytes);
+
         byte[] rtnBytes = new byte[bytes.length];
 
         for (int i = 0; i < bytes.length; i++) {
@@ -3266,12 +2786,17 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3295,12 +2820,17 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3324,12 +2854,17 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(char[] array, Function<Character, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3344,21 +2879,26 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(double[] array, Function<Double, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3382,12 +2922,17 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(float[] array, Function<Float, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3402,21 +2947,26 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(int[] array, Function<Integer, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3440,12 +2990,17 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(long[] array, Function<Long, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3469,12 +3024,17 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
     public static int indexOf(short[] array, Function<Short, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3489,21 +3049,26 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
      * @param array
      * @param c
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
      * 
      */
-    public static <T> int indexOf(T[] array, Function<T, Boolean> c) {
+    public static <T extends @Nullable Object> int indexOf(T[] array, Function<T, Boolean> c) {
+        ObjectUtils.requireNonNulls(array, c);
+
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
                 return i;
@@ -3519,89 +3084,113 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(boolean[] array, boolean value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        Objects.requireNonNull(array);
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int[] indice = new int[array.length];
+
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(boolean[] array, boolean[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<boolean[]> equi = EquivalentFactory.booleanArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final boolean tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(boolean[] array, boolean[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<boolean[]> equi = EquivalentFactory.booleanArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final boolean tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -3610,89 +3199,112 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(byte[] array, byte value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        Objects.requireNonNull(array);
+        int[] indice = new int[array.length];
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(byte[] array, byte[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<byte[]> equi = EquivalentFactory.byteArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final byte tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(byte[] array, byte[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<byte[]> equi = EquivalentFactory.byteArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final byte tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -3701,89 +3313,113 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(char[] array, char value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        Objects.requireNonNull(array);
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int[] indice = new int[array.length];
+
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(char[] array, char[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<char[]> equi = EquivalentFactory.charArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final char tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] values) must not be 'null': array="
-                    + (array != null ? Arrays.toString(array) : null) + ", values=" + (values != null ? Arrays.toString(values) : null)));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<char[]> equi = EquivalentFactory.charArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final char tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -3792,89 +3428,112 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(double[] array, double value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        Objects.requireNonNull(array);
+        int[] indice = new int[array.length];
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(double[] array, double[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<double[]> equi = EquivalentFactory.doubleArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final double tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(double[] array, double[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<double[]> equi = EquivalentFactory.doubleArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final double tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -3883,89 +3542,113 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(float[] array, float value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        Objects.requireNonNull(array);
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int[] indice = new int[array.length];
+
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(float[] array, float[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<float[]> equi = EquivalentFactory.floatArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final float tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(float[] array, float[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<float[]> equi = EquivalentFactory.floatArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final float tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -3974,88 +3657,113 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(int[] array, int value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        Objects.requireNonNull(array);
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int[] indice = new int[array.length];
+
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(int[] array, int[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<int[]> equi = EquivalentFactory.intArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final int tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(int[] array, int[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<int[]> equi = EquivalentFactory.intArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final int tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -4064,89 +3772,111 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(long[] array, long value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        int[] indice = new int[array.length];
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(long[] array, long[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<long[]> equi = EquivalentFactory.longArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final long tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(long[] array, long[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<long[]> equi = EquivalentFactory.longArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final long tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -4155,89 +3885,111 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(short[] array, short value) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+        int[] indice = new int[array.length];
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == value) {
-                    indice[count++] = i;
-                }
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                indice[count++] = i;
             }
+        }
 
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭)
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         무한 루프 방지 및 예외 처리 개선
+     * </pre>
      * 
      * @param array
      *            대상 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 배열 (길이가 1 이상이어야 함)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, indicePos)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(short[] array, short[] values) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                IEquivalent<short[]> equi = EquivalentFactory.shortArrayEquiv();
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final short tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(short[] array, short[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        IEquivalent<short[]> equi = EquivalentFactory.shortArrayEquiv();
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final short tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 복잡한 remLength 계산 대신 인덱스 한계치로 루프 조건 단순화
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [유지] 원시 타입(byte)이므로 객체 비교가 아닌 == 연산자 사용이 안전하고 빠름
+            if (array[arrayPos] == tfc) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -4248,12 +4000,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static <T> int[] indiceOf(T[] array, T value) {
-        return indiceOf(array, value, null);
+    public static <T extends @Nullable Object> int[] indiceOf(T[] array, T value) {
+        return ArrayUtils.<T> indiceOf(array, value, null);
     }
 
     /**
@@ -4266,33 +4020,37 @@ public class ArrayUtils {
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static <T> int[] indiceOf(T[] array, T value, IEquivalent<T> equivalent) {
-        if (array != null) {
-            int[] indice = new int[array.length];
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(indice, count)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> int[] indiceOf(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
+        Objects.requireNonNull(array);
 
-            if (equivalent == null) {
-                equivalent = new DefaultEquivalent<T>();
+        int[] indice = new int[array.length];
+
+        if (equivalent == null) {
+            equivalent = new DefaultEquivalent<T>();
+        }
+
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (equivalent.equals(array[i], value)) {
+                indice[count++] = i;
             }
+        }
 
-            int count = 0;
-            for (int i = 0; i < array.length; i++) {
-                if (equivalent.equals(array[i], value)) {
-                    indice[count++] = i;
-                }
-            }
-
-            if (count > 0) {
-                return copyOf(indice, count);
-            } else {
-                return new int[0];
-            }
-
+        if (count > 0) {
+            return Arrays.copyOf(indice, count);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
+            return new int[0];
         }
     }
 
@@ -4305,76 +4063,97 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * 
      */
     public static <T> int[] indiceOf(T[] array, T[] values) {
-        if (array != null && values != null) {
-            return indiceOfArray(array, values, null);
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameter(T[] array, T[] values) must not be 'null': array=" + array + ", values=" + values));
-        }
+        return indiceOfArray(array, values, null);
     }
 
     /**
-     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환하다.<br>
-     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.
+     * 주어진 배열에서 찾고자 하는 배열들의 위치 정보를 반환합니다.<br>
+     * 반환되는 배열의 길이는 0을 포함한 짝수이며, (홀/짝) 쌍을 이루는 값이 (시작/끝)의 정보를 표현합니다.<br>
+     * <b>참고:</b> 검색된 배열이 겹칠 경우 중복해서 찾지 않습니다. (Non-overlapping 매칭) *
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com     무한 루프 방지 및 객체 비교 안전성 개선
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
-     *            대상 배열
+     *            검색 대상 원본 배열
      * @param values
-     *            찾고자 하는 배열
-     * @return
+     *            찾고자 하는 타겟 배열 (길이가 1 이상이어야 함)
+     * @param equi
+     *            배열 동등성 비교 인터페이스 ({@code null}인 경우 기본 제공 팩토리 사용)
+     * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
-     * 
+     * @version 1.8.0
      */
-    public static <T> int[] indiceOfArray(T[] array, T[] values, IEquivalent<T[]> equi) {
-        if (array != null && values != null) {
-            if (array.length >= values.length) {
+    // apply to 'return Arrays.copyOf(indice, indicePos);'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> int[] indiceOfArray(T[] array, T[] values, @Nullable IEquivalent<T[]> equi) {
+        ObjectUtils.requireNonNulls(array, values);
 
-                int[] indice = new int[array.length / values.length * 2];
-                int indicePos = 0;
-
-                if (equi == null) {
-                    equi = EquivalentFactory.getDefault();
-                }
-
-                int arrayLength = array.length;
-                int targetLength = values.length;
-
-                int remLength = arrayLength;
-                // target's first character
-                final T tfc = values[0];
-
-                int arrayPos = 0;
-                while (arrayPos < arrayLength && remLength >= targetLength) {
-                    if (array[arrayPos] == tfc) {
-                        remLength = arrayLength - arrayPos;
-
-                        if (remLength >= targetLength) {
-                            if (equi.equals(copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
-                                indice[indicePos++] = arrayPos;
-                                indice[indicePos++] = arrayPos + targetLength - 1;
-
-                                arrayPos += targetLength;
-                            }
-                        } else {
-                            break;
-                        }
-                    } else {
-                        arrayPos++;
-                    }
-                }
-
-                return copyOf(indice, indicePos);
-            } else {
-                return new int[0];
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameter(T[] array, T[] values) must not be 'null': array=" + array + ", values=" + values));
+        // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단
+        if (values.length == 0 || array.length < values.length) {
+            return new int[0];
         }
+
+        // 최악의 경우(전부 매칭)를 가정한 크기 할당
+        int[] indice = new int[(array.length / values.length) * 2];
+        int indicePos = 0;
+
+        if (equi == null) {
+            equi = EquivalentFactory.getDefault();
+        }
+
+        int arrayLength = array.length;
+        int targetLength = values.length;
+
+        // 찾고자 하는 첫 번째 데이터 (values 길이가 1 이상임이 보장됨)
+        final T tfc = values[0];
+
+        int arrayPos = 0;
+
+        // 2. [최적화] 남은 길이가 targetLength보다 작으면 더 이상 검색할 필요가 없으므로 루프 종료
+        while (arrayPos <= arrayLength - targetLength) {
+
+            // 3. [버그 수정] 제네릭 객체의 메모리 참조 비교(==) 대신 안전한 동등성 비교(Objects.equals) 사용
+            if (Objects.equals(array[arrayPos], tfc)) {
+
+                // 첫 번째 요소가 일치하므로, 전체 부분 배열 추출 후 상세 비교 진행
+                if (equi.equals(Arrays.copyOfRange(array, arrayPos, arrayPos + targetLength), values)) {
+                    indice[indicePos++] = arrayPos;
+                    indice[indicePos++] = arrayPos + targetLength - 1;
+
+                    // 매칭 성공 시 중복(Overlap) 탐색을 피하기 위해 타겟 길이만큼 인덱스 점프
+                    arrayPos += targetLength;
+                } else {
+                    // 4. [치명적 버그 수정] 전체 비교 실패 시 다음 인덱스로 정상 이동 (무한 루프 방지)
+                    arrayPos++;
+                }
+            } else {
+                arrayPos++;
+            }
+        }
+
+        return Arrays.copyOf(indice, indicePos);
     }
 
     /**
@@ -4537,8 +4316,17 @@ public class ArrayUtils {
      * @param initValue
      *            초기값
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code initValue})가 {@code null}인 경우 발생.
      */
+    // apply to 'return array'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T> T[] initArray(int length, T initValue) {
+        Objects.requireNonNull(initValue);
+
         Class<?> _class = initValue.getClass();
         T[] array = (T[]) Array.newInstance(String.class.isAssignableFrom(_class) ? _class : _class.getComponentType(), length);
 
@@ -4557,33 +4345,30 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static boolean[] insert(boolean[] array, boolean value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                boolean[] newArray = new boolean[array.length + 1];
-
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(boolean[] array) must not be null.", new NullPointerException("array=null"));
+            boolean[] newArray = new boolean[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -4593,47 +4378,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static boolean[] insert(boolean[] array, boolean value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                boolean[] newArray = new boolean[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            boolean[] newArray = new boolean[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(boolean[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -4645,33 +4431,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static byte[] insert(byte[] array, byte value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                byte[] newArray = new byte[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(byte[] array) must not be null.", new NullPointerException("array=null"));
+            byte[] newArray = new byte[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -4681,47 +4466,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static byte[] insert(byte[] array, byte value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                byte[] newArray = new byte[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            byte[] newArray = new byte[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(byte[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -4733,33 +4519,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static char[] insert(char[] array, char value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                char[] newArray = new char[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(char[] array) must not be null.", new NullPointerException("array=null"));
+            char[] newArray = new char[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -4769,47 +4554,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static char[] insert(char[] array, char value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                char[] newArray = new char[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            char[] newArray = new char[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(char[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -4821,33 +4607,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static double[] insert(double[] array, double value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                double[] newArray = new double[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(double[] array) must not be null.", new NullPointerException("array=null"));
+            double[] newArray = new double[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -4857,47 +4642,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static double[] insert(double[] array, double value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                double[] newArray = new double[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            double[] newArray = new double[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(double[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -4909,33 +4695,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static float[] insert(float[] array, float value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                float[] newArray = new float[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(float[] array) must not be null.", new NullPointerException("array=null"));
+            float[] newArray = new float[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -4945,47 +4730,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static float[] insert(float[] array, float value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                float[] newArray = new float[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            float[] newArray = new float[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(float[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -4997,33 +4783,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static int[] insert(int[] array, int value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                int[] newArray = new int[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(int[] array) must not be null.", new NullPointerException("array=null"));
+            int[] newArray = new int[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -5033,47 +4818,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static int[] insert(int[] array, int value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                int[] newArray = new int[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            int[] newArray = new int[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(int[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -5085,33 +4871,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static long[] insert(long[] array, long value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                long[] newArray = new long[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(long[] array) must not be null.", new NullPointerException("array=null"));
+            long[] newArray = new long[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -5121,47 +4906,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static long[] insert(long[] array, long value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                long[] newArray = new long[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            long[] newArray = new long[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(long[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -5171,47 +4957,48 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static short[] insert(short[] array, short value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                short[] newArray = new short[array.length + indice.length];
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            short[] newArray = new short[array.length + indice.length];
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(short[] array, int ... index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -5223,33 +5010,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
     public static short[] insert(short[] array, short value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                short[] newArray = new short[array.length + 1];
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(long[] array) must not be null.", new NullPointerException("array=null"));
+            short[] newArray = new short[array.length + 1];
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -5261,33 +5047,32 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우 <BR>
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
-    public static <T> T[] insert(T[] array, T value, int index) {
-        if (array != null) {
-            if (index < 0 || index > array.length) {
-                throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
-            } else if (index == 0) {
-                return prepend(array, value);
-            } else if (index == array.length) {
-                return add(array, value);
-            } else {
-                T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+    public static <T extends @Nullable Object> T[] insert(T[] array, T value, int index) {
+        Objects.requireNonNull(array);
 
-                System.arraycopy(array, 0, newArray, 0, index);
-
-                // insert a new value
-                newArray[index] = value;
-
-                System.arraycopy(array, index, newArray, index + 1, array.length - index);
-
-                return newArray;
-            }
+        if (index < 0 || index > array.length) {
+            throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
+        } else if (index == 0) {
+            return prepend(array, value);
+        } else if (index == array.length) {
+            return ArrayUtils.<T> add(array, value);
         } else {
-            throw new IllegalArgumentException("A parameter(T[] array) must not be null.", new NullPointerException("array=null"));
+            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+
+            System.arraycopy(array, 0, newArray, 0, index);
+
+            // insert a new value
+            newArray[index] = value;
+
+            System.arraycopy(array, index, newArray, index + 1, array.length - index);
+
+            return newArray;
         }
     }
 
@@ -5297,47 +5082,52 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @param indice
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 13.
      * 
      */
+    // apply to 'return newArray'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T> T[] insert(T[] array, T value, int... indice) {
-        if (array != null && indice != null) {
-            if (indice.length < 1) {
-                return array;
-            } else if (indice.length > 1) {
-                checkRange(0, array.length, indice);
+        ObjectUtils.requireNonNulls(array, indice);
 
-                T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+        if (indice.length < 1) {
+            return array;
+        } else if (indice.length > 1) {
+            checkRange(0, array.length, indice);
 
-                int srcPos = 0;
-                int destPos = 0;
-                int latestIndex = -1;
-                // Real-time Existing Values Copied-Length
-                int revcl = 0;
-                for (int index : indice) {
-                    // copy existing values
-                    revcl = index - latestIndex - 1;
-                    System.arraycopy(array, srcPos, newArray, destPos, revcl);
+            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
 
-                    destPos += revcl;
-                    // copy a new value at index
-                    newArray[destPos++] = value;
+            int srcPos = 0;
+            int destPos = 0;
+            int latestIndex = -1;
+            // Real-time Existing Values Copied-Length
+            int revcl = 0;
+            for (int index : indice) {
+                // copy existing values
+                revcl = index - latestIndex - 1;
+                System.arraycopy(array, srcPos, newArray, destPos, revcl);
 
-                    srcPos += revcl;
+                destPos += revcl;
+                // copy a new value at index
+                newArray[destPos++] = value;
 
-                    latestIndex = index;
-                }
+                srcPos += revcl;
 
-                System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
-
-                return newArray;
-            } else {
-                return insert(array, value, indice[0]);
+                latestIndex = index;
             }
 
+            System.arraycopy(array, srcPos, newArray, destPos, array.length - srcPos);
+
+            return newArray;
         } else {
-            throw new IllegalArgumentException("Parameters(T[] array, int index) must not be null.", new NullPointerException("array=null, indice=null"));
+            return insert(array, value, indice[0]);
         }
     }
 
@@ -5347,11 +5137,16 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static boolean[] merge(boolean[]... arrays) {
+    public static boolean @Nullable [] merge(boolean @Nullable []... arrays) {
+
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5393,14 +5188,19 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static boolean[] merge(boolean[] arr1, boolean[] arr2) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static boolean[] merge(boolean @Nullable [] arr1, boolean @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             boolean[] merged = new boolean[arr1.length + arr2.length];
 
@@ -5409,9 +5209,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(boolean[] arr1, boolean[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5423,11 +5223,15 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static byte[] merge(byte[]... arrays) {
+    public static byte @Nullable [] merge(byte @Nullable []... arrays) {
+
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5469,14 +5273,20 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
-    public static byte[] merge(byte[] arr1, byte[] arr2) {
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static byte[] merge(byte @Nullable [] arr1, byte @Nullable [] arr2) {
+
         if (arr1 != null && arr2 != null) {
             byte[] merged = new byte[arr1.length + arr2.length];
 
@@ -5485,11 +5295,11 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5502,13 +5312,19 @@ public class ArrayUtils {
      *            2번째 배열에서 복사할 크기
      * @return
      * 
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama@naver.com)
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] merge(byte @Nullable [] arr1, byte @Nullable [] arr2, int length) {
         if (arr1 != null && arr2 != null) {
             byte[] merged = new byte[arr1.length + length];
@@ -5518,9 +5334,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5532,11 +5348,15 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static char[] merge(char[]... arrays) {
+    public static char @Nullable [] merge(char @Nullable []... arrays) {
+
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5578,13 +5398,19 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static char[] merge(char @Nullable [] arr1, char @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             char[] merged = new char[arr1.length + arr2.length];
@@ -5594,9 +5420,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(char[] arr1, char[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5608,11 +5434,16 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static double[] merge(double[]... arrays) {
+    public static double @Nullable [] merge(double @Nullable []... arrays) {
+
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5653,14 +5484,15 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
      * 
-     *                <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 3. 9.
      * 
      */
-    public static double[] merge(double[] arr1, double[] arr2) {
+    public static double[] merge(double @Nullable [] arr1, double @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             double[] merged = new double[arr1.length + arr2.length];
 
@@ -5669,9 +5501,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(double[] arr1, double[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5683,11 +5515,16 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static float[] merge(float[]... arrays) {
+    public static float @Nullable [] merge(float @Nullable []... arrays) {
+
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5731,11 +5568,11 @@ public class ArrayUtils {
      * @exception NullPointerException
      *                Either of parameters is null
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
-    public static float[] merge(float[] arr1, float[] arr2) {
+    public static float[] merge(float @Nullable [] arr1, float @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             float[] merged = new float[arr1.length + arr2.length];
 
@@ -5744,9 +5581,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(float[] arr1, float[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5758,11 +5595,14 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static int[] merge(int[]... arrays) {
+    public static int @Nullable [] merge(int @Nullable []... arrays) {
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5803,14 +5643,15 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
      * 
-     *                <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 3. 9.
      * 
      */
-    public static int[] merge(int[] arr1, int[] arr2) {
+    public static int[] merge(int @Nullable [] arr1, int @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             int[] merged = new int[arr1.length + arr2.length];
 
@@ -5819,9 +5660,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(int[] arr1, int[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5833,11 +5674,14 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static long[] merge(long[]... arrays) {
+    public static long @Nullable [] merge(long @Nullable []... arrays) {
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5878,14 +5722,15 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
      * 
-     *                <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 3. 9.
      * 
      */
-    public static long[] merge(long[] arr1, long[] arr2) {
+    public static long[] merge(long @Nullable [] arr1, long @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             long[] merged = new long[arr1.length + arr2.length];
 
@@ -5894,9 +5739,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(long[] arr1, long[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5908,11 +5753,14 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static short[] merge(short[]... arrays) {
+    public static short @Nullable [] merge(short @Nullable []... arrays) {
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -5953,14 +5801,12 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
-     * 
      */
-    public static short[] merge(short[] arr1, short[] arr2) {
+    public static short[] merge(short @Nullable [] arr1, short @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             short[] merged = new short[arr1.length + arr2.length];
 
@@ -5969,9 +5815,9 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(short[] arr1, short[] arr2) must not be null: arr1=null, arr2=null"));
         }
@@ -5983,11 +5829,15 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     *         <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
+     * 
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static <T> T[] merge(T[]... arrays) {
+    public static <T> T @Nullable [] merge(T @Nullable []... arrays) {
+        Objects.requireNonNull(arrays);
 
         // null 이 아닌 배열의 인덱스
         int[] evalArr = new int[arrays.length];
@@ -6028,16 +5878,16 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
      * 
-     *                <BR>
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 3. 9.
      * 
      * @see {@link Array#newInstance(Class, int)}
      */
 
-    public static <T> T[] merge(T[] arr1, T[] arr2) {
+    public static <T extends @Nullable Object> T[] merge(T @Nullable [] arr1, T @Nullable [] arr2) {
 
         if (arr1 != null && arr2 != null) {
 
@@ -6050,11 +5900,11 @@ public class ArrayUtils {
 
             return merged;
         } else if (arr1 != null) {
-            return copyOf(arr1, arr1.length);
+            return Arrays.copyOf(arr1, arr1.length);
         } else if (arr2 != null) {
-            return copyOf(arr2, arr2.length);
+            return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr1, T[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(T[] arr1, T[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -6071,15 +5921,14 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code value, array 모두})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
-     * 
-     * 
      */
-    public static Object[] objectArray(Object value, Object[] array) {
+    public static Object[] objectArray(@Nullable Object value, Object @Nullable [] array) {
 
         if (array != null && value != null) {
             Object[] newarr = new Object[array.length + 1];
@@ -6101,23 +5950,24 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 28.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 28.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
      * @param values
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
      * 
      * 
      */
-    public static Object[] objectArray(Object[] array, Object... values) {
+    public static Object[] objectArray(Object @Nullable [] array, Object @Nullable... values) {
 
         if (array != null && values != null) {
             Object[] newarr = new Object[array.length + values.length];
@@ -6141,11 +5991,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static boolean[] prepend(boolean[] array, boolean value) {
+    public static boolean[] prepend(boolean @Nullable [] array, boolean value) {
         boolean[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6168,20 +6018,23 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static boolean[] prepend(boolean[] array, boolean... values) {
+    public static boolean[] prepend(boolean @Nullable [] array, boolean @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6192,11 +6045,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static byte[] prepend(byte[] array, byte value) {
+    public static byte[] prepend(byte @Nullable [] array, byte value) {
         byte[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6217,20 +6070,23 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static byte[] prepend(byte[] array, byte... values) {
+    public static byte[] prepend(byte @Nullable [] array, byte @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6241,11 +6097,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static char[] prepend(char[] array, char value) {
+    public static char[] prepend(char @Nullable [] array, char value) {
         char[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6274,12 +6130,15 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static char[] prepend(char[] array, char... values) {
+    public static char[] prepend(char @Nullable [] array, char @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6290,11 +6149,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static double[] prepend(double[] array, double value) {
+    public static double[] prepend(double @Nullable [] array, double value) {
         double[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6323,12 +6182,15 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static double[] prepend(double[] array, double... values) {
+    public static double[] prepend(double @Nullable [] array, double @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6339,11 +6201,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static float[] prepend(float[] array, float value) {
+    public static float[] prepend(float @Nullable [] array, float value) {
         float[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6372,12 +6234,15 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static float[] prepend(float[] array, float... values) {
+    public static float[] prepend(float @Nullable [] array, float @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6388,11 +6253,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static int[] prepend(int[] array, int value) {
+    public static int[] prepend(int @Nullable [] array, int value) {
         int[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6421,12 +6286,15 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static int[] prepend(int[] array, int... values) {
+    public static int[] prepend(int @Nullable [] array, int @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6437,11 +6305,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static long[] prepend(long[] array, long value) {
+    public static long[] prepend(long @Nullable [] array, long value) {
         long[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6470,12 +6338,15 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static long[] prepend(long[] array, long... values) {
+    public static long[] prepend(long @Nullable [] array, long @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6486,11 +6357,11 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static short[] prepend(short[] array, short value) {
+    public static short[] prepend(short @Nullable [] array, short value) {
         short[] newArray = null;
 
         if (array != null && array.length > 0) {
@@ -6519,12 +6390,15 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
-    public static short[] prepend(short[] array, short... values) {
+    public static short[] prepend(short @Nullable [] array, short @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6535,31 +6409,34 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, value 모두})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 03. 12.
      * 
      */
-    public static <T> T[] prepend(T[] array, T value) {
-
-        T[] newArray = null;
+    public static <T> T[] prepend(T @Nullable [] array, @Nullable T value) {
 
         if (array != null && value != null) {
 
             assertComponentType(array, value.getClass());
 
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
+            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + 1);
             System.arraycopy(array, 0, newArray, 1, array.length);
             newArray[0] = value;
+
+            return newArray;
         } else if (array != null) {
-            newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
+            return (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
         } else if (value != null) {
-            newArray = (T[]) Array.newInstance(value.getClass(), 1);
+            T[] newArray = (T[]) Array.newInstance(value.getClass(), 1);
             newArray[0] = value;
+            return newArray;
         } else {
             throw new IllegalArgumentException(new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null"));
         }
-
-        return newArray;
     }
 
     /**
@@ -6576,13 +6453,16 @@ public class ArrayUtils {
      * @param array
      * @param values
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
      * 
      */
     @SafeVarargs
-    public static <T> T[] prepend(T[] array, T... values) {
+    public static <T> T[] prepend(T @Nullable [] array, T @Nullable... values) {
         return merge(values, array);
     }
 
@@ -6593,18 +6473,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static boolean[] removeAll(boolean[] array, boolean value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6619,7 +6495,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         boolean[] newArray = new boolean[array.length - delCount];
 
@@ -6649,18 +6525,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static byte[] removeAll(byte[] array, byte value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6675,7 +6547,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         byte[] newArray = new byte[array.length - delCount];
 
@@ -6705,18 +6577,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static char[] removeAll(char[] array, char value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6731,7 +6599,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         char[] newArray = new char[array.length - delCount];
 
@@ -6760,18 +6628,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static double[] removeAll(double[] array, double value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6786,7 +6650,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         double[] newArray = new double[array.length - delCount];
 
@@ -6815,18 +6679,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static float[] removeAll(float[] array, float value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6841,7 +6701,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         float[] newArray = new float[array.length - delCount];
 
@@ -6870,18 +6730,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static int[] removeAll(int[] array, int value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6896,7 +6752,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         int[] newArray = new int[array.length - delCount];
 
@@ -6925,18 +6781,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static long[] removeAll(long[] array, long value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -6951,7 +6803,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         long[] newArray = new long[array.length - delCount];
 
@@ -6980,18 +6832,14 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
      * @since 2012. 3. 9.
      * 
      */
     public static short[] removeAll(short[] array, short value) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(short[] array) must not be 'null': array=null"));
-        }
+        Objects.requireNonNull(array);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -7006,7 +6854,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         short[] newArray = new short[array.length - delCount];
 
@@ -7028,14 +6876,25 @@ public class ArrayUtils {
         return newArray;
     }
 
-    public static <T> T[] removeAll(T[] array, Predicate<T> filter) {
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
-        }
-
-        if (filter == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(Function<T, Boolean> filter ) must not be 'null': filter=null"));
-        }
+    /**
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 
+     * @param array
+     * @param value
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array 또는 filter})가 {@code null}인 경우 발생.
+     * 
+     * @since 2012. 3. 9.
+     * 
+     */
+    // apply to 'return newArray'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> T[] removeAll(@Nullable T[] array, Predicate<T> filter) {
+        ObjectUtils.requireNonNulls(array, filter);
 
         int[] delIndice = new int[array.length];
         int delCount = 0;
@@ -7050,7 +6909,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
 
@@ -7080,14 +6939,14 @@ public class ArrayUtils {
      * 
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
-    public static <T> T[] removeAll(T[] array, T value) {
+    public static <T> T[] removeAll(@Nullable T[] array, @Nullable T value) {
         return removeAll(array, value, null);
     }
 
@@ -7100,18 +6959,19 @@ public class ArrayUtils {
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
-    public static <T> T[] removeAll(T[] array, T value, IEquivalent<T> equivalent) {
-
-        if (array == null) {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
-        }
+    // apply to 'return newArray'
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> T[] removeAll(@Nullable T[] array, @Nullable T value, @Nullable IEquivalent<T> equivalent) {
+        Objects.requireNonNull(array);
 
         if (equivalent == null) {
             equivalent = new DefaultEquivalent<T>();
@@ -7130,7 +6990,7 @@ public class ArrayUtils {
             return array;
         }
 
-        delIndice = copyOf(delIndice, delCount);
+        delIndice = Arrays.copyOf(delIndice, delCount);
 
         T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
 
@@ -7157,11 +7017,17 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
      * @since 2012. 3. 9.
      * 
      */
     public static boolean[] removeAt(boolean[] array, int index) {
+        Objects.requireNonNull(array);
+
         if (index > -1 && index < array.length) {
             boolean[] newArray = new boolean[array.length - 1];
 
@@ -7179,7 +7045,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7201,7 +7067,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7223,7 +7089,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7245,7 +7111,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7267,7 +7133,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7289,7 +7155,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7311,7 +7177,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7333,7 +7199,7 @@ public class ArrayUtils {
      * 
      * @param array
      * @param index
-     * @return <BR>
+     * @return
      * @since 2012. 3. 9.
      * 
      */
@@ -7361,7 +7227,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7391,7 +7257,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7421,7 +7287,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7451,7 +7317,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7481,7 +7347,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7511,7 +7377,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7541,7 +7407,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7571,7 +7437,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7606,7 +7472,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7626,7 +7492,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7659,7 +7525,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7689,7 +7555,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7719,7 +7585,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7749,7 +7615,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7779,7 +7645,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7809,7 +7675,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7839,7 +7705,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7869,7 +7735,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7900,7 +7766,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -7920,7 +7786,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -9221,7 +9087,7 @@ public class ArrayUtils {
      * {@code <b>boolean</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9245,7 +9111,7 @@ public class ArrayUtils {
      * {@code <b>byte</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9269,7 +9135,7 @@ public class ArrayUtils {
      * {@code <b>char</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9293,7 +9159,7 @@ public class ArrayUtils {
      * {@code <b>double</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9317,7 +9183,7 @@ public class ArrayUtils {
      * {@code <b>float</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9341,7 +9207,7 @@ public class ArrayUtils {
      * {@code <b>int</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9365,7 +9231,7 @@ public class ArrayUtils {
      * {@code <b>long</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9389,7 +9255,7 @@ public class ArrayUtils {
      * {@code <b>long</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9413,7 +9279,7 @@ public class ArrayUtils {
      * 배열의 순서를 변경한 후 반환합니다.
      * 
      * @param array
-     * @return <BR>
+     * @return
      * @since 2012. 02. 22.
      * 
      */
@@ -9556,7 +9422,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9586,7 +9452,7 @@ public class ArrayUtils {
                 return new boolean[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             boolean[][] newArray = new boolean[splitedRanges.length][];
 
@@ -9596,11 +9462,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(boolean[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9613,7 +9479,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9643,7 +9509,7 @@ public class ArrayUtils {
                 return new byte[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             byte[][] newArray = new byte[splitedRanges.length][];
 
@@ -9653,11 +9519,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(byte[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9670,7 +9536,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9700,7 +9566,7 @@ public class ArrayUtils {
                 return new char[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             char[][] newArray = new char[splitedRanges.length][];
 
@@ -9710,11 +9576,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(char[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9727,7 +9593,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9757,7 +9623,7 @@ public class ArrayUtils {
                 return new double[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             double[][] newArray = new double[splitedRanges.length][];
 
@@ -9767,11 +9633,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(double[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9784,7 +9650,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9814,7 +9680,7 @@ public class ArrayUtils {
                 return new int[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             int[][] newArray = new int[splitedRanges.length][];
 
@@ -9824,11 +9690,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(int[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9841,7 +9707,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9871,7 +9737,7 @@ public class ArrayUtils {
                 return new long[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             long[][] newArray = new long[splitedRanges.length][];
 
@@ -9881,11 +9747,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(long[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9898,7 +9764,7 @@ public class ArrayUtils {
      * @param value
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9928,7 +9794,7 @@ public class ArrayUtils {
                 return new short[0][];
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             short[][] newArray = new short[splitedRanges.length][];
 
@@ -9938,11 +9804,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
         } else {
             throw new IllegalArgumentException("A parameter(long[] array) must not be 'null'", new NullPointerException("array=null"));
         }
@@ -9956,7 +9822,7 @@ public class ArrayUtils {
      *            구분자로 사용되는 데이타
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -9971,36 +9837,36 @@ public class ArrayUtils {
      * -- begin of code
      * 
      * int[][] array = { new int[] { 1, 2 }, new int[] { 2, 3 }, new int[] { 3, 4 }, new int[] { 5, 6 },
-     * 				new int[] { 2, 3 }, new int[] { 3, 4 }, new int[] { 2, 3 }, new int[] { 23, 5 }, new int[] { 3, 2 } };
+     *              new int[] { 2, 3 }, new int[] { 3, 4 }, new int[] { 2, 3 }, new int[] { 23, 5 }, new int[] { 3, 2 } };
      * 
-     * 		IEquivalent<int[]> equi = new DefaultEquivalent<int[]>() {
-     * 			public boolean equals(int[] t1, int[] t2) {
-     * 				if( t1 != null && t2 != null ) {
-     * 					if( t1.length != t2.length ) {
-     * 						return false;
-     * 					} else {
-     * 						
-     * 						int[] tt1 = copyOf(t1,t1.length);
-     * 						int[] tt2 = copyOf(t2, t2.length);
-     * 						Arrays.sort(tt1);
-     * 						Arrays.sort(tt2);
-     * 						for( int i = 0; i < t1.length; i++ ) {
-     * 							if( tt1[i] != tt2[i] )
-     * 								return false;
-     * 						}
-     * 						return true;
-     * 					}
-     * 				} else {
-     * 					return nullEquals(t1, t2);
-     * 				}
-     * 			};
-     * 		};
+     *      IEquivalent<int[]> equi = new DefaultEquivalent<int[]>() {
+     *          public boolean equals(int[] t1, int[] t2) {
+     *              if( t1 != null && t2 != null ) {
+     *                  if( t1.length != t2.length ) {
+     *                      return false;
+     *                  } else {
+     *                      
+     *                      int[] tt1 = copyOf(t1,t1.length);
+     *                      int[] tt2 = copyOf(t2, t2.length);
+     *                      Arrays.sort(tt1);
+     *                      Arrays.sort(tt2);
+     *                      for( int i = 0; i < t1.length; i++ ) {
+     *                          if( tt1[i] != tt2[i] )
+     *                              return false;
+     *                      }
+     *                      return true;
+     *                  }
+     *              } else {
+     *                  return nullEquals(t1, t2);
+     *              }
+     *          };
+     *      };
      * 
-     * 		for( int[][] arr : split(array, new int[] { 2, 3 }, equi) ) {
-     * 			for( int[] ar : arr ) {
-     * 				System.out.println(Arrays.toString(ar));
-     * 			}
-     * 		}
+     *      for( int[][] arr : split(array, new int[] { 2, 3 }, equi) ) {
+     *          for( int[] ar : arr ) {
+     *              System.out.println(Arrays.toString(ar));
+     *          }
+     *      }
      * 
      * -- end of code --
      * 
@@ -10019,7 +9885,7 @@ public class ArrayUtils {
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     *         <BR>
+     * 
      * @since 2012. 03. 20.
      * 
      */
@@ -10056,7 +9922,7 @@ public class ArrayUtils {
                 return (T[][]) Array.newInstance(array.getClass(), 0);
             }
 
-            splitedRanges = copyOf(splitedRanges, splitedCount);
+            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
 
             T[][] newArray = (T[][]) Array.newInstance(array.getClass(), splitedRanges.length);
 
@@ -10066,11 +9932,11 @@ public class ArrayUtils {
             for (; i < newArray.length; i++) {
                 range = splitedRanges[i];
                 if (range[1] != 0) {
-                    newArray[splitedCount++] = copyOfRange(array, range[0], range[0] + range[1]);
+                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
                 }
             }
 
-            return copyOf(newArray, splitedCount);
+            return Arrays.copyOf(newArray, splitedCount);
 
         } else {
             throw new IllegalArgumentException("A parameter(T[] array) must not be 'null'", new NullPointerException("array=null"));
@@ -10082,9 +9948,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 24.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 6. 24.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -10114,7 +9980,7 @@ public class ArrayUtils {
         if (pos < 1) {
             return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
         } else {
-            return ArrayUtils.copyOf(newArr, pos);
+            return Arrays.copyOf(newArr, pos);
         }
     }
 
@@ -10156,7 +10022,7 @@ public class ArrayUtils {
             newArr[pos++] = elem;
         }
 
-        return ArrayUtils.copyOf(newArr, pos);
+        return Arrays.copyOf(newArr, pos);
     }
 
     /**
@@ -10165,9 +10031,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -10190,7 +10056,7 @@ public class ArrayUtils {
             newArr[pos++] = elem;
         }
 
-        return ArrayUtils.copyOf(newArr, pos);
+        return Arrays.copyOf(newArr, pos);
     }
 
     /**
@@ -10207,7 +10073,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10250,7 +10116,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10294,7 +10160,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10338,7 +10204,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10382,7 +10248,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10426,7 +10292,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10470,7 +10336,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10514,7 +10380,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10560,7 +10426,7 @@ public class ArrayUtils {
      * @exception IllegalArgumentException
      *                주어진 배열이 {@code null}인 경우
      * 
-     *                <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -10853,9 +10719,9 @@ public class ArrayUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 7. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 7. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -10881,14 +10747,14 @@ public class ArrayUtils {
     public static class EntryValue<K, V> implements Entry<K, V> {
 
         private K key;
-        private V value;
+        private @Nullable V value;
 
         /**
          * @param key
          * @param value
          * @since 2021. 8. 15.
          */
-        public EntryValue(K key, V value) {
+        public EntryValue(K key, @Nullable V value) {
             this.key = key;
             this.value = value;
         }
@@ -10898,9 +10764,9 @@ public class ArrayUtils {
          * 
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2021. 8. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
          * </pre>
          *
          * @return
@@ -10920,9 +10786,9 @@ public class ArrayUtils {
          * 
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2021. 8. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
          * </pre>
          *
          * @return
@@ -10933,7 +10799,7 @@ public class ArrayUtils {
          * @see java.util.Map.Entry#getValue()
          */
         @Override
-        public V getValue() {
+        public @Nullable V getValue() {
             return this.value;
         }
 
@@ -10942,9 +10808,9 @@ public class ArrayUtils {
          * 
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2021. 8. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
          * </pre>
          *
          * @param value
@@ -10956,7 +10822,7 @@ public class ArrayUtils {
          * @see java.util.Map.Entry#setValue(java.lang.Object)
          */
         @Override
-        public V setValue(V value) {
+        public V setValue(@Nullable V value) {
             V v = this.value;
             this.value = value;
             return v;

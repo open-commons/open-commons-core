@@ -46,6 +46,7 @@ import org.jspecify.annotations.Nullable;
 
 import open.commons.core.database.annotation.ColumnConf;
 import open.commons.core.database.annotation.TableDef;
+import open.commons.core.utils.ClassUtils;
 import open.commons.core.utils.ObjectUtils;
 
 /**
@@ -91,7 +92,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
     /** 클래스별 테이블 메타데이터 캐시 */
     private static final Map<Class<?>, TableMetadata> CACHE_TABLE_METADATA = new ConcurrentHashMap<>();
 
-    protected final String CLASS = Objects.requireNonNull(getClass().getSimpleName());
+    protected final String CLASS = ClassUtils.getSimpleName(getClass());
 
     public DefaultTableEntity() {
     }
@@ -145,6 +146,11 @@ public abstract class DefaultTableEntity implements ITableEntity {
         return Objects.requireNonNull(query.toString());
     }
 
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private String createKV(Collection<ColumnConf> columns, Collection<String> values, String concatenator) {
         StringBuilder sb = new StringBuilder();
         Iterator<ColumnConf> itrCols = columns.iterator();
@@ -156,7 +162,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
                 sb.append(" ").append(concatenator).append(" ").append(itrCols.next().column()).append("=").append(itrVals.next());
             }
         }
-        return Objects.requireNonNull(sb.toString());
+        return sb.toString();
     }
 
     /**
@@ -311,14 +317,13 @@ public abstract class DefaultTableEntity implements ITableEntity {
      *
      * @return {@link TableMetadata} 객체
      */
+    // 아래 내용에 적용됨.
+    // - CACHE_TABLE_METADATA.computeIfAbsent(getClass(), TABLE_METADATA_GEN)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private TableMetadata getMetadata() {
-        TableMetadata cached = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                CACHE_TABLE_METADATA.computeIfAbsent(getClass(), TABLE_METADATA_GEN) //
-        );
-
-        return cached;
+        return CACHE_TABLE_METADATA.computeIfAbsent(getClass(), TABLE_METADATA_GEN);
     }
 
     private String getTableName() {
@@ -357,21 +362,22 @@ public abstract class DefaultTableEntity implements ITableEntity {
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - Collectors.joining(", ")
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private String serializeColumns(Collection<ColumnConf> columns) {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                columns.stream().map(ColumnConf::column).collect(Collectors.joining(", ")) //
-        );
+        return columns.stream().map(ColumnConf::column).collect(Collectors.joining(", "));
     }
 
+    // 아래 내용에 적용됨.
+    // - String.join(", ", values)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private String serializeValues(Collection<String> values) {
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                String.join(", ", values) //
-        );
+        return String.join(", ", values);
     }
 
     /**

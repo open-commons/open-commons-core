@@ -57,11 +57,12 @@ import open.commons.core.utils.TimeUtils;
  */
 public class StopWatch {
     /** 종료 구간 식별자 */
-    public static final String LAST = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString() //
-    );
+    // 아래 내용에 적용됨.
+    // - UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static final String LAST = UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString();
     private final ReentrantLock lock = new ReentrantLock();
     /** 경과시간 기록 */
     private final ConcurrentSkipListMap<String, Record> records = new ConcurrentSkipListMap<>();
@@ -626,6 +627,11 @@ public class StopWatch {
     /**
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - builder.toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -648,11 +654,7 @@ public class StopWatch {
         builder.append(records);
         builder.append("]");
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                builder.toString() //
-        );
+        return builder.toString();
     }
 
     private void updatePaused(long cur) {
@@ -742,6 +744,11 @@ public class StopWatch {
         /**
          * @see java.lang.Object#toString()
          */
+        // 아래 내용에 적용됨.
+        // - return builder.toString();
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
@@ -756,11 +763,7 @@ public class StopWatch {
             builder.append(pausedAcc);
             builder.append("]");
 
-            return Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    builder.toString() //
-            );
+            return builder.toString();
         }
     }
 

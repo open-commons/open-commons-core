@@ -36,10 +36,10 @@ import org.jspecify.annotations.Nullable;
  * @since 2012. 7. 30
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class DefaultContainer<T> extends AContainer<T> {
+public class DefaultContainer<T extends @Nullable Object> extends AContainer<T> {
 
     @Override
-    public boolean contains(@Nullable T container, @Nullable T contained) {
+    public boolean contains(T container, T contained) {
         return checkNull(container, contained) && container == contained;
     }
 

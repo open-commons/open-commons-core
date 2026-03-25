@@ -53,11 +53,7 @@ import open.commons.core.utils.ObjectUtils;
  */
 public abstract class AbstractContextWriter implements IFileContextWriter {
 
-    protected static final String LINE_SEPARATOR = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            System.getProperty("line.separator") //
-    );
+    protected static final String LINE_SEPARATOR = Objects.requireNonNull(System.getProperty("line.separator"));
 
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy/MM/dd hh:mm:ss] ");
 
@@ -105,6 +101,11 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
      * @throws NullPointerException
      *             파라미터({@code context})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - sb.toString()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     protected final String contextToString(open.commons.core.unix.tool.IFileModifyListener.FileContext context) {
         Objects.requireNonNull(context);
 
@@ -161,11 +162,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
         } catch (Exception e) {
         }
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                sb.toString() //
-        );
+        return sb.toString();
     }
 
     /**

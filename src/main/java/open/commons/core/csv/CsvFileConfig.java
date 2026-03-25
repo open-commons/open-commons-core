@@ -705,6 +705,11 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - return builder.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -727,11 +732,7 @@ public class CsvFileConfig extends CsvConfig {
         builder.append(charsetName);
         builder.append("]");
 
-        return Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                builder.toString() //
-        );
+        return builder.toString();
     }
 
 }

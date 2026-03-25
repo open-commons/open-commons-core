@@ -27,6 +27,7 @@
 package open.commons.core.xml;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Stack;
@@ -151,7 +152,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) throws SAXException {
         if (dataQNames.contains(getCurrentQName())) {
             logger.debug(String.format("%s[ELEMENT::characters] start: %,4d, length: %,4d, value: %s" //
-                    , indentation(), start, length, new String(ArrayUtils.copyOfRange(ch, start, start + length))));
+                    , indentation(), start, length, new String(Arrays.copyOfRange(ch, start, start + length))));
         }
 
         // 데이타를 갖지 않는 Element는 패스.
@@ -163,7 +164,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
         Object parentObj = null;
         try {
             // #0. SAX Element's TEXT value
-            strValue = new String(ArrayUtils.copyOfRange(ch, start, start + length));
+            strValue = new String(Arrays.copyOfRange(ch, start, start + length));
             // #1. 현재 상태의 Element 이름
             qname = getCurrentQName();
             // #2. 상위 Element 이름 및 객체

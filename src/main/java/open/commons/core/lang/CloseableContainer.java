@@ -66,6 +66,11 @@ public interface CloseableContainer extends AutoCloseable {
      * 
      * @see java.lang.AutoCloseable#close()
      */
+    // 아래 내용에 적용됨.
+    // - IOUtils.close(resources);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     default void close() throws Exception {
 
@@ -77,20 +82,17 @@ public interface CloseableContainer extends AutoCloseable {
                 .peek(f -> f.trySetAccessible()).toList());
 
         // 2. 캐시된 필드를 사용하여 인스턴스 값 추출 및 중복 제거
-        AutoCloseable[] resources = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                resourceFields.stream().map(f -> {
-                    try {
-                        return (AutoCloseable) f.get(this);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException("Fail to access a " + Resource.class.getName() + " instance field: " + f.getName(), e);
-                    }
-                }).filter(Objects::nonNull)
-                        // 기존 HashSet을 대체하는 Stream API 중복 제거
-                        .distinct() //
-                        .toArray(AutoCloseable[]::new) //
-        );
+        AutoCloseable[] resources = resourceFields.stream().map(f -> {
+            try {
+                return (AutoCloseable) f.get(this);
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException("Fail to access a " + Resource.class.getName() + " instance field: " + f.getName(), e);
+            }
+        }).filter(Objects::nonNull)
+                // 기존 HashSet을 대체하는 Stream API 중복 제거
+                .distinct() //
+                .toArray(AutoCloseable[]::new) //
+        ;
 
         // 3. 자원 해제
         IOUtils.close(resources);

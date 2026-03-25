@@ -50,11 +50,12 @@ import open.commons.core.utils.StringUtils;
  */
 public class PathElement implements Iterable<String> {
 
-    private static final String DEFAULT_SEPARATOR = Objects.requireNonNull(
-            // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-            File.separator //
-    );
+    // 아래 내용에 적용됨.
+    // - File.separator
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static final String DEFAULT_SEPARATOR = File.separator;
 
     /** 구분자 */
     private String separator;
@@ -169,6 +170,11 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 15.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - this.sepChar = separator.toCharArray();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public PathElement(String separator, char[] elems, int[][] elemLength) {
         AssertUtils2.notNulls("Parameters (char[] elems, int[][] elemLength) must not be null both of them: elems=" + Arrays.toString(elems) + ", elemLength=" + elemLength //
                 , PathElementException.class //
@@ -191,11 +197,7 @@ public class PathElement implements Iterable<String> {
         }
 
         this.separator = separator;
-        this.sepChar = Objects.requireNonNull(
-                // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                separator.toCharArray() //
-        );
+        this.sepChar = separator.toCharArray();
 
         this.elems = elems;
         this.elemLength = elemLength;
@@ -225,13 +227,14 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - createPathValue(npc); // char[] npc = path.toCharArray(); 에서 @NonNull이 보장되지 않음.
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void add(@Nullable String path) {
         if (path != null) {
-            char[] npc = Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    path.toCharArray() //
-            );
+            char[] npc = path.toCharArray();
             synchronized (mtxPaths) {
                 createPathValue(npc);
             }
@@ -313,6 +316,11 @@ public class PathElement implements Iterable<String> {
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - sepChar = separator.toCharArray();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void clear() {
         synchronized (mtxPaths) {
 
@@ -320,11 +328,7 @@ public class PathElement implements Iterable<String> {
             separator = DEFAULT_SEPARATOR;
 
             /** 구분자 문자 배열 */
-            sepChar = Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    separator.toCharArray() //
-            );
+            sepChar = separator.toCharArray();
 
             /** 경로들의 문자배열 */
             elems = new char[0];
@@ -394,7 +398,7 @@ public class PathElement implements Iterable<String> {
                 return false;
             }
 
-            evalElemLen = ArrayUtils.copyOf(evalElemLen, evalLength);
+            evalElemLen = Arrays.copyOf(evalElemLen, evalLength);
             int[] el = null;
 
             char[] elemChars = null;
@@ -510,9 +514,14 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(elemLength, elemLength.length);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public int[][] getElementLengths() {
         synchronized (mtxPaths) {
-            return ArrayUtils.copyOf(elemLength, elemLength.length);
+            return Arrays.copyOf(elemLength, elemLength.length);
         }
     }
 
@@ -523,9 +532,14 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(elems, elems.length);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public char[] getElements() {
         synchronized (mtxPaths) {
-            return ArrayUtils.copyOf(elems, elems.length);
+            return Arrays.copyOf(elems, elems.length);
         }
     }
 
@@ -537,20 +551,21 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - return this.paths[index];
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String getPath(int index) {
         synchronized (mtxPaths) {
             checkIndex(index);
 
-            if (paths != null) {
-                return Objects.requireNonNull(
-                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                        paths[index] //
-                );
+            if (this.paths != null) {
+                return this.paths[index];
             }
 
-            char[] path = new char[elemLength[index][1]];
-            System.arraycopy(elems, elemLength[index][0], path, 0, path.length);
+            char[] path = new char[this.elemLength[index][1]];
+            System.arraycopy(this.elems, this.elemLength[index][0], path, 0, path.length);
             return new String(path);
         }
     }
@@ -562,6 +577,11 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 14.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(this.paths, this.paths.length);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String[] getPaths() {
         synchronized (mtxPaths) {
             if (elemCount < 1) {
@@ -569,7 +589,7 @@ public class PathElement implements Iterable<String> {
             }
 
             if (this.paths != null) {
-                return ArrayUtils.copyOf(this.paths, this.paths.length);
+                return Arrays.copyOf(this.paths, this.paths.length);
             } else {
                 this.paths = getPaths_internal(this.elemCount);
                 return this.paths;
@@ -586,14 +606,17 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 15.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(this.paths, index + 1);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String[] getPaths(int index) {
         synchronized (mtxPaths) {
             checkIndex(index);
 
             if (this.paths != null) {
-                return ArrayUtils.copyOf(Objects.requireNonNull( //
-                        this.paths //
-                ), index + 1);
+                return Arrays.copyOf(this.paths, index + 1);
             } else {
                 return getPaths_internal(index + 1);
             }
@@ -614,7 +637,7 @@ public class PathElement implements Iterable<String> {
         int[] el = null;
         for (int i = 0; i < count; i++) {
             el = elemLength[i];
-            paths[i] = new String(ArrayUtils.copyOfRange(elems, el[0], el[2]));
+            paths[i] = new String(Arrays.copyOfRange(elems, el[0], el[2]));
         }
 
         return paths;
@@ -676,23 +699,29 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 14.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount - 2][2]);
+    // - this.elemLength = Arrays.copyOf(this.elemLength, this.elemCount - 1);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String remove() {
         synchronized (mtxPaths) {
             String removed = null;
-            if (elemCount < 1) {
+            if (this.elemCount < 1) {
                 throw new PathElementException("There is no a Path-Element");
-            } else if (elemCount > 1) {
-                removed = new String(elems, elemLength[elemCount - 1][0], elemLength[elemCount - 1][1]);
+            } else if (this.elemCount > 1) {
+                removed = new String(this.elems, this.elemLength[this.elemCount - 1][0], this.elemLength[this.elemCount - 1][1]);
 
-                elems = ArrayUtils.copyOf(elems, elemLength[elemCount - 2][2]);
-                elemLength = ArrayUtils.copyOf(elemLength, elemCount - 1);
-                elemCount--;
+                this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount - 2][2]);
+                this.elemLength = Arrays.copyOf(this.elemLength, this.elemCount - 1);
+                this.elemCount--;
             } else {
-                removed = new String(elems);
+                removed = new String(this.elems);
 
-                elems = new char[0];
-                elemLength = new int[0][];
-                elemCount = 0;
+                this.elems = new char[0];
+                this.elemLength = new int[0][];
+                this.elemCount = 0;
             }
             return removed;
         }
@@ -730,17 +759,18 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 12.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - this.sepChar = separator.toCharArray();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String setSeparator(String separator) {
         Objects.requireNonNull(separator);
 
         synchronized (mtxPaths) {
             String latestValue = this.separator;
             this.separator = separator;
-            this.sepChar = Objects.requireNonNull(
-                    // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                    separator.toCharArray() //
-            );
+            this.sepChar = separator.toCharArray();
             return latestValue;
         }
     }
@@ -835,15 +865,16 @@ public class PathElement implements Iterable<String> {
          * 
          * @see java.util.Iterator#next()
          */
+        // 아래 내용에 적용됨.
+        // - return this.itrArray[pos];
+        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         @Override
         public String next() {
             synchronized (mtx) {
                 remove();
-                return Objects.requireNonNull(
-                        // [PATCH[ JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                        itrArray[pos] //
-                );
+                return this.itrArray[pos];
             }
         }
 
