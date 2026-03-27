@@ -34,6 +34,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
@@ -49,6 +50,7 @@ import open.commons.core.collection.IContainer;
  * 배열에 대한 기능성 메소드를 제공하는 클래스
  * 
  * @since 2012. 02. 21.
+ * @version 1.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  */
@@ -59,7 +61,9 @@ public class ArrayUtils {
      * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
+     *            데이터를 추가할 배열
      * @param value
+     *            추가할 새로운 데이터
      * @return
      * 
      * @since 2012. 3. 9.
@@ -92,7 +96,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            추가할 새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -106,7 +112,9 @@ public class ArrayUtils {
      * 기존 배열에 새로운 데이타를 맨 뒤에 추가한 후, 새로운 배열을 반환합니다.
      * 
      * @param array
+     *            데이터를 추가할 배열
      * @param value
+     *            새로운 데이터
      * @return
      * 
      * @since 2012. 3. 9.
@@ -138,7 +146,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -185,7 +195,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -232,7 +244,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -279,7 +293,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -326,7 +342,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -373,7 +391,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -420,7 +440,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -471,7 +493,7 @@ public class ArrayUtils {
 
             return newArray;
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null"));
+            throw new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null");
         }
     }
 
@@ -487,7 +509,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -554,7 +578,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -615,7 +641,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -676,7 +704,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -737,7 +767,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -799,7 +831,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -860,7 +894,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -921,7 +957,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      *
      * @since 2019. 7. 4.
@@ -994,6 +1032,11 @@ public class ArrayUtils {
      * 
      * @since 2014. 6. 18.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) classes);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Class<?>[] adjustByLength(int length, Class<?>... classes) {
         ObjectUtils.requireNonNulls((Object[]) classes);
 
@@ -1602,7 +1645,7 @@ public class ArrayUtils {
         }
 
         for (T t : array) {
-            if (CheckUtils.equals(t, value)) {
+            if (Objects.equals(t, value)) {
                 return true;
             }
         }
@@ -2609,6 +2652,11 @@ public class ArrayUtils {
      * 
      * @see ArrayIndexOutOfBoundsException
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) bytes);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] getDecElements(byte[][] bytes) {
         ObjectUtils.requireNonNulls((Object[]) bytes);
 
@@ -2675,6 +2723,11 @@ public class ArrayUtils {
      * 
      * @see ArrayIndexOutOfBoundsException
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) bytes);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] getIncElements(byte[][] bytes) {
         ObjectUtils.requireNonNulls((Object[]) bytes);
 
@@ -2760,6 +2813,11 @@ public class ArrayUtils {
      * 
      * @see ArrayIndexOutOfBoundsException
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) bytes);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] getPlainElements(byte[][] bytes, int index) {
         ObjectUtils.requireNonNulls((Object[]) bytes);
 
@@ -4070,8 +4128,8 @@ public class ArrayUtils {
      * @since 2012. 03. 30.
      * 
      */
-    public static <T> int[] indiceOf(T[] array, T[] values) {
-        return indiceOfArray(array, values, null);
+    public static <T extends @Nullable Object> int[] indiceOf(T[] array, T[] values) {
+        return ArrayUtils.<T> indiceOfArray(array, values, null);
     }
 
     /**
@@ -4107,7 +4165,7 @@ public class ArrayUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <T> int[] indiceOfArray(T[] array, T[] values, @Nullable IEquivalent<T[]> equi) {
+    public static <T extends @Nullable Object> int[] indiceOfArray(T[] array, T[] values, @Nullable IEquivalent<T[]> equi) {
         ObjectUtils.requireNonNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단
@@ -5059,7 +5117,7 @@ public class ArrayUtils {
         if (index < 0 || index > array.length) {
             throw new IllegalArgumentException("An index(int index) must be between 0 to " + array.length);
         } else if (index == 0) {
-            return prepend(array, value);
+            return ArrayUtils.<T> prepend(array, value);
         } else if (index == array.length) {
             return ArrayUtils.<T> add(array, value);
         } else {
@@ -5213,7 +5271,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(boolean[] arr1, boolean[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(boolean[] arr1, boolean[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5338,7 +5396,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5401,7 +5459,6 @@ public class ArrayUtils {
      * @throws NullPointerException
      *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -5424,7 +5481,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(char[] arr1, char[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(char[] arr1, char[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5492,6 +5549,12 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static double[] merge(double @Nullable [] arr1, double @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             double[] merged = new double[arr1.length + arr2.length];
@@ -5505,7 +5568,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(double[] arr1, double[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(double[] arr1, double[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5565,13 +5628,18 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @exception NullPointerException
-     *                Either of parameters is null
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 3. 9.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static float[] merge(float @Nullable [] arr1, float @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             float[] merged = new float[arr1.length + arr2.length];
@@ -5585,7 +5653,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(float[] arr1, float[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(float[] arr1, float[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5647,10 +5715,15 @@ public class ArrayUtils {
      * @throws NullPointerException
      *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
-     * 
      * @since 2012. 3. 9.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] merge(int @Nullable [] arr1, int @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             int[] merged = new int[arr1.length + arr2.length];
@@ -5664,7 +5737,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(int[] arr1, int[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(int[] arr1, int[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5730,6 +5803,12 @@ public class ArrayUtils {
      * @since 2012. 3. 9.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static long[] merge(long @Nullable [] arr1, long @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             long[] merged = new long[arr1.length + arr2.length];
@@ -5743,7 +5822,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(long[] arr1, long[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(long[] arr1, long[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5806,6 +5885,12 @@ public class ArrayUtils {
      * 
      * @since 2012. 3. 9.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static short[] merge(short @Nullable [] arr1, short @Nullable [] arr2) {
         if (arr1 != null && arr2 != null) {
             short[] merged = new short[arr1.length + arr2.length];
@@ -5819,7 +5904,7 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(short[] arr1, short[] arr2) must not be null: arr1=null, arr2=null"));
+            throw new NullPointerException("All parameters(short[] arr1, short[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5887,13 +5972,20 @@ public class ArrayUtils {
      * @see {@link Array#newInstance(Class, int)}
      */
 
+    // 아래 내용에 적용됨.
+    // - return merged;
+    // - Arrays.copyOf(arr1, arr1.length)
+    // - Arrays.copyOf(arr2, arr1.length)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] merge(T @Nullable [] arr1, T @Nullable [] arr2) {
 
         if (arr1 != null && arr2 != null) {
 
             assertComponentType(arr1, arr2);
 
-            T[] merged = ((T[]) Array.newInstance(arr1.getClass().getComponentType(), arr1.length + arr2.length));
+            T[] merged = (T[]) Array.newInstance(arr1.getClass().getComponentType(), arr1.length + arr2.length);
 
             System.arraycopy(arr1, 0, merged, 0, arr1.length);
             System.arraycopy(arr2, 0, merged, arr1.length, arr2.length);
@@ -5908,6 +6000,15 @@ public class ArrayUtils {
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - return (T[][]) Array.newInstance(type, size);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static <T extends @Nullable Object> T[] newArray(Class<T> type, int size) {
+        return (T[]) Array.newInstance(type, size);
+    }
+
     /**
      * 타입이 서로 다른 2개의 배열을 하나의 배열로 합쳐서 반환합니다. <br>
      * 
@@ -5919,7 +6020,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -5941,7 +6044,7 @@ public class ArrayUtils {
         } else if (value != null) {
             return new Object[] { value };
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null"));
+            throw new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null");
         }
     }
 
@@ -5956,7 +6059,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -5980,7 +6085,7 @@ public class ArrayUtils {
         } else if (values != null) {
             return values;
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null"));
+            throw new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null");
         }
     }
 
@@ -6024,7 +6129,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6076,7 +6183,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6128,7 +6237,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6180,7 +6291,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6232,7 +6345,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6284,7 +6399,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6336,7 +6453,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6388,7 +6507,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6417,7 +6538,12 @@ public class ArrayUtils {
      * @since 2012. 03. 12.
      * 
      */
-    public static <T> T[] prepend(T @Nullable [] array, @Nullable T value) {
+    // 아래 내용에 적용됨.
+    // - return (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] prepend(T @Nullable [] array, @Nullable T value) {
 
         if (array != null && value != null) {
 
@@ -6435,7 +6561,7 @@ public class ArrayUtils {
             newArray[0] = value;
             return newArray;
         } else {
-            throw new IllegalArgumentException(new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null"));
+            throw new NullPointerException("All parameters(T[] array, T value) must not be null: arr=null, value=null");
         }
     }
 
@@ -6451,7 +6577,9 @@ public class ArrayUtils {
      * </pre>
      *
      * @param array
+     *            데이터를 추가할 배열
      * @param values
+     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException
@@ -6462,3369 +6590,3902 @@ public class ArrayUtils {
      * 
      */
     @SafeVarargs
-    public static <T> T[] prepend(T @Nullable [] array, T @Nullable... values) {
-        return merge(values, array);
+    public static <T extends @Nullable Object> T[] prepend(T @Nullable [] array, T @Nullable... values) {
+        return ArrayUtils.<T> merge(values, array);
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static boolean[] removeAll(boolean[] array, boolean value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        boolean[] newArray = new boolean[keepCount];
+        int idx = 0;
 
-        boolean[] newArray = new boolean[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
-
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static byte[] removeAll(byte[] array, byte value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        byte[] newArray = new byte[keepCount];
+        int idx = 0;
 
-        byte[] newArray = new byte[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
-
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static char[] removeAll(char[] array, char value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        char[] newArray = new char[keepCount];
+        int idx = 0;
 
-        char[] newArray = new char[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static double[] removeAll(double[] array, double value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        double[] newArray = new double[keepCount];
+        int idx = 0;
 
-        double[] newArray = new double[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static float[] removeAll(float[] array, float value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        float[] newArray = new float[keepCount];
+        int idx = 0;
 
-        float[] newArray = new float[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static int[] removeAll(int[] array, int value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        int[] newArray = new int[keepCount];
+        int idx = 0;
 
-        int[] newArray = new int[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static long[] removeAll(long[] array, long value) {
-        Objects.requireNonNull(array);
+        Objects.requireNonNull(array, "array must not be null");
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == value) {
-                delIndice[delCount++] = i;
+            if (array[i] != value) {
+                keepCount++;
             }
         }
 
-        if (delCount < 1) {
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        long[] newArray = new long[keepCount];
+        int idx = 0;
 
-        long[] newArray = new long[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
         }
 
         return newArray;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.<br>
+     * 제거할 값이 없는 경우 원본 배열을 그대로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 03. 25.    parkjunhong77@gmail.com         Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
      * 
      * @param array
+     *            대상 배열
      * @param value
-     * @return
+     *            제거할 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
-     * @since 2012. 3. 9.
-     * 
+     * @since 2012. 03. 09.
      */
     public static short[] removeAll(short[] array, short value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // 1. Pass: 유지할(삭제하지 않을) 데이터의 개수를 카운트 (O(1) 메모리 공간)
+        int keepCount = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                keepCount++;
+            }
+        }
+
+        // 2. 삭제할 대상이 없으면 배열의 복사 없이 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
+            return array;
+        }
+
+        // 3. 유지할 데이터의 개수만큼만 정확히 새 배열 할당
+        short[] newArray = new short[keepCount];
+        int idx = 0;
+
+        // 4. Pass: 유지할 데이터만 새 배열에 복사 (복잡한 인덱스 계산 제거)
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] != value) {
+                newArray[idx++] = array[i];
+            }
+        }
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 대상 조건(filter)을 만족하는 모든 값을 제거한 후 새로운 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     Two-Pass 알고리즘 적용 및 메모리 최적화
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입 (파라메트릭 널성 지원)
+     * @param array
+     *            대상 배열
+     * @param filter
+     *            제거할 요소를 판별하는 조건 (true 반환 시 제거)
+     * @return 조건에 맞는 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열 그대로 반환)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code filter})가 {@code null}인 경우 발생.
+     * 
+     * @since 2012. 03. 09.
+     */
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(tempArray, keepCount);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] removeAll(T[] array, Predicate<T> filter) {
+        ObjectUtils.requireNonNulls(array, filter);
+
+        // 1. 최대 크기(원본 배열과 동일)로 임시 배열 생성
+        T[] tempArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+        int keepCount = 0;
+
+        // 2. Predicate 평가는 요소당 정확히 1번 실행
+        for (int i = 0; i < array.length; i++) {
+            if (!filter.test(array[i])) {
+                // 검사를 통과한 요소만 순차적으로 임시 배열에 적재
+                tempArray[keepCount++] = array[i];
+            }
+        }
+
+        // 3. 삭제된 대상이 단 하나도 없다면, 임시 배열을 버리고 원본을 그대로 반환 (조기 종료)
+        if (keepCount == array.length) {
+            return array;
+        }
+
+        // 4. 유효한 데이터 개수(keepCount)만큼만 잘라서 최종 반환
+        // (Arrays.copyOf 내부에서 가장 빠르고 안전하게 System.arraycopy가 1번만 수행됨)
+        return Arrays.copyOf(tempArray, keepCount);
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 대상 값
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열 그대로 반환)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
+     * @since 2012. 03. 09.
+     */
+    public static <T extends @Nullable Object> T[] removeAll(T[] array, T value) {
+        return ArrayUtils.<T> removeAll(array, value, null);
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 새로운 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 대상 값
+     * @param equivalent
+     *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
+     * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열 그대로 반환)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * 
+     * @since 2012. 03. 09.
+     */
+    public static <T extends @Nullable Object> T[] removeAll(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
         Objects.requireNonNull(array);
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
+        final IEquivalent<T> equi = (equivalent == null) ? new DefaultEquivalent<T>() : equivalent;
+
+        // IEquivalent의 비교 로직을 Predicate로 래핑하여 핵심 엔진(Method 1)으로 위임 &rarr; 중복 코드 완벽 제거
+        return ArrayUtils.<T> removeAll(array, v -> equi.equals(v, value));
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static boolean[] removeAt(boolean[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        boolean[] newArray = new boolean[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static byte[] removeAt(byte[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        byte[] newArray = new byte[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static char[] removeAt(char[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        char[] newArray = new char[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static double[] removeAt(double[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        double[] newArray = new double[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static float[] removeAt(float[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        float[] newArray = new float[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static int[] removeAt(int[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        int[] newArray = new int[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static long[] removeAt(long[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        long[] newArray = new long[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static short[] removeAt(short[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        short[] newArray = new short[array.length - 1];
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 지정된 인덱스({@code index})에 해당하는 값을 제거한 새로운 배열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * -------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     인덱스 초과 시 예외 발생(Fail-Fast) 정책 적용
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param index
+     *            제거할 값의 인덱스
+     * @return 지정된 인덱스의 값이 제거된 새로운 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws ArrayIndexOutOfBoundsException
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static <T> T[] removeAt(T[] array, int index) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        // Guard Clause: 유효하지 않은 인덱스인 경우 즉시 예외 발생 (Fail-Fast)
+        if (index < 0 || index >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("Index: " + index + ", Length: " + array.length);
+        }
+
+        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - 1);
+
+        // 앞부분 복사 (0 ~ index 직전까지)
+        System.arraycopy(array, 0, newArray, 0, index);
+        // 뒷부분 복사 (index 바로 다음부터 ~ 끝까지)
+        System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
+
+        return newArray;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static boolean[] removeFirst(boolean[] array, boolean value) {
+        Objects.requireNonNull(array, "array must not be null");
 
         for (int i = 0; i < array.length; i++) {
             if (array[i] == value) {
-                delIndice[delCount++] = i;
+                return removeAt(array, i);
             }
         }
 
-        if (delCount < 1) {
-            return array;
-        }
-
-        delIndice = Arrays.copyOf(delIndice, delCount);
-
-        short[] newArray = new short[array.length - delCount];
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-        }
-
-        return newArray;
+        // 일치하는 값 없음 → 원본 반환
+        return array;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param value
-     * @return
-     * 
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
      * @throws NullPointerException
-     *             파라미터({@code array 또는 filter})가 {@code null}인 경우 발생.
-     * 
-     * @since 2012. 3. 9.
-     * 
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
      */
-    // apply to 'return newArray'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
-    public static <T> T[] removeAll(@Nullable T[] array, Predicate<T> filter) {
-        ObjectUtils.requireNonNulls(array, filter);
-
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
+    public static byte[] removeFirst(byte[] array, byte value) {
+        Objects.requireNonNull(array, "array must not be null");
 
         for (int i = 0; i < array.length; i++) {
-            if (filter.test(array[i])) {
-                delIndice[delCount++] = i;
+            if (array[i] == value) {
+                return removeAt(array, i);
             }
         }
 
-        if (delCount < 1) {
-            return array;
-        }
-
-        delIndice = Arrays.copyOf(delIndice, delCount);
-
-        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
-
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
-        }
-
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
-        }
-
-        return newArray;
+        // 일치하는 값 없음 → 원본 반환
+        return array;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param value
-     * 
-     * @return
-     * 
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
+     *
+     * @since 2012. 03. 09.
      */
-    public static <T> T[] removeAll(@Nullable T[] array, @Nullable T value) {
-        return removeAll(array, value, null);
+    public static char[] removeFirst(char[] array, char value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
     }
 
     /**
-     * 주어진 배열에서 대상 값과 같은 모든 값을 제거한 후 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param value
-     * @param equivalent
-     *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
-     * @return
-     * 
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
      * @throws NullPointerException
      *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
+     *
+     * @since 2012. 03. 09.
      */
-    // apply to 'return newArray'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
-    public static <T> T[] removeAll(@Nullable T[] array, @Nullable T value, @Nullable IEquivalent<T> equivalent) {
-        Objects.requireNonNull(array);
+    public static double[] removeFirst(double[] array, double value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static float[] removeFirst(float[] array, float value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static int[] removeFirst(int[] array, int value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static long[] removeFirst(long[] array, long value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static short[] removeFirst(short[] array, short value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static <T extends @Nullable Object> T[] removeFirst(T[] array, T value) {
+        return ArrayUtils.<T> removeFirst(array, value, null);
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 첫 번째 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static <T extends @Nullable Object> T[] removeFirst(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
+        Objects.requireNonNull(array, "array must not be null");
 
         if (equivalent == null) {
             equivalent = new DefaultEquivalent<T>();
         }
 
-        int[] delIndice = new int[array.length];
-        int delCount = 0;
-
         for (int i = 0; i < array.length; i++) {
             if (equivalent.equals(array[i], value)) {
-                delIndice[delCount++] = i;
+                return removeAt(array, i);
             }
         }
 
-        if (delCount < 1) {
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static boolean[] removeLast(boolean[] array, boolean value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static byte[] removeLast(byte[] array, byte value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static char[] removeLast(char[] array, char value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static double[] removeLast(double[] array, double value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static float[] removeLast(float[] array, float value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static int[] removeLast(int[] array, int value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static long[] removeLast(long[] array, long value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static short[] removeLast(short[] array, short value) {
+        Objects.requireNonNull(array, "array must not be null");
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (array[i] == value) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static <T extends @Nullable Object> T[] removeLast(T[] array, T value) {
+        return ArrayUtils.<T> removeLast(array, value, null);
+    }
+
+    /**
+     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.<br>
+     * 대상 값이 배열에 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 09.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     예외 처리 방식 변경 및 value 미존재 시 원본 반환 처리
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param value
+     *            제거할 값
+     * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 09.
+     */
+    public static <T extends @Nullable Object> T[] removeLast(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
+
+        Objects.requireNonNull(array, "array must not be null");
+
+        if (equivalent == null) {
+            equivalent = new DefaultEquivalent<T>();
+        }
+
+        for (int i = array.length - 1; i > -1; i--) {
+            if (equivalent.equals(array[i], value)) {
+                return removeAt(array, i);
+            }
+        }
+
+        // 일치하는 값 없음 → 원본 반환
+        return array;
+    }
+
+    /**
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(boolean[], boolean[], boolean[])에 위임
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param target
+     *            교체될 값
+     * @param data
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 30.
+     */
+    public static boolean[] replaceAll(boolean[] array, boolean target, boolean[] data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
+
+        return replaceAll(array, new boolean[] { target }, data);
+    }
+
+    /**
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
+     * @param array
+     *            대상 배열
+     * @param target
+     *            교체될 값 배열
+     * @param data
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 03. 30.
+     */
+    public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
             return array;
         }
 
-        delIndice = Arrays.copyOf(delIndice, delCount);
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
 
-        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - delCount);
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        boolean[] newArray = new boolean[array.length + matchCount * (data.length - target.length)];
 
-        int si = 0;
-        int bi = -1;
-        int copiedLength = 0;
-        int i = 0;
-        for (; i < delCount; i++) {
-            System.arraycopy(array, si, newArray, copiedLength, delIndice[i] - bi - 1);
-            si = delIndice[i] + 1;
-            copiedLength += delIndice[i] - bi - 1;
-            bi = delIndice[i];
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
         }
 
-        if (delIndice[delCount - 1] < array.length - 1) {
-            System.arraycopy(array, si, newArray, copiedLength, newArray.length - copiedLength);
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
         }
 
         return newArray;
     }
 
     /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(byte[], byte[], byte[])에 위임
+     * </pre>
+     *
      * @param array
-     * @param index
-     * @return
-     * 
+     *            대상 배열
+     * @param target
+     *            교체될 값
+     * @param data
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
      * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static boolean[] removeAt(boolean[] array, int index) {
-        Objects.requireNonNull(array);
-
-        if (index > -1 && index < array.length) {
-            boolean[] newArray = new boolean[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static byte[] removeAt(byte[] array, int index) {
-        if (index > -1 && index < array.length) {
-            byte[] newArray = new byte[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static char[] removeAt(char[] array, int index) {
-        if (index > -1 && index < array.length) {
-            char[] newArray = new char[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static double[] removeAt(double[] array, int index) {
-        if (index > -1 && index < array.length) {
-            double[] newArray = new double[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static float[] removeAt(float[] array, int index) {
-        if (index > -1 && index < array.length) {
-            float[] newArray = new float[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static int[] removeAt(int[] array, int index) {
-        if (index > -1 && index < array.length) {
-            int[] newArray = new int[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static long[] removeAt(long[] array, int index) {
-        if (index > -1 && index < array.length) {
-            long[] newArray = new long[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static short[] removeAt(short[] array, int index) {
-        if (index > -1 && index < array.length) {
-            short[] newArray = new short[array.length - 1];
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 {@code index}에 해당하는 값을 제거한 배열을 반환합니다.
-     * 
-     * @param array
-     * @param index
-     * @return
-     * @since 2012. 3. 9.
-     * 
-     */
-
-    public static <T> T[] removeAt(T[] array, int index) {
-        if (index > -1 && index < array.length) {
-            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - 1);
-
-            System.arraycopy(array, 0, newArray, 0, index);
-            System.arraycopy(array, index + 1, newArray, index, newArray.length - index);
-
-            return newArray;
-        } else {
-            return array;
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static boolean[] removeFirst(boolean[] array, boolean value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static byte[] removeFirst(byte[] array, byte value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static char[] removeFirst(char[] array, char value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static double[] removeFirst(double[] array, double value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static float[] removeFirst(float[] array, float value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static int[] removeFirst(int[] array, int value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static long[] removeFirst(long[] array, long value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static short[] removeFirst(short[] array, short value) {
-        if (array != null) {
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(short[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 추가할 메소드의 제네닉 메소드
-     */
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * 
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static <T> T[] removeFirst(T[] array, T value) {
-        return removeFirst(array, value, null);
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 첫번째 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @param equivalent
-     *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static <T> T[] removeFirst(T[] array, T value, IEquivalent<T> equivalent) {
-        if (array != null) {
-            if (equivalent == null) {
-                equivalent = new DefaultEquivalent<T>();
-            }
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (equivalent.equals(array[i], value)) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static boolean[] removeLast(boolean[] array, boolean value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static byte[] removeLast(byte[] array, byte value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static char[] removeLast(char[] array, char value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static double[] removeLast(double[] array, double value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static float[] removeLast(float[] array, float value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static int[] removeLast(int[] array, int value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static long[] removeLast(long[] array, long value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static short[] removeLast(short[] array, short value) {
-        if (array != null) {
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (array[i] == value) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(short[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * 
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static <T> T[] removeLast(T[] array, T value) {
-        return removeLast(array, value, null);
-    }
-
-    /**
-     * 주어진 배열에서 대상 값과 같은 마지막 값을 제거한 후 배열을 반환합니다.
-     * 
-     * @param array
-     * @param value
-     * @param equivalent
-     *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
-     * @since 2012. 3. 9.
-     * 
-     */
-    public static <T> T[] removeLast(T[] array, T value, IEquivalent<T> equivalent) {
-        if (array != null) {
-            if (equivalent == null) {
-                equivalent = new DefaultEquivalent<T>();
-            }
-            int i = array.length - 1;
-            for (; i > -1; i--) {
-                if (equivalent.equals(array[i], value)) {
-                    break;
-                }
-            }
-
-            return removeAt(array, i);
-
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static boolean[] replaceAll(boolean[] array, boolean target, boolean[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
-
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            boolean[] newArray = new boolean[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     * @param data
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
-     */
-    public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new boolean[] { data });
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One ofparameters(boolean[] array, boolean[] target) must not be 'null': array=" + array + ", target=" + target));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     * @param data
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
-     */
-    public static boolean[] replaceAll(boolean[] array, boolean[] target, boolean[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                boolean[] newArray = new boolean[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(boolean[] array, boolean[] target, boolean[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static byte[] replaceAll(byte[] array, byte target, byte[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            byte[] newArray = new byte[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
+        return replaceAll(array, new byte[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static byte[] replaceAll(byte[] array, byte[] target, byte data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new byte[] { data });
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One ofparameters(byte[] array, byte[] target) must not be 'null': array=" + array + ", target=" + target));
+    public static byte[] replaceAll(byte[] array, byte[] target, byte... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
+
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        byte[] newArray = new byte[array.length + matchCount * (data.length - target.length)];
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(char[], char[], char[])에 위임
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static byte[] replaceAll(byte[] array, byte[] target, byte[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                byte[] newArray = new byte[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(byte[] array, byte[] target, byte[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static char[] replaceAll(char[] array, char target, char[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            char[] newArray = new char[array.length + indice.length * (data.length - 1)];
-
-            int srcPos = 0;
-            int desPos = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            while (i < indice.length) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPos;
-                System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                srcPos = indice[i] + 1;
-                desPos += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPos, dataLength);
-                desPos += dataLength;
-
-                i++;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPos < array.length) {
-                System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array="
-                    + (array != null ? Arrays.toString(array) : null) + ", data=" + (data != null ? Arrays.toString(data) : null)));
-        }
+        return replaceAll(array, new char[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static char[] replaceAll(char[] array, char[] target, char data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new char[] { data });
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One ofparameters(char[] array, char[] target) must not be 'null': array="
-                    + (array != null ? Arrays.toString(array) : null) + ", target=" + (target != null ? Arrays.toString(target) : null)));
+    public static char[] replaceAll(char[] array, char[] target, char... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
+
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        char[] newArray = new char[array.length + matchCount * (data.length - target.length)];
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(double[], double[], double[])에 위임
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static char[] replaceAll(char[] array, char[] target, char[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                char[] newArray = new char[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(char[] array, char[] target, char[] data) must not be 'null': array=" + (array != null ? Arrays.toString(array) : null) + ", target="
-                            + (target != null ? Arrays.toString(target) : null) + ", data=" + (data != null ? Arrays.toString(data) : null)));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static double[] replaceAll(double[] array, double target, double[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            double[] newArray = new double[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
+        return replaceAll(array, new double[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static double[] replaceAll(double[] array, double[] target, double data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new double[] { data });
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One ofparameters(double[] array, double[] target) must not be 'null': array=" + array + ", target=" + target));
+    public static double[] replaceAll(double[] array, double[] target, double... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
+
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        double[] newArray = new double[array.length + matchCount * (data.length - target.length)];
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(float[], float[], float[])에 위임
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static double[] replaceAll(double[] array, double[] target, double[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                double[] newArray = new double[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(double[] array, double[] target, double[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static float[] replaceAll(float[] array, float target, float[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            float[] newArray = new float[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
+        return replaceAll(array, new float[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static float[] replaceAll(float[] array, float[] target, float data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new float[] { data });
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One ofparameters(float[] array, float[] target) must not be 'null': array=" + array + ", target=" + target));
+    public static float[] replaceAll(float[] array, float[] target, float... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
+
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        float[] newArray = new float[array.length + matchCount * (data.length - target.length)];
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(int[], int[], int[])에 위임
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static float[] replaceAll(float[] array, float[] target, float[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                float[] newArray = new float[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(float[] array, float[] target, float[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static int[] replaceAll(int[] array, int target, int[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            int[] newArray = new int[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
+        return replaceAll(array, new int[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static int[] replaceAll(int[] array, int[] target, int data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new int[] { data });
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One ofparameters(int[] array, int[] target) must not be 'null': array=" + array + ", target=" + target));
+    public static int[] replaceAll(int[] array, int[] target, int... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
+
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        int[] newArray = new int[array.length + matchCount * (data.length - target.length)];
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(long[], long[], long[])에 위임
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static int[] replaceAll(int[] array, int[] target, int[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                int[] newArray = new int[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(int[] array, int[] target, int[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static long[] replaceAll(long[] array, long target, long[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            long[] newArray = new long[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
+        return replaceAll(array, new long[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static long[] replaceAll(long[] array, long[] target, long data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new long[] { data });
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One ofparameters(long[] array, long[] target) must not be 'null': array=" + array + ", target=" + target));
+    public static long[] replaceAll(long[] array, long[] target, long... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
+
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        long[] newArray = new long[array.length + matchCount * (data.length - target.length)];
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
+
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 값을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     핵심 구현을 replaceAll(short[], short[], short[])에 위임
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
-     */
-    public static long[] replaceAll(long[] array, long[] target, long[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
-
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
-
-                long[] newArray = new long[namc];
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(long[] array, long[] target, long[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
-        }
-    }
-
-    /**
-     * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     *            변경될 대상 데이타
-     * @param data
-     *            새로운 데이타 배열
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
      */
     public static short[] replaceAll(short[] array, short target, short[] data) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target);
+        ObjectUtils.requireNonNullsWithMessage("'array or data' must not be null", array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
-
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            short[] newArray = new short[array.length + indice.length * (data.length - 1)];
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(short[] array, short[] data) must not be 'null': array=" + array + ", data=" + data));
-        }
+        return replaceAll(array, new short[] { target }, data);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜               작성자                 내용
+     * ------------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     matchingIndice.length > 1 조건 버그 수정,
+     *                                              newArray 크기 계산 오정확화, Javadoc 보강
+     * </pre>
+     *
      * @param array
+     *            대상 배열
      * @param target
+     *            교체될 값 배열
      * @param data
-     * @return
-     * 
+     *            교체할 새로운 값 배열
+     * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
-    public static short[] replaceAll(short[] array, short[] target, short data) {
-        if (array != null && target != null) {
-            return replaceAll(array, target, new short[] { data });
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One ofparameters(short[] array, short[] target) must not be 'null': array=" + array + ", target=" + target));
+    public static short[] replaceAll(short[] array, short[] target, short... data) {
+        ObjectUtils.requireNonNullsWithMessage("'array or target or data' must not be null", array, target, data);
+
+        // matchingIndice: [시작인덱스, 끝인덱스] 쌍으로 저장
+        int[] matchingIndice = indiceOf(array, target);
+
+        // 교체 대상 없음 → 원본 반환 (쌍이 0개)
+        if (matchingIndice.length < 2) {
+            return array;
         }
-    }
 
-    /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
-     * 
-     * @param array
-     * @param target
-     * @param data
-     * @return
-     * 
-     * @since 2012. 03. 30.
-     * 
-     */
-    public static short[] replaceAll(short[] array, short[] target, short[] data) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOf(array, target);
+        // 실제 매칭 횟수
+        int matchCount = matchingIndice.length / 2;
 
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
+        // 정확한 newArray 크기
+        // = array.length - matchCount * target.length + matchCount * data.length
+        short[] newArray = new short[array.length + matchCount * (data.length - target.length)];
 
-                short[] newArray = new short[namc];
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
 
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            // target 이전 구간 복사
+            int copyLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copyLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copyLength;
 
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException(
-                    "One of parameters(short[] array, short[] target, short[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
+            // 교체 데이터 복사
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
         }
+
+        // 마지막 교체 이후 잔여 구간 복사
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
      * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param target
      *            변경될 대상 데이타
      * @param data
      *            새로운 데이타 배열
-     * @return
-     * 
+     * @return 치환이 완료된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
-     * 
      */
-    public static <T> T[] replaceAll(T[] array, T target, T[] data) {
-        return replaceAllToArray(array, target, data, null);
+    public static <T extends @Nullable Object> T[] replaceAll(T[] array, T target, T[] data) {
+        return ArrayUtils.<T> replaceAllToArray(array, target, data, null);
     }
 
     /**
      * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param target
+     *            변경될 대상 데이타 배열
      * @param data
-     * @return
-     * 
+     *            새로운 데이타
+     * @return 치환이 완료된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code target})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
-     * 
      */
-    public static <T> T[] replaceAll(T[] array, T[] target, T data) {
-        return replaceAllToData(array, target, data, null);
+    public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T data) {
+        return ArrayUtils.<T> replaceAllToData(array, target, data, null);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param target
+     *            변경될 대상 데이타 배열
      * @param data
-     * @return
-     * 
+     *            새로운 데이타 배열
+     * @return 치환이 완료된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
-     * 
      */
-    public static <T> T[] replaceAll(T[] array, T[] target, T[] data) {
-        return replaceAll(array, target, data, null);
+    public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data) {
+        return ArrayUtils.<T> replaceAll(array, target, data, null);
     }
 
     /**
-     * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
+     * 주어진 배열의 데이타 배열을 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     조기 반환(Early Return) 적용 및 들여쓰기 감소
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param target
+     *            변경될 대상 데이타 배열
      * @param data
-     * @return
-     * 
+     *            새로운 데이타 배열
+     * @param equivalent
+     *            배열 구간의 동등성을 판단하는 비교자
+     * @return 치환이 완료된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
-     * 
      */
-    public static <T> T[] replaceAll(T[] array, T[] target, T[] data, IEquivalent<T[]> equivalent) {
-        if (array != null && target != null && data != null) {
-            int[] matchingIndice = indiceOfArray(array, target, equivalent);
+    @SuppressWarnings({ "null" })
+    public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data, @Nullable IEquivalent<T[]> equivalent) {
+        ObjectUtils.requireNonNulls(array, target, data);
 
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - data.length);
+        int[] matchingIndice = indiceOfArray(array, target, equivalent);
 
-                T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), namc);
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-                int dataLength = data.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    System.arraycopy(data, 0, newArray, desPos, dataLength);
-                    desPos += dataLength;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(
-                    new NullPointerException("One of parameters(T[] array, T[] target, T[] data) must not be 'null': array=" + array + ", target=" + target + ", data=" + data));
+        // [아키텍처 개선] 매칭되는 값이 없으면 로직 없이 바로 원본 배열 return (else 제거)
+        if (matchingIndice.length < 2) {
+            return array;
         }
+
+        // else 없이 바로 메인 로직 전개 (들여쓰기 1단계 감소)
+        int matchCount = matchingIndice.length / 2;
+        int newLength = array.length + matchCount * (data.length - target.length);
+
+        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), newLength);
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < matchingIndice.length - 1; i += 2) {
+            int copiedLength = matchingIndice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
+            srcPos = matchingIndice[i + 1] + 1;
+            desPos += copiedLength;
+
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
      * 주어진 배열의 데이타를 새로운 데이타 배열로 변경한 새로운 배열을 반환합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     조기 반환(Early Return) 적용 및 예외 처리 단일화
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param target
      *            변경될 대상 데이타
      * @param data
      *            새로운 데이타 배열
      * @param equivalent
      *            {@code T}가 동일한지를 판단하는 비교자
-     * @return
-     * 
+     * @return 치환이 완료된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
-     * 
      */
-    public static <T> T[] replaceAllToArray(T[] array, T target, T[] data, IEquivalent<T> equivalent) {
-        if (array != null && data != null) {
-            int[] indice = indiceOf(array, target, equivalent);
+    // 아래 내용에 적용됨.
+    // - return newArray;
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] replaceAllToArray(T[] array, T target, T[] data, @Nullable IEquivalent<T> equivalent) {
+        ObjectUtils.requireNonNulls(array, data);
 
-            if (indice.length < 1) {
-                return array;
-            }
+        int[] indice = indiceOf(array, target, equivalent);
 
-            // newArray's length: array.length - indice.length + (indice.length * data.length)
-            T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length + indice.length * (data.length - 1));
-
-            int srcPost = 0;
-            int desPost = 0;
-            int dataLength = data.length;
-
-            int copiedLength = 0;
-            int i = 0;
-            for (; i < indice.length; i++) {
-                // 기존 배열에서 데이타 복사
-                copiedLength = indice[i] - srcPost;
-                System.arraycopy(array, srcPost, newArray, desPost, copiedLength);
-                srcPost = indice[i] + 1;
-                desPost += copiedLength;
-
-                // 새롭게 추가되는 데이타 복사
-                System.arraycopy(data, 0, newArray, desPost, dataLength);
-
-                desPost += dataLength;
-            }
-            // 마지막 남은 데이타 복사
-            if (srcPost < array.length) {
-                System.arraycopy(array, srcPost, newArray, desPost, array.length - srcPost);
-            }
-
-            return newArray;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One of parameters(char[] array, char[] data) must not be 'null': array=" + array + ", data=" + data));
+        // [아키텍처 개선] 로직 없이 바로 return 하여 들여쓰기 감소
+        if (indice.length < 1) {
+            return array;
         }
+
+        int newLength = array.length + indice.length * (data.length - 1);
+        T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), newLength);
+
+        int srcPos = 0;
+        int desPos = 0;
+        int dataLength = data.length;
+
+        for (int i = 0; i < indice.length; i++) {
+            int copiedLength = indice[i] - srcPos;
+            System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
+            srcPos = indice[i] + 1;
+            desPos += copiedLength;
+
+            System.arraycopy(data, 0, newArray, desPos, dataLength);
+            desPos += dataLength;
+        }
+
+        if (srcPos < array.length) {
+            System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
+        }
+
+        return newArray;
     }
 
     /**
      * 주어진 배열의 데이타 배열을 새로운 데이타로 변경한 새로운 배열을 반환합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 30.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 데이터를 임시 배열로 래핑하여 마스터 메소드로 위임(Delegation)
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param target
+     *            변경될 대상 데이타 배열
      * @param data
-     * @return
-     * 
+     *            새로운 데이타
+     * @param equivalent
+     *            배열 구간의 동등성을 판단하는 비교자
+     * @return 치환이 완료된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code target})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
-     * 
      */
-    public static <T> T[] replaceAllToData(T[] array, T[] target, T data, IEquivalent<T[]> equivalent) {
-        if (array != null && target != null) {
-            int[] matchingIndice = indiceOfArray(array, target, equivalent);
+    public static <T extends @Nullable Object> T[] replaceAllToData(T[] array, T[] target, T data, @Nullable IEquivalent<T[]> equivalent) {
+        ObjectUtils.requireNonNulls(array, target);
 
-            if (matchingIndice.length > 1) {
-                // New Array Max Length
-                // 전체 길이에서 동일한 경우가 생길 수 있는 최대횟수 * 길이를 빼고 발생한 횟수만큼 추가할 데이타의 길이
-                int namc = array.length - matchingIndice.length / 2 * (target.length - 1);
+        T[] dataArray = (T[]) new Object[] { data };
 
-                T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), namc);
-
-                int srcPos = 0;
-                int desPos = 0;
-                int indiceLength = matchingIndice.length;
-
-                int copiedLength = 0;
-                int i = 0;
-
-                while (i < indiceLength - 1) {
-                    // 기존 배열에서 복사
-                    copiedLength = matchingIndice[i] - srcPos;
-                    System.arraycopy(array, srcPos, newArray, desPos, copiedLength);
-                    srcPos = matchingIndice[i + 1] + 1;
-                    desPos += copiedLength;
-
-                    // 새롭게 추가되는 데이타 복사
-                    newArray[desPos] = data;
-                    desPos++;
-
-                    i += 2;
-                }
-
-                // 마지막 남은 데이타 복사
-                if (srcPos < array.length) {
-                    System.arraycopy(array, srcPos, newArray, desPos, array.length - srcPos);
-                }
-
-                return newArray;
-            } else {
-                return array;
-            }
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("One ofparameters(T[] array, T[] target) must not be 'null': array=" + array + ", target=" + target));
-        }
+        return ArrayUtils.<T> replaceAll(array, target, dataArray, equivalent);
     }
 
     /**
-     * {@code <b>boolean</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code boolean} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static boolean[] reverse(boolean[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(boolean[] array) must not be 'null'.");
 
-        if (array != null) {
-            boolean[] reversed = new boolean[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new boolean[0];
         }
+
+        boolean[] reversed = new boolean[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>byte</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code byte} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static byte[] reverse(byte[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(byte[] array) must not be 'null'.");
 
-        if (array != null) {
-            byte[] reversed = new byte[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new byte[0];
         }
+
+        byte[] reversed = new byte[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>char</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code char} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static char[] reverse(char[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(char[] array) must not be 'null'.");
 
-        if (array != null) {
-            char[] reversed = new char[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new char[0];
         }
+
+        char[] reversed = new char[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>double</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code double} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static double[] reverse(double[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(double[] array) must not be 'null'.");
 
-        if (array != null) {
-            double[] reversed = new double[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new double[0];
         }
+
+        double[] reversed = new double[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>float</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code float} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static float[] reverse(float[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(float[] array) must not be 'null'.");
 
-        if (array != null) {
-            float[] reversed = new float[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new float[0];
         }
+
+        float[] reversed = new float[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>int</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code int} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static int[] reverse(int[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(int[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[] reversed = new int[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new int[0];
         }
+
+        int[] reversed = new int[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>long</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code long} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static long[] reverse(long[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(long[] array) must not be 'null'.");
 
-        if (array != null) {
-            long[] reversed = new long[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new long[0];
         }
+
+        long[] reversed = new long[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * {@code <b>long</b>} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * {@code short} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경한 후 새로운 객체로 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
      * 
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
     public static short[] reverse(short[] array) {
+        // [1] 가드 클로즈: 로직 없이 바로 예외 발생 또는 빈 배열 처리
+        Objects.requireNonNull(array, "A parameter(short[] array) must not be 'null'.");
 
-        if (array != null) {
-            short[] reversed = new short[array.length];
-
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
-
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
+        // [2] 빈 배열인 경우 로직 수행 없이 바로 빈 배열 반환
+        if (array.length == 0) {
+            return new short[0];
         }
+
+        short[] reversed = new short[array.length];
+
+        // [3] 인덱스 포인터 최적화: 뺄셈 연산 최소화
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
+
+        return reversed;
     }
 
     /**
-     * 배열의 순서를 변경한 후 반환합니다.
+     * 배열의 순서를 역순으로 변경한 후 새로운 배열로 반환합니다.
      * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 22.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     가드 클로즈 적용 및 루프 최적화
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
-     * @return
+     *            원본 배열
+     * @return 순서가 역순으로 변경된 새로운 배열
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - return reversed;
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T extends @Nullable Object> T[] reverse(T[] array) {
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
 
-    public static <T> T[] reverse(T[] array) {
+        T[] reversed = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 
-        if (array != null) {
-            T[] reversed = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+        for (int src = 0, dest = array.length - 1; src < array.length; src++, dest--) {
+            reversed[dest] = array[src];
+        }
 
-            final int MAX_INDEX = array.length - 1;
-            for (int i = 0; i < array.length; i++) {
-                reversed[MAX_INDEX - i] = array[i];
-            }
+        return reversed;
+    }
 
-            return reversed;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
+    /**
+     * {@code boolean} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
+     * 
+     * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
+     */
+    public static void reverseInPlace(boolean[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(boolean[] array) must not be 'null'.");
+
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
+
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        boolean temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
         }
     }
 
     /**
-     * 주어진 배열 내의 데이터 순서를 뒤집는다.
+     * {@code byte} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
      * 
      * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
      */
-    public static void reverseArray(boolean[] array) {
+    public static void reverseInPlace(byte[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(byte[] array) must not be 'null'.");
 
-        if (array != null) {
-            // quotient: 몫
-            final int quo = array.length / 2;
-            final int maxIndex = array.length - 1;
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
 
-            // b ^= a;
-            // a ^= b
-            // b ^= a;
-            for (int i = 0; i < quo; i++) {
-                array[i] ^= array[maxIndex - i];
-                array[maxIndex - i] ^= array[i];
-                array[i] ^= array[maxIndex - i];
-            }
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        byte temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
         }
     }
 
     /**
-     * 주어진 배열 내의 데이터 순서를 뒤집는다.
+     * {@code char} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
      * 
      * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
      */
-    public static void reverseArray(byte[] array) {
+    public static void reverseInPlace(char[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(char[] array) must not be 'null'.");
 
-        if (array != null) {
-            // quotient: 몫
-            final int quo = array.length / 2;
-            final int maxIndex = array.length - 1;
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
 
-            // b ^= a;
-            // a ^= b
-            // b ^= a;
-            for (int i = 0; i < quo; i++) {
-                array[i] ^= array[maxIndex - i];
-                array[maxIndex - i] ^= array[i];
-                array[i] ^= array[maxIndex - i];
-            }
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        char temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
         }
     }
 
     /**
-     * 주어진 배열 내의 데이터 순서를 뒤집는다.
+     * {@code double} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
      * 
      * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
      */
-    public static void reverseArray(char[] array) {
+    public static void reverseInPlace(double[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(double[] array) must not be 'null'.");
 
-        if (array != null) {
-            // quotient: 몫
-            final int quo = array.length / 2;
-            final int maxIndex = array.length - 1;
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
 
-            // b ^= a;
-            // a ^= b
-            // b ^= a;
-            for (int i = 0; i < quo; i++) {
-                array[i] ^= array[maxIndex - i];
-                array[maxIndex - i] ^= array[i];
-                array[i] ^= array[maxIndex - i];
-            }
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        double temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
         }
     }
 
     /**
-     * 주어진 배열 내의 데이터 순서를 뒤집는다.
+     * {@code float} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
      * 
      * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
      */
-    public static void reverseArray(int[] array) {
+    public static void reverseInPlace(float[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(float[] array) must not be 'null'.");
 
-        if (array != null) {
-            // quotient: 몫
-            final int quo = array.length / 2;
-            final int maxIndex = array.length - 1;
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
 
-            // b ^= a;
-            // a ^= b
-            // b ^= a;
-            for (int i = 0; i < quo; i++) {
-                array[i] ^= array[maxIndex - i];
-                array[maxIndex - i] ^= array[i];
-                array[i] ^= array[maxIndex - i];
-            }
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        float temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
         }
     }
 
     /**
-     * 주어진 배열 내의 데이터 순서를 뒤집는다.
+     * {@code int} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
      * 
      * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
      */
-    public static void reverseArray(long[] array) {
+    public static void reverseInPlace(int[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(int[] array) must not be 'null'.");
 
-        if (array != null) {
-            // quotient: 몫
-            final int quo = array.length / 2;
-            final int maxIndex = array.length - 1;
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
 
-            // b ^= a;
-            // a ^= b
-            // b ^= a;
-            for (int i = 0; i < quo; i++) {
-                array[i] ^= array[maxIndex - i];
-                array[maxIndex - i] ^= array[i];
-                array[i] ^= array[maxIndex - i];
-            }
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        int temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
         }
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * {@code long} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
      * 
      * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
+     */
+    public static void reverseInPlace(long[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(long[] array) must not be 'null'.");
+
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
+
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        long temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
+        }
+    }
+
+    /**
+     * {@code short} 데이타를 포함하고 있는 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
+     * 
+     * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
+     */
+    public static void reverseInPlace(short[] array) {
+        // [1] 가드 클로즈: null 체크 및 조기 반환
+        Objects.requireNonNull(array, "A parameter(short[] array) must not be 'null'.");
+
+        // 요소가 0개 또는 1개인 경우 뒤집을 필요가 없으므로 즉시 종료
+        if (array.length < 2) {
+            return;
+        }
+
+        // [2] 양 끝에서부터 중앙으로 오며 Swap 수행
+        // 배열 길이의 절반(length / 2)까지만 반복하면 모든 요소의 교환이 완료됩니다.
+        int left = 0;
+        int right = array.length - 1;
+        short temp;
+
+        while (left < right) {
+            // 요소 교환 (Swap)
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+
+            // 포인터 이동
+            left++;
+            right--;
+        }
+    }
+
+    /**
+     * 배열의 순서를 역순으로 변경합니다.<br>
+     * 새로운 배열을 생성하지 않고 원본 배열의 요소를 직접 교환(Swap)하여 메모리 효율을 극대화합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     최초 작성 (In-Place 방식 적용)
+     * </pre>
+     * 
+     * @param <T>
+     *            배열 요소의 타입
+     * @param array
+     *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2026. 03. 26.
+     */
+    public static <T extends @Nullable Object> void reverseInPlace(T[] array) {
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
+
+        if (array.length < 2) {
+            return;
+        }
+
+        int left = 0;
+        int right = array.length - 1;
+        T temp;
+
+        while (left < right) {
+            temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    /**
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
+     * 
+     * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new boolean[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean[][] split(boolean[] array, boolean value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(boolean[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new boolean[][] { array };
-            } else if (splitedCount == array.length) {
-                return new boolean[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            boolean[][] newArray = new boolean[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(boolean[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new boolean[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<boolean[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new boolean[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new boolean[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
      * 
      * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new byte[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[][] split(byte[] array, byte value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(byte[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new byte[][] { array };
-            } else if (splitedCount == array.length) {
-                return new byte[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            byte[][] newArray = new byte[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(byte[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new byte[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<byte[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new byte[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new byte[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
      * 
      * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new char[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static char[][] split(char[] array, char value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(char[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new char[][] { array };
-            } else if (splitedCount == array.length) {
-                return new char[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            char[][] newArray = new char[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(char[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new char[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<char[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new char[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new char[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
      * 
      * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new double[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static double[][] split(double[] array, double value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(double[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new double[][] { array };
-            } else if (splitedCount == array.length) {
-                return new double[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            double[][] newArray = new double[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(double[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new double[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<double[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new double[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new double[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
      * 
      * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new float[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static float[][] split(float[] array, float value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(float[] array) must not be 'null'.");
+
+        if (array.length == 0) {
+            return new float[0][];
+        }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<float[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new float[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new float[splitedList.size()][]);
+    }
+
+    /**
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
+     * 
+     * @param array
+     *            원본 배열
+     * @param value
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @since 2012. 03. 20.
+     */
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new int[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[][] split(int[] array, int value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(int[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new int[][] { array };
-            } else if (splitedCount == array.length) {
-                return new int[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            int[][] newArray = new int[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(int[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new int[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<int[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new int[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new int[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
      * 
      * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new long[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static long[][] split(long[] array, long value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(long[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new long[][] { array };
-            } else if (splitedCount == array.length) {
-                return new long[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            long[][] newArray = new long[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(long[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new long[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<long[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new long[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new long[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분하여 분할된 2차원 배열을 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 20.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     단일 패스 로직으로 최적화 및 가드 클로즈 적용
+     * </pre>
      * 
      * @param array
+     *            원본 배열
      * @param value
-     * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     *            구분자로 사용할 값
+     * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(new short[splitedList.size()][]);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static short[][] split(short[] array, short value) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(short[] array) must not be 'null'.");
 
-        if (array != null) {
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (array[i] == value) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (array[i - 1] != value) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                return new short[][] { array };
-            } else if (splitedCount == array.length) {
-                return new short[0][];
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            short[][] newArray = new short[splitedRanges.length][];
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-        } else {
-            throw new IllegalArgumentException("A parameter(long[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return new short[0][];
         }
+
+        // 분할된 배열들을 임시로 담을 리스트 (최대 개수는 array.length를 넘지 않음)
+        List<short[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == value) {
+                // 구분자를 만났을 때, 이전까지의 구간이 유효(길이가 1 이상)하면 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 남은 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 값이 구분자와 동일하여 리스트가 비어있는 경우
+        if (splitedList.isEmpty()) {
+            // 원본 배열이 모두 구분자라면 빈 2차원 배열 반환,
+            // 만약 원본에 데이터가 하나도 없었는데 여기까지 왔다면(length=0 케이스는 위에서 처리됨) 로직 유지
+            return new short[0][];
+        }
+
+        // [4] 결과 반환
+        return splitedList.toArray(new short[splitedList.size()][]);
     }
 
     /**
-     * 배열을 주어진 값으로 구분한 배열(2차원) 을 반환합니다.
+     * 배열을 주어진 값({@code value})으로 구분한 2차원 배열을 반환합니다.
      * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param value
      *            구분자로 사용되는 데이타
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
      * 
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
     public static <T> T[][] split(T[] array, T value) {
         return split(array, value, null);
@@ -9878,583 +10539,677 @@ public class ArrayUtils {
      * [23, 5]
      * </pre>
      * 
+     * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param value
      *            구분자로 사용되는 데이타
      * @param equivalent
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
-     * 
      */
-    public static <T> T[][] split(T[] array, T value, IEquivalent<T> equivalent) {
+    // 아래 내용에 적용됨.
+    // - return splitedList.toArray(result);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> T[][] split(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
+        // [1] 가드 클로즈
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
 
-        if (array != null) {
-
-            if (equivalent == null) {
-                equivalent = new DefaultEquivalent<T>();
-            }
-
-            int[][] splitedRanges = new int[array.length][];
-            int splitedCount = 0;
-
-            int startPos = 0;
-            int i = 0;
-            for (; i < array.length; i++) {
-                if (equivalent.equals(array[i], value)) {
-                    splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-
-                    startPos = i + 1;
-                }
-            }
-
-            if (!equivalent.equals(array[i - 1], value)) {
-                splitedRanges[splitedCount++] = new int[] { startPos, i - startPos };
-            }
-
-            if (splitedCount < 1) {
-                T[][] newArray = (T[][]) Array.newInstance(array.getClass(), 1);
-                newArray[0] = array;
-                return newArray;
-            } else if (splitedCount == array.length) {
-                return (T[][]) Array.newInstance(array.getClass(), 0);
-            }
-
-            splitedRanges = Arrays.copyOf(splitedRanges, splitedCount);
-
-            T[][] newArray = (T[][]) Array.newInstance(array.getClass(), splitedRanges.length);
-
-            int[] range = null;
-            splitedCount = 0;
-            i = 0;
-            for (; i < newArray.length; i++) {
-                range = splitedRanges[i];
-                if (range[1] != 0) {
-                    newArray[splitedCount++] = Arrays.copyOfRange(array, range[0], range[0] + range[1]);
-                }
-            }
-
-            return Arrays.copyOf(newArray, splitedCount);
-
-        } else {
-            throw new IllegalArgumentException("A parameter(T[] array) must not be 'null'", new NullPointerException("array=null"));
+        if (array.length == 0) {
+            return (T[][]) newArray(array.getClass(), 0);
         }
+
+        // 비교자 설정
+        if (equivalent == null) {
+            equivalent = new DefaultEquivalent<T>();
+        }
+
+        // 분할 결과를 담을 임시 리스트
+        List<T[]> splitedList = new ArrayList<>(array.length);
+
+        int startPos = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (equivalent.equals(array[i], value)) {
+                // 구분자 이전까지의 구간이 존재하면 결과에 추가
+                if (i > startPos) {
+                    splitedList.add(Arrays.copyOfRange(array, startPos, i));
+                }
+                startPos = i + 1;
+            }
+        }
+
+        // [2] 마지막 구간 처리
+        if (startPos < array.length) {
+            splitedList.add(Arrays.copyOfRange(array, startPos, array.length));
+        }
+
+        // [3] 모든 요소가 구분자였거나 비어있는 경우 (조기 반환)
+        if (splitedList.isEmpty()) {
+            return (T[][]) newArray(array.getClass(), 0);
+        }
+
+        // [4] 결과 반환 (2차원 배열 생성)
+        T[][] result = (T[][]) newArray(array.getClass(), splitedList.size());
+        return splitedList.toArray(result);
     }
 
     /**
-     * 조건에 맞는 데이터 이후부터 끝까지 데이터를 새로운 배열로 제공합니다. <br>
+     * 조건에 맞는 데이터 이후부터 끝까지 데이터를 새로운 배열로 제공합니다. (Exclusive)
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 6. 24.     parkjunohng77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2021. 6. 24.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     Predicate 적용 및 메모리 할당 최적화
      * </pre>
-     *
+     * 
      * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param at
-     *            조건에 맞는지 비교하는 함수. (exclusive)
-     * @return
-     *
+     *            조건에 맞는지 비교하는 함수 (해당 데이터는 제외됨)
+     * @return 조건 일치 데이터 이후의 새로운 배열. 일치하는 데이터가 없거나 마지막 요소인 경우 빈 배열 반환.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code at})가 {@code null}인 경우 발생.
      * @since 2021. 6. 24.
-     * @version 1.8.0
-     * 
      */
-    public static <T> T[] splitAfter(T[] array, Function<T, Boolean> at) {
-        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+    // 아래 내용에 적용됨.
+    // - return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
+    // - return Arrays.copyOfRange(array, splitIdx + 1, array.length);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> T[] splitAfter(T[] array, Predicate<T> at) {
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
+        Objects.requireNonNull(at, "A parameter(Predicate<T> at) must not be 'null'.");
 
-        int pos = 0;
-        boolean found = false;
-        for (T elem : array) {
-            if (!found) {
-                found = at.apply(elem);
-                continue;
+        int splitIdx = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (at.test(array[i])) {
+                splitIdx = i;
+                break;
             }
-
-            newArr[pos++] = elem;
         }
 
-        if (pos < 1) {
+        // 일치하는 데이터가 없거나, 마지막 데이터인 경우 빈 배열 반환
+        if (splitIdx < 0 || splitIdx == array.length - 1) {
             return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
-        } else {
-            return Arrays.copyOf(newArr, pos);
         }
+
+        return Arrays.copyOfRange(array, splitIdx + 1, array.length);
     }
 
     /**
-     * 첫 데이터부터 주어진 조건에 맞는 데이터까지 새로운 배열로 제공합니다. <br>
+     * 첫 데이터부터 주어진 조건에 맞는 데이터까지 새로운 배열로 제공합니다. (Inclusive)
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2021. 6. 21.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     Predicate 적용 및 조기 반환 최적화
      * </pre>
-     *
+     * 
      * @param <T>
+     *            배열 요소의 타입
      * @param array
+     *            원본 배열
      * @param at
-     *            조건에 맞는지 비교하는 함수. (inclusive)
+     *            조건에 맞는지 비교하는 함수 (해당 데이터 포함됨)
      * @param post
-     *            조건에 맞는 데이터를 후처리하는 함수.
-     * @return
-     *
-     * @since 2021. 6. 21.
-     * @version 1.8.0
+     *            조건에 맞는 데이터를 후처리하는 함수 ({@code null} 가능)
+     * @return 조건 일치 데이터까지의 새로운 배열. 일치하는 데이터가 없으면 전체 배열 반환.
      * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code at})가 {@code null}인 경우 발생.
+     * @since 2021. 6. 21.
      */
-    public static <T> T[] splitAt(T[] array, Function<T, Boolean> at, Function<T, T> post) {
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(array, array.length);
+    // - return newArr;
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> T[] splitAt(T[] array, Predicate<T> at, @Nullable UnaryOperator<T> post) {
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
+        Objects.requireNonNull(at, "A parameter(Predicate<T> at) must not be 'null'.");
 
-        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
-        int pos = 0;
-
-        for (T elem : array) {
-            if (at.apply(elem)) {
-                if (post != null) {
-                    elem = post.apply(elem);
-                }
-                newArr[pos++] = elem;
+        int splitIdx = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (at.test(array[i])) {
+                splitIdx = i;
                 break;
             }
-            newArr[pos++] = elem;
         }
 
-        return Arrays.copyOf(newArr, pos);
+        // 일치하는 데이터가 없는 경우 원본 복사본 반환
+        if (splitIdx < 0) {
+            return Arrays.copyOf(array, array.length);
+        }
+
+        T[] newArr = Arrays.copyOfRange(array, 0, splitIdx + 1);
+
+        // 마지막 데이터 후처리
+        if (post != null) {
+            newArr[splitIdx] = post.apply(newArr[splitIdx]);
+        }
+
+        return newArr;
     }
 
     /**
-     * 첫 데이터부터 주어진 조건에 맞는 데이터 직전까지 새로운 배열로 제공합니다. <br>
-     * <br>
+     * 첫 데이터부터 주어진 조건에 맞는 데이터 직전까지 새로운 배열로 제공합니다. (Exclusive)
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2021. 6. 21.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     Predicate 적용 및 가드 클로즈 최적화
      * </pre>
-     *
-     * @param <T>
-     * @param array
-     * @param at
-     *            조건에 맞는지 비교하는 함수. (exclusive)
-     * @return
-     *
-     * @since 2021. 6. 21.
-     * @version 1.8.0
      * 
+     * @param <T>
+     *            배열 요소의 타입
+     * @param array
+     *            원본 배열
+     * @param at
+     *            조건에 맞는지 비교하는 함수 (해당 데이터는 제외됨)
+     * @return 조건 일치 데이터 직전까지의 새로운 배열. 일치하는 데이터가 없으면 전체 배열 반환.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code array} 또는 {@code at})가 {@code null}인 경우 발생.
+     * @since 2021. 6. 21.
      */
-    public static <T> T[] splitBefore(T[] array, Function<T, Boolean> at) {
-        T[] newArr = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
-        int pos = 0;
-        for (T elem : array) {
-            if (at.apply(elem)) {
+    // 아래 내용에 적용됨.
+    // - return Arrays.copyOf(array, array.length);
+    // - return Arrays.copyOfRange(array, 0, splitIdx);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <T> T[] splitBefore(T[] array, Predicate<T> at) {
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
+        Objects.requireNonNull(at, "A parameter(Predicate<T> at) must not be 'null'.");
+
+        int splitIdx = -1;
+        for (int i = 0; i < array.length; i++) {
+            if (at.test(array[i])) {
+                splitIdx = i;
                 break;
             }
-            newArr[pos++] = elem;
         }
 
-        return Arrays.copyOf(newArr, pos);
+        // 일치하는 데이터가 없는 경우 원본 복사본 반환, 첫 데이터인 경우 빈 배열 반환
+        if (splitIdx < 0) {
+            return Arrays.copyOf(array, array.length);
+        }
+
+        return Arrays.copyOfRange(array, 0, splitIdx);
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
      */
     public static boolean[][] subArrays(boolean[] array, int index, boolean inclusive) {
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(boolean[] array) must not be 'null'.");
 
-            index = inclusive ? index + 1 : index;
-
-            boolean[][] result = new boolean[2][];
-
-            boolean[] first = new boolean[index];
-            boolean[] second = new boolean[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(boolean[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        boolean[][] result = new boolean[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
      */
     public static byte[][] subArrays(byte[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(byte[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            byte[][] result = new byte[2][];
-
-            byte[] first = new byte[index];
-            byte[] second = new byte[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(byte[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        byte[][] result = new byte[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
      */
     public static char[][] subArrays(char[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(char[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            char[][] result = new char[2][];
-
-            char[] first = new char[index];
-            char[] second = new char[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(char[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        char[][] result = new char[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
      */
     public static double[][] subArrays(double[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(double[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            double[][] result = new double[2][];
-
-            double[] first = new double[index];
-            double[] second = new double[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(double[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        double[][] result = new double[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
      */
     public static float[][] subArrays(float[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(float[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            float[][] result = new float[2][];
-
-            float[] first = new float[index];
-            float[] second = new float[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(float[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        float[][] result = new float[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
      */
     public static int[][] subArrays(int[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(int[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            int[][] result = new int[2][];
-
-            int[] first = new int[index];
-            int[] second = new int[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(int[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        int[][] result = new int[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static long[][] subArrays(long[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(long[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            long[][] result = new long[2][];
-
-            long[] first = new long[index];
-            long[] second = new long[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(long[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        long[][] result = new long[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     가드 클로즈 적용 및 인덱스 보정 로직 최적화
+     * </pre>
      * 
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
-     * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
-     * 
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *
+     * @return 분리된 2개의 배열을 담은 2차원 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static short[][] subArrays(short[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(short[] array) must not be 'null'.");
 
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            short[][] result = new short[2][];
-
-            short[] first = new short[index];
-            short[] second = new short[array.length - index];
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(short[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        int secondStart = inclusive ? index + 1 : index;
+
+        short[][] result = new short[2][];
+
+        // 첫 번째 배열: 0부터 index까지 (inclusive 여부에 따라 포함 여부 결정)
+        result[0] = Arrays.copyOfRange(array, 0, inclusive ? index + 1 : index);
+
+        // 두 번째 배열: 보정된 지점부터 끝까지
+        result[1] = Arrays.copyOfRange(array, secondStart, array.length);
+
+        return result;
     }
 
     /**
-     * 주어진 배열을 2개의 배열로 분리한 후 반환합니다.
+     * 주어진 배열을 지정된 위치({@code index})를 기준으로 2개의 배열로 분할하여 반환합니다.
      * 
-     * @param T
-     *            배열의 원소 타입.
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 9.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.     parkjunhong77@gmail.com     반환 타입 최적화(T[][]) 및 가드 클로즈 적용
+     * </pre>
+     * 
+     * @param <T>
+     *            배열의 원소 타입
      * @param array
      *            분리할 배열
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리할 지점의 데이타 포함 여부. If true, a first array contains it, otherwise it is omitted.
-     * @return
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      * 
-     * @exception IllegalArgumentException
-     *                주어진 배열이 {@code null}인 경우
+     * @return 분리된 2개의 배열을 담은 2차원 배열
      * 
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      * 
      * @since 2012. 3. 9.
-     * 
      */
+    public static <T extends @Nullable Object> T[][] subArrays(T[] array, int index, boolean inclusive) {
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(array, "A parameter(T[] array) must not be 'null'.");
 
-    public static <T> Object[][] subArrays(T[] array, int index, boolean inclusive) {
-
-        if (array != null) {
-            if (index < 0 || index > array.length - 1) {
-                throw new IllegalArgumentException("A parameter(int index) must be in '0'~'" + (array.length - 1) + "': index=" + index);
-            }
-
-            index = inclusive ? index + 1 : index;
-
-            Object[][] result = new Object[2][];
-
-            T[] first = (T[]) Array.newInstance(array.getClass().getComponentType(), index);
-            T[] second = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length - index);
-
-            System.arraycopy(array, 0, first, 0, first.length);
-            System.arraycopy(array, index, second, 0, second.length);
-
-            result[0] = first;
-            result[1] = second;
-
-            return result;
-        } else {
-            throw new IllegalArgumentException(new NullPointerException("A parameter(T[] array) must not be 'null': array=null"));
+        // [2] 가드 클로즈: 인덱스 범위 체크
+        if (index < 0 || index >= array.length) {
+            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
+
+        // [3] 분리 지점 보정
+        int secondStart = inclusive ? index + 1 : index;
+        int firstLength = inclusive ? index + 1 : index;
+
+        // [4] 결과 배열 타입 정의 (T[][])
+        T[][] result = (T[][]) Array.newInstance(array.getClass(), 2);
+
+        // 첫 번째 배열 생성 및 복사
+        result[0] = (T[]) Array.newInstance(array.getClass().getComponentType(), firstLength);
+        System.arraycopy(array, 0, result[0], 0, firstLength);
+
+        // 두 번째 배열 생성 및 복사
+        int secondLength = array.length - secondStart;
+        result[1] = (T[]) Array.newInstance(array.getClass().getComponentType(), secondLength);
+        System.arraycopy(array, secondStart, result[1], 0, secondLength);
+
+        return result;
     }
 
     public static boolean[] toPrimitiveArray(Boolean[] arr) {
@@ -10544,9 +11299,11 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * 
      */
-    public static String toString(Object[] array) {
+    public static @Nullable String toString(Object @Nullable [] array) {
+        if (array == null) {
+            return null;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -10565,7 +11322,7 @@ public class ArrayUtils {
         return sb.toString();
     }
 
-    private static String toString0(Object obj) {
+    private static @Nullable String toString0(@Nullable Object obj) {
         if (obj == null) {
             return null;
         }
@@ -10663,7 +11420,10 @@ public class ArrayUtils {
         return array;
     }
 
-    public static <T> T[] toWrapperArray(Object array) {
+    public static <T extends @Nullable Object> T @Nullable [] toWrapperArray(@Nullable Object array) {
+        if (array == null) {
+            return null;
+        }
 
         Class<?> componentType = array.getClass().getComponentType();
 
@@ -10736,7 +11496,7 @@ public class ArrayUtils {
      * @version 2.0.0
      * 
      */
-    public static <T, R> R[] transform(T[] arr, Function<T, R> f) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> R @Nullable [] transform(T @Nullable [] arr, Function<T, R> f) {
         if (arr == null) {
             return null;
         }
@@ -10744,17 +11504,17 @@ public class ArrayUtils {
         return (R[]) Stream.of(arr).map(f).toArray();
     }
 
-    public static class EntryValue<K, V> implements Entry<K, V> {
+    public static class EntryValue<K, V extends @Nullable Object> implements Entry<K, V> {
 
         private K key;
-        private @Nullable V value;
+        private V value;
 
         /**
          * @param key
          * @param value
          * @since 2021. 8. 15.
          */
-        public EntryValue(K key, @Nullable V value) {
+        public EntryValue(K key, V value) {
             this.key = key;
             this.value = value;
         }
@@ -10799,7 +11559,7 @@ public class ArrayUtils {
          * @see java.util.Map.Entry#getValue()
          */
         @Override
-        public @Nullable V getValue() {
+        public V getValue() {
             return this.value;
         }
 
@@ -10822,7 +11582,7 @@ public class ArrayUtils {
          * @see java.util.Map.Entry#setValue(java.lang.Object)
          */
         @Override
-        public V setValue(@Nullable V value) {
+        public V setValue(V value) {
             V v = this.value;
             this.value = value;
             return v;

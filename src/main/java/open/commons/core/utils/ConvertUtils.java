@@ -24,10 +24,9 @@ import java.lang.reflect.Constructor;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Pattern;
 
-import open.commons.core.io.IMarshaller;
-import open.commons.core.lang.JavaField;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
@@ -93,15 +92,21 @@ public class ConvertUtils {
     /**
      * 
      * @param value
-     * @param class_
+     * @param clazz
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code value 또는 clazz})가 {@code null}인 경우 발생.
      */
-    public static <T> void assertValue(Object value, Class<T> class_, Class<? extends RuntimeException> occurExeption) {
+    @SuppressWarnings("null")
+    public static <T> void assertValue(Object value, Class<T> clazz, @Nullable Class<? extends RuntimeException> occurExeption) {
+        ObjectUtils.requireNonNullsWithMessage("Neither value and class_ MUST be null.", value, clazz);
+        Objects.requireNonNull(value);
+        Objects.requireNonNull(clazz);
 
-        AssertUtils2.notNulls("Neither value and class_ MUST be null.", value, class_);
-
-        Class<?> translatedClass = translateToWrapper(class_);
+        @NonNull
+        Class<?> translatedClass = translateToWrapper(clazz);
 
         if (!translatedClass.isAssignableFrom(value.getClass())) {
             try {
@@ -109,8 +114,13 @@ public class ConvertUtils {
                 Constructor<? extends RuntimeException> cons = occurExeption != null ? occurExeption.getConstructor(String.class)
                         : IllegalArgumentException.class.getConstructor(String.class);
 
-                throw (RuntimeException) cons.newInstance("value's type MUST be " + class_ + (!class_.equals(translatedClass) ? " or " + translatedClass.getSimpleName() : "")
-                        + ". value: " + value + " (" + value.getClass() + ")");
+                throw (RuntimeException) cons.newInstance( //
+                        "value's type MUST be " + clazz //
+                                + (!clazz.equals(translatedClass) //
+                                        ? " or " + translatedClass.getSimpleName() //
+                                        : "")
+                                + ". value: " + value + " (" + value.getClass() + ")" //
+                );
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
@@ -118,46 +128,8 @@ public class ConvertUtils {
         }
     }
 
-    public static JavaField defineToJavaField(String type, String string) {
-        String tmpString = string.trim();
-        String comment = StringUtils.getComment(tmpString);
-        tmpString = StringUtils.removeComment(tmpString).trim();
-        String accessor = "public static final";
-        String var = StringUtils.enclosingSmallestString(tmpString, "#define", "(").trim();
-        String value = StringUtils.enclosingLargestString(tmpString, "(", ")").trim();
-
-        return new JavaField(accessor, type, var, value, comment);
-    }
-
-    public static String defineToJavaIntField(String string) {
-        string = string.replace("#define", "public static final int");
-        string = string.replaceAll("( |\t)*\\(( |\t)*", " = ");
-        string = string.replaceAll("( |\t)*\\)( |\t)*", ";");
-        String comment = StringUtils.getComment(string);
-        if (comment != null && !comment.isEmpty()) {
-            comment = "/** " + comment.trim() + " */\n";
-        } else {
-            comment = "";
-        }
-
-        return comment + StringUtils.removeComment(string);
-    }
-
-    public static String defineToJavaStringField(String string) {
-        String str1 = string.replace("#define", "public static final String");
-        String str2 = str1.replaceAll("( |\t)*\\(( |\t)*", " = ");
-        String str3 = str2.replaceAll("( |\t)*\\)( |\t)*", ";");
-        String comment = StringUtils.getComment(string);
-        if (comment != null && !comment.isEmpty()) {
-            comment = "/** " + comment.trim() + " */\n";
-        } else {
-            comment = "";
-        }
-        return comment + StringUtils.removeComment(str3);
-    }
-
     /**
-     * @param class_
+     * @param clazz
      * @return One of followings.
      * 
      *         <ul>
@@ -171,14 +143,19 @@ public class ConvertUtils {
      *         <li>{@link #TYPE_CONST_DOUBLE}
      *         <li>{@link #TYPE_CONST_OBJECT}
      *         </ul>
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code clazz})가 {@code null}인 경우 발생.
      */
-    public static byte getTypeConst(Class<?> class_) {
-        return primitiveTypesConst.containsKey(class_) ? primitiveTypesConst.get(class_) : TYPE_CONST_OBJECT;
+    public static byte getTypeConst(Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+
+        return primitiveTypesConst.containsKey(clazz) ? primitiveTypesConst.get(clazz) : TYPE_CONST_OBJECT;
     }
 
     /**
      * 
-     * @param class_
+     * @param clazz
      * @return One of followings.
      *         <ul>
      *         <li>Boolean
@@ -189,11 +166,16 @@ public class ConvertUtils {
      *         <li>Float
      *         <li>Double
      *         </ul>
+     * 
+     * @throws NullPointerException
+     *             // * 파라미터({@code clazz})가 {@code null}인 경우 발생.
      */
-    public static Class<?> getWrapperClass(Class<?> class_) {
-        return primitiveTypesWrapperClass.containsKey(class_) //
-                ? Objects.requireNonNull(primitiveTypesWrapperClass.get(class_)) //
-                : class_;
+    public static Class<?> getWrapperClass(Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+
+        return primitiveTypesWrapperClass.containsKey(clazz) //
+                ? Objects.requireNonNull(primitiveTypesWrapperClass.get(clazz)) //
+                : clazz;
     }
 
     /**
@@ -211,12 +193,16 @@ public class ConvertUtils {
      * @param targetType
      *            대상 타입.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcType 또는 targetType})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
      * 
      */
     public static boolean isAssignableFrom(Class<?> srcType, Class<?> targetType) {
+        ObjectUtils.requireNonNulls(srcType, targetType);
 
         switch (getTypeConst(srcType)) {
             case TYPE_CONST_BOOLEAN:
@@ -260,29 +246,11 @@ public class ConvertUtils {
      * @version 1.8.0
      * 
      */
+    @SuppressWarnings("null")
     public static <S, T> boolean isAssignableFrom(S srcObject, T targetObject) {
+        ObjectUtils.requireNonNulls(srcObject, targetObject);
+
         return isAssignableFrom(srcObject.getClass(), targetObject.getClass());
-    }
-
-    public static boolean isDefineInteger(String string) {
-        String regEx = "( |\t)*#define( |\t)+[a-zA-Z_$][a-zA-Z_$0-9]*( |\t)*\\(( |\t)*(-)?[0-9]+( |\t)*\\)" + REGEX_BT + "*" + REGEX_COMMENT + "?" + REGEX_BT + "*";
-        return Pattern.matches(regEx, string);
-    }
-
-    public static boolean isDefineString(String string) {
-        String regEx = "( |\t)*#define( |\t)+[a-zA-Z_$][a-zA-Z_$0-9]*( |\t)*\\(( |\t)*\"(.)*\"( |\t)*\\)" + REGEX_BT + "*" + REGEX_COMMENT + "?" + REGEX_BT + "*";
-        return Pattern.matches(regEx, string);
-    }
-
-    /**
-     * 
-     * @param value
-     * @param marshaller
-     *            변환기
-     * @return
-     */
-    public static <T> Object marshall(T value, IMarshaller<T> marshaller) {
-        return marshaller != null ? marshaller.marshall(value) : value;
     }
 
     private static void putTypeConsts(byte typeConst, Class<?>... types) {
@@ -291,20 +259,20 @@ public class ConvertUtils {
         }
     }
 
-    public static String toJavaDocSingleLineComment(String string) {
-        return "/** " + string + " */";
-    }
-
     /**
      * 문자열 데이터를 Primitive Type 에 해당하는 값으로 변환한다. <br>
      * 
      * @param primitiveType
      * @param value
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code primitiveType})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 2.
      */
     public static <T> T toPrimitiveTypeValue(Class<T> primitiveType, String value) {
+        ObjectUtils.requireNonNulls(primitiveType, value);
 
         switch (getTypeConst(primitiveType)) {
             case TYPE_CONST_BOOLEAN:
@@ -346,12 +314,16 @@ public class ConvertUtils {
      * @param unsigned
      *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long ({@link Long})인 경우 unsigned 여부
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code primitiveType})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 15.
      * @version 1.8.0
      * 
      */
     public static <T> T toPrimitiveTypeValue(Class<T> primitiveType, String value, boolean unsigned) {
+        Objects.requireNonNull(primitiveType);
 
         switch (getTypeConst(primitiveType)) {
             case TYPE_CONST_BOOLEAN:
@@ -383,11 +355,16 @@ public class ConvertUtils {
      * @param srcType
      * @return
      *
+     * @throws NullPointerException
+     *             파라미터({@code srcType})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 12. 3.
      * @version 1.8.0
      * 
      */
     public static Class<?> translateToPrimitive(Class<?> srcType) {
+        Objects.requireNonNull(srcType);
+
         if (Boolean.class.equals(srcType)) {
             return boolean.class;
         }
@@ -428,8 +405,12 @@ public class ConvertUtils {
      * 
      * @param primitiveType
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code primitiveType})가 {@code null}인 경우 발생.
      */
     public static Class<?> translateToWrapper(Class<?> primitiveType) {
+        Objects.requireNonNull(primitiveType);
 
         if (boolean.class.equals(primitiveType)) {
             return Boolean.class;
@@ -467,17 +448,6 @@ public class ConvertUtils {
     }
 
     /**
-     * 
-     * @param value
-     * @param marshaller
-     *            변환기
-     * @return
-     */
-    public static <T> T unmarshall(Object value, IMarshaller<T> marshaller) {
-        return marshaller != null ? marshaller.unmarshall(value) : (T) value;
-    }
-
-    /**
      * Primitive 타입 배열을 Wrapper 클래스 배열로 반환합니다.
      * 
      * @param componentType
@@ -486,36 +456,33 @@ public class ConvertUtils {
      * @return
      */
     public static <T> T[] wrapClassArray(Class<?> componentType, Object array) {
-
-        T[] wrapperClassArray = null;
+        ObjectUtils.requireNonNulls(componentType, array);
 
         if (boolean.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((boolean[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((boolean[]) array);
         } else //
         if (char.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((char[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((char[]) array);
         } else //
         if (byte.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((byte[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((byte[]) array);
         } else //
         if (short.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((short[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((short[]) array);
         } else //
         if (int.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((int[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((int[]) array);
         } else //
         if (long.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((long[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((long[]) array);
         } else //
         if (float.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((float[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((float[]) array);
         } else //
         if (double.class.equals(componentType)) {
-            wrapperClassArray = (T[]) ArrayUtils.toWrapperArray((double[]) array);
+            return (T[]) ArrayUtils.toWrapperArray((double[]) array);
         } else {
-            wrapperClassArray = (T[]) array;
+            throw new IllegalArgumentException(String.format("허용하지 않는 데이터 유형입니다. (%s)", array.getClass().getComponentType().toString()));
         }
-
-        return wrapperClassArray;
     }
 }

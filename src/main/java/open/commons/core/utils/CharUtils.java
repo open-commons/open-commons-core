@@ -29,6 +29,7 @@
 package open.commons.core.utils;
 
 import java.lang.Character.UnicodeBlock;
+import java.util.Objects;
 
 /**
  * 
@@ -97,17 +98,18 @@ public class CharUtils {
      * @param cs
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code cs})가 {@code null}인 경우 발생.
+     * 
      * @see NullPointerException
      */
     public static byte[] toBytes(char[] cs) {
-        byte[] rtnBytes = null;
+        Objects.requireNonNull(cs);
 
-        if (cs != null) {
-            rtnBytes = new byte[cs.length];
+        byte[] rtnBytes = new byte[cs.length];
 
-            for (int i = 0; i < cs.length; i++) {
-                rtnBytes[i] = (byte) cs[i];
-            }
+        for (int i = 0; i < cs.length; i++) {
+            rtnBytes[i] = (byte) cs[i];
         }
 
         return rtnBytes;

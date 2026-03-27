@@ -29,14 +29,12 @@ package open.commons.core.io;
 import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Objects;
 
 import jakarta.annotation.Resource;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.ObjectUtils;
 
 /**
@@ -83,6 +81,11 @@ public class Closeables implements AutoCloseable {
      * @throws NullPointerException
      *             파라미터({@code closeables})에 'null'이 포함된 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // ObjectUtils.requireNonNulls((Object[]) closeables);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void addAll(AutoCloseable @Nullable... closeables) {
         if (closeables == null) {
             return;
@@ -124,35 +127,36 @@ public class Closeables implements AutoCloseable {
     }
 
     /**
-     * 데이터를 배열의 앞쪽에 추가합니다. <br>
+     * 자원 해제 객체들을 목록의 가장 앞쪽에 추가합니다. (LIFO 순서 보장용)
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     리스트 뒤집기 제거 및 인덱스 삽입으로 성능 최적화
      * </pre>
-     *
+     * 
      * @param closeables
-     *
+     *            추가할 자원 해제 객체들 (가변 인자)
+     * 
      * @since 2018. 9. 10.
      */
     public void prepend(AutoCloseable @Nullable... closeables) {
-        if (closeables == null) {
+        // [1] 가드 클로즈
+        if (closeables == null || closeables.length == 0) {
             return;
         }
 
-        // 기존 데이타 순서 뒤집기
-        Collections.reverse(this.closeables);
-
-        // 입력데이타 순서 뒤집기
-        closeables = ArrayUtils.reverse(closeables);
-
-        // 뒤집힌 순서대로 추가
-        this.closeables.addAll(Arrays.asList(closeables));
-
-        // 전체 데이타 순서 뒤집기
-        Collections.reverse(this.closeables);
+        // [2] 성능 최적화: 전체 리스트를 뒤집지 않고,
+        // 입력받은 데이터를 역순으로 리스트의 0번 인덱스에 순차적으로 삽입합니다.
+        // 예: 입력 [A, B] -> B 삽입(0번), A 삽입(0번) => 결과 [A, B, 기존데이터...]
+        for (int i = closeables.length - 1; i >= 0; i--) {
+            AutoCloseable closeable = closeables[i];
+            if (closeable != null) {
+                this.closeables.add(0, closeable);
+            }
+        }
     }
 
     /**
@@ -202,6 +206,11 @@ public class Closeables implements AutoCloseable {
      *
      * @since 2018. 9. 10.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) closeables);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Closeables list(AutoCloseable... closeables) {
         ObjectUtils.requireNonNulls((Object[]) closeables);
 

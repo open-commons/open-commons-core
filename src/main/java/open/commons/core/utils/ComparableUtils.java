@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.annotation.ComparableValue;
 
 /**
@@ -35,6 +37,7 @@ import open.commons.core.annotation.ComparableValue;
  */
 public class ComparableUtils {
 
+    @SuppressWarnings("null")
     private static final Comparator<Field> COMPARABLE_VALUE_SORTER = Comparator.comparingInt(field -> field.getAnnotation(ComparableValue.class).order());
 
     // 클래스 메타데이터 전역 캐시 (Thread-Safe)
@@ -47,7 +50,7 @@ public class ComparableUtils {
     /**
      * 두 배열에 대한 순차적 비교 결과를 제공합니다.
      */
-    public static <T extends Comparable<T>> int comparable(T[] obj1, T[] obj2) {
+    public static <T extends Comparable<T>> int comparable(T @Nullable [] obj1, T @Nullable [] obj2) {
         if (obj1 == obj2)
             return 0;
         if (obj1 == null)
@@ -89,7 +92,7 @@ public class ComparableUtils {
      * @version 3.0.0
      * 
      */
-    public static <T extends Comparable<T>> int compare(T o1, T o2) {
+    public static <T extends @Nullable Comparable<T>> int compare(T o1, T o2) {
         if (o1 == o2) {
             return 0; // 둘 다 null이거나 같은 객체 참조인 경우
         } else if (o1 == null) {
@@ -123,7 +126,7 @@ public class ComparableUtils {
      * @see ComparableValue
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public static <T> int compareTo(T obj1, T obj2) {
+    public static <T extends @Nullable Object> int compareTo(T obj1, T obj2) {
         if (obj1 == obj2)
             return 0;
         if (obj1 == null)
@@ -171,6 +174,11 @@ public class ComparableUtils {
     /**
      * 캐시에서 클래스의 정렬된 필드 목록을 조회하거나 초기화합니다.
      */
+    // 아래 내용에 적용됨.
+    // - 전체
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static List<Field> getSortedComparableFields(Class<?> clazz) {
         return FIELD_CACHE.computeIfAbsent(clazz, k -> {
             // AnnotationUtils는 사용자의 외부 유틸리티라 가정합니다.

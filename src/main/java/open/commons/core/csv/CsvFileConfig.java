@@ -178,10 +178,9 @@ public class CsvFileConfig extends CsvConfig {
      * 
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, Charset charset) {
-        super(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace);
-
         Objects.requireNonNull(charset);
 
+        super(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace);
         this.charset = charset;
         this.charsetName = Objects.requireNonNull(charset.displayName());
         setSkip(skip);

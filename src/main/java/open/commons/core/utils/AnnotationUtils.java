@@ -64,6 +64,11 @@ public class AnnotationUtils {
      * 
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(accObj);
@@ -459,6 +464,11 @@ public class AnnotationUtils {
      * @version 3.0.0
      * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
@@ -500,6 +510,11 @@ public class AnnotationUtils {
      * @version 3.0.0
      * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
@@ -755,6 +770,11 @@ public class AnnotationUtils {
      * 
      * @see Class#getMethods()
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
@@ -867,6 +887,11 @@ public class AnnotationUtils {
      * @since 2020. 11. 9.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
@@ -908,6 +933,11 @@ public class AnnotationUtils {
      * 
      * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);

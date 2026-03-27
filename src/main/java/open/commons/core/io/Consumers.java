@@ -103,6 +103,11 @@ public class Consumers<T> implements Closeable {
      * @throws NullPointerException
      *             파라미터({@code removables})에 'null'이 포함된 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) removables);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public final void addAll(T @Nullable... removables) {
         if (removables == null) {

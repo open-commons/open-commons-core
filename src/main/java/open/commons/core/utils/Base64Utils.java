@@ -34,8 +34,6 @@ import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 import java.util.Objects;
 
-import org.jspecify.annotations.NullMarked;
-
 /**
  * {@link Decoder}, {@link Encoder} 를 이용하여 문자열 인코딩/디코딩 기능을 제공합니다.
  * 
@@ -43,7 +41,11 @@ import org.jspecify.annotations.NullMarked;
  * @version 3.0.0
  * 
  */
-@NullMarked
+// 아래 내용에 적용됨.
+// - 'Encoder, Decoder' 제공 함수
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class Base64Utils {
 
     private static final Encoder URL_ENCODER = Base64.getUrlEncoder();
@@ -57,8 +59,13 @@ public class Base64Utils {
      * @param bytes
      *            Base64 인코딩된 바이트 배열
      * @return 디코딩된 바이트 배열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
     public static byte[] decode(byte[] bytes) {
+        Objects.requireNonNull(bytes);
+
         return DECODER.decode(bytes);
     }
 
@@ -70,8 +77,13 @@ public class Base64Utils {
      * @param dst
      *            대상 바이트 배열
      * @return 대상 바이트 배열에 기록된 바이트 수
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src 또는 dst})가 {@code null}인 경우 발생.
      */
     public static int decode(byte[] src, byte[] dst) {
+        ObjectUtils.requireNonNulls(src, dst);
+
         return DECODER.decode(src, dst);
     }
 
@@ -81,8 +93,13 @@ public class Base64Utils {
      * @param buffer
      *            인코딩된 데이터가 포함된 ByteBuffer
      * @return 디코딩된 데이터를 포함하는 새로운 ByteBuffer
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code buffer})가 {@code null}인 경우 발생.
      */
     public static ByteBuffer decode(ByteBuffer buffer) {
+        Objects.requireNonNull(buffer);
+
         return DECODER.decode(buffer);
     }
 
@@ -92,8 +109,13 @@ public class Base64Utils {
      * @param string
      *            Base64 인코딩된 문자열
      * @return 디코딩된 바이트 배열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static byte[] decode(String string) {
+        Objects.requireNonNull(string);
+
         return DECODER.decode(string);
     }
 
@@ -103,8 +125,13 @@ public class Base64Utils {
      * @param base64EncodedString
      *            URL-Safe Base64 인코딩된 바이트 배열
      * @return 디코딩된 원본 문자열 (UTF-8)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code base64EncodedString})가 {@code null}인 경우 발생.
      */
     public static String decodeFromUrlSafeString(byte[] base64EncodedString) {
+        Objects.requireNonNull(base64EncodedString);
+
         return decodeFromUrlSafeString(base64EncodedString, StandardCharsets.UTF_8);
     }
 
@@ -116,8 +143,13 @@ public class Base64Utils {
      * @param charset
      *            원본 문자열 복원에 사용할 캐릭터셋 (null인 경우 UTF-8 사용)
      * @return 디코딩된 원본 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code base64EncodedBytes})가 {@code null}인 경우 발생.
      */
     public static String decodeFromUrlSafeString(byte[] base64EncodedBytes, Charset charset) {
+        Objects.requireNonNull(base64EncodedBytes);
+
         byte[] decoded = URL_DECODER.decode(base64EncodedBytes);
         return new String(decoded, Objects.requireNonNullElse(charset, StandardCharsets.UTF_8));
     }
@@ -128,6 +160,9 @@ public class Base64Utils {
      * @param base64EncodedString
      *            URL-Safe Base64 인코딩된 문자열
      * @return 디코딩된 원본 문자열 (UTF-8)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code base64EncodedString})가 {@code null}인 경우 발생.
      */
     public static String decodeFromUrlSafeString(String base64EncodedString) {
         return decodeFromUrlSafeString(base64EncodedString, StandardCharsets.UTF_8);
@@ -141,8 +176,13 @@ public class Base64Utils {
      * @param charset
      *            원본 문자열 복원에 사용할 캐릭터셋 (null인 경우 UTF-8 사용)
      * @return 디코딩된 원본 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code base64EncodedString})가 {@code null}인 경우 발생.
      */
     public static String decodeFromUrlSafeString(String base64EncodedString, Charset charset) {
+        Objects.requireNonNull(base64EncodedString);
+
         byte[] base64Bytes = base64EncodedString.getBytes(StandardCharsets.ISO_8859_1);
         byte[] decoded = URL_DECODER.decode(base64Bytes);
 
@@ -155,8 +195,13 @@ public class Base64Utils {
      * @param bytes
      *            Base64 인코딩된 바이트 배열
      * @return 디코딩된 원본 문자열 (UTF-8)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
     public static String decodeToString(byte[] bytes) {
+        Objects.requireNonNull(bytes);
+
         return new String(DECODER.decode(bytes), StandardCharsets.UTF_8);
     }
 
@@ -166,8 +211,13 @@ public class Base64Utils {
      * @param string
      *            Base64 인코딩된 문자열
      * @return 디코딩된 원본 문자열 (UTF-8)
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String decodeToString(String string) {
+        Objects.requireNonNull(string);
+
         return new String(DECODER.decode(string), StandardCharsets.UTF_8);
     }
 
@@ -177,8 +227,13 @@ public class Base64Utils {
      * @param bytes
      *            원본 바이트 배열
      * @return Base64 인코딩된 바이트 배열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
     public static byte[] encode(byte[] bytes) {
+        Objects.requireNonNull(bytes);
+
         return ENCODER.encode(bytes);
     }
 
@@ -188,8 +243,13 @@ public class Base64Utils {
      * @param buffer
      *            원본 데이터를 포함하는 ByteBuffer
      * @return Base64 인코딩된 데이터를 포함하는 새로운 ByteBuffer
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code buffer})가 {@code null}인 경우 발생.
      */
     public static ByteBuffer encode(ByteBuffer buffer) {
+        Objects.requireNonNull(buffer);
+
         return ENCODER.encode(buffer);
     }
 
@@ -199,8 +259,13 @@ public class Base64Utils {
      * @param bytes
      *            원본 바이트 배열
      * @return Base64 인코딩된 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
     public static String encodeToString(byte[] bytes) {
+        Objects.requireNonNull(bytes);
+
         return ENCODER.encodeToString(bytes);
     }
 
@@ -210,8 +275,13 @@ public class Base64Utils {
      * @param bytes
      *            원본 바이트 배열
      * @return URL-Safe Base64 인코딩된 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
     public static String encodeToUrlSafeString(byte[] bytes) {
+        Objects.requireNonNull(bytes);
+
         return URL_ENCODER.encodeToString(bytes);
     }
 
@@ -223,6 +293,9 @@ public class Base64Utils {
      * @param charset
      *            문자열 인코딩에 사용할 캐릭터셋 (null인 경우 UTF-8 사용)
      * @return URL-Safe Base64 인코딩된 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String encodeToUrlSafeString(String string) {
         return encodeToUrlSafeString(string, StandardCharsets.UTF_8);
@@ -236,8 +309,13 @@ public class Base64Utils {
      * @param charset
      *            문자열 인코딩에 사용할 캐릭터셋 (null인 경우 UTF-8 사용)
      * @return URL-Safe Base64 인코딩된 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String encodeToUrlSafeString(String string, Charset charset) {
+        Objects.requireNonNull(string);
+
         return URL_ENCODER.encodeToString(string.getBytes(Objects.requireNonNullElse(charset, StandardCharsets.UTF_8)));
     }
 }

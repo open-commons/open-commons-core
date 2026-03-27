@@ -38,7 +38,7 @@ import org.jspecify.annotations.Nullable;
 import open.commons.core.EquivalentFactory;
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.AssertUtils2;
-import open.commons.core.utils.CheckUtils;
+import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StringUtils;
 
 /**
@@ -128,10 +128,15 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 15.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) elems);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public PathElement(String... elems) {
         this(DEFAULT_SEPARATOR);
 
-        CheckUtils.checkNull((Object[]) elems);
+        ObjectUtils.requireNonNulls((Object[]) elems);
 
         for (String elem : elems) {
             add(elem);
@@ -185,7 +190,7 @@ public class PathElement implements Iterable<String> {
                     + elemLength[elemLength.length - 1][2]);
         }
 
-        CheckUtils.checkNull((Object[]) elemLength);
+        ObjectUtils.requireNonNulls((Object[]) elemLength);
 
         int[] el = null;
         for (int i = 0; i < elemLength.length; i++) {

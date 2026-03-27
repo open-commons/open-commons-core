@@ -161,9 +161,12 @@ public class ReferenceableProperties extends Properties {
      *             파라미터({@code inStreams})가 'null' 또는 {@code null}을 포함한 경우 발생.
      * 
      * @since 2012. 02. 15.
-     * 
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) inStreams);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public synchronized void load(InputStream... inStreams) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) inStreams);
 
@@ -212,6 +215,11 @@ public class ReferenceableProperties extends Properties {
      * 
      * @see java.util.Properties#load(java.io.Reader)
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) readers);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public synchronized void load(Reader... readers) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) readers);
 
@@ -258,6 +266,11 @@ public class ReferenceableProperties extends Properties {
      * @since 2012. 02. 15.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) ins);
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public synchronized void loadFromXML(InputStream... ins) throws IOException, InvalidPropertiesFormatException {
         ObjectUtils.requireNonNulls((Object[]) ins);
 

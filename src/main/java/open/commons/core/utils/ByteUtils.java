@@ -27,10 +27,9 @@
 package open.commons.core.utils;
 
 import java.nio.ByteBuffer;
-import java.util.StringJoiner;
+import java.util.Objects;
 
-import open.commons.core.lang.NumString;
-import open.commons.core.util.ArrayItr;
+import org.jspecify.annotations.Nullable;
 
 public class ByteUtils {
 
@@ -45,7 +44,8 @@ public class ByteUtils {
     private static final int T4 = 0x04;
     private static final int T8 = 0x08;
 
-    private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
+    @SuppressWarnings("null")
+    private static final char[] HEX_CODE = "0123456789ABCDEF".toCharArray();
 
     /**
      * 
@@ -66,8 +66,10 @@ public class ByteUtils {
      * @since 2020. 12. 17.
      * @version 1.8.0
      * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
      */
-    public static String hexBinString(boolean split, byte... data) {
+    public static @Nullable String hexBinString(boolean split, byte... data) {
         return hexBinString("", split, data);
     }
 
@@ -77,54 +79,32 @@ public class ByteUtils {
      * @param data
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
+     * 
      */
-    public static String hexBinString(byte... data) {
+    public static @Nullable String hexBinString(byte... data) {
         return hexBinString("", false, data);
     }
 
     /**
+     * 바이트 데이터를 16진수(Hex) 문자열로 변환하여 반환합니다.
      * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
      * @param prefix
-     *            Hex 문자열 앞에 붙힐 접두어.
+     *            Hex 문자열 앞에 붙일 접두어 (예: 0x)
      * @param split
-     *            byte 단위의 Hex 표기값을 띄워서 표시할지 여부
+     *            바이트 단위 사이에 공백을 추가할지 여부
      * @param data
-     * @return
-     *
-     * @since 2020. 12. 17.
-     * @version 1.8.0
+     *            변환할 바이트 데이터 (가변 인자)
+     * @return 16진수로 변환된 문자열. {@code data}가 {@code null}인 경우 {@code null}을 반환합니다.
      * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
+     * 
+     * @since 2020. 12. 17.
      */
-    public static String hexBinString(String prefix, boolean split, byte... data) {
-        if (data == null) {
-            return null;
-        }
-
-        ArrayItr<Byte> itr = new ArrayItr<>(ArrayUtils.toWrapperArray(data));
-        StringBuilder sb = new StringBuilder(prefix);
-        Byte b = 0x00;
-        if (itr.hasNext()) {
-            b = itr.next();
-            sb.append(hexCode[(b >> 4) & 0xF]);
-            sb.append(hexCode[(b & 0xF)]);
-
-            while (itr.hasNext() && (b = itr.next()) != null) {
-                sb.append(split ? " " : "");
-                sb.append(hexCode[(b >> 4) & 0xF]);
-                sb.append(hexCode[(b & 0xF)]);
-            }
-        }
-
-        return sb.toString();
+    public static @Nullable String hexBinString(@Nullable String prefix, boolean split, byte... data) {
+        return hexBinString(prefix, split ? " " : null, data);
     }
 
     /**
@@ -141,13 +121,74 @@ public class ByteUtils {
      *            Hex 문자열 앞에 붙힐 접두어.
      * @param data
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * 
      */
-    public static String hexBinString(String prefix, byte... data) {
+    public static @Nullable String hexBinString(String prefix, byte... data) {
         return hexBinString(prefix, false, data);
+    }
+
+    /**
+     * 바이트 데이터를 지정된 구분자({@code separator})를 사용하여 16진수(Hex) 문자열로 변환하여 반환합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 26.    parkjunhong77@gmail.com     구분자(Separator) 커스텀 기능 추가 및 로직 통합
+     * </pre>
+     * 
+     * @param prefix
+     *            Hex 문자열 앞에 붙일 접두어
+     * @param separator
+     *            바이트 단위 사이의 구분자 ({@code null}인 경우 구분자 없이 연결)
+     * @param data
+     *            변환할 바이트 데이터
+     * @return 16진수로 변환된 문자열
+     * 
+     * @throws NullPointerException
+     *             {@code data}가 {@code null}인 경우 발생 (내부 엔진용)
+     * 
+     * @since 2026. 03. 26.
+     */
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static String hexBinString(@Nullable String prefix, @Nullable String separator, byte... data) {
+        Objects.requireNonNull(data);
+
+        if (data.length == 0) {
+            return prefix != null ? prefix : "";
+        }
+
+        int prefixLen = (prefix != null) ? prefix.length() : 0;
+        int sepLen = (separator != null) ? separator.length() : 0;
+
+        // 용량 계산: prefix + (데이터*2) + (구분자길이 * (데이터-1))
+        int capacity = prefixLen + (data.length * 2) + (sepLen * (data.length - 1));
+
+        StringBuilder sb = new StringBuilder(capacity);
+        if (prefix != null) {
+            sb.append(prefix);
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            // 구분자 처리: i > 0 이고 separator가 null이 아닐 때만 append
+            if (i > 0 && separator != null) {
+                sb.append(separator);
+            }
+
+            sb.append(HEX_CODE[(data[i] >> 4) & 0xF]);
+            sb.append(HEX_CODE[data[i] & 0xF]);
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -158,18 +199,18 @@ public class ByteUtils {
      * 
      * @since 2014. 4. 25.: Remove colon(:)s and white-spaces in input string.
      */
-    public static byte[] hexBinStringToByteArray(String hexBinString) {
+    public static byte @Nullable [] hexBinStringToByteArray(@Nullable String hexBinString) {
         if (hexBinString == null) {
             return null;
         }
 
-        hexBinString = hexBinString.replaceAll(":", "").replaceAll("\\s", "");
+        String trimedHexBinString = hexBinString.replaceAll(":", "").replaceAll("\\s", "");
 
-        if (hexBinString.length() % 2 != 0) {
-            throw new IllegalArgumentException("입력된 문자열 길이는 짝수(even)이어야 합니다. 길이: " + hexBinString.length() + ", 입력값: " + hexBinString);
+        if (trimedHexBinString.length() % 2 != 0) {
+            throw new IllegalArgumentException("입력된 문자열 길이는 짝수(even)이어야 합니다. 길이: " + trimedHexBinString.length() + ", 입력값: " + hexBinString);
         }
 
-        char[] cs = hexBinString.toCharArray();
+        char[] cs = trimedHexBinString.toCharArray();
 
         byte[] bytes = new byte[cs.length / 2];
 
@@ -208,10 +249,12 @@ public class ByteUtils {
      * @return <b>{@code flip mode}</b> instance.
      * 
      * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      *
      * @since 2015. 12. 10.
      */
-    public static ByteBuffer toByteBuffer(byte[] bytes) throws NullPointerException {
+    public static ByteBuffer toByteBuffer(byte[] bytes) {
+        Objects.requireNonNull(bytes);
 
         ByteBuffer buf = ByteBuffer.allocateDirect(bytes.length);
         buf.put(bytes);
@@ -228,15 +271,15 @@ public class ByteUtils {
      * 
      * @see NullPointerException
      */
-    public static char[] toChars(byte[] bytes) {
-        char[] rtnChars = null;
+    public static char @Nullable [] toChars(byte @Nullable [] bytes) {
+        if (bytes == null) {
+            return null;
+        }
 
-        if (bytes != null) {
-            rtnChars = new char[bytes.length];
+        char[] rtnChars = new char[bytes.length];
 
-            for (int i = 0; i < bytes.length; i++) {
-                rtnChars[i] = (char) bytes[i];
-            }
+        for (int i = 0; i < bytes.length; i++) {
+            rtnChars[i] = (char) bytes[i];
         }
 
         return rtnChars;
@@ -257,8 +300,13 @@ public class ByteUtils {
      * 
      * @param value
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code value})가 {@code null}인 경우 발생.
      */
     public static int toInt(byte[] value) {
+        Objects.requireNonNull(value);
+
         if (value.length > 4) {
             throw new IllegalArgumentException("Input parameter's length should be less than 4 or equal.");
         }
@@ -273,51 +321,91 @@ public class ByteUtils {
     }
 
     /**
-     * byte 배열을 IPV4 주소 형태로 변환하여 제공합니다. <br>
+     * byte 배열을 IPv4 주소 형태({@code 0.0.0.0})의 문자열로 변환하여 반환합니다. *
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 12. 17.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     StringBuilder 및 비트 연산을 통한 성능 최적화
      * </pre>
-     *
-     * @param bytes
-     * @return
-     *
-     * @since 2020. 12. 17.
-     * @version 1.8.0
      * 
+     * @param bytes
+     *            IPv4로 변환할 바이트 배열 (최소 4바이트 권장)
+     * 
+     * @return IPv4 주소 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
+     * @since 2020. 12. 17.
      */
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toIPv4Expr(byte[] bytes) {
-        byte[] bs = new byte[4];
-        System.arraycopy(bytes, 0, bs, 0, Math.min(bytes.length, bs.length));
-        return String.join(".", NumString.sequence(b -> new NumString<Integer>(toInt(b)), ArrayUtils.toWrapperArray(bs)));
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(bytes, "A parameter(byte[] bytes) must not be 'null'.");
+
+        // [2] 성능 최적화: 객체 생성을 최소화하기 위해 StringBuilder 사용
+        // IPv4 최대 길이: "255.255.255.255" (15자)
+        StringBuilder sb = new StringBuilder(15);
+
+        // IPv4는 4개의 옥텟(Octet)으로 구성됨
+        int loopCount = Math.min(bytes.length, 4);
+
+        for (int i = 0; i < loopCount; i++) {
+            if (i > 0) {
+                sb.append('.');
+            }
+            // [3] 비트 연산 필수: byte(-128~127)를 Unsigned(0~255) 정수로 변환
+            sb.append(bytes[i] & 0xFF);
+        }
+
+        // 만약 bytes.length가 4보다 작을 경우, 나머지 부분을 0으로 채울지 여부는 정책에 따라 결정
+        // 여기서는 기존 로직의 Math.min 정책을 유지하되, 부족한 부분을 0으로 채워 완성도를 높임
+        for (int i = loopCount; i < 4; i++) {
+            if (i > 0) {
+                sb.append('.');
+            }
+            sb.append('0');
+        }
+
+        return sb.toString();
     }
 
     /**
-     * byte 배열을 MAC 주소 형태로 변환하여 제공합니다. <br>
+     * 바이트 배열을 MAC 주소 형태({@code XX:XX:XX:XX:XX:XX})의 문자열로 변환하여 반환합니다.
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 12. 17.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 26.    parkjunhong77@gmail.com     hexBinString 재사용 및 구분자 치환 로직 적용
      * </pre>
-     *
-     * @param bytes
-     * @return
-     *
-     * @since 2020. 12. 17.
-     * @version 1.8.0
      * 
+     * @param bytes
+     *            MAC 주소로 변환할 바이트 배열
+     * @return MAC 주소 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code bytes})가 {@code null}인 경우 발생.
+     * 
+     * @since 2020. 12. 17.
      */
     public static String toMACExpr(byte[] bytes) {
-        StringJoiner join = new StringJoiner(":");
-        for (byte b : bytes) {
-            join.add(hexBinString(b));
+        // [1] 가드 클로즈: null 체크
+        Objects.requireNonNull(bytes, "A parameter(byte[] bytes) must not be 'null'.");
+
+        if (bytes.length == 0) {
+            return "";
         }
-        return join.toString();
+
+        // [2] 재사용: hexBinString을 호출하여 콜론(:)으로 구분된 Hex 문자열 획득
+        return hexBinString(null, ":", bytes);
     }
 
     /**
@@ -365,7 +453,7 @@ public class ByteUtils {
      * 
      * @see #upsetArray(byte[])
      */
-    public static byte[] upset(byte[] bytes) {
+    public static byte @Nullable [] upset(byte @Nullable [] bytes) {
         if (bytes == null) {
             return null;
         }
@@ -395,9 +483,7 @@ public class ByteUtils {
      * @see #upset(byte[])
      */
     public static void upsetArray(byte[] bytes) {
-        if (bytes == null) {
-            throw new IllegalArgumentException(new NullPointerException("파라미터는 null일 수 없음. bytes: " + bytes));
-        }
+        Objects.requireNonNull(bytes);
 
         for (int i = 0; i < bytes.length; i++) {
             bytes[i] = upset(bytes[i]);

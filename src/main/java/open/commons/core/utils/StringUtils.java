@@ -44,6 +44,8 @@ import java.util.stream.Stream;
 
 import jakarta.validation.constraints.NotBlank;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.prog.StrLenRvrOrderingEntry;
 
 /**
@@ -1605,7 +1607,7 @@ public class StringUtils {
      * 
      * @since 2012. 01. 11.
      */
-    public static boolean isNullOrEmptyString(String string) {
+    public static boolean isNullOrEmptyString(@Nullable String string) {
         if (isWhiteSpace(string)) {
             return false;
         } else {
@@ -1621,7 +1623,7 @@ public class StringUtils {
      * @since 2012. 01. 19.
      * 
      */
-    public static boolean isNullOrEmptyStringAnd(String... strings) {
+    public static boolean isNullOrEmptyStringAnd(@Nullable String... strings) {
         for (String string : strings) {
             if (!isNullOrEmptyString(string)) {
                 return false;
@@ -1639,7 +1641,7 @@ public class StringUtils {
      * @since 2012. 01. 19.
      * 
      */
-    public static boolean isNullOrEmptyStringOr(String... strings) {
+    public static boolean isNullOrEmptyStringOr(@Nullable String... strings) {
         for (String string : strings) {
             if (isNullOrEmptyString(string)) {
                 return true;
@@ -1678,7 +1680,7 @@ public class StringUtils {
      * @since 2012. 6. 28.
      * 
      */
-    public static boolean isWhiteSpace(String string) {
+    public static boolean isWhiteSpace(@Nullable String string) {
         if (string != null) {
             string = string.trim();
             if (string.length() > 1) {
@@ -1910,29 +1912,6 @@ public class StringUtils {
                 return sourceString.substring(indice[i] + tsl);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("ocurrence.none : " + replace("1234567890", 'x', "abcdefg"));
-        System.out.println("ocurrence.first: " + replace("1234567890", '1', "abcdefg"));
-        System.out.println("ocurrence.last : " + replace("1234567890", '0', "abcdefg"));
-        System.out.println("ocurrence.multi: " + replace("2123452627282920222222222222221", '2', "abcdefg"));
-        System.out.println("ocurrence.seq  : " + replace("1233435637890", '3', "abcdefg"));
-
-        System.out.println(" '01239' is decimal ? " + isDecimalNumber("01239"));
-        System.out.println("'-01239' is decimal ? " + isDecimalNumber("-01239"));
-
-        System.out.println(">" + rtrim("11111111       ") + "<");
-
-        System.out.println(lpad("1", 2, true));
-
-        String camelCase = "camelCase";
-        System.out.println("[K] " + camelCase + " -> " + toKebabCase(camelCase));
-        System.out.println("[P] " + camelCase + " -> " + toPascalCase(camelCase));
-        System.out.println("[S] " + camelCase + " -> " + toSnakeCase(camelCase));
-
-        System.out.println(splitAndDelimiter("aabbccddeeff", 4, "."));
-
     }
 
     private static Optional<String> next(String str, boolean trim, boolean addNulpty) {

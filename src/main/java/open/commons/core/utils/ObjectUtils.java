@@ -316,7 +316,7 @@ public class ObjectUtils {
      * @version 1.8.0
      * 
      */
-    public static boolean containsNull(Object... array) {
+    public static boolean containsNull(@Nullable Object... array) {
         return containsNull(false, array);
     }
 
@@ -1165,9 +1165,8 @@ public class ObjectUtils {
      *
      * @since 2026. 3. 16.
      * @version 3.0.0
-     * 
      */
-    public static Object[] requireNonNulls(Object @Nullable... objects) {
+    public static Object[] requireNonNulls(@Nullable Object @Nullable... objects) {
         return requireNonNullsWithMessage("객체 배열 자체가 null일 수 없습니다.", objects);
     }
 
@@ -1190,7 +1189,7 @@ public class ObjectUtils {
      * @version 3.0.0
      * 
      */
-    public static Object[] requireNonNullsWithMessage(@Nullable String message, Object @Nullable... objects) {
+    public static Object[] requireNonNullsWithMessage(@Nullable String message, @Nullable Object @Nullable... objects) {
         if (message == null) {
             message = "객체 배열 자체가 null일 수 없습니다.";
         }

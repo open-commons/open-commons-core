@@ -39,7 +39,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.TwoValueObject;
-import open.commons.core.text.NamedTemplate.NamingParser.NamedToken;
 import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StreamUtils;
@@ -372,14 +371,20 @@ public class NamedTemplate {
      * @version 2.1.0
      * 
      */
+    // 아래 내용에 적용됨.
+    // - parser.tokens.stream()
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Set<TwoValueObject<String, Boolean>> getNames(String pattern) {
         Objects.requireNonNull(pattern);
 
         NamingParser parser = new NamingParser(pattern, true);
         parser.parse();
-        return StreamUtils.toSet(Objects.requireNonNull( //
-                parser.tokens.stream() //
-        ), NamedToken::isName, t -> new TwoValueObject<>(t.value(), t.isMandatory()));
+        return StreamUtils.toSet(parser.tokens.stream() //
+                , token -> token != null ? token.isName() : false //
+                , t -> new TwoValueObject<>(t.value(), t.isMandatory())//
+        );
     }
 
     static class NamingParser {

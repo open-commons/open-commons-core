@@ -29,6 +29,7 @@ package open.commons.core.utils;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 
@@ -48,73 +49,73 @@ public class FilenameUtils {
     }
 
     public static String toOutputDir(File file, String suffix) {
-        CheckUtils.checkNull(file);
+        Objects.requireNonNull(file);
 
         return file.getName() + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix);
     }
 
     public static String toOutputDir(File inputfile, String prefix, String suffix) {
-        CheckUtils.checkNull(inputfile);
+        Objects.requireNonNull(inputfile);
 
         return $prefix(prefix) + inputfile.getName() + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix);
     }
 
     public static String toOutputDir(String inputfileString) {
-        CheckUtils.checkNull(inputfileString);
+        Objects.requireNonNull(inputfileString);
 
         return inputfileString + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date());
     }
 
     public static String toOutputDir(String inputfileString, String suffix) {
-        CheckUtils.checkNull(inputfileString);
+        Objects.requireNonNull(inputfileString);
 
         return inputfileString + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix);
     }
 
     public static String toOutputDir(String inputfileString, String prefix, String suffix) {
-        CheckUtils.checkNull(inputfileString);
+        Objects.requireNonNull(inputfileString);
 
         return $prefix(prefix) + inputfileString + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix);
     }
 
     public static String toOutputDirename(File inputfile) {
-        CheckUtils.checkNull(inputfile);
+        Objects.requireNonNull(inputfile);
 
         return inputfile.getName() + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date());
     }
 
     public static String toOutputFilename(File inputfile, String ext) {
-        CheckUtils.checkNull(inputfile);
+        Objects.requireNonNull(inputfile);
 
         return inputfile.getName() + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + "." + ext;
     }
 
     public static String toOutputFilename(File file, String suffix, String ext) {
-        CheckUtils.checkNull(file);
+        Objects.requireNonNull(file);
 
         return file.getName() + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix) + "." + ext;
     }
 
     public static String toOutputFilename(File inputfile, String prefix, String suffix, String ext) {
-        CheckUtils.checkNull(inputfile);
+        Objects.requireNonNull(inputfile);
 
         return $prefix(prefix) + inputfile.getName() + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix) + "." + ext;
     }
 
     public static String toOutputFilename(String inputfileString, String ext) {
-        CheckUtils.checkNull(inputfileString);
+        Objects.requireNonNull(inputfileString);
 
         return inputfileString + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + "." + ext;
     }
 
     public static String toOutputFilename(String inputfileString, String suffix, String ext) {
-        CheckUtils.checkNull(inputfileString);
+        Objects.requireNonNull(inputfileString);
 
         return inputfileString + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix) + "." + ext;
     }
 
     public static String toOutputFilename(String inputfileString, String prefix, String suffix, String ext) {
-        CheckUtils.checkNull(inputfileString);
+        Objects.requireNonNull(inputfileString);
 
         return $prefix(prefix) + inputfileString + "_" + new SimpleDateFormat("yyyyMMdd_hhmmss").format(new Date()) + $suffix(suffix) + "." + ext;
     }

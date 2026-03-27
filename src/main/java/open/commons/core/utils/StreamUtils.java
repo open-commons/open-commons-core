@@ -160,12 +160,16 @@ public class StreamUtils {
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Function<E, NE> transformer,
+            Supplier<COL> collectionSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, collectionSupplier);
     }
 
@@ -194,13 +198,18 @@ public class StreamUtils {
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
      * @return 필터링 및 변환이 완료된 새로운 컬렉션
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
      * 
      */
-    public static <E, NE, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
-        AssertUtils2.notNulls(stream, filter, transformer, collectionSupplier);
+    public static <E extends @Nullable Object, NE extends @Nullable Object, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Predicate<E> filter,
+            Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+        ObjectUtils.requireNonNulls(stream, filter, transformer, collectionSupplier);
+
         return stream.filter(filter).map(transformer).collect(Collectors.toCollection(collectionSupplier));
     }
 
@@ -225,12 +234,15 @@ public class StreamUtils {
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
      * 
      */
-    public static <E, COL extends Collection<E>> COL toCollection(Stream<E> stream, Predicate<E> filter, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, COL extends Collection<E>> COL toCollection(Stream<E> stream, Predicate<E> filter, Supplier<COL> collectionSupplier) {
         return toCollection(stream, filter, identity(), collectionSupplier);
     }
 
@@ -253,12 +265,15 @@ public class StreamUtils {
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code stream 또는 collectionSupplier})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, COL extends Collection<E>> COL toCollection(Stream<E> stream, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, COL extends Collection<E>> COL toCollection(Stream<E> stream, Supplier<COL> collectionSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), identity(), collectionSupplier);
     }
 
@@ -290,14 +305,17 @@ public class StreamUtils {
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      * 
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
-            Supplier<COL> collectionFactory) {
-        return toCollection(stream, Predicates.alwaysTrue(), keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
+    public static <K extends @Nullable Object, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+        return toCollection(stream, Objects::nonNull, keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
     /**
@@ -332,14 +350,17 @@ public class StreamUtils {
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<COL> collectionFactory) {
-        return toCollection(stream, Predicates.alwaysTrue(), keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
+    public static <K extends @Nullable Object, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<COL> collectionFactory) {
+        return toCollection(stream, Objects::nonNull, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
     }
 
     /**
@@ -372,13 +393,16 @@ public class StreamUtils {
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
      * 
      */
-    public static <K, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K extends @Nullable Object, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
         return toCollection(stream, filter, keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
@@ -417,24 +441,35 @@ public class StreamUtils {
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 3.0.0
      * 
      */
-    public static <K, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection( //
+    // 아래 내용에 적용됨.
+    // - Stream.collect(Collectors.toMap(...));
+    // - Supplier.get();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <K extends @Nullable Object, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection( //
             Stream<V> stream, Predicate<V> filter, //
             Function<V, K> keyMapper, Function<V, V> valueMapper, //
             BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, //
             Supplier<COL> collectionFactory //
     ) {
-        AssertUtils2.notNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
+        ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
 
         // 1. 첫 번째 Stream을 통해 중복이 병합된 Map을 생성합니다.
+        @NonNull
         M mergedMap = stream.filter(filter).collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction, mapSupplier));
 
         // 2. 두 번째 Stream을 여는 대신, 객체 생성 후 Bulk 연산(addAll)을 사용하여
         // 루프 순회 및 Spliterator 초기화 비용을 완벽히 제거합니다.
+        @NonNull
         COL resultCollection = collectionFactory.get();
         resultCollection.addAll(mergedMap.values());
 
@@ -462,12 +497,20 @@ public class StreamUtils {
      * @param transformer
      *            새로운 데이터 제공 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code stream 또는 transformer})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
+    // 아래 내용에 적용됨.
+    // - ArrayList<NE>::new
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
@@ -494,12 +537,16 @@ public class StreamUtils {
      * @param listSupplier
      *            결과 {@link List} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE, LIST extends List<NE>> LIST toList(Stream<E> stream, Function<E, NE> transformer, Supplier<LIST> listSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, LIST extends List<NE>> LIST toList(Stream<E> stream, Function<E, NE> transformer,
+            Supplier<LIST> listSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, listSupplier);
     }
 
@@ -526,12 +573,20 @@ public class StreamUtils {
      * @param transformer
      *            새로운 데이터 제공 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
      * 
      */
-    public static <E, NE> List<NE> toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
+    // 아래 내용에 적용됨.
+    // - Array<NE>::new
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
         return toCollection(stream, filter, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
@@ -560,12 +615,16 @@ public class StreamUtils {
      * @param listSupplier
      *            결과 {@link List} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE, LIST extends List<NE>> LIST toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<LIST> listSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, LIST extends List<NE>> LIST toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer,
+            Supplier<LIST> listSupplier) {
         return toCollection(stream, filter, transformer, listSupplier);
     }
 
@@ -599,13 +658,16 @@ public class StreamUtils {
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
-            Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer, Supplier<M> mapSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
@@ -641,13 +703,16 @@ public class StreamUtils {
      * @param mergeMapSupplier
      *            데이터를 동일한 식별정보({@code keyMapper})로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer,
-            Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
+    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
     }
 
@@ -676,11 +741,19 @@ public class StreamUtils {
      * @param valueFunction
      *            새로운 객체를 제공하는 함수. (V => U)
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
     }
@@ -716,13 +789,16 @@ public class StreamUtils {
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction,
-            Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction,
+            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -755,6 +831,9 @@ public class StreamUtils {
      * @param mapSupplier
      *            {@link Map} 객체를 제공하는 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -797,6 +876,9 @@ public class StreamUtils {
      * @param collectionSupplier
      *            {@link Collection} 객체를 제공하는 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -839,12 +921,15 @@ public class StreamUtils {
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
             Function<V, U> transformer, Supplier<M> mapSupplier) {
         return toMap(stream, filter, keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
@@ -884,25 +969,33 @@ public class StreamUtils {
      * @param mergeMapSupplier
      *            데이터를 동일한 식별정보({@code keyMapper})로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
      * @return 데이터가 병합 및 변환된 새로운 맵
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 3.0.0
      * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap( //
+    // 아래 내용에 적용됨.
+    // - 'intermediateMap, resultMap' of "intermediateMap.forEach((k, v) -> resultMap.put(k, transformer.apply(v)));"
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap( //
             Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, //
             BinaryOperator<V> mergeFunction, Function<V, U> transformer, //
             Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier //
     ) {
-        AssertUtils2.notNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
+        ObjectUtils.requireNonNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
 
         // 1. 내부 처리용 Map을 먼저 완성합니다.
-        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, Function.identity(), mergeFunction, mergeMapSupplier);
+        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, identity(), mergeFunction, mergeMapSupplier);
 
         // 2. 두 번째 Stream을 생성하지 않고 직접 순회하여 타겟 Map에 값을 할당(Transformation)합니다.
         // 불필요한 충돌(Conflict) 검사를 피하고 성능을 극대화합니다.
         M resultMap = mapSupplier.get();
-        intermediateMap.forEach((k, v) -> resultMap.put(k, Objects.requireNonNull(transformer.apply(v), "transformer returned 'null'")));
+        intermediateMap.forEach((k, v) -> resultMap.put(k, transformer.apply(v)));
 
         return resultMap;
     }
@@ -934,11 +1027,19 @@ public class StreamUtils {
      * @param valueFunction
      *            새로운 객체를 제공하는 함수. (V => U)
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new,
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction) {
         return toMap(stream, filter, keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
     }
@@ -976,21 +1077,25 @@ public class StreamUtils {
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return 데이터가 변환 및 병합된 새로운 맵
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
      * 
      */
-    public static <K, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
+    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
             BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
-        AssertUtils2.notNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
+        ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
+
         return stream//
                 .filter(filter) //
                 .collect( //
                         Collectors.toMap( //
-                                v -> keyMapper.apply(v) // V -@-> K
-                                , v -> valueFunction.apply(v) // V => U
-                                , (a, b) -> mergeFunction.apply(a, b) // U + U => U
+                                keyMapper // V -@-> K
+                                , valueFunction // V => U
+                                , mergeFunction // U + U => U
                                 , mapSupplier) //
                 );
     }
@@ -1030,6 +1135,9 @@ public class StreamUtils {
      * @param collectionSupplier
      *            {@link Collection} 객체를 제공하는 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
@@ -1037,7 +1145,8 @@ public class StreamUtils {
      */
     public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
             Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
-        AssertUtils2.notNulls(stream, keyMapper, valueFunction, mapSupplier, collectionSupplier);
+        ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueFunction, mapSupplier, collectionSupplier);
+
         return stream //
                 .filter(filter) //
                 .collect( //
@@ -1070,12 +1179,20 @@ public class StreamUtils {
      * @param transformer
      *            새로운 데이터 제공 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code stream 또는 transformer})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
+    // 아래 내용에 적용됨.
+    // - (Supplier<Set<NE>>) HashSet<NE>::new
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
@@ -1102,12 +1219,16 @@ public class StreamUtils {
      * @param setSupplier
      *            결과 {@link Set} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE, SET extends Set<NE>> SET toSet(Stream<E> stream, Function<E, NE> transformer, Supplier<SET> setSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, SET extends Set<NE>> SET toSet(Stream<E> stream, Function<E, NE> transformer,
+            Supplier<SET> setSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, setSupplier);
     }
 
@@ -1134,12 +1255,20 @@ public class StreamUtils {
      * @param transformer
      *            새로운 데이터 제공 함수
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE> Set<NE> toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
+    // 아래 내용에 적용됨.
+    // - (Supplier<Set<NE>>) HashSet<NE>::new
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
         return toCollection(stream, filter, transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
@@ -1168,12 +1297,16 @@ public class StreamUtils {
      * @param setSupplier
      *            결과 {@link Set} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
      */
-    public static <E, NE, SET extends Set<NE>> SET toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<SET> setSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, SET extends Set<NE>> SET toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer,
+            Supplier<SET> setSupplier) {
         return toCollection(stream, filter, transformer, setSupplier);
     }
 }

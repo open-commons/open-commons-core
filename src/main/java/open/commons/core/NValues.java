@@ -33,7 +33,7 @@ import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.ArrayUtils;
-import open.commons.core.utils.CheckUtils;
+import open.commons.core.utils.ObjectUtils;
 
 /**
  * 객체를 생성하는 시점에 입력하는 이름으로 여러 개의 데이터를 사용할 수 있는 클래스.<br>
@@ -54,9 +54,15 @@ public class NValues {
      * @param names
      *            데이터 이름들.
      */
+    // 아래 내용에 적용됨.
+    // - CheckUtils.containsNull((Object[]) names)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public NValues(String... names) {
         Objects.requireNonNull(names);
-        if (names.length < 1 || CheckUtils.containsNull((Object[]) names)) {
+
+        if (names.length < 1 || ObjectUtils.containsNull((Object[]) names)) {
             throw new IllegalArgumentException("Arguments must not contain null. argument: " + Arrays.toString(names));
         }
 
@@ -138,6 +144,11 @@ public class NValues {
      * 
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - return sb.toString();
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
