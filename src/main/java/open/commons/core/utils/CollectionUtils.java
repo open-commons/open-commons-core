@@ -908,7 +908,7 @@ public class CollectionUtils {
         return col.parallelStream().anyMatch(p);
     }
 
-    public static <T> boolean isNullOrEmpty(Collection<T> col) {
+    public static <T> boolean isNullOrEmpty(@Nullable Collection<T> col) {
         return col == null || col.size() < 1;
     }
 
