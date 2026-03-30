@@ -26,6 +26,7 @@
 
 package open.commons.core.utils;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -51,6 +52,11 @@ public class DnsUtils {
      */
     public static final String REGEX_DOMAIN_NAME_STRICT = "^" + REGEX_DOMAIN_NAME + "$";
 
+    // 아래 내용에 적용됨.
+    // - Pattern.compile(...)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static final Pattern PATTERN_DOMAIN_NAME = Pattern.compile(REGEX_DOMAIN_NAME_STRICT);
 
     /**
@@ -66,15 +72,16 @@ public class DnsUtils {
      * @param domainName
      *            도메인 이름
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code domainName})가 {@code null}인 경우 발생.
      *
      * @since 2022. 2. 11.
      * @version 1.8.0
      * 
      */
     public static boolean isValid(String domainName) {
-        if (domainName == null) {
-            return false;
-        }
+        Objects.requireNonNull(domainName);
 
         return PATTERN_DOMAIN_NAME.matcher(domainName).matches();
     }

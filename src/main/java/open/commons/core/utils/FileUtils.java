@@ -40,11 +40,11 @@ import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
@@ -53,6 +53,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +64,12 @@ import open.commons.core.io.Consumers;
  * 
  * @since 2019. 8. 8.
  * 
- * 
  */
+// 아래 내용에 적용됨.
+// - JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class FileUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
@@ -71,7 +77,10 @@ public class FileUtils {
     static final FileFilter READ_FILE = new FileFilter() {
 
         @Override
-        public boolean accept(File pathname) {
+        public boolean accept(@Nullable File pathname) {
+            if (pathname == null) {
+                return false;
+            }
             return pathname.isFile();
         }
     };
@@ -79,14 +88,17 @@ public class FileUtils {
     static final FileFilter READ_DIR = new FileFilter() {
 
         @Override
-        public boolean accept(File pathname) {
+        public boolean accept(@Nullable File pathname) {
+            if (pathname == null) {
+                return false;
+            }
             return pathname.isDirectory();
         }
     };
 
     /**
-     * Delete all files and directories in the specific directory.<br>
-     * DO NOT delete the specifi directory. <br>
+     * 지정된 디렉토리 내의 모든 파일과 하위 디렉토리를 삭제합니다.<br>
+     * 지정된 디렉토리 자체는 삭제하지 않습니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -96,12 +108,14 @@ public class FileUtils {
      * </pre>
      *
      * @param dir
-     * @return
+     *            대상 디렉토리
+     *
+     * @return 성공 여부
      *
      * @since 2019. 8. 8.
      * 
      */
-    public static boolean clearDirectory(File dir) {
+    public static boolean clearDirectory(@Nullable File dir) {
         if (dir == null || dir.isFile() || dir.list().length < 1) {
             return true;
         }
@@ -116,8 +130,8 @@ public class FileUtils {
     }
 
     /**
-     * Delete all files and directories in the specific directory.<br>
-     * DO NOT delete the specifi directory. <br>
+     * 지정된 디렉토리 내의 모든 파일과 하위 디렉토리를 삭제합니다.<br>
+     * 지정된 디렉토리 자체는 삭제하지 않습니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -127,16 +141,24 @@ public class FileUtils {
      * </pre>
      *
      * @param dir
-     * @return
+     *            대상 디렉토리 경로
+     *
+     * @return 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
      * 
      */
     public static boolean clearDirectory(String dir) {
+        Objects.requireNonNull(dir);
+
         return clearDirectory(new File(dir));
     }
 
     /**
+     * 파일을 복사합니다.
      * 
      * <br>
      * 
@@ -148,17 +170,27 @@ public class FileUtils {
      * </pre>
      *
      * @param src
+     *            원본 파일
      * @param target
+     *            대상 파일
+     *
+     * @throws NullPointerException
+     *             파라미터({@code src} 또는 {@code target})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2019. 8. 8.
      * 
      */
     public static void copyFile(File src, File target) throws IOException {
+        ObjectUtils.requireNonNulls(src, target);
+
         Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
     /**
+     * 파일을 지정된 대상으로 복사합니다.
      * 
      * <br>
      * 
@@ -170,13 +202,22 @@ public class FileUtils {
      * </pre>
      *
      * @param src
+     *            원본 파일 경로
      * @param target
+     *            대상 파일 경로
+     *
+     * @throws NullPointerException
+     *             파라미터({@code src} 또는 {@code target})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2019. 8. 8.
      * 
      */
     public static void copyFile(String src, String target) throws IOException {
+        ObjectUtils.requireNonNulls(src, target);
+
         Files.copy(Paths.get(src), Paths.get(target), StandardCopyOption.REPLACE_EXISTING);
     }
 
@@ -191,15 +232,27 @@ public class FileUtils {
      * </pre>
      *
      * @param first
+     *            경로 첫 부분
      * @param more
-     * @return
+     *            경로 나머지 부분
+     *
+     * @return 생성된 파일 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code first})가 {@code null}인 경우, 파라미터({@code more})가 {@code null}이거나 {@code more}에
+     *             {@code null}이 포함된 경우 발생.
+     *
+     * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2020. 11. 5.
      * 
-     * @throws IOException
      * @see Paths#get(String, String...)
      */
     public static Path createFileIfNotExist(String first, String... more) throws IOException {
+        Objects.requireNonNull(first);
+
+        @NonNull
         Path file = Paths.get(first, more);
         if (!Files.exists(file)) {
             Files.createDirectories(file.getParent());
@@ -210,12 +263,26 @@ public class FileUtils {
     }
 
     /**
-     * Delete a file or a directory denoted by a given abstract pathname and return whether or not a file or directory
-     * is deleted.
+     * 주어진 추상 경로명으로 표시된 파일이나 디렉토리를 삭제하고 삭제 성공 여부를 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     *            a file or a directory to deleted.
-     * @return whether or not a file or directory is deleted.
+     *            삭제할 파일 또는 디렉토리
+     *
+     * @return 파일이나 디렉토리의 삭제 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
      * 
      * @see #delete(File, boolean)
      */
@@ -224,59 +291,85 @@ public class FileUtils {
     }
 
     /**
-     * Delete a file or a directory denoted by a given abstract pathname and whether or not a file or directory is
-     * deleted.
+     * 주어진 추상 경로명으로 표시된 파일이나 디렉토리를 삭제하고 삭제 성공 여부를 반환합니다.
      * 
-     * @param f
-     *            a file or a directory to deleted
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param file
+     *            삭제할 파일 또는 디렉토리
      * @param forced
-     *            when a {@link File} is a directory, whether or not delete it if the file contains other files or
-     *            directories.
-     * @return whether or not a file or directory is deleted.
-     * 
-     * @exception IllegalArgumentException
-     *                If {@link File} instance is {@code null}.
+     *            {@link File} 인스턴스가 디렉토리인 경우, 다른 파일이나 디렉토리가 포함되어 있어도 강제로 삭제할지 여부
+     *
+     * @return 파일이나 디렉토리의 삭제 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 13.
      * 
      */
-    public static boolean delete(File f, boolean forced) {
-        if (f != null) {
-            if (!f.exists()) {
-                return true;
-            }
+    public static boolean delete(File file, boolean forced) {
+        Objects.requireNonNull(file);
 
-            if (f.isFile()) {
-                return f.delete();
+        if (!file.exists()) {
+            return true;
+        }
+
+        if (file.isFile()) {
+            return file.delete();
+        } else {
+            if (forced) {
+                deleteDir(file, true);
+
+                try {
+                    return file.delete();
+                } catch (Exception e) {
+                    logger.error(e.getMessage());
+                    return false;
+                }
             } else {
-                if (forced) {
-                    deleteDir(f, true);
-
-                    try {
-                        return f.delete();
-                    } catch (Exception e) {
-                        logger.error(e.getMessage());
-                        return false;
-                    }
+                if (file.listFiles().length < 1) {
+                    return file.delete();
                 } else {
-                    if (f.listFiles().length < 1) {
-                        return f.delete();
-                    } else {
-                        return false;
-                    }
+                    return false;
                 }
             }
-        } else {
-            throw new IllegalArgumentException("A parameter(File f) must not be null.", new NullPointerException("f=null"));
         }
     }
 
     /**
-     * Delete a directory denoted by a given abstract pathname
+     * 주어진 추상 경로명으로 표시된 디렉토리를 삭제합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param dir
+     *            삭제할 디렉토리
      * @param forced
+     *            디렉토리 내 파일 존재 여부와 무관하게 강제로 삭제할지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     private static void deleteDir(File dir, boolean forced) {
+        Objects.requireNonNull(dir);
+
         File[] readFiles = dir.listFiles();
 
         if (forced) {
@@ -298,13 +391,61 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 여러 디렉토리를 삭제합니다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param forced
+     *            강제 삭제 여부
+     * @param dirs
+     *            삭제할 디렉토리 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dirs})가 {@code null}이거나 {@code dirs}에 {@code null}이 포함된 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
+     */
     private static void deleteDirs(boolean forced, File... dirs) {
+        ObjectUtils.requireNonNulls((Object[]) dirs);
+
         for (File dir : dirs) {
             deleteDir(dir, forced);
         }
     }
 
+    /**
+     * 여러 파일을 삭제합니다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param files
+     *            삭제할 파일 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 {@code files}에 {@code null}이 포함된 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
+     */
     private static void deleteFiles(File... files) {
+        ObjectUtils.requireNonNulls((Object[]) files);
+
         for (File f : files) {
             try {
                 f.delete();
@@ -317,11 +458,28 @@ public class FileUtils {
     /**
      * 디렉토리에 포함된 하위 파일 및 디렉토리를 삭제합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param dir
      *            삭제할 대상 디렉토리
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     public static void emptyDir(File dir) {
-        if (dir == null || !dir.exists() || dir.isFile()) {
+        Objects.requireNonNull(dir);
+
+        if (!dir.exists() || dir.isFile()) {
             return;
         }
 
@@ -330,37 +488,63 @@ public class FileUtils {
     }
 
     /**
+     * 파일의 확장자를 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return file-extension or {@code null} if {@code file} is {@code null} or not a file.
-     * 
+     *            확장자를 추출할 파일 객체
+     *
+     * @return 파일 확장자. 대상이 파일이 아닌 경우 {@code ""} 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
      */
     public static String getFileExtension(File file) {
-        if (file == null) {
-            return null;
-        }
+        Objects.requireNonNull(file);
 
         if (file.isFile()) {
             return getFileExtension(file.getName());
         } else {
-            return null;
+            return "";
         }
     }
 
     /**
+     * 파일명 문자열에서 확장자를 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return file-extension or {@code null} if {@code file} is {@code null}.
-     * 
+     *            확장자를 추출할 파일명 문자열
+     *
+     * @return 파일 확장자. 확장자가 없는 경우 {@code ""}를 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
      */
     public static String getFileExtension(String file) {
-        if (file == null) {
-            return null;
-        }
+        Objects.requireNonNull(file);
 
         String filename = getFileName(file);
 
@@ -370,17 +554,30 @@ public class FileUtils {
     }
 
     /**
+     * 경로 문자열에서 파일명 부분만 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return filename or {@code null} if {@code file} is {@code null}.
-     * 
+     *            파일명 또는 경로 문자열
+     *
+     * @return 추출된 파일명
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
      */
     public static String getFileName(String file) {
-        if (file == null) {
-            return null;
-        }
+        Objects.requireNonNull(file);
 
         file = StringUtils.rtrimSpecific(file, File.separatorChar);
 
@@ -389,17 +586,30 @@ public class FileUtils {
     }
 
     /**
+     * 파일 객체에서 확장자를 제외한 파일명 부분만 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return filename or {@code null} if {@code file} is {@code null}.
-     * 
+     *            대상 파일 객체
+     *
+     * @return 확장자가 제외된 파일명
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
      */
     public static String getFileNameNoExtension(File file) {
-        if (file == null) {
-            return null;
-        }
+        Objects.requireNonNull(file);
 
         String filename = file.getName();
 
@@ -409,19 +619,30 @@ public class FileUtils {
     }
 
     /**
+     * 경로 문자열에서 확장자를 제외한 파일명 부분만 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return filename or {@code null} if {@code file} is {@code null}.
-     * 
+     *            파일명 또는 경로 문자열
+     *
+     * @return 확장자가 제외된 파일명
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
      */
     public static String getFileNameNoExtension(String file) {
         String filename = getFileName(file);
-
-        if (filename == null) {
-            return null;
-        }
 
         int index = filename.lastIndexOf('.');
 
@@ -429,17 +650,30 @@ public class FileUtils {
     }
 
     /**
+     * 시스템별 파일 경로를 반환합니다. 해당 객체가 파일인 경우, 부모 디렉토리의 절대 경로를 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return filepath or {@code null} if {@code file} is {@code null}.
-     * 
+     *            대상 파일 객체
+     *
+     * @return 파일 경로 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
      */
     public static String getFilePath(File file) {
-        if (file == null) {
-            return null;
-        }
+        Objects.requireNonNull(file);
 
         String filepath = file.getAbsolutePath();
         if (file.isFile()) {
@@ -451,19 +685,31 @@ public class FileUtils {
     }
 
     /**
+     * 주어진 파일 경로 문자열의 디렉토리 경로 부분을 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param file
-     * @return filepath or {@code null} if {@code file} is {@code null}.
-     * 
-     * @see File#getParent()
-     * 
+     *            파일명 또는 경로 문자열
+     *
+     * @return 디렉토리 경로 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 7.
      * 
+     * @see File#getParent()
      */
     public static String getFilePath(String file) {
-        if (file == null) {
-            return null;
-        }
+        Objects.requireNonNull(file);
 
         int backIndex = StringUtils.backIndexOf(file, File.separatorChar);
         return file.substring(0, backIndex);
@@ -483,16 +729,23 @@ public class FileUtils {
      *            디렉토리 경로
      * @param fileFilters
      *            파일 필터 조건
+     *
      * @return <b>{@code nullable}</b>
+     *
+     * @throws NullPointerException
+     *             파라미터({@code absoluteDirPath})가 {@code null}인 경우, 파라미터({@code fileFilters})가 {@code null}이거나
+     *             {@code fileFilters}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2024. 8. 14.
      * @version 2.0.0
-     * 
      * 
      * @see File#lastModified()
      */
     @SafeVarargs
     public static Path getLatestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
+        Objects.requireNonNull(absoluteDirPath);
+        ObjectUtils.requireNonNulls((Object[]) fileFilters);
+
         Path dir = Paths.get(absoluteDirPath);
         try {
             Optional<Path> latestFilepath = Files.list(dir) //
@@ -527,16 +780,23 @@ public class FileUtils {
      *            디렉토리 경로
      * @param fileFilters
      *            파일 필터 조건
+     *
      * @return <b>{@code nullable}</b>
+     *
+     * @throws NullPointerException
+     *             파라미터({@code absoluteDirPath})가 {@code null}인 경우, 파라미터({@code fileFilters})가 {@code null}이거나
+     *             {@code fileFilters}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2024. 8. 14.
      * @version 2.0.0
-     * 
      * 
      * @see File#lastModified()
      */
     @SafeVarargs
     public static Path getOldestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
+        Objects.requireNonNull(absoluteDirPath);
+        ObjectUtils.requireNonNulls((Object[]) fileFilters);
+
         Path dir = Paths.get(absoluteDirPath);
         try {
             Optional<Path> latestFilepath = Files.list(dir) //
@@ -558,15 +818,32 @@ public class FileUtils {
     }
 
     /**
-     * Return an array of abstract pathnames denoting the directories in the directory denoted by a given {@link File}
-     * (abstract pathaname).
+     * 주어진 디렉토리 경로에 포함된 하위 디렉토리 목록을 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param dir
+     *            탐색할 디렉토리
+     *
+     * @return 하위 디렉토리 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
      * 
-     * @return an array of abstract pathnames.
      */
     public static File[] listDirectories(File dir) {
-        if (dir == null || dir.isFile()) {
+        Objects.requireNonNull(dir);
+
+        if (dir.isFile()) {
             return new File[0];
         }
 
@@ -574,14 +851,32 @@ public class FileUtils {
     }
 
     /**
-     * Return an array of abstract pathnames denoting the files in the directory denoted by a given {@link File} (a
-     * abstract pathname).
+     * 주어진 디렉토리 경로에 포함된 하위 파일 목록을 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param dir
-     * @return an array of abstract pathnames.
+     *            탐색할 디렉토리
+     *
+     * @return 하위 파일 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dir})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     public static File[] listFiles(File dir) {
-        if (dir == null || dir.isFile()) {
+        Objects.requireNonNull(dir);
+
+        if (dir.isFile()) {
             return new File[0];
         }
 
@@ -604,14 +899,22 @@ public class FileUtils {
      *            내부 디렉토리 검색 레벨.
      * @param filter
      *            파일 또는 디렉토리 필터
-     * @return
+     *
+     * @return 조건에 맞는 파일 집합
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2021. 2. 8.
      * @version 1.8.0
      * 
      */
     public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
+        ObjectUtils.requireNonNulls(directory, filter);
+
         if (!Files.exists(directory)) {
             throw ExceptionUtils.newException(IllegalArgumentException.class, "존재하지 않는 경로입니다. directory=%s", directory.toString());
         }
@@ -633,7 +936,7 @@ public class FileUtils {
 
     /**
      * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
-     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해새 OS에서 IO 객체를 유지합니다.<br>
+     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해 OS에서 IO 객체를 유지합니다.<br>
      * 이에 대한 IO 를 제거하기 위해서 {@link Stream#close()}을 호출합니다.
      * 
      * <pre>
@@ -644,20 +947,29 @@ public class FileUtils {
      * </pre>
      *
      * @param <T>
+     *            반환 타입 파라미터
      * @param directory
      *            조회할 디렉토리
      * @param filter
      *            파일 필터 조건
      * @param collector
      *            결과 데이터 생성 함수
-     * @return
+     *
+     * @return 필터링 및 변환이 완료된 결과 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory}, {@code filter}, {@code collector} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
      * 
      */
     public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector) throws IOException {
+        ObjectUtils.requireNonNulls(directory, filter, collector);
+
         try (Stream<Path> stream = Files.list(directory).filter(filter)) {
             return collector.apply(stream);
         }
@@ -675,12 +987,17 @@ public class FileUtils {
      *
      * @param directory
      *            조회할 디렉토리
-     * @return
+     *
+     * @return 하위 파일 정보를 나타내는 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -702,12 +1019,17 @@ public class FileUtils {
      *            조회할 디렉토리
      * @param filter
      *            파일 필터 조건
-     * @return
+     *
+     * @return 필터링된 파일 정보를 담는 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -727,12 +1049,17 @@ public class FileUtils {
      *
      * @param directory
      *            조회할 디렉토리
-     * @return
+     *
+     * @return 하위 파일 정보를 나타내는 리스트
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -754,12 +1081,17 @@ public class FileUtils {
      *            조회할 디렉토리
      * @param filter
      *            파일 필터 조건
-     * @return
+     *
+     * @return 필터링된 파일 정보를 담는 리스트
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -779,12 +1111,17 @@ public class FileUtils {
      *
      * @param directory
      *            조회할 디렉토리
-     * @return
+     *
+     * @return 하위 파일 정보를 나타내는 집합(Set)
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -806,12 +1143,18 @@ public class FileUtils {
      *            조회할 디렉토리
      * @param filter
      *            파일 필터 조건
-     * @return
+     *
+     * @return 필터링된 파일 정보를 담는 집합(Set)
+     *
+     * @throws NullPointerException
+     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 예외 발생 시
      *
      * @since 2023. 11. 15.
-     * @version 2.0.0
      * 
+     * @version 2.0.0
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
@@ -820,7 +1163,9 @@ public class FileUtils {
     }
 
     /**
-     * 파일을 이동시키거나 이름을 변경합니다.<br>
+     * 파일을 이동시키거나 이름을 변경합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -836,21 +1181,29 @@ public class FileUtils {
      * @param options
      *            복사 또는 이동 설정
      * 
-     * @return
+     * @return 변경된 파일 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
      * 
-     * @throws IOException
-     * 
-     * @see {@link Files#move(Path, Path, CopyOption...)}
+     * @see Files#move(Path, Path, CopyOption...)
      */
     public static Path move(File source, File target, CopyOption... options) throws IOException {
+        ObjectUtils.requireNonNulls(source, target, options);
+
         return Files.move(source.toPath(), target.toPath(), options);
     }
 
     /**
-     * 파일을 이동시키거나 이름을 변경합니다.<br>
+     * 파일을 이동시키거나 이름을 변경합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -865,19 +1218,30 @@ public class FileUtils {
      *            복사될 위치 경로
      * @param options
      *            복사 또는 이동 설정
-     * @return
+     *
+     * @return 변경된 파일 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2021. 2. 18.
      * @version 1.8.0
      * 
+     * @see Files#move(Path, Path, CopyOption...)
      */
     public static Path move(Path source, Path target, CopyOption... options) throws IOException {
+        ObjectUtils.requireNonNulls(source, target, options);
+
         return Files.move(source, target, options);
     }
 
     /**
-     * 파일을 이동시키거나 이름을 변경합니다. <br>
+     * 파일을 이동시키거나 이름을 변경합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -892,21 +1256,30 @@ public class FileUtils {
      *            복사될 위치 경로
      * @param options
      *            복사 또는 이동 설정
-     * @return
+     *
+     * @return 변경된 파일 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
      * 
-     * @throws IOException
-     * 
-     * @see {@link Files#move(Path, Path, CopyOption...)}
+     * @see Files#move(Path, Path, CopyOption...)
      */
     public static Path move(Path source, String target, CopyOption... options) throws IOException {
+        ObjectUtils.requireNonNulls(source, target, options);
+
         return Files.move(source, Paths.get(target), options);
     }
 
     /**
-     * 파일을 이동시키거나 이름을 변경합니다. <br>
+     * 파일을 이동시키거나 이름을 변경합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -921,21 +1294,30 @@ public class FileUtils {
      *            복사될 위치 경로
      * @param options
      *            복사 또는 이동 설정
-     * @return
+     *
+     * @return 변경된 파일 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
      * 
-     * @throws IOException
-     * 
-     * @see {@link Files#move(Path, Path, CopyOption...)}
+     * @see Files#move(Path, Path, CopyOption...)
      */
     public static Path move(String source, Path target, CopyOption... options) throws IOException {
+        ObjectUtils.requireNonNulls(source, target, options);
+
         return Files.move(Paths.get(source), target, options);
     }
 
     /**
-     * 파일을 이동시키거나 이름을 변경합니다.<br>
+     * 파일을 이동시키거나 이름을 변경합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -950,72 +1332,77 @@ public class FileUtils {
      *            복사될 위치 경로
      * @param options
      *            복사 또는 이동 설정
-     * @return
+     *
+     * @return 변경된 파일 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2021. 2. 10.
      * @version 1.8.0
      * 
-     * @throws IOException
-     * 
-     * @see {@link Files#move(Path, Path, CopyOption...)}
+     * @see Files#move(Path, Path, CopyOption...)
      */
     public static Path move(String source, String target, CopyOption... options) throws IOException {
+        ObjectUtils.requireNonNulls(source, target, options);
+
         return Files.move(Paths.get(source), Paths.get(target), options);
     }
 
     /**
-     * Read up to length of bytes from in until EOF is detected.
+     * InputStream으로부터 EOF에 도달하거나 지정된 길이만큼 바이트를 읽어 배열로 반환합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 3. 30.     parkjunhong77@gmail.com         수동 버퍼 로직 제거 및 JDK 표준 I/O API 적용으로 O(N^2) 성능 장애 해결
+     * </pre>
+     *
      * @param inStream
-     *            input stream, must not be null
+     *            입력 스트림 ({@code NOT nullable})
      * @param length
-     *            number of bytes to read, -1 or Integer.MAX_VALUE means read as much as possible
+     *            읽어들일 바이트 수. -1 또는 {@link Integer#MAX_VALUE}인 경우 가능한 모든 바이트를 읽음.
      * @param readAll
-     *            if true, an EOFException will be thrown if not enough bytes are read. Ignored when length is -1 or
-     *            Integer.MAX_VALUE
-     * @return
+     *            {@code true}인 경우, 지정된 {@code length}만큼 읽지 못하고 EOF를 만나면 {@link EOFException}을 발생시킴. ({@code length}가
+     *            -1이거나 {@link Integer#MAX_VALUE}인 경우 무시됨)
+     * 
+     * @return 스트림에서 읽어들인 바이트 배열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
-     *             Any IO error or a premature EOF is detected
+     *             I/O 예외가 발생하거나 조기 EOF(premature EOF)가 감지된 경우
+     *
+     * @since 2019. 8. 8.
      */
     public static byte[] readFully(InputStream inStream, int length, boolean readAll) throws IOException {
-        byte[] output = {};
-        if (length == -1) {
-            length = Integer.MAX_VALUE;
+        Objects.requireNonNull(inStream);
+
+        if (length < 0 || length == Integer.MAX_VALUE) {
+            return inStream.readAllBytes();
         }
 
-        int pos = 0;
+        byte[] output = inStream.readNBytes(length);
 
-        while (pos < length) {
-            int bytesToRead;
-            if (pos >= output.length) { // Only expand when there's no room
-                bytesToRead = Math.min(length - pos, output.length + 1024);
-                if (output.length < pos + bytesToRead) {
-                    output = Arrays.copyOf(output, pos + bytesToRead);
-                }
-            } else {
-                bytesToRead = output.length - pos;
-            }
-
-            int cc = inStream.read(output, pos, bytesToRead);
-
-            if (cc < 0) {
-                if (readAll && length != Integer.MAX_VALUE) {
-                    throw new EOFException("Detect premature EOF");
-                } else {
-                    if (output.length != pos) {
-                        output = Arrays.copyOf(output, pos);
-                    }
-                    break;
-                }
-            }
-            pos += cc;
+        // [4] EOF 및 readAll 조건 검증 (예외 발생 시 디버깅 정보 포함)
+        if (readAll && output.length < length) {
+            throw new EOFException(String.format("Detected premature EOF. Expected: %d bytes, Read: %d bytes", length, output.length));
         }
 
         return output;
     }
 
     /**
-     * {@link File}을 <br>
+     * {@link File} 객체를 제거하는 동작을 가진 Consumer를 반환합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1024,9 +1411,10 @@ public class FileUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
-     * @return
+     * @return 삭제 기능을 수행하는 Consumer 반환
      *
      * @since 2018. 10. 26.
+     * 
      * @see Closeable
      * @see AutoCloseable
      */
@@ -1043,13 +1431,33 @@ public class FileUtils {
     }
 
     /**
+     * 대상 파일 객체에 문자열 데이터를 저장합니다.
      * 
-     * @param pathname
-     *            저장할 파일.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param file
+     *            저장할 객체
      * @param data
-     * @return
+     *            저장할 데이터
+     *
+     * @return 저장 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     public static boolean save(File file, String data) {
+        ObjectUtils.requireNonNulls(file, data);
+
         boolean saved = true;
 
         InputStream inStream = null;
@@ -1070,13 +1478,35 @@ public class FileUtils {
     }
 
     /**
+     * 대상 파일 객체에 특정 인코딩으로 문자열 데이터를 저장합니다.
      * 
-     * @param pathname
-     *            저장할 파일.
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param file
+     *            저장할 대상 파일
      * @param data
-     * @return
+     *            저장할 데이터
+     * @param charset
+     *            파일 인코딩 설정
+     *
+     * @return 저장 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code file}, {@code data}, {@code charset} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     public static boolean save(File file, String data, String charset) {
+        ObjectUtils.requireNonNulls(file, data, charset);
+
         boolean saved = true;
 
         InputStream inStream = null;
@@ -1097,28 +1527,95 @@ public class FileUtils {
     }
 
     /**
+     * 주어진 대상 경로 문자열에 문자열 데이터를 저장합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param pathname
-     *            저장할 파일.
+     *            저장할 파일 경로 명
      * @param data
-     * @return
+     *            저장할 데이터
+     *
+     * @return 저장 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code pathname} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     public static boolean save(String pathname, String data) {
+        ObjectUtils.requireNonNulls(pathname, data);
+
         return save(new File(pathname), data);
     }
 
     /**
+     * 주어진 대상 경로 문자열에 특정 인코딩으로 문자열 데이터를 저장합니다.
      * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param pathname
-     *            저장할 파일.
+     *            저장할 대상 경로 명
      * @param data
-     * @return
+     *            저장할 데이터
+     * @param charset
+     *            파일 인코딩 설정
+     *
+     * @return 저장 성공 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code pathname}, {@code data}, {@code charset} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
      */
     public static boolean save(String pathname, String data, String charset) {
+        ObjectUtils.requireNonNulls(pathname, data, charset);
+
         return save(new File(pathname), data, charset);
     }
 
+    /**
+     * 가변 길이의 문자열을 조합하여 파일 경로를 생성합니다.
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 3. 13.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param strings
+     *            경로 요소 문자열 배열
+     *
+     * @return 조합된 파일 경로 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 8. 8.
+     * 
+     */
     public static String toFilepath(String... strings) {
+        Objects.requireNonNull(strings);
+
         if (strings.length > 0) {
             StringBuilder sb = new StringBuilder();
             int i = 0;
@@ -1132,7 +1629,9 @@ public class FileUtils {
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1147,14 +1646,22 @@ public class FileUtils {
      *            데이터
      * @param append
      *            기존 파일에 추가 여부
-     * @return
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
      * 
      */
     public static Path write(Path filepath, String data, boolean append) throws IOException {
+        ObjectUtils.requireNonNulls(filepath, data);
+
         // 디렉토리 검증
         Path dir = filepath.getParent();
         if (!Files.exists(dir)) {
@@ -1179,7 +1686,9 @@ public class FileUtils {
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1189,20 +1698,34 @@ public class FileUtils {
      * </pre>
      *
      * @param path
+     *            절대경로 파일
      * @param data
+     *            데이터
      * @param options
+     *            파일 열기/쓰기 옵션
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code path}, {@code data}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
      * 
      */
     public static Path write(Path path, String data, OpenOption... options) throws IOException {
+        ObjectUtils.requireNonNulls(path, data, options);
+
         return Files.write(path, data.getBytes(), options);
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1219,18 +1742,29 @@ public class FileUtils {
      *            저장할 데이터
      * @param append
      *            데이터 추가 여부
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dirpath}, {@code filename}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
      * 
      */
     public static Path write(String dirpath, String filename, String data, boolean append) throws IOException {
+        ObjectUtils.requireNonNulls(dirpath, filename, data);
+
         return write(Paths.get(dirpath, filename), data, append);
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1243,8 +1777,14 @@ public class FileUtils {
      *            파일 경로
      * @param data
      *            저장할 데이터
-     * @return
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
@@ -1255,7 +1795,9 @@ public class FileUtils {
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1268,7 +1810,14 @@ public class FileUtils {
      *            파일 경로
      * @param data
      *            저장할 데이터
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
@@ -1279,7 +1828,9 @@ public class FileUtils {
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1294,7 +1845,14 @@ public class FileUtils {
      *            파일이름
      * @param data
      *            저장할 데이터
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dirpath}, {@code filename}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
@@ -1305,7 +1863,9 @@ public class FileUtils {
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1318,7 +1878,14 @@ public class FileUtils {
      *            파일 경로
      * @param data
      *            저장할 데이터
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
@@ -1329,7 +1896,9 @@ public class FileUtils {
     }
 
     /**
-     * 지정된 경로에 데이터를 저장합니다. <br>
+     * 지정된 경로에 데이터를 저장합니다.
+     * 
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1344,7 +1913,14 @@ public class FileUtils {
      *            파일이름
      * @param data
      *            저장할 데이터
+     *
+     * @return 데이터가 쓰인 파일의 경로 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code dirpath}, {@code filename}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @throws IOException
+     *             I/O 오류가 발생한 경우.
      *
      * @since 2023. 11. 7.
      * @version 2.0.0

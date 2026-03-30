@@ -25,12 +25,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import open.commons.core.TwoValueObject;
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.date.YearMonthDay;
 
 /**
@@ -47,6 +49,11 @@ import open.commons.core.date.YearMonthDay;
  * @since 2011. 07. 12.
  * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class DateUtil {
 
     public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*\\s?\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
@@ -64,13 +71,6 @@ public class DateUtil {
      * @since 1.8.0
      */
     public static final String REGEX_ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
-    /**
-     * 
-     * ISO 8601 표기
-     * 
-     * @since 1.8.0
-     */
-    public static final SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat(REGEX_ISO_8601_FORMAT);
 
     /**
      * 포맷: {@value #REGEX_yyyyMMDD}
@@ -105,6 +105,7 @@ public class DateUtil {
      *            경과 단위
      * @param value
      *            값
+     *
      * @return
      *
      * @since 2017. 1. 9.
@@ -126,6 +127,7 @@ public class DateUtil {
      *            경과 단위
      * @param value
      *            값
+     *
      * @return
      *
      * @since 2017. 1. 9.
@@ -144,14 +146,19 @@ public class DateUtil {
      * @param date
      * @param sDate
      * @param eDate
+     * 
      * @return
      *         <ul>
      *         <li>음수: 시작날짜 이하
      *         <li>0: 시작구간 초과 종료구간 이하
      *         <li>양수: 종료구간 초과
      *         </ul>
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      */
     public static int compare(String date, String sDate, String eDate) {
+        ObjectUtils.requireNonNulls(date, sDate, eDate);
 
         int resultValue = date.compareTo(sDate);
 
@@ -169,22 +176,15 @@ public class DateUtil {
     }
 
     /**
-     * 
-     * @param value
-     * @param timeunut
-     * @return
-     */
-    public static TwoValueObject<Integer, Integer> convertToUpperTimeUnit(long value, TimeUnit upTimeunit) {
-
-        return null;
-    }
-
-    /**
      * 날짜수 차이를 반환합니다. <br>
      * 
      * @param cal1
      * @param cal2
+     * 
      * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1 또는 cal2})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -205,7 +205,11 @@ public class DateUtil {
      *
      * @param date1
      * @param date2
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1 또는 cal2})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 2.
      */
@@ -231,6 +235,7 @@ public class DateUtil {
      * @param m2
      *            월 (0 ~ 11)
      * @param d2
+     * 
      * @return
      *
      * @since 2022. 10. 26.
@@ -259,13 +264,15 @@ public class DateUtil {
      * @param m2
      *            월 (0 ~ 11)
      * @param d2
+     * 
      * @return
-     *
+     * 
      * @since 2022. 10. 26.
      * @version 2.0.0
      * 
      */
-    public static int diffDay(String y1, String m1, String d1, String y2, String m2, String d2) {
+    public static int diffDay(@Nullable String y1, @Nullable String m1, @Nullable String d1, @Nullable String y2, @Nullable String m2, @Nullable String d2) {
+
         return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
     }
 
@@ -283,12 +290,17 @@ public class DateUtil {
      * @param cal2
      * 
      * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1 또는 cal2})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
      * 
      */
     private static int diffDay0(Calendar cal1, Calendar cal2) {
+        ObjectUtils.requireNonNulls(cal1, cal2);
+
         long time1 = cal1.getTimeInMillis();
         long time2 = cal2.getTimeInMillis();
 
@@ -314,7 +326,11 @@ public class DateUtil {
      * </pre>
      *
      * @param cal
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
@@ -335,7 +351,11 @@ public class DateUtil {
      * </pre>
      *
      * @param date
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
@@ -359,6 +379,7 @@ public class DateUtil {
      * @param month
      *            월 (0 ~ 11)
      * @param day
+     * 
      * @return
      *
      * @since 2022. 10. 26.
@@ -383,13 +404,14 @@ public class DateUtil {
      * @param month
      *            월 (0 ~ 11)
      * @param day
+     * 
      * @return
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
      * 
      */
-    public static int diffDayToNow(String year, String month, String day) {
+    public static int diffDayToNow(@Nullable String year, @Nullable String month, @Nullable String day) {
         return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
     }
 
@@ -405,10 +427,10 @@ public class DateUtil {
      *
      * @param field
      * @param amount
+     * 
      * @return
      *
      * @since 2020. 9. 10.
-     * 
      */
     public static Calendar getCalendar(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -429,10 +451,10 @@ public class DateUtil {
      *
      * @param field
      * @param amount
+     * 
      * @return
      *
      * @since 2020. 9. 10.
-     * 
      */
     public static Date getDate(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -455,8 +477,13 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getDateString(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("yyyyMMdd").format(date);
     }
 
@@ -475,8 +502,13 @@ public class DateUtil {
      * 예) 날짜가 2011년 1월 1일 1시 1분 1초인 경우 "20110101010101'
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getDateTimeString(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("yyyyMMddHHmmss").format(date);
     }
 
@@ -495,8 +527,13 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getDay(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("dd").format(date);
     }
 
@@ -516,11 +553,18 @@ public class DateUtil {
      * @param locale
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, locale, discards 중에 1개라도})가 {@code null}이거나 {@code discard}가 {@code null}을
+     *             포함한 경우 발생.
      * 
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, Locale locale, YearMonthDay... discards) {
+        ObjectUtils.requireNonNulls(cal1, cal2, locale);
+        ObjectUtils.requireNonNulls((Object[]) discards);
 
         List<String> displayNames = new ArrayList<String>();
 
@@ -582,7 +626,12 @@ public class DateUtil {
      *            </ul>
      * @param discards
      *            제외시키는 일자
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
+     *             발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -601,7 +650,13 @@ public class DateUtil {
      * @param locale
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, locale, discards 중에 1개라도})가 {@code null}이거나 {@code discards}에 {@code null}이
+     *             포함된 경우 발생.
+     * 
      * 
      * @since 2014. 4. 3.
      */
@@ -619,7 +674,13 @@ public class DateUtil {
      *            토/일 포함 여부.
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
+     *             발생.
+     * 
      * 
      * @since 2014. 4. 3.
      */
@@ -641,7 +702,12 @@ public class DateUtil {
      * @param locale
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, locale, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이
+     *             포함된 경우 발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -662,7 +728,12 @@ public class DateUtil {
      *            </ul>
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
+     *             발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -679,7 +750,12 @@ public class DateUtil {
      * @param locale
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
+     *             발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -695,7 +771,12 @@ public class DateUtil {
      * @param cal2
      * @param discards
      *            제외시키는 일자
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal1, cal2, discards 중에 1개라도})가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
+     *             발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -718,10 +799,15 @@ public class DateUtil {
      * 예) 오후 3시 20분 12초: 1520
      * 
      * @param date
+     * 
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getHHmm(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("HHmm").format(date);
     }
 
@@ -740,8 +826,13 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getMonth(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("MM").format(date);
     }
 
@@ -760,8 +851,13 @@ public class DateUtil {
      * 예) 2011년 7월 24일 오후 3시 20분 12초: 0724152012
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getTimeModeString(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("MMddHHmmss").format(date);
     }
 
@@ -780,13 +876,19 @@ public class DateUtil {
      *            날짜 구성 영역.
      * @param amount
      *            날짜 데이터
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
      * 
      */
     public static long getTimestamp(Calendar cal, int field, int amount) {
+        Objects.requireNonNull(cal);
+
         cal.add(field, amount);
         return cal.getTime().getTime();
     }
@@ -805,10 +907,10 @@ public class DateUtil {
      *            날짜 구성 영역.
      * @param amount
      *            날짜 데이터
+     *
      * @return
      *
      * @since 2020. 9. 10.
-     * 
      */
     public static long getTimestamp(int field, int amount) {
         Calendar cal = Calendar.getInstance();
@@ -830,7 +932,11 @@ public class DateUtil {
      *            시간 객체
      * @param dateFormat
      *            시분초 표기포맷.
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal, dateFormat})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -838,6 +944,8 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, SimpleDateFormat dateFormat) {
+        ObjectUtils.requireNonNulls(cal, dateFormat);
+
         return dateFormat.format(cal.getTime());
     }
 
@@ -855,7 +963,11 @@ public class DateUtil {
      *            시간 객체
      * @param format
      *            시분초 표기포맷.
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal, format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -863,6 +975,8 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, String format) {
+        ObjectUtils.requireNonNulls(cal, format);
+
         return new SimpleDateFormat(format).format(cal.getTime());
     }
 
@@ -880,7 +994,11 @@ public class DateUtil {
      *            시간 객체
      * @param format
      *            시분초 표기포맷.
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal, format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -888,6 +1006,8 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Date date, String format) {
+        ObjectUtils.requireNonNulls(date, format);
+
         return new SimpleDateFormat(format).format(date);
     }
 
@@ -905,13 +1025,19 @@ public class DateUtil {
      *            시간정보 (단위: ms)
      * @param dateFormat
      *            시간 표기 포맷.
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code dateFormat})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
      * 
      */
     public static String getTimestampString(long timestamp, SimpleDateFormat dateFormat) {
+        Objects.requireNonNull(dateFormat);
+
         return dateFormat.format(new Date(timestamp));
     }
 
@@ -929,13 +1055,19 @@ public class DateUtil {
      *            시간정보 (단위: ms)
      * @param format
      *            시간 표기 포맷.
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
      * 
      */
     public static String getTimestampString(long timestamp, String format) {
+        Objects.requireNonNull(format);
+
         return new SimpleDateFormat(format).format(new Date(timestamp));
     }
 
@@ -951,7 +1083,11 @@ public class DateUtil {
      *
      * @param format
      *            시분초 표기포맷.
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -959,6 +1095,8 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(String format) {
+        Objects.requireNonNull(format);
+
         return new SimpleDateFormat(format).format(new Date());
     }
 
@@ -984,7 +1122,11 @@ public class DateUtil {
      *
      * @param cal
      *            시간 객체
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code cal})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -992,6 +1134,8 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimeString(Calendar cal) {
+        Objects.requireNonNull(cal);
+
         return new SimpleDateFormat("HHmmss").format(cal.getTime());
     }
 
@@ -1000,8 +1144,13 @@ public class DateUtil {
      * 예) 오후 3시 20분 12초: 152012
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getTimeString(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("HHmmss").format(date);
     }
 
@@ -1017,6 +1166,7 @@ public class DateUtil {
      *
      * @param timestamp
      *            시간정보 (단위: ms)
+     * 
      * @return
      *
      * @since 2021. 8. 27.
@@ -1031,9 +1181,15 @@ public class DateUtil {
      * 해당 지역의 타임존 오프셋을 시간표기로 반환합니다.
      * 
      * @param calendar
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      */
     public static String getTimezoneOffset(Calendar calendar) {
+        Objects.requireNonNull(calendar);
+
         long timezoneOffset = (calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET)) / (60 * 1000);
         return StringUtils.lpad(timezoneOffset / 60, 2) + ":" + StringUtils.lpad(timezoneOffset % 60, 2);
     }
@@ -1053,14 +1209,18 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
      * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getYear(Date date) {
+        Objects.requireNonNull(date);
+
         return new SimpleDateFormat("yyyy").format(date);
     }
 
     /**
-     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과 했는지를
-     * 반환합니다.
+     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
      * 
      * @param calendar
      *            TODO
@@ -1073,17 +1233,18 @@ public class DateUtil {
      * 
      * @return
      * 
-     * @exception NullPointerException
-     *                if <b>{@code calendar}</b> is null.
+     * @throws NullPointerException
+     *             파라미터({@code calendar 또는 date})가 {@code null}인 경우 발생.
      */
     public static boolean isPast(Calendar calendar, Date date, int timeField, int timeValue) {
+        ObjectUtils.requireNonNulls(calendar, date);
+
         calendar.set(timeField, timeValue);
-        return date == null || calendar.getTime().after(date);
+        return calendar.getTime().after(date);
     }
 
     /**
-     * 현재 시간이 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상
-     * 경과 했는지를 반환합니다.
+     * 현재 시간이 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
      * 
      * @param date
      *            시간 정보
@@ -1091,14 +1252,20 @@ public class DateUtil {
      *            시간 값
      * @param timeField
      *            시간 구역
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static boolean isPast(Date date, int timeValue, int timeField) {
+        Objects.requireNonNull(date);
+
         Calendar calendar = Calendar.getInstance();
 
         calendar.set(timeField, timeValue);
 
-        return date == null || calendar.getTime().after(date);
+        return calendar.getTime().after(date);
     }
 
     /**
@@ -1106,11 +1273,17 @@ public class DateUtil {
      * 
      * @param calendar
      * @param fields
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar 또는 fields})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
     public static Calendar newCalendar(Calendar calendar, int... fields) {
+        ObjectUtils.requireNonNulls(calendar, fields);
+
         Calendar cal = Calendar.getInstance();
         cal.clear();
 
@@ -1125,11 +1298,17 @@ public class DateUtil {
      * 주어진 {@link Date} 정보에 맞는 {@link Calendar} 객체를 반환합니다.
      * 
      * @param timeInMillis
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
     public static Calendar newCalendar(Date date) {
+        Objects.requireNonNull(date);
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date.getTime());
 
@@ -1152,10 +1331,10 @@ public class DateUtil {
      *            월 (0 ~ 11)
      * @param date
      *            날짜
+     *
      * @return
      *
      * @since 2020. 11. 5.
-     * 
      */
     public static Calendar newCalendar(int year, int month, int date) {
         return newCalendar(year, month, date, 0, 0, 0);
@@ -1183,10 +1362,10 @@ public class DateUtil {
      *            분
      * @param second
      *            초
+     *
      * @return
      *
      * @since 2020. 11. 5.
-     * 
      */
     public static Calendar newCalendar(int year, int month, int date, int hourOfDay, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
@@ -1199,6 +1378,7 @@ public class DateUtil {
      * 주어진 밀리초 정보에 맞는 {@link Calendar} 객체를 반환합니다.
      * 
      * @param timeInMillis
+     * 
      * @return
      * 
      * @since 2014. 4. 2.
@@ -1226,12 +1406,12 @@ public class DateUtil {
      *            월 (0 ~ 11)
      * @param date
      *            날짜
+     *
      * @return
      *
      * @since 2020. 11. 5.
-     * 
      */
-    public static Calendar newCalendar(String year, String month, String date) {
+    public static Calendar newCalendar(@Nullable String year, @Nullable String month, @Nullable String date) {
         return newCalendar(year, month, date, null, null, null);
     }
 
@@ -1257,12 +1437,14 @@ public class DateUtil {
      *            분
      * @param second
      *            초
-     * @return
      *
-     * @since 2020. 11. 5.
+     * @return
      * 
+     * @since 2020. 11. 5.
      */
-    public static Calendar newCalendar(String year, String month, String date, String hourOfDay, String minute, String second) {
+    public static Calendar newCalendar(@Nullable String year, @Nullable String month, @Nullable String date, @Nullable String hourOfDay, @Nullable String minute,
+            @Nullable String second) {
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(CAL_S2I.apply(year), CAL_S2I.apply(month), CAL_S2I.apply(date), CAL_S2I.apply(hourOfDay), CAL_S2I.apply(minute), CAL_S2I.apply(second));
         calendar.set(Calendar.MILLISECOND, 0);
@@ -1283,11 +1465,17 @@ public class DateUtil {
      * 
      * @param calendar
      * @param fields
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
     public static void renewCalendar(Calendar calendar, int... fields) {
+        Objects.requireNonNull(calendar);
+
         Map<Integer, Integer> calendarInfo = new HashMap<Integer, Integer>();
 
         for (int field : fields) {
@@ -1307,9 +1495,13 @@ public class DateUtil {
      * @param dateFields
      *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
      * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar 또는 dateFields})가 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 2.
      */
     public static void resetDateFields(Calendar calendar, int... dateFields) {
+        ObjectUtils.requireNonNulls(calendar, dateFields);
 
         for (int field : dateFields) {
             calendar.set(field, 0);
@@ -1328,13 +1520,18 @@ public class DateUtil {
      *
      * @param dateFields
      *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
-     * @return
      *
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code dateFields})가 {@code null}인 경우 발생.
+     * 
      * @since 2021. 2. 18.
      * @version 1.8.0
      * 
      */
     public static Calendar resetDateFields(int... dateFields) {
+        Objects.requireNonNull(dateFields);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -1351,9 +1548,13 @@ public class DateUtil {
      * @param dateFields
      *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
      * 
+     * @throws NullPointerException
+     *             파라미터({@code dateFields})가 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 2.
      */
     public static Calendar resetDateFields(long timeInMillis, int... dateFields) {
+        Objects.requireNonNull(dateFields);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timeInMillis);
@@ -1375,9 +1576,14 @@ public class DateUtil {
      *            </ul>
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 2.
      */
     public static Calendar toCalendar(String date) {
+        Objects.requireNonNull(date);
+
         Matcher m = yyyyMMDD_HHmmss.matcher(date);
 
         AssertUtils2.isTrue("날짜 정보가 잘못되었습니다. 값: " + date, m.matches(), IllegalArgumentException.class);
@@ -1403,16 +1609,125 @@ public class DateUtil {
     }
 
     /**
+     * 주어진 {@link Calendar} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 3. 30.     parkjunhong77@gmail.com     최초 작성 (ISO 8601 포맷 지원 추가)
+     * </pre>
+     * 
      * @param calendar
+     *            변환할 시간 객체
+     *
+     * @return ISO 8601 포맷 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
+     * 
+     * @since 2026. 3. 30.
+     */
+    public static String toISO8601Format(Calendar calendar) {
+        Objects.requireNonNull(calendar);
+
+        return new SimpleDateFormat(REGEX_ISO_8601_FORMAT).format(calendar.getTime());
+    }
+
+    /**
+     * 주어진 {@link Date} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 3. 30.     parkjunhong77@gmail.com     최초 작성 (ISO 8601 포맷 지원 추가)
+     * </pre>
+     * 
+     * @param date
+     *            변환할 시간 객체
+     *
+     * @return ISO 8601 포맷 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
+     * 
+     * @since 2026. 3. 30.
+     */
+    public static String toISO8601Format(Date date) {
+        Objects.requireNonNull(date);
+
+        return new SimpleDateFormat(REGEX_ISO_8601_FORMAT).format(date);
+    }
+
+    /**
+     * 주어진 밀리초 타임스탬프를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 3. 30.     parkjunhong77@gmail.com     최초 작성 (ISO 8601 포맷 지원 추가)
+     * </pre>
+     * 
+     * @param timestamp
+     *            시간 정보 (단위: ms)
+     * 
+     * @return ISO 8601 포맷 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code timestamp})가 {@code null}인 경우 발생.
+     * 
+     * @since 2026. 3. 30.
+     */
+    public static String toISO8601Format(Long timestamp) {
+        Objects.requireNonNull(timestamp);
+
+        return new SimpleDateFormat(REGEX_ISO_8601_FORMAT).format(new Date(timestamp));
+    }
+
+    /**
+     * @param calendar
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 7.
      * 
      * @see {@value #REGEX_ISO_FORMAT}
      */
     public static String toISOFormat(Calendar calendar) {
-        AssertUtils2.notNull(calendar);
+        Objects.requireNonNull(calendar);
+
         return new SimpleDateFormat(REGEX_ISO_FORMAT).format(calendar.getTime());
+    }
+
+    /**
+     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 3. 30.     parkjunhong77@gmail.com     최초 작성 (ISO 8601 포맷 지원 추가)
+     * </pre>
+     * 
+     * @param date
+     *            변환할 시간 객체
+     *
+     * @return ISO 포맷 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
+     * 
+     * @since 2026. 3. 30.
+     */
+    public static String toISOFormat(Date date) {
+        Objects.requireNonNull(date);
+
+        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(date);
     }
 
     /**
@@ -1427,27 +1742,62 @@ public class DateUtil {
      * </pre>
      *
      * @param timestamp
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code timestamp})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
-     * 
      */
     public static String toISOFormat(Long timestamp) {
-        AssertUtils2.notNull(timestamp);
-        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(newCalendar(timestamp).getTime());
+        Objects.requireNonNull(timestamp);
+
+        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(new Date(timestamp));
     }
 
     /**
      * @param calendar
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 7.
      * 
      * @see {@value #REGEX_ISO_FORMAT_NO_TZ}
      */
     public static String toISOFormatNoTZ(Calendar calendar) {
-        AssertUtils2.notNull(calendar);
+        Objects.requireNonNull(calendar);
+
         return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(calendar.getTime());
+    }
+
+    /**
+     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT_NO_TZ}) 문자열로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 3. 30.     parkjunhong77@gmail.com     최초 작성 (ISO 8601 포맷 지원 추가)
+     * </pre>
+     * 
+     * @param date
+     *            변환할 시간 객체
+     *
+     * @return ISO 포맷 문자열
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date})가 {@code null}인 경우 발생.
+     * 
+     * @since 2026. 3. 30.
+     */
+    public static String toISOFormatNoTZ(Date date) {
+        Objects.requireNonNull(date);
+
+        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(date);
     }
 
     /**
@@ -1455,6 +1805,7 @@ public class DateUtil {
      * @param year
      * @param month
      * @param dayOfMonth
+     * 
      * @return
      * 
      * @since 2014. 4. 8.
@@ -1471,6 +1822,7 @@ public class DateUtil {
      * @param hourOfDay
      * @param min
      * @param sec
+     * 
      * @return
      * 
      * @since 2014. 4. 7.
@@ -1492,14 +1844,18 @@ public class DateUtil {
      * </pre>
      *
      * @param timestamp
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code timestamp})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
-     * 
      */
     public static String toISOFormatNoTZ(Long timestamp) {
-        AssertUtils2.notNull(timestamp);
-        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(newCalendar(timestamp).getTime());
+        Objects.requireNonNull(timestamp);
+
+        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(new Date(timestamp));
     }
 
     /**
@@ -1508,11 +1864,18 @@ public class DateUtil {
      *            . 포맷: {@value #REGEX_yyyyMMDD}
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code dateStr})가 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 8.
      */
     public static String toISOFormatNoTZ(String dateStr) {
+        Objects.requireNonNull(dateStr);
+
         Matcher m = yyyyMMDD.matcher(dateStr);
-        AssertUtils2.isTrue("날짜 정보가 잘못되었습니다. 값: " + dateStr, m.matches(), IllegalArgumentException.class);
+        if (!m.matches()) {
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "날짜 정보가 잘못되었습니다. 값: %s", dateStr);
+        }
 
         return toISOFormatNoTZ(m.group(1), m.group(2), m.group(3));
     }
@@ -1522,11 +1885,17 @@ public class DateUtil {
      * @param year
      * @param month
      * @param dayOfMonth
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 8.
      */
     public static String toISOFormatNoTZ(String year, String month, String dayOfMonth) {
+        ObjectUtils.requireNonNulls(year, month, dayOfMonth);
+
         return toISOFormatNoTZ(year, month, dayOfMonth, "00", "00", "00");
     }
 
@@ -1538,12 +1907,19 @@ public class DateUtil {
      * @param hourOfDay
      * @param min
      * @param sec
+     * 
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     * 
      * @since 2014. 4. 7.
+     * 
      * @see {@value #MESSAGE_ISO_FORMAT_NO_TZ}
      */
     public static String toISOFormatNoTZ(String year, String month, String dayOfMonth, String hourOfDay, String min, String sec) {
+        ObjectUtils.requireNonNulls(year, month, dayOfMonth, hourOfDay, min, sec);
+
         return MessageFormat.format(MESSAGE_ISO_FORMAT_NO_TZ, year, month, dayOfMonth, hourOfDay, min, sec);
     }
 
@@ -1613,9 +1989,15 @@ public class DateUtil {
      *            날짜 정보
      * @param pattern
      *            패턴
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code date 또는 pattern})가 {@code null}인 경우 발생.
      */
     public static String toString(Date date, String pattern) {
+        ObjectUtils.requireNonNulls(date, pattern);
+
         return new SimpleDateFormat(pattern).format(date);
     }
 
@@ -1632,12 +2014,17 @@ public class DateUtil {
      *
      * @param timestamp
      * @param pattern
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code timestamp 또는 pattern})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
-     * 
      */
     public static String toString(Long timestamp, String pattern) {
+        ObjectUtils.requireNonNulls(timestamp, pattern);
+
         return new SimpleDateFormat(pattern).format(new Date(timestamp));
     }
 
@@ -1706,19 +2093,15 @@ public class DateUtil {
      *            날짜 정보
      * @param pattern
      *            패턴
+     *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
      */
     public static String toString(String pattern) {
-        return new SimpleDateFormat(pattern).format(new Date());
-    }
+        Objects.requireNonNull(pattern);
 
-    public static String toTimeString(int time) {
-        // s
-        // m
-        // h
-        // d
-        // M
-        // Y
-        return null;
+        return new SimpleDateFormat(pattern).format(new Date());
     }
 }

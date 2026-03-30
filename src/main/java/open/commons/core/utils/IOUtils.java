@@ -76,6 +76,7 @@ import open.commons.core.util.ArrayItr;
  */
 public class IOUtils {
 
+    @SuppressWarnings("null")
     private static Logger logger = LoggerFactory.getLogger(IOUtils.class);
 
     // 애플리케이션 로드 시점에 OS별 명령어를 캐싱 (기존 아키텍처 유지)
@@ -96,6 +97,7 @@ public class IOUtils {
     }
 
     // JDK 7+ 표준 API 사용
+    @SuppressWarnings("null")
     public static final String LINE_SEPARATOR = System.lineSeparator();
 
     /**

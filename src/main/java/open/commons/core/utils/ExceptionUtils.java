@@ -31,13 +31,21 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.function.Supplier;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * 
  * @since 2015. 1. 13.
  * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class ExceptionUtils {
 
     /**
@@ -62,7 +70,8 @@ public class ExceptionUtils {
      * @version 1.8.0
      * 
      */
-    public static <E extends Throwable> E newException(Class<E> type, Class<?>[] argTypes, Object[] args, String format, Object... msgArgs) {
+    public static <E extends Throwable> E newException(Class<E> type, Class<?> @Nullable [] argTypes, @Nullable Object @Nullable [] args, @Nullable String format,
+            @Nullable Object @Nullable... msgArgs) {
         return newException(type, () -> argTypes, args, format, msgArgs);
     }
 
@@ -85,57 +94,86 @@ public class ExceptionUtils {
      * @param args
      *            로그 데이터
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 15.
      * 
      */
-    public static <E extends Throwable> E newException(Class<E> type, String format, Object... args) {
+    public static <E extends Throwable> E newException(Class<E> type, @Nullable String format, @Nullable Object @Nullable... args) {
         return newException(type, () -> null, null, format, args);
     }
 
     /**
-     * 예외객체를 생성합니다. <br>
-     * 단 예외타입은 문자열 1개를 파라미터로 받는 생성자가 필요하다. <br>
+     * 리플렉션을 이용하여 다양한 생성자 조건에 맞춰 동적으로 예외 객체를 생성합니다. <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 7. 5.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2021. 7. 5.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 30.     parkjunhong77@gmail.com     생성자 덮어쓰기 버그 수정 및 예외 체이닝(Chaining) 적용
      * </pre>
-     *
-     * @param <E>
-     * @param type
-     * @param argTypes
-     * @param args
-     * @param format
-     * @param msgArgs
-     * @return
-     *
-     * @since 2021. 7. 5.
-     * @version 1.8.0
      * 
+     * @param <E>
+     *            예외 타입
+     * @param type
+     *            생성할 예외 클래스 타입 ({@code NOT nullable})
+     * @param argTypes
+     *            예외 생성자에 전달할 파라미터 타입 목록 제공자 (선택)
+     * @param args
+     *            예외 생성자에 전달할 파라미터 값 목록 (선택)
+     * @param format
+     *            예외 메시지 포맷 문자열 (선택)
+     * @param msgArgs
+     *            포맷 문자열에 매핑될 인자들
+     * @return 조건에 맞춰 동적으로 생성된 예외 객체
+     * 
+     * @since 2021. 7. 5.
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
+     * 
+     * @version 1.8.00
      */
-    public static <E extends Throwable> E newException(Class<E> type, Supplier<Class<?>[]> argTypes, Object[] args, String format, Object... msgArgs) {
+    public static <E extends Throwable> E newException(Class<E> type, @Nullable Supplier<Class<?> @Nullable []> argTypes, @Nullable Object @Nullable [] args,
+            @Nullable String format, @Nullable Object @Nullable... msgArgs) {
+
+        ObjectUtils.requireNonNulls(type);
+
         try {
-            Constructor<E> c = null;
-            Class<?>[] paramTypes = null;
+            Constructor<E> c;
+            Object[] initArgs;
+
             if (argTypes != null && format != null) {
-                paramTypes = ArrayUtils.add(argTypes.get(), String.class);
+                // 케이스 1: 커스텀 파라미터 + 포맷 메시지
+                Class<?>[] paramTypes = ArrayUtils.add(argTypes.get(), String.class);
                 c = type.getConstructor(paramTypes);
-                args = ArrayUtils.add(args, String.format(format, msgArgs));
+                initArgs = ArrayUtils.add(args, String.format(format, msgArgs));
+
             } else if (argTypes != null) {
+                // 케이스 2: 커스텀 파라미터만 존재
                 c = type.getConstructor(argTypes.get());
+                initArgs = args != null ? args : new Object[0];
+
             } else if (format != null) {
+                // 케이스 3: 포맷 메시지만 존재
                 c = type.getConstructor(String.class);
-                args = new Object[] { String.format(format, msgArgs) };
+                initArgs = new Object[] { String.format(format, msgArgs) };
+
             } else {
+                // 케이스 4: 파라미터가 없는 기본 생성자
                 c = type.getConstructor();
+                initArgs = new Object[0];
             }
-            c = type.getConstructor(paramTypes);
-            return c.newInstance(args);
-        } catch (Throwable e) {
-            throw new RuntimeException(String.format("예외생성 도중 에러가 발생하였습니다. 원인=%s", e.getMessage()));
+
+            return c.newInstance(initArgs);
+
+        } catch (ReflectiveOperationException | SecurityException e) {
+            // [2] 예외 최적화: Throwable 대신 정확한 리플렉션 예외 포착 및 원본 예외 체이닝(e)
+            String errMsg = String.format("예외객체(%s) 생성 도중 에러가 발생하였습니다. 원인=%s", type.getName(), e.getMessage());
+            throw new RuntimeException(errMsg, e);
         }
     }
 
@@ -160,11 +198,16 @@ public class ExceptionUtils {
      * @param args
      *            로그 데이터
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type, parent, format})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 20.
      * 
      */
-    public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object... args) {
+    public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object @Nullable... args) {
+        ObjectUtils.requireNonNulls(type, parent, format);
+
         try {
             Constructor<E> c = type.getConstructor(String.class, Throwable.class);
             return c.newInstance(String.format(format, args), parent);
@@ -190,11 +233,16 @@ public class ExceptionUtils {
      * @param ignoreCase
      *            대소문자 무시 여부
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code errorMsg 또는 expected})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
      */
     private static boolean startsWith(String errorMsg, String expected, boolean ignoreCase) {
+        ObjectUtils.requireNonNulls(errorMsg, expected);
+
         if (errorMsg.length() < expected.length()) {
             return false;
         }
@@ -221,6 +269,9 @@ public class ExceptionUtils {
      * @param expected
      *            확인할 '시작 문자열'
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -246,6 +297,9 @@ public class ExceptionUtils {
      * @param toffset
      *            비교 시작 위치
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -255,7 +309,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공합니다. <br>
+     * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -269,6 +323,9 @@ public class ExceptionUtils {
      * @param expected
      *            확인할 '시작 문자열'
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -278,7 +335,7 @@ public class ExceptionUtils {
     }
 
     /**
-     * * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공합니다. <br>
+     * 예외상황 객체의 메시지가 주어진 문자열로 시작하는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -291,7 +348,11 @@ public class ExceptionUtils {
      *            예외상황 객체
      * @param expected
      *            확인할 '시작 문자열'
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -300,7 +361,17 @@ public class ExceptionUtils {
         return startsWith(e.getMessage().substring(toffset), expected, true);
     }
 
+    /**
+     * @param stacks
+     * 
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code stacks})가 {@code null}이거나 {@code stacks}에 {@code null}이 포함된 경우 발생.
+     */
     public static String toString(StackTraceElement... stacks) {
+        Objects.requireNonNull(stacks);
+
         StringBuffer buf = new StringBuffer();
 
         Iterator<StackTraceElement> itr = Arrays.asList(stacks).iterator();
@@ -318,7 +389,18 @@ public class ExceptionUtils {
         return buf.toString();
     }
 
+    /**
+     *
+     * @param e
+     * 
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e})가 {@code null}인 경우 발생.
+     */
     public static String toString(Throwable e) {
+        Objects.requireNonNull(e);
+
         StringWriter writer = new StringWriter();
         e.printStackTrace(new PrintWriter(writer));
 

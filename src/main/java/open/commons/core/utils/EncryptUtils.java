@@ -74,7 +74,8 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     *
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * 
      * @since 2018. 11. 20.
      * 
@@ -113,6 +114,8 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -150,12 +153,15 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
      */
     public static String decrypt(String algorithm, String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
             NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+        ObjectUtils.requireNonNulls(algorithm, key, keyCharset, encText, textCharset);
 
         SecretKeySpec keySpec = keySpec(algorithm, key, keyCharset);
 
@@ -190,6 +196,8 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -229,6 +237,8 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -267,13 +277,21 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
      */
+    // 아래 내용에 적용됨.
+    // - cipher.doFinal(plainText.getBytes(textCharset))
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] encrypt(String algorithm, String key, String keyCharset, String plainText, String textCharset) //
             throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException,
             IllegalBlockSizeException, BadPaddingException {
+        ObjectUtils.requireNonNulls(algorithm, key, keyCharset, plainText, textCharset);
 
         SecretKeySpec keySpec = keySpec(algorithm, key, keyCharset);
 
@@ -304,12 +322,15 @@ public class EncryptUtils {
      * @param charset
      *            key charset
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * @throws UnsupportedEncodingException
-     *
      * 
      * @since 2018. 11. 20.
      */
     private static SecretKeySpec keySpec(String algorithm, String key, String charset) throws UnsupportedEncodingException {
+        ObjectUtils.requireNonNulls(algorithm, key, charset);
 
         byte[] keyBytes = key.getBytes(charset);
 

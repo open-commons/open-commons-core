@@ -33,8 +33,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.annotation.Hide;
 
+/**
+ * 
+ * @since 2014. 9. 26.
+ * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ */
 public class DataUtils {
 
     /** 클래스별 {@link Hide} 필드 리스트 전역 캐시 (상속 계층 포함) */
@@ -63,7 +71,7 @@ public class DataUtils {
      * 
      * @since 2014. 9. 26.
      */
-    public static void hide(Collection<?> objects) throws IllegalArgumentException, IllegalAccessException {
+    public static void hide(@Nullable Collection<?> objects) throws IllegalArgumentException, IllegalAccessException {
         if (objects == null || objects.isEmpty()) {
             return;
         }
@@ -94,7 +102,7 @@ public class DataUtils {
      * @version 3.0.0
      * 
      */
-    public static void hide(final Object object) throws IllegalArgumentException, IllegalAccessException {
+    public static void hide(final @Nullable Object object) throws IllegalArgumentException, IllegalAccessException {
         if (object == null) {
             return;
         }
@@ -102,7 +110,8 @@ public class DataUtils {
         Class<?> clazz = object.getClass();
 
         // [최적화] 클래스 메타데이터 추출(Scan)과 실제 데이터 초기화(Reset)를 분리
-        List<Field> hideFields = HIDE_FIELD_CACHE.computeIfAbsent(clazz, k -> {
+        @SuppressWarnings("null")
+        List<@NonNull Field> hideFields = HIDE_FIELD_CACHE.computeIfAbsent(clazz, k -> {
             List<Field> collected = new ArrayList<>();
             Class<?> current = k;
 
@@ -121,7 +130,8 @@ public class DataUtils {
         });
 
         // [실행] 추출된 필드 정보를 바탕으로 데이터 리셋 수행 (컴파일 오류 수정)
-        for (Field field : hideFields) {
+        for (@NonNull
+        Field field : hideFields) {
             ReflectionUtils.resetFieldForced(object, field);
         }
     }

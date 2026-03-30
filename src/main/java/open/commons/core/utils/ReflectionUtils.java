@@ -118,8 +118,8 @@ public class ReflectionUtils {
      * @param targetClass
      *            {@link TypeVariable}이 사용된 클래스.
      * @param lastCopy
-     *            <b>{@code typeVarClasses}</b>의 개수가 <b>{@code targetClass}</b>의 실제 {@link TypeVariable} 개수보다
-     *            적은 경우 마지막 값으로 채울지 여부.
+     *            <b>{@code typeVarClasses}</b>의 개수가 <b>{@code targetClass}</b>의 실제 {@link TypeVariable} 개수보다 적은 경우 마지막
+     *            값으로 채울지 여부.
      * @param typeVarClasses
      *            {@link TypeVariable}로 사용될 클래스.
      * @return
@@ -698,11 +698,12 @@ public class ReflectionUtils {
      * @param field
      *            초기화할 필드
      * 
+     * @throws ExceptionInInitializerError
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
-     * @throws SecurityException
      * @throws NullPointerException
-     * @throws ExceptionInInitializerError
+     *             파라미터({@code object 또는 field})가 {@code null}인 경우 발생.
+     * @throws SecurityException
      * 
      * @since 2014. 4. 2.
      * @version 3.0.0
@@ -710,7 +711,7 @@ public class ReflectionUtils {
     public static void resetFieldForced(Object object, Field field)
             throws IllegalArgumentException, IllegalAccessException, SecurityException, NullPointerException, ExceptionInInitializerError {
 
-        AssertUtils2.notNulls("object와 field는 null일 수 없습니다. object: " + object + ", field: " + field, object, field);
+        ObjectUtils.requireNonNulls(object, field);
 
         // 1. JDK 9+ : canAccess(object)를 통해 현재 접근 가능 여부 확인
         // 2. trySetAccessible()을 사용하여 안전하게 접근 권한 획득 시도

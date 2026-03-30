@@ -42,7 +42,6 @@ import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.FormatUtils;
 import open.commons.core.utils.ObjectUtils;
 
 /**
@@ -154,7 +153,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
         try {
             while ((readline = reader.readLine()) != null) {
                 sb.append(date);
-                sb.append(onFilename ? FormatUtils.format(PATTERN_FN, new Object[] { fn }) : fn);
+                sb.append(onFilename ? String.format(PATTERN_FN, fn) : fn);
                 sb.append(readline);
                 sb.append(path);
                 sb.append('\n');

@@ -1,3 +1,8 @@
+[2026/03/30]
+- Updated
+  + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
+    + open.commons.core.utils.IntegerUtils
+
 [2026/03/27]
 - Updated
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.

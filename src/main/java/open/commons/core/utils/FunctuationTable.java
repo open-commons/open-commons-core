@@ -29,6 +29,8 @@ package open.commons.core.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
+
 public class FunctuationTable {
 
     private static Map<String, String> functuations = new HashMap<String, String>();
@@ -70,7 +72,7 @@ public class FunctuationTable {
 
     }
 
-    public static String getDesc(String mark) {
+    public static @Nullable String getDesc(String mark) {
         String rtnValue = getName(mark);
 
         if (rtnValue != null) {
@@ -80,7 +82,7 @@ public class FunctuationTable {
         return rtnValue;
     }
 
-    public static String getName(String mark) {
+    public static @Nullable String getName(String mark) {
         return functuations.get(mark);
     }
 }
