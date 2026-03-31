@@ -22,12 +22,14 @@ package open.commons.core.utils;
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
@@ -57,6 +59,8 @@ import java.util.Vector;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +72,7 @@ import open.commons.core.util.ArrayItr;
 /**
  * 
  * 
- * <BR>
+ * 
  * 
  * 
  * @since 2012. 01. 10.
@@ -77,10 +81,10 @@ import open.commons.core.util.ArrayItr;
 public class IOUtils {
 
     @SuppressWarnings("null")
-    private static Logger logger = LoggerFactory.getLogger(IOUtils.class);
+    private static Logger LOGGER = LoggerFactory.getLogger(IOUtils.class);
 
     // 애플리케이션 로드 시점에 OS별 명령어를 캐싱 (기존 아키텍처 유지)
-    private static final String COMMAND_OPEN;
+    private static final @Nullable String COMMAND_OPEN;
 
     static {
         final String PREFIX = "io.command.explorer.";
@@ -116,7 +120,9 @@ public class IOUtils {
      * @param closeables
      *            {@link AutoCloseable} 객체들.
      */
-    public static void close(AutoCloseable... closeables) {
+    public static void close(@Nullable AutoCloseable... closeables) {
+        Objects.requireNonNull(closeables);
+
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -132,9 +138,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 7. 5.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 5.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * 
@@ -145,7 +151,9 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static void close(Collection<AutoCloseable> closeables) {
+    public static void close(Collection<@Nullable AutoCloseable> closeables) {
+        Objects.requireNonNull(closeables);
+
         for (AutoCloseable closeable : closeables) {
             if (closeable != null) {
                 try {
@@ -156,25 +164,34 @@ public class IOUtils {
         }
     }
 
+    private static Charset defaultCharset() {
+        return Objects.requireNonNull(Charset.defaultCharset());
+    }
+
     /**
      * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2012. 01. 10.        parkjunohng77@gmail.com     최초 작성
      * 2020. 9. 25.         parkjunohng77@gmail.com     {@link Path} 메소드로 전환
      * </pre>
      * 
      * @param file
-     * @return {@link File}이 {@code null} 이거나 에러가 발생할 경우 {@code null}을 제공합니다.
+     * 
+     * @return
+     * 
+     * @throws IOException
      * 
      * @since 2012. 01. 10.
      * 
      */
-    public static BufferedReader getReader(File file) {
-        return file != null ? getReader(file.toPath(), (Charset) null) : null;
+    public static BufferedReader getReader(File file) throws IOException {
+        Objects.requireNonNull(file);
+
+        return getReader(file.toPath(), defaultCharset());
     }
 
     /**
@@ -182,22 +199,26 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
      *            파일 객체
      * @param cs
      *            file character set
-     * @return {@link File}이 {@code null} 이거나 에러가 발생할 경우 {@code null}을 제공합니다.
+     * @return
+     * 
+     * @throws IOException
      *
      * @since 2020. 9. 25.
      * 
      */
-    public static BufferedReader getReader(File file, Charset cs) {
-        return file != null ? getReader(file.toPath(), cs) : null;
+    public static BufferedReader getReader(File file, Charset cs) throws IOException {
+        ObjectUtils.requireNonNulls(file, cs);
+
+        return getReader(file.toPath(), cs);
     }
 
     /**
@@ -205,20 +226,26 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
+     * 
      * @param charsetNam
-     * @return {@link File}이 {@code null} 이거나 에러가 발생할 경우 {@code null}을 제공합니다.
+     * 
+     * @return
+     * 
+     * @throws IOException
      *
      * @since 2020. 9. 25.
      * 
      */
-    public static BufferedReader getReader(File file, String charsetNam) {
-        return file != null ? getReader(file.toPath(), charsetNam) : null;
+    public static BufferedReader getReader(File file, String charsetNam) throws IOException {
+        ObjectUtils.requireNonNulls(file, charsetNam);
+
+        return getReader(file.toPath(), charsetNam);
     }
 
     /**
@@ -226,17 +253,17 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2014. 6. 24.         parkjunohng77@gmail.com     최초 작성
-     * 2020. 9. 25.		   parkjunohng77@gmail.com     내부 구현 변경.
+     * 2020. 9. 25.        parkjunohng77@gmail.com     내부 구현 변경.
      * </pre>
      * 
      * @param inStream
      * @return {@link BufferedReader} 객체, {@link InputStream}인 {@code null}인 경우 {@code null}반환.
      */
     public static BufferedReader getReader(InputStream inStream) {
-        return getReader(inStream, (Charset) null);
+        return getReader(inStream, CsvUtils.defaultCharset());
     }
 
     /**
@@ -244,34 +271,36 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
      * @param cs
-     * @return {@link BufferedReader} 객체, {@link InputStream}인 {@code null}인 경우 {@code null}반환.
+     * @return {@link BufferedReader} 객체
      *
      * @since 2020. 9. 25.
      * 
      */
     public static BufferedReader getReader(InputStream inStream, Charset cs) {
-        return inStream != null //
-                ? new BufferedReader(new InputStreamReader(inStream, Objects.requireNonNullElse(cs, Charset.defaultCharset()))) //
-                : null;
+        ObjectUtils.requireNonNulls(inStream, cs);
+
+        return new BufferedReader(new InputStreamReader(inStream, cs));
     }
 
     /**
      * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다.
      * 
      * @param inStream
-     * @return {@link BufferedReader} 객체, {@link InputStream}인 {@code null}인 경우 {@code null}반환.
+     * @return {@link BufferedReader} 객체
      * 
      * @since 2014. 6. 24.
      */
     public static BufferedReader getReader(InputStream inStream, String charsetName) {
-        return getReader(inStream, charsetName != null ? Charset.forName(charsetName) : null);
+        ObjectUtils.requireNonNulls(inStream, charsetName);
+
+        return getReader(inStream, requireCharset(charsetName));
     }
 
     /**
@@ -279,20 +308,23 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
      *            파일 경로
-     * @return 에러가 발생할 경우 {@code null}을 제공합니다.
+     * 
+     * @return
+     * 
+     * @throws IOException
      *
      * @since 2020. 9. 25.
      * 
      */
-    public static BufferedReader getReader(Path path) {
-        return getReader(path, (Charset) null);
+    public static BufferedReader getReader(Path path) throws IOException {
+        return getReader(path, defaultCharset());
     }
 
     /**
@@ -301,9 +333,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
@@ -314,17 +346,10 @@ public class IOUtils {
      * @since 2020. 9. 25.
      * 
      */
-    public static BufferedReader getReader(Path path, Charset cs) {
+    public static BufferedReader getReader(Path path, Charset cs) throws IOException {
+        ObjectUtils.requireNonNulls(path, cs);
 
-        if (path == null)
-            return null;
-
-        try {
-            return Files.newBufferedReader(path, Objects.requireNonNullElse(cs, Charset.defaultCharset()));
-        } catch (IOException e) {
-            logger.warn("reader 생성시 에러가 발생하였습니다. 원인={}", e.getMessage());
-            return null;
-        }
+        return Files.newBufferedReader(path, requireCharset(cs));
     }
 
     /**
@@ -333,20 +358,25 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
      * @param charsetName
      *            file character set name
-     * @return 에러가 발생할 경우 {@code null}을 제공합니다.
+     * 
+     * @return
+     * 
+     * @throws IOException
      *
      * @since 2020. 9. 25.
      * 
      */
-    public static BufferedReader getReader(Path path, String charsetName) {
+    public static BufferedReader getReader(Path path,  String charsetName) throws IOException {
+        ObjectUtils.requireNonNulls(path, charsetName);
+        
         return getReader(path, requireCharset(charsetName));
     }
 
@@ -354,35 +384,30 @@ public class IOUtils {
      * 주어진 문자열({@link String})을 읽어오는 {@link BufferedReader}를 반환합니다.
      * 
      * @param string
+     * 
      * @return <b>{@code nullable}</b>.
      * 
      * @since 2012. 01. 10.
      * 
      */
-    public static BufferedReader getReader(String string) {
-        BufferedReader reader = null;
-
-        if (string != null) {
-            reader = new BufferedReader(new StringReader(string));
-        }
-
-        return reader;
+    public static @Nullable BufferedReader getReader(@Nullable String string) {
+        return string != null //
+                ? new BufferedReader(new StringReader(string)) //
+                : null;
     }
 
     /**
      * 클래스가 포함되어 있는 리소스 경로를 반환합니다.
      * 
      * @param container
-     * @return <BR>
+     * @return
      * @since 2012. 03. 12.
      * 
      */
-    public static String getResourcePath(Class<?> container) {
+    public static @Nullable String getResourcePath(@Nullable Class<?> container) {
         if (container != null) {
-            char[] clazzChars = container.getName().toCharArray();
-
+            char @NonNull [] clazzChars = container.getName().toCharArray();
             int[] indice = ArrayUtils.indiceOf(clazzChars, '.');
-
             for (int i : indice) {
                 clazzChars[i] = '/';
             }
@@ -402,11 +427,11 @@ public class IOUtils {
      *            리소스와 같은 패키지에 존재하는 클래스
      * @param resourceName
      *            리소스 이름
-     * @return <BR>
-     * @since 2012. 03. 12.
+     * @return
      * 
+     * @since 2012. 03. 12.
      */
-    public static InputStream getResourcePath(Class<?> loader, Class<?> container, String resourceName) {
+    public static @Nullable InputStream getResourcePath(@Nullable Class<?> loader, @Nullable Class<?> container, String resourceName) {
         if (loader != null && container != null) {
             return loader.getResourceAsStream(getResourcePath(container) + "/" + resourceName);
         } else {
@@ -417,35 +442,31 @@ public class IOUtils {
     /**
      * 주어진 문자열({@link String})에 저장하는 {@link BufferedWriter}를 반환합니다.
      * 
-     * @return 예외가 발생하는 경우 {@code null}을 반환합니다.
+     * @return
      * 
      * @since 2012. 01. 10.
      * 
      */
     public static BufferedWriter getWriter() {
-        try {
-            return new BufferedWriter(new StringWriter());
-        } catch (Exception ignored) {
-            return null;
-        }
+        return new BufferedWriter(new StringWriter());
     }
 
     /**
      * 주어진 {@link File}에 저장하는 {@link BufferedWriter}를 반환합니다.
      * 
      * @param file
-     * @return 예외가 발생하는 경우 {@code null}을 반환합니다.
+     * 
+     * @return
+     * 
      * @throws IOException
      * 
      * @since 2012. 01. 10.
      * 
      */
-    public static BufferedWriter getWriter(File file) {
-        try {
-            return Files.newBufferedWriter(file.toPath());
-        } catch (IOException e) {
-            return null;
-        }
+    public static BufferedWriter getWriter(File file) throws IOException {
+        Objects.requireNonNull(file);
+
+        return Files.newBufferedWriter(file.toPath());
     }
 
     /**
@@ -454,14 +475,10 @@ public class IOUtils {
      * @param inStream
      * @return {@link BufferedWriter} 객체, {@link OutputStream}인 {@code null}인 경우 {@code null}반환.
      */
-    public static BufferedWriter getWriter(OutputStream outStream) {
-        BufferedWriter writer = null;
-
-        if (outStream != null) {
-            writer = new BufferedWriter(new OutputStreamWriter(outStream));
-        }
-
-        return writer;
+    public static @Nullable BufferedWriter getWriter(@Nullable OutputStream outStream) {
+        return outStream != null //
+                ? new BufferedWriter(new OutputStreamWriter(outStream)) //
+                : null;
     }
 
     /**
@@ -474,19 +491,14 @@ public class IOUtils {
      *                cannot be opened for reading.
      * @exception SecurityException
      *                if a security manager exists and its {@code checkRead} method denies read access to the file.
-     * @see {@link FileInputStream} <BR>
+     * @see {@link FileInputStream}
      * @since 2012. 3. 9.
      * 
      */
     public static SequenceInputStream newSequenceInputStream(Enumeration<File> e) throws FileNotFoundException {
+        Objects.requireNonNull(e);
 
-        Vector<InputStream> v = new Vector<InputStream>();
-
-        while (e.hasMoreElements()) {
-            v.add(new FileInputStream(e.nextElement()));
-        }
-
-        return new SequenceInputStream(v.elements());
+        return newSequenceInputStream(e.asIterator());
     }
 
     /**
@@ -497,13 +509,12 @@ public class IOUtils {
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
-     * @exception SecurityException
-     *                if a security manager exists and its {@code checkRead} method denies read access to the file.
-     * @see {@link FileInputStream} <BR>
+     * @see {@link FileInputStream}
      * @since 2012. 3. 9.
      * 
      */
     public static SequenceInputStream newSequenceInputStream(File... files) throws FileNotFoundException {
+        ObjectUtils.requireNonNulls((Object[]) files);
 
         Vector<InputStream> v = new Vector<InputStream>();
 
@@ -522,16 +533,16 @@ public class IOUtils {
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
-     * @exception SecurityException
-     *                if a security manager exists and its {@code checkRead} method denies read access to the file.
      * @see {@link FileInputStream}
      * 
-     *      <BR>
+     * 
      * @since 2012. 3. 9.
      * 
      */
     @SuppressWarnings("resource")
     public static SequenceInputStream newSequenceInputStream(File file1, File file2) throws FileNotFoundException {
+        ObjectUtils.requireNonNulls(file1, file2);
+
         InputStream is1 = new FileInputStream(file1);
         InputStream is2 = new FileInputStream(file2);
 
@@ -546,18 +557,29 @@ public class IOUtils {
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
-     * @exception SecurityException
-     *                if a security manager exists and its {@code checkRead} method denies read access to the file.
-     * @see {@link FileInputStream} <BR>
+     * @see {@link FileInputStream}
      * @since 2012. 3. 9.
      * 
      */
     public static SequenceInputStream newSequenceInputStream(InputStream... insts) throws FileNotFoundException {
+        ObjectUtils.requireNonNulls((Object[]) insts);
 
         Vector<InputStream> v = new Vector<InputStream>();
 
         for (InputStream inst : insts) {
             v.add(inst);
+        }
+
+        return new SequenceInputStream(v.elements());
+    }
+
+    public static SequenceInputStream newSequenceInputStream(Iterator<File> e) throws FileNotFoundException {
+        Objects.requireNonNull(e);
+
+        Vector<InputStream> v = new Vector<InputStream>();
+
+        while (e.hasNext()) {
+            v.add(new FileInputStream(e.next()));
         }
 
         return new SequenceInputStream(v.elements());
@@ -589,14 +611,14 @@ public class IOUtils {
      * @version 3.0.0
      * 
      */
-    public static void open(String target) {
+    public static void open(@Nullable String target) {
         if (target == null || target.trim().isEmpty()) {
             return;
         }
 
         File file = new File(target);
         if (!file.exists()) {
-            System.err.println("There is not a file or a directory: " + target);
+            LOGGER.error("There is not a file or a directory: " + target);
             return;
         }
 
@@ -627,43 +649,175 @@ public class IOUtils {
     }
 
     /**
+     * {@link SocketChannel}로부터 지정된 길이만큼 데이터를 읽어 바이트 배열로 반환합니다. <br>
+     * (주의: 이 메소드는 채널이 블로킹(Blocking) 모드라고 가정하고 작성되었습니다.) *
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2015. 12. 10.    parkjunhong77@gmail.com     최초 작성
+     * 2026. 03. 31.    parkjunhong77@gmail.com     DirectBuffer 오버헤드 제거 및 EOF 안전성 확보
+     * </pre>
      * 
      * @param channel
+     *            데이터를 읽어올 소켓 채널 ({@code NOT nullable})
      * @param length
+     *            읽어들일 바이트 수
      * @param close
-     * @return
-     *
+     *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
+     * 
+     * @return 채널에서 읽어들인 바이트 배열. 스트림의 끝(EOF)에 도달하여 요청한 길이보다 적게 읽은 경우, 실제 읽은 크기만큼의 배열 반환.
+     * 
+     * @throws IOException
+     *             I/O 에러가 발생한 경우
+     * @throws NullPointerException
+     *             파라미터 {@code channel}이 {@code null}인 경우
+     * 
      * @since 2015. 12. 10.
      */
-    public static byte[] read(SocketChannel channel, final int length, boolean close) {
+    public static byte[] read(SocketChannel channel, final int length, boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(channel);
 
-        ByteBuffer buf = ByteBuffer.allocateDirect(length);
+        if (length <= 0) {
+            return new byte[0];
+        }
 
-        int total = 0;
-        int count = 0;
+        // [2] 성능 최적화: Direct Buffer 대신 Heap Array를 직접 Wrap 하여 Zero-copy(In-JVM) 달성
+        byte[] data = new byte[length];
+        ByteBuffer buf = ByteBuffer.wrap(data);
 
         try {
-            while (total < length && (count = channel.read(buf)) > 0) {
-                total += count;
+            // [3] 안전한 읽기 루프: 버퍼에 남은 공간이 있는 동안 반복
+            while (buf.hasRemaining()) {
+                int count = channel.read(buf);
+
+                if (count < 0) {
+                    // EOF (End of Stream) 도달
+                    break;
+                }
+
+                if (count == 0) {
+                    // Non-blocking 모드 방어 로직: CPU 100% 점유 방지 (Busy-spin 완화)
+                    Thread.yield();
+                }
             }
 
-            byte[] read = new byte[length];
+            int totalRead = buf.position();
 
-            buf.clear();
-            buf.get(read);
+            // [4] 아무것도 읽지 못한 경우
+            if (totalRead == 0) {
+                return new byte[0];
+            }
 
-            return read;
+            // [5] 불완전한 읽기(조기 EOF) 발생 시 실제 읽은 데이터 크기만큼만 잘라서 반환
+            if (totalRead < length) {
+                return Arrays.copyOf(data, totalRead);
+            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            // 요청한 길이만큼 완벽하게 읽은 경우 원본 배열 반환
+            return data;
 
+        } catch (IOException e) {
+            // 예외를 로그로 숨기지 않고 호출자에게 명확히 전파합니다.
+            throw e;
         } finally {
             if (close) {
                 IOUtils.close(channel);
             }
         }
+    }
 
-        return null;
+    /**
+     * Non-blocking 모드의 {@link SocketChannel}로부터 지정된 길이만큼 데이터를 읽어 바이트 배열로 반환합니다. <br>
+     * CPU 100% 점유(Busy-Spin)를 방지하기 위해 데이터가 없을 경우 짧은 대기(Back-off)를 수행하며, 지정된 타임아웃 시간을 초과하면 그때까지 읽은 데이터를 반환합니다. *
+     * 
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 03. 31.    parkjunhong77@gmail.com     Non-blocking 모드 전용 읽기 유틸리티 추가 (Busy-Spin 방지 및 Timeout 적용)
+     * </pre>
+     * 
+     * @param channel
+     *            데이터를 읽어올 Non-blocking 소켓 채널 ({@code NOT nullable})
+     * @param length
+     *            읽어들일 최대 바이트 수
+     * @param timeoutMillis
+     *            최대 대기 시간 (밀리초 단위). 이 시간을 초과하면 루프를 탈출합니다.
+     * @param close
+     *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
+     * 
+     * @return 채널에서 읽어들인 바이트 배열. 타임아웃이나 EOF에 도달한 경우 실제 읽은 크기만큼 잘라서 반환합니다.
+     * 
+     * @throws IOException
+     *             I/O 에러가 발생한 경우
+     * @throws InterruptedIOException
+     *             읽기 대기 중 스레드 인터럽트가 발생한 경우
+     * @throws NullPointerException
+     *             파라미터 {@code channel}이 {@code null}인 경우
+     * 
+     * @since 2026. 03. 31.
+     * @version 3.0.0
+     */
+    public static byte[] readNonBlocking(SocketChannel channel, final int length, long timeoutMillis, boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(channel);
+
+        if (length <= 0) {
+            return new byte[0];
+        }
+
+        byte[] data = new byte[length];
+        ByteBuffer buf = ByteBuffer.wrap(data);
+        long startTime = System.currentTimeMillis();
+
+        try {
+            while (buf.hasRemaining()) {
+                int count = channel.read(buf);
+
+                if (count < 0) {
+                    // EOF (End of Stream) 도달 시 즉시 탈출
+                    break;
+                }
+
+                if (count == 0) {
+                    // [2] Non-blocking 방어 로직: 타임아웃 검사
+                    if (System.currentTimeMillis() - startTime > timeoutMillis) {
+                        break;
+                    }
+
+                    // [3] CPU 100% 점유 방지 (Back-off 전략)
+                    // 데이터가 도착할 때까지 스레드를 아주 짧게(1ms) 재워 OS에 CPU 제어권을 양보합니다.
+                    try {
+                        Thread.sleep(1);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt(); // 인터럽트 상태 복구
+                        throw new InterruptedIOException("Non-blocking 읽기 대기 중 스레드가 인터럽트 되었습니다.");
+                    }
+                }
+            }
+
+            int totalRead = buf.position();
+
+            // [4] 아무것도 읽지 못한 경우 빈 배열 반환
+            if (totalRead == 0) {
+                return new byte[0];
+            }
+
+            // [5] 타임아웃 또는 조기 EOF 발생 시 실제 읽은 만큼만 잘라서 반환
+            if (totalRead < length) {
+                return Arrays.copyOf(data, totalRead);
+            }
+
+            return data;
+
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (close) {
+                IOUtils.close(channel);
+            }
+        }
     }
 
     /**
@@ -671,9 +825,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -691,17 +845,18 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
-        List<T> data = new ArrayList<>();
-        T datum = null;
+    public static <T, R extends @Nullable IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        ObjectUtils.requireNonNulls(channel, action, accessibles);
 
+        List<T> data = new ArrayList<>();
         Iterator<R> itr = accessibles.iterator();
+
+        @Nullable
         R access = null;
         while (itr.hasNext()) {
             access = itr.next();
             if (access != null) {
-                datum = readChannel(channel, action, access);
-                data.add(datum);
+                data.add(readChannel(channel, action, access));
             }
         }
 
@@ -714,9 +869,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 18.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -730,7 +885,10 @@ public class IOUtils {
      * @param accessible
      *            파일 데이터에 랜덤하게 접근할 수 있는 정보
      * @return
+     * 
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 18.
      * @version 1.8.0
@@ -746,9 +904,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -763,6 +921,9 @@ public class IOUtils {
      *            줄 데이터를 읽어서 데이터를 제공하는 함수
      * @return
      * @throws IOException
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code channel, buf, action 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
@@ -783,9 +944,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -815,9 +976,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -846,9 +1007,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -878,9 +1039,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -906,9 +1067,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -934,9 +1095,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -961,9 +1122,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -984,16 +1145,19 @@ public class IOUtils {
      * 
      */
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        ObjectUtils.requireNonNulls(file, action, accessibles);
+
         List<T> data = null;
         boolean result = true;
         String message = null;
-        try (FileChannel channel = file.getChannel()) {
+        try (@NonNull
+        FileChannel channel = file.getChannel()) {
             data = readChannel(channel, action, accessibles);
         } catch (Exception e) {
             result = false;
             message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
 
-            logger.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
 
             e.printStackTrace();
         }
@@ -1006,9 +1170,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1038,9 +1202,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1060,9 +1224,11 @@ public class IOUtils {
      * 
      */
     public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessible) throws IOException {
+        ObjectUtils.requireNonNulls(file, action, accessible);
 
         boolean result = true;
         String message = null;
+        @Nullable
         T data = null;
 
         ByteBuffer buf = null;
@@ -1075,7 +1241,7 @@ public class IOUtils {
         } catch (Exception e) {
             result = false;
             message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
-            logger.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
         }
 
         return new Result<>(data, result).setMessage(message);
@@ -1086,9 +1252,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1114,9 +1280,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1146,9 +1312,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1178,9 +1344,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1205,9 +1371,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1233,9 +1399,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1261,14 +1427,15 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2012. 1. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2012. 1. 10.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
      * @return
-     *
+     * 
+     * @throws IOException
      * 
      * @since 2012. 01. 10.
      * 
@@ -1276,7 +1443,7 @@ public class IOUtils {
      * @see #readFully(InputStream, boolean) since 1.6.5
      * @see #readFully(InputStream, int, boolean) since 1.6.5
      */
-    public static byte[] readFully(InputStream inStream) {
+    public static byte[] readFully(InputStream inStream) throws IOException {
         return readFully(inStream, true);
     }
 
@@ -1297,17 +1464,21 @@ public class IOUtils {
      *            자동 close 여부
      * @return
      *
+     * @throws IOException
+     * 
      * @since 2019. 3. 21.
-     * @version 3.0.0
+     * @version 1.6.5
      * 
      * @see #readFully(InputStream, int, boolean)
      */
-    public static byte[] readFully(InputStream inStream, final boolean close) {
+    public static byte[] readFully(InputStream inStream, final boolean close) throws IOException {
+        Objects.requireNonNull(inStream);
+
         try {
             return inStream.readAllBytes();
         } catch (IOException e) {
-            logger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
-            return null;
+            LOGGER.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            throw e;
         } finally {
             if (close) {
                 close(inStream);
@@ -1320,9 +1491,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 3. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
      * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
      * 2020. 9. 13.     parkjunohng77@gmail.com         Channel 처리 함수를 별도 분리 후, 내부 호출
      * 2026. 3. 10.     parkjunhong77@gmail.com         기존의 bufferSize 파라미터는 하위 호환성을 위해 남기지만 내부적으로는 최적화된 {@link #readFully(InputStream, boolean)} 을 호출.
@@ -1335,70 +1506,78 @@ public class IOUtils {
      * @param close
      *            자동 close 여부
      * @return
+     * 
+     * @throws IOException
      *
      * @since 2019. 3. 21.
      * @version 1.6.5
      * 
+     * 
      */
-    public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) {
+    public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) throws IOException {
         return readFully(inStream, close);
     }
 
     /**
-     * 
-     * /** 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
+     * 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 9. 13.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 9. 13.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 31.     parkjunhong77@gmail.com     Dead Code 제거, Heap Buffer 및 ByteArrayOutputStream 적용 최적화
      * </pre>
      *
      * @param channel
+     *            데이터를 읽어올 채널 ({@code NOT nullable})
      * @param bufferSize
+     *            한 번에 읽어들일 내부 버퍼의 크기
      * @param close
-     * @return
-     *
-     * @since 2020. 9. 13.
+     *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
+     * @return 채널에서 읽어들인 전체 바이트 배열
      * 
+     * @throws IOException
+     *             I/O 에러가 발생한 경우
+     * @throws NullPointerException
+     *             파라미터 {@code channel}이 {@code null}인 경우
+     * 
+     * @since 2020. 9. 13.
      */
-    public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) {
+    public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(channel);
 
-        ByteBuffer buf = ByteBuffer.allocateDirect(bufferSize);
+        if (bufferSize <= 0) {
+            return new byte[0];
+        }
 
-        int count = 0;
+        // [2] 메모리 최적화: Direct Buffer 대신 Heap Buffer 사용
+        ByteBuffer buf = ByteBuffer.allocate(bufferSize);
+        // 동적 크기 확장에 최적화된 표준 스트림 사용
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(Math.max(bufferSize, 8192));
+
         try {
-            ArrayList<byte[]> store = new ArrayList<>();
-            byte[] bs = null;
+            int count;
+            // [3] 읽기 루프 (루프 종료 후 남은 데이터는 수학적으로 존재하지 않음)
             while ((count = channel.read(buf)) > 0) {
-                buf.flip();
-                buf.get(bs = new byte[count]);
-                store.add(bs);
+                // 배열 복사(new byte[]) 과정 없이 Heap 버퍼의 원본 배열을 스트림에 직접 씁니다. (Zero-Copy)
+                baos.write(buf.array(), buf.arrayOffset(), count);
                 buf.clear();
             }
 
-            // 버퍼에 남은 데이터 읽기
-            if (count > 0) {
-                buf.flip();
-                buf.get(bs = new byte[count]);
-                store.add(bs);
-            }
+            return baos.toByteArray();
 
-            return ArrayUtils.merge(store.toArray(new byte[0][]));
         } catch (ClosedByInterruptException e) {
-            logger.info("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
+            LOGGER.warn("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
+            throw e;
         } catch (IOException e) {
-            logger.info("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
-        } catch (Throwable e) {
-            logger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            LOGGER.error("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
+            throw e;
         } finally {
             if (close) {
                 IOUtils.close(channel);
             }
         }
-
-        return null;
     }
 
     /**
@@ -1406,9 +1585,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1424,7 +1603,7 @@ public class IOUtils {
      * @see BufferedReader
      */
     public static List<String> readLines(File file) throws FileNotFoundException, IOException {
-        return readLines(file, Charset.defaultCharset());
+        return readLines(file, defaultCharset());
     }
 
     /**
@@ -1432,9 +1611,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1449,7 +1628,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(File file, Charset charset) throws FileNotFoundException, IOException {
+    public static List<String> readLines(File file, @Nullable Charset charset) throws FileNotFoundException, IOException {
         return readLines(file, charset, -1);
     }
 
@@ -1458,9 +1637,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1477,7 +1656,9 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(File file, Charset charset, long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(File file, @Nullable Charset charset, long lineCount) throws FileNotFoundException, IOException {
+        ObjectUtils.requireNonNulls(file);
+
         return readLines(new FileInputStream(file), charset, lineCount);
     }
 
@@ -1504,7 +1685,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(File file, long lineCount) throws FileNotFoundException, IOException {
-        return readLines(file, Charset.defaultCharset(), lineCount);
+        return readLines(file, defaultCharset(), lineCount);
     }
 
     /**
@@ -1528,7 +1709,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(File file, String charsetName) throws IOException {
+    public static List<String> readLines(File file, @Nullable String charsetName) throws IOException {
         return readLines(file, charsetName, -1);
     }
 
@@ -1555,11 +1736,8 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(File file, String charsetName, long lineCount) throws IOException {
-        Charset charset = Charset.isSupported(charsetName) //
-                ? Charset.forName(charsetName) //
-                : Charset.defaultCharset();
-        return readLines(file, charset, lineCount);
+    public static List<String> readLines(File file, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(file, requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -1567,9 +1745,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1581,7 +1759,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(InputStream inStream) throws IOException {
-        return readLines(inStream, Charset.defaultCharset(), -1);
+        return readLines(inStream, defaultCharset(), -1);
     }
 
     /**
@@ -1589,9 +1767,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1605,7 +1783,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(InputStream inStream, Charset charset) throws IOException {
+    public static List<String> readLines(InputStream inStream, @Nullable Charset charset) throws IOException {
         return readLines(inStream, charset, -1);
     }
 
@@ -1635,8 +1813,8 @@ public class IOUtils {
      * @version 3.0.0
      * 
      */
-    public static List<String> readLines(InputStream inStream, Charset charset, final long lineCount) throws IOException {
-        AssertUtils2.notNulls(inStream, charset);
+    public static List<String> readLines(InputStream inStream, @Nullable Charset charset, final long lineCount) throws IOException {
+        Objects.requireNonNull(inStream);
 
         // BufferedReader 라이프사이클(close)은 호출자의 책임이므로 try-with-resources는 생략합니다.
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, requireCharset(charset)));
@@ -1674,7 +1852,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(InputStream inStream, long lineCount) throws IOException {
-        return readLines(inStream, Charset.defaultCharset(), lineCount);
+        return readLines(inStream, defaultCharset(), lineCount);
     }
 
     /**
@@ -1682,9 +1860,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1696,7 +1874,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(InputStream inStream, String charsetName) throws IOException {
+    public static List<String> readLines(InputStream inStream, @Nullable String charsetName) throws IOException {
         return readLines(inStream, charsetName, -1);
     }
 
@@ -1723,7 +1901,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(InputStream inStream, String charsetName, long lineCount) throws IOException {
+    public static List<String> readLines(InputStream inStream, @Nullable String charsetName, long lineCount) throws IOException {
         return readLines(inStream, requireCharset(charsetName), lineCount);
     }
 
@@ -1732,9 +1910,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param 읽을
@@ -1748,7 +1926,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
-        return readLines(path, Charset.defaultCharset(), -1);
+        return readLines(path, defaultCharset(), -1);
     }
 
     /**
@@ -1773,7 +1951,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(Path path, Charset charset) throws FileNotFoundException, IOException {
+    public static List<String> readLines(Path path, @Nullable Charset charset) throws FileNotFoundException, IOException {
         return readLines(path, charset, -1);
     }
 
@@ -1801,7 +1979,9 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(Path path, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(Path path, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+        Objects.requireNonNull(path);
+
         return readLines(path.toFile(), charset, lineCount);
     }
 
@@ -1852,7 +2032,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(Path path, String charsetName) throws IOException {
+    public static List<String> readLines(Path path, @Nullable String charsetName) throws IOException {
         return readLines(path, charsetName, -1);
     }
 
@@ -1879,11 +2059,8 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(Path path, String charsetName, long lineCount) throws IOException {
-        Charset charset = Charset.isSupported(charsetName) //
-                ? Charset.forName(charsetName) //
-                : Charset.defaultCharset();
-        return readLines(path, charset, lineCount);
+    public static List<String> readLines(Path path, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(path, requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -1891,9 +2068,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param filepath
@@ -1906,7 +2083,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
-        return readLines(filepath, Charset.defaultCharset(), -1);
+        return readLines(filepath, defaultCharset(), -1);
     }
 
     /**
@@ -1931,7 +2108,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(String filepath, Charset charset) throws FileNotFoundException, IOException {
+    public static List<String> readLines(String filepath, @Nullable Charset charset) throws FileNotFoundException, IOException {
         return readLines(filepath, charset, -1);
     }
 
@@ -1959,7 +2136,9 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(String filepath, Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+    public static List<String> readLines(String filepath, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+        Objects.requireNonNull(filepath);
+
         return readLines(new File(filepath), charset, lineCount);
     }
 
@@ -1986,7 +2165,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(String filepath, final long lineCount) throws FileNotFoundException, IOException {
-        return readLines(filepath, Charset.defaultCharset(), lineCount);
+        return readLines(filepath, defaultCharset(), lineCount);
     }
 
     /**
@@ -2010,7 +2189,7 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(String filepath, String charsetName) throws IOException {
+    public static List<String> readLines(String filepath, @Nullable String charsetName) throws IOException {
         return readLines(filepath, charsetName, -1);
     }
 
@@ -2037,11 +2216,8 @@ public class IOUtils {
      * @version 1.8.0
      * 
      */
-    public static List<String> readLines(String filepath, String charsetName, long lineCount) throws IOException {
-        Charset charset = Charset.isSupported(charsetName) //
-                ? Charset.forName(charsetName) //
-                : Charset.defaultCharset();
-        return readLines(filepath, charset, lineCount);
+    public static List<String> readLines(String filepath, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(filepath, requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -2051,8 +2227,10 @@ public class IOUtils {
      * @param length
      *            읽어올 데이터 길이
      * @return InputStream으로부터 읽어온 데이터. 예외가 발생하는 경우 {@code null} 반환.
+     * 
+     * @throws IOException
      */
-    public static byte[] readStream(InputStream inStream, final int length) {
+    public static byte[] readStream(InputStream inStream, final int length) throws IOException {
         return readStream(inStream, length, true);
     }
 
@@ -2062,11 +2240,11 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 9. 6.		parkjunohng77@gmail.com			최초 작성
-     * 2019. 8. 29.		parkjunohng77@gmail.com			내부 로직 성능 향상 및 안정성 강화
-     * 2026. 3. 10.     parkjunohng77@gmail.com			(3.0.0) JDK 25 마이그레이션
+     * 2017. 9. 6.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
+     * 2026. 3. 10.     parkjunohng77@gmail.com         (3.0.0) JDK 25 마이그레이션
      * </pre>
      *
      * @param inStream
@@ -2075,17 +2253,19 @@ public class IOUtils {
      * @param close
      *            소켓 close 여부
      * @return
+     * 
+     * @throws IOException
      *
      * @since 2017. 9. 6.
-     * @version 3.0.0.
-     * @author parkjunohng77@gmail.com
      */
-    public static byte[] readStream(InputStream inStream, final int length, boolean close) {
+    public static byte[] readStream(InputStream inStream, final int length, boolean close) throws IOException {
+        Objects.requireNonNull(inStream);
+
         try {
             return inStream.readNBytes(length);
         } catch (IOException e) {
-            logger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
-            return null;
+            LOGGER.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            throw e;
         } finally {
             if (close) {
                 close(inStream);
@@ -2098,9 +2278,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2026. 3. 11.		parkjunhong77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param charset
@@ -2111,8 +2291,8 @@ public class IOUtils {
      * @version 3.0.0
      * 
      */
-    private static Charset requireCharset(Charset charset) {
-        return charset != null ? charset : StandardCharsets.UTF_8;
+    private static Charset requireCharset(@Nullable Charset charset) {
+        return charset != null ? charset : requireCharset((String) null);
     }
 
     /**
@@ -2120,9 +2300,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2026. 3. 11.		parkjunhong77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param charset
@@ -2133,12 +2313,12 @@ public class IOUtils {
      * @version 3.0.0
      * 
      */
-    private static Charset requireCharset(String charset) {
+    private static Charset requireCharset(@Nullable String charset) {
         return charset != null //
                 ? Charset.isSupported(charset) //
                         ? Charset.forName(charset) //
                         : StandardCharsets.UTF_8 //
-                : Charset.defaultCharset();
+                : defaultCharset();
     }
 
     /**
@@ -2160,17 +2340,18 @@ public class IOUtils {
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
      * @return
+     * 
      * @throws IOException
      *
      * @since 2018. 9. 10.
-     * @version 3.0.0
-     * 
      *
      * @see InputStream#transferTo(OutputStream)
      * @see InputStream#close()
      * @see OutputStream#close()
      */
     public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, outStream);
+
         try {
             long transferred = inStream.transferTo(outStream);
             outStream.flush();
@@ -2226,9 +2407,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2026. 3. 11.		parkjunhong77@gmail.com			최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2254,9 +2435,10 @@ public class IOUtils {
      * @see OutputStreamReader
      */
     public static int transfer(InputStream inStream, Charset inCharset, boolean closeInput, OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
 
         // 입력과 출력의 인코딩이 동일하다면, 문자(Char) 디코딩을 생략하고 순수 바이트(Byte) 고속 복사를 수행합니다.
-        if (inCharset != null && inCharset.equals(outCharset)) {
+        if (inCharset.equals(outCharset)) {
             return transfer(inStream, closeInput, outStream, closeOutput);
         }
         // 인코딩이 다르다면, 문자로 변환(디코딩) 후 다시 인코딩하는 Transcoding 과정을 거칩니다.
@@ -2295,6 +2477,8 @@ public class IOUtils {
      * @see InputStreamReader
      */
     public static int transfer(InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -2330,6 +2514,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, Charset inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -2339,9 +2525,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2368,9 +2554,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
@@ -2400,9 +2586,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2418,6 +2604,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), true, writer, true);
     }
 
@@ -2446,6 +2634,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), close, writer, close);
     }
 
@@ -2478,6 +2668,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), close, writer, close);
     }
 
@@ -2486,9 +2678,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
@@ -2508,7 +2700,7 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer, int readBufferSize) throws IOException {
-        return transfer(new InputStreamReader(inStream, inCharset), true, writer, true);
+        return transfer(inStream, inCharset, writer, true);
     }
 
     /**
@@ -2601,9 +2793,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.		parkjunohng77@gmail.com		최초 작성
+     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
      * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
@@ -2691,9 +2883,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
@@ -2903,6 +3095,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
+
         return transfer(inStream, requireCharset(inCharset), closeInput, outStream, requireCharset(outCharset), closeOutput);
     }
 
@@ -2941,7 +3135,9 @@ public class IOUtils {
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize)
             throws IOException {
-        return transfer(new InputStreamReader(inStream, inCharset), closeInput, new OutputStreamWriter(outStream, outCharset), closeOutput, readBufferSize);
+        ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
+
+        return transfer(new InputStreamReader(inStream, inCharset), closeInput, new OutputStreamWriter(outStream, outCharset), closeOutput);
     }
 
     /**
@@ -2949,9 +3145,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2971,6 +3167,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -2979,9 +3177,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
@@ -3005,6 +3203,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, inCharset), closeReader, writer, closeWriter);
     }
 
@@ -3014,9 +3214,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3037,6 +3237,8 @@ public class IOUtils {
      * 
      */
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
+
         return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
     }
 
@@ -3046,9 +3248,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
@@ -3072,6 +3274,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
+
         return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
     }
 
@@ -3099,6 +3303,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, Writer writer) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
     }
 
@@ -3128,6 +3334,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
     }
 
@@ -3161,6 +3369,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer, close);
+
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
     }
 
@@ -3192,6 +3402,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(inStream, inCharset, writer);
+
         return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
     }
 
@@ -3200,9 +3412,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3223,6 +3435,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3231,9 +3445,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
@@ -3258,6 +3472,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3289,6 +3505,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3324,6 +3542,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
     }
 
@@ -3332,9 +3552,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param reader
@@ -3350,6 +3570,8 @@ public class IOUtils {
      * 
      */
     public static int transfer(Reader reader, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
+        ObjectUtils.requireNonNulls(reader, writer);
+
         try {
             long transferred = reader.transferTo(writer);
             writer.flush();
@@ -3399,9 +3621,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3418,6 +3640,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
@@ -3426,9 +3650,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3447,6 +3671,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3455,9 +3681,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
@@ -3480,6 +3706,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3488,9 +3716,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
@@ -3511,6 +3739,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
@@ -3519,9 +3749,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3538,6 +3768,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, String outCharset) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
     }
 
@@ -3546,9 +3778,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3567,6 +3799,8 @@ public class IOUtils {
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3575,9 +3809,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
@@ -3600,6 +3834,8 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
+        ObjectUtils.requireNonNulls(reader, outStream, outCharset);
+
         return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
     }
 
@@ -3608,9 +3844,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
@@ -3639,9 +3875,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 7.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 8. 7.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
      * @param reader
@@ -3661,9 +3897,9 @@ public class IOUtils {
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *

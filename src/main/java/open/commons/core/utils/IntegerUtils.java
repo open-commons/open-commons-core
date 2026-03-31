@@ -27,9 +27,9 @@ import open.commons.core.utils.NumberUtils.IntegerType;
 
 /**
  * int 및 {@link Integer}에 데이타 처리를 위한 메소드 제공 클래스
- * 
+ *
  * @since 2012. 2. 8.
- * 
+ *
  */
 // 아래 내용에 적용됨.
 // - JDK 표준 API
@@ -46,7 +46,7 @@ public class IntegerUtils {
      * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로 이루어진 int 배열을 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -62,8 +62,6 @@ public class IntegerUtils {
      *             파라미터({@code values})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 9.
-     * 
-     * 
      *
      * @see #byteArrayToInt(byte[])
      */
@@ -88,7 +86,7 @@ public class IntegerUtils {
      * 길이가 4인 byte 배열(byte-4 배열)을 int 타입의 값으로 변환한 후 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -123,7 +121,7 @@ public class IntegerUtils {
 
     /**
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -150,7 +148,7 @@ public class IntegerUtils {
      * 문자열 앞에 '0x'를 붙여 반환합니다. <br>
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -162,11 +160,10 @@ public class IntegerUtils {
      *
      * @return
      *
-     *
      * @since 2020. 12. 17.
      *
      * @version 1.8.0
-     * 
+     *
      */
     public static String hex(String str) {
         return concat("", "0x", str);
@@ -174,7 +171,7 @@ public class IntegerUtils {
 
     /**
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -187,7 +184,7 @@ public class IntegerUtils {
      * @return
      *
      * @throws NumberFormatException
-     * 
+     *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
@@ -201,7 +198,7 @@ public class IntegerUtils {
 
     /**
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -214,7 +211,6 @@ public class IntegerUtils {
      *            포함
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
@@ -222,7 +218,7 @@ public class IntegerUtils {
      * @since 2014. 7. 10. - 내부 구현 변경.
      *
      * @see String#substring(int)
-     * 
+     *
      */
     public static int parseInt(String value, int begin) throws IndexOutOfBoundsException, NumberFormatException {
         Objects.requireNonNull(value);
@@ -232,7 +228,7 @@ public class IntegerUtils {
 
     /**
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -247,7 +243,6 @@ public class IntegerUtils {
      *            제외
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
@@ -255,7 +250,7 @@ public class IntegerUtils {
      * @since 2014. 7. 10. - 내부 구현 변경.
      *
      * @see String#substring(int, int)
-     * 
+     *
      */
     public static int parseInt(String value, int begin, int end) throws IndexOutOfBoundsException, NumberFormatException {
         Objects.requireNonNull(value);
@@ -284,7 +279,7 @@ public class IntegerUtils {
      * int 타입의 데이타를 32단위의 이진법 표기로 변환한 {@code <b>char</b>} 배열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -297,7 +292,7 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     * 
+     *
      */
     public static char[] toBinary32CharArray(int value) {
         return toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH);
@@ -308,7 +303,7 @@ public class IntegerUtils {
      * 단, 반환되는 배열은 이진법 표기의 오른쪽값에서부터 채워진다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -321,10 +316,9 @@ public class IntegerUtils {
      *            결과 길이
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static char[] toBinary32CharArray(int value, int length) {
         return toCharArray(Integer.toBinaryString(value), length);
@@ -334,7 +328,7 @@ public class IntegerUtils {
      * int 타입의 데이타를 32단위의 이진법 표기로 변환한 문자열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -347,7 +341,7 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     * 
+     *
      */
     public static String toBinary32String(int value) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH));
@@ -358,7 +352,7 @@ public class IntegerUtils {
      * 단, 반환되는 문자열은 이진법 표기의 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -370,10 +364,9 @@ public class IntegerUtils {
      * @param length
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toBinary32String(int value, int length) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), length));
@@ -383,7 +376,7 @@ public class IntegerUtils {
      * int 타입의 값을 길이가 4인 byte 배열로 변환해서 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -396,7 +389,7 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     * 
+     *
      */
     public static byte[] toByteArray(int value) {
         byte[] returnedValue = new byte[4];
@@ -413,7 +406,7 @@ public class IntegerUtils {
      * int 타입의 값으로 이루어진 배열의 각 데이타들을 길이가 4인 byte 배열로 변환한 후 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -429,8 +422,6 @@ public class IntegerUtils {
      *             파라미터({@code values})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 9.
-     * 
-     * 
      *
      * @see #toByteArray(int)
      */
@@ -448,7 +439,7 @@ public class IntegerUtils {
 
     /**
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -482,7 +473,7 @@ public class IntegerUtils {
      * 정수형 데이타를 원하는 길이의 {@code <b>char</b>} 배열로 변환한 후 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -496,13 +487,12 @@ public class IntegerUtils {
      *            표현하고자 하는 문자열 길이
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static char[] toCharArray(String value, int length) {
         Objects.requireNonNull(value);
@@ -526,7 +516,7 @@ public class IntegerUtils {
      * 정수형 데이타를 16진수형태의 8자리 {@code <b>char</b>} 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -537,10 +527,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static char[] toHexCharArray(int value) {
         return toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH);
@@ -551,7 +540,7 @@ public class IntegerUtils {
      * 단, 반환되는 배열은 16진수표기의 오른쪽값에서부터 채워진다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -562,10 +551,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static char[] toHexCharArray(int value, int length) {
         return toCharArray(Integer.toHexString(value), length);
@@ -575,7 +563,7 @@ public class IntegerUtils {
      * 정수형 데이타를 16진수형태의 8자리 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -586,10 +574,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static String toHexString(int value) {
         return String.valueOf(toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH));
@@ -599,7 +586,7 @@ public class IntegerUtils {
      * 정수형 데이타를 16진수형태의 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -612,10 +599,9 @@ public class IntegerUtils {
      *            0(zero) trim 처리 여부
      *
      * @return
-     * 
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static String toHexString(int value, boolean padding) {
         String hexValue = toHexString(value);
@@ -637,7 +623,7 @@ public class IntegerUtils {
      * 단, 반환되는 문자열은 16진수표기의 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -648,10 +634,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static String toHexString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toHexString(value), length));
@@ -661,7 +646,7 @@ public class IntegerUtils {
      * 정수형 데이타를 16진수형태의 8자리 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -672,13 +657,12 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static String toHexString(String value) {
         Objects.requireNonNull(value);
@@ -690,7 +674,7 @@ public class IntegerUtils {
      * 정수형 데이타를 16진수형태의 문자열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -703,13 +687,12 @@ public class IntegerUtils {
      *            0(zero) trim 처리 여부
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static String toHexString(String value, boolean padding) {
         Objects.requireNonNull(value);
@@ -722,7 +705,7 @@ public class IntegerUtils {
      * 단, 반환되는 문자열은 16진수표기의 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -733,13 +716,12 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 8.
-     * 
+     *
      */
     public static String toHexString(String value, int length) {
         Objects.requireNonNull(value);
@@ -751,7 +733,7 @@ public class IntegerUtils {
      * int 값을 IPV4 주소 형태로 변환하여 제공합니다. <br>
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -763,11 +745,10 @@ public class IntegerUtils {
      *
      * @return
      *
-     *
      * @since 2020. 12. 17.
      *
      * @version 1.8.0
-     * 
+     *
      */
     public static String toIPv4(int nums) {
         int[] ar = new int[4];
@@ -782,7 +763,7 @@ public class IntegerUtils {
      * int 배열을 IPV4 주소 형태로 변환하여 제공합니다. <br>
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -794,14 +775,13 @@ public class IntegerUtils {
      *
      * @return
      *
-     *
      * @throws NullPointerException
      *             파라미터({@code nums})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 17.
      *
      * @version 1.8.0
-     * 
+     *
      */
     public static String toIPv4(int[] nums) {
         Objects.requireNonNull(nums);
@@ -815,7 +795,7 @@ public class IntegerUtils {
      * 정수형 데이타를 8진수 형태의 {@code <b>char</b>} 배열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -826,10 +806,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static char[] toOctalCharArray(int value) {
         return toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH);
@@ -840,7 +819,7 @@ public class IntegerUtils {
      * 단, 반환되는 배열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -851,10 +830,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static char[] toOctalCharArray(int value, int length) {
         return toCharArray(Integer.toOctalString(value), length);
@@ -864,7 +842,7 @@ public class IntegerUtils {
      * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -875,10 +853,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toOctalString(int value) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH));
@@ -888,7 +865,7 @@ public class IntegerUtils {
      * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -901,10 +878,9 @@ public class IntegerUtils {
      *            0(zero) trim 처리 여부
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toOctalString(int value, boolean padding) {
         String octValue = toOctalString(value);
@@ -926,7 +902,7 @@ public class IntegerUtils {
      * 단, 반환되는 문자열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -937,10 +913,9 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toOctalString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), length));
@@ -950,7 +925,7 @@ public class IntegerUtils {
      * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -961,13 +936,12 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toOctalString(String value) {
         Objects.requireNonNull(value);
@@ -979,7 +953,7 @@ public class IntegerUtils {
      * 정수형 데이타를 8진수 형태의 문자열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -992,13 +966,12 @@ public class IntegerUtils {
      *            0(zero) trim 처리 여부
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toOctalString(String value, boolean padding) {
         Objects.requireNonNull(value);
@@ -1011,7 +984,7 @@ public class IntegerUtils {
      * 단, 반환되는 문자열은 8진수표기에서 오른쪽값에서부터 원하는 길이만큼 좌측으로 추출된 값이다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -1022,13 +995,12 @@ public class IntegerUtils {
      * @param value
      *
      * @return
-     * 
      *
      * @throws NullPointerException
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     * 
+     *
      */
     public static String toOctalString(String value, int length) {
         Objects.requireNonNull(value);
@@ -1040,7 +1012,7 @@ public class IntegerUtils {
      * int 타입의 데이타를 보기 좋은 32단위의 이진법 표기로 변환한 문자열로 반환합니다.
      *
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -1053,7 +1025,7 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     * 
+     *
      */
     public static String toWellFormed32bitBinaryString(int value) {
         char[] str = new char[32];
