@@ -26,10 +26,13 @@
 
 package open.commons.core.utils;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.jspecify.annotations.Nullable;
 
 /**
  * 
@@ -42,6 +45,7 @@ public class LangUtils {
     private static final Predicate<Object> NOT_NULL = o -> o != null;
     private static final Predicate<Object> NOT_NULL_EMPTY = o -> o != null && !((String) o).trim().isEmpty();
 
+    @SuppressWarnings("null")
     private static final Pattern NUMBER_VALUE = Pattern.compile("(\\d+)(b|kb|mb|gb|tb|pb)?", Pattern.CASE_INSENSITIVE);
 
     private LangUtils() {
@@ -49,7 +53,7 @@ public class LangUtils {
 
     /**
      * {@link Predicate} 가 {@code true} 인 경우, 데이타를 {@link Consumer}에게 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -57,6 +61,8 @@ public class LangUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param <T>
+     *            데이타 타입
      * @param value
      *            데이타
      * @param p
@@ -64,9 +70,14 @@ public class LangUtils {
      * @param c
      *            실행 함수
      *
+     * @throws NullPointerException
+     *             파라미터({@code p 또는 c})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 10. 26.
      */
-    public static final <T> void executeIf(T value, Predicate<Object> p, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIf(T value, Predicate<Object> p, Consumer<T> c) {
+        ObjectUtils.requireNonNulls(p, c);
+
         if (p.test((Object) value)) {
             c.accept(value);
         }
@@ -74,7 +85,7 @@ public class LangUtils {
 
     /**
      * {@link Predicate} 가 {@code true} 인 경우 데이타를, {@code false}인 경우 기본값을 {@link Consumer}에게 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -82,6 +93,8 @@ public class LangUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param <T>
+     *            데이타 타입
      * @param value
      *            데이타
      * @param defaultValue
@@ -91,9 +104,14 @@ public class LangUtils {
      * @param c
      *            실행 함수
      *
+     * @throws NullPointerException
+     *             파라미터({@code p 또는 c})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 10. 26.
      */
-    public static final <T> void executeIf(T value, T defaultValue, Predicate<Object> p, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIf(T value, T defaultValue, Predicate<Object> p, Consumer<T> c) {
+        ObjectUtils.requireNonNulls(p, c);
+
         if (p.test((Object) value)) {
             c.accept(value);
         } else {
@@ -103,7 +121,7 @@ public class LangUtils {
 
     /**
      * 데이타가 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -111,21 +129,26 @@ public class LangUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param <T>
+     *            데이타 타입
      * @param value
      *            데이타
      * @param c
      *            실행함수
      *
+     * @throws NullPointerException
+     *             파라미터({@code c})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 10. 26.
      */
-    public static final <T> void executeIfNotNull(T value, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIfNotNull(T value, Consumer<T> c) {
         executeIf(value, NOT_NULL, c);
     }
 
     /**
      * 데이타가 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
      * {@code null}인 경우 기본값을 전달합니다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -133,6 +156,8 @@ public class LangUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param <T>
+     *            데이타 타입
      * @param value
      *            데이타
      * @param defaultValue
@@ -140,15 +165,18 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
+     * @throws NullPointerException
+     *             파라미터({@code c})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 10. 26.
      */
-    public static final <T> void executeIfNotNull(T value, T defaultValue, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIfNotNull(T value, T defaultValue, Consumer<T> c) {
         executeIf(value, defaultValue, NOT_NULL, c);
     }
 
     /**
      * 문자열이 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -161,16 +189,19 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
+     * @throws NullPointerException
+     *             파라미터({@code c})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 10. 26.
      */
-    public static final void executeIfNotNullEmpty(String value, Consumer<String> c) {
+    public static final void executeIfNotNullEmpty(@Nullable String value, Consumer<@Nullable String> c) {
         executeIf(value, NOT_NULL_EMPTY, c);
     }
 
     /**
      * 문자열이 {@code null}이 아닌 경우, {@link Consumer}에게 전달합니다.<br>
      * {@code null} 인 경우 기본값을 전달합니다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -185,16 +216,19 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
+     * @throws NullPointerException
+     *             파라미터({@code c})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 10. 26.
      */
-    public static final void executeIfNotNullEmpty(String value, String defaultValue, Consumer<String> c) {
+    public static final void executeIfNotNullEmpty(@Nullable String value, @Nullable String defaultValue, Consumer<@Nullable String> c) {
         executeIf(value, defaultValue, NOT_NULL_EMPTY, c);
     }
 
     /**
      * 데이타가 {@code null} 인 경우, 기본값을 전달합니다. <br>
      * {@code null}이 아닌 경우 기본값을 전달합니다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -202,20 +236,27 @@ public class LangUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param <T>
+     *            데이타 타입
      * @param value
+     *            데이타
      * @param defaultValue
+     *            기본값
      * @param c
+     *            실행함수
+     *
+     * @throws NullPointerException
+     *             파라미터({@code c})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
-    public static final <T> void executeIfNull(T value, T defaultValue, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIfNull(T value, T defaultValue, Consumer<T> c) {
         executeIf(value, defaultValue, NULL, c);
     }
 
     /**
-     * 
-     * <br>
-     * 
+     * 데이타가 {@code null} 인 경우, {@link Consumer}에게 전달합니다. <br>
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -223,18 +264,25 @@ public class LangUtils {
      * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
+     * @param <T>
+     *            데이타 타입
      * @param value
+     *            데이타
      * @param c
+     *            실행함수
+     *
+     * @throws NullPointerException
+     *             파라미터({@code c})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
-    public static final <T> void executeIfNullEmpty(T value, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIfNullEmpty(T value, Consumer<T> c) {
         executeIf(value, NULL, c);
     }
 
     /**
      * 캐릭터형 타입 여부를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -243,17 +291,24 @@ public class LangUtils {
      * </pre>
      *
      * @param clazz
-     * @return
+     *            클래스 타입
+     *
+     * @return 캐릭터형 타입 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code clazz})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
     public static boolean isCharBased(Class<?> clazz) {
+        Objects.requireNonNull(clazz);
+
         return Character.class.isAssignableFrom(clazz) || "char".equals(clazz.getName());
     }
 
     /**
      * 숫자형 타입 여부를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -262,11 +317,17 @@ public class LangUtils {
      * </pre>
      *
      * @param clazz
-     * @return
+     *            클래스 타입
+     *
+     * @return 숫자형 타입 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code clazz})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
     public static boolean isNumber(Class<?> clazz) {
+        Objects.requireNonNull(clazz);
 
         if (Number.class.isAssignableFrom(clazz)) {
             return true;
@@ -296,7 +357,7 @@ public class LangUtils {
      * <li>KB / kb
      * <li>B / b
      * </ul>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -306,11 +367,19 @@ public class LangUtils {
      * </pre>
      *
      * @param value
-     * @return
+     *            문자열
+     *
+     * @return 계산된 바이트 단위의 숫자
+     *
+     * @throws NullPointerException
+     *             파라미터({@code value})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             단위 문자열 형식이 잘못된 경우 발생.
      *
      * @since 2018. 9. 26.
      */
     public static long toNumber(String value) {
+        Objects.requireNonNull(value);
 
         Matcher m = NUMBER_VALUE.matcher(value.trim().toLowerCase());
 

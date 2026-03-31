@@ -328,7 +328,7 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E => R)
+     *            새로운 데이터 유형 (E &rarr; R)
      * @param data1
      *            정렬된 데이터#1
      * @param data2
@@ -336,9 +336,9 @@ public class CollectionUtils {
      * @param keyProvider
      *            데이터 식별정보 제공 함수
      * @param transformer
-     *            데이터 변환 함수 (E => R)
+     *            데이터 변환 함수 (E &rarr; R)
      * @param emptyCreator
-     *            빈 데이터 제공 함수 ({} => R)
+     *            빈 데이터 제공 함수 ({} &rarr; R)
      * @return
      *
      * @since 2025. 9. 1.
@@ -373,7 +373,7 @@ public class CollectionUtils {
      * @param keyProvider
      *            데이터 식별정보 제공 함수
      * @param emptyCreator
-     *            빈 데이터 제공 함수 ({} => R)
+     *            빈 데이터 제공 함수 ({} &rarr; R)
      * @return
      *
      * @since 2025. 9. 1.
@@ -403,21 +403,21 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            정렬된 데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            정렬된 데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
+     *            데이터#2 변환 함수 (E2 &rarr; R)
      * @param emptyCreator
-     *            빈 데이터 제공 함수 ({} => R)
+     *            빈 데이터 제공 함수 ({} &rarr; R)
      * @return
      * 
      * @throws NullPointerException
@@ -451,25 +451,25 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R1>
-     *            새로운 데이터 유형1 (E1 => R1)
+     *            새로운 데이터 유형1 (E1 &rarr; R1)
      * @param <R2>
-     *            새로운 데이터 유형2 (E2 => R2)
+     *            새로운 데이터 유형2 (E2 &rarr; R2)
      * @param data1
      *            정렬된 데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R1)
+     *            데이터#1 변환 함수 (E1 &rarr; R1)
      * @param emptyCreator1
-     *            빈 데이터 제공 함수 ( {} => R1)
+     *            빈 데이터 제공 함수 ( {} &rarr; R1)
      * @param data2
      *            정렬된 데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R2)
+     *            데이터#2 변환 함수 (E2 &rarr; R2)
      * @param emptyCreator2
-     *            빈 데이터 제공 함수 ({} => R2)
+     *            빈 데이터 제공 함수 ({} &rarr; R2)
      * @return
      * 
      * @throws NullPointerException
@@ -677,7 +677,7 @@ public class CollectionUtils {
      * @param parentKeyProvider
      *            상위객체 식별정보 제공자
      * @param transformer
-     *            데이터 변환 함수 (E => TREE)
+     *            데이터 변환 함수 (E &rarr; TREE)
      * @param addChild
      *            'TREE'에 데이터 추가 함수.
      *            <li>첫번재: 상위 객체
@@ -2434,7 +2434,7 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E => R)
+     *            새로운 데이터 유형 (E &rarr; R)
      * @param data1
      *            데이터#1
      * @param data2
@@ -2442,7 +2442,7 @@ public class CollectionUtils {
      * @param keyProvider
      *            데이터 식별정보 제공 함수
      * @param transformer
-     *            데이터 변환 함수 (E => R)
+     *            데이터 변환 함수 (E &rarr; R)
      *
      * @return
      * 
@@ -2480,19 +2480,19 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
+     *            데이터#2 변환 함수 (E2 &rarr; R)
      * @return
      * 
      * @throws NullPointerException
@@ -2531,19 +2531,19 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
+     *            데이터#2 변환 함수 (E2 &rarr; R)
      * @return
      * 
      * @throws NullPointerException
@@ -2795,7 +2795,7 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E => R)
+     *            새로운 데이터 유형 (E &rarr; R)
      * @param data1
      *            정렬된 데이터#1
      * @param data2
@@ -2803,7 +2803,7 @@ public class CollectionUtils {
      * @param keyProvider
      *            데이터 식별정보 제공 함수
      * @param transforme
-     *            데이터 변환 함수 (E => R)
+     *            데이터 변환 함수 (E &rarr; R)
      * @return
      * 
      * @throws NullPointerException
@@ -2836,7 +2836,7 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            정렬된 데이터#1
      * @param data2
@@ -2844,7 +2844,7 @@ public class CollectionUtils {
      * @param keyProvider
      *            데이터#1 식별정보 제공 함수
      * @param transformer
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param comparator
      *            'KEY' 값 우선순위 비교 함수
      * @return
@@ -2876,19 +2876,19 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            정렬된 데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            정렬된 데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
+     *            데이터#2 변환 함수 (E2 &rarr; R)
      * @return
      * 
      * @throws NullPointerException
@@ -3077,7 +3077,7 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E => R)
+     *            새로운 데이터 유형 (E &rarr; R)
      * @param data1
      *            데이터#1
      * @param data2
@@ -3085,7 +3085,7 @@ public class CollectionUtils {
      * @param keyProvider
      *            데이터 식별정보 제공 함수
      * @param transformer
-     *            데이터 변환 함수 (E => R)
+     *            데이터 변환 함수 (E &rarr; R)
      *
      * @return
      * 
@@ -3122,19 +3122,19 @@ public class CollectionUtils {
      * @param <KEY>
      *            식별정보 유형
      * @param <R>
-     *            새로운 데이터 유형 (E1 => R, E2 => R)
+     *            새로운 데이터 유형 (E1 &rarr; R, E2 &rarr; R)
      * @param data1
      *            데이터#1
      * @param keyProvider1
      *            데이터#1 식별정보 제공 함수
      * @param transformer1
-     *            데이터#1 변환 함수 (E1 => R)
+     *            데이터#1 변환 함수 (E1 &rarr; R)
      * @param data2
      *            데이터#2
      * @param keyProvider2
      *            데이터#2 식별정보 제공 함수
      * @param transformer2
-     *            데이터#2 변환 함수 (E2 => R)
+     *            데이터#2 변환 함수 (E2 &rarr; R)
      * @return
      * 
      * @throws NullPointerException
@@ -3347,6 +3347,10 @@ public class CollectionUtils {
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3356,10 +3360,11 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <COL>
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param col
      *            데이터
@@ -3380,14 +3385,19 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <E extends @Nullable Object, NE extends @Nullable Object, COL extends Collection<NE>> COL toCollection(Collection<E> col, Function<E, NE> transformer,
-            Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, C extends Collection<NE>> //
+            C toCollection(Collection<E> col, Function<E, NE> transformer, Supplier<C> collectionSupplier) {
         return StreamUtils.toCollection(col.stream(), transformer, collectionSupplier);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3397,20 +3407,26 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <C>
+     *            결과 {@link Collection} 유형
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -3423,14 +3439,47 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, COL extends Collection<V>> COL toCollection(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K extends @Nullable Object, V, C extends Collection<V>> //
+            C toCollection(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return StreamUtils.toCollection(col.stream(), keyMapper, valueMapper, mergeFunction, collectionFactory);
     }
 
     /**
+     * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
      * 
-     * <br>
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            데이터 유형 (Nullable)
+     * @param col
+     *            데이터 제공 객체
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code col})가 {@code null}인 경우 발생.
+     *
+     * @since 2025. 8. 21.
+     * @version 2.1.0
+     */
+    // 아래 내용에 적용됨.
+    // - (Supplier<List<T>>) ArrayList<T>::new;
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    public static <E extends @Nullable Object> List<E> toList(Collection<E> col) {
+        return toList(col, (Supplier<List<E>>) ArrayList<E>::new);
+    }
+
+    /**
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3465,8 +3514,10 @@ public class CollectionUtils {
     }
 
     /**
-     * 
-     * <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3476,15 +3527,17 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을 허용해야 합니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
-     *            데이터
+     *            데이터 제공 객체
      * @param transformer
-     *            데이터 변환 함수
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param listSupplier
      *            결과 {@link Listr} 객체 제공 함수.
      * @return
@@ -3502,38 +3555,10 @@ public class CollectionUtils {
     /**
      * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
      * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            데이터 유형
-     * @param <LIST>
-     *            결과 {@link List} 유형
-     * @param col
-     * @param listSupplier
-     * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code col})가 {@code null}인 경우 발생.
-     *
-     * @since 2025. 8. 21.
-     * @version 2.1.0
-     */
-    // 아래 내용에 적용됨.
-    // - (Supplier<List<T>>) ArrayList<T>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
-    public static <T extends @Nullable Object> List<T> toList(Collection<T> col) {
-        return toList(col, (Supplier<List<T>>) ArrayList<T>::new);
-    }
-
-    /**
-     * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3542,12 +3567,15 @@ public class CollectionUtils {
      * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @param <T>
-     *            데이터 유형
-     * @param <COL>
+     * @param <E>
+     *            데이터 유형 (Nullable)<br>
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <C>
      *            결과 {@link List} 유형
      * @param col
+     *            데이터 제공 객체
      * @param collectionSupplier
+     *            결과 {@link Collection} 객체 제공 함수.
      * @return
      * 
      * @throws NullPointerException
@@ -3556,13 +3584,18 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    public static <T extends @Nullable Object, COL extends Collection<T>> COL toList(Collection<T> col, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, C extends Collection<E>> C toList(Collection<E> col, Supplier<C> collectionSupplier) {
         return toCollection(col, StreamUtils.identity(), collectionSupplier);
     }
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3572,15 +3605,19 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
-     * @return
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -3609,19 +3646,23 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <LIST>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <L>
      *            결과 {@link List} 유형
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -3629,15 +3670,19 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, LIST extends List<V>> LIST toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<LIST> listFactory) {
+    public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+            Supplier<L> listFactory) {
         return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, listFactory);
     }
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
-     * <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3647,16 +3692,20 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <LIST>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
-     * @return
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -3676,7 +3725,11 @@ public class CollectionUtils {
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
-     * <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3686,18 +3739,24 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <LIST>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <L>
+     *            결과 {@link List} 유형
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -3705,14 +3764,16 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, LIST extends List<V>> LIST toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<LIST> listFactory) {
+    public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction, Supplier<L> listFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, listFactory);
     }
 
     /**
-     * 
-     * <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3721,8 +3782,15 @@ public class CollectionUtils {
      * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
+     * @param <E>
+     *            데이터 유형 (Nullable)
+     * @param <NE>
+     *            새로운 데이터 유형 (Nullable).
      * @param stream
+     *            데이터 제공 객체
      * @param transformer
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     * 
      * @return
      *
      * @throws NullPointerException
@@ -3750,7 +3818,10 @@ public class CollectionUtils {
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
      * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
-     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3761,9 +3832,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 식별정보 유형 (Nullable).
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable).
      * @param col
      *            데이터 제공 객체.
      * @param keyMapper
@@ -3780,7 +3851,7 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <E, K extends @Nullable Object> Map<K, E> toMap(Collection<E> col, Function<E, K> keyMapper) {
+    public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Collection<E> col, Function<E, K> keyMapper) {
         return toMap(col, keyMapper, (Supplier<Map<K, E>>) HashMap<K, E>::new);
     }
 
@@ -3889,6 +3960,10 @@ public class CollectionUtils {
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
      * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3899,15 +3974,16 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable).
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
      *            데이터 제공 객체.
      * @param keyMapper
-     *            데이터 식별정보 제공 함수.
+     *            객체의 식별정보를 제공하는 함수. (E &rarr; K)
      * @param mapSupplier
      *            결과 {@link Map} 객체 제공함수.
      * @return
@@ -3916,19 +3992,23 @@ public class CollectionUtils {
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2017. 7. 6.
+     * @version 2.1.0
      */
     // 아래 내용에 적용됨.
     // - col.stream()
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <E, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
+    public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), BinaryOperators.last(), mapSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -3938,15 +4018,17 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable).
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable)
      * @param <M>
      * @param col
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -3961,14 +4043,18 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+    public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
         return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
-     *
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      * 날짜 | 작성자 | 내용
@@ -3977,18 +4063,23 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable).
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
+     *            변환된 새로운 데이터 유형 (Nullable).
      * @param <M>
+     *            결과 {@link Map} 유형
      * @param col
+     *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U)
      * @return
      *
      * @since 2025. 8. 20.
@@ -4005,7 +4096,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -4015,20 +4110,29 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
+     *            변환된 새로운 데이터 유형 (Nullable). <br>
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이 가능합니다.
      * @param <M>
-     * @param single
+     *            결과 {@link Map} 유형
+     * @param col
+     *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
+     *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
      * @param mapSupplier
      *            {@link Map} 제공함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -4042,14 +4146,17 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
+            M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, mergeFunction, transformer, mapSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 (V + V => V) 합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -4059,15 +4166,19 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable)
      * @param <M>
+     *            결과 {@link Map} 유형
      * @param col
+     *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V &rarr; V)<br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
@@ -4083,14 +4194,17 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, M extends Map<K, V>> M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, M extends Map<K, V>> //
+            M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), mergeFunction, mapSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V => U' + U => U) 합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -4100,18 +4214,25 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable).
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
+     *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <M>
+     *            결과 {@link Map} 유형
      * @param col
+     *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( U + U => U)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -4125,15 +4246,17 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, U, M> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U, M> //
+            Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다. <br>
-     * <br>
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -4143,20 +4266,28 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
+     *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <M>
+     *            결과 {@link Map} 유형
      * @param col
+     *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -4170,8 +4301,8 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
+            M toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -4187,6 +4318,10 @@ public class CollectionUtils {
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
      * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -4196,13 +4331,14 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable).
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 유형 (Nullable).
      * @param col
-     *            ㄷ이터 제공 객체
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
+     *            데이터 제공 객체
+     * @param keyMapper
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -4217,8 +4353,8 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <E, K extends @Nullable Object> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyGen) {
-        return toMap(Collections.list(col), keyGen);
+    public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyMapper) {
+        return toMap(Collections.list(col), keyMapper);
     }
 
     /**
@@ -5129,6 +5265,10 @@ public class CollectionUtils {
 
     /**
      * {@link Collection}에 포함된 데이터를 변환({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -5139,13 +5279,13 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param col
+     *            새로운 데이터 유형 (Nullable).
+     * @param stream
      *            데이터 제공 객체
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE) <br>
      * @return
      * 
      * @throws NullPointerException
@@ -5175,8 +5315,9 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
-     * @param <SET>
+     *            데이터 유형 (Nullable). <br>
+     *            단, {@code setSupplier}가 제공하는 {@link Set} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <S>
      *            결과 {@link Set} 유형
      * @param col
      *            데이터 제공 객체
@@ -5195,13 +5336,18 @@ public class CollectionUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <E extends @Nullable Object, SET extends Set<E>> SET toSet(Collection<E> col, Supplier<SET> setSupplier) {
+    public static <E extends @Nullable Object, S extends Set<E>> S toSet(Collection<E> col, Supplier<S> setSupplier) {
         return StreamUtils.toCollection(col.stream(), setSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -5211,15 +5357,19 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
-     * @return
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -5240,6 +5390,11 @@ public class CollectionUtils {
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -5248,18 +5403,23 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <SET>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <S>
+     *            결과 {@link Set} 유형
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -5267,15 +5427,18 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, SET extends Set<V>> SET toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<SET> setFactory) {
+    public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
         return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, setFactory);
     }
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
-     * <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -5285,18 +5448,22 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <SET>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
-     * @return
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -5316,7 +5483,11 @@ public class CollectionUtils {
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
-     * <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -5326,20 +5497,26 @@ public class CollectionUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보 유형
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <SET>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <S>
+     *            결과 {@link Set} 유형
      * @param col
+     *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
@@ -5347,8 +5524,8 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, SET extends Set<V>> SET toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<SET> setFactory) {
+    public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, setFactory);
     }
 

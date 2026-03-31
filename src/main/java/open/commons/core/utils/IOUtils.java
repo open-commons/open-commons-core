@@ -70,17 +70,15 @@ import open.commons.core.io.IRandomAccessible;
 import open.commons.core.util.ArrayItr;
 
 /**
- * 
- * 
- * 
- * 
- * 
  * @since 2012. 01. 10.
- * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class IOUtils {
 
-    @SuppressWarnings("null")
     private static Logger LOGGER = LoggerFactory.getLogger(IOUtils.class);
 
     // 애플리케이션 로드 시점에 OS별 명령어를 캐싱 (기존 아키텍처 유지)
@@ -100,13 +98,11 @@ public class IOUtils {
                 .orElse(null);
     }
 
-    // JDK 7+ 표준 API 사용
-    @SuppressWarnings("null")
     public static final String LINE_SEPARATOR = System.lineSeparator();
 
     /**
      * byte[] 데이터를 제공합니다.
-     * 
+     *
      * @param i
      *            줄 번호
      * @param bs
@@ -116,9 +112,12 @@ public class IOUtils {
 
     /**
      * {@link AutoCloseable}를 모두 닫는다.
-     * 
+     *
      * @param closeables
      *            {@link AutoCloseable} 객체들.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code closeables})가 {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
      */
     public static void close(@Nullable AutoCloseable... closeables) {
         Objects.requireNonNull(closeables);
@@ -135,7 +134,7 @@ public class IOUtils {
 
     /**
      * {@link AutoCloseable}를 모두 닫는다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -143,13 +142,14 @@ public class IOUtils {
      * 2021. 7. 5.      parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
-     * 
      * @param closeables
      *            {@link AutoCloseable} 객체들.
      *
+     * @throws NullPointerException
+     *             파라미터({@code closeables})가 {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
+     *
      * @since 2021. 7. 5.
      * @version 1.8.0
-     * 
      */
     public static void close(Collection<@Nullable AutoCloseable> closeables) {
         Objects.requireNonNull(closeables);
@@ -170,7 +170,7 @@ public class IOUtils {
 
     /**
      * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -178,15 +178,16 @@ public class IOUtils {
      * 2012. 01. 10.        parkjunohng77@gmail.com     최초 작성
      * 2020. 9. 25.         parkjunohng77@gmail.com     {@link Path} 메소드로 전환
      * </pre>
-     * 
+     *
      * @param file
-     * 
+     *
      * @return
-     * 
+     *
      * @throws IOException
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 10.
-     * 
      */
     public static BufferedReader getReader(File file) throws IOException {
         Objects.requireNonNull(file);
@@ -196,7 +197,7 @@ public class IOUtils {
 
     /**
      * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -208,12 +209,14 @@ public class IOUtils {
      *            파일 객체
      * @param cs
      *            file character set
+     *
      * @return
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code cs})가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
     public static BufferedReader getReader(File file, Charset cs) throws IOException {
         ObjectUtils.requireNonNulls(file, cs);
@@ -223,7 +226,7 @@ public class IOUtils {
 
     /**
      * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -232,15 +235,15 @@ public class IOUtils {
      * </pre>
      *
      * @param file
-     * 
      * @param charsetNam
-     * 
+     *
      * @return
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code charsetNam})가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
     public static BufferedReader getReader(File file, String charsetNam) throws IOException {
         ObjectUtils.requireNonNulls(file, charsetNam);
@@ -250,7 +253,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -258,9 +261,13 @@ public class IOUtils {
      * 2014. 6. 24.         parkjunohng77@gmail.com     최초 작성
      * 2020. 9. 25.        parkjunohng77@gmail.com     내부 구현 변경.
      * </pre>
-     * 
+     *
      * @param inStream
+     *
      * @return {@link BufferedReader} 객체, {@link InputStream}인 {@code null}인 경우 {@code null}반환.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      */
     public static BufferedReader getReader(InputStream inStream) {
         return getReader(inStream, CsvUtils.defaultCharset());
@@ -268,7 +275,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -278,10 +285,13 @@ public class IOUtils {
      *
      * @param inStream
      * @param cs
+     *
      * @return {@link BufferedReader} 객체
      *
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code cs})가 {@code null}인 경우 발생.
+     *
      * @since 2020. 9. 25.
-     * 
      */
     public static BufferedReader getReader(InputStream inStream, Charset cs) {
         ObjectUtils.requireNonNulls(inStream, cs);
@@ -291,10 +301,14 @@ public class IOUtils {
 
     /**
      * {@link InputStream}을 가지고 {@link BufferedReader}를 생성해서 반환합니다.
-     * 
+     *
      * @param inStream
+     *
      * @return {@link BufferedReader} 객체
-     * 
+     *
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code charsetName})가 {@code null}인 경우 발생.
+     *
      * @since 2014. 6. 24.
      */
     public static BufferedReader getReader(InputStream inStream, String charsetName) {
@@ -305,7 +319,7 @@ public class IOUtils {
 
     /**
      * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -315,13 +329,14 @@ public class IOUtils {
      *
      * @param path
      *            파일 경로
-     * 
+     *
      * @return
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
     public static BufferedReader getReader(Path path) throws IOException {
         return getReader(path, defaultCharset());
@@ -330,7 +345,7 @@ public class IOUtils {
     /**
      * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공합니다. <br>
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -341,10 +356,13 @@ public class IOUtils {
      * @param path
      * @param cs
      *            file character set
+     *
      * @return {@link Path} 가 {@code null} 이거나 에러가 발생할 경우 {@code null}을 제공합니다.
      *
+     * @throws NullPointerException
+     *             파라미터({@code path} 또는 {@code cs})가 {@code null}인 경우 발생.
+     *
      * @since 2020. 9. 25.
-     * 
      */
     public static BufferedReader getReader(Path path, Charset cs) throws IOException {
         ObjectUtils.requireNonNulls(path, cs);
@@ -355,7 +373,7 @@ public class IOUtils {
     /**
      * {@link Path} 를 이용하여 {@link BufferedReader} 를 제공합니다. <br>
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -366,29 +384,29 @@ public class IOUtils {
      * @param path
      * @param charsetName
      *            file character set name
-     * 
+     *
      * @return
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path} 또는 {@code charsetName})가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
-    public static BufferedReader getReader(Path path,  String charsetName) throws IOException {
+    public static BufferedReader getReader(Path path, String charsetName) throws IOException {
         ObjectUtils.requireNonNulls(path, charsetName);
-        
+
         return getReader(path, requireCharset(charsetName));
     }
 
     /**
      * 주어진 문자열({@link String})을 읽어오는 {@link BufferedReader}를 반환합니다.
-     * 
+     *
      * @param string
-     * 
+     *
      * @return <b>{@code nullable}</b>.
-     * 
+     *
      * @since 2012. 01. 10.
-     * 
      */
     public static @Nullable BufferedReader getReader(@Nullable String string) {
         return string != null //
@@ -398,11 +416,12 @@ public class IOUtils {
 
     /**
      * 클래스가 포함되어 있는 리소스 경로를 반환합니다.
-     * 
+     *
      * @param container
+     *
      * @return
+     *
      * @since 2012. 03. 12.
-     * 
      */
     public static @Nullable String getResourcePath(@Nullable Class<?> container) {
         if (container != null) {
@@ -420,15 +439,16 @@ public class IOUtils {
 
     /**
      * {@code container}와 같은 패키지에 존재하는 리소스에 대한 {@link InputStream}를 반환합니다.
-     * 
+     *
      * @param loader
      *            클래스 로더를 선택하는 클래스
      * @param container
      *            리소스와 같은 패키지에 존재하는 클래스
      * @param resourceName
      *            리소스 이름
+     *
      * @return
-     * 
+     *
      * @since 2012. 03. 12.
      */
     public static @Nullable InputStream getResourcePath(@Nullable Class<?> loader, @Nullable Class<?> container, String resourceName) {
@@ -441,11 +461,10 @@ public class IOUtils {
 
     /**
      * 주어진 문자열({@link String})에 저장하는 {@link BufferedWriter}를 반환합니다.
-     * 
+     *
      * @return
-     * 
+     *
      * @since 2012. 01. 10.
-     * 
      */
     public static BufferedWriter getWriter() {
         return new BufferedWriter(new StringWriter());
@@ -453,15 +472,16 @@ public class IOUtils {
 
     /**
      * 주어진 {@link File}에 저장하는 {@link BufferedWriter}를 반환합니다.
-     * 
+     *
      * @param file
-     * 
+     *
      * @return
-     * 
+     *
      * @throws IOException
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 10.
-     * 
      */
     public static BufferedWriter getWriter(File file) throws IOException {
         Objects.requireNonNull(file);
@@ -471,8 +491,9 @@ public class IOUtils {
 
     /**
      * {@link OutputStream}을 가지고 {@link BufferedWriter}를 생성해서 반환합니다.
-     * 
+     *
      * @param inStream
+     *
      * @return {@link BufferedWriter} 객체, {@link OutputStream}인 {@code null}인 경우 {@code null}반환.
      */
     public static @Nullable BufferedWriter getWriter(@Nullable OutputStream outStream) {
@@ -482,18 +503,22 @@ public class IOUtils {
     }
 
     /**
-     * 
      * @param e
+     *
      * @return
+     *
      * @throws FileNotFoundException
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
      * @exception SecurityException
      *                if a security manager exists and its {@code checkRead} method denies read access to the file.
-     * @see {@link FileInputStream}
+     * @throws NullPointerException
+     *             파라미터({@code e})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
+     *
+     * @see {@link FileInputStream}
      */
     public static SequenceInputStream newSequenceInputStream(Enumeration<File> e) throws FileNotFoundException {
         Objects.requireNonNull(e);
@@ -502,16 +527,20 @@ public class IOUtils {
     }
 
     /**
-     * 
      * @param e
+     *
      * @return
+     *
      * @throws FileNotFoundException
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
-     * @see {@link FileInputStream}
+     * @throws NullPointerException
+     *             파라미터({@code files})가 {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
+     *
+     * @see {@link FileInputStream}
      */
     public static SequenceInputStream newSequenceInputStream(File... files) throws FileNotFoundException {
         ObjectUtils.requireNonNulls((Object[]) files);
@@ -526,18 +555,20 @@ public class IOUtils {
     }
 
     /**
-     * 
      * @param file1
      * @param file2
+     *
      * @return
+     *
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
-     * @see {@link FileInputStream}
-     * 
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code file1} 또는 {@code file2})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
+     *
+     * @see {@link FileInputStream}
      */
     @SuppressWarnings("resource")
     public static SequenceInputStream newSequenceInputStream(File file1, File file2) throws FileNotFoundException {
@@ -550,16 +581,20 @@ public class IOUtils {
     }
 
     /**
-     * 
      * @param e
+     *
      * @return
+     *
      * @throws FileNotFoundException
      * @exception FileNotFoundException
      *                if the file does not exist, is a directory rather than a regular file, or for some other reason
      *                cannot be opened for reading.
-     * @see {@link FileInputStream}
+     * @throws NullPointerException
+     *             파라미터({@code insts})가 {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
+     *
      * @since 2012. 3. 9.
-     * 
+     *
+     * @see {@link FileInputStream}
      */
     public static SequenceInputStream newSequenceInputStream(InputStream... insts) throws FileNotFoundException {
         ObjectUtils.requireNonNulls((Object[]) insts);
@@ -595,7 +630,7 @@ public class IOUtils {
      * </pre>
      * 
      * </b>
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜          | 작성자   |   내용
@@ -603,13 +638,12 @@ public class IOUtils {
      * 2012. 01. 30.    parkjunhong77@gmail.com         최초 작성
      * 2026. 03. 09.    parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream/ProcessBuilder 적용 및 리소스 최적화
      * </pre>
-     * 
+     *
      * @param target
      *            {String} 대상 경로
-     * 
+     *
      * @since 2012. 01. 30.
      * @version 3.0.0
-     * 
      */
     public static void open(@Nullable String target) {
         if (target == null || target.trim().isEmpty()) {
@@ -651,7 +685,7 @@ public class IOUtils {
     /**
      * {@link SocketChannel}로부터 지정된 길이만큼 데이터를 읽어 바이트 배열로 반환합니다. <br>
      * (주의: 이 메소드는 채널이 블로킹(Blocking) 모드라고 가정하고 작성되었습니다.) *
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
@@ -659,21 +693,21 @@ public class IOUtils {
      * 2015. 12. 10.    parkjunhong77@gmail.com     최초 작성
      * 2026. 03. 31.    parkjunhong77@gmail.com     DirectBuffer 오버헤드 제거 및 EOF 안전성 확보
      * </pre>
-     * 
+     *
      * @param channel
      *            데이터를 읽어올 소켓 채널 ({@code NOT nullable})
      * @param length
      *            읽어들일 바이트 수
      * @param close
      *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
-     * 
+     *
      * @return 채널에서 읽어들인 바이트 배열. 스트림의 끝(EOF)에 도달하여 요청한 길이보다 적게 읽은 경우, 실제 읽은 크기만큼의 배열 반환.
-     * 
+     *
      * @throws IOException
      *             I/O 에러가 발생한 경우
      * @throws NullPointerException
-     *             파라미터 {@code channel}이 {@code null}인 경우
-     * 
+     *             파라미터({@code channel})가 {@code null}인 경우 발생.
+     *
      * @since 2015. 12. 10.
      */
     public static byte[] read(SocketChannel channel, final int length, boolean close) throws IOException {
@@ -729,16 +763,1545 @@ public class IOUtils {
     }
 
     /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터에 랜덤하게 접근할 수 있는 정보
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code channel} 또는 {@code action})가 {@code null}인 경우 발생. 파라미터({@code accessibles})가
+     *             {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <T, R extends @Nullable IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        ObjectUtils.requireNonNulls(channel, action, accessibles);
+
+        List<T> data = new ArrayList<>();
+        Iterator<R> itr = accessibles.iterator();
+
+        @Nullable
+        R access = null;
+        while (itr.hasNext()) {
+            access = itr.next();
+            if (access != null) {
+                data.add(readChannel(channel, action, access));
+            }
+        }
+
+        return data;
+    }
+
+    /**
+     * <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 18.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @param accessible
+     *            파일 데이터에 랜덤하게 접근할 수 있는 정보
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code channel})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 18.
+     * @version 1.8.0
+     */
+    public static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {
+        channel.position(accessible.getPosition());
+        return readChannel(channel, accessible.getLength(), ByteBuffer.allocate(accessible.getLength()), action);
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param len
+     *            읽을 byte 길이
+     * @param buf
+     *            데이터 버퍼
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code channel, buf, action 중에 1개라도})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
+        byte[] bs = new byte[len];
+        channel.read(buf);
+        buf.flip();
+        buf.get(bs);
+        buf.clear();
+
+        return action.apply(bs);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param channel
+     *            파일에 연결된 {@link FileChannel}
+     * @param bufCapacity
+     *            줄 데이터를 읽을 버퍼 크기
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code channel} 또는 {@code action})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, int bufCapacity, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readChannel(channel, action, new ArrayItr<>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @param accessibles
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code action})가 {@code null}인 경우 발생. 파라미터({@code accessibles})가 {@code null}이거나 데이터 중에
+     *             {@code null}이 포함된 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), action, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            줄 데이터를 읽어서 데이터를 제공하는 함수
+     * @param accessibles
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code action})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readFile(file, action, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생. 파라미터({@code accessibles})가 {@code null}이거나 데이터 중에
+     *             {@code null}이 포함된 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, Iterable<R> accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    @SafeVarargs
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, R... accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessible
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code accessible})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <R extends IRandomAccessible> Result<byte[]> readFile(File file, R accessible) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), accessible);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code action})가 {@code null}인 경우 발생. 파라미터({@code accessibles})가 {@code null}이거나
+     *             데이터 중에 {@code null}이 포함된 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        ObjectUtils.requireNonNulls(file, action, accessibles);
+
+        List<T> data = null;
+        boolean result = true;
+        String message = null;
+        try (@NonNull
+        FileChannel channel = file.getChannel()) {
+            data = readChannel(channel, action, accessibles);
+        } catch (Exception e) {
+            result = false;
+            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
+
+            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+
+            e.printStackTrace();
+        }
+
+        return new Result<>(data, result).setMessage(message);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code action})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readFile(file, action, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessible
+     *            줄단위 메타데이어
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code action} 또는 {@code accessible})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessible) throws IOException {
+        ObjectUtils.requireNonNulls(file, action, accessible);
+
+        boolean result = true;
+        String message = null;
+        @Nullable
+        T data = null;
+
+        ByteBuffer buf = null;
+        int len = accessible.getLength();
+
+        try (FileChannel channel = file.getChannel()) {
+            buf = ByteBuffer.allocateDirect(len);
+            channel.position(accessible.getPosition());
+            data = readChannel(channel, len, buf, action);
+        } catch (Exception e) {
+            result = false;
+            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
+            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+        }
+
+        return new Result<>(data, result).setMessage(message);
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessible
+     *            줄단위 메타데이어
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code accessible})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <R extends IRandomAccessible> Result<byte[]> readFile(RandomAccessFile file, R accessible) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, accessible);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     * <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code action})가 {@code null}인 경우 발생. 파라미터({@code accessibles})가 {@code null}이거나 데이터 중에
+     *             {@code null}이 포함된 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), action, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     * <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <T>
+     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param action
+     *            데이터 생성 함수
+     * @param accessibles
+     *            줄단위 메타데이어
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file} 또는 {@code action})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    @SafeVarargs
+    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, R... accessibles) throws IOException {
+        return readFile(file, action, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생. 파라미터({@code accessibles})가 {@code null}이거나 데이터 중에
+     *             {@code null}이 포함된 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, Iterable<R> accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, accessibles);
+    }
+
+    /**
+     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessibles
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    @SafeVarargs
+    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, R... accessibles) throws IOException {
+        return readFile(file, BYTE_ACTION_BYPASS, new ArrayItr<R>(accessibles));
+    }
+
+    /**
+     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <R>
+     *            파일 데이터 랜덤 접근 데이터 타입.
+     * @param file
+     *            파일
+     * @param accessible
+     *            줄단위 메타데이터
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code accessible})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 11. 13.
+     * @version 1.8.0
+     */
+    public static <R extends IRandomAccessible> Result<byte[]> readFile(String file, R accessible) throws IOException {
+        return readFile(new RandomAccessFile(file, "r"), accessible);
+    }
+
+    /**
+     * <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 1. 10.     parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 01. 10.
+     *
+     * @see <strike>sun.misc.IOUtils.readFully(InputStream, int, boolean)</strike>
+     * @see #readFully(InputStream, boolean) since 1.6.5
+     * @see #readFully(InputStream, int, boolean) since 1.6.5
+     */
+    public static byte[] readFully(InputStream inStream) throws IOException {
+        return readFully(inStream, true);
+    }
+
+    /**
+     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜       | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25: readAllBytes() 적용으로 수동 채널 버퍼링 제거
+     * </pre>
+     *
+     * @param inStream
+     *            입력 스트림
+     * @param close
+     *            자동 close 여부
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 3. 21.
+     * @version 1.6.5
+     *
+     * @see #readFully(InputStream, int, boolean)
+     */
+    public static byte[] readFully(InputStream inStream, final boolean close) throws IOException {
+        Objects.requireNonNull(inStream);
+
+        try {
+            return inStream.readAllBytes();
+        } catch (IOException e) {
+            LOGGER.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            throw e;
+        } finally {
+            if (close) {
+                close(inStream);
+            }
+        }
+    }
+
+    /**
+     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
+     * 2020. 9. 13.     parkjunohng77@gmail.com         Channel 처리 함수를 별도 분리 후, 내부 호출
+     * 2026. 3. 10.     parkjunhong77@gmail.com         기존의 bufferSize 파라미터는 하위 호환성을 위해 남기지만 내부적으로는 최적화된 {@link #readFully(InputStream, boolean)} 을 호출.
+     * </pre>
+     *
+     * @param inStream
+     *            입력 스트림
+     * @param bufferSize
+     *            읽기 버퍼 사이즈.
+     * @param close
+     *            자동 close 여부
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2019. 3. 21.
+     * @version 1.6.5
+     */
+    public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) throws IOException {
+        return readFully(inStream, close);
+    }
+
+    /**
+     * 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 9. 13.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 31.     parkjunhong77@gmail.com     Dead Code 제거, Heap Buffer 및 ByteArrayOutputStream 적용 최적화
+     * </pre>
+     *
+     * @param channel
+     *            데이터를 읽어올 채널 ({@code NOT nullable})
+     * @param bufferSize
+     *            한 번에 읽어들일 내부 버퍼의 크기
+     * @param close
+     *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
+     *
+     * @return 채널에서 읽어들인 전체 바이트 배열
+     *
+     * @throws IOException
+     *             I/O 에러가 발생한 경우
+     * @throws NullPointerException
+     *             파라미터({@code channel})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 9. 13.
+     */
+    public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) throws IOException {
+        ObjectUtils.requireNonNulls(channel);
+
+        if (bufferSize <= 0) {
+            return new byte[0];
+        }
+
+        // [2] 메모리 최적화: Direct Buffer 대신 Heap Buffer 사용
+        ByteBuffer buf = ByteBuffer.allocate(bufferSize);
+        // 동적 크기 확장에 최적화된 표준 스트림 사용
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(Math.max(bufferSize, 8192));
+
+        try {
+            int count;
+            // [3] 읽기 루프 (루프 종료 후 남은 데이터는 수학적으로 존재하지 않음)
+            while ((count = channel.read(buf)) > 0) {
+                // 배열 복사(new byte[]) 과정 없이 Heap 버퍼의 원본 배열을 스트림에 직접 씁니다. (Zero-Copy)
+                baos.write(buf.array(), buf.arrayOffset(), count);
+                buf.clear();
+            }
+
+            return baos.toByteArray();
+
+        } catch (ClosedByInterruptException e) {
+            LOGGER.warn("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
+            throw e;
+        } catch (IOException e) {
+            LOGGER.error("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
+            throw e;
+        } finally {
+            if (close) {
+                IOUtils.close(channel);
+            }
+        }
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     *
+     * @see BufferedReader
+     */
+    public static List<String> readLines(File file) throws FileNotFoundException, IOException {
+        return readLines(file, defaultCharset());
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(File file, @Nullable Charset charset) throws FileNotFoundException, IOException {
+        return readLines(file, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(File file, @Nullable Charset charset, long lineCount) throws FileNotFoundException, IOException {
+        ObjectUtils.requireNonNulls(file);
+
+        return readLines(new FileInputStream(file), charset, lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(File file, long lineCount) throws FileNotFoundException, IOException {
+        return readLines(file, defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param charsetName
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(File file, @Nullable String charsetName) throws IOException {
+        return readLines(file, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code file})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(File file, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(file, requireCharset(charsetName), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(InputStream inStream) throws IOException {
+        return readLines(inStream, defaultCharset(), -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(InputStream inStream, @Nullable Charset charset) throws IOException {
+        return readLines(inStream, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     * *
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜          | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.    parkjunohng77@gmail.com         최초 작성
+     * 2026. 03. 09.    parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream API 및 toList() 최적화 적용
+     * </pre>
+     *
+     * @param inStream
+     *            {InputStream} 읽을 파일
+     * @param charset
+     *            {Charset} 문자열 셋
+     * @param lineCount
+     *            {long} 읽으려는 줄 수 (0 미만일 경우 전체)
+     *
+     * @return 읽어들인 문자열 목록 (List<String>)
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 3.0.0
+     */
+    public static List<String> readLines(InputStream inStream, @Nullable Charset charset, final long lineCount) throws IOException {
+        Objects.requireNonNull(inStream);
+
+        // BufferedReader 라이프사이클(close)은 호출자의 책임이므로 try-with-resources는 생략합니다.
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, requireCharset(charset)));
+
+        Stream<String> linesStream = reader.lines();
+
+        if (lineCount >= 0) {
+            linesStream = linesStream.limit(lineCount);
+        }
+
+        // JDK 16+의 toList()를 사용하여 불변 컬렉션으로 깔끔하게 반환
+        return linesStream.toList();
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param file
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(InputStream inStream, long lineCount) throws IOException {
+        return readLines(inStream, defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     * @param charsetName
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(InputStream inStream, @Nullable String charsetName) throws IOException {
+        return readLines(inStream, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(InputStream inStream, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(inStream, requireCharset(charsetName), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param 읽을
+     *            파일.
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
+        return readLines(path, defaultCharset(), -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(Path path, @Nullable Charset charset) throws FileNotFoundException, IOException {
+        return readLines(path, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(Path path, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+        Objects.requireNonNull(path);
+
+        return readLines(path.toFile(), charset, lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(Path path, final long lineCount) throws FileNotFoundException, IOException {
+        return readLines(path, Charset.defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param path
+     *            읽을 파일
+     * @param charsetName
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(Path path, @Nullable String charsetName) throws IOException {
+        return readLines(path, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param path
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code path})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(Path path, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(path, requireCharset(charsetName), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code filepath})가 {@code null}인 경우 발생.
+     *
+     * @since 2020. 2. 8.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
+        return readLines(filepath, defaultCharset(), -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code filepath})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(String filepath, @Nullable Charset charset) throws FileNotFoundException, IOException {
+        return readLines(filepath, charset, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param charset
+     *            문자열 셋
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code filepath})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(String filepath, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
+        Objects.requireNonNull(filepath);
+
+        return readLines(new File(filepath), charset, lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param inStream
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     *
+     * @return
+     *
+     * @throws FileNotFoundException
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code filepath})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(String filepath, final long lineCount) throws FileNotFoundException, IOException {
+        return readLines(filepath, defaultCharset(), lineCount);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            읽을 파일
+     * @param charsetName
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code filepath})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(String filepath, @Nullable String charsetName) throws IOException {
+        return readLines(filepath, charsetName, -1);
+    }
+
+    /**
+     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
+     *
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param filepath
+     *            읽을 파일
+     * @param lineCount
+     *            읽으려는 줄 수
+     * @param charset
+     *            문자열 셋
+     *
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code filepath})가 {@code null}인 경우 발생.
+     *
+     * @since 2021. 11. 10.
+     * @version 1.8.0
+     */
+    public static List<String> readLines(String filepath, @Nullable String charsetName, long lineCount) throws IOException {
+        return readLines(filepath, requireCharset(charsetName), lineCount);
+    }
+
+    /**
      * Non-blocking 모드의 {@link SocketChannel}로부터 지정된 길이만큼 데이터를 읽어 바이트 배열로 반환합니다. <br>
      * CPU 100% 점유(Busy-Spin)를 방지하기 위해 데이터가 없을 경우 짧은 대기(Back-off)를 수행하며, 지정된 타임아웃 시간을 초과하면 그때까지 읽은 데이터를 반환합니다. *
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
      * ----------------------------------------------------------------------
      * 2026. 03. 31.    parkjunhong77@gmail.com     Non-blocking 모드 전용 읽기 유틸리티 추가 (Busy-Spin 방지 및 Timeout 적용)
      * </pre>
-     * 
+     *
      * @param channel
      *            데이터를 읽어올 Non-blocking 소켓 채널 ({@code NOT nullable})
      * @param length
@@ -747,16 +2310,16 @@ public class IOUtils {
      *            최대 대기 시간 (밀리초 단위). 이 시간을 초과하면 루프를 탈출합니다.
      * @param close
      *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
-     * 
+     *
      * @return 채널에서 읽어들인 바이트 배열. 타임아웃이나 EOF에 도달한 경우 실제 읽은 크기만큼 잘라서 반환합니다.
-     * 
+     *
      * @throws IOException
      *             I/O 에러가 발생한 경우
      * @throws InterruptedIOException
      *             읽기 대기 중 스레드 인터럽트가 발생한 경우
      * @throws NullPointerException
-     *             파라미터 {@code channel}이 {@code null}인 경우
-     * 
+     *             파라미터({@code channel})가 {@code null}인 경우 발생.
+     *
      * @since 2026. 03. 31.
      * @version 3.0.0
      */
@@ -821,1423 +2384,25 @@ public class IOUtils {
     }
 
     /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터에 랜덤하게 접근할 수 있는 정보
-     * @param channel
-     *            파일에 연결된 {@link FileChannel}
-     * @param action
-     *            줄 데이터를 읽어서 데이터를 제공하는 함수
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <T, R extends @Nullable IRandomAccessible> List<T> readChannel(FileChannel channel, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
-        ObjectUtils.requireNonNulls(channel, action, accessibles);
-
-        List<T> data = new ArrayList<>();
-        Iterator<R> itr = accessibles.iterator();
-
-        @Nullable
-        R access = null;
-        while (itr.hasNext()) {
-            access = itr.next();
-            if (access != null) {
-                data.add(readChannel(channel, action, access));
-            }
-        }
-
-        return data;
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 18.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param channel
-     *            파일에 연결된 {@link FileChannel}
-     * @param action
-     *            줄 데이터를 읽어서 데이터를 제공하는 함수
-     * @param accessible
-     *            파일 데이터에 랜덤하게 접근할 수 있는 정보
-     * @return
-     * 
-     * @throws IOException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     *
-     * @since 2021. 11. 18.
-     * @version 1.8.0
-     * 
-     */
-    public static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {
-        channel.position(accessible.getPosition());
-        return readChannel(channel, accessible.getLength(), ByteBuffer.allocate(accessible.getLength()), action);
-    }
-
-    /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            생성할 데이터 타입.
-     * @param channel
-     *            파일에 연결된 {@link FileChannel}
-     * @param len
-     *            읽을 byte 길이
-     * @param buf
-     *            데이터 버퍼
-     * @param action
-     *            줄 데이터를 읽어서 데이터를 제공하는 함수
-     * @return
-     * @throws IOException
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code channel, buf, action 중에 1개라도})가 {@code null}인 경우 발생.
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <T> T readChannel(FileChannel channel, int len, ByteBuffer buf, Function<byte[], T> action) throws IOException {
-        byte[] bs = new byte[len];
-        channel.read(buf);
-        buf.flip();
-        buf.get(bs);
-        buf.clear();
-
-        return action.apply(bs);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param channel
-     *            파일에 연결된 {@link FileChannel}
-     * @param bufCapacity
-     *            줄 데이터를 읽을 버퍼 크기
-     * @param action
-     *            줄 데이터를 읽어서 데이터를 제공하는 함수
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    @SafeVarargs
-    public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, int bufCapacity, Function<byte[], T> action, R... accessibles) throws IOException {
-        return readChannel(channel, action, new ArrayItr<>(accessibles));
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            줄 데이터를 읽어서 데이터를 제공하는 함수
-     * @param accessibles
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
-        return readFile(new RandomAccessFile(file, "r"), action, accessibles);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            줄 데이터를 읽어서 데이터를 제공하는 함수
-     * @param accessibles
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    @SafeVarargs
-    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(File file, Function<byte[], T> action, R... accessibles) throws IOException {
-        return readFile(file, action, new ArrayItr<R>(accessibles));
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * 
-     * @param file
-     *            파일
-     * @param accessibles
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, Iterable<R> accessibles) throws IOException {
-        return readFile(file, BYTE_ACTION_BYPASS, accessibles);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param accessibles
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    @SafeVarargs
-    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(File file, R... accessibles) throws IOException {
-        return readFile(file, BYTE_ACTION_BYPASS, new ArrayItr<R>(accessibles));
-    }
-
-    /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param accessible
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <R extends IRandomAccessible> Result<byte[]> readFile(File file, R accessible) throws IOException {
-        return readFile(new RandomAccessFile(file, "r"), accessible);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            데이터 생성 함수
-     * @param accessibles
-     *            줄단위 메타데이어
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
-        ObjectUtils.requireNonNulls(file, action, accessibles);
-
-        List<T> data = null;
-        boolean result = true;
-        String message = null;
-        try (@NonNull
-        FileChannel channel = file.getChannel()) {
-            data = readChannel(channel, action, accessibles);
-        } catch (Exception e) {
-            result = false;
-            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
-
-            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
-
-            e.printStackTrace();
-        }
-
-        return new Result<>(data, result).setMessage(message);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            데이터 생성 함수
-     * @param accessibles
-     *            줄단위 메타데이어
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    @SafeVarargs
-    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, R... accessibles) throws IOException {
-        return readFile(file, action, new ArrayItr<R>(accessibles));
-    }
-
-    /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            데이터 생성 함수
-     * @param accessible
-     *            줄단위 메타데이어
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessible) throws IOException {
-        ObjectUtils.requireNonNulls(file, action, accessible);
-
-        boolean result = true;
-        String message = null;
-        @Nullable
-        T data = null;
-
-        ByteBuffer buf = null;
-        int len = accessible.getLength();
-
-        try (FileChannel channel = file.getChannel()) {
-            buf = ByteBuffer.allocateDirect(len);
-            channel.position(accessible.getPosition());
-            data = readChannel(channel, len, buf, action);
-        } catch (Exception e) {
-            result = false;
-            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
-            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
-        }
-
-        return new Result<>(data, result).setMessage(message);
-    }
-
-    /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param accessible
-     *            줄단위 메타데이어
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <R extends IRandomAccessible> Result<byte[]> readFile(RandomAccessFile file, R accessible) throws IOException {
-        return readFile(file, BYTE_ACTION_BYPASS, accessible);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            데이터 생성 함수
-     * @param accessibles
-     *            줄단위 메타데이어
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
-        return readFile(new RandomAccessFile(file, "r"), action, accessibles);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <T>
-     *            줄 데이터(byte[])를 이용하여 생성할 데이터 타입.
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param action
-     *            데이터 생성 함수
-     * @param accessibles
-     *            줄단위 메타데이어
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    @SafeVarargs
-    public static <T, R extends IRandomAccessible> Result<List<T>> readFile(String file, Function<byte[], T> action, R... accessibles) throws IOException {
-        return readFile(file, action, new ArrayItr<R>(accessibles));
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param accessibles
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, Iterable<R> accessibles) throws IOException {
-        return readFile(file, BYTE_ACTION_BYPASS, accessibles);
-    }
-
-    /**
-     * 텍스트 파일을 줄단위로 읽어서 지정된 형태의 데이터를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param accessibles
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    @SafeVarargs
-    public static <R extends IRandomAccessible> Result<List<byte[]>> readFile(String file, R... accessibles) throws IOException {
-        return readFile(file, BYTE_ACTION_BYPASS, new ArrayItr<R>(accessibles));
-    }
-
-    /**
-     * 텍스트 파일을 지정된 위치의 데이터를 읽어서 지정된 형태의 데이터로 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param <R>
-     *            파일 데이터 랜덤 접근 데이터 타입.
-     * @param file
-     *            파일
-     * @param accessible
-     *            줄단위 메타데이터
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 11. 13.
-     * @version 1.8.0
-     * 
-     */
-    public static <R extends IRandomAccessible> Result<byte[]> readFile(String file, R accessible) throws IOException {
-        return readFile(new RandomAccessFile(file, "r"), accessible);
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2012. 1. 10.     parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @return
-     * 
-     * @throws IOException
-     * 
-     * @since 2012. 01. 10.
-     * 
-     * @see <strike>sun.misc.IOUtils.readFully(InputStream, int, boolean)</strike>
-     * @see #readFully(InputStream, boolean) since 1.6.5
-     * @see #readFully(InputStream, int, boolean) since 1.6.5
-     */
-    public static byte[] readFully(InputStream inStream) throws IOException {
-        return readFully(inStream, true);
-    }
-
-    /**
-     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     * 날짜       | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25: readAllBytes() 적용으로 수동 채널 버퍼링 제거
-     * </pre>
-     *
-     * @param inStream
-     *            입력 스트림
-     * @param close
-     *            자동 close 여부
-     * @return
-     *
-     * @throws IOException
-     * 
-     * @since 2019. 3. 21.
-     * @version 1.6.5
-     * 
-     * @see #readFully(InputStream, int, boolean)
-     */
-    public static byte[] readFully(InputStream inStream, final boolean close) throws IOException {
-        Objects.requireNonNull(inStream);
-
-        try {
-            return inStream.readAllBytes();
-        } catch (IOException e) {
-            LOGGER.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
-            throw e;
-        } finally {
-            if (close) {
-                close(inStream);
-            }
-        }
-    }
-
-    /**
-     * 입력 스트림 내용을 전부 읽어 byte 배열로 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
-     * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
-     * 2020. 9. 13.     parkjunohng77@gmail.com         Channel 처리 함수를 별도 분리 후, 내부 호출
-     * 2026. 3. 10.     parkjunhong77@gmail.com         기존의 bufferSize 파라미터는 하위 호환성을 위해 남기지만 내부적으로는 최적화된 {@link #readFully(InputStream, boolean)} 을 호출.
-     * </pre>
-     *
-     * @param inStream
-     *            입력 스트림
-     * @param bufferSize
-     *            읽기 버퍼 사이즈.
-     * @param close
-     *            자동 close 여부
-     * @return
-     * 
-     * @throws IOException
-     *
-     * @since 2019. 3. 21.
-     * @version 1.6.5
-     * 
-     * 
-     */
-    public static byte[] readFully(InputStream inStream, final int bufferSize, final boolean close) throws IOException {
-        return readFully(inStream, close);
-    }
-
-    /**
-     * 채널에 있는 데이터를 읽어 byte 배열로 반환합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     * 날짜        | 작성자                    | 내용
-     * ----------------------------------------------------------------------
-     * 2020. 9. 13.     parkjunhong77@gmail.com     최초 작성
-     * 2026. 3. 31.     parkjunhong77@gmail.com     Dead Code 제거, Heap Buffer 및 ByteArrayOutputStream 적용 최적화
-     * </pre>
-     *
-     * @param channel
-     *            데이터를 읽어올 채널 ({@code NOT nullable})
-     * @param bufferSize
-     *            한 번에 읽어들일 내부 버퍼의 크기
-     * @param close
-     *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
-     * @return 채널에서 읽어들인 전체 바이트 배열
-     * 
-     * @throws IOException
-     *             I/O 에러가 발생한 경우
-     * @throws NullPointerException
-     *             파라미터 {@code channel}이 {@code null}인 경우
-     * 
-     * @since 2020. 9. 13.
-     */
-    public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) throws IOException {
-        ObjectUtils.requireNonNulls(channel);
-
-        if (bufferSize <= 0) {
-            return new byte[0];
-        }
-
-        // [2] 메모리 최적화: Direct Buffer 대신 Heap Buffer 사용
-        ByteBuffer buf = ByteBuffer.allocate(bufferSize);
-        // 동적 크기 확장에 최적화된 표준 스트림 사용
-        ByteArrayOutputStream baos = new ByteArrayOutputStream(Math.max(bufferSize, 8192));
-
-        try {
-            int count;
-            // [3] 읽기 루프 (루프 종료 후 남은 데이터는 수학적으로 존재하지 않음)
-            while ((count = channel.read(buf)) > 0) {
-                // 배열 복사(new byte[]) 과정 없이 Heap 버퍼의 원본 배열을 스트림에 직접 씁니다. (Zero-Copy)
-                baos.write(buf.array(), buf.arrayOffset(), count);
-                buf.clear();
-            }
-
-            return baos.toByteArray();
-
-        } catch (ClosedByInterruptException e) {
-            LOGGER.warn("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
-            throw e;
-        } catch (IOException e) {
-            LOGGER.error("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
-            throw e;
-        } finally {
-            if (close) {
-                IOUtils.close(channel);
-            }
-        }
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     * 
-     * @see BufferedReader
-     */
-    public static List<String> readLines(File file) throws FileNotFoundException, IOException {
-        return readLines(file, defaultCharset());
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(File file, @Nullable Charset charset) throws FileNotFoundException, IOException {
-        return readLines(file, charset, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(File file, @Nullable Charset charset, long lineCount) throws FileNotFoundException, IOException {
-        ObjectUtils.requireNonNulls(file);
-
-        return readLines(new FileInputStream(file), charset, lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(File file, long lineCount) throws FileNotFoundException, IOException {
-        return readLines(file, defaultCharset(), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @param charsetName
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(File file, @Nullable String charsetName) throws IOException {
-        return readLines(file, charsetName, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(File file, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(file, requireCharset(charsetName), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(InputStream inStream) throws IOException {
-        return readLines(inStream, defaultCharset(), -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(InputStream inStream, @Nullable Charset charset) throws IOException {
-        return readLines(inStream, charset, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * *
-     * 
-     * <pre>
-     * [개정이력]
-     * 날짜          | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.    parkjunohng77@gmail.com         최초 작성
-     * 2026. 03. 09.    parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream API 및 toList() 최적화 적용
-     * </pre>
-     *
-     * @param inStream
-     *            {InputStream} 읽을 파일
-     * @param charset
-     *            {Charset} 문자열 셋
-     * @param lineCount
-     *            {long} 읽으려는 줄 수 (0 미만일 경우 전체)
-     * @return 읽어들인 문자열 목록 (List<String>)
-     * 
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 3.0.0
-     * 
-     */
-    public static List<String> readLines(InputStream inStream, @Nullable Charset charset, final long lineCount) throws IOException {
-        Objects.requireNonNull(inStream);
-
-        // BufferedReader 라이프사이클(close)은 호출자의 책임이므로 try-with-resources는 생략합니다.
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, requireCharset(charset)));
-
-        Stream<String> linesStream = reader.lines();
-
-        if (lineCount >= 0) {
-            linesStream = linesStream.limit(lineCount);
-        }
-
-        // JDK 16+의 toList()를 사용하여 불변 컬렉션으로 깔끔하게 반환
-        return linesStream.toList();
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param file
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * 
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(InputStream inStream, long lineCount) throws IOException {
-        return readLines(inStream, defaultCharset(), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     * @param charsetName
-     * @return
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(InputStream inStream, @Nullable String charsetName) throws IOException {
-        return readLines(inStream, charsetName, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(InputStream inStream, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(inStream, requireCharset(charsetName), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param 읽을
-     *            파일.
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
-        return readLines(path, defaultCharset(), -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(Path path, @Nullable Charset charset) throws FileNotFoundException, IOException {
-        return readLines(path, charset, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(Path path, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
-        Objects.requireNonNull(path);
-
-        return readLines(path.toFile(), charset, lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(Path path, final long lineCount) throws FileNotFoundException, IOException {
-        return readLines(path, Charset.defaultCharset(), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param path
-     *            읽을 파일
-     * @param charsetName
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(Path path, @Nullable String charsetName) throws IOException {
-        return readLines(path, charsetName, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param path
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(Path path, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(path, requireCharset(charsetName), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param filepath
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2020. 2. 8.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
-        return readLines(filepath, defaultCharset(), -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(String filepath, @Nullable Charset charset) throws FileNotFoundException, IOException {
-        return readLines(filepath, charset, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param charset
-     *            문자열 셋
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(String filepath, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
-        Objects.requireNonNull(filepath);
-
-        return readLines(new File(filepath), charset, lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param inStream
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @return
-     * @throws FileNotFoundException
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(String filepath, final long lineCount) throws FileNotFoundException, IOException {
-        return readLines(filepath, defaultCharset(), lineCount);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param filepath
-     *            읽을 파일
-     * @param charsetName
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(String filepath, @Nullable String charsetName) throws IOException {
-        return readLines(filepath, charsetName, -1);
-    }
-
-    /**
-     * 주어진 파일을 줄단위로 읽어서 요청한 줄수 또는 전체(요청한 줄수가 전체 라인보다 큰 경우)를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param filepath
-     *            읽을 파일
-     * @param lineCount
-     *            읽으려는 줄 수
-     * @param charset
-     *            문자열 셋
-     * @return
-     * @throws IOException
-     *
-     * @since 2021. 11. 10.
-     * @version 1.8.0
-     * 
-     */
-    public static List<String> readLines(String filepath, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(filepath, requireCharset(charsetName), lineCount);
-    }
-
-    /**
      * 입력받은 InputStream에서 주어진 길이만큼 데이터를 읽어서 반환합니다.
-     * 
+     *
      * @param inStream
      * @param length
      *            읽어올 데이터 길이
+     *
      * @return InputStream으로부터 읽어온 데이터. 예외가 발생하는 경우 {@code null} 반환.
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      */
     public static byte[] readStream(InputStream inStream, final int length) throws IOException {
         return readStream(inStream, length, true);
     }
 
     /**
-     * 
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2252,9 +2417,12 @@ public class IOUtils {
      *            a number greater than 0
      * @param close
      *            소켓 close 여부
+     *
      * @return
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      *
      * @since 2017. 9. 6.
      */
@@ -2275,7 +2443,7 @@ public class IOUtils {
 
     /**
      * 파라미터에 해당하는 {@link Charset}을 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2285,11 +2453,11 @@ public class IOUtils {
      *
      * @param charset
      *            문자열 셋
+     *
      * @return {@link Charset} 또는 {@code null}
      *
      * @since 2026. 3. 11.
      * @version 3.0.0
-     * 
      */
     private static Charset requireCharset(@Nullable Charset charset) {
         return charset != null ? charset : requireCharset((String) null);
@@ -2297,7 +2465,7 @@ public class IOUtils {
 
     /**
      * 파라미터에 해당하는 {@link Charset}을 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2307,11 +2475,11 @@ public class IOUtils {
      *
      * @param charset
      *            문자열 셋
+     *
      * @return {@link Charset} 또는 {@code null}
      *
      * @since 2026. 3. 11.
      * @version 3.0.0
-     * 
      */
     private static Charset requireCharset(@Nullable String charset) {
         return charset != null //
@@ -2324,13 +2492,14 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
+     * </pre>
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
      * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
      * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: transferTo() 기반 Zero-copy 적용
-     * </pre>
      * </pre>
      *
      * @param inStream
@@ -2339,9 +2508,12 @@ public class IOUtils {
      * @param outStream
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
+     *
      * @return
-     * 
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 10.
      *
@@ -2369,7 +2541,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2386,14 +2558,17 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code closeInput} 또는 {@code outStream} 또는 {@code closeOutput})가
+     *             {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput, int readBufferSize) throws IOException {
@@ -2404,7 +2579,7 @@ public class IOUtils {
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 
      * <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2422,12 +2597,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeInput} 또는 {@code outStream} 또는
+     *             {@code outCharset} 또는 {@code closeOutput})가 {@code null}인 경우 발생.
      *
      * @since 2026. 3. 11.
      * @version 3.0.0
-     * 
      *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      * @see #transfer(Reader, boolean, Writer, boolean)
@@ -2451,7 +2630,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2467,12 +2646,16 @@ public class IOUtils {
      * @param writer
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeReader} 또는 {@code writer} 또는
+     *             {@code closeWriter})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      * @see InputStreamReader
      */
@@ -2484,7 +2667,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2503,12 +2686,16 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeReader} 또는 {@code writer} 또는
+     *             {@code closeWriter})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      * @see InputStreamReader
      */
@@ -2522,7 +2709,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2536,12 +2723,16 @@ public class IOUtils {
      * @param outStream
      * @param outCharset
      *            Charset of an {@link OutputStream}
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인
+     *             경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
+     *
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset) throws IOException {
@@ -2551,7 +2742,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2568,12 +2759,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인
+     *             경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -2583,7 +2778,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2595,12 +2790,15 @@ public class IOUtils {
      * @param inCharset
      *            Charset of an {@link InputStream}
      * @param writer
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer) throws IOException {
@@ -2611,7 +2809,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2625,12 +2823,15 @@ public class IOUtils {
      * @param writer
      * @param close
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, Charset inCharset, Writer writer, boolean close) throws IOException {
@@ -2641,7 +2842,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2658,12 +2859,15 @@ public class IOUtils {
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -2675,7 +2879,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2690,12 +2894,15 @@ public class IOUtils {
      * @param writer
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -2706,7 +2913,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2714,17 +2921,19 @@ public class IOUtils {
      * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
      * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
      * </pre>
-     * 
+     *
      * @param inStream
      * @param outStream
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
      * @since 2014. 4. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     public static int transfer(InputStream inStream, OutputStream outStream) throws IOException {
@@ -2733,7 +2942,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2745,12 +2954,15 @@ public class IOUtils {
      * @param outStream
      * @param close
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     public static int transfer(InputStream inStream, OutputStream outStream, boolean close) throws IOException {
@@ -2759,7 +2971,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2774,12 +2986,15 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -2790,7 +3005,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2802,14 +3017,16 @@ public class IOUtils {
      * @param inStream
      * @param outStream
      * @param charset
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     * 
      */
     public static int transfer(InputStream inStream, OutputStream outStream, Charset charset) throws IOException {
         return transfer(inStream, true, outStream, true);
@@ -2817,7 +3034,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2832,12 +3049,15 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param close
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
+     *
      * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
      */
     public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close) throws IOException {
@@ -2846,7 +3066,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2864,12 +3084,15 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -2880,7 +3103,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2895,14 +3118,16 @@ public class IOUtils {
      * @param charset
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, int readBufferSize) throws IOException {
@@ -2912,7 +3137,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2920,19 +3145,21 @@ public class IOUtils {
      * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
-     * 
+     *
      * @param inStream
      * @param outStream
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -2943,7 +3170,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2952,18 +3179,21 @@ public class IOUtils {
      * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
      * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
-     * 
+     *
      * @param inStream
      * @param outStream
      * @param charset
      *            charset
+     *
      * @return
+     *
      * @throws IOException
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream})가 {@code null}인 경우 발생.
+     *
      * @since 2014. 4. 14.
-     * 
+     *
      * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
-     * 
      */
     public static int transfer(InputStream inStream, OutputStream outStream, String charset) throws IOException {
         return transfer(inStream, true, outStream, true);
@@ -2971,7 +3201,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -2986,12 +3216,15 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param close
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     public static int transfer(InputStream inStream, OutputStream outStream, String charset, boolean close) throws IOException {
@@ -3000,7 +3233,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3018,12 +3251,15 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3034,7 +3270,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다.
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3043,20 +3279,23 @@ public class IOUtils {
      * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
-     * 
+     *
      * @param inStream
      * @param outStream
      * @param charset
      *            charset
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code outStream} 또는 {@code charset})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(InputStream, boolean, OutputStream, boolean)
-     * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, OutputStream outStream, String charset, int readBufferSize) throws IOException {
@@ -3065,7 +3304,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3085,10 +3324,14 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeInput} 또는 {@code outStream} 또는
+     *             {@code outCharset} 또는 {@code closeOutput})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 10.
      *
      * @see #requireCharset(String)
@@ -3102,7 +3345,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3124,12 +3367,16 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeInput} 또는 {@code outStream} 또는
+     *             {@code outCharset} 또는 {@code closeOutput})가 {@code null}인 경우 발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3142,7 +3389,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3158,12 +3405,16 @@ public class IOUtils {
      * @param writer
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeReader} 또는 {@code writer} 또는
+     *             {@code closeWriter})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 26.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
@@ -3174,7 +3425,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3193,12 +3444,16 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code closeReader} 또는 {@code writer} 또는
+     *             {@code closeWriter})가 {@code null}인 경우 발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3211,7 +3466,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3226,15 +3481,18 @@ public class IOUtils {
      * @param outStream
      * @param outCharset
      *            Charset of an {@link OutputStream}
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인
+     *             경우 발생.
+     *
      * @since 2018. 9. 10.
-     * 
+     *
      * @see #requireCharset(String)
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
-     * 
      */
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
@@ -3245,7 +3503,7 @@ public class IOUtils {
     /**
      * {@link InputStream}의 내용을 {@link OutputStream} 으로 전송합니다.<br>
      * 전송 후 {@link InputStream}, {@link OutputStream}은 모두 close 된다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3263,12 +3521,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인
+     *             경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #requireCharset(String)
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
@@ -3281,7 +3543,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3294,12 +3556,15 @@ public class IOUtils {
      * @param inCharset
      *            Charset of an {@link InputStream}
      * @param writer
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, Writer writer) throws IOException {
@@ -3310,7 +3575,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3325,12 +3590,15 @@ public class IOUtils {
      * @param writer
      * @param close
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
@@ -3341,7 +3609,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3359,12 +3627,15 @@ public class IOUtils {
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer} 또는 {@code close})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3376,7 +3647,7 @@ public class IOUtils {
 
     /**
      * {@link InputStream}를 통해 얻은 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3392,12 +3663,15 @@ public class IOUtils {
      * @param writer
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code inStream} 또는 {@code inCharset} 또는 {@code writer})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3409,7 +3683,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3426,12 +3700,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code closeReader} 또는 {@code outStream} 또는 {@code outCharset} 또는
+     *             {@code closeOutput})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
@@ -3442,7 +3720,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3462,12 +3740,16 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code closeReader} 또는 {@code outStream} 또는 {@code outCharset} 또는
+     *             {@code closeOutput})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3479,7 +3761,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3496,12 +3778,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code closeReader} 또는 {@code outStream} 또는 {@code outCharset} 또는
+     *             {@code closeOutput})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
@@ -3512,7 +3798,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3532,12 +3818,16 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code closeReader} 또는 {@code outStream} 또는 {@code outCharset} 또는
+     *             {@code closeOutput})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 1. 14.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3549,7 +3839,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3563,11 +3853,14 @@ public class IOUtils {
      * @param writer
      * @param closeOutput
      *            {@link OutputStream#close()} 호출 여부
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code writer})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 26.
-     * 
      */
     public static int transfer(Reader reader, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
         ObjectUtils.requireNonNulls(reader, writer);
@@ -3586,7 +3879,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3603,12 +3896,16 @@ public class IOUtils {
      *            {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code closeReader} 또는 {@code writer} 또는 {@code closeWriter})가 {@code null}인
+     *             경우 발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3618,7 +3915,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3631,12 +3928,15 @@ public class IOUtils {
      * @param outStream
      * @param outCharset
      *            Charset of an {@link OutputStream}
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset) throws IOException {
@@ -3647,7 +3947,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3662,12 +3962,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param close
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
-     * @return
-     * @throws IOException
      *
-     * 
+     * @return
+     *
+     * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset} 또는 {@code close})가 {@code null}인 경우
+     *             발생.
+     *
      * @since 2018. 9. 26.
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close) throws IOException {
@@ -3678,7 +3982,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이터를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3696,12 +4000,16 @@ public class IOUtils {
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset} 또는 {@code close})가 {@code null}인 경우
+     *             발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3713,7 +4021,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3729,12 +4037,15 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인 경우 발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3746,7 +4057,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3759,12 +4070,15 @@ public class IOUtils {
      * @param outStream
      * @param outCharset
      *            Charset of an {@link OutputStream}
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 26.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, String outCharset) throws IOException {
@@ -3775,7 +4089,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3790,12 +4104,16 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param close
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset} 또는 {@code close})가 {@code null}인 경우
+     *             발생.
      *
      * @since 2018. 9. 26.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close) throws IOException {
@@ -3806,7 +4124,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3824,12 +4142,16 @@ public class IOUtils {
      *            {@link Reader#close()}, {@link OutputStream#close()} 호출 여부
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code outStream} 또는 {@code outCharset} 또는 {@code close})가 {@code null}인 경우
+     *             발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3841,7 +4163,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻은 데이타를 {@link OutputStream}으로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3857,12 +4179,15 @@ public class IOUtils {
      *            Charset of an {@link OutputStream}
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader})가 {@code null}인 경우 발생.
      *
      * @since 2021. 1. 14.
-     * 
-     * 
+     *
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
@@ -3872,7 +4197,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3882,11 +4207,14 @@ public class IOUtils {
      *
      * @param reader
      * @param writer
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code writer})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 7.
-     * 
      */
     public static int transfer(Reader reader, Writer writer) throws IOException {
         return transfer(reader, true, writer, true);
@@ -3894,7 +4222,7 @@ public class IOUtils {
 
     /**
      * {@link Reader}를 통해 얻는 데이터를 {@link Writer}로 전달합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
@@ -3907,11 +4235,14 @@ public class IOUtils {
      * @param writer
      * @param readBufferSize
      *            데이터 읽기 버퍼 크기
+     *
      * @return
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code reader} 또는 {@code writer})가 {@code null}인 경우 발생.
      *
      * @since 2021. 1. 14.
-     * 
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, Writer writer, int readBufferSize) throws IOException {
@@ -3920,12 +4251,17 @@ public class IOUtils {
 
     /**
      * {@link BufferedWriter}에 데이터를 바로 보낸다.
-     * 
+     *
      * @param writer
      * @param msg
+     *
      * @throws IOException
+     * @throws NullPointerException
+     *             파라미터({@code writer})가 {@code null}인 경우 발생.
      */
     public static void write(BufferedWriter writer, String msg) throws IOException {
+        Objects.requireNonNull(writer);
+
         writer.write(msg + LINE_SEPARATOR);
     }
 }

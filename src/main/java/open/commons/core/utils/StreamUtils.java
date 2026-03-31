@@ -138,7 +138,11 @@ public class StreamUtils {
     }
 
     /**
-     * 데이터(E)를 새로운 데이터 유형(NE)로 변환하여 제공(COL)합니다. <br>
+     * 데이터(E)를 새로운 데이터 유형(NE)로 변환하여 제공(C)합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -148,73 +152,89 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <COL>
-     *            결과 {@link Collection} 유형.
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <C>
+     *            결과 {@link Collection} 유형
      * @param stream
      *            데이터 제공 객체
      * @param transformer
-     *            데이터 변환 함수 (E => NE)
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
-     * @return
+     * 
+     * @return 필터링 및 변환이 완료된 새로운 컬렉션
      * 
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Function<E, NE> transformer,
-            Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, C extends Collection<NE>> C toCollection(Stream<E> stream, Function<E, NE> transformer,
+            Supplier<C> collectionSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, collectionSupplier);
     }
 
     /**
-     * 데이터(E)를 새로운 데이터 유형(NE)로 변환하여 제공(COL)합니다. <br>
+     * 데이터(E)를 새로운 데이터 유형(NE)으로 변환하여 제공(COL)합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 8. 26.     parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <COL>
-     *            결과 {@link Collection} 유형.
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <C>
+     *            결과 {@link Collection} 유형
      * @param stream
      *            데이터 제공 객체
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
-     *            데이터 변환 함수 (E => NE)
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param collectionSupplier
      *            결과 {@link Collection} 객체 제공 함수.
+     * 
      * @return 필터링 및 변환이 완료된 새로운 컬렉션
      * 
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, COL extends Collection<NE>> COL toCollection(Stream<E> stream, Predicate<E> filter,
-            Function<E, NE> transformer, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, C extends Collection<NE>> C toCollection(Stream<E> stream, Predicate<E> filter,
+            Function<E, NE> transformer, Supplier<C> collectionSupplier) {
         ObjectUtils.requireNonNulls(stream, filter, transformer, collectionSupplier);
 
-        return stream.filter(filter).map(transformer).collect(Collectors.toCollection(collectionSupplier));
+        return stream //
+                .filter(Objects::nonNull) //
+                .filter(filter) //
+                .map(transformer) //
+                .collect(Collectors.toCollection(collectionSupplier));
     }
 
     /**
      * {@link Stream} 데이터를 {@link Collection}으로 담아서 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -224,8 +244,9 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (Nullable) <br>
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param stream
      *            데이터 제공 객체
@@ -240,9 +261,8 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, COL extends Collection<E>> COL toCollection(Stream<E> stream, Predicate<E> filter, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, C extends Collection<E>> C toCollection(Stream<E> stream, Predicate<E> filter, Supplier<C> collectionSupplier) {
         return toCollection(stream, filter, identity(), collectionSupplier);
     }
 
@@ -257,8 +277,9 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (Nullable) <br>
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param stream
      *            데이터 제공 객체
@@ -271,15 +292,19 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, COL extends Collection<E>> COL toCollection(Stream<E> stream, Supplier<COL> collectionSupplier) {
+    public static <E extends @Nullable Object, C extends Collection<E>> C toCollection(Stream<E> stream, Supplier<C> collectionSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), identity(), collectionSupplier);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -289,38 +314,46 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 (Nullable).
      * @param <V>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param stream
-     *            데이터 제공 객체
+     *            데이터 제공 객체. (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
-     * @return
+     *            
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K extends @Nullable Object, V, C extends Collection<V>> //
+            C toCollection(Stream<V> stream, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return toCollection(stream, Objects::nonNull, keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -330,42 +363,51 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param <M>
      *            내부 데이터 변환 {@link Map} 유형
      * @param stream
-     *            데이터 제공 객체
+     *            데이터 제공 객체. (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 객체 제공 함수
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection(Stream<V> stream, Function<V, K> keyMapper,
-            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<COL> collectionFactory) {
+    public static <K extends @Nullable Object, V, C extends Collection<V>, M extends Map<K, V>> C toCollection(Stream<V> stream, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<C> collectionFactory) {
         return toCollection(stream, Objects::nonNull, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -375,41 +417,50 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param stream
-     *            데이터 제공 객체
+     *            데이터 제공 객체. (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
-     * @return
+     * 
+     * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, COL extends Collection<V>> COL toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper,
-            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<COL> collectionFactory) {
+    public static <K extends @Nullable Object, V, C extends Collection<V>> C toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return toCollection(stream, filter, keyMapper, valueMapper, mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new, collectionFactory);
     }
 
     /**
      * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
-     *
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}을 통해서 객체를 하나로 병합합니다. <br>
+     * 
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
@@ -419,35 +470,40 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
-     * @param <COL>
+     *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     * @param <C>
      *            결과 {@link Collection} 유형
      * @param <M>
      *            내부 데이터 변환 {@link Map} 유형
      * @param stream
-     *            데이터 제공 객체
+     *            데이터 제공 객체. (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
-     *            객체의 복제 또는 새로운 객체로 제공하는 함수.
+     *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 객체 제공 함수
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. <br>
+     *             또한 {@code valueMapper}나 {@code mergeFunction}의 결과가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 3.0.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - Stream.collect(Collectors.toMap(...));
@@ -455,22 +511,23 @@ public class StreamUtils {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, COL extends Collection<V>, M extends Map<K, V>> COL toCollection( //
-            Stream<V> stream, Predicate<V> filter, //
-            Function<V, K> keyMapper, Function<V, V> valueMapper, //
-            BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, //
-            Supplier<COL> collectionFactory //
+    public static <K extends @Nullable Object, V, C extends Collection<V>, M extends Map<K, V>> //
+            C toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, V> valueMapper //
+                    , BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<C> collectionFactory //
     ) {
         ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
 
         // 1. 첫 번째 Stream을 통해 중복이 병합된 Map을 생성합니다.
         @NonNull
-        M mergedMap = stream.filter(filter).collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction, mapSupplier));
+        M mergedMap = stream //
+                .filter(Objects::nonNull) //
+                .filter(filter) //
+                .collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction, mapSupplier));
 
         // 2. 두 번째 Stream을 여는 대신, 객체 생성 후 Bulk 연산(addAll)을 사용하여
         // 루프 순회 및 Spliterator 초기화 비용을 완벽히 제거합니다.
         @NonNull
-        COL resultCollection = collectionFactory.get();
+        C resultCollection = collectionFactory.get();
         resultCollection.addAll(mergedMap.values());
 
         return resultCollection;
@@ -478,6 +535,10 @@ public class StreamUtils {
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -487,15 +548,14 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <LIST>
-     *            결과 {@link List} 유형
+     *            새로운 데이터 유형 (Nullable).
      * @param stream
      *            데이터 제공 객체
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE)
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -503,7 +563,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - ArrayList<NE>::new
@@ -516,6 +575,10 @@ public class StreamUtils {
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -525,17 +588,20 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <LIST>
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <L>
      *            결과 {@link List} 유형
      * @param stream
      *            데이터 제공 객체
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param listSupplier
      *            결과 {@link List} 객체 제공 함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -543,15 +609,17 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, LIST extends List<NE>> LIST toList(Stream<E> stream, Function<E, NE> transformer,
-            Supplier<LIST> listSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Supplier<L> listSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, listSupplier);
     }
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -561,17 +629,16 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <LIST>
-     *            결과 {@link List} 유형
+     *            새로운 데이터 유형 (Nullable).
      * @param stream
      *            데이터 제공 객체
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE)
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -579,7 +646,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - Array<NE>::new
@@ -592,6 +658,10 @@ public class StreamUtils {
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link List}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -601,19 +671,22 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <LIST>
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <L>
      *            결과 {@link List} 유형
      * @param stream
      *            데이터 제공 객체
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param listSupplier
      *            결과 {@link List} 객체 제공 함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -621,16 +694,19 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, LIST extends List<NE>> LIST toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer,
-            Supplier<LIST> listSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, L extends List<NE>> //
+            L toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<L> listSupplier) {
         return toCollection(stream, filter, transformer, listSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -640,23 +716,29 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
-     *            새로운 데이터 유형
+     *            변환된 새로운 데이터 유형 (Nullable). <br>
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이 가능합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param stream
      *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
+     *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
      * @param mapSupplier
      *            {@link Map} 제공함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -664,16 +746,19 @@ public class StreamUtils {
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
+            M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -683,21 +768,26 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier} 및 {@code mergeMapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
-     *            새로운 데이터 유형
+     *            변환된 새로운 데이터 유형 (Nullable). <br>
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이 가능합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param stream
      *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
+     *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
      * @param mapSupplier
      *            최종 결과 {@link Map} 객체를 제공하는 함수.
      * @param mergeMapSupplier
@@ -709,10 +799,10 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
+            M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction //
+                    , Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
     }
 
@@ -747,7 +837,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new
@@ -761,7 +850,10 @@ public class StreamUtils {
     /**
      * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다. <br>
-     * <br>
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -771,34 +863,38 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
-     *            새로운 데이터 유형
+     *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param stream
      *            데이터 제공 객체
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
-     *            {@link Map} 제공함수.
-     * @return
+     *            결과 {@link Map} 객체 제공 함수
+     * @return 데이터가 변환 및 병합된 새로운 맵
      * 
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. <br>
+     *             또한 {@code valueFunction}이나 {@code mergeFunction}의 결과가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
+            M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -837,7 +933,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
     public static <K, V, U, M extends Map<K, List<U>>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier) {
         return toMap(stream, keyMapper, valueFunction, mapSupplier, (Supplier<List<U>>) ArrayList<U>::new);
@@ -861,7 +956,7 @@ public class StreamUtils {
      *            데이터 유형
      * @param <U>
      *            새로운 데이터 유형
-     * @param <COL>
+     * @param <C>
      *            동일한 식별정보에 해당하는 데이터를 담는 {@link Collection} 유형
      * @param <M>
      *            결과 {@link Map} 유형
@@ -882,16 +977,19 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
+    public static <K, V, U, C extends Collection<U>, M extends Map<K, C>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier,
+            Supplier<C> collectionSupplier) {
         return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mapSupplier, collectionSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V => V' => U) 합니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -901,11 +999,13 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
-     *            새로운 데이터 유형
+     *            변환된 새로운 데이터 유형 (Nullable). <br>
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이 가능합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param stream
@@ -913,13 +1013,17 @@ public class StreamUtils {
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V => V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
+     *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
      * @param mapSupplier
-     *            {@link Map} 제공함수.
+     *            최종 결과 {@link Map} 객체를 제공하는 함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -927,17 +1031,20 @@ public class StreamUtils {
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
+            M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
         return toMap(stream, filter, keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
-     *
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
@@ -947,11 +1054,13 @@ public class StreamUtils {
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier} 및 {@code mergeMapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
-     *            새로운 데이터 유형
+     *            변환된 새로운 데이터 유형 (Nullable). <br>
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이 가능합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param stream
@@ -959,15 +1068,19 @@ public class StreamUtils {
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param transformer
-     *            새로운 객체를 제공하는 함수. (V &rarr; U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
+     *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
      * @param mapSupplier
      *            최종 결과 {@link Map} 객체를 제공하는 함수.
      * @param mergeMapSupplier
      *            데이터를 동일한 식별정보({@code keyMapper})로 병합할 때 사용하는 내부처리용 {@link Map} 객체를 제공하는 함수.
+     * 
      * @return 데이터가 병합 및 변환된 새로운 맵
      * 
      * @throws NullPointerException
@@ -975,18 +1088,15 @@ public class StreamUtils {
      *
      * @since 2025. 8. 26.
      * @version 3.0.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - 'intermediateMap, resultMap' of "intermediateMap.forEach((k, v) -> resultMap.put(k, transformer.apply(v)));"
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap( //
-            Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, //
-            BinaryOperator<V> mergeFunction, Function<V, U> transformer, //
-            Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier //
-    ) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
+            M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction //
+                    , Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
         ObjectUtils.requireNonNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
 
         // 1. 내부 처리용 Map을 먼저 완성합니다.
@@ -1033,7 +1143,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new,
@@ -1045,23 +1154,28 @@ public class StreamUtils {
     }
 
     /**
-     * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ( 'V => U' + U => U) 합니다. <br>
-     * <br>
+     * {@link Stream} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}으로 묶어서 제공합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}을 통해서 객체를 하나로 병합 ( 'V &rarr; U' + 'U + U &rarr; U')
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜          | 작성자                   |   내용
      * ------------------------------------------
-     * 2025. 8. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 유형 (Nullable). <br>
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
-     *            데이터 유형
+     *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
-     *            새로운 데이터 유형
+     *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param stream
@@ -1069,56 +1183,63 @@ public class StreamUtils {
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
-     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U => U)
+     *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
-     *            {@link Map} 제공함수.
+     *            결과 {@link Map} 객체 제공 함수
      * @return 데이터가 변환 및 병합된 새로운 맵
      * 
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. <br>
+     *             또한 {@code valueFunction}이나 {@code mergeFunction}의 결과가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * 
      */
-    public static <K extends @Nullable Object, V, U, M extends Map<K, U>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
+            M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
-
-        return stream//
+        return stream //
+                .filter(Objects::nonNull) //
                 .filter(filter) //
-                .collect( //
-                        Collectors.toMap( //
-                                keyMapper // V -@-> K
-                                , valueFunction // V => U
-                                , mergeFunction // U + U => U
-                                , mapSupplier) //
-                );
+                .collect(//
+                        Collectors.toMap(//
+                                keyMapper //
+                                , valueFunction //
+                                , mergeFunction //
+                                , mapSupplier //
+                        ));
     }
 
     /**
-     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V => U by 'valueFunction'})하여
+     * {@link Stream} 데이터(V)를 동일한 식별정보(K)를 갖는 데이터끼리 묶은 후, 새로운 형태(U)로 변환({@code V &rarr; U} by 'valueFunction')하여
      * {@link Map}으로 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code listSupplier}를 통해서 제공되는 {@link List} 객체에 추가됩니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code collectionSupplier}를 통해서 제공되는 {@link Collection} 객체에 추가됩니다.
+     * <p>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
-     *            데이터 식별정보
+     *            데이터 식별정보 (<b>{@code NOT nullable}</b>: Collectors.groupingBy 제약사항)
      * @param <V>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <U>
-     *            새로운 데이터 유형
-     * @param <COL>
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code collectionSupplier}가 제공하는 컬렉션이 {@code null}을 허용해야 합니다.
+     * @param <C>
      *            동일한 식별정보에 해당하는 데이터를 담는 {@link Collection} 유형
      * @param <M>
      *            결과 {@link Map} 유형
@@ -1127,27 +1248,30 @@ public class StreamUtils {
      * @param filter
      *            제외 처리 함수.
      * @param keyMapper
-     *            객체의 식별정보를 제공하는 함수.
+     *            객체의 식별정보를 제공하는 함수. (V &rarr; K) <br>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param valueFunction
-     *            새로운 객체를 제공하는 함수. (V => U)
+     *            새로운 객체를 제공하는 함수. (V &rarr; U)
      * @param mapSupplier
      *            {@link Map} 객체를 제공하는 함수.
      * @param collectionSupplier
      *            {@link Collection} 객체를 제공하는 함수.
-     * @return
+     * 
+     * @return 식별정보로 그룹화되고 값이 변환된 새로운 Map 객체
      * 
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. <br>
+     *             또한 {@code keyMapper}의 결과가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 26.
      * @version 2.1.0
-     * 
      */
-    public static <K, V, U, COL extends Collection<U>, M extends Map<K, COL>> M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction,
-            Supplier<M> mapSupplier, Supplier<COL> collectionSupplier) {
+    public static <K, V extends @Nullable Object, U extends @Nullable Object, C extends Collection<U>, M extends Map<K, C>> //
+            M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier, Supplier<C> collectionSupplier) {
         ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueFunction, mapSupplier, collectionSupplier);
 
         return stream //
+                .filter(Objects::nonNull) //
                 .filter(filter) //
                 .collect( //
                         Collectors.groupingBy( //
@@ -1160,6 +1284,10 @@ public class StreamUtils {
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -1169,11 +1297,9 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <SET>
-     *            결과 {@link Set} 유형
+     *            새로운 데이터 유형 (Nullable).
      * @param stream
      *            데이터 제공 객체
      * @param transformer
@@ -1185,7 +1311,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - (Supplier<Set<NE>>) HashSet<NE>::new
@@ -1198,6 +1323,10 @@ public class StreamUtils {
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -1207,17 +1336,20 @@ public class StreamUtils {
      * </pre>
      *
      * @param <E>
-     *            데이터 유형
+     *            데이터 유형 (Nullable)
      * @param <NE>
-     *            새로운 데이터 유형
-     * @param <SET>
+     *            새로운 데이터 유형 (Nullable). <br>
+     *            단, {@code setSupplier}가 제공하는 {@link Set} 구현체가 {@code null}을 허용해야 합니다.
+     * @param <S>
      *            결과 {@link Set} 유형
      * @param stream
      *            데이터 제공 객체
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param setSupplier
      *            결과 {@link Set} 객체 제공 함수.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -1225,15 +1357,17 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, SET extends Set<NE>> SET toSet(Stream<E> stream, Function<E, NE> transformer,
-            Supplier<SET> setSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Supplier<S> setSupplier) {
         return toCollection(stream, Predicates.alwaysTrue(), transformer, setSupplier);
     }
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -1246,14 +1380,13 @@ public class StreamUtils {
      *            데이터 유형
      * @param <NE>
      *            새로운 데이터 유형
-     * @param <SET>
-     *            결과 {@link Set} 유형
      * @param stream
      *            데이터 제공 객체
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE)
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -1261,7 +1394,6 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - (Supplier<Set<NE>>) HashSet<NE>::new
@@ -1274,6 +1406,10 @@ public class StreamUtils {
 
     /**
      * {@link Stream}에 포함된 데이터를 변형({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
      * 
      * <pre>
      * [개정이력]
@@ -1286,14 +1422,15 @@ public class StreamUtils {
      *            데이터 유형
      * @param <NE>
      *            새로운 데이터 유형
-     * @param <SET>
+     * @param <S>
      *            결과 {@link Set} 유형
      * @param stream
      *            데이터 제공 객체
      * @param filter
      *            처리 대상 필터 함수 (조건이 true인 데이터만 포함)
      * @param transformer
-     *            새로운 데이터 제공 함수
+     *            데이터 변환 함수. (E &rarr; NE) <br>
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param setSupplier
      *            결과 {@link Set} 객체 제공 함수.
      * @return
@@ -1303,10 +1440,9 @@ public class StreamUtils {
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
-     * 
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, SET extends Set<NE>> SET toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer,
-            Supplier<SET> setSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, S extends Set<NE>> //
+            S toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer, Supplier<S> setSupplier) {
         return toCollection(stream, filter, transformer, setSupplier);
     }
 }
