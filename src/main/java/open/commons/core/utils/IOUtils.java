@@ -508,11 +508,11 @@ public class IOUtils {
      * @return
      *
      * @throws FileNotFoundException
-     * @exception FileNotFoundException
-     *                if the file does not exist, is a directory rather than a regular file, or for some other reason
-     *                cannot be opened for reading.
-     * @exception SecurityException
-     *                if a security manager exists and its {@code checkRead} method denies read access to the file.
+     * @throws FileNotFoundException
+     *             if the file does not exist, is a directory rather than a regular file, or for some other reason
+     *             cannot be opened for reading.
+     * @throws SecurityException
+     *             if a security manager exists and its {@code checkRead} method denies read access to the file.
      * @throws NullPointerException
      *             파라미터({@code e})가 {@code null}인 경우 발생.
      *
@@ -532,9 +532,9 @@ public class IOUtils {
      * @return
      *
      * @throws FileNotFoundException
-     * @exception FileNotFoundException
-     *                if the file does not exist, is a directory rather than a regular file, or for some other reason
-     *                cannot be opened for reading.
+     * @throws FileNotFoundException
+     *             if the file does not exist, is a directory rather than a regular file, or for some other reason
+     *             cannot be opened for reading.
      * @throws NullPointerException
      *             파라미터({@code files})가 {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
      *
@@ -560,9 +560,9 @@ public class IOUtils {
      *
      * @return
      *
-     * @exception FileNotFoundException
-     *                if the file does not exist, is a directory rather than a regular file, or for some other reason
-     *                cannot be opened for reading.
+     * @throws FileNotFoundException
+     *             if the file does not exist, is a directory rather than a regular file, or for some other reason
+     *             cannot be opened for reading.
      * @throws NullPointerException
      *             파라미터({@code file1} 또는 {@code file2})가 {@code null}인 경우 발생.
      *
@@ -586,9 +586,9 @@ public class IOUtils {
      * @return
      *
      * @throws FileNotFoundException
-     * @exception FileNotFoundException
-     *                if the file does not exist, is a directory rather than a regular file, or for some other reason
-     *                cannot be opened for reading.
+     * @throws FileNotFoundException
+     *             if the file does not exist, is a directory rather than a regular file, or for some other reason
+     *             cannot be opened for reading.
      * @throws NullPointerException
      *             파라미터({@code insts})가 {@code null}이거나 데이터 중에 {@code null}이 포함된 경우 발생.
      *

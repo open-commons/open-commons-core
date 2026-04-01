@@ -47,6 +47,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,12 +64,13 @@ import open.commons.core.stream.ClassSpliterator;
  * @since 2018. 1. 31.
  * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+// @SuppressWarnings("null")
 public class ObjectUtils {
 
-    // 아래 내용에 적용됨.
-    // - LoggerFactory.getLogger(...)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
 
@@ -142,40 +144,26 @@ public class ObjectUtils {
      * @param standard
      *            기준 타입
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code target 또는 standard})가 {@code null}인 경우 발생.
      *
      * @since 2019. 9. 3.
-     * 
      */
     public static boolean checkType(Class<?> target, Class<?> standard) {
+        ObjectUtils.requireNonNulls(target, standard);
 
-        switch (standard.getName()) {
-            case "boolean":
-            case "java.lang.Boolean":
-                return checkType(target, boolean.class, Boolean.class);
-            case "byte":
-            case "java.lang.Byte":
-                return checkType(target, byte.class, Byte.class);
-            case "char":
-            case "java.lang.Character":
-                return checkType(target, char.class, Character.class);
-            case "short":
-            case "java.lang.Short":
-                return checkType(target, short.class, Short.class);
-            case "int":
-            case "java.lang.Integer":
-                return checkType(target, int.class, Integer.class);
-            case "long":
-            case "java.lang.Long":
-                return checkType(target, long.class, Long.class);
-            case "float":
-            case "java.lang.Float":
-                return checkType(target, float.class, Float.class);
-            case "double":
-            case "java.lang.Double":
-                return checkType(target, double.class, Double.class);
-            default:
-                return standard.isAssignableFrom(target);
-        }
+        return switch (standard.getName()) {
+            case "boolean", "java.lang.Boolean" -> checkType(target, boolean.class, Boolean.class);
+            case "byte", "java.lang.Byte" -> checkType(target, byte.class, Byte.class);
+            case "char", "java.lang.Character" -> checkType(target, char.class, Character.class);
+            case "short", "java.lang.Short" -> checkType(target, short.class, Short.class);
+            case "int", "java.lang.Integer" -> checkType(target, int.class, Integer.class);
+            case "long", "java.lang.Long" -> checkType(target, long.class, Long.class);
+            case "float", "java.lang.Float" -> checkType(target, float.class, Float.class);
+            case "double", "java.lang.Double" -> checkType(target, double.class, Double.class);
+            default -> standard.isAssignableFrom(target);
+        };
     }
 
     /**
@@ -192,12 +180,19 @@ public class ObjectUtils {
      *            검사 대상 타입
      * @param standards
      *            기준 타입
-     * @return
-     *
-     * @since 2019. 9. 3.
      * 
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code targetClass 또는 standards})가 {@code null}이거나 {@code standards}에 {@code null}이 포함된 경우 발생.
+     *
+     * 
+     * @since 2019. 9. 3.
      */
     private static boolean checkType(Class<?> targetClass, Class<?>... standards) {
+        Objects.requireNonNull(targetClass);
+        ObjectUtils.requireNonNulls((Object[]) standards);
+
         for (Class<?> standard : standards) {
             if (standard.isAssignableFrom(targetClass)) {
                 return true;
@@ -222,12 +217,16 @@ public class ObjectUtils {
      *            배열
      *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
-    public static boolean containsNull(boolean visitValue, Collection<?> data) {
+    public static boolean containsNull(boolean visitValue, Collection<@Nullable ?> data) {
+        Objects.requireNonNull(data);
+
         for (Object value : data) {
             if (value == null) {
                 return true;
@@ -266,11 +265,15 @@ public class ObjectUtils {
      *
      * @return
      *
+     * @throws NullPointerException
+     *             파라미터({@code array})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static boolean containsNull(boolean visitValue, Object... array) {
+        Objects.requireNonNull(array);
+
         return containsNull(visitValue, Arrays.asList(array));
     }
 
@@ -288,10 +291,12 @@ public class ObjectUtils {
      *            배열
      *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static boolean containsNull(Collection<?> data) {
         return containsNull(false, data);
@@ -311,10 +316,12 @@ public class ObjectUtils {
      *            배열
      *
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.array
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static boolean containsNull(@Nullable Object... array) {
         return containsNull(false, array);
@@ -338,13 +345,18 @@ public class ObjectUtils {
      *            사용하려는 데이터를 제공하는 함수
      * @param defaultValue
      *            기본값
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code manipulator})가 {@code null}인 경우 발생.
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * 
      */
-    public static <T, R> R getOrDefault(T o, Function<T, R> manipulator, R defaultValue) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o, Function<T, R> manipulator, R defaultValue) {
+        Objects.requireNonNull(manipulator);
+
         return o != null ? manipulator.apply(o) : defaultValue;
     }
 
@@ -366,13 +378,18 @@ public class ObjectUtils {
      *            사용하려는 데이터를 제공하는 함수
      * @param sup
      *            기본값을 제공하는 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code manipulator 또는 sup})가 {@code null}인 경우 발생.
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * 
      */
-    public static <T, R> R getOrDefault(T o, Function<T, R> manipulator, Supplier<R> sup) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o, Function<T, R> manipulator, Supplier<R> sup) {
+        ObjectUtils.requireNonNulls(manipulator, sup);
+
         return o != null ? manipulator.apply(o) : sup.get();
     }
 
@@ -391,13 +408,18 @@ public class ObjectUtils {
      *            사용하려는 데이터.
      * @param sup
      *            기본값을 제공하는 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code sup})가 {@code null}인 경우 발생.
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * 
      */
-    public static <T> T getOrDefault(T o, Supplier<T> sup) {
+    public static <T extends @Nullable Object> T getOrDefault(T o, Supplier<T> sup) {
+        Objects.requireNonNull(sup);
+
         return o != null ? o : sup.get();
     }
 
@@ -420,9 +442,8 @@ public class ObjectUtils {
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
-     * 
      */
-    public static <T> T getOrDefault(T o, T defaultValue) {
+    public static <T extends @Nullable Object> T getOrDefault(T o, T defaultValue) {
         return o != null ? o : defaultValue;
     }
 
@@ -449,18 +470,17 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체 타입.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcType 또는 targetType})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
     public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws IllegalArgumentException {
-
-        AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcType, targetType);
-
         return src -> {
             try {
                 BiConsumer<S, T> copier = ObjectTransformer.getTransformer(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
@@ -490,18 +510,18 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param srcType
      *            입력 데이터 타입
-     * @param target
+     * @param targetType
      *            데이터를 전달받은 객체.
      * @return
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcType 또는 targetType})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * @author parkjunhong77@gmail.com
      */
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> target) throws NullPointerException {
-        return getTransformer(srcType, false, target, false);
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> targetType) throws NullPointerException {
+        return getTransformer(srcType, false, targetType, false);
     }
 
     /**
@@ -526,27 +546,26 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체 타입
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code srcCol 또는 targetClass})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     *             {@code srcCol}이 비어 있는 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * 
      */
     public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
-
         AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
-        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", srcCol.isEmpty(), IllegalArgumentException.class);
+        AssertUtils2.notEmpty("'source' object MUST NOT be empty !!!", srcCol, IllegalArgumentException.class);
 
         @SuppressWarnings("unchecked")
         Optional<Class<S>> fromInstance = srcCol.stream() //
                 .filter(Objects::nonNull) //
                 .findFirst() //
                 .map(e -> (Class<S>) e.getClass());
-
-        AssertUtils2.isTrue("'source' object MUST contain 'non-null' data !!!", fromInstance.isPresent(), IllegalArgumentException.class);
 
         return getTransformer(fromInstance.get(), lookupSrcSuper, targetClass, lookupTargetSuper);
     }
@@ -569,20 +588,18 @@ public class ObjectUtils {
      *            입력 데이터
      * @param targetClass
      *            데이터를 전달받은 객체.
+     * 
      * @return
      * 
+     * @throws NullPointerException
+     *             파라미터({@code srcCol 또는 targetClass})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     *             {@code srcCol}이 비어 있는 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * 
      */
     public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, Class<T> targetClass) {
-
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
-        AssertUtils2.isFalse("'source' object MUST NOT be empty !!!", srcCol.isEmpty(), IllegalArgumentException.class);
-
         return getTransformer(srcCol, false, targetClass, false);
     }
 
@@ -608,9 +625,11 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src 또는 targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
@@ -618,8 +637,8 @@ public class ObjectUtils {
      */
     @SuppressWarnings("unchecked")
     public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws NullPointerException {
-
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, targetClass);
+        Objects.requireNonNull(src, "'source' object MUST NOT be null !!!");
+        Objects.requireNonNull(targetClass, "'target' type MUST NOT be null !!!");
 
         return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, targetClass, lookupTargetSuper);
     }
@@ -648,18 +667,19 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체 타입.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src 또는 target})가 {@code null}인 경우 발생.
      *
      * @since 2022. 1. 26.
      * @version 1.8.0
-     * 
      */
     @SuppressWarnings("unchecked")
     public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) throws IllegalArgumentException {
-
-        AssertUtils2.notNulls("'source' type or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, src, target);
+        Objects.requireNonNull(src, "'source' object MUST NOT be null !!!");
+        Objects.requireNonNull(target, "'target' object MUST NOT be null !!!");
 
         return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, (Class<T>) target.getClass(), lookupTargetSuper);
     }
@@ -682,14 +702,14 @@ public class ObjectUtils {
      *            입력 데이터
      * @param targetClass
      *            데이터를 전달받은 객체 타입.
+     * 
      * @return
      * 
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code src 또는 targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * 
      */
     public static <S, T> Function<S, T> getTransformer(S src, Class<T> targetClass) {
         return getTransformer(src, false, targetClass, false);
@@ -716,12 +736,11 @@ public class ObjectUtils {
      *            데이터를 전달받은 객체.
      * @return
      * 
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code src 또는 target})가 {@code null}인 경우 발생.
      *
      * @since 2022. 1. 26.
      * @version 1.8.0
-     * 
      */
     public static <S, T> Function<S, T> getTransformer(S src, T target) {
         return getTransformer(src, false, target, false);
@@ -739,14 +758,18 @@ public class ObjectUtils {
      * </pre>
      *
      * @param type
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * 
      */
     public static boolean isPrimitive(Class<?> type) {
-        AssertUtils2.notNull(type);
+        Objects.requireNonNull(type);
+
         return PRIMITIVES.contains(type);
     }
 
@@ -767,10 +790,12 @@ public class ObjectUtils {
      *         <li>= 0: Reference type
      *         <li>< 0: Wrapper type
      *         </ul>
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * 
      */
     public static int isPrimitiveOrWrapper(Class<?> type) {
         return isPrimitive(type) //
@@ -791,14 +816,18 @@ public class ObjectUtils {
      * </pre>
      *
      * @param type
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * 
      */
     public static boolean isWrapper(Class<?> type) {
-        AssertUtils2.notNull(type);
+        Objects.requireNonNull(type);
+
         return WRAPPER_TYPES.contains(type);
     }
 
@@ -812,17 +841,20 @@ public class ObjectUtils {
      * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
      * </pre>
      *
-     * @param obj
+     * @param object
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code object})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * 
      */
-    public static boolean isWrapper(Object obj) {
-        AssertUtils2.notNull(obj);
+    public static boolean isWrapper(Object object) {
+        Objects.requireNonNull(object);
 
-        return WRAPPER_TYPES.contains(obj.getClass());
+        return WRAPPER_TYPES.contains(object.getClass());
     }
 
     /**
@@ -847,18 +879,20 @@ public class ObjectUtils {
      * @since 2019. 9. 3.
      * @version 2.0.0
      * 
-     * 
      * @throws IllegalAccessException
      * @throws InstantiationException
      * @throws InvocationTargetException
      * @throws IllegalArgumentException
      * @throws NoSuchMethodException
      *             생성자를 찾을 수 없는 경우
+     * @throws NullPointerException
+     *             파라미터({@code type})가 {@code null}인 경우 발생.
      * 
      * @see Setter
      */
     public static <T> T load(Class<T> type, Map<String, Object> map)
             throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
+        Objects.requireNonNull(type);
 
         // [캐싱] 클래스에 대한 Setter 정보를 최초 1회만 스캔하여 저장합니다.
         List<SetterInfo> setters = SETTER_CACHE.computeIfAbsent(type, k -> {
@@ -876,10 +910,12 @@ public class ObjectUtils {
 
                 Setter setter = m.getAnnotation(Setter.class);
                 String name = setter.name();
+                @NonNull
                 Class<?> paramType = m.getParameterTypes()[0];
 
                 try {
                     // Method.invoke 보다 압도적으로 빠른 MethodHandle로 변환하여 저장
+                    @NonNull
                     MethodHandle handle = lookup.unreflect(m);
                     list.add(new SetterInfo(name, paramType, handle));
                 } catch (IllegalAccessException e) {
@@ -927,15 +963,17 @@ public class ObjectUtils {
      *
      * @param forceToPrimitive
      * @param objects
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static Class<?>[] readClasses(boolean forceToPrimitive, Object... objects) {
-        return readClassesAsStream(forceToPrimitive, objects) //
-                .toArray(Class<?>[]::new);
+        return readClassesAsStream(forceToPrimitive, objects).toArray(Class<?>[]::new);
     }
 
     /**
@@ -949,11 +987,14 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static Class<?>[] readClasses(Object... objects) {
         return readClasses(false, objects);
@@ -970,15 +1011,17 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static List<Class<?>> readClassesAsList(boolean forceToPrimitive, Object... objects) {
-        return readClassesAsStream(forceToPrimitive, objects) //
-                .collect(Collectors.toList());
+        return readClassesAsStream(forceToPrimitive, objects).collect(Collectors.toList());
     }
 
     /**
@@ -992,11 +1035,14 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static List<Class<?>> readClassesAsList(Object... objects) {
         return readClassesAsList(false, objects);
@@ -1013,13 +1059,18 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static Stream<Class<?>> readClassesAsStream(boolean forceToPrimitive, Object... objects) {
+        ObjectUtils.requireNonNulls((Object[]) objects);
+
         return StreamSupport.stream(new ClassSpliterator(forceToPrimitive, objects), false);
     }
 
@@ -1034,11 +1085,14 @@ public class ObjectUtils {
      * </pre>
      *
      * @param objects
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static Stream<Class<?>> readClassesAsStream(Object... objects) {
         return readClassesAsStream(false, objects);
@@ -1059,7 +1113,6 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 3.
      * @version 1.8.0
-     * 
      */
     public static List<String> readInformation(Object o) {
         final String fmt = "%-15s = %s";
@@ -1105,8 +1158,12 @@ public class ObjectUtils {
      *            변환 이후 속성 데이터 타입
      * @param converter
      *            '이전 타입 -> 이후 타입' 변환 함수
+     * 
      * @return
+     * 
      * @throws NullPointerException
+     *             파라미터({@code srcFieldClass, targetFieldClass, converter 중에 1개라도})가 {@code null}인 경우 발생.
+     * 
      *
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
@@ -1138,7 +1195,9 @@ public class ObjectUtils {
      *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
      * @param targetToSrc
      *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
+     * 
      * @throws NullPointerException
+     *             파라미터({@code srcFieldClass, targetFieldClass, srcToTarget, targetToSrc 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 2.
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
@@ -1187,7 +1246,6 @@ public class ObjectUtils {
      *
      * @since 2026. 3. 16.
      * @version 3.0.0
-     * 
      */
     public static Object[] requireNonNullsWithMessage(@Nullable String message, @Nullable Object @Nullable... objects) {
         if (message == null) {
@@ -1207,42 +1265,60 @@ public class ObjectUtils {
     }
 
     /**
-     * 전달받은 데이터를 변환(T => U)한 후, 새로운 {@link Collection}(R)로 제공합니다. <br>
+     * 전달받은 데이터를 변환(E &rarr; V)한 후, 새로운 {@link Collection}(R)로 제공합니다.
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
-     *            기존 데이터 유형
-     * @param <U>
-     *            새로운 데이터 유형
+     * @param <E>
+     *            기존 데이터 유형 (Nullable). (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게 제외됩니다)
+     * @param <V>
+     *            새로운 데이터 유형 (Nullable). 단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야
+     *            합니다.
      * @param <R>
      *            변환 후 데이터가 저장될 {@link Collection} 유형
      * @param objects
-     * @param function
-     *            데이터 변환 함수
+     *            원본 데이터 컬렉션
+     * @param transformer
+     *            데이터 변환 함수 (E &rarr; V). 반환값으로 {@code null}을 제공할 수 있으나, 이 경우 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param collectionSupplier
-     * @return
+     *            결과를 담을 새로운 {@link Collection} 객체 제공 함수
+     *
+     * @return 변환된 데이터가 저장된 새로운 컬렉션
+     *
      * @throws UnsupportedOperationException
+     *             지원하지 않는 컬렉션 연산 시 발생.
      * @throws InstantiationException
+     *             컬렉션 객체 인스턴스화 실패 시 발생.
      * @throws IllegalAccessException
+     *             컬렉션 객체 생성 접근 권한 위반 시 발생.
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer, collectionSupplier}) 중 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
-    private static <T, U, R extends Collection<U>> R to(Collection<T> objects, Function<T, U> transformer, Supplier<R> collectionSupplier) {
+    private static <E extends @Nullable Object, V extends @Nullable Object, R extends Collection<V>> R to(Collection<E> objects, Function<E, V> transformer,
+            Supplier<R> collectionSupplier) {
         AssertUtils2.notNulls(objects, transformer, collectionSupplier);
 
         if (objects.size() < 1) {
             return collectionSupplier.get();
         }
 
-        return objects.stream().map(transformer).collect(Collectors.toCollection(collectionSupplier));
+        return objects.stream() //
+                .filter(Objects::nonNull) //
+                .map(transformer) //
+                .collect(Collectors.toCollection(collectionSupplier));
     }
 
     /**
@@ -1261,7 +1337,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Boolean> toBoolean(Collection<Object> objects) {
         return to(objects, booleanFunction, ArrayList::new);
@@ -1285,7 +1360,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Boolean> toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1313,7 +1387,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1339,7 +1412,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, booleanFunction, collectionSupplier);
@@ -1361,7 +1433,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Byte> toByte(Collection<Object> objects) {
         return to(objects, byteFunction, ArrayList::new);
@@ -1385,7 +1456,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Byte> toByte(Collection<Object> objects, Function<Object, Byte> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1413,7 +1483,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Function<Object, Byte> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1439,7 +1508,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, byteFunction, collectionSupplier);
@@ -1461,7 +1529,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Double> toDouble(Collection<Object> objects) {
         return to(objects, doubleFunction, ArrayList::new);
@@ -1485,7 +1552,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Double> toDouble(Collection<Object> objects, Function<Object, Double> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1513,7 +1579,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Function<Object, Double> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1539,7 +1604,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, doubleFunction, collectionSupplier);
@@ -1561,7 +1625,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Float> toFloat(Collection<Object> objects) {
         return to(objects, floatFunction, ArrayList::new);
@@ -1585,7 +1648,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Float> toFloat(Collection<Object> objects, Function<Object, Float> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1613,7 +1675,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Function<Object, Float> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1639,7 +1700,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, floatFunction, collectionSupplier);
@@ -1661,7 +1721,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Integer> toInteger(Collection<Object> objects) {
         return to(objects, intFunction, ArrayList::new);
@@ -1685,7 +1744,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Integer> toInteger(Collection<Object> objects, Function<Object, Integer> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1713,7 +1771,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Function<Object, Integer> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1739,7 +1796,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, intFunction, collectionSupplier);
@@ -1761,7 +1817,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Long> toLong(Collection<Object> objects) {
         return to(objects, longFunction, ArrayList::new);
@@ -1785,7 +1840,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Long> toLong(Collection<Object> objects, Function<Object, Long> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1813,7 +1867,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Function<Object, Long> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1839,7 +1892,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, longFunction, collectionSupplier);
@@ -1861,7 +1913,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Short> toShort(Collection<Object> objects) {
         return to(objects, shortFunction, ArrayList::new);
@@ -1885,7 +1936,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<Short> toShort(Collection<Object> objects, Function<Object, Short> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -1913,7 +1963,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Function<Object, Short> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -1939,7 +1988,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, shortFunction, collectionSupplier);
@@ -1961,7 +2009,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<String> toString(Collection<Object> objects) {
         return to(objects, strFunction, ArrayList::new);
@@ -1985,7 +2032,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static List<String> toString(Collection<Object> objects, Function<Object, String> transformer) {
         return to(objects, transformer, ArrayList::new);
@@ -2013,7 +2059,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<String>> R toString(Collection<Object> objects, Function<Object, String> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
@@ -2039,7 +2084,6 @@ public class ObjectUtils {
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
-     * 
      */
     public static <R extends Collection<String>> R toString(Collection<Object> objects, Supplier<R> collectionSupplier) {
         return to(objects, strFunction, collectionSupplier);
@@ -2083,7 +2127,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
@@ -2129,7 +2172,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
@@ -2171,7 +2213,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
@@ -2207,7 +2248,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetType, false, null, collectionSupplier);
@@ -2250,7 +2290,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
@@ -2290,7 +2329,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
@@ -2332,7 +2370,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
@@ -2368,7 +2405,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, null, collectionSupplier);
@@ -2409,7 +2445,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
@@ -2445,7 +2480,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, lookupTargetSuper, null, collectionSupplier);
@@ -2484,7 +2518,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, false, converters, collectionSupplier);
@@ -2517,7 +2550,6 @@ public class ObjectUtils {
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
         return transform(src, false, targetType, false, null, collectionSupplier);
@@ -2558,7 +2590,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
@@ -2594,7 +2625,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
@@ -2633,7 +2663,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
@@ -2667,7 +2696,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, null, collectionSupplier);
@@ -2730,7 +2758,6 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * 
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
         return transform(src, lookupSrcSuper //
@@ -2776,7 +2803,6 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * 
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper //
@@ -2887,7 +2913,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
@@ -2926,7 +2951,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
@@ -3072,7 +3096,6 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * 
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
@@ -3186,7 +3209,6 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * 
      */
     public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper) {
         return transform(src, false, targetType, lookupTargetSuper);
@@ -3223,7 +3245,6 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * 
      */
     public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetType, lookupTargetSuper, converters);
@@ -3324,7 +3345,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper);
@@ -3361,7 +3381,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters);
@@ -3461,7 +3480,6 @@ public class ObjectUtils {
      * @return
      *
      * @since 2019. 7. 11.
-     * 
      */
     public static <S, T> T transform(S src, T target, boolean lookupTargetSuper) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, null);
@@ -3498,7 +3516,6 @@ public class ObjectUtils {
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
-     * 
      */
     public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, converters);
@@ -3723,7 +3740,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T> T transformAll(S src, Class<T> targetType) {
         return transform(src, true, targetType, true);
@@ -3753,7 +3769,6 @@ public class ObjectUtils {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public static <S, T> T transformAll(S src, Supplier<T> targetInstanceSupplier) {
         return transform(src, true, targetInstanceSupplier, true);

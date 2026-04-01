@@ -69,7 +69,7 @@ public class ComparableUtils {
     }
 
     /**
-     * 두 객체에 대한 비교 결과를 제공합니다. <br>
+     * 두 객체에 대한 비교 결과(Nulls First 기준)를 제공합니다. <br>
      * *
      * 
      * <pre>
@@ -105,7 +105,7 @@ public class ComparableUtils {
     }
 
     /**
-     * {@link ComparableValue}이 사용된 필드만 이용해서 동적으로 비교 결과를 반환합니다. 단, 해당 필드는 {@link Comparable}을 구현해야만 합니다.
+     * {@link ComparableValue}이 사용된 필드만 이용해서 동적으로 비교 결과(Nulls First 기준)를 반환합니다. 단, 해당 필드는 {@link Comparable}을 구현해야만 합니다.
      *
      * <pre>
      * [개정이력]

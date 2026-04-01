@@ -268,8 +268,8 @@ public class StringUtils {
      *            the character array of a string
      * @param SL
      *            the length of a string <BR>
-     * @exception NullPointerException
-     *                if an {@code array} is null.
+     * @throws NullPointerException
+     *             if an {@code array} is null.
      * 
      * @since 2012. 02. 22.
      * 

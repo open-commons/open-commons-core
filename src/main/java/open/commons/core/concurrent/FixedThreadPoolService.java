@@ -48,8 +48,8 @@ public class FixedThreadPoolService implements ExecutorService {
     /**
      * @param executor
      * 
-     * @exception IllegalArgumentException
-     *                {@link ExecutorService} 객체가 {@code null}인 경우
+     * @throws IllegalArgumentException
+     *             {@link ExecutorService} 객체가 {@code null}인 경우
      * @since 2012. 01. 20.
      * 
      * 

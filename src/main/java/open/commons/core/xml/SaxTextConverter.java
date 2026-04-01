@@ -145,11 +145,11 @@ public class SaxTextConverter {
      */
     @SuppressWarnings("unchecked")
     public <R> Function<String, R> getConverter(String fqcn) {
-        AssertUtils2.notNull("Full Qualified Class Name MUST NOT BE NULL !!!", fqcn, NullPointerException.class);
+        AssertUtils2.notNull(fqcn, NullPointerException.class, "Full Qualified Class Name MUST NOT BE NULL !!!");
 
         Function<String, R> c = (Function<String, R>) CONVERTERS.get(fqcn);
 
-        AssertUtils2.notNull("No converter for " + fqcn, c, NullPointerException.class);
+        AssertUtils2.notNull(c, NullPointerException.class, "No converter for " + fqcn);
 
         return c;
     }

@@ -332,7 +332,7 @@ public class StreamUtils {
      *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
-     *            
+     * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @throws NullPointerException

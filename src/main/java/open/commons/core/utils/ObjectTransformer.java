@@ -66,6 +66,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +94,11 @@ import open.commons.core.function.PentagonFunction;
  * @version 2.1.0
  * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class ObjectTransformer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjectTransformer.class);
@@ -137,6 +144,10 @@ public class ObjectTransformer {
      * 
      * @return 속성 이름
      */
+    // 아래 내용에 적용됨.
+    // - name.substring(int)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     private static Function<Method, String> GETTER_KEYGEN = method -> {
         Getter annoGetter = method.getAnnotation(Getter.class);
         String name = annoGetter.name();
@@ -167,6 +178,10 @@ public class ObjectTransformer {
      * 
      * @return 속성 이름
      */
+    // 아래 내용에 적용됨.
+    // - name.substring(int)
+    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     private static Function<Method, String> SETTER_KEYGEN = method -> {
         Setter annoSetter = method.getAnnotation(Setter.class);
         String name = annoSetter.name();
@@ -209,13 +224,17 @@ public class ObjectTransformer {
      * @param targetPropertyClass
      *            변환 이후 속성 데이터 타입
      */
-    public static final PentagonFunction<Class<?>, Class<?>, String, Class<?>, Class<?>, String> FIELD_CONVERTER_KEYGEN = //
+    public static final PentagonFunction<@Nullable Class<?>, Class<?>, String, @Nullable Class<?>, Class<?>, @NonNull String> FIELD_CONVERTER_KEYGEN = //
             (srcClass, srcPropertyClass, property, targetClass, targetPropertyClass) //
-            -> String.join(" -> " //
-                    , String.join("#", Objects.toString(srcClass, "null"), Objects.toString(srcPropertyClass, "null")) //
-                    , property //
-                    , String.join("#", Objects.toString(targetClass, "null"), Objects.toString(targetPropertyClass, "null")) //
-            );
+            -> {
+                ObjectUtils.requireNonNulls(srcPropertyClass, targetPropertyClass);
+
+                return String.join(" -> " //
+                        , String.join("#", Objects.toString(srcClass, "null"), srcPropertyClass.toString()) //
+                        , property //
+                        , String.join("#", Objects.toString(targetClass, "null"), targetPropertyClass.toString()) //
+                );
+            };
 
     /**
      * 
@@ -225,8 +244,7 @@ public class ObjectTransformer {
     private ObjectTransformer() {
     }
 
-    // [최적화] Pattern Matching 적용으로 불필요한 캐스팅 제거
-    private static Class<?> asClass(Type t) {
+    private static @Nullable Class<?> asClass(Type t) {
         if (t instanceof Class<?> c) {
             return c;
         } else if (t instanceof ParameterizedType pt //
@@ -235,17 +253,20 @@ public class ObjectTransformer {
             return rt;
         } else if (t instanceof WildcardType wt) {
             // ? extends X 또는 ? super X -> 우선 상한(upper bound) 사용
-            Type[] ub = wt.getUpperBounds();
-            if (ub != null && ub.length > 0) {
+            @NonNull
+            Type @NonNull [] ub = wt.getUpperBounds();
+            if (ub.length > 0) {
                 return asClass(ub[0]);
             }
+            @NonNull
             Type[] lb = wt.getLowerBounds();
-            if (lb != null && lb.length > 0) {
+            if (lb.length > 0) {
                 return asClass(lb[0]);
             }
         } else if (t instanceof TypeVariable<?> tv) {
+            @NonNull
             Type[] bounds = tv.getBounds();
-            if (bounds != null && bounds.length > 0) {
+            if (bounds.length > 0) {
                 return asClass(bounds[0]);
             }
         }
@@ -273,7 +294,11 @@ public class ObjectTransformer {
      *            대상 데이터 상위 클래스 정보 이관 여부
      * @param converters
      *            데이터 변환 함수
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
@@ -281,6 +306,7 @@ public class ObjectTransformer {
      */
     private static BiConsumer<Object, Object> buildCopier(Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters) {
+        ObjectUtils.requireNonNulls(srcClass, targetClass, converters);
 
         List<StepPlan> steps = planSteps(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
 
@@ -294,6 +320,7 @@ public class ObjectTransformer {
                 plan.getter.trySetAccessible();
                 plan.setter.trySetAccessible();
 
+                @NonNull
                 MethodHandle getter = lookup.unreflect(plan.getter);
                 // (Object)->Object 로 어댑터
                 getter = MethodHandles.explicitCastArguments(getter, MethodType.methodType(Object.class, Object.class));
@@ -674,8 +701,8 @@ public class ObjectTransformer {
         return makeNestedCopierAsConverter(lookup, srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
     }
 
-    private static Map<String, Function<?, ?>> checkConvertersOrDefault(Map<String, Function<?, ?>> converters) {
-        return MapUtils.isNullOrEmpty(converters) ? FIELD_CONVERTERS : converters;
+    private static Map<String, Function<?, ?>> checkConvertersOrDefault(@Nullable Map<String, Function<?, ?>> converters) {
+        return converters == null || converters.isEmpty() ? FIELD_CONVERTERS : converters;
     }
 
     private static Class<?> componentTypeOfReturn(Method getter) {
@@ -1051,13 +1078,13 @@ public class ObjectTransformer {
      *            변환 함수들
      * @param useGlobalConverter
      *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     * 
      * @return
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
-     * 
      */
-    private static <S, SF, T, TF> Function<?, ?> getFieldConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
+    private static <S, SF, T, TF> @Nullable Function<?, ?> getFieldConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
             Class<TF> targetPropertyClass, Map<String, Function<?, ?>> converters, boolean useGlobalConverter) {
         return MapUtils.getOrDefault( //
                 FIELD_CONVERTERS //
@@ -1185,6 +1212,9 @@ public class ObjectTransformer {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code srcClass 또는 targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
@@ -1192,6 +1222,8 @@ public class ObjectTransformer {
      */
     @SuppressWarnings("unchecked")
     public static <S, T> BiConsumer<S, T> getTransformer(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
+        ObjectUtils.requireNonNulls(srcClass, targetClass);
+
         return (BiConsumer<S, T>) getTransformer(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, null);
     }
 
@@ -1231,7 +1263,7 @@ public class ObjectTransformer {
      * 
      */
     private static <S, T> BiConsumer<Object, Object> getTransformer(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> fieldConverters) {
+            @Nullable Map<String, Function<?, ?>> fieldConverters) {
 
         // 데이터 변환함수가 null 인 경우
         CopierKey key = new CopierKey(srcClass, targetClass, lookupSrcSuper, lookupTargetSuper,
@@ -1537,14 +1569,16 @@ public class ObjectTransformer {
      * @param converter
      *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
      * @return
+     * 
      * @throws NullPointerException
+     *             파라미터({@code srcPropertyClass, targetPropertyClass, converter 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
      * 
      */
-    public static <S, SF, T, TF> Object registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass,
-            Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
+    public static <S, SF, T, TF> Object registerPropertyConverter(@Nullable Class<S> srcClass, Class<SF> srcPropertyClass, @Nullable String property,
+            @Nullable Class<T> targetClass, Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
         AssertUtils2.notNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
 
         // primitive 타입, wrapper 타입인 경우 추가 자동 등록
@@ -1593,14 +1627,19 @@ public class ObjectTransformer {
      *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
      * @param targetToSrc
      *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
+     * 
      * @throws NullPointerException
+     *             파라미터({@code srcPropertyClass, targetPropertyClass, srcToTarget, targetToSrc 중에 1개라도})가 {@code null}인
+     *             경우 발생.
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
      * 
      */
-    public static <S, SF, T, TF> void registerPropertyConverter(Class<S> srcClass, Class<SF> srcPropertyClass, String property, Class<T> targetClass, Class<TF> targetPropertyClass,
-            Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
+    public static <S, SF, T, TF> void registerPropertyConverter(@Nullable Class<S> srcClass, Class<SF> srcPropertyClass, @Nullable String property, @Nullable Class<T> targetClass,
+            Class<TF> targetPropertyClass, Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
+        ObjectUtils.requireNonNulls(srcPropertyClass, targetPropertyClass, srcToTarget, targetToSrc);
+
         // register 'src' to 'target'
         registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget);
         // register 'target' to 'src'
@@ -1672,8 +1711,9 @@ public class ObjectTransformer {
      *            <li>타입 변환 함수
      *            </ul>
      * 
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
+     * @throws NullPointerException
+     *             파라미터({@code src 또는 target})가 {@code null}인 경우 발생.
+     * 
      * @return
      *
      * @since 2021. 11. 22.
@@ -1681,8 +1721,8 @@ public class ObjectTransformer {
      * 
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
-
-        AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!", IllegalArgumentException.class, src, target);
+        Objects.requireNonNull(src, "'source' object type must NOT be null !!!");
+        Objects.requireNonNull(target, "'target' type must NOT be null !!!");
 
         IdentityHashMap<Object, IdentityHashMap<Object, Object>> prev = TL_VISITED.get();
         boolean owner = false;
@@ -1776,6 +1816,7 @@ public class ObjectTransformer {
          * 
          * @since 2025. 10. 2.
          */
+        @Nullable
         volatile Throwable initializationError;
 
         @Override

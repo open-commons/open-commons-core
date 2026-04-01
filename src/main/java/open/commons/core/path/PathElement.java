@@ -697,10 +697,10 @@ public class PathElement implements Iterable<String> {
      * 
      * @return
      * 
-     * @exception PathElementException
-     *                경로값이 없는 경우.
+     * @throws PathElementException
+     *             경로값이 없는 경우.
      * 
-     *                <BR>
+     *             <BR>
      * @since 2012. 03. 14.
      * 
      */

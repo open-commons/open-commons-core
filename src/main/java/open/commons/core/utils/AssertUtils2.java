@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.exception.AssertionException;
@@ -52,7 +51,6 @@ import open.commons.core.exception.AssertionException;
  * @version 2.1.0
  * 
  */
-@NullUnmarked
 public class AssertUtils2 {
 
     private AssertUtils2() {
@@ -63,21 +61,20 @@ public class AssertUtils2 {
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static void assert0(@Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) throws RuntimeException {
+    private static RuntimeException assert0(@Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
         try {
             Constructor<? extends RuntimeException> cons = exClass != null //
                     ? exClass.getConstructor(String.class) //
                     : AssertionException.class.getConstructor(String.class);
-            throw cons.newInstance(msg) //
-            ;
+            return cons.newInstance(msg);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
+            return new RuntimeException(e);
         } catch (InstantiationException e) {
-            throw new RuntimeException(e);
+            return new RuntimeException(e);
         } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            return new RuntimeException(e);
         } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
+            return new RuntimeException(e);
         }
     }
 
@@ -94,10 +91,10 @@ public class AssertUtils2 {
     }
 
     public static Object collectionNotNull(@Nullable String msg, Collection<?> col, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull("The 'collection' MUST NOT be null. col: null", col);
+        notNull(col, "The 'collection' MUST NOT be null. col: null");
 
         for (Object o : col) {
-            notNull(msg, o);
+            notNull(o, msg);
         }
 
         return col;
@@ -116,7 +113,7 @@ public class AssertUtils2 {
     }
 
     public static void collectionNull(@Nullable String msg, Collection<?> col, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull("The 'collection' MUST NOT be null. col: null", col);
+        notNull(col, "The 'collection' MUST NOT be null. col: null");
 
         for (Object o : col) {
             isNull(msg, o);
@@ -165,7 +162,7 @@ public class AssertUtils2 {
      */
     public static void equals(@Nullable String msg, @Nullable Object obj1, @Nullable Object obj2, @Nullable Class<? extends RuntimeException> exClass) {
         if (equals_(obj1, obj2)) {
-            assert0(exClass, "The result MUST be 'equal'." + msg0(msg));
+            throw assert0(exClass, "The result MUST be 'equal'." + msg0(msg));
         }
     }
 
@@ -175,6 +172,10 @@ public class AssertUtils2 {
         } else {
             return obj1 == null && obj2 == null;
         }
+    }
+
+    private static Class<? extends RuntimeException> IAE_CLASS(@Nullable Class<? extends RuntimeException> exClass) {
+        return exClass != null ? exClass : IllegalArgumentException.class;
     }
 
     /**
@@ -222,7 +223,7 @@ public class AssertUtils2 {
         notNulls("Neither parentClass and childClass MUST be null.", parentClass, childClass);
 
         if (!parentClass.isAssignableFrom(childClass.getClass())) {
-            assert0(exClass, "childClass's type MUST be " + parentClass + " or impelemt " + parentClass + msg0(msg));
+            throw assert0(exClass, "childClass's type MUST be " + parentClass + " or impelemt " + parentClass + msg0(msg));
         }
     }
 
@@ -251,13 +252,8 @@ public class AssertUtils2 {
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void isFalse(@Nullable String msg, boolean bool, @Nullable Class<? extends RuntimeException> exClass) {
-        try {
-            if (bool) {
-                assert0(exClass, "The result MUST be false." + msg0(msg));
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (bool) {
+            throw assert0(exClass, "The result MUST be false." + msg0(msg));
         }
     }
 
@@ -274,12 +270,10 @@ public class AssertUtils2 {
     }
 
     public static void isInterface(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull("The object MUST NOT be null. object: null", object);
+        notNull(object, "The object MUST NOT be null. object: null");
 
-        if (!isInterface_(Objects.requireNonNull( //
-                object //
-        ))) {
-            assert0(exClass, "The object is MUST be interface." + msg0(msg));
+        if (!isInterface_(Objects.requireNonNull(object))) {
+            throw assert0(exClass, "The object is MUST be interface." + msg0(msg));
         }
     }
 
@@ -301,13 +295,9 @@ public class AssertUtils2 {
     }
 
     public static void isNull(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        if (!isNull_(object)) {
-            assert0(exClass == null ? NullPointerException.class : exClass, msg0(msg));
+        if (object != null) {
+            throw assert0(NPE_CLASS(exClass), msg0(msg));
         }
-    }
-
-    private static boolean isNull_(@Nullable Object object) {
-        return object == null;
     }
 
     public static void isNulls(@Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
@@ -322,8 +312,8 @@ public class AssertUtils2 {
         isNull(null, objects, null);
 
         for (Object object : Objects.requireNonNull(objects)) {
-            if (!isNull_(object)) {
-                assert0(exClass == null ? NullPointerException.class : exClass, "objects: " + Arrays.toString(objects) + msg0(msg));
+            if (object != null) {
+                throw assert0(NPE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
             }
         }
     }
@@ -357,12 +347,8 @@ public class AssertUtils2 {
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void isTrue(@Nullable String msg, boolean bool, @Nullable Class<? extends RuntimeException> exClass) {
-        try {
-            if (!bool) {
-                assert0(exClass, "The result MUST be true." + msg0(msg));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (!bool) {
+            throw assert0(exClass, "The result MUST be true." + msg0(msg));
         }
     }
 
@@ -379,7 +365,7 @@ public class AssertUtils2 {
     }
 
     public static Object mapNotNull(@Nullable String msg, Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull("The map MUST NOT be null. map: null", map);
+        notNull(map, "The map MUST NOT be null. map: null");
 
         Object key = null;
         Object value = null;
@@ -405,7 +391,7 @@ public class AssertUtils2 {
     }
 
     public static void mapNull(@Nullable String msg, Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull("The map MUST NOT be null. map: null", map);
+        notNull(map, "The map MUST NOT be null. map: null");
 
         Object key = null;
         Object value = null;
@@ -418,6 +404,61 @@ public class AssertUtils2 {
 
     private static String msg0(@Nullable String msg) {
         return msg != null ? " (" + msg + ")" : "";
+    }
+
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object) {
+        return notEmpty(object, (Class<? extends RuntimeException>) null, (String) null);
+    }
+
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass) {
+        return notEmpty(object, exClass, (String) null);
+    }
+
+    /**
+     * 
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 1.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @param object
+     *            검증할 객체
+     * @param exClass
+     *            오류 클래스
+     * @param msgFormat
+     *            {@link String#format(String, Object...)} 에서 사용될 메시지 포맷
+     * @param msgArgs
+     *            메시지 데이터
+     * 
+     * @return
+     *
+     * @since 2026. 4. 1.
+     * @version 3.0.0
+     */
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass,
+            @Nullable String msgFormat, Object... msgArgs) {
+        try {
+            if (Objects.requireNonNull(object).isEmpty()) {
+                throw assert0(IAE_CLASS(exClass), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
+            } else {
+                return object;
+            }
+        } catch (NullPointerException e) {
+            throw assert0(NPE_CLASS(exClass), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
+        }
+    }
+
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable String msg) {
+        return notEmpty(object, null, msg);
+    }
+
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable String msg, @Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass) {
+        return notEmpty(object, exClass, msg);
     }
 
     /**
@@ -462,7 +503,7 @@ public class AssertUtils2 {
      */
     public static void notEquals(@Nullable String msg, @Nullable Object obj1, @Nullable Object obj2, @Nullable Class<? extends RuntimeException> exClass) {
         if (!equals_(obj1, obj2)) {
-            assert0(exClass, "The result MUST be NOT 'equal'." + msg0(msg));
+            throw assert0(exClass, "The result MUST be NOT 'equal'." + msg0(msg));
         }
     }
 
@@ -479,22 +520,20 @@ public class AssertUtils2 {
     }
 
     public static void notInterface(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull("The object MUST NOT be null. object: null", object);
+        notNull(object, "The object MUST NOT be null. object: null");
 
-        if (isInterface_(Objects.requireNonNull( //
-                object //
-        ))) {
-            assert0(exClass, "The object is MUST NOT be interface." + msg0(msg));
+        if (isInterface_(Objects.requireNonNull(object))) {
+            throw assert0(exClass, "The object is MUST NOT be interface." + msg0(msg));
 
         }
     }
 
     public static Object notNull(@Nullable Object object) {
-        return notNull(null, object, null);
+        return notNull(object, (Class<? extends RuntimeException>) null, (String) null);
     }
 
     public static Object notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        return notNull(null, object, exClass);
+        return notNull(object, exClass, (String) null);
     }
 
     /**
@@ -520,15 +559,15 @@ public class AssertUtils2 {
      * @version 2.1.0
      */
     public static Object notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msgFormat, Object... msgArgs) {
-        if (isNull_(object)) {
-            assert0(exClass == null ? NullPointerException.class : exClass, msg0(String.format(msgFormat, msgArgs)));
+        try {
+            return Objects.requireNonNull(object);
+        } catch (NullPointerException e) {
+            throw assert0(NPE_CLASS(exClass), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
         }
-
-        return Objects.requireNonNull(object);
     }
 
-    public static Object notNull(@Nullable String msg, @Nullable Object object) {
-        return notNull(msg, object, null);
+    public static Object notNull(@Nullable Object object, @Nullable String msg) {
+        return notNull(object, null, msg);
     }
 
     public static Object notNull(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
@@ -536,19 +575,23 @@ public class AssertUtils2 {
     }
 
     public static Object notNulls(@Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
-        return notNulls(null, exClass, objects);
+        return notNulls((String) null, exClass, objects);
     }
 
     public static Object notNulls(Object @Nullable... objects) {
-        return notNulls(null, null, objects);
+        return notNulls((String) null, (Class<? extends RuntimeException>) null, objects);
     }
 
     public static Object notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, Object @Nullable... objects) {
-        notNull(msg, objects, exClass);
+        try {
+            Objects.requireNonNull(objects);
+        } catch (NullPointerException e) {
+            throw assert0(NPE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
+        }
 
         for (Object object : Objects.requireNonNull(objects)) {
-            if (isNull_(object)) {
-                assert0(exClass == null ? NullPointerException.class : exClass, "objects: " + Arrays.toString(objects) + msg0(msg));
+            if (object == null) {
+                throw assert0(NPE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
             }
         }
 
@@ -556,6 +599,10 @@ public class AssertUtils2 {
     }
 
     public static Object notNulls(@Nullable String msg, @Nullable Object @Nullable... objects) {
-        return notNulls(msg, null, objects);
+        return notNulls(msg, (Class<? extends RuntimeException>) null, objects);
+    }
+
+    private static Class<? extends RuntimeException> NPE_CLASS(@Nullable Class<? extends RuntimeException> exClass) {
+        return exClass != null ? exClass : NullPointerException.class;
     }
 }

@@ -45,7 +45,7 @@ public abstract class AContainer<T extends @Nullable Object> implements IContain
      * @param contained
      * @return
      */
-    protected boolean checkNull( T container, T contained) {
+    protected boolean checkNull(T container, T contained) {
 
         // 1. 'null' cannot contain anything.
         // 2. 'not-null object' does not contain 'null'. - [Park Jun-Hong]: 2012. 7. 30.

@@ -183,7 +183,7 @@ public class CsvFileConfig extends CsvConfig {
         super(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace);
         this.charset = charset;
         this.charsetName = Objects.requireNonNull(charset.displayName());
-        
+
         setSkip(skip);
     }
 

@@ -69,7 +69,7 @@ public class ByteUtils {
      * @throws NullPointerException
      *             파라미터({@code data})가 {@code null}인 경우 발생.
      */
-    public static @Nullable String hexBinString(boolean split, byte... data) {
+    public static String hexBinString(boolean split, byte... data) {
         return hexBinString("", split, data);
     }
 
@@ -83,7 +83,7 @@ public class ByteUtils {
      *             파라미터({@code data})가 {@code null}인 경우 발생.
      * 
      */
-    public static @Nullable String hexBinString(byte... data) {
+    public static String hexBinString(byte... data) {
         return hexBinString("", false, data);
     }
 
@@ -103,7 +103,7 @@ public class ByteUtils {
      * 
      * @since 2020. 12. 17.
      */
-    public static @Nullable String hexBinString(@Nullable String prefix, boolean split, byte... data) {
+    public static String hexBinString(@Nullable String prefix, boolean split, byte... data) {
         return hexBinString(prefix, split ? " " : null, data);
     }
 
@@ -128,7 +128,7 @@ public class ByteUtils {
      * @since 2020. 12. 17.
      * @version 1.8.0
      */
-    public static @Nullable String hexBinString(String prefix, byte... data) {
+    public static String hexBinString(String prefix, byte... data) {
         return hexBinString(prefix, false, data);
     }
 

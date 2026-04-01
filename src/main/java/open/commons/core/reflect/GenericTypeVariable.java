@@ -87,7 +87,7 @@ public class GenericTypeVariable implements Cloneable {
      *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
      */
     public GenericTypeVariable(Class<?> paramClass, @Nullable String typeVarName) {
-        AssertUtils2.notNull("paramClass MUST NOT be null. paramClass: null", paramClass, null);
+        AssertUtils2.notNull(paramClass, null, "paramClass MUST NOT be null. paramClass: null");
 
         this.typeClass = paramClass;
         this.typeVarName = typeVarName;
@@ -98,7 +98,7 @@ public class GenericTypeVariable implements Cloneable {
      *             파라미터({@code typeVar})가 {@code null}인 경우 발생.
      */
     public void addGenericParamType(GenericTypeVariable typeVar) {
-        AssertUtils2.notNull("paramType MUST NOT be null. typeVar: null", typeVar);
+        AssertUtils2.notNull(typeVar, "paramType MUST NOT be null. typeVar: null");
 
         synchronized (mutex) {
             genericTypeVars.add(typeVar);
@@ -180,7 +180,7 @@ public class GenericTypeVariable implements Cloneable {
      *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
      */
     public void reset(Class<?> paramClass) {
-        AssertUtils2.notNull("paramClass MUST NOT be null. paramClass: null", paramClass);
+        AssertUtils2.notNull(paramClass, "paramClass MUST NOT be null. paramClass: null");
 
         synchronized (mutex) {
             this.typeClass = paramClass;

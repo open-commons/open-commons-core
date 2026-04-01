@@ -40,26 +40,6 @@ public class Predicates {
     }
 
     /**
-     * 언제나 <b><i>{@code true}</i></b>를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2026. 3. 17.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @return
-     *
-     * @since 2026. 3. 17.
-     * @version 3.0.0
-     */
-    public static <T> Predicate<T> alwaysTrue() {
-        return _ -> true;
-    }
-
-    /**
      * 언제나 <b><i>{@code false}</i></b>를 제공합니다.<br>
      * 
      * <pre>
@@ -77,5 +57,25 @@ public class Predicates {
      */
     public static <T> Predicate<T> alwaysFalse() {
         return _ -> false;
+    }
+
+    /**
+     * 언제나 <b><i>{@code true}</i></b>를 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 3. 17.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <T>
+     * @return
+     *
+     * @since 2026. 3. 17.
+     * @version 3.0.0
+     */
+    public static <T> Predicate<T> alwaysTrue() {
+        return _ -> true;
     }
 }
