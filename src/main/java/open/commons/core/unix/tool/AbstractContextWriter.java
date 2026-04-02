@@ -175,7 +175,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
 
     /**
      * @throws NullPointerException
-     *             파라미터({@code out 또는 context})가 {@code null}인 경우 발생.
+     *             파라미터({@code out, context 중에 1개라도})가 {@code null}인 경우 발생.
      */
     protected final void write(OutputStream out, open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
         ObjectUtils.requireNonNulls(out, context);
@@ -185,7 +185,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
 
     /**
      * @throws NullPointerException
-     *             파라미터({@code out 또는 context})가 {@code null}인 경우 발생.
+     *             파라미터({@code out, context 중에 1개라도})가 {@code null}인 경우 발생.
      */
     protected final void write(PrintStream out, open.commons.core.unix.tool.IFileModifyListener.FileContext context) {
         ObjectUtils.requireNonNulls(out, context);
@@ -195,7 +195,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
 
     /**
      * @throws NullPointerException
-     *             파라미터({@code writer 또는 context})가 {@code null}인 경우 발생.
+     *             파라미터({@code writer, context 중에 1개라도})가 {@code null}인 경우 발생.
      */
     protected final void write(Writer writer, open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
         ObjectUtils.requireNonNulls(writer, context);

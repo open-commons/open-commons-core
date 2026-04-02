@@ -84,7 +84,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param o
@@ -107,7 +107,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 10. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -127,7 +127,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 8. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 8. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -157,8 +157,8 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 25.		parkjunohng77@gmail.com			최초 작성
-     * 2019. 3. 1.		parkjunohng77@gmail.com			데이터 존재 유부를 get() 후에 데이터가 null이 아닌 경우로 판단한 버그 수정. null 이 데이타 일 수도 있음.
+     * 2019. 1. 25.		parkjunhong77@gmail.com			최초 작성
+     * 2019. 3. 1.		parkjunhong77@gmail.com			데이터 존재 유부를 get() 후에 데이터가 null이 아닌 경우로 판단한 버그 수정. null 이 데이타 일 수도 있음.
      * </pre>
      *
      * @return
@@ -191,7 +191,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 8. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 8. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param nowait
@@ -220,7 +220,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 2. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 2. 19.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -245,7 +245,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 1. 25.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -301,7 +301,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 25.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 1. 25.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param data
@@ -337,7 +337,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 10. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 10. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -361,7 +361,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param o
@@ -392,7 +392,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 5. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 5. 29.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return

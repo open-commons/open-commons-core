@@ -30,6 +30,7 @@ package open.commons.core.utils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -41,12 +42,18 @@ public class RandUtils {
     /**
      * 
      * @param string
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2015. 2. 6.
      * @see {@link String#hashCode()}
      */
     public static long hash(String string) {
+        Objects.requireNonNull(string);
+
         long h = 1125899906842597L; // prime
         int len = string.length();
 
@@ -63,9 +70,14 @@ public class RandUtils {
      *            랜덤함수 seed
      * @param limit
      *            한계값.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code seed})가 {@code null}인 경우 발생.
      */
     public static int randomNumber(byte[] seed, int limit) {
+        Objects.requireNonNull(seed);
 
         int rn = 0;
 
@@ -129,7 +141,19 @@ public class RandUtils {
         return rn;
     }
 
+    /**
+     * @param string
+     * 
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
+     * @since 2015. 2. 6.
+     */
     public static long x64HashCode(String string) {
+        Objects.requireNonNull(string);
+
         return hash(string) * 31 + hash(string);
     }
 }

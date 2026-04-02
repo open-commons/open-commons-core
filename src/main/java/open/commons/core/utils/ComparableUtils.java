@@ -76,7 +76,7 @@ public class ComparableUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 15.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) Null 평가 논리 일관성 통일 (Nulls First 기준)
      * </pre>
      *
@@ -111,7 +111,7 @@ public class ComparableUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 11. 7.     parkjunohng77@gmail.com         최초 작성
+     * 2014. 11. 7.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) 리플렉션 캐싱 적용, 동시성 버그 수정, Both Null 버그 수정
      * </pre>
      * 

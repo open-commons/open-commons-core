@@ -108,7 +108,7 @@ public class MapUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -125,7 +125,7 @@ public class MapUtils {
      * @return 두 맵의 값들이 병합된 1차원 데이터 {@link Stream}
      * 
      * @throws NullPointerException
-     *             파라미터({@code single 또는 multi})가 {@code null}인 경우 발생.
+     *             파라미터({@code single, multi 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
@@ -145,7 +145,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 3. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 3. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -192,7 +192,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 3. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 3. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -235,7 +235,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 8.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 8.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -264,7 +264,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -313,7 +313,7 @@ public class MapUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -381,7 +381,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -423,7 +423,7 @@ public class MapUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -477,7 +477,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -516,7 +516,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -564,7 +564,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -609,7 +609,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -661,7 +661,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -703,7 +703,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -752,7 +752,7 @@ public class MapUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 6.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 12. 6.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -817,7 +817,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 12. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 12. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -857,7 +857,7 @@ public class MapUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 10. 18.    parkjunohng77@gmail.com         최초 작성
+     * 2017. 10. 18.    parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 31.     parkjunhong77@gmail.com         (3.0.0) Iterator를 이용한 성능 최적화 및 readCount 예외 방어 로직 추가
      * </pre>
      *
@@ -921,7 +921,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -971,7 +971,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1019,7 +1019,7 @@ public class MapUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1060,7 +1060,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1098,7 +1098,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1144,7 +1144,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1194,7 +1194,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1243,7 +1243,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1291,7 +1291,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1329,7 +1329,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1377,7 +1377,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -1427,7 +1427,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      *
@@ -1477,7 +1477,7 @@ public class MapUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>

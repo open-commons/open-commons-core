@@ -33,7 +33,7 @@ import org.jspecify.annotations.Nullable;
  *      날짜    	| 작성자			|	내용
  * ------------------------------------------
  * 2012. 2. 15.     parkjunhong77@gmail.com     최초 작성
- * 2014. 6. 27.     parkjunohng77@gmail.com     {@link #message}: 성공/실패에 대한 정보
+ * 2014. 6. 27.     parkjunhong77@gmail.com     {@link #message}: 성공/실패에 대한 정보
  * </pre>
  * 
  * @since 2012. 02. 15.
@@ -202,7 +202,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 10. 28.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 10. 28.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -222,7 +222,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 10. 28.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 10. 28.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -272,7 +272,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 2. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 2. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param format
@@ -314,7 +314,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 4. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 4. 11.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -347,7 +347,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <N>
@@ -369,7 +369,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 4. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 4. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -391,7 +391,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -417,7 +417,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 3.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 3.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -441,7 +441,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 12. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 12. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -466,7 +466,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 4. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 4. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -488,7 +488,7 @@ public class Result<T> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 6.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 12. 6.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>

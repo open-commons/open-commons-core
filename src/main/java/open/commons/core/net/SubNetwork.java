@@ -140,7 +140,7 @@ public class SubNetwork {
      * @param mask
      *            A dotted decimal netmask e.g. "255.255.0.0"
      * @throws NullPointerException
-     *             파라미터({@code ipv4 또는 mask})가 {@code null}인 경우 발생.
+     *             파라미터({@code ipv4, mask 중에 1개라도})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             if the address or mask is invalid, i.e. does not match n.n.n.n where n=1-3 decimal digits and the
      *             mask is not all zeros

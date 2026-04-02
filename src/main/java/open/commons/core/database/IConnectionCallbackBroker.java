@@ -41,7 +41,7 @@ import java.sql.SQLException;
  * [개정이력]
  *      날짜    	| 작성자	|	내용
  * ------------------------------------------
- * 2019. 2. 19.		parkjunohng77@gmail.com        최초 작성
+ * 2019. 2. 19.		parkjunhong77@gmail.com        최초 작성
  * </pre>
  * 
  * @param <T>
@@ -58,7 +58,7 @@ public interface IConnectionCallbackBroker {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 2. 19.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -75,7 +75,7 @@ public interface IConnectionCallbackBroker {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 10. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 10. 29.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -95,7 +95,7 @@ public interface IConnectionCallbackBroker {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 2. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 2. 19.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * 

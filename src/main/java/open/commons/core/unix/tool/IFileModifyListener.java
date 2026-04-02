@@ -66,7 +66,7 @@ public interface IFileModifyListener extends Comparable<IFileModifyListener> {
          * @param c
          * 
          * @throws NullPointerException
-         *             파라미터({@code f 또는 c})가 {@code null}인 경우 발생.
+         *             파라미터({@code f, c 중에 1개라도})가 {@code null}인 경우 발생.
          *
          * @since 2013. 5. 23.
          */

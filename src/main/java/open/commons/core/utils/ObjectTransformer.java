@@ -87,7 +87,7 @@ import open.commons.core.function.PentagonFunction;
  *      날짜    	| 작성자			|	내용
  * ------------------------------------------
  * 2025. 9. 5.      parkjunhong77@gmai.com      최초 작성
- * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 25 마이그레이션.
+ * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 25 마이그레이션.
  * </pre>
  * 
  * @since 2025. 9. 5.
@@ -1053,7 +1053,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -1164,7 +1164,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param type
@@ -1214,7 +1214,7 @@ public class ObjectTransformer {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code srcClass 또는 targetClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code srcClass, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
@@ -1545,7 +1545,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -1602,7 +1602,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -1655,7 +1655,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param steps
@@ -1687,8 +1687,8 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 8.     parkjunohng77@gmail.com     최초 작성
-     * 2021. 11. 22.    parkjunohng77@gmail.com     Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * 2020. 12. 8.     parkjunhong77@gmail.com     최초 작성
+     * 2021. 11. 22.    parkjunhong77@gmail.com     Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
      * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 25 마이그레이션 적용.
      * </pre>
      *
@@ -1712,7 +1712,7 @@ public class ObjectTransformer {
      *            </ul>
      * 
      * @throws NullPointerException
-     *             파라미터({@code src 또는 target})가 {@code null}인 경우 발생.
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @return
      *
@@ -1720,7 +1720,7 @@ public class ObjectTransformer {
      * @version 1.8.0
      * 
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> fieldConverters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> fieldConverters) {
         Objects.requireNonNull(src, "'source' object type must NOT be null !!!");
         Objects.requireNonNull(target, "'target' type must NOT be null !!!");
 
@@ -1851,7 +1851,7 @@ public class ObjectTransformer {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com     최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com     최초 작성
      * 2025. 9. 5.      parkjunhong77@gmail.com     deepConvert, containerKind, addStyple, putStyle 추가
      * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) Record 도입으로 간결하고 불변성(Immutable)을 보장하는 객체 설계
      * </pre>
@@ -1895,7 +1895,7 @@ public class ObjectTransformer {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+         * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
          * </pre>
          * 
          * @param property
@@ -1931,7 +1931,7 @@ public class ObjectTransformer {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+         * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
          * 2025. 9. 5.      parkjunhong77@gmail.com     deepConvert, containerKind, addStyple, putStyle 추가
          * </pre>
          * 

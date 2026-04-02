@@ -72,7 +72,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param index
@@ -105,7 +105,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -150,7 +150,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -172,7 +172,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <N>
@@ -198,7 +198,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -206,7 +206,7 @@ public class NumString<N extends Number> implements CharSequence {
      * @param nums
      * @return
      * @throws NullPointerException
-     *             파라미터({@code f 또는 nums})가 {@code null}인 경우 발생.
+     *             파라미터({@code f, nums 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
@@ -214,7 +214,7 @@ public class NumString<N extends Number> implements CharSequence {
      */
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, Collection<T> nums) {
         Objects.requireNonNull(f);
-        AssertUtils2.collectionNotNull(nums);
+        AssertUtils2.notExistNull(nums);
 
         ArrayList<NumString<N>> list = new ArrayList<>();
         for (T n : nums) {
@@ -231,7 +231,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -258,7 +258,7 @@ public class NumString<N extends Number> implements CharSequence {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <N>

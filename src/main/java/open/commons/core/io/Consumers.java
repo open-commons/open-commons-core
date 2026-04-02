@@ -46,8 +46,8 @@ import open.commons.core.utils.ObjectUtils;
  * [개정이력]
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
- * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
- * 2019. 2. 19      parkjunohng77@gmail.com     {@link Resource} 추가
+ * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
+ * 2019. 2. 19      parkjunhong77@gmail.com     {@link Resource} 추가
  * </pre>
  * 
  * @since 2018. 9. 10.
@@ -68,7 +68,7 @@ public class Consumers<T> implements Closeable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @since 2018. 9. 10.
@@ -94,7 +94,7 @@ public class Consumers<T> implements Closeable {
             return;
         }
 
-        AssertUtils2.collectionNotNull(removables);
+        AssertUtils2.notExistNull(removables);
 
         this.resources.addAll(removables);
     }

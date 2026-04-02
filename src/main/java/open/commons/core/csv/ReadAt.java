@@ -69,7 +69,7 @@ public @interface ReadAt {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 11.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -87,7 +87,7 @@ public @interface ReadAt {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 11.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return
@@ -105,7 +105,7 @@ public @interface ReadAt {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @return

@@ -152,7 +152,7 @@ public class ConcurrentUtils {
      *            수행할 작업들
      * 
      * @throws NullPointerException
-     *             파라미터({@code bucket 또는 actors})가 {@code null}인 경우 발생.
+     *             파라미터({@code bucket, actors 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 10. 1.
      * @version 2.1.0

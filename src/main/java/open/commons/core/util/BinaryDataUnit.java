@@ -31,6 +31,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,12 +43,11 @@ import open.commons.core.utils.ObjectUtils;
 /**
  * 컴퓨터 저장장치 용량 단위. (예: 디스크, 메모리, ...)<br>
  * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
- * 
+ *
  * @since 2021. 11. 4.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
- * 
+ *
  * @see <a href="https://en.wikipedia.org/wiki/International_Electrotechnical_Commission">IEC</a>
  */
 // [PATCH] JDK 표준 API의 JSpecify 미지원 우회용
@@ -57,7 +57,7 @@ public enum BinaryDataUnit {
     /**
      * byte = 2 ^ 0 byte (8 bits)<br>
      * <ul>
-     * <li>UP: {@link #KILO}
+     * <li>UP: {@link #KIBI}
      * <li>DOWN: {@code null}
      * </ul>
      */
@@ -65,56 +65,56 @@ public enum BinaryDataUnit {
     /**
      * <b>Ki</b>lo <b>bi</b>nary byte, KiB = 2 ^ 10 bytes<br>
      * <ul>
-     * <li>UP: {@link #MEGA}
-     * <li>DOWN: {@link #BASE}
+     * <li>UP: {@link #MEBI}
+     * <li>DOWN: {@link #BYTE}
      * </ul>
      */
     KIBI("KiB", BigDecimal.valueOf(2).pow(10)),
     /**
      * <b>Me</b>ga <b>bi</b>nary byte, MiB = 2 ^ 20 bytes<br>
      * <ul>
-     * <li>UP: {@link #GIGA}
-     * <li>DOWN: {@link #KILO}
+     * <li>UP: {@link #GIBI}
+     * <li>DOWN: {@link #KIBI}
      * </ul>
      */
     MEBI("MiB", BigDecimal.valueOf(2).pow(20)),
     /**
      * <b>Gi</b>ga <b>bi</b>nary byte, GiB = 2 ^ 30 bytes<br>
      * <ul>
-     * <li>UP: {@link #TERA}
-     * <li>DOWN: {@link #MEGA}
+     * <li>UP: {@link #TEBI}
+     * <li>DOWN: {@link #MEBI}
      * </ul>
      */
     GIBI("GiB", BigDecimal.valueOf(2).pow(30)),
     /**
      * <b>Te</b>ra <b>bi</b>nary byte, TiB = 2 ^ 40 bytes<br>
      * <ul>
-     * <li>UP: {@link #PETA}
-     * <li>DOWN: {@link #GIGA}
+     * <li>UP: {@link #PEBI}
+     * <li>DOWN: {@link #GIBI}
      * </ul>
      */
     TEBI("TiB", BigDecimal.valueOf(2).pow(40)),
     /**
      * <b>Pe</b>ta <b>bi</b>nary byte, PiB = 2 ^ 50 bytes<br>
      * <ul>
-     * <li>UP: {@link #EXA}
-     * <li>DOWN: {@link #TERA}
+     * <li>UP: {@link #EXBI}
+     * <li>DOWN: {@link #TEBI}
      * </ul>
      */
     PEBI("PiB", BigDecimal.valueOf(2).pow(50)),
     /**
      * <b>Ex</b>a <b>bi</b>nary byte, EiB = 2 ^ 60 bytes<br>
      * <ul>
-     * <li>UP: {@link #ZETTA}
-     * <li>DOWN: {@link #PETA}
+     * <li>UP: {@link #ZIBI}
+     * <li>DOWN: {@link #PEBI}
      * </ul>
      */
     EXBI("EiB", BigDecimal.valueOf(2).pow(60)),
     /**
      * <b>Ze</b>tta <b>bi</b>nary byte, ZiB = 2 ^ 70 bytes<br>
      * <ul>
-     * <li>UP: {@link #YOTTA}
-     * <li>DOWN: {@link #EXA}
+     * <li>UP: {@link #YOBI}
+     * <li>DOWN: {@link #EXBI}
      * </ul>
      */
     ZIBI("ZiB", BigDecimal.valueOf(2).pow(70)),
@@ -122,26 +122,25 @@ public enum BinaryDataUnit {
      * <b>Yo</b>tta <b>bi</b>nary byte, YiB = 2 ^ 80 bytes<br>
      * <ul>
      * <li>UP: {@code null}
-     * <li>DOWN: {@link #ZETTA}
+     * <li>DOWN: {@link #ZIBI}
      * </ul>
      */
-    YOBI("YiB", BigDecimal.valueOf(2).pow(80)),
-    //
-    ;
+    YOBI("YiB", BigDecimal.valueOf(2).pow(80));
 
     /** 크기에 따른 오름차순 정렬 */
     static final List<BinaryDataUnit> BOTTOM_UP;
     /** 크기에 따른 내림차순 정렬 */
     static final List<BinaryDataUnit> TOP_DOWN;
+
     static {
-        List<BinaryDataUnit> units = Arrays.asList(values());
-        // 오름차순
-        Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num));
-        BOTTOM_UP = Collections.unmodifiableList(units);
-        // 내림차순
-        units = Arrays.asList(values());
-        Collections.sort(units, (u1, u2) -> u1.num.compareTo(u2.num) * -1);
-        TOP_DOWN = Collections.unmodifiableList(units);
+        // [최적화] 모던 자바의 List.sort 및 Comparator.comparing 활용
+        List<BinaryDataUnit> ascUnits = Arrays.asList(values());
+        ascUnits.sort(Comparator.comparing(u -> u.num));
+        BOTTOM_UP = Collections.unmodifiableList(ascUnits);
+
+        List<BinaryDataUnit> descUnits = Arrays.asList(values());
+        descUnits.sort((u1, u2) -> u2.num.compareTo(u1.num));
+        TOP_DOWN = Collections.unmodifiableList(descUnits);
     }
 
     /** 표기 문자열 */
@@ -155,54 +154,62 @@ public enum BinaryDataUnit {
     }
 
     /**
-     * 주어진 데이터를 주어진 단위에 맞게 변환하여 제공합니다. (소숫점 이하 포함).
-     * 
+     * 주어진 데이터를 주어진 단위에 맞게 변환하여 제공합니다. (소수점 이하 포함).
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (3.0.0) Javadoc 규격 및 NPE 명세 적용
      * </pre>
      *
      * @param size
      *            데이터 크기
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 변환된 크기의 {@link BigDecimal} 값
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
-     * @version 1.8.0
-     * 
-     * 
-     * @see #convertHasRemain(long, BinaryDataUnit)
+     * @version 3.0.0
+     *
+     * @see #convert(long, BinaryDataUnit, boolean)
      */
     public BigDecimal convert(long size, BinaryDataUnit unit) {
-        return Objects.requireNonNull(convert(size, unit, false)[0]);
+        return convert(size, unit, false)[0];
     }
 
     /**
-     * 주어진 데이터를 주어진 단위에 맞게 변환하여 제공합니다. <br>
-     * 
+     * 주어진 데이터를 시작 단위부터 끝 단위까지의 범위에 맞게 순차적으로 변환하여 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (3.0.0) 스트림 긍정 논리식 최적화 및 ArithmeticException 방지
      * </pre>
      *
      * @param size
      *            데이터 크기
      * @param bigUnit
-     *            변환범위 처음 단위.
+     *            변환 범위 처음 단위
      * @param littleUnit
-     *            변환범위 끝 단위.
-     * @return
+     *            변환 범위 끝 단위
+     *
+     * @return 단위별로 나누어진 크기들의 배열
      *
      * @throws NullPointerException
-     *             파라미터({@code bigUnit 또는 littleUnit})가 {@code null}인 경우 발생.
+     *             파라미터({@code bigUnit, littleUnit}) 중에 1개라도 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             변환 단위의 순서(크기)가 잘못 지정된 경우 발생.
+     *
      * @since 2021. 11. 4.
-     * @version 1.8.0
-     * 
+     * @version 3.0.0
      */
     public BigDecimal[] convert(long size, BinaryDataUnit bigUnit, BinaryDataUnit littleUnit) {
         ObjectUtils.requireNonNulls(bigUnit, littleUnit);
@@ -216,9 +223,8 @@ public enum BinaryDataUnit {
         // Bytes 변환
         BigDecimal bytes = BigDecimal.valueOf(size).multiply(this.num).setScale(10, RoundingMode.HALF_UP);
 
-        List<BinaryDataUnit> units = TOP_DOWN.stream() //
-                .filter(u -> !(u.num.compareTo(bigUnit.num) > 0 || u.num.compareTo(littleUnit.num) < 0)) //
-                .collect(Collectors.toList());
+        // [최적화] 가독성을 위해 드모르간의 법칙을 적용하여 긍정 논리식(Positive Logic)으로 변경
+        List<BinaryDataUnit> units = TOP_DOWN.stream().filter(u -> u.num.compareTo(bigUnit.num) <= 0 && u.num.compareTo(littleUnit.num) >= 0).collect(Collectors.toList());
 
         BigDecimal[] calc = null;
         int i = 0;
@@ -230,21 +236,20 @@ public enum BinaryDataUnit {
             bytes = calc[1];
         }
 
-        converted.add(bytes.divide(units.get(i).num));
+        // [안전성] 무한 소수 발생 시 ArithmeticException을 방지하기 위해 RoundingMode 명시
+        converted.add(bytes.divide(units.get(i).num, 10, RoundingMode.HALF_UP));
 
-        return Objects.requireNonNull( // [PATCH] JDK가 JSpecify 를 지원하지 않는 시점에 적용.
-                converted.toArray(new BigDecimal[0]) //
-        );
+        return converted.toArray(new BigDecimal[0]);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param size
@@ -252,38 +257,36 @@ public enum BinaryDataUnit {
      * @param unit
      *            변환 단위
      * @param alsoSubUnit
-     *            하위 단위 포함 변환 여부.
-     * @return
+     *            하위 단위 포함 변환 여부
+     *
+     * @return 단위별로 변환된 데이터 크기 배열
      *
      * @throws NullPointerException
      *             파라미터({@code unit})가 {@code null}인 경우 발생.
+     *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
      */
     public BigDecimal[] convert(long size, BinaryDataUnit unit, boolean alsoSubUnit) {
         Objects.requireNonNull(unit);
 
-        return alsoSubUnit //
-                ? convert(size, unit, BinaryDataUnit.BYTE) //
-                : convert(size, unit, unit);
+        return alsoSubUnit ? convert(size, unit, BinaryDataUnit.BYTE) : convert(size, unit, unit);
     }
 
     /**
-     * 하위 단위를 제공합니다. <br>
-     * 
+     * 하위 단위를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @return 하위 단위. 현재 단위가 가장 하위인 경우 <b><i>{@code {@link #BYTE} (자신)}</i></b>.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
      */
     public BinaryDataUnit down() {
         return switch (this) {
@@ -300,11 +303,11 @@ public enum BinaryDataUnit {
     }
 
     /**
+     * 단위의 표기 문자열(String)을 반환합니다.
      *
-     * @return a string of an instance of {@link BinaryDataUnit}
+     * @return {@link BinaryDataUnit}의 문자열 값
      *
      * @since 2021. 11. 4.
-     * 
      */
     public String get() {
         return this.str;
@@ -312,7 +315,6 @@ public enum BinaryDataUnit {
 
     /**
      * @since 2021. 11. 4.
-     * 
      *
      * @see java.lang.Enum#toString()
      */
@@ -322,20 +324,19 @@ public enum BinaryDataUnit {
     }
 
     /**
-     * 상위 단위를 제공합니다. <br>
-     * 
+     * 상위 단위를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @return 상위 단위. 현재 단위가 가장 상위인 경우 {@code null} 반환.
+     * @return 상위 단위. 현재 단위가 가장 상위인 경우 <b><i>{@code {@link #YOBI} (자신)}</i></b>.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
      */
     public BinaryDataUnit up() {
         return switch (this) {
@@ -352,14 +353,19 @@ public enum BinaryDataUnit {
     }
 
     /**
-     * 
-     * @param str
-     *            a string for {@link BinaryDataUnit} instance.
+     * 문자열과 일치하는 단위를 반환합니다. 대소문자를 구분합니다.
      *
-     * @return an instance of {@link BinaryDataUnit}
+     * @param str
+     *            {@link BinaryDataUnit} 인스턴스를 찾기 위한 문자열
+     *
+     * @return 일치하는 {@link BinaryDataUnit} 인스턴스
+     *
+     * @throws NullPointerException
+     *             파라미터({@code str})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             매칭되는 단위를 찾을 수 없는 경우 발생.
      *
      * @since 2021. 11. 4.
-     * 
      *
      * @see #get(String, boolean)
      */
@@ -368,19 +374,21 @@ public enum BinaryDataUnit {
     }
 
     /**
+     * 문자열과 일치하는 단위를 반환합니다. 옵션에 따라 대소문자 구분 여부를 결정합니다.
      *
      * @param unitStr
-     *            a string for an instance of {@link BinaryDataUnit}.
+     *            {@link BinaryDataUnit} 인스턴스를 찾기 위한 문자열
      * @param ignoreCase
-     *            ignore {@code <b>case-sensitive</b>} or not.
+     *            대소문자 무시 여부 ({@code true}면 무시)
      *
-     * @return an instance of {@link BinaryDataUnit}
-     * 
+     * @return 일치하는 {@link BinaryDataUnit} 인스턴스
+     *
      * @throws NullPointerException
      *             파라미터({@code unitStr})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             매칭되는 단위를 찾을 수 없는 경우 발생.
      *
      * @since 2021. 11. 4.
-     * 
      */
     public static BinaryDataUnit get(String unitStr, boolean ignoreCase) {
         Objects.requireNonNull(unitStr);
@@ -404,7 +412,6 @@ public enum BinaryDataUnit {
     }
 
     private static List<String> values0() {
-
         List<String> valuesStr = new ArrayList<>();
 
         for (BinaryDataUnit value : values()) {

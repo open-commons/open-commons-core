@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.exception.AssertionException;
@@ -51,6 +52,7 @@ import open.commons.core.exception.AssertionException;
  * @version 2.1.0
  * 
  */
+@NullUnmarked
 public class AssertUtils2 {
 
     private AssertUtils2() {
@@ -75,48 +77,6 @@ public class AssertUtils2 {
             return new RuntimeException(e);
         } catch (InvocationTargetException e) {
             return new RuntimeException(e);
-        }
-    }
-
-    public static Object collectionNotNull(Collection<?> col) {
-        return collectionNotNull(null, col, null);
-    }
-
-    public static Object collectionNotNull(Collection<?> col, @Nullable Class<? extends RuntimeException> exClass) {
-        return collectionNotNull(null, col, exClass);
-    }
-
-    public static Object collectionNotNull(@Nullable String msg, Collection<?> col) {
-        return collectionNotNull(msg, col, null);
-    }
-
-    public static Object collectionNotNull(@Nullable String msg, Collection<?> col, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull(col, "The 'collection' MUST NOT be null. col: null");
-
-        for (Object o : col) {
-            notNull(o, msg);
-        }
-
-        return col;
-    }
-
-    public static void collectionNull(Collection<?> col) {
-        collectionNull(null, col, null);
-    }
-
-    public static void collectionNull(Collection<?> col, @Nullable Class<? extends RuntimeException> exClass) {
-        collectionNull(null, col, exClass);
-    }
-
-    public static void collectionNull(@Nullable String msg, Collection<?> col) {
-        collectionNull(msg, col, null);
-    }
-
-    public static void collectionNull(@Nullable String msg, Collection<?> col, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull(col, "The 'collection' MUST NOT be null. col: null");
-
-        for (Object o : col) {
-            isNull(msg, o);
         }
     }
 
@@ -296,7 +256,7 @@ public class AssertUtils2 {
 
     public static void isNull(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
         if (object != null) {
-            throw assert0(NPE_CLASS(exClass), msg0(msg));
+            throw assert0(IAE_CLASS(exClass), msg0(msg));
         }
     }
 
@@ -313,7 +273,7 @@ public class AssertUtils2 {
 
         for (Object object : Objects.requireNonNull(objects)) {
             if (object != null) {
-                throw assert0(NPE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
+                throw assert0(IAE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
             }
         }
     }
@@ -376,30 +336,6 @@ public class AssertUtils2 {
         }
 
         return map;
-    }
-
-    public static void mapNull(Map<?, ?> map) {
-        mapNull(null, map, null);
-    }
-
-    public static void mapNull(Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
-        mapNull(null, map, exClass);
-    }
-
-    public static void mapNull(@Nullable String msg, Map<?, ?> map) {
-        mapNull(msg, map, null);
-    }
-
-    public static void mapNull(@Nullable String msg, Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull(map, "The map MUST NOT be null. map: null");
-
-        Object key = null;
-        Object value = null;
-        for (Entry<?, ?> entry : map.entrySet()) {
-            key = entry.getKey();
-            value = entry.getValue();
-            isNulls("key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(msg), key, value);
-        }
     }
 
     private static String msg0(@Nullable String msg) {
@@ -507,6 +443,30 @@ public class AssertUtils2 {
         }
     }
 
+    public static void notExistNull(@Nullable Collection<? extends @Nullable Object> col) {
+        notExistNull(null, col, null);
+    }
+
+    public static void notExistNull(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass) {
+        notExistNull(null, col, exClass);
+    }
+
+    public static void notExistNull(@Nullable Object @Nullable... objects) {
+        notExistNull(null, Arrays.asList(objects), null);
+    }
+
+    public static void notExistNull(@Nullable String msg, @Nullable Collection<? extends @Nullable Object> col) {
+        notExistNull(msg, col, null);
+    }
+
+    public static void notExistNull(@Nullable String msg, @Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass) {
+        Objects.requireNonNull(col);
+
+        for (Object o : col) {
+            notNull(o, null, msg);
+        }
+    }
+
     public static void notInterface(@Nullable Object object) {
         notInterface(null, object, AssertionException.class);
     }
@@ -543,7 +503,7 @@ public class AssertUtils2 {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param object

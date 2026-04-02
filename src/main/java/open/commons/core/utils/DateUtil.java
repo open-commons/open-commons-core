@@ -42,8 +42,8 @@ import open.commons.core.date.YearMonthDay;
  * [개정이력]
  *      날짜    	| 작성자	|	내용
  * ------------------------------------------
- * 2011. 7. 12.         parkjunohng77@gmail.com        최초 작성
- * 2023. 11. 10.		parkjunohng77@gmail.com			static 으로 사용하던 {@link SimpleDateFormat} 제거
+ * 2011. 7. 12.         parkjunhong77@gmail.com        최초 작성
+ * 2023. 11. 10.		parkjunhong77@gmail.com			static 으로 사용하던 {@link SimpleDateFormat} 제거
  * </pre>
  * 
  * @since 2011. 07. 12.
@@ -184,7 +184,7 @@ public class DateUtil {
      * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
      * 
      * @throws NullPointerException
-     *             파라미터({@code cal1 또는 cal2})가 {@code null}인 경우 발생.
+     *             파라미터({@code cal1, cal2 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -200,7 +200,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2014. 4. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2014. 4. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param date1
@@ -209,7 +209,7 @@ public class DateUtil {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code cal1 또는 cal2})가 {@code null}인 경우 발생.
+     *             파라미터({@code cal1, cal2 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 2.
      */
@@ -224,7 +224,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param y1
@@ -253,7 +253,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param y1
@@ -283,7 +283,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param cal1
@@ -292,7 +292,7 @@ public class DateUtil {
      * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
      * 
      * @throws NullPointerException
-     *             파라미터({@code cal1 또는 cal2})가 {@code null}인 경우 발생.
+     *             파라미터({@code cal1, cal2 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
@@ -322,7 +322,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param cal
@@ -347,7 +347,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param date
@@ -372,7 +372,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param year
@@ -397,7 +397,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 10. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 10. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param year
@@ -422,7 +422,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 10.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param field
@@ -446,7 +446,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 10.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param field
@@ -868,7 +868,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 8. 27.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 27.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param cal
@@ -900,7 +900,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 9. 10.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 9. 10.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param field
@@ -925,7 +925,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 27.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 27.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param date
@@ -956,7 +956,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 27.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 27.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param date
@@ -987,7 +987,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 27.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 27.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param date
@@ -1018,7 +1018,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 8. 27.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 27.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param timestamp
@@ -1048,7 +1048,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 8. 27.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 27.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param timestamp
@@ -1078,7 +1078,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 8. 27.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 27.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param format
@@ -1117,7 +1117,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 27.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 27.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param cal
@@ -1161,7 +1161,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 8. 27.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 8. 27.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param timestamp
@@ -1234,7 +1234,7 @@ public class DateUtil {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code calendar 또는 date})가 {@code null}인 경우 발생.
+     *             파라미터({@code calendar, date 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static boolean isPast(Calendar calendar, Date date, int timeField, int timeValue) {
         ObjectUtils.requireNonNulls(calendar, date);
@@ -1277,7 +1277,7 @@ public class DateUtil {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code calendar 또는 fields})가 {@code null}인 경우 발생.
+     *             파라미터({@code calendar, fields 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1322,7 +1322,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 5.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 5.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param year
@@ -1347,7 +1347,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 5.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 5.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param year
@@ -1397,7 +1397,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 5.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 5.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param year
@@ -1422,7 +1422,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 5.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 5.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param year
@@ -1496,7 +1496,7 @@ public class DateUtil {
      *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
      * 
      * @throws NullPointerException
-     *             파라미터({@code calendar 또는 dateFields})가 {@code null}인 경우 발생.
+     *             파라미터({@code calendar, dateFields 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1515,7 +1515,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 2. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 2. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param dateFields
@@ -1738,7 +1738,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 5.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 5.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param timestamp
@@ -1840,7 +1840,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 5.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 5.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param timestamp
@@ -1993,7 +1993,7 @@ public class DateUtil {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code date 또는 pattern})가 {@code null}인 경우 발생.
+     *             파라미터({@code date, pattern 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static String toString(Date date, String pattern) {
         ObjectUtils.requireNonNulls(date, pattern);
@@ -2009,7 +2009,7 @@ public class DateUtil {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 5.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 5.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param timestamp
@@ -2018,7 +2018,7 @@ public class DateUtil {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code timestamp 또는 pattern})가 {@code null}인 경우 발생.
+     *             파라미터({@code timestamp, pattern 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
      */

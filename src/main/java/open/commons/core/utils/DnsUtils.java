@@ -66,7 +66,7 @@ public class DnsUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 2. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 2. 11.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param domainName

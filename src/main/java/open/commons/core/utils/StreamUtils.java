@@ -148,7 +148,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -240,7 +240,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -273,7 +273,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -288,7 +288,7 @@ public class StreamUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code stream 또는 collectionSupplier})가 {@code null}인 경우 발생.
+     *             파라미터({@code stream, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -310,7 +310,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -359,7 +359,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -413,7 +413,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -465,7 +465,7 @@ public class StreamUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 이중 Stream 오버헤드 제거 및 addAll Bulk 최적화
      * </pre>
      *
@@ -544,7 +544,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -559,7 +559,7 @@ public class StreamUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code stream 또는 transformer})가 {@code null}인 경우 발생.
+     *             파라미터({@code stream, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -584,7 +584,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -625,7 +625,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -667,7 +667,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -712,7 +712,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -764,7 +764,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -815,7 +815,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -859,7 +859,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -907,7 +907,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -947,7 +947,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -995,7 +995,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -1049,7 +1049,7 @@ public class StreamUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 이중 스트림 오버헤드 제거 및 forEach 직접 순회 최적화
      * </pre>
      *
@@ -1119,7 +1119,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <K>
@@ -1293,7 +1293,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1307,7 +1307,7 @@ public class StreamUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code stream 또는 transformer})가 {@code null}인 경우 발생.
+     *             파라미터({@code stream, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -1332,7 +1332,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1373,7 +1373,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1415,7 +1415,7 @@ public class StreamUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>

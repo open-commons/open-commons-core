@@ -55,7 +55,7 @@ public class ByteUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param split
@@ -114,7 +114,7 @@ public class ByteUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param prefix

@@ -21,6 +21,7 @@ package open.commons.core.utils;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 정렬 관련 유틸리티. <br>
@@ -37,7 +38,7 @@ public class OrderingUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 1. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      * 
      * @param e
@@ -49,14 +50,15 @@ public class OrderingUtils {
      * @param comparator
      *            비교연산자
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e, list 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 10.
      */
     public static <E extends Comparable<E>> void addToSortedList(E e, List<E> list, boolean asc, Comparator<E> comparator) {
-
-        if (list == null) {
-            throw new IllegalArgumentException("list is NULL.");
-        }
+        Objects.requireNonNull(e);
+        Objects.requireNonNull(list);
 
         if (list.size() < 1) {
             list.add(e);
@@ -79,7 +81,7 @@ public class OrderingUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 1. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param o
@@ -118,7 +120,7 @@ public class OrderingUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 1. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      * 
      * @param e
@@ -129,15 +131,17 @@ public class OrderingUtils {
      *            데이터 정렬. (true: 오름차순, false: 내림차순)
      * @param comparator
      *            비교연산자
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code e, list 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 10.
      */
     public static <E extends Comparable<E>> int getBSearchIndex(E e, List<E> list, boolean asc, Comparator<E> comparator) {
-
-        if (list == null) {
-            throw new IllegalArgumentException("list is NULL.");
-        }
+        Objects.requireNonNull(e);
+        Objects.requireNonNull(list);
 
         if (list.size() < 1) {
             return 0;
@@ -154,7 +158,7 @@ public class OrderingUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 1. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param e
@@ -174,10 +178,6 @@ public class OrderingUtils {
      * @since 2019. 1. 10.
      */
     private static <E extends Comparable<E>> int getIndex(E e, List<E> list, boolean asc, Comparator<E> comparator, int size, int pos) {
-        if (list == null) {
-            throw new IllegalArgumentException("list is NULL.");
-        }
-
         // head: pos ~ pos + q x 2
         int q = size / 2;
         // tail: pos + q x 2 + 1 ~ size
@@ -220,7 +220,7 @@ public class OrderingUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 02. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2012. 02. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param i
@@ -230,17 +230,11 @@ public class OrderingUtils {
      * @since 2019. 1. 15.
      */
     public static String intToOrdinal(int i) {
-
-        switch (i) {
-            case 1:
-                return "1st";
-            case 2:
-                return "2nd";
-            case 3:
-                return "3rd";
-            default:
-                return i + "th";
-        }
+        return switch (i) {
+            case 1 -> "1st";
+            case 2 -> "2nd";
+            case 3 -> "3rd";
+            default -> i + "th";
+        };
     }
-
 }

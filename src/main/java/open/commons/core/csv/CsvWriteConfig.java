@@ -51,7 +51,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -73,7 +73,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 17.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 17.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -96,7 +96,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 17.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 17.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -120,7 +120,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 17.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 17.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -145,7 +145,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param separator
@@ -211,7 +211,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 17.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 17.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -239,7 +239,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 3. 17.     parkjunohng77@gmail.com         최초 작성
+     * 2022. 3. 17.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -268,7 +268,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the charset
@@ -291,7 +291,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @return the charsetName
@@ -314,7 +314,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param charset
@@ -343,7 +343,7 @@ public class CsvWriteConfig extends CsvCommon {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param charsetName

@@ -49,7 +49,7 @@ public class NumberUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 17.    parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 17.    parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (개선) 불필요한 concat 래핑 제거
      * </pre>
      *
@@ -137,7 +137,7 @@ public class NumberUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 7. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2014. 7. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param value
@@ -165,7 +165,7 @@ public class NumberUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 7. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2014. 7. 10.     parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (개선) replaceFirst로 교체 및 switch 다중 라벨 최적화
      * </pre>
      *

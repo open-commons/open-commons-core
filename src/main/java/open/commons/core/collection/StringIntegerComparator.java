@@ -45,7 +45,7 @@ public class StringIntegerComparator implements Comparator<String> {
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      * 
      * @throws NullPointerException
-     *             {@code o1 또는 o2}가 {@code null}인 경우 발생.
+     *             {@code o1, o2 중에 1개라도}가 {@code null}인 경우 발생.
      */
     @SuppressWarnings("null")
     @Override

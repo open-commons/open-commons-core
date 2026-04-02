@@ -52,7 +52,7 @@ public class FieldBase implements Supplier<String> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 18.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 18.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param owner
@@ -79,7 +79,7 @@ public class FieldBase implements Supplier<String> {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 18.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 18.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @return

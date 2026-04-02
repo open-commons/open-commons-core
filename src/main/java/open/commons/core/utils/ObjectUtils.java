@@ -33,7 +33,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -68,10 +67,9 @@ import open.commons.core.stream.ClassSpliterator;
 // - 대부분의 JDK 표준 API
 // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
 // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-// @SuppressWarnings("null")
+@SuppressWarnings("null")
 public class ObjectUtils {
 
-    @SuppressWarnings("null")
     static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
 
     private static final Function<Object, Short> shortFunction = o -> Short.parseShort(o.toString());
@@ -84,43 +82,37 @@ public class ObjectUtils {
     private static final Function<Object, String> strFunction = o -> o.toString();
 
     /**
-     * Primitive type classes
-     * 
+     * Primitive classes
+     *
      * @since 2020. 12. 22.
      * @version 1.8.0
      */
-    private static final Set<Class<?>> PRIMITIVES = new HashSet<>();
+    private static final Set<Class<?>> PRIMITIVE_CLASSES = Set.of(boolean.class //
+            , byte.class //
+            , char.class //
+            , double.class //
+            , float.class //
+            , int.class //
+            , long.class //
+            , short.class //
+    );
 
     /**
-     * Wrapper type classes
-     * 
+     * Wrapper classes
+     *
      * @since 2020. 12. 22.
      * @version 1.8.0
      */
-    private static final Set<Class<?>> WRAPPER_TYPES = new HashSet<>();
-    static {
-        // begin: primitive types
-        PRIMITIVES.add(boolean.class);
-        PRIMITIVES.add(byte.class);
-        PRIMITIVES.add(char.class);
-        PRIMITIVES.add(double.class);
-        PRIMITIVES.add(float.class);
-        PRIMITIVES.add(int.class);
-        PRIMITIVES.add(long.class);
-        PRIMITIVES.add(short.class);
-        // end: primitive types
-
-        // begin: wrapper types
-        WRAPPER_TYPES.add(Boolean.class);
-        WRAPPER_TYPES.add(Byte.class);
-        WRAPPER_TYPES.add(Character.class);
-        WRAPPER_TYPES.add(Double.class);
-        WRAPPER_TYPES.add(Float.class);
-        WRAPPER_TYPES.add(Integer.class);
-        WRAPPER_TYPES.add(Long.class);
-        WRAPPER_TYPES.add(Short.class);
-        // end: wrapper types
-    }
+    private static final Set<Class<?>> WRAPPER_CLASSES = Set.of( //
+            Boolean.class //
+            , Byte.class //
+            , Character.class //
+            , Double.class //
+            , Float.class //
+            , Integer.class //
+            , Long.class //
+            , Short.class //
+    );
 
     // 타입별 Setter 메타데이터 및 고속 실행기(MethodHandle) 전역 캐시
     private static final Map<Class<?>, List<SetterInfo>> SETTER_CACHE = new ConcurrentHashMap<>();
@@ -130,71 +122,74 @@ public class ObjectUtils {
     }
 
     /**
-     * 검사 대상 타입이 기준타입과 호환가능한지 여부를 제공합니다. <br>
-     * 
+     * 검사 대상 타입이 기준 타입과 호환 가능한지 여부를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2019. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 9. 3.     parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param target
+     * @param targetType
      *            검사 대상 타입
-     * @param standard
+     * @param standardType
      *            기준 타입
-     * @return
-     * 
+     *
+     * @return 호환 가능 여부
+     *
      * @throws NullPointerException
-     *             파라미터({@code target 또는 standard})가 {@code null}인 경우 발생.
+     *             파라미터({@code targetType}, {@code standardType} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 9. 3.
+     * @version 1.8.0
      */
-    public static boolean checkType(Class<?> target, Class<?> standard) {
-        ObjectUtils.requireNonNulls(target, standard);
+    public static boolean checkType(Class<?> targetType, Class<?> standardType) {
+        ObjectUtils.requireNonNulls(targetType, standardType);
 
-        return switch (standard.getName()) {
-            case "boolean", "java.lang.Boolean" -> checkType(target, boolean.class, Boolean.class);
-            case "byte", "java.lang.Byte" -> checkType(target, byte.class, Byte.class);
-            case "char", "java.lang.Character" -> checkType(target, char.class, Character.class);
-            case "short", "java.lang.Short" -> checkType(target, short.class, Short.class);
-            case "int", "java.lang.Integer" -> checkType(target, int.class, Integer.class);
-            case "long", "java.lang.Long" -> checkType(target, long.class, Long.class);
-            case "float", "java.lang.Float" -> checkType(target, float.class, Float.class);
-            case "double", "java.lang.Double" -> checkType(target, double.class, Double.class);
-            default -> standard.isAssignableFrom(target);
+        return switch (standardType.getName()) {
+            case "boolean", "java.lang.Boolean" -> checkType(targetType, boolean.class, Boolean.class);
+            case "byte", "java.lang.Byte" -> checkType(targetType, byte.class, Byte.class);
+            case "char", "java.lang.Character" -> checkType(targetType, char.class, Character.class);
+            case "short", "java.lang.Short" -> checkType(targetType, short.class, Short.class);
+            case "int", "java.lang.Integer" -> checkType(targetType, int.class, Integer.class);
+            case "long", "java.lang.Long" -> checkType(targetType, long.class, Long.class);
+            case "float", "java.lang.Float" -> checkType(targetType, float.class, Float.class);
+            case "double", "java.lang.Double" -> checkType(targetType, double.class, Double.class);
+            default -> standardType.isAssignableFrom(targetType);
         };
     }
 
     /**
-     * 검사 대상 타입이 기준 타입과 호환되는지 여부를 제공합니다. <br>
-     * 
+     * 검사 대상 타입이 기준 타입들과 호환되는지 여부를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2019. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 9. 3.     parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param targetClass
+     * @param targetType
      *            검사 대상 타입
-     * @param standards
-     *            기준 타입
-     * 
-     * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code targetClass 또는 standards})가 {@code null}이거나 {@code standards}에 {@code null}이 포함된 경우 발생.
+     * @param standardTypes
+     *            기준 타입 목록
      *
-     * 
+     * @return 호환 가능 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code targetType})가 {@code null}인 경우, 파라미터({@code standardTypes})가 {@code null}이거나
+     *             {@code standardTypes}에 {@code null}이 포함된 경우 발생.
+     *
      * @since 2019. 9. 3.
+     * @version 1.8.0
      */
-    private static boolean checkType(Class<?> targetClass, Class<?>... standards) {
-        Objects.requireNonNull(targetClass);
-        ObjectUtils.requireNonNulls((Object[]) standards);
+    private static boolean checkType(Class<?> targetType, Class<?>... standardTypes) {
+        Objects.requireNonNull(targetType);
+        ObjectUtils.requireNonNulls((Object[]) standardTypes);
 
-        for (Class<?> standard : standards) {
-            if (standard.isAssignableFrom(targetClass)) {
+        for (Class<?> standard : standardTypes) {
+            if (standard.isAssignableFrom(targetType)) {
                 return true;
             }
         }
@@ -208,7 +203,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param visitValue
@@ -255,7 +250,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param visitValue
@@ -284,7 +279,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param data
@@ -298,7 +293,7 @@ public class ObjectUtils {
      * @since 2021. 12. 3.
      * @version 1.8.0
      */
-    public static boolean containsNull(Collection<?> data) {
+    public static boolean containsNull(Collection<@Nullable ?> data) {
         return containsNull(false, data);
     }
 
@@ -309,7 +304,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param array
@@ -382,7 +377,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code manipulator 또는 sup})가 {@code null}인 경우 발생.
+     *             파라미터({@code manipulator, sup 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 11. 24.
      * @version 2.1.0
@@ -454,8 +449,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com         (3.0.0) JDK 25 마이그레이션 및 캐시적용
+     * 2021. 12. 6.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션 및 캐시적용
      * </pre>
      *
      * @param <S>
@@ -466,7 +461,7 @@ public class ObjectUtils {
      *            입력 데이터 타입
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체 타입.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -474,17 +469,17 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code srcType 또는 targetType})가 {@code null}인 경우 발생.
+     *             파라미터({@code srcType, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
      * @author parkjunhong77@gmail.com
      */
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws IllegalArgumentException {
         return src -> {
             try {
-                BiConsumer<S, T> copier = ObjectTransformer.getTransformer(srcType, lookupSrcSuper, targetType, lookupTargetSuper);
-                T target = targetType.getDeclaredConstructor().newInstance();
+                BiConsumer<S, T> copier = ObjectTransformer.getTransformer(srcType, lookupSrcSuper, targetClass, lookupTargetSuper);
+                T target = targetClass.getDeclaredConstructor().newInstance();
                 copier.accept(src, target);
 
                 return target;
@@ -501,7 +496,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 12. 6.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -510,18 +505,18 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param srcType
      *            입력 데이터 타입
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체.
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code srcType 또는 targetType})가 {@code null}인 경우 발생.
+     *             파라미터({@code srcType, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
      */
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> targetType) throws NullPointerException {
-        return getTransformer(srcType, false, targetType, false);
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> targetClass) throws NullPointerException {
+        return getTransformer(srcType, false, targetClass, false);
     }
 
     /**
@@ -531,7 +526,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -550,7 +545,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code srcCol 또는 targetClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code srcCol, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             {@code srcCol}이 비어 있는 경우 발생.
      *
@@ -558,7 +553,9 @@ public class ObjectUtils {
      * @version 1.8.0
      */
     public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
-        AssertUtils2.notNulls("'source' object or 'target' type MUST NOT be null !!!", IllegalArgumentException.class, srcCol, targetClass);
+        Objects.requireNonNull(srcCol);
+        Objects.requireNonNull(targetClass);
+
         AssertUtils2.notEmpty("'source' object MUST NOT be empty !!!", srcCol, IllegalArgumentException.class);
 
         @SuppressWarnings("unchecked")
@@ -567,7 +564,7 @@ public class ObjectUtils {
                 .findFirst() //
                 .map(e -> (Class<S>) e.getClass());
 
-        return getTransformer(fromInstance.get(), lookupSrcSuper, targetClass, lookupTargetSuper);
+        return getTransformer(Objects.requireNonNull(fromInstance.get()), lookupSrcSuper, targetClass, lookupTargetSuper);
     }
 
     /**
@@ -577,7 +574,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -592,7 +589,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code srcCol 또는 targetClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code srcCol, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             {@code srcCol}이 비어 있는 경우 발생.
      *
@@ -610,7 +607,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 6.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 12. 6.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -629,7 +626,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code src 또는 targetClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
@@ -650,7 +647,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 1. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 1. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * *
@@ -663,7 +660,7 @@ public class ObjectUtils {
      *            입력 데이터 타입
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체 타입.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -671,7 +668,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code src 또는 target})가 {@code null}인 경우 발생.
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2022. 1. 26.
      * @version 1.8.0
@@ -691,7 +688,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -706,7 +703,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code src 또는 targetClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
@@ -723,7 +720,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 1. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 1. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -737,7 +734,7 @@ public class ObjectUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code src 또는 target})가 {@code null}인 경우 발생.
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2022. 1. 26.
      * @version 1.8.0
@@ -753,8 +750,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
-     * 2022. 02. 07.        parkjunohng77@gmail.com     버그 수정.
+     * 2020. 12. 22.		parkjunhong77@gmail.com			최초 작성
+     * 2022. 02. 07.        parkjunhong77@gmail.com     버그 수정.
      * </pre>
      *
      * @param type
@@ -770,17 +767,17 @@ public class ObjectUtils {
     public static boolean isPrimitive(Class<?> type) {
         Objects.requireNonNull(type);
 
-        return PRIMITIVES.contains(type);
+        return PRIMITIVE_CLASSES.contains(type);
     }
 
     /**
-     * 주어진 타입이 primitive 또는 Wrapper 타입인지 여부를 제공합니다. <br>
+     * 주어진 타입이 primitive, Wrapper 중에 1개라도 타입인지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 22.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 22.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param type
@@ -811,8 +808,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
-     * 2022. 02. 07.        parkjunohng77@gmail.com     버그 수정.
+     * 2020. 12. 22.		parkjunhong77@gmail.com			최초 작성
+     * 2022. 02. 07.        parkjunhong77@gmail.com     버그 수정.
      * </pre>
      *
      * @param type
@@ -828,7 +825,7 @@ public class ObjectUtils {
     public static boolean isWrapper(Class<?> type) {
         Objects.requireNonNull(type);
 
-        return WRAPPER_TYPES.contains(type);
+        return WRAPPER_CLASSES.contains(type);
     }
 
     /**
@@ -838,7 +835,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 22.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -854,7 +851,7 @@ public class ObjectUtils {
     public static boolean isWrapper(Object object) {
         Objects.requireNonNull(object);
 
-        return WRAPPER_TYPES.contains(object.getClass());
+        return WRAPPER_CLASSES.contains(object.getClass());
     }
 
     /**
@@ -865,7 +862,7 @@ public class ObjectUtils {
      * [개정이력]
      * 날짜          | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com         JDK 25 마이그레이션: MethodHandle 기반 캐싱 및 모듈 시스템 대응
      * </pre>
      *
@@ -958,7 +955,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param forceToPrimitive
@@ -983,7 +980,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1007,7 +1004,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1031,7 +1028,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1055,7 +1052,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1081,7 +1078,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
@@ -1105,7 +1102,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param o
@@ -1145,7 +1142,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 2.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 12. 2.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <SF>
@@ -1180,7 +1177,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 2.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 12. 2.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <SF>
@@ -1276,7 +1273,7 @@ public class ObjectUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1307,8 +1304,8 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    private static <E extends @Nullable Object, V extends @Nullable Object, R extends Collection<V>> R to(Collection<E> objects, Function<E, V> transformer,
-            Supplier<R> collectionSupplier) {
+    private static <E extends @Nullable Object, V extends @Nullable Object, R extends Collection<V>> //
+            R to(Collection<E> objects, Function<E, V> transformer, Supplier<R> collectionSupplier) {
         AssertUtils2.notNulls(objects, transformer, collectionSupplier);
 
         if (objects.size() < 1) {
@@ -1328,12 +1325,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 4.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1345,18 +1346,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 4.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Boolean)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1368,11 +1378,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1380,10 +1395,13 @@ public class ObjectUtils {
      * @param objects
      *            변환할 데이터
      * @param transfomer
-     *            데이터 변환 함수 (Object => Boolean)
+     *            데이터 변환 함수 (Object => Boolean). 반환값으로 {@code null}을 제공할 수 있으나, 이 경우 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1395,11 +1413,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1408,7 +1431,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1424,12 +1451,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1441,18 +1472,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Byte)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1464,11 +1504,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1479,7 +1524,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => Byte)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1491,11 +1540,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1504,7 +1558,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1520,12 +1578,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1537,18 +1599,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Double} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Double)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1560,11 +1631,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1575,7 +1651,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => Double)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1587,11 +1667,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1600,7 +1685,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1616,12 +1705,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1633,18 +1726,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Float} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Float)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, trasnformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1656,11 +1758,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1671,7 +1778,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => Float)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1683,11 +1794,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1696,7 +1812,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1712,12 +1832,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1729,18 +1853,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Integer)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1752,11 +1885,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1767,7 +1905,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => Integer)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1779,11 +1921,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1792,7 +1939,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1808,12 +1959,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1825,18 +1980,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Long} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Long)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1848,11 +2012,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1863,7 +2032,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => Long)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1875,11 +2048,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1888,7 +2066,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1904,12 +2086,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1921,18 +2107,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Short} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => Short)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1944,11 +2139,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Short} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1959,7 +2159,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => Short)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -1971,11 +2175,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link Short} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1984,7 +2193,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -2000,12 +2213,16 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -2017,18 +2234,27 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link String} Type {@link List}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param objects
      *            변환할 데이터
      * @param transfomer
      *            데이터 변환 함수 (Object => String)
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -2040,11 +2266,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2055,7 +2286,11 @@ public class ObjectUtils {
      *            데이터 변환 함수 (Object => String)
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -2067,11 +2302,16 @@ public class ObjectUtils {
     /**
      * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
      * 
+     * <p>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * </p>
+     * 
      * <pre>
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -2080,7 +2320,11 @@ public class ObjectUtils {
      *            변환할 데이터
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code objects, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 4.
      * @version 2.1.0
@@ -2097,8 +2341,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
-     * 2025. 8. 30.     parkjunohng77@gmail.com         내부 구현을 {@link #transform(Collection, boolean, Supplier, boolean, Map, Supplier)}으로 전환.
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         내부 구현을 {@link #transform(Collection, boolean, Supplier, boolean, Map, Supplier)}으로 전환.
      * </pre>
      *
      * @param <S>
@@ -2111,7 +2355,7 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형..
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -2123,19 +2367,25 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection} 제공 함수
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        Objects.requireNonNull(targetClass);
+
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
-                        return targetType.getDeclaredConstructor().newInstance();
+                        return targetClass.getDeclaredConstructor().newInstance();
                     } catch (Exception e) {
-                        throw new CreateInstanceFailedException(targetType, e);
+                        throw new CreateInstanceFailedException(targetClass, e);
                     }
                 }, lookupTargetSuper //
                 , converters, collectionSupplier);
@@ -2149,7 +2399,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2162,20 +2412,24 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            기존 데이터 정보를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
             Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetType, lookupTargetSuper, null, collectionSupplier);
+        return transform(src, lookupSrcSuper, targetClass, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
@@ -2186,7 +2440,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2199,7 +2453,7 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
@@ -2209,14 +2463,18 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetType, false, converters, collectionSupplier);
+        return transform(src, lookupSrcSuper, targetClass, false, converters, collectionSupplier);
     }
 
     /**
@@ -2227,7 +2485,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2240,17 +2498,21 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetType, Supplier<C> collectionSupplier) {
-        return transform(src, lookupSrcSuper, targetType, false, null, collectionSupplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, Supplier<C> collectionSupplier) {
+        return transform(src, lookupSrcSuper, targetClass, false, null, collectionSupplier);
     }
 
     /**
@@ -2261,7 +2523,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * * @param <S> 입력 데이터 타입
@@ -2286,14 +2548,23 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection} 제공 함수
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+        Objects.requireNonNull(src);
+        Objects.requireNonNull(collectionSupplier);
+
         return src.stream() //
+                .filter(Objects::nonNull) //
                 .map(s -> ObjectTransformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
                 .collect(Collectors.toCollection(collectionSupplier));
     }
@@ -2306,7 +2577,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2325,7 +2596,12 @@ public class ObjectUtils {
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -2343,7 +2619,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2366,13 +2642,18 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier,
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters, collectionSupplier);
     }
 
@@ -2384,7 +2665,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2401,7 +2682,12 @@ public class ObjectUtils {
      *            새로운 데이터 객체 제공 함수.
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -2418,7 +2704,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2429,7 +2715,7 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받은 객체.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
@@ -2441,14 +2727,18 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
-        return transform(src, false, targetType, lookupTargetSuper, converters, collectionSupplier);
+        return transform(src, false, targetClass, lookupTargetSuper, converters, collectionSupplier);
     }
 
     /**
@@ -2459,7 +2749,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2470,19 +2760,23 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetType, lookupTargetSuper, null, collectionSupplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetClass, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
@@ -2493,7 +2787,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2504,7 +2798,7 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
@@ -2514,13 +2808,18 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetType, false, converters, collectionSupplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
+        return transform(src, false, targetClass, false, converters, collectionSupplier);
     }
 
     /**
@@ -2531,7 +2830,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 4. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 4. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2542,17 +2841,21 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
-        return transform(src, false, targetType, false, null, collectionSupplier);
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, Supplier<C> collectionSupplier) {
+        return transform(src, false, targetClass, false, null, collectionSupplier);
     }
 
     /**
@@ -2563,7 +2866,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2586,7 +2889,12 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -2604,7 +2912,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2621,7 +2929,12 @@ public class ObjectUtils {
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -2638,7 +2951,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2659,12 +2972,17 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, converters, collectionSupplier);
     }
@@ -2677,7 +2995,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2692,7 +3010,12 @@ public class ObjectUtils {
      *            새로운 데이터 객체 제공 함수.
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -2708,7 +3031,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2719,17 +3042,20 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            변환 타입. 기본생성자가 반드시 있어야 합니다.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 7. 11.
      * 
-     * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType) {
-        return transform(src, lookupSrcSuper, targetType, false);
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass) {
+        return transform(src, lookupSrcSuper, targetClass, false);
     }
 
     /**
@@ -2740,7 +3066,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2751,21 +3077,27 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 7. 11.
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
+        Objects.requireNonNull(targetClass);
+
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
-                        return targetType.getDeclaredConstructor().newInstance();
+                        return targetClass.getDeclaredConstructor().newInstance();
                     } catch (Exception e) {
-                        throw new CreateInstanceFailedException(targetType, e);
+                        throw new CreateInstanceFailedException(targetClass, e);
                     }
                 }, lookupTargetSuper);
     }
@@ -2778,7 +3110,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 22.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2789,7 +3121,7 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
@@ -2799,18 +3131,26 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws CreateInstanceFailedException
+     *             대상 클래스({@code targetClass})의 기본 생성자를 호출하여 인스턴스를 생성하는 중 예외가 발생한 경우.
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+        Objects.requireNonNull(targetClass);
+
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
                     try {
-                        return targetType.getDeclaredConstructor().newInstance();
+                        return targetClass.getDeclaredConstructor().newInstance();
                     } catch (Exception e) {
-                        throw new CreateInstanceFailedException(targetType, e);
+                        throw new CreateInstanceFailedException(targetClass, e);
                     }
                 }, lookupTargetSuper //
                 , converters);
@@ -2823,7 +3163,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2834,7 +3174,7 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param converters
      *            데이터 변환 함수
@@ -2842,16 +3182,19 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      * 
-     * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetType, Map<String, Function<?, ?>> converters) {
-        return transform(src, lookupSrcSuper, targetType, false, converters);
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters) {
+        return transform(src, lookupSrcSuper, targetClass, false, converters);
     }
 
     /**
@@ -2861,7 +3204,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2874,11 +3217,14 @@ public class ObjectUtils {
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
      * @param targetInstanceSupplier
      *            새로운 데이터 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
@@ -2894,7 +3240,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2909,12 +3255,18 @@ public class ObjectUtils {
      *            새로운 데이터 객체 제공 함수.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+        Objects.requireNonNull(targetInstanceSupplier);
+
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }
 
@@ -2926,7 +3278,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2947,12 +3299,17 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
     }
 
@@ -2963,7 +3320,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -2982,15 +3339,18 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters);
     }
 
@@ -3001,7 +3361,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 08.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3012,12 +3372,15 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 08.
-     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
@@ -3033,7 +3396,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 08.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3044,14 +3407,17 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 08.
-     * 
      * 
      * @see #FIELD_CONVERTERS
      */
@@ -3067,8 +3433,8 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
-     * 2021. 11. 22.        parkjunohng77@gmail.com      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
+     * 2020. 12. 08.     parkjunhong77@gmail.com         최초 작성
+     * 2021. 11. 22.        parkjunhong77@gmail.com      Map&lt;String, Function&lt;Object, Object&gt;&gt; 추가
      * </pre>
      *
      * @param <S>
@@ -3090,29 +3456,16 @@ public class ObjectUtils {
      *            <li>타입 변환 함수
      *            </ul>
      * 
-     * @throws IllegalArgumentException
-     *             입력 데이터 또는 대상 타입이 {@code null}인 경우
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
-        //
-        // AssertUtils2.notNulls("'source' object or 'target' type must NOT be null !!!",
-        // IllegalArgumentException.class, src, target);
-        //
-        // // 데이터 변환함수가 null 인 경우
-        // CopierKey key = new CopierKey(src.getClass(), target.getClass(), lookupSrcSuper, lookupTargetSuper,
-        // /* convertersId */ System.identityHashCode(checkConvertersOrDefault(converters)) // 또는 고정 Registry ID
-        // );
-        //
-        // BiConsumer<Object, Object> copier = COPIER_CACHE.computeIfAbsent(key, k -> buildCopier(src.getClass(),
-        // lookupSrcSuper, target.getClass(), lookupTargetSuper, converters));
-        // copier.accept(target, src);
-        //
-        // return target;
     }
 
     /**
@@ -3122,7 +3475,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 08.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3133,7 +3486,7 @@ public class ObjectUtils {
      *            입력 데이터
      * @param lookupSrcSuper
      *            입력 데이터 클래스 상위 인터페이스/클래스 확장 여부
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
@@ -3141,15 +3494,18 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 08.
      * @version 1.8.0
      * 
-     * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, false, converters);
     }
 
@@ -3161,7 +3517,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 6. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3170,19 +3526,22 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            변환 타입
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 20.
      * @version
      * 
-     * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Class<T> targetType) {
-        return transform(src, false, targetType, false);
+    public static <S, T> T transform(S src, Class<T> targetClass) {
+        return transform(src, false, targetClass, false);
     }
 
     /**
@@ -3193,7 +3552,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3202,16 +3561,20 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터.
-     * @param targetType
+     * @param targetClass
      *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 7. 11.
      */
-    public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper) {
-        return transform(src, false, targetType, lookupTargetSuper);
+    public static <S, T> T transform(S src, Class<T> targetClass, boolean lookupTargetSuper) {
+        return transform(src, false, targetClass, lookupTargetSuper);
     }
 
     /**
@@ -3222,7 +3585,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3231,7 +3594,7 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터.
-     * @param targetType
+     * @param targetClass
      *            변환 타입. 기본생성자가 반드시 있어야 합니다.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
@@ -3241,13 +3604,17 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, Class<T> targetType, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
-        return transform(src, false, targetType, lookupTargetSuper, converters);
+    public static <S, T> T transform(S src, Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+        return transform(src, false, targetClass, lookupTargetSuper, converters);
     }
 
     /**
@@ -3258,7 +3625,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3267,7 +3634,7 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            변환 타입
      * @param converters
      *            데이터 변환 함수.
@@ -3275,17 +3642,20 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      * 
-     * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Class<T> targetType, Map<String, Function<?, ?>> converters) {
-        return transform(src, false, targetType, false, converters);
+    public static <S, T> T transform(S src, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters) {
+        return transform(src, false, targetClass, false, converters);
     }
 
     /**
@@ -3296,7 +3666,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3307,11 +3677,14 @@ public class ObjectUtils {
      *            입력 데이터
      * @param targetInstanceSupplier
      *            새로운 데이터 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      * 
      * @see Getter
      * @see Setter
@@ -3328,7 +3701,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3341,7 +3714,11 @@ public class ObjectUtils {
      *            새로운 데이터 객체 제공 함수.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -3358,7 +3735,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3377,12 +3754,16 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters);
     }
 
@@ -3394,7 +3775,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3411,16 +3792,19 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, false, converters);
     }
 
@@ -3432,7 +3816,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 08.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 08.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3441,13 +3825,16 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 08.
      * @version
-     * 
      * 
      * @see Getter
      * @see Setter
@@ -3464,7 +3851,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3473,11 +3860,15 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터.
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 7. 11.
      */
@@ -3493,7 +3884,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3502,7 +3893,7 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터.
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param lookupTargetSuper
      *            변환 대상 클래스 상위 인터페이스/클래스 확장 여부
@@ -3512,12 +3903,16 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, converters);
     }
 
@@ -3529,7 +3924,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11.22.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11.22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3538,7 +3933,7 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
@@ -3546,16 +3941,19 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      * 
-     * 
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, T target, @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, false, converters);
     }
 
@@ -3568,7 +3966,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3579,7 +3977,7 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
@@ -3589,16 +3987,20 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
-        return transform(src, true, targetType, true, converters, collectionSupplier);
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
+        return transform(src, true, targetClass, true, converters, collectionSupplier);
     }
 
     /**
@@ -3610,7 +4012,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3621,20 +4023,23 @@ public class ObjectUtils {
      *            변환 후 데이터 {@link Collection}
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetType, Supplier<C> collectionSupplier) {
-        return transform(src, true, targetType, true, null, collectionSupplier);
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetClass, Supplier<C> collectionSupplier) {
+        return transform(src, true, targetClass, true, null, collectionSupplier);
     }
 
     /**
@@ -3646,7 +4051,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3667,15 +4072,19 @@ public class ObjectUtils {
      *            </ul>
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, converters, collectionSupplier);
     }
@@ -3689,7 +4098,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3704,11 +4113,15 @@ public class ObjectUtils {
      *            새로운 데이터 객체 제공 함수.
      * @param collectionSupplier
      *            대상 데이터를 포함할 {@link Collection}
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get(), collectionSupplier 중에 1개라도})가
+     *             {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
@@ -3725,7 +4138,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3734,15 +4147,19 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            변환 타입
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetClass  중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T> T transformAll(S src, Class<T> targetType) {
-        return transform(src, true, targetType, true);
+    public static <S, T> T transformAll(S src, Class<T> targetClass) {
+        return transform(src, true, targetClass, true);
     }
 
     /**
@@ -3754,7 +4171,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3765,7 +4182,11 @@ public class ObjectUtils {
      *            입력 데이터
      * @param targetInstanceSupplier
      *            새로운 데이터 객체 제공 함수.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, targetInstanceSupplier, targetInstanceSupplier.get() 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -3783,7 +4204,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3792,13 +4213,16 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
@@ -3815,7 +4239,7 @@ public class ObjectUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <S>
@@ -3824,7 +4248,7 @@ public class ObjectUtils {
      *            신규 데이터 타입 정의.
      * @param src
      *            입력 데이터
-     * @param targetType
+     * @param targetClass
      *            데이터를 전달받을 새로운 데이터 유형.
      * @param converters
      *            데이터 변환 함수
@@ -3832,15 +4256,18 @@ public class ObjectUtils {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     * 
      * @see #transform(Object, boolean, Object, boolean)
      */
-    public static <S, T> T transformAll(S src, T target, Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transformAll(S src, T target, @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, true, target, true, converters);
     }
 

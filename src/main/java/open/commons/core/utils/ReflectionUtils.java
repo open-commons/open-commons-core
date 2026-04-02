@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-/**
-* 
-*/
 package open.commons.core.utils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -39,53 +35,88 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.jspecify.annotations.Nullable;
+
 import open.commons.core.reflect.FieldTypeVariable;
 import open.commons.core.reflect.GenericTypeVariable;
 import open.commons.core.util.IFilter;
 
 /**
- * 
- * 
+ * 리플렉션(Reflection)을 통한 객체 및 클래스 메타데이터 조작을 지원하는 유틸리티 클래스입니다.
+ *
  * @since 2011. 1. 2.
- * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class ReflectionUtils {
 
     /**
-     * 
-     * @param clazz
+     * 대상 클래스({@code targetClass})가 주어진 클래스 목록({@code classes})에 포함되어 있는지 확인합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) clazz -> targetClass 네이밍 룰 적용 및 Javadoc 보강
+     * </pre>
+     *
+     * @param targetClass
+     *            확인할 대상 클래스
      * @param classes
-     * @return
+     *            비교할 클래스 목록
+     *
+     * @return 포함 여부
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
      */
-    public static boolean containsClass(Class<?> clazz, Class<?>... classes) {
-
-        boolean contains = false;
+    public static boolean containsClass(Class<?> targetClass, Class<@Nullable ?>... classes) {
+        Objects.requireNonNull(targetClass);
+        Objects.requireNonNull(classes);
 
         for (Class<?> clz : classes) {
-            if (clazz.equals(clz)) {
-                contains = true;
-
-                break;
+            if (targetClass.equals(clz)) {
+                return true;
             }
         }
 
-        return contains;
+        return false;
     }
 
     /**
-     * 주어진 {@link Class} 타입에 해당 변수 이름의 존재여부를 반환합니다.
-     * 
-     * @param clazz
-     * @param fieldname
-     * @return <BR>
+     * 주어진 {@link Class} 타입에 해당 변수 이름이 선언되어 있는지 여부를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 2. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) clazz -> targetClass 네이밍 룰 적용
+     * </pre>
+     *
+     * @param targetClass
+     *            대상 클래스
+     * @param fieldName
+     *            확인할 변수 이름
+     *
+     * @return 존재 여부
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 14.
-     * 
-     * 
+     *
      * @see Class#getDeclaredFields()
      */
-    public static boolean containsDeclaredField(Class<?> clazz, String fieldname) {
-        for (Field field : clazz.getDeclaredFields()) {
-            if (fieldname.equals(field.getName())) {
+    public static boolean containsDeclaredField(Class<?> targetClass, String fieldName) {
+        Objects.requireNonNull(targetClass);
+        Objects.requireNonNull(fieldName);
+
+        for (Field field : targetClass.getDeclaredFields()) {
+            if (fieldName.equals(field.getName())) {
                 return true;
             }
         }
@@ -93,19 +124,36 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 {@link Class} 타입에 해당 변수 이름의 존재여부를 반환합니다.
-     * 
-     * @param clazz
-     * @param fieldname
-     * @return <BR>
+     * 주어진 {@link Class} 타입에 접근 가능한 해당 변수 이름이 존재하는지 여부를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2012. 2. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) clazz -> targetClass 네이밍 룰 적용
+     * </pre>
+     *
+     * @param targetClass
+     *            대상 클래스
+     * @param fieldName
+     *            확인할 변수 이름
+     *
+     * @return 존재 여부
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 14.
-     * 
-     * 
+     *
      * @see Class#getFields()
      */
-    public static boolean containsField(Class<?> clazz, String fieldname) {
-        for (Field field : clazz.getFields()) {
-            if (fieldname.equals(field.getName())) {
+    public static boolean containsField(Class<?> targetClass, String fieldName) {
+        Objects.requireNonNull(targetClass);
+        Objects.requireNonNull(fieldName);
+
+        for (Field field : targetClass.getFields()) {
+            if (fieldName.equals(field.getName())) {
                 return true;
             }
         }
@@ -114,19 +162,32 @@ public class ReflectionUtils {
 
     /**
      * 대상 Class의 {@link TypeVariable} 정보와 실제로 사용될 {@link Class} 정보를 조합해서 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 6. 18.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
      * @param targetClass
-     *            {@link TypeVariable}이 사용된 클래스.
+     *            {@link TypeVariable}이 사용된 클래스
      * @param lastCopy
-     *            <b>{@code typeVarClasses}</b>의 개수가 <b>{@code targetClass}</b>의 실제 {@link TypeVariable} 개수보다 적은 경우 마지막
-     *            값으로 채울지 여부.
+     *            {@code typeVarClasses}의 개수가 {@code targetClass}의 실제 {@link TypeVariable} 개수보다 적은 경우 마지막 값으로 채울지 여부
      * @param typeVarClasses
-     *            {@link TypeVariable}로 사용될 클래스.
-     * @return
-     * 
+     *            {@link TypeVariable}로 사용될 클래스 목록
+     *
+     * @return 조합된 제네릭 타입 변수 목록
+     *
+     * @throws NullPointerException
+     *             파라미터({@code targetClass, typeVarClasses}) 중에 1개라도 {@code null}인 경우 발생. 또한, {@code typeVarClasses}에
+     *             {@code null}이 포함된 경우에도 발생.
+     *
      * @since 2014. 6. 18.
      */
     public static List<GenericTypeVariable> createGenericTypeVariables(Class<?> targetClass, boolean lastCopy, Class<?>... typeVarClasses) {
+        Objects.requireNonNull(targetClass);
+        ObjectUtils.requireNonNulls((Object[]) typeVarClasses);
 
         List<GenericTypeVariable> gTypeVars = new ArrayList<GenericTypeVariable>();
         if (typeVarClasses.length < 1) {
@@ -148,18 +209,29 @@ public class ReflectionUtils {
 
     /**
      * 대상 Class의 {@link TypeVariable} 정보와 실제로 사용될 {@link Class} 정보를 조합해서 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 6. 18.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
      * @param targetClass
-     *            {@link TypeVariable}이 사용된 클래스.
-     * @param typeVarClasses
-     *            {@link TypeVariable}로 사용될 클래스.
-     * @return
-     * 
+     *            {@link TypeVariable}이 사용된 클래스
+     * @param typeVarClass
+     *            {@link TypeVariable}로 사용될 클래스
+     *
+     * @return 조합된 제네릭 타입 변수 객체. 제네릭이 없는 경우 {@code null} 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2014. 6. 18.
      */
-    public static GenericTypeVariable createGenericTypeVariables(Class<?> targetClass, Class<?> typeVarClass) {
-
-        AssertUtils2.notNulls(targetClass, typeVarClass);
+    public static @Nullable GenericTypeVariable createGenericTypeVariables(Class<?> targetClass, Class<?> typeVarClass) {
+        Objects.requireNonNull(targetClass);
+        Objects.requireNonNull(typeVarClass);
 
         TypeVariable<?>[] typeVars = targetClass.getTypeParameters();
 
@@ -171,24 +243,59 @@ public class ReflectionUtils {
     }
 
     /**
-     * 
+     * 두 멤버({@link Member})의 이름이 동일한지 비교합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 6. 19.     parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
      * @param m1
+     *            비교할 첫 번째 멤버
      * @param m2
-     * @return
-     * 
+     *            비교할 두 번째 멤버
+     *
+     * @return 이름이 같으면 {@code true}, 다르면 {@code false}
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2014. 6. 19.
      */
     public static boolean equalsName(Member m1, Member m2) {
-        AssertUtils2.notNulls("Neither m1 and m2 Class MUST be null. m1: " + m1 + ", m2: " + m2, m1, m2);
+        Objects.requireNonNull(m1);
+        Objects.requireNonNull(m2);
 
         return m1.getName().equals(m2.getName());
     }
 
-    public static boolean equalsOneOfClasses(Class<?> target, Class<?>... candidates) {
-        AssertUtils2.notNull("target MUST NOT be null. target: " + target);
+    /**
+     * 대상 클래스가 주어진 후보 클래스 목록 중 하나와 일치하는지 확인합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) target -> targetClass 네이밍 룰 적용 및 Javadoc 추가
+     * </pre>
+     *
+     * @param targetClass
+     *            비교 대상 클래스
+     * @param candidates
+     *            후보 클래스 목록
+     *
+     * @return 일치하는 클래스가 있으면 {@code true}, 없으면 {@code false}
+     *
+     * @throws IllegalArgumentException
+     *             파라미터({@code targetClass})가 {@code null}인 경우 발생.
+     */
+    public static boolean equalsOneOfClasses(Class<?> targetClass, Class<?>... candidates) {
+        AssertUtils2.notNull("targetClass MUST NOT be null. targetClass: " + targetClass);
 
         for (Class<?> candidate : candidates) {
-            if (target.equals(candidate)) {
+            if (targetClass.equals(candidate)) {
                 return true;
             }
         }
@@ -197,28 +304,47 @@ public class ReflectionUtils {
     }
 
     /**
-     * 
-     * @param clazz
+     * 지정된 메소드 서명(Signature)을 기반으로, Generic이 사용된 메소드에서 실제로 사용된 타입 정보를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) clazz -> targetClass 네이밍 룰 적용
+     * </pre>
+     *
+     * @param targetClass
+     *            탐색할 대상 클래스
      * @param methodName
+     *            메소드 이름
      * @param paramIndex
-     *            찾고자 하는 파라미터 순서
+     *            찾고자 하는 파라미터 순서 (0-based)
      * @param actualTypeIndex
-     *            Actual Type 순서
+     *            Actual Type 순서 (0-based)
      * @param parameterTypes
-     * @return
+     *            메소드의 파라미터 타입 목록
+     *
+     * @return 실제 타입 {@link Class}, 찾을 수 없는 경우 {@code null}
+     *
+     * @throws NoSuchMethodException
+     *             지정된 이름과 파라미터 타입을 가진 메소드가 없는 경우 발생.
+     * @throws NullPointerException
+     *             파라미터({@code targetClass, methodName}) 중에 1개라도 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             파라미터({@code parameterTypes}) 배열 내부에 {@code null}이 포함된 경우 발생.
      */
-    public static Class<?> getActualTypeArgument(Class<?> clazz, String methodName, int paramIndex, int actualTypeIndex, Class<?>... parameterTypes) {
-        Class<?> rtnClass = null;
-        try {
-            Method method = clazz.getDeclaredMethod(methodName, parameterTypes);
+    public static @Nullable Class<?> getActualTypeArgument(Class<?> targetClass, String methodName, int paramIndex, int actualTypeIndex, Class<?> @Nullable... parameterTypes)
+            throws NoSuchMethodException {
+        Objects.requireNonNull(targetClass);
+        Objects.requireNonNull(methodName);
 
-            rtnClass = getActualTypeArgument(method, paramIndex, actualTypeIndex);
-
-        } catch (NoSuchMethodException e) {
-        } catch (SecurityException e) {
+        if (parameterTypes != null) {
+            AssertUtils2.notExistNull(Arrays.asList(parameterTypes));
         }
 
-        return rtnClass;
+        Method method = targetClass.getDeclaredMethod(methodName, parameterTypes);
+
+        return getActualTypeArgument(method, paramIndex, actualTypeIndex);
     }
 
     /**
@@ -228,8 +354,8 @@ public class ReflectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 17.        parkjunhong77@gmail.com         최초 작성
-     * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching 적용 및 표준 API 전환
+     * 2019. 6. 17.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching 적용 및 표준 API 전환
      * </pre>
      *
      * @param method
@@ -238,23 +364,26 @@ public class ReflectionUtils {
      *            파라미터 순서 (0-based)
      * @param actualTypeIndex
      *            Actual Type 순서 (0-based)
-     * @return 실제 타입 {@link Class}, 찾을 수 없는 경우 null
-     * 
+     *
+     * @return 실제 타입 {@link Class}, 찾을 수 없는 경우 {@code null}
+     *
+     * @throws NullPointerException
+     *             파라미터({@code method})가 {@code null}인 경우 발생.
+     *
      * @since 2019. 6. 17.
      * @version 3.0.0
      */
-    public static Class<?> getActualTypeArgument(Method method, int paramIndex, int actualTypeIndex) {
+    public static @Nullable Class<?> getActualTypeArgument(Method method, int paramIndex, int actualTypeIndex) {
+        Objects.requireNonNull(method);
+
         Type[] genericParameterTypes = method.getGenericParameterTypes();
 
-        // 배열 인덱스 범위 체크 (안전한 코드를 위해 권장)
         if (paramIndex < 0 || paramIndex >= genericParameterTypes.length) {
             return null;
         }
 
         Type paramType = genericParameterTypes[paramIndex];
 
-        // 1. 내부 구현체 대신 표준 인터페이스인 ParameterizedType 사용
-        // 2. Pattern Matching for instanceof (Java 16+) 적용
         if (paramType instanceof ParameterizedType pType) {
             Type[] actualTypes = pType.getActualTypeArguments();
 
@@ -264,11 +393,9 @@ public class ReflectionUtils {
 
             Type actualType = actualTypes[actualTypeIndex];
 
-            // 3. 타입 결정 로직 개선
             if (actualType instanceof Class<?> clazz) {
                 return clazz;
             } else if (actualType instanceof ParameterizedType innerPType) {
-                // 중첩 제네릭(예: List<Map<String, Integer>>) 대응
                 return (Class<?>) innerPType.getRawType();
             }
         }
@@ -277,31 +404,70 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
-     * 
+     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) 오타 수정된 오버로딩 메소드 호출로 연계
+     * </pre>
+     *
+     * @param <T>
+     *            어노테이션 타입
      * @param object
+     *            탐색할 원본 객체 또는 클래스
      * @param annotationClass
-     * @return
-     * 
-     * @see #getAnnotatedFields(Class, Class, IFilter)
+     *            찾고자 하는 어노테이션 클래스
+     *
+     * @return 필드와 어노테이션 매핑 정보
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
+     * @see #getAnnotatedFields(Object, Class, IFilter)
      * @see Class#getDeclaredFields()
      */
-    public static final <T extends Annotation> Map<Field, T> getAllAnnodatedFields(Object object, Class<T> annotationClass, IFilter<T> filter) {
-        AssertUtils2.notNulls("Neither object and annotationClass MUST be null. object=null." + ", annotationClass: " + annotationClass, object, annotationClass);
+    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object, Class<T> annotationClass) {
+        return getAllAnnotatedFields(object, annotationClass, new IFilter.TrueFilter<T>());
+    }
+
+    /**
+     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 필터링하여 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) 메소드명 오타 수정(Annodated -> Annotated)
+     * </pre>
+     *
+     * @param <T>
+     *            어노테이션 타입
+     * @param object
+     *            탐색할 원본 객체 또는 클래스
+     * @param annotationClass
+     *            찾고자 하는 어노테이션 클래스
+     * @param filter
+     *            사용자 정의 필터 (조건부 필터링)
+     *
+     * @return 필드와 어노테이션 매핑 정보
+     *
+     * @throws NullPointerException
+     *             파라미터({@code object, annotationClass}) 중에 1개라도 {@code null}인 경우 발생.
+     *
+     * @see #getAnnotatedFields(Object, Class, IFilter)
+     * @see Class#getDeclaredFields()
+     */
+    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object, Class<T> annotationClass, @Nullable IFilter<T> filter) {
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(annotationClass);
 
         Map<Field, T> annotatedFields = new HashMap<Field, T>();
-
-        Class<?> implClass = null;
-
-        if (object instanceof Class) {
-            implClass = (Class<?>) object;
-        } else {
-            implClass = object.getClass();
-        }
+        Class<?> implClass = (object instanceof Class<?> clazz) ? clazz : object.getClass();
 
         while (!implClass.equals(Object.class)) {
             annotatedFields.putAll(getAnnotatedFields(implClass, annotationClass, filter));
-
             implClass = implClass.getSuperclass();
         }
 
@@ -309,61 +475,66 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
-     * 
-     * @param <T>
-     * @param object
-     * @param annotationClass
-     * @return
-     *
-     * @see #getAnnotatedFields(Object, Class, IFilter)
-     * @see #getAnnotatedFields(Class, Class, IFilter)
-     * @see Class#getDeclaredFields()
-     */
-    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object, Class<T> annotationClass) {
-        return getAllAnnodatedFields(object, annotationClass, new IFilter.TrueFilter<T>());
-    }
-
-    /**
      * 주어진 어노테이션이 설정된 {@link Constructor}와 어노테이션 객체를 반환합니다.
-     * 
+     *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 17.        parkjunhong77@gmail.com         최초 작성
-     * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching, Stream API 적용
+     * 2019. 6. 17.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching, Stream API 적용
      * </pre>
-     * 
+     *
+     * @param <T>
+     *            어노테이션 타입
      * @param object
+     *            탐색할 원본 객체 또는 클래스
      * @param annotationClass
-     * @return
-     * 
+     *            찾고자 하는 어노테이션 클래스
+     *
+     * @return 생성자와 어노테이션 매핑 정보
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2019. 6. 17.
      * @version 3.0.0
-     *
      */
     public static final <T extends Annotation> Map<Constructor<?>, T> getAnnotatedConstructors(Object object, Class<T> annotationClass) {
-        // 1. 유효성 검사
-        AssertUtils2.notNulls("object와 annotationClass는 null일 수 없습니다.", object, annotationClass);
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(annotationClass);
 
-        // 2. Pattern Matching for instanceof
         Class<?> implClass = (object instanceof Class<?> clazz) ? clazz : object.getClass();
 
-        // 3. Stream API 및 Reflection API 최적화
-        return Arrays.stream(implClass.getDeclaredConstructors())//
-                .filter(c -> {
-                    return c.isAnnotationPresent(annotationClass);
-                }).collect(Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)));
+        return Arrays.stream(implClass.getDeclaredConstructors()) //
+                .filter(c -> c.isAnnotationPresent(annotationClass)) //
+                .collect( //
+                        Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)) //
+                );
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
-     * 
+     * 해당 클래스에 선언된 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) Javadoc 포맷팅 규칙 적용
+     * </pre>
+     *
+     * @param <T>
+     *            어노테이션 타입
      * @param object
+     *            탐색할 원본 객체 또는 클래스
      * @param annotationClass
-     * @return
-     * 
+     *            찾고자 하는 어노테이션 클래스
+     *
+     * @return 필드와 어노테이션 매핑 정보
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @see #getAnnotatedFields(Object, Class, IFilter)
      * @see Class#getDeclaredFields()
      */
@@ -372,141 +543,210 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
+     * 해당 클래스에 선언된 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 필터링하여 반환합니다.
      *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 12.        parkjunhong77@gmail.com         최초 작성
-     * 2026. 02. 26.        parkjunhong77@gmail.com         JDK 25 마이그레이션: Pattern Matching, Stream API 적용
+     * 2021. 11. 12.    parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com         JDK 25 마이그레이션: Pattern Matching, Stream API 적용
      * </pre>
      *
+     * @param <T>
+     *            어노테이션 타입
      * @param object
-     *            대상 객체 또는 클래스
+     *            탐색할 원본 객체 또는 클래스
      * @param annotationClass
      *            찾고자 하는 어노테이션 클래스
      * @param filter
      *            사용자 정의 필터
+     *
      * @return 필드와 어노테이션 매핑 정보
+     *
+     * @throws NullPointerException
+     *             파라미터({@code object, annotationClass}) 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @see Class#getDeclaredFields()
      */
-    public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass, IFilter<T> filter) {
-        // 1. 파라미터 유효성 검증
-        AssertUtils2.notNulls("object와 annotationClass는 null일 수 없습니다.", object, annotationClass);
+    public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass, @Nullable IFilter<T> filter) {
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(annotationClass);
 
-        // 2. Pattern Matching for instanceof (Java 16+)
         Class<?> implClass = (object instanceof Class<?> clazz) ? clazz : object.getClass();
 
-        // 3. Stream API를 이용한 필터링 및 수집
         return Arrays.stream(implClass.getDeclaredFields()) //
                 .filter(f -> {
                     T anno = f.getAnnotation(annotationClass);
-                    // 어노테이션 존재 여부 및 필터 조건 확인
                     return anno != null && (filter == null || filter.filter(anno, f));
-                }).collect(Collectors.toUnmodifiableMap(f -> f, f -> f.getAnnotation(annotationClass)));
+                }) //
+                .collect( //
+                        Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)) //
+                );
     }
 
     /**
-     * 주어진 어노테이션이 있는 상위 클래스 및 인터페이스를 포함한 'public' 메소드만 제공합니다. <br>
-     * 
-     * 
+     * 주어진 어노테이션이 설정되어 있는 'public' 메소드 목록을 반환합니다. 상위 클래스 및 인터페이스의 메소드를 포함합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 6. 17.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 6. 17.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) dataType -> targetClass 네이밍 룰 적용
      * </pre>
      *
-     * @param annoType
-     *            어노테이션 타입.
-     * @param dataType
-     *            데이터 타입.
-     * @return
+     * @param <A>
+     *            어노테이션 타입
+     * @param annotationClass
+     *            찾고자 하는 어노테이션 클래스
+     * @param targetClass
+     *            탐색 대상 클래스 (데이터 타입)
+     *
+     * @return 어노테이션이 설정된 메소드 목록
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 17.
-     * 
-     * 
+     *
      * @see Class#getMethods()
      */
-    public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annoType, Class<?> dataType) {
+    public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annotationClass, Class<?> targetClass) {
+        Objects.requireNonNull(annotationClass);
+        Objects.requireNonNull(targetClass);
 
-        AssertUtils2.notNulls(annoType, dataType);
-
-        return Arrays.stream(dataType.getMethods()) //
-                .filter(m -> m.getAnnotation(annoType) != null) //
+        return Arrays.stream(targetClass.getMethods()) //
+                .filter(m -> m.getAnnotation(annotationClass) != null) //
                 .collect(Collectors.toList());
-
     }
 
     /**
-     * {@link AccessibleObject}에서 {@link Annotation}를 얻어온다.
-     * 
+     * {@link AccessibleObject}에서 특정 {@link Annotation} 객체를 추출하여 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) Javadoc 포맷팅 규칙 적용
+     * </pre>
+     *
+     * @param <T>
+     *            어노테이션 타입
      * @param accessObj
+     *            어노테이션이 설정된 접근 가능 객체 (메소드, 필드 등)
      * @param annotationClass
-     * @return <b>{@code nullable}</b>.
+     *            찾고자 하는 어노테이션 클래스
+     *
+     * @return 추출된 어노테이션 객체. 존재하지 않는 경우 {@code null} 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
      */
-    public static <T extends Annotation> T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
-        AssertUtils2.notNulls("Neither accessObj and annotationClass MUST be null. accessObj: " + accessObj + ", annotationClass: " + annotationClass, accessObj, annotationClass);
+    public static <T extends Annotation> @Nullable T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
+        Objects.requireNonNull(accessObj);
+        Objects.requireNonNull(annotationClass);
 
         return accessObj.getAnnotation(annotationClass);
     }
 
     /**
-     * 
-     * @param clazz
-     *            a class of targeted
-     * @param annotationClass
-     *            a class of annotation
-     * 
-     * @return
-     */
-    public static <T extends Annotation> T getAnnotation(Class<?> clazz, Class<T> annotationClass) {
-        AssertUtils2.notNulls("Neither clazz and annotationClass MUST be null. clazz: " + clazz + ", annotationClass: " + annotationClass, clazz, annotationClass);
-
-        return clazz.getAnnotation(annotationClass);
-    }
-
-    /**
-     * 객체에서 주어진 타입에 맞는 {@link Field} 목록을 반환합니다. *
-     * 
+     * 클래스 레벨에 설정된 특정 {@link Annotation} 객체를 추출하여 반환합니다.
+     *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 06. 17.        parkjunhong77@gmail.com         최초 작성
-     * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching, Stream API 적용 및 접근 제어 로직 최적화
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) clazz -> targetClass 네이밍 룰 적용
      * </pre>
-     * 
-     * * @param instance 객체 또는 클래스
-     * 
-     * @param fieldType
-     *            찾고자 하는 필드 타입
-     * @return 필드 목록 (불변 리스트)
-     * 
+     *
+     * @param <T>
+     *            어노테이션 타입
+     * @param targetClass
+     *            탐색할 대상 클래스
+     * @param annotationClass
+     *            찾고자 하는 어노테이션 클래스
+     *
+     * @return 추출된 어노테이션 객체. 존재하지 않는 경우 {@code null} 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     */
+    public static <T extends Annotation> @Nullable T getAnnotation(Class<?> targetClass, Class<T> annotationClass) {
+        Objects.requireNonNull(targetClass);
+        Objects.requireNonNull(annotationClass);
+
+        return targetClass.getAnnotation(annotationClass);
+    }
+
+    /**
+     * 객체에서 주어진 논리적 데이터 형식({@code targetType})과 호환되는 필드 목록을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2019. 6. 17.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Pattern Matching, Stream API 적용
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (3.0.0) fieldType -> targetType 네이밍 룰 적용 (논리적 형식 기준)
+     * </pre>
+     *
+     * @param instance
+     *            탐색 대상 객체 또는 클래스
+     * @param targetType
+     *            할당 가능 여부를 검증할 기준 데이터 형식(타입)
+     *
+     * @return 호환되는 필드 목록 (불변 리스트)
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2019. 6. 17.
      * @version 3.0.0
-     * 
+     *
      * @see Class#isAssignableFrom(Class)
      * @see Class#getDeclaredFields()
      */
-    public static List<Field> getDeclaredFields(Object instance, Class<?> fieldType) {
-        // 1. Pattern Matching for instanceof (Java 16+)
-        // 타입 체크와 변수 선언을 동시에 처리하여 캐스팅 코드 제거
+    public static List<Field> getDeclaredFields(Object instance, Class<?> targetType) {
+        Objects.requireNonNull(instance);
+        Objects.requireNonNull(targetType);
+
         Class<?> clazz = (instance instanceof Class<?> c) ? c : instance.getClass();
 
-        // 2. Stream API 및 List.toList() (Java 16+) 적용
-        return Arrays.stream(clazz.getDeclaredFields()).filter(field -> fieldType.isAssignableFrom(field.getType())).toList();
+        return Arrays.stream(clazz.getDeclaredFields()) //
+                .filter(field -> targetType.isAssignableFrom(field.getType())) //
+                .toList();
     }
 
+    /**
+     * 특정 어노테이션이 설정된 필드들 중에서 제네릭 타입 변수({@link TypeVariable})를 사용하는 필드의 메타데이터를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) class_ -> targetClass 네이밍 룰 적용
+     * </pre>
+     *
+     * @param <T>
+     *            어노테이션 타입
+     * @param targetClass
+     *            탐색할 대상 클래스
+     * @param annotationClass
+     *            필터링 기준이 될 어노테이션 클래스
+     *
+     * @return 타입 변수 정보를 담은 컬렉션
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     */
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static <T extends Annotation> Collection<FieldTypeVariable> getTypeVariableName(Class<?> class_, Class<T> annotationClass) {
-
+    public static <T extends Annotation> Collection<FieldTypeVariable> getTypeVariableName(Class<?> targetClass, Class<T> annotationClass) {
         Collection<FieldTypeVariable> fieldTypeVars = new HashSet<FieldTypeVariable>();
 
         FieldTypeVariable fieldTypeVar = null;
         Type type = null;
-        for (Field field : getAnnotatedFields(class_, annotationClass).keySet()) {
+        for (Field field : getAnnotatedFields(targetClass, annotationClass).keySet()) {
             type = field.getGenericType();
 
             if (!(type instanceof TypeVariable)) {
@@ -526,17 +766,32 @@ public class ReflectionUtils {
     }
 
     /**
-     * 클래스에 선언된 Generic Type Variable Literal 을 반환합니다.
-     * 
-     * @param classClass
-     * @return
-     * 
+     * 클래스에 선언된 제네릭 타입 변수명(Literal) 목록을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 6. 18.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) classClass -> targetClass 네이밍 룰 적용
+     * </pre>
+     *
+     * @param targetClass
+     *            제네릭이 선언된 대상 클래스
+     *
+     * @return 타입 변수 이름 목록
+     *
+     * @throws NullPointerException
+     *             파라미터({@code targetClass})가 {@code null}인 경우 발생.
+     *
      * @since 2014. 6. 18.
      */
-    public static List<String> getTypeVariableNames(Class<?> classClass) {
+    public static List<String> getTypeVariableNames(Class<?> targetClass) {
+        Objects.requireNonNull(targetClass);
+
         ArrayList<String> typeVarNames = new ArrayList<String>();
 
-        for (TypeVariable<?> typeVar : classClass.getTypeParameters()) {
+        for (TypeVariable<?> typeVar : targetClass.getTypeParameters()) {
             typeVarNames.add(typeVar.getName());
         }
 
@@ -544,65 +799,68 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 객체에서 {@link Field}의 값을 추출해서 문자열로 반환합니다.
-     * 
+     * 주어진 객체에서 특정 필드의 값을 추출하여 문자열로 반환합니다.
+     *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 6. 18.        parkjunhong77@gmail.com         최초 작성
-     * 2026. 2. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 다중 예외 처리
+     * 2014. 6. 18.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 다중 예외 처리
      * </pre>
-     * 
+     *
      * @param field
      *            대상 필드
      * @param instance
-     *            대상 객체
-     * @return {@link Field}의 값. 값이 없거나 예외가 발생한 경우 빈 문자열.
-     * 
+     *            필드 값을 추출할 대상 객체
+     *
+     * @return 추출된 필드의 문자열 값. 값이 없거나 예외 발생 시 빈 문자열.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code instance})가 {@code null}인 경우 발생.
+     *
      * @since 2014. 6. 18.
      * @version 3.0.0
-     * 
      */
-    public static String getValue(Field field, Object instance) {
+    public static @Nullable String getValue(Field field, Object instance) {
         Object value = getValue(field, instance, null);
         return Objects.toString(value, null);
     }
 
     /**
-     * 주어진 객체에서 {@link Field}의 값을 추출해서 반환합니다.
-     * 
+     * 주어진 객체에서 특정 필드의 값을 추출하여 반환합니다.
+     *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 6. 18.        parkjunhong77@gmail.com         최초 작성
-     * 2026. 2. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 다중 예외 처리
+     * 2014. 6. 18.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 2. 26.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 다중 예외 처리
      * </pre>
-     * 
+     *
      * @param field
-     *            대상 필드
+     *            대상 필드 (Nullable)
      * @param instance
-     *            대상 객체
+     *            필드 값을 추출할 대상 객체
      * @param defaultValue
-     *            기본값
-     * @return {@link Field}의 값. 예외 발생 시 defaultValue 반환.
-     * 
+     *            값 추출 실패 시 반환할 기본값
+     *
+     * @return 추출된 필드의 객체. 예외 발생 시 defaultValue 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code instance})가 {@code null}인 경우 발생.
+     *
      * @since 2014. 6. 18.
      * @version 3.0.0
-     * 
-     * 
      */
-    public static Object getValue(Field field, Object instance, Object defaultValue) {
-        // 필드와 인스턴스가 모두 null인 경우 정적 필드가 아님에도 접근하려 하면 오류가 발생할 수 있음
+    public static @Nullable Object getValue(@Nullable Field field, Object instance, @Nullable Object defaultValue) {
+        Objects.requireNonNull(instance);
+
         if (field == null) {
             return defaultValue;
         }
 
-        // JDK 9+ : canAccess()를 사용하여 현재 접근 가능 여부를 먼저 확인
         if (!field.canAccess(instance)) {
-            // JDK 9+ : setAccessible(true) 대신 trySetAccessible() 권장
-            // 모듈 경계 등으로 인해 접근이 불가능한 경우 예외를 던지는 대신 false를 반환함
             if (!field.trySetAccessible()) {
                 return defaultValue;
             }
@@ -612,45 +870,45 @@ public class ReflectionUtils {
             Object value = field.get(instance);
             return (value != null) ? value : defaultValue;
         } catch (IllegalArgumentException | IllegalAccessException e) {
-            // 다중 예외 처리(Multi-catch) 적용
             return defaultValue;
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> List<T> newList(Class<?> parameterizedType)
-            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-        return ArrayList.class.getConstructor().newInstance();
-    }
-
     /**
-     * <b>NOTE:</b> The parameter {@code <b>field</b>} MUST be allowed to access.
-     * 
+     * 주어진 객체의 특정 필드 값을 데이터 타입의 기본값으로 초기화합니다.<br>
+     * <b>NOTE:</b> 파라미터 {@code field}는 반드시 접근이 허용된 상태여야 합니다.
+     *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
+     * 2014. 4. 2.      parkjunhong77@gmail.com         최초 작성
      * 2026. 2. 27.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 canAccess 체크 추가
      * </pre>
-     * 
+     *
      * @param object
+     *            대상 객체
      * @param field
+     *            초기화할 대상 필드
+     *
      * @throws IllegalArgumentException
+     *             필드가 해당 객체에 속하지 않는 경우 발생.
      * @throws IllegalAccessException
+     *             필드에 접근할 수 없는 권한일 경우 발생.
      * @throws NullPointerException
-     * @throws ExceptionInInitializerError
-     * 
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2014. 4. 2.
+     * @version 3.0.0
      */
-    public static void resetField(Object object, Field field) throws IllegalArgumentException, IllegalAccessException, NullPointerException, ExceptionInInitializerError {
-
-        AssertUtils2.notNulls("Neither object and field MUST be null. object: " + object + ", field: " + field, object, field);
+    public static void resetField(Object object, Field field) throws IllegalArgumentException, IllegalAccessException {
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(field);
 
         Type type = field.getGenericType();
 
         if (!(type instanceof Class<?>)) {
             field.set(object, null);
-
             return;
         }
 
@@ -683,8 +941,8 @@ public class ReflectionUtils {
     }
 
     /**
-     * 주어진 객체의 필드 값을 강제로 초기화합니다.
-     * 
+     * 주어진 객체의 특정 필드 값을 강제로 접근 권한을 획득한 후 기본값으로 초기화합니다.
+     *
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
@@ -692,33 +950,28 @@ public class ReflectionUtils {
      * 2014. 4. 2.      parkjunhong77@gmail.com         최초 작성
      * 2026. 2. 27.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: trySetAccessible 적용 및 canAccess 체크 추가
      * </pre>
-     * 
+     *
      * @param object
      *            대상 객체
      * @param field
-     *            초기화할 필드
-     * 
-     * @throws ExceptionInInitializerError
+     *            초기화할 대상 필드
+     *
      * @throws IllegalArgumentException
+     *             필드가 해당 객체에 속하지 않는 경우 발생.
      * @throws IllegalAccessException
+     *             모듈 시스템 등에 의해 필드 접근 권한 획득에 실패한 경우 발생.
      * @throws NullPointerException
-     *             파라미터({@code object 또는 field})가 {@code null}인 경우 발생.
-     * @throws SecurityException
-     * 
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생.
+     *
      * @since 2014. 4. 2.
      * @version 3.0.0
      */
-    public static void resetFieldForced(Object object, Field field)
-            throws IllegalArgumentException, IllegalAccessException, SecurityException, NullPointerException, ExceptionInInitializerError {
+    public static void resetFieldForced(Object object, Field field) throws IllegalArgumentException, IllegalAccessException {
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(field);
 
-        ObjectUtils.requireNonNulls(object, field);
-
-        // 1. JDK 9+ : canAccess(object)를 통해 현재 접근 가능 여부 확인
-        // 2. trySetAccessible()을 사용하여 안전하게 접근 권한 획득 시도
-        // 3. 기존의 isAccessible() 사용 및 복구 로직은 권장되지 않으므로 최신 관례에 따라 처리합니다.
         if (!field.canAccess(object)) {
             if (!field.trySetAccessible()) {
-                // 모듈 시스템에 의해 접근이 차단된 경우 예외 발생 또는 로깅
                 throw new IllegalAccessException("필드에 접근할 수 없습니다 (모듈 캡슐화 등): " + field.getName());
             }
         }
@@ -727,15 +980,31 @@ public class ReflectionUtils {
     }
 
     /**
-     * @param target
+     * 대상 클래스가 주어진 후보 클래스 목록 중 하나의 하위 클래스(Subclass) 또는 구현체인지 검사합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) target -> targetClass 네이밍 룰 적용 및 가변 인자 내부 널 검증 명세 추가
+     * </pre>
+     *
+     * @param targetClass
+     *            검사할 대상 하위 클래스
      * @param candidates
-     * @return
+     *            상위 타입(슈퍼클래스/인터페이스) 후보 목록
+     *
+     * @return 하위 클래스인 경우 {@code true}, 그렇지 않으면 {@code false}
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. 또한, {@code candidates}에 {@code null}이 포함된 경우에도 발생.
      */
-    public static boolean subclassOneOf(Class<?> target, Class<?>... candidates) {
-        AssertUtils2.notNulls("Neither target and candidates MUST be null. target=null, candidates: " + candidates, target, candidates);
+    public static boolean subclassOneOf(Class<?> targetClass, Class<?>... candidates) {
+        Objects.requireNonNull(targetClass);
+        ObjectUtils.requireNonNulls((Object[]) candidates);
 
         for (Class<?> candidate : candidates) {
-            if (candidate.isAssignableFrom(target)) {
+            if (candidate.isAssignableFrom(targetClass)) {
                 return true;
             }
         }
@@ -744,44 +1013,62 @@ public class ReflectionUtils {
     }
 
     /**
-     * Return whether a parameter is subclass of <b>{@code candidates}</b> or not.
-     * 
-     * @param target
+     * 대상 객체의 클래스가 주어진 후보 클래스 목록 중 하나의 하위 클래스(Subclass) 또는 구현체인지 검사합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) Javadoc 포맷팅 규칙 적용
+     * </pre>
+     *
+     * @param object
+     *            검사할 대상 객체
      * @param candidates
-     * @return
+     *            상위 타입(슈퍼클래스/인터페이스) 후보 목록
+     *
+     * @return 하위 클래스인 경우 {@code true}, 그렇지 않으면 {@code false}
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. 또한, {@code candidates}에 {@code null}이 포함된 경우에도 발생.
      */
     public static boolean subclassOneOf(Object object, Class<?>... candidates) {
-        AssertUtils2.notNulls("Neither object and candidates MUST be null. object: " + object + ", candidates: " + candidates, object, candidates);
+        Objects.requireNonNull(object);
 
-        Class<?> target = object.getClass();
-
-        for (Class<?> candidate : candidates) {
-            if (candidate.isAssignableFrom(target)) {
-                return true;
-            }
-        }
-
-        return false;
+        return subclassOneOf(object.getClass(), candidates);
     }
 
     /**
-     * Return all Class<?> of super-classes of a <b>{@code parameter}</b>.
-     * 
+     * 대상 객체의 상위 계층을 구성하는 클래스/인터페이스들 중에서, 주어진 후보 목록에 해당하는 모든 상위 타입을 찾아 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2014. 5. 2.      parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
      * @param object
+     *            계층 구조를 탐색할 원본 대상 객체
      * @param candidates
-     * @return
-     * 
+     *            찾고자 하는 상위 타입 후보 목록
+     *
+     * @return 일치하는 상위 타입(클래스/인터페이스) 목록
+     *
+     * @throws NullPointerException
+     *             파라미터 중에 1개라도 {@code null}인 경우 발생. 또한, {@code candidates}에 {@code null}이 포함된 경우에도 발생.
+     *
      * @since 2014. 5. 2.
      */
     public static List<Class<?>> superclasses(Object object, Class<?>... candidates) {
-        AssertUtils2.notNulls("Neither object and candidates MUST be null. object: " + object + ", candidates: " + candidates, object, candidates);
+        Objects.requireNonNull(object);
+        ObjectUtils.requireNonNulls((Object[]) candidates);
 
         List<Class<?>> superclasses = new ArrayList<Class<?>>();
 
-        Class<?> target = object.getClass();
-
+        Class<?> targetClass = object.getClass();
         for (Class<?> candidate : candidates) {
-            if (candidate.isAssignableFrom(target)) {
+            if (candidate.isAssignableFrom(targetClass)) {
                 superclasses.add(candidate);
             }
         }

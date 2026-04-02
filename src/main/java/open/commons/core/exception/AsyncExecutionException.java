@@ -47,7 +47,7 @@ public class AsyncExecutionException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      *
@@ -65,7 +65,7 @@ public class AsyncExecutionException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param message
@@ -85,7 +85,7 @@ public class AsyncExecutionException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param message
@@ -106,7 +106,7 @@ public class AsyncExecutionException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param message
@@ -129,7 +129,7 @@ public class AsyncExecutionException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 9. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 9. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param cause

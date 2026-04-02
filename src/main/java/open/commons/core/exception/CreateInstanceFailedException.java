@@ -56,7 +56,7 @@ public class CreateInstanceFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param objectType
@@ -88,7 +88,7 @@ public class CreateInstanceFailedException extends RuntimeException {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param objectType

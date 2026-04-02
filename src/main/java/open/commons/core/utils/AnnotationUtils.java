@@ -49,7 +49,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param accObj
@@ -58,7 +58,7 @@ public class AnnotationUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code accObj 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code accObj, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2020. 11. 9.
      * 
@@ -91,7 +91,7 @@ public class AnnotationUtils {
      * [개정이력]
      * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 5. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 5. 29.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream API 적용 및 복원 로직 제거
      * </pre>
      *
@@ -102,7 +102,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}이거나 {@code annoClass}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}이거나 {@code annoClass}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2019. 5. 29.
      * @version 3.0.0
@@ -146,7 +146,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2026. 3. 4.
      * @version 3.0.0
@@ -175,7 +175,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 2. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2012. 2. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -185,7 +185,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code object, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 6.
      * @version 3.0.0
@@ -207,7 +207,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 5. 29.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -218,7 +218,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      *
      * @since 2019. 5. 29.
@@ -249,7 +249,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -262,7 +262,7 @@ public class AnnotationUtils {
      * 
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      * 
      * @since 2020. 11. 9.
      * @version 3.0.0
@@ -295,7 +295,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 9. 26.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -306,7 +306,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code object, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2017. 9. 26.
      * @version 3.0.0
@@ -329,7 +329,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -340,7 +340,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 9.
      * @version 3.0.0
@@ -372,7 +372,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -383,7 +383,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2020. 11. 9.
      * @version 3.0.0
@@ -414,7 +414,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 11. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 3.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -425,7 +425,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClass})가 {@code null} 인 경우 발생.
+     *             파라미터({@code object, annoClass 중에 1개라도})가 {@code null} 인 경우 발생.
      *
      * 
      * @since 2021. 11. 3.
@@ -446,7 +446,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 9. 2.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -457,7 +457,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2022. 9. 2.
@@ -493,7 +493,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 9. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 9. 2.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         기존 구현이 {@link #getAnnotatedFields(Class, Class)}와 동일하게 구현되어 기능을 수정.
      * </pre>
      *
@@ -504,7 +504,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      * 
      * @since 2022. 9. 2.
      * @version 3.0.0
@@ -532,7 +532,7 @@ public class AnnotationUtils {
      * [개정이력]
      * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 5. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 5. 29.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream API 적용 및 복원 로직 제거
      * </pre>
      *
@@ -543,7 +543,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메서드 목록
      *
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 5. 29.
      * @version 3.0.0 * @see Class#getDeclaredMethods()
@@ -581,7 +581,7 @@ public class AnnotationUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2026. 3. 4.
@@ -614,7 +614,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 2. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2012. 2. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -624,7 +624,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code object, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * 
      * @since 2012. 2. 6.
@@ -642,7 +642,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 5. 29.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -652,7 +652,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 5. 29.
      * 
@@ -680,7 +680,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -690,7 +690,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -723,7 +723,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 9. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -733,7 +733,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      *
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code object, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2017. 9. 26.
      * 
@@ -753,7 +753,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param object
@@ -763,7 +763,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -791,7 +791,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -801,7 +801,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code tyeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code tyeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -835,7 +835,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -845,7 +845,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 9.
      * 
@@ -871,7 +871,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -881,7 +881,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -916,7 +916,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param typeClass
@@ -926,7 +926,7 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClasses})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -954,7 +954,7 @@ public class AnnotationUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code accessObj 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code accessObj, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static <T extends Annotation> @Nullable T getAnnotation(AccessibleObject accessObj, Class<T> annoClass) {
         ObjectUtils.requireNonNulls(accessObj, annoClass);
@@ -970,7 +970,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2012. 2. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2012. 2. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param clazz
@@ -978,7 +978,7 @@ public class AnnotationUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code clazz 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code clazz, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * 
      * @since 2012. 2. 6.
@@ -997,7 +997,7 @@ public class AnnotationUtils {
      * @return {@link Field}의 값.
      * 
      * @throws NullPointerException
-     *             파라미터({@code field 또는 instance})가 {@code null}인 경우 발생.
+     *             파라미터({@code field, instance 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static @Nullable String getValue(Field field, Object instance) {
         ObjectUtils.requireNonNulls(field, instance);
@@ -1024,7 +1024,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 5. 29.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param obj
@@ -1033,7 +1033,7 @@ public class AnnotationUtils {
      * @return {@link AnnotationFormatError} 또는 {@code null}
      * 
      * @throws NullPointerException
-     *             파라미터({@code type 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code type, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 5. 29.
      * 
@@ -1053,7 +1053,7 @@ public class AnnotationUtils {
      * @return {@link AnnotationFormatError} 또는 {@code null}
      * 
      * @throws NullPointerException
-     *             파라미터({@code object 또는 annoClass})가 {@code null}인 경우 발생.
+     *             파라미터({@code object, annoClass 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 2. 6.
      */
@@ -1089,7 +1089,7 @@ public class AnnotationUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 5. 29.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 5. 29.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param type

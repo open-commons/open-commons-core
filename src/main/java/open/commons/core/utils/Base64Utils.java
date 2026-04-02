@@ -79,7 +79,7 @@ public class Base64Utils {
      * @return 대상 바이트 배열에 기록된 바이트 수
      * 
      * @throws NullPointerException
-     *             파라미터({@code src 또는 dst})가 {@code null}인 경우 발생.
+     *             파라미터({@code src, dst 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static int decode(byte[] src, byte[] dst) {
         ObjectUtils.requireNonNulls(src, dst);

@@ -83,8 +83,8 @@ import open.commons.core.utils.StreamUtils;
  * [개정이력]
  *      날짜    	| 작성자			|	내용
  * ------------------------------------------
- * 2014. 4. 8.     parkjunohng77@gmail.com     최초 작성
- * 2014. 11. 10.    parkjunohng77@gmail.com     Support '{?name}'. '?' means that {name} is optional.
+ * 2014. 4. 8.     parkjunhong77@gmail.com     최초 작성
+ * 2014. 11. 10.    parkjunhong77@gmail.com     Support '{?name}'. '?' means that {name} is optional.
  * </pre>
  * 
  * @since 2014. 4. 8.
@@ -284,7 +284,7 @@ public class NamedTemplate {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code pattern 또는 values})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
+     *             파라미터({@code pattern, values 중에 1개라도})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
      *             발생.
      * 
      * @since 2014. 4. 8.
@@ -308,14 +308,14 @@ public class NamedTemplate {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code pattern 또는 values})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
+     *             파라미터({@code pattern, values 중에 1개라도})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
      *             발생.
      * 
      * @since 2014. 4. 8.
      */
     public static String format(String pattern, Map<String, Object> values, boolean trim) {
         Objects.requireNonNull(pattern);
-        AssertUtils2.collectionNotNull(Objects.requireNonNull(values.keySet()));
+        AssertUtils2.notExistNull(Objects.requireNonNull(values.keySet()));
 
         NamingParser parser = new NamingParser(pattern, trim);
         parser.parse();
@@ -341,7 +341,7 @@ public class NamedTemplate {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code pattern 또는 name})가 {@code null}인 경우 발생.
+     *             파라미터({@code pattern, name 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2014. 9. 5.
      */
@@ -360,7 +360,7 @@ public class NamedTemplate {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 26.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 26.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param pattern

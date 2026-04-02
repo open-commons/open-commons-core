@@ -92,7 +92,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -142,7 +142,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -191,7 +191,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -240,7 +240,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -289,7 +289,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -338,7 +338,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -387,7 +387,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -436,7 +436,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -505,7 +505,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -574,7 +574,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -637,7 +637,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -700,7 +700,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -763,7 +763,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -827,7 +827,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -890,7 +890,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -953,7 +953,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 7. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 7. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -1059,7 +1059,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 7. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 7. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1081,7 +1081,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 7. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 7. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1684,7 +1684,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1694,7 +1694,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1719,7 +1719,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1729,7 +1729,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1754,7 +1754,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1764,7 +1764,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1789,7 +1789,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1799,7 +1799,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1824,7 +1824,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1834,7 +1834,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1859,7 +1859,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1869,7 +1869,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1894,7 +1894,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1904,7 +1904,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1929,7 +1929,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1939,7 +1939,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1964,7 +1964,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param arr
@@ -1974,7 +1974,7 @@ public class ArrayUtils {
      * @return
      * @throws ArrayIndexOutOfBoundsException
      * @throws NullPointerException
-     *             파라미터({@code arr 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -2003,7 +2003,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 19.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2016,7 +2016,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code original 또는 newType 또는 clone})가 {@code null}인 경우 발생.
+     *             파라미터({@code original, newType 중에 1개라도 또는 clone})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
@@ -2048,7 +2048,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 19.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2078,7 +2078,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 19.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2092,7 +2092,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code original 또는 newType 또는 clone})가 {@code null}인 경우 발생.
+     *             파라미터({@code original, newType 중에 1개라도 또는 clone})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
@@ -2127,7 +2127,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 19.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 19.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2435,7 +2435,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 8. 15.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2676,7 +2676,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2776,7 +2776,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2837,7 +2837,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2846,7 +2846,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2871,7 +2871,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2880,7 +2880,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2905,7 +2905,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2914,7 +2914,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2939,7 +2939,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2948,7 +2948,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2973,7 +2973,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2982,7 +2982,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3007,7 +3007,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -3016,7 +3016,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3041,7 +3041,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -3050,7 +3050,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3075,7 +3075,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -3084,7 +3084,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3109,7 +3109,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -3118,7 +3118,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -4123,7 +4123,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 values})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, values 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * 
@@ -4439,7 +4439,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4527,7 +4527,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4615,7 +4615,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4703,7 +4703,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4791,7 +4791,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4879,7 +4879,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4967,7 +4967,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -5018,7 +5018,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -5143,7 +5143,7 @@ public class ArrayUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code array 또는 indice})가 {@code null}인 경우 발생.
+     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -6016,7 +6016,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 28.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 12. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6055,7 +6055,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 12. 28.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 12. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6125,7 +6125,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6179,7 +6179,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6233,7 +6233,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6287,7 +6287,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6341,7 +6341,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6395,7 +6395,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6449,7 +6449,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6503,7 +6503,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -6573,7 +6573,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 8. 29.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 8. 29.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param array
@@ -11481,7 +11481,7 @@ public class ArrayUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 7. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 7. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -11526,7 +11526,7 @@ public class ArrayUtils {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
+         * 2021. 8. 15.     parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @return
@@ -11548,7 +11548,7 @@ public class ArrayUtils {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
+         * 2021. 8. 15.     parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @return
@@ -11570,7 +11570,7 @@ public class ArrayUtils {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2021. 8. 15.     parkjunohng77@gmail.com         최초 작성
+         * 2021. 8. 15.     parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param value

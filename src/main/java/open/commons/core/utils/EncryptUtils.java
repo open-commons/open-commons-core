@@ -59,7 +59,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param key
@@ -95,7 +95,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param key
@@ -132,7 +132,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param algorithm
@@ -181,7 +181,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 11. 20.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 11. 20.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param key
@@ -218,7 +218,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param key
@@ -256,7 +256,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param algorithm
@@ -312,7 +312,7 @@ public class EncryptUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 11. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param algorithm

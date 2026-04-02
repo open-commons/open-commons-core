@@ -178,7 +178,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 7. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 7. 4.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param col
@@ -214,7 +214,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 12. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2017. 12. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      * 
      * @param col
@@ -264,7 +264,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 12. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 12. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -295,7 +295,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 12. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 12. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param col
@@ -320,7 +320,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -359,7 +359,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -393,7 +393,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -441,7 +441,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -572,7 +572,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 14.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 14.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -604,7 +604,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 20.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <S>
@@ -661,7 +661,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 1.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 1.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -723,7 +723,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 6.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 7. 6.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -737,7 +737,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 keyGen})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, keyGen 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2017. 7. 6.
      * @version 1.6.17
@@ -760,7 +760,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -794,7 +794,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 7. 13.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         내부 구현 변경 (Class.newInstance() -> Class.getDeclaredConstructor().newInstance());
      * </pre>
      *
@@ -849,7 +849,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.     parkjunohng77@gmail.com     최초 작성
+     * 2020. 1. 30.     parkjunhong77@gmail.com     최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com     구현을 Stream API 적용.
      * </pre>
      *
@@ -887,7 +887,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -898,7 +898,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 p})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, p 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 7. 13.
      * @version 1.8.0
@@ -919,7 +919,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 7. 6.      parkjunohng77@gmail.com         최초 작성
+     * 2017. 7. 6.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         Stream API(flatMap, groupingBy) 적용
      * </pre>
      *
@@ -934,7 +934,7 @@ public class CollectionUtils {
      * @return 요소가 키별로 그룹화된 맵
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 keyGen})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, keyGen 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2017. 7. 6.
      */
@@ -961,7 +961,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -995,7 +995,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1025,7 +1025,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1055,7 +1055,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 12. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 12. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1079,7 +1079,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 12. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 12. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1119,7 +1119,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1149,7 +1149,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1181,8 +1181,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
-     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -1207,8 +1207,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
-     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com     내부 구현 변경 (see {@link #newList(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -1233,7 +1233,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1263,7 +1263,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 12. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 12. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -1287,7 +1287,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1324,7 +1324,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1354,7 +1354,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 12. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param elems
@@ -1384,7 +1384,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1414,7 +1414,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1444,7 +1444,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1474,7 +1474,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1498,7 +1498,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1538,7 +1538,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1568,7 +1568,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1596,8 +1596,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
-     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
      * </pre>
      *
      * @param <E>
@@ -1622,8 +1622,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
-     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com     내부 구현 변경 (see {@link #newSet(Collection, Object, boolean)}).
      * </pre>
      *
      * @param <E>
@@ -1648,7 +1648,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1678,7 +1678,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1708,7 +1708,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1732,7 +1732,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1769,7 +1769,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1796,7 +1796,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1826,7 +1826,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1856,7 +1856,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1886,7 +1886,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1910,7 +1910,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -1950,7 +1950,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -1980,7 +1980,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2008,8 +2008,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
-     * 2022. 12. 30.        parkjunohng77@gmail.com     내부 구현 변경 (see {@link #newVector(Collection, Object, boolean)})
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com     내부 구현 변경 (see {@link #newVector(Collection, Object, boolean)})
      * </pre>
      *
      * @param <E>
@@ -2034,7 +2034,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2059,7 +2059,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2089,7 +2089,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2119,7 +2119,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 15.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 15.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param elems
@@ -2149,7 +2149,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 12. 30.        parkjunohng77@gmail.com         최초 작성
+     * 2022. 12. 30.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2173,7 +2173,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 12. 21.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 12. 21.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2310,7 +2310,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3..        parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3..        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2322,7 +2322,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code data 또는 sorter})가 {@code null}인 경우 발생.
+     *             파라미터({@code data, sorter 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 3..
      * @version 2.1.0
@@ -2347,7 +2347,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3..        parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3..        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2388,7 +2388,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -2426,7 +2426,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -2470,7 +2470,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2521,7 +2521,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2598,7 +2598,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 10. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 10. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param list
@@ -2638,7 +2638,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 10. 18.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 10. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param list
@@ -2652,7 +2652,7 @@ public class CollectionUtils {
      * @return {@link List}가 {@code null}이거나 없는 경우
      *
      * @throws NullPointerException
-     *             파라미터({@code list 또는 type})가 {@code null}인 경우 발생.
+     *             파라미터({@code list, type 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2017. 10. 18.
      */
@@ -2682,7 +2682,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2023. 12. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2694,7 +2694,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code data 또는 sorter})가 {@code null}인 경우 발생.
+     *             파라미터({@code data, sorter 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2023. 12. 13.
      * @version 2.0.0
@@ -2710,7 +2710,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2023. 12. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -2750,7 +2750,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2787,7 +2787,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -2828,7 +2828,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -2866,7 +2866,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -2916,7 +2916,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 5.      parkjunhong77@gmail.com         (3.0.0) ArrayList 용량 사전 할당 및 null 데이터 대응 개선, 동시성 제약 Javadoc 명시
      * </pre>
      *
@@ -3031,7 +3031,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -3069,7 +3069,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      * 
      * @param <E>
@@ -3112,7 +3112,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E1>
@@ -3163,7 +3163,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 정렬 기준(Comparator) 누락 버그 수정 및 Stream 최적화
      * </pre>
      *
@@ -3314,7 +3314,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 4. 18.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 4. 18.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: IntFunction 기반 최적화 및 타입 소거 제약 Javadoc 명시
      * </pre>
      *
@@ -3356,7 +3356,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3403,7 +3403,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3451,7 +3451,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3485,7 +3485,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -3499,7 +3499,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 transformer})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -3523,7 +3523,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -3564,7 +3564,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3579,7 +3579,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 collectionSupplier})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, collectionSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -3601,7 +3601,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3642,7 +3642,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3688,7 +3688,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3735,7 +3735,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -3779,7 +3779,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2018. 9. 12.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 9. 12.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -3794,7 +3794,7 @@ public class CollectionUtils {
      * @return
      *
      * @throws NullPointerException
-     *             파라미터({@code stream 또는 transformer})가 {@code null}인 경우 발생.
+     *             파라미터({@code stream, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2018. 9. 12.
      */
@@ -3827,8 +3827,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 60.		parkjunohng77@gmail.com			최초 작성
-     * 2025. 8. 21.     parkjunohng77@gmail.com         {@link Stream} API로 변환. 
+     * 2017. 7. 60.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         {@link Stream} API로 변환. 
      * </pre>
      *
      * @param <E>
@@ -3842,7 +3842,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 keyMapper})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, keyMapper 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2017. 7. 6.
      */
@@ -3862,7 +3862,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2018. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: StreamUtils 위임 및 와일드카드(?, ?)를 통한 타입 안정성 확보
      * </pre>
      *
@@ -3911,7 +3911,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 1. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 1. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -3969,8 +3969,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 7. 60.     parkjunohng77@gmail.com         최초 작성
-     * 2025. 8. 21.     parkjunohng77@gmail.com         {@link Stream} API로 변환. 
+     * 2017. 7. 60.     parkjunhong77@gmail.com         최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         {@link Stream} API로 변환. 
      * </pre>
      *
      * @param <E>
@@ -4014,7 +4014,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4059,7 +4059,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜 | 작성자 | 내용
      * ------------------------------------------
-     * 2025. 8. 20. parkjunohng77@gmail.com 최초 작성
+     * 2025. 8. 20. parkjunhong77@gmail.com 최초 작성
      * </pre>
      *
      * @param <K>
@@ -4106,7 +4106,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4162,7 +4162,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4210,7 +4210,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4262,7 +4262,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -4327,7 +4327,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 9. 11.		parkjunohng77@gmail.com			최초 작성
+     * 2017. 9. 11.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4342,7 +4342,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 keyGen})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, keyGen 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2017. 9. 11.
      * 
@@ -4364,7 +4364,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4400,7 +4400,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
@@ -4429,15 +4429,11 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      * @version 3.0.0
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV( //
-            Collection<E> col, BiFunction<E, Integer, K> keyGen, //
-            BiFunction<E, Integer, V> valueGen, Class<M> mapClass //
-    ) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
+            M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
         ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapClass);
 
         try {
-            @SuppressWarnings("null")
-            @NonNull
             M map = mapClass.getDeclaredConstructor().newInstance();
             return toMapHSV(col, keyGen, valueGen, map);
         } catch (ReflectiveOperationException e) {
@@ -4454,7 +4450,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4506,7 +4502,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4541,7 +4537,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
@@ -4573,8 +4569,6 @@ public class CollectionUtils {
             Class<M> mapClass) {
 
         try {
-            @SuppressWarnings("null")
-            @NonNull
             M map = mapClass.getDeclaredConstructor().newInstance();
             return toMapHSV(col, keyGen, valueGen, map);
         } catch (ReflectiveOperationException e) {
@@ -4590,7 +4584,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4641,7 +4635,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4676,7 +4670,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
@@ -4707,8 +4701,6 @@ public class CollectionUtils {
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen,
             Class<M> mapClass) {
         try {
-            @SuppressWarnings("null")
-            @NonNull
             M map = mapClass.getDeclaredConstructor().newInstance();
             return toMapHSV(col, keyGen, valueGen, map);
         } catch (ReflectiveOperationException e) {
@@ -4726,7 +4718,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 30.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 1. 30.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4777,7 +4769,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 1. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -4812,7 +4804,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2019. 1. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2019. 1. 15.		parkjunhong77@gmail.com			최초 작성
      * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
      * </pre>
      *
@@ -4844,8 +4836,6 @@ public class CollectionUtils {
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
 
         try {
-            @SuppressWarnings("null")
-            @NonNull
             M map = mapClass.getDeclaredConstructor().newInstance();
             return toMapHSV(col, keyGen, valueGen, map);
         } catch (ReflectiveOperationException e) {
@@ -4867,7 +4857,7 @@ public class CollectionUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 1. 30.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 1. 30.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4915,7 +4905,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 12. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2023. 12. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -4945,7 +4935,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2023. 12. 13.		parkjunohng77@gmail.com			최초 작성
+     * 2023. 12. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -4979,7 +4969,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -5062,7 +5052,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5109,7 +5099,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5174,7 +5164,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+     * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -5238,8 +5228,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2014. 10. 17.		parkjunohng77@gmail.com			최초 작성
-     * 2025. 8. 21.         parkjunohng77@gmail.com         내부 구현 개선. (Stream API 적용)
+     * 2014. 10. 17.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 8. 21.         parkjunhong77@gmail.com         내부 구현 개선. (Stream API 적용)
      * </pre>
      *
      * @param <E>
@@ -5274,8 +5264,8 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2017. 7. 6.		parkjunohng77@gmail.com			최초 작성
-     * 2025. 8. 21.     parkjunohng77@gmail.com         내구 구현 개선 (Stream API 적용)
+     * 2017. 7. 6.		parkjunhong77@gmail.com			최초 작성
+     * 2025. 8. 21.     parkjunhong77@gmail.com         내구 구현 개선 (Stream API 적용)
      * </pre>
      *
      * @param <E>
@@ -5289,7 +5279,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 transformer})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, transformer 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2017. 7. 6.
      * @version
@@ -5311,7 +5301,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2025. 8. 21.		parkjunohng77@gmail.com			최초 작성
+     * 2025. 8. 21.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -5326,7 +5316,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 setSupplier})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, setSupplier 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 21.
      * @version 2.1.0
@@ -5353,7 +5343,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5399,7 +5389,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5444,7 +5434,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5493,7 +5483,7 @@ public class CollectionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2025. 8. 20.     parkjunohng77@gmail.com         최초 작성
+     * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <K>
@@ -5582,7 +5572,7 @@ public class CollectionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code col 또는 delim})가 {@code null}인 경우 발생.
+     *             파라미터({@code col, delim 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 22.
      * 
@@ -5710,7 +5700,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+         * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
          * </pre>
          *
          * @param fullCount
@@ -5756,7 +5746,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+         * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
          * </pre>
          *
          * @param <T>
@@ -5793,7 +5783,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜    	| 작성자	|	내용
          * ------------------------------------------
-         * 2025. 9. 3.		parkjunohng77@gmail.com			최초 작성
+         * 2025. 9. 3.		parkjunhong77@gmail.com			최초 작성
          * </pre>
          *
          * @param <T>
@@ -5832,7 +5822,7 @@ public class CollectionUtils {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2025. 9. 3.      parkjunohng77@gmail.com         최초 작성
+         * 2025. 9. 3.      parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param fullSortThreshold

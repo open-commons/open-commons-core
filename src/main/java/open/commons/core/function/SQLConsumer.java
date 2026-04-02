@@ -91,8 +91,8 @@ public interface SQLConsumer<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 1. 22.		parkjunohng77@gmail.com			최초 작성
-     * 2020. 8. 13.		parkjunohng77@gmail.com			파라미터 자원 release
+     * 2020. 1. 22.		parkjunhong77@gmail.com			최초 작성
+     * 2020. 8. 13.		parkjunhong77@gmail.com			파라미터 자원 release
      * </pre>
      *
      * @param params
@@ -119,8 +119,8 @@ public interface SQLConsumer<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 12. 22.        parkjunohng77@gmail.com     최초 작성
-     * 2021. 02. 26.        parkjunohng77@gmail.com     버그 수정. (파라미터가 문자열만 오는 경우 판단 오류 수정. Reported by. 'jhlee@ymtech.kr'
+     * 2020. 12. 22.        parkjunhong77@gmail.com     최초 작성
+     * 2021. 02. 26.        parkjunhong77@gmail.com     버그 수정. (파라미터가 문자열만 오는 경우 판단 오류 수정. Reported by. 'jhlee@ymtech.kr'
      * </pre>
      *
      * @param param
@@ -153,7 +153,7 @@ public interface SQLConsumer<T> {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 19.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 19.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param autoRelease

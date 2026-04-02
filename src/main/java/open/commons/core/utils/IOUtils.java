@@ -139,7 +139,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 7. 5.      parkjunohng77@gmail.com         최초 작성
+     * 2021. 7. 5.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param closeables
@@ -175,8 +175,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2012. 01. 10.        parkjunohng77@gmail.com     최초 작성
-     * 2020. 9. 25.         parkjunohng77@gmail.com     {@link Path} 메소드로 전환
+     * 2012. 01. 10.        parkjunhong77@gmail.com     최초 작성
+     * 2020. 9. 25.         parkjunhong77@gmail.com     {@link Path} 메소드로 전환
      * </pre>
      *
      * @param file
@@ -202,7 +202,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -231,7 +231,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -258,8 +258,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 6. 24.         parkjunohng77@gmail.com     최초 작성
-     * 2020. 9. 25.        parkjunohng77@gmail.com     내부 구현 변경.
+     * 2014. 6. 24.         parkjunhong77@gmail.com     최초 작성
+     * 2020. 9. 25.        parkjunhong77@gmail.com     내부 구현 변경.
      * </pre>
      *
      * @param inStream
@@ -280,7 +280,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -324,7 +324,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
@@ -350,7 +350,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
@@ -378,7 +378,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 25.     parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 25.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
@@ -769,7 +769,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -816,7 +816,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 18.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 18.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -851,7 +851,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -891,7 +891,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -926,7 +926,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -961,7 +961,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -996,7 +996,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1027,7 +1027,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1058,7 +1058,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1088,7 +1088,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1140,7 +1140,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1175,7 +1175,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1228,7 +1228,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1259,7 +1259,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1295,7 +1295,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -1330,7 +1330,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1361,7 +1361,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1392,7 +1392,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 11. 13.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 11. 13.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <R>
@@ -1422,7 +1422,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2012. 1. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2012. 1. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1450,7 +1450,7 @@ public class IOUtils {
      * [개정이력]
      * 날짜       | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
+     * 2019. 3. 21.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25: readAllBytes() 적용으로 수동 채널 버퍼링 제거
      * </pre>
      *
@@ -1492,9 +1492,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 3. 21.     parkjunohng77@gmail.com         최초 작성
-     * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
-     * 2020. 9. 13.     parkjunohng77@gmail.com         Channel 처리 함수를 별도 분리 후, 내부 호출
+     * 2019. 3. 21.     parkjunhong77@gmail.com         최초 작성
+     * 2019. 8. 29.     parkjunhong77@gmail.com         내부 로직 성능 향상 및 안정성 강화
+     * 2020. 9. 13.     parkjunhong77@gmail.com         Channel 처리 함수를 별도 분리 후, 내부 호출
      * 2026. 3. 10.     parkjunhong77@gmail.com         기존의 bufferSize 파라미터는 하위 호환성을 위해 남기지만 내부적으로는 최적화된 {@link #readFully(InputStream, boolean)} 을 호출.
      * </pre>
      *
@@ -1588,7 +1588,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1617,7 +1617,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1646,7 +1646,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1679,7 +1679,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1708,7 +1708,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1736,7 +1736,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1766,7 +1766,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1791,7 +1791,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1820,7 +1820,7 @@ public class IOUtils {
      * [개정이력]
      * 날짜          | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.    parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.    parkjunhong77@gmail.com         최초 작성
      * 2026. 03. 09.    parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Stream API 및 toList() 최적화 적용
      * </pre>
      *
@@ -1863,7 +1863,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param file
@@ -1891,7 +1891,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1917,7 +1917,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -1947,7 +1947,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param 읽을
@@ -1974,7 +1974,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2003,7 +2003,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2036,7 +2036,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2065,7 +2065,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
@@ -2093,7 +2093,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param path
@@ -2123,7 +2123,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 2. 8.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 2. 8.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param filepath
@@ -2149,7 +2149,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2178,7 +2178,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2211,7 +2211,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2240,7 +2240,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.      parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param filepath
@@ -2268,7 +2268,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 10.        parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 10.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param filepath
@@ -2407,9 +2407,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 9. 6.      parkjunohng77@gmail.com         최초 작성
-     * 2019. 8. 29.     parkjunohng77@gmail.com         내부 로직 성능 향상 및 안정성 강화
-     * 2026. 3. 10.     parkjunohng77@gmail.com         (3.0.0) JDK 25 마이그레이션
+     * 2017. 9. 6.      parkjunhong77@gmail.com         최초 작성
+     * 2019. 8. 29.     parkjunhong77@gmail.com         내부 로직 성능 향상 및 안정성 강화
+     * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션
      * </pre>
      *
      * @param inStream
@@ -2498,7 +2498,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
      * 2026. 3. 10.     parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: transferTo() 기반 Zero-copy 적용
      * </pre>
      *
@@ -2546,8 +2546,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com     최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2635,7 +2635,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2672,8 +2672,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2714,7 +2714,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2747,8 +2747,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2783,7 +2783,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2814,7 +2814,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -2847,8 +2847,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2884,8 +2884,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -2918,8 +2918,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
+     * 2014. 4. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2018. 9.10.      parkjunhong77@gmail.com         내부 메소드 호출로 변경
      * </pre>
      *
      * @param inStream
@@ -2947,7 +2947,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param inStream
@@ -2976,8 +2976,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -3010,8 +3010,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3039,8 +3039,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3071,9 +3071,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3108,9 +3108,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3142,8 +3142,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -3175,9 +3175,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2014. 4. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2018. 9.10.      parkjunohng77@gmail.com         내부 메소드 호출로 변경
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2014. 4. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2018. 9.10.      parkjunhong77@gmail.com         내부 메소드 호출로 변경
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3206,8 +3206,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3238,9 +3238,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3275,9 +3275,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3309,9 +3309,9 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
-     * 2026. 3. 11.     parkjunohng77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
+     * 2026. 3. 11.     parkjunhong77@gmail.com     {@link InputStream}과 {@link OutputStream}에 적용되는 {@link Charset}이 동일한 경우, 인코딩/디코딩 과정 없이 byte[] 수준에서 처리.
      * </pre>
      *
      * @param inStream
@@ -3350,8 +3350,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3394,7 +3394,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param inStream
@@ -3430,8 +3430,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param inStream
@@ -3471,7 +3471,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3508,8 +3508,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3548,7 +3548,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3580,7 +3580,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3614,8 +3614,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3652,8 +3652,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3688,7 +3688,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3725,8 +3725,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3766,7 +3766,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3803,8 +3803,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3844,7 +3844,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param reader
@@ -3884,8 +3884,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param reader
@@ -3920,7 +3920,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3952,7 +3952,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -3987,8 +3987,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -4026,8 +4026,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -4062,7 +4062,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -4094,7 +4094,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -4129,8 +4129,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -4168,8 +4168,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * 2026. 3. 11.     parkjunhong77@gmail.com     charset 정보 검증 추가.
      * </pre>
      *
@@ -4202,7 +4202,7 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 8. 7.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 8. 7.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param reader
@@ -4227,8 +4227,8 @@ public class IOUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 1. 14.     parkjunohng77@gmail.com         최초 작성
-     * 2026. 3. 10.     parkjunohng77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
+     * 2021. 1. 14.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 3. 10.     parkjunhong77@gmail.com     (3.0.0) JDK 마이그레이션 결과 "readBufferSize" 속성은 사용하지 않음.
      * </pre>
      *
      * @param reader

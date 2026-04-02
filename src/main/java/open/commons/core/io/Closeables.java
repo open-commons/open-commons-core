@@ -44,9 +44,9 @@ import open.commons.core.utils.ObjectUtils;
  * [개정이력]
  *      날짜      | 작성자   |   내용
  * ------------------------------------------
- * 2018. 9. 10.     parkjunohng77@gmail.com     최초 작성
- * 2019. 2. 19.     parkjunohng77@gmail.com     {@link Resource} 추가
- * 2022. 5. 31.     parkjunohng77@gmail.com     implements interface 변경 (Closeable -> AutoCloseable)
+ * 2018. 9. 10.     parkjunhong77@gmail.com     최초 작성
+ * 2019. 2. 19.     parkjunhong77@gmail.com     {@link Resource} 추가
+ * 2022. 5. 31.     parkjunhong77@gmail.com     implements interface 변경 (Closeable -> AutoCloseable)
  * </pre>
  * 
  * @since 2018. 9. 10.
@@ -68,7 +68,7 @@ public class Closeables implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @since 2018. 9. 10.
@@ -167,7 +167,7 @@ public class Closeables implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 11.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 11.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param closeable
@@ -194,7 +194,7 @@ public class Closeables implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param closeables
@@ -227,7 +227,7 @@ public class Closeables implements AutoCloseable {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 10.     parkjunohng77@gmail.com         최초 작성
+     * 2018. 9. 10.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param quietly
@@ -258,7 +258,7 @@ public class Closeables implements AutoCloseable {
          * [개정이력]
          *      날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 9. 11.     parkjunohng77@gmail.com         최초 작성
+         * 2018. 9. 11.     parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @since 2018. 9. 11.

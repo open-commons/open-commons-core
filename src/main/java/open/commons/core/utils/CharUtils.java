@@ -52,7 +52,7 @@ public class CharUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param c
@@ -73,7 +73,7 @@ public class CharUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 11. 9.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param c

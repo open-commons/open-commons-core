@@ -56,7 +56,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 5. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 5. 22.     parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (3.0.0) 오버플로우 방지 알고리즘 및 대칭성 최적화 적용
      * </pre>
      *
@@ -101,7 +101,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 9.      parkjunohng77@gmail.com         최초 작성
+     * 2019. 1. 9.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <N>
@@ -153,7 +153,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 12. 4.     parkjunohng77@gmail.com         최초 작성
+     * 2017. 12. 4.     parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (3.0.0) 익명 클래스 메서드 참조로 교체 및 예외 방어 로직 추가
      * </pre>
      *
@@ -187,7 +187,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -224,7 +224,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2017. 12. 4.     parkjunohng77@gmail.com         최초 작성
+     * 2017. 12. 4.     parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (3.0.0) 익명 클래스 메서드 참조로 교체 및 예외 방어 로직 추가
      * </pre>
      *
@@ -258,7 +258,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 9. 2.      parkjunohng77@gmail.com         최초 작성
+     * 2020. 9. 2.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -295,7 +295,7 @@ public class MathUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 5. 22.     parkjunohng77@gmail.com         최초 작성
+     * 2023. 5. 22.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param n

@@ -29,114 +29,135 @@ package open.commons.core.utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Objects;
 
 import open.commons.core.util.BinaryDataUnit;
 import open.commons.core.util.PrefixDataUnit;
 
 /**
- * 단위 관련 기능을 제공.
- * 
+ * 데이터 용량 단위 변환 및 포맷팅 기능을 제공하는 유틸리티 클래스입니다.
+ *
  * @since 2021. 11. 4.
  * @version 1.8.0
- * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class UnitUtils {
-
-    /**
-     * 천단위마다 콤마(,) 추가
-     * 
-     * @param val
-     *            숫자 문자열
-     * @return 천단위마다 콤마(,)가 추가된 문자열.
-     */
-    private static final Function<String, String> ADD_COMMA = val -> {
-        String[] arr = val.split("[.]");
-        String result = null;
-        if (arr.length == 1) {
-            result = val.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
-        } else {
-            result = String.join(".", arr[0].replaceAll("\\B(?=(\\d{3})+(?!\\d))", ","), arr[1]);
-        }
-
-        return result;
-    };
 
     // prevent to create an instance.
     private UnitUtils() {
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 천 단위마다 콤마(,)를 추가합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) Function 객체에서 정적 메소드로 전환
+     * </pre>
+     *
+     * @param val
+     *            숫자 문자열
+     *
+     * @return 천 단위마다 콤마(,)가 추가된 문자열
+     */
+    private static String addComma(String val) {
+        String[] arr = val.split("[.]");
+        if (arr.length == 1) {
+            return val.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+        } else {
+            return String.join(".", arr[0].replaceAll("\\B(?=(\\d{3})+(?!\\d))", ","), arr[1]);
+        }
+    }
+
+    /**
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함)
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 변환된 크기의 {@link BigDecimal} 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static BigDecimal binaryStorage(long bytes, BinaryDataUnit unit) {
+        Objects.requireNonNull(unit);
         return BinaryDataUnit.BYTE.convert(bytes, unit);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 하위 단위별로 분할된 {@link BigDecimal} 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
     public static BigDecimal[] binaryStorageAlsoSubUnit(long bytes, BinaryDataUnit unit) {
+        Objects.requireNonNull(unit);
         return BinaryDataUnit.BYTE.convert(bytes, unit, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함, 천 단위 콤마 추가, 0인 단위 제외)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
+     *
      * @see #binaryStorageAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit) {
@@ -144,33 +165,41 @@ public class UnitUtils {
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기를 주어진 시작 단위부터 목표 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) ADD_COMMA 함수 호출 변경
      * </pre>
      *
      * @param size
      *            데이터 크기
      * @param srcUnit
-     *            변환할 데이터 단위
+     *            변환할 원본 데이터 단위
      * @param dstUnit
-     *            변환 단위
+     *            변환할 목표 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
+     *            천 단위 콤마(,) 추가 여부
      * @param trim
-     *            사이즈 '0'인 단위 제외 여부.
-     * @return
+     *            사이즈가 '0'인 하위 단위의 문자열 제외 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean trim) {
+        Objects.requireNonNull(srcUnit);
+        Objects.requireNonNull(dstUnit);
+
         BigDecimal[] values = srcUnit.convert(size, dstUnit, true);
         List<String> s = new ArrayList<>();
 
@@ -180,7 +209,7 @@ public class UnitUtils {
             if (!trim || values[i].compareTo(BigDecimal.ZERO) != 0) {
                 val = values[i].toString();
                 if (pretty) {
-                    val = ADD_COMMA.apply(val);
+                    val = addComma(val);
                 }
                 s.add(concat(val, " ", u.get()));
             }
@@ -191,13 +220,13 @@ public class UnitUtils {
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
@@ -205,91 +234,107 @@ public class UnitUtils {
      * @param unit
      *            변환 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
+     *            천 단위 콤마(,) 추가 여부
      * @param trim
-     *            사이즈 '0'인 단위 제외 여부.
-     * @return
+     *            사이즈가 '0'인 단위 제외 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit, boolean pretty, boolean trim) {
+        Objects.requireNonNull(unit);
         return binaryStorageAlsoSubUnitAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, trim);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 미포함, 콤마 및 단위 문자열 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static String binaryStorageAsString(long bytes, BinaryDataUnit unit) {
+        Objects.requireNonNull(unit);
         return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, true, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기를 지정된 시작 단위부터 목표 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 미포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) ADD_COMMA 함수 호출 변경
      * </pre>
      *
      * @param size
      *            데이터 크기
      * @param srcUnit
-     *            변환할 데이터 단위
+     *            변환할 원본 데이터 단위
      * @param dstUnit
-     *            변환 단위
+     *            변환할 목표 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
+     *            천 단위 콤마(,) 추가 여부
      * @param attachUnitStr
-     *            단위 문자열 추가 여부
-     * @return
+     *            단위 문자열(예: KiB) 추가 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static String binaryStorageAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean attachUnitStr) {
+        Objects.requireNonNull(srcUnit);
+        Objects.requireNonNull(dstUnit);
+
         String val = srcUnit.convert(size, dstUnit).toString();
         if (pretty) {
-            val = ADD_COMMA.apply(val);
+            val = addComma(val);
         }
 
         return attachUnitStr ? concat(val, " ", dstUnit.get()) : val;
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 미포함, 단위 문자열 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
@@ -297,28 +342,32 @@ public class UnitUtils {
      * @param unit
      *            변환 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @return
+     *            천 단위 콤마(,) 추가 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static String binaryStorageAsString(long bytes, BinaryDataUnit unit, boolean pretty) {
+        Objects.requireNonNull(unit);
         return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위, 단이 문자열 미포함) <br>
-     * <br>
-     * 
+     * 데이터 크기를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 및 단위 문자열 미포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 5.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 5.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (수정) 오타(단이 -> 단위) 교정
      * </pre>
      *
      * @param bytes
@@ -326,111 +375,134 @@ public class UnitUtils {
      * @param unit
      *            변환 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @return
+     *            천 단위 콤마(,) 추가 여부
+     *
+     * @return 단위 식별자가 없는 숫자 형태의 포맷팅된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * 
      */
     public static String binaryStorageAsStringNoUnit(long bytes, BinaryDataUnit unit, boolean pretty) {
+        Objects.requireNonNull(unit);
         return binaryStorageAsString(bytes, BinaryDataUnit.BYTE, unit, pretty, false);
     }
 
-    private static String concat(Object... objs) {
+    /**
+     * 데이터를 나열된 문자열로 결합합니다.
+     *
+     * @param objects
+     *            결합할 객체 가변 인자
+     *
+     * @return 결합된 문자열
+     */
+    private static String concat(Object... objects) {
         StringBuilder sb = new StringBuilder();
-        for (Object o : objs) {
+        for (Object o : objects) {
             sb.append(o.toString());
         }
-
         return sb.toString();
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 변환된 크기의 {@link BigDecimal} 객체
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see PrefixDataUnit#convert(long, PrefixDataUnit)
      */
     public static BigDecimal convert(long bytes, PrefixDataUnit unit) {
+        Objects.requireNonNull(unit);
         return PrefixDataUnit.BASE.convert(bytes, unit);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 하위 단위별로 분할된 {@link BigDecimal} 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
      */
     public static BigDecimal[] convertAlsoSubUnit(long bytes, PrefixDataUnit unit) {
+        Objects.requireNonNull(unit);
         return PrefixDataUnit.BASE.convert(bytes, unit, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함, 천 단위 콤마 추가, 0인 단위 제외)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * @see #convertAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
+     *
+     * @see #convertAlsoSubUnitAsString(long, PrefixDataUnit, boolean, boolean)
      */
     public static String convertAlsoSubUnitAsString(long bytes, PrefixDataUnit unit) {
         return convertAlsoSubUnitAsString(bytes, unit, true, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
@@ -438,50 +510,61 @@ public class UnitUtils {
      * @param unit
      *            변환 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
+     *            천 단위 콤마(,) 추가 여부
      * @param trim
-     *            사이즈 '0'인 단위 제외 여부.
-     * @return
+     *            사이즈가 '0'인 단위 제외 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
-     * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
+     *
+     * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
      */
     public static String convertAlsoSubUnitAsString(long bytes, PrefixDataUnit unit, boolean pretty, boolean trim) {
+        Objects.requireNonNull(unit);
         return convertAlsoSubUnitAsString(bytes, PrefixDataUnit.BASE, unit, pretty, trim);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 시작 단위부터 목표 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) ADD_COMMA 함수 호출 변경
      * </pre>
      *
      * @param size
      *            데이터 크기
      * @param srcUnit
-     *            변환할 데이터 단위
+     *            변환할 원본 데이터 단위
      * @param dstUnit
-     *            변환 단위
+     *            변환할 목표 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
+     *            천 단위 콤마(,) 추가 여부
      * @param trim
-     *            사이즈 '0'인 단위 제외 여부.
-     * @return
+     *            사이즈가 '0'인 단위 제외 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
      */
     public static String convertAlsoSubUnitAsString(long size, PrefixDataUnit srcUnit, PrefixDataUnit dstUnit, boolean pretty, boolean trim) {
+        Objects.requireNonNull(srcUnit);
+        Objects.requireNonNull(dstUnit);
+
         BigDecimal[] values = srcUnit.convert(size, dstUnit, true);
         List<String> s = new ArrayList<>();
 
@@ -491,7 +574,7 @@ public class UnitUtils {
             if (!trim || values[i].compareTo(BigDecimal.ZERO) != 0) {
                 val = values[i].toString();
                 if (pretty) {
-                    val = ADD_COMMA.apply(val);
+                    val = addComma(val);
                 }
                 s.add(concat(val, " ", u.get()));
             }
@@ -502,39 +585,43 @@ public class UnitUtils {
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 미포함, 단위 문자열 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
      *            데이터 크기 (단위: byte)
      * @param unit
      *            변환 단위
-     * @return
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static String convertAsString(long bytes, PrefixDataUnit unit) {
+        Objects.requireNonNull(unit);
         return convertAsString(bytes, PrefixDataUnit.BASE, unit, true, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 미포함, 단위 문자열 포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param bytes
@@ -542,64 +629,75 @@ public class UnitUtils {
      * @param unit
      *            변환 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @return
+     *            천 단위 콤마(,) 추가 여부
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static String convertAsString(long bytes, PrefixDataUnit unit, boolean pretty) {
+        Objects.requireNonNull(unit);
         return convertAsString(bytes, PrefixDataUnit.BASE, unit, pretty, true);
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위 미포함) <br>
-     * 
+     * 데이터 크기(10진수 기준)를 시작 단위부터 목표 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 미포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 4.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 11. 4.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (개선) ADD_COMMA 함수 호출 변경
      * </pre>
      *
      * @param size
      *            데이터 크기
      * @param srcUnit
-     *            변환할 데이터 단위
+     *            변환할 원본 데이터 단위
      * @param dstUnit
-     *            변환 단위
+     *            변환할 목표 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
+     *            천 단위 콤마(,) 추가 여부
      * @param attachUnitStr
      *            단위 문자열 추가 여부
-     * @return
+     *
+     * @return 포맷팅된 용량 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
-     * 
-     * 
+     *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
     public static String convertAsString(long size, PrefixDataUnit srcUnit, PrefixDataUnit dstUnit, boolean pretty, boolean attachUnitStr) {
+        Objects.requireNonNull(srcUnit);
+        Objects.requireNonNull(dstUnit);
+
         String val = srcUnit.convert(size, dstUnit).toString();
         if (pretty) {
-            val = ADD_COMMA.apply(val);
+            val = addComma(val);
         }
         return attachUnitStr ? concat(val, " ", dstUnit.get()) : val;
     }
 
     /**
-     * 데이터 크기를 주어진 단위에 맞게 변환하여 제공합니다. (하위 단위, 단이 문자열 미포함) <br>
-     * <br>
-     * 
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 및 단위 문자열 미포함)
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 11. 5.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 11. 5.     parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (수정) 오타(단이 -> 단위) 교정
      * </pre>
      *
      * @param bytes
@@ -607,14 +705,18 @@ public class UnitUtils {
      * @param unit
      *            변환 단위
      * @param pretty
-     *            천단위 콤마(,) 추가 여부
-     * @return
+     *            천 단위 콤마(,) 추가 여부
+     *
+     * @return 단위 식별자가 없는 숫자 형태의 포맷팅된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * 
      */
     public static String convertAsStringNoUnit(long bytes, PrefixDataUnit unit, boolean pretty) {
+        Objects.requireNonNull(unit);
         return convertAsString(bytes, PrefixDataUnit.BASE, unit, pretty, false);
     }
 }

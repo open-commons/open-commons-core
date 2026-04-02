@@ -87,7 +87,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 18.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 18.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @since 2020. 11. 4.
@@ -108,7 +108,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 4. 7.      parkjunohng77@gmail.com         최초 작성
+     * 2022. 4. 7.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -131,7 +131,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2022. 4. 7.      parkjunohng77@gmail.com         최초 작성
+     * 2022. 4. 7.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param separator
@@ -157,7 +157,7 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 18.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 6. 18.     parkjunhong77@gmail.com         최초 작성
      * 2026. 3. 4.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 클래스 레벨 캐싱 적용
      * </pre>
      *
@@ -207,8 +207,8 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 6. 18.     parkjunohng77@gmail.com         최초 작성
-     * 2023. 10. 26.    parkjunohng77@gmail.com         메소드 검색 버그 수정.
+     * 2021. 6. 18.     parkjunhong77@gmail.com         최초 작성
+     * 2023. 10. 26.    parkjunhong77@gmail.com         메소드 검색 버그 수정.
      * 2026. 3. 4.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 캐싱 적용 및 메서드 접근 최적화
      * </pre>
      *

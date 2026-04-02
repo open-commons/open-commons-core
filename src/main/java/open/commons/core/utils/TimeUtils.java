@@ -27,50 +27,55 @@
 package open.commons.core.utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
+ * 시간 및 단위(TimeUnit) 변환과 포맷팅을 지원하는 유틸리티 클래스입니다.
  *
  * <pre>
  * [개정이력]
- *      날짜      | 작성자   |   내용
+ * 날짜      | 작성자   |   내용
  * ------------------------------------------
- * 2018. 1. 9.        parkjunohng77@gmail.com         최초 작성
- * 2018. 11. 15.    parkjunohng77@gmail.com     TimeUnit Expression String  Builder 추가. (Default, Korea 기본 적용)
+ * 2018. 1. 9.      parkjunhong77@gmail.com         최초 작성
+ * 2018. 11. 15.    parkjunhong77@gmail.com         TimeUnit Expression String Builder 추가. (Default, Korea 기본 적용)
+ * 2026. 4. 2.      parkjunhong77@gmail.com         (3.0.0) Thread-Safe 구조(Concurrent) 개편, StringBuilder 최적화, Javadoc 규격 적용
  * </pre>
- * 
+ *
  * @since 2018. 1. 9.
- * 
+ * @version 3.0.0
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class TimeUtils {
+
     /** default time unit info */
     private static final TimeUnitExpr DEFAULT_TIME_UNIT_DEF = TimeUnitBuilder.create().build();
+
     /** default locale */
     private static final Locale DEFAULT_LOCALE = Locale.getDefault();
-    private static Locale CURRENT_LOCALE = DEFAULT_LOCALE;
 
-    private static final HashMap<Locale, TimeUnitExpr> TIME_UNITS = new HashMap<>();
+    // [안전성] 멀티 쓰레드 환경에서의 가시성(Visibility) 보장을 위한 volatile 적용
+    private static volatile Locale CURRENT_LOCALE = DEFAULT_LOCALE;
+
+    // [안전성] 동시성 환경에서 안전한 ConcurrentHashMap으로 변경
+    private static final ConcurrentHashMap<Locale, TimeUnitExpr> TIME_UNITS = new ConcurrentHashMap<>();
+
     static {
         // set Default
         TIME_UNITS.put(DEFAULT_LOCALE, DEFAULT_TIME_UNIT_DEF);
 
         // set Korea
-        TIME_UNITS.put(Locale.KOREA, TimeUnitBuilder.create() //
-                .setSecond("초") //
-                .setMinute("분") //
-                .setHour("시간") //
-                .setDay("일") //
-                .setYear("년") //
-                .build());
+        TIME_UNITS.put(Locale.KOREA, TimeUnitBuilder.create().setSecond("초").setMinute("분").setHour("시간").setDay("일").setYear("년").build());
     }
 
     private static final Function<TimeUnit, TimeUnitInfo[]> FN_TIME_UNITS = unit -> {
-
         ArrayList<TimeUnitInfo> units = new ArrayList<>();
 
         for (TimeUnitInfo tui : getTimeUnits().timeUnitInfo) {
@@ -79,18 +84,16 @@ public class TimeUtils {
             }
         }
 
-        return units.toArray(new TimeUnitInfo[] {});
+        return units.toArray(new TimeUnitInfo[0]);
     };
 
-    /** 제외시킬 시간 단위 */
-    private static final HashSet<TimeUnit> OMITTED_TIME_UINITS = new HashSet<>();
+    /** 제외시킬 시간 단위 (Thread-Safe Set으로 변경 및 오타 교정) */
+    private static final ConcurrentHashMap.KeySetView<TimeUnit, Boolean> OMITTED_TIME_UNITS = ConcurrentHashMap.newKeySet();
 
     /** discard none. */
     public static final int DC_NONE = 0x00;
-
     /** discard under nanoseconds */
     public static final int DC_NANO = 0x01;
-
     /** discard under microseconds */
     public static final int DC_MICRO = DC_NANO << 1;
     /** discard under milliseconds */
@@ -109,72 +112,68 @@ public class TimeUtils {
     }
 
     /**
-     * 포맷 문자열에서 제외할 시간단위를 추가합니다. <br>
-     * 
+     * 포맷 문자열에서 제외할 시간 단위를 추가합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param units
+     *            제외할 시간 단위 가변 인자
      *
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code units})가 {@code null}인 경우 발생. 또한, {@code units}에 {@code null}이 포함된 경우에도 발생.
+     *
      * @since 2018. 11. 15.
      */
     public static void addOmit(TimeUnit... units) {
-        for (TimeUnit unit : units) {
-            if (unit == null) {
-                continue;
-            }
+        ObjectUtils.requireNonNulls((Object[]) units);
 
-            OMITTED_TIME_UINITS.add(unit);
+        for (TimeUnit unit : units) {
+            OMITTED_TIME_UNITS.add(unit);
         }
     }
 
     private static final TimeUnitExpr getTimeUnits() {
-        return TIME_UNITS.containsKey(CURRENT_LOCALE) ? TIME_UNITS.get(CURRENT_LOCALE) : DEFAULT_TIME_UNIT_DEF;
+        // [안전성/최적화] getOrDefault를 활용하여 Race Condition 방지
+        return TIME_UNITS.getOrDefault(CURRENT_LOCALE, DEFAULT_TIME_UNIT_DEF);
     }
 
     private static long mod(long time, TimeUnit unit) {
-        switch (unit) {
-            case NANOSECONDS: // to nanosecond
-            case MILLISECONDS: // to microsecond
-            case MICROSECONDS: // to millsecond
-                return time % 1000;
-            case SECONDS: // to second
-                return time % 60;
-            case MINUTES: // to minute
-                return time % 60;
-            case HOURS: // to hour
-                return time % 24;
-            case DAYS: // to day
-                return time % 365;
-            default:
-                throw new IllegalArgumentException(unit.toString());
-        }
+        return switch (unit) {
+            case NANOSECONDS, MILLISECONDS, MICROSECONDS -> time % 1000;
+            case SECONDS -> time % 60;
+            case MINUTES -> time % 60;
+            case HOURS -> time % 24;
+            case DAYS -> time % 365;
+        };
     }
 
     /**
-     * 
-     * <br>
-     * 
+     * 지정된 문자열 버퍼의 맨 앞에 계산된 시간과 단위를 추가합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 1. 9.      parkjunohng77@gmail.com         최초 작성
+     * 2018. 1. 9.      parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (3.0.0) StringBuffer &rarr; StringBuilder 로 최적화
      * </pre>
      *
      * @param timeBuf
+     *            문자열 빌더 버퍼
      * @param time
+     *            계산된 시간 값
      * @param unit
+     *            시간 단위 문자열
      *
-     * 
      * @since 2018. 1. 9.
+     * @version 3.0.0
      */
-    private static void prependTimeAndUnit(StringBuffer timeBuf, long time, String unit) {
+    private static void prependTimeAndUnit(StringBuilder timeBuf, long time, String unit) {
         if (time < 1) {
             return;
         }
@@ -187,74 +186,82 @@ public class TimeUtils {
         setTimeValue(timeBuf, time);
     }
 
-    private static void prependTimeAndUnit(StringBuffer timeBuf, long time, TimeUnitInfo unitInfo) {
+    private static void prependTimeAndUnit(StringBuilder timeBuf, long time, TimeUnitInfo unitInfo) {
         prependTimeAndUnit(timeBuf, time, unitInfo.unitStr);
     }
 
     /**
-     * 포맷 문자열 제외 목록에서 제거합니다. <br>
-     * 
+     * 포맷 문자열 제외 목록에서 특정 단위를 제거합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param units
+     *            제거할 시간 단위 가변 인자
      *
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code units})가 {@code null}인 경우 발생. 또한, {@code units}에 {@code null}이 포함된 경우에도 발생.
+     *
      * @since 2018. 11. 15.
      */
     public static void removeOmit(TimeUnit... units) {
-        for (TimeUnit unit : units) {
-            if (unit == null) {
-                continue;
-            }
+        ObjectUtils.requireNonNulls((Object[]) units);
 
-            OMITTED_TIME_UINITS.remove(unit);
+        for (TimeUnit unit : units) {
+            OMITTED_TIME_UNITS.remove(unit);
         }
     }
 
     /**
-     * Set a current locale. <br>
-     * 
+     * 유틸리티 내에서 사용할 현재 로케일({@link Locale})을 설정합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param locale
+     *            설정하려는 로케일
      *
-     * 
+     * @throws NullPointerException
+     *             파라미터({@code locale})가 {@code null}인 경우 발생.
+     *
      * @since 2018. 11. 15.
      */
     public static void setLocale(Locale locale) {
+        Objects.requireNonNull(locale);
+
         CURRENT_LOCALE = locale;
     }
 
-    private static void setTimeUnit(StringBuffer timeBuf, String unit) {
+    private static void setTimeUnit(StringBuilder timeBuf, String unit) {
         timeBuf.insert(0, String.format("%-3s", unit));
     }
 
     /**
-     * 
-     * <br>
-     * 
+     * 특정 로케일에 대한 {@link TimeUnit} 표현식을 등록합니다. (현재 로케일은 변경하지 않음)
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param locale
      *            등록하려는 {@link Locale} 정보
      * @param expr
-     *            {@link TimeUnit} Expression
-     * 
+     *            등록할 {@link TimeUnit} Expression
+     *
+     * @throws NullPointerException
+     *             파라미터({@code locale, expr} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @since 2018. 11. 15.
      */
     public static void setTimeUnitExpr(Locale locale, TimeUnitExpr expr) {
@@ -262,26 +269,31 @@ public class TimeUtils {
     }
 
     /**
-     * 
-     * <br>
-     * 
+     * 특정 로케일에 대한 {@link TimeUnit} 표현식을 등록하고, 선택적으로 현재 로케일을 변경합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param locale
      *            등록하려는 {@link Locale} 정보
      * @param expr
-     *            {@link TimeUnit} Expression
+     *            등록할 {@link TimeUnit} Expression
      * @param setCurrentLocale
-     *            현재 {@link Locale} 로 설정할지 여부.
-     * 
+     *            현재 {@link Locale}로 설정할지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code locale, expr} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @since 2018. 11. 15.
      */
     public static void setTimeUnitExpr(Locale locale, TimeUnitExpr expr, boolean setCurrentLocale) {
+        Objects.requireNonNull(locale);
+        Objects.requireNonNull(expr);
+
         if (setCurrentLocale) {
             CURRENT_LOCALE = locale;
         }
@@ -289,37 +301,52 @@ public class TimeUtils {
         TIME_UNITS.put(locale, expr);
     }
 
-    private static void setTimeValue(StringBuffer timeBuf, long time) {
+    private static void setTimeValue(StringBuilder timeBuf, long time) {
         timeBuf.insert(0, String.format("%,3d", time));
     }
 
     /**
-     * Provide the Millisecond time value in {year}y {day}d {hour}h {minute}m {second}s {millisecond}ms {nanoseconds}ns.
-     * <br>
-     * Omitted if there is no value for that unit.
-     * 
+     * 입력된 시간을 {year}y {day}d {hour}h {minute}m {second}s {millisecond}ms {nanoseconds}ns 포맷의 문자열로 제공합니다. <br>
+     * 해당 단위의 값이 0이거나 Omit 목록에 추가된 경우 문자열에서 제외됩니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2018. 1. 9.      parkjunhong77@gmail.com         최초 작성
+     * 2026. 4. 2.      parkjunhong77@gmail.com         (3.0.0) Stream 필터 제거 및 배열 직접 참조 최적화, StringBuilder 적용
+     * </pre>
+     *
      * @param time
-     *            time value.
+     *            변환할 시간 값
      * @param timeUnit
-     *            a unit of input time value.
-     * @return
+     *            입력된 시간 값의 단위
+     *
+     * @return 포맷팅된 시간 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code timeUnit})가 {@code null}인 경우 발생.
      *
      * @since 2018. 1. 9.
+     * @version 3.0.0
      */
     public static String toFormattedString(long time, TimeUnit timeUnit) {
+        Objects.requireNonNull(timeUnit);
 
         // if zero ...
         if (time < 1) {
-            return "0 " + Arrays.stream(getTimeUnits().timeUnitInfo).filter(unit -> unit.unit == timeUnit).findAny().get().unitStr;
+            // [최적화] Stream.filter() 대신 상수 시간(O(1))인 배열 인덱스 직접 참조로 변경
+            return "0 " + getTimeUnits().timeUnitInfo[timeUnit.ordinal()].unitStr;
         }
 
-        StringBuffer timeBuf = new StringBuffer();
+        // [최적화] StringBuffer 대신 StringBuilder 사용
+        StringBuilder timeBuf = new StringBuilder();
 
         long mod = 0L;
         long up = time;
 
         for (TimeUnitInfo unit : FN_TIME_UNITS.apply(timeUnit)) {
-            if (!OMITTED_TIME_UINITS.contains(unit.unit)) {
+            if (!OMITTED_TIME_UNITS.contains(unit.unit)) {
                 mod = mod(up, unit.unit);
                 prependTimeAndUnit(timeBuf, mod, unit);
             }
@@ -339,7 +366,7 @@ public class TimeUtils {
     private static long up(long time, TimeUnit unit) {
         switch (unit) {
             case NANOSECONDS: // to microsecond & above
-            case MILLISECONDS: // to millsecond & above
+            case MILLISECONDS: // to millisecond & above
             case MICROSECONDS: // to second & above
                 return time / 1000;
             case SECONDS: // to minute & above
@@ -356,10 +383,9 @@ public class TimeUtils {
     }
 
     /**
-     * {@link TimeUnit} Expression String Builder.
-     * 
+     * {@link TimeUnit} 단위별 표현식을 설정하기 위한 빌더(Builder) 클래스입니다.
+     *
      * @since 2018. 11. 15.
-     * 
      */
     public static class TimeUnitBuilder {
 
@@ -376,18 +402,17 @@ public class TimeUtils {
         }
 
         /**
-         * 시간 정보를 제공합니다. <br>
-         * 
+         * 구성된 단위 표현식 정보를 기반으로 {@link TimeUnitExpr} 객체를 생성하여 반환합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
-         * @return
+         * @return 생성된 {@link TimeUnitExpr} 객체
          *
-         * 
          * @since 2018. 11. 15.
          */
         public TimeUnitExpr build() {
@@ -395,24 +420,32 @@ public class TimeUtils {
         }
 
         /**
-         * 
-         * <br>
-         * 
+         * 특정 시간 단위({@link TimeUnit})에 대한 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param unit
+         *            설정할 시간 단위
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신 (Method Chaining 지원)
+         *
+         * @throws NullPointerException
+         *             파라미터({@code unit, expr} 중에 1개라도)가 {@code null}인 경우 발생.
+         * @throws IllegalArgumentException
+         *             지원하지 않는 시간 단위가 입력된 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder set(TimeUnit unit, String expr) {
-            AssertUtils2.notNulls(IllegalArgumentException.class, unit, expr);
+            Objects.requireNonNull(unit);
+            Objects.requireNonNull(expr);
 
             switch (unit) {
                 case NANOSECONDS:
@@ -444,18 +477,23 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Day(d). <br>
-         * 
+         * 일(Day) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setDay(String expr) {
@@ -464,18 +502,23 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Hour(h) <br>
-         * 
+         * 시간(Hour) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setHour(String expr) {
@@ -484,18 +527,23 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Microsecond(us). <br>
-         * 
+         * 마이크로초(Microsecond) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMicrosecond(String expr) {
@@ -504,18 +552,23 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Millisecond(ms). <br>
-         * 
+         * 밀리초(Millisecond) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMillisecond(String expr) {
@@ -524,18 +577,22 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Minute(m). <br>
-         * 
+         * 분(Minute) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신 খানকে
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMinute(String expr) {
@@ -544,18 +601,23 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Nanosecond(ns). <br>
-         * 
+         * 나노초(Nanosecond) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setNanosecond(String expr) {
@@ -564,18 +626,23 @@ public class TimeUtils {
         }
 
         /**
-         * Set a expression of Second(s). <br>
-         * 
+         * 초(Second) 단위의 문자열 표현식을 설정합니다.
+         *
          * <pre>
          * [개정이력]
-         *      날짜    	| 작성자	|	내용
+         * 날짜      | 작성자   |   내용
          * ------------------------------------------
-         * 2018. 11. 15.		parkjunohng77@gmail.com			최초 작성
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
          * </pre>
          *
          * @param expr
+         *            설정할 문자열 표현식
          *
-         * 
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setSecond(String expr) {
@@ -583,32 +650,70 @@ public class TimeUtils {
             return this;
         }
 
+        /**
+         * 연(Year) 단위의 문자열 표현식을 설정합니다.
+         *
+         * <pre>
+         * [개정이력]
+         * 날짜      | 작성자   |   내용
+         * ------------------------------------------
+         * 2018. 11. 15.    parkjunhong77@gmail.com         최초 작성
+         * </pre>
+         *
+         * @param expr
+         *            설정할 문자열 표현식
+         *
+         * @return 빌더 자기 자신
+         *
+         * @throws NullPointerException
+         *             파라미터({@code expr})가 {@code null}인 경우 발생.
+         *
+         * @since 2018. 11. 15.
+         */
         public TimeUnitBuilder setYear(String expr) {
+            Objects.requireNonNull(expr);
+
             this.year = expr;
             return this;
         }
 
+        /**
+         * 새로운 {@link TimeUnitBuilder} 인스턴스를 생성하여 반환합니다.
+         *
+         * @return {@link TimeUnitBuilder} 인스턴스
+         */
         public static TimeUnitBuilder create() {
             return new TimeUnitBuilder();
         }
-
     }
 
+    /**
+     * 시간 단위 및 문자열 표현식을 매핑하여 보관하는 데이터 클래스입니다.
+     */
     public static class TimeUnitExpr {
         private final String year;
         private final TimeUnitInfo[] timeUnitInfo;
 
         public TimeUnitExpr(String year, TimeUnitInfo[] timeUnits) {
+            Objects.requireNonNull(year);
+            ObjectUtils.requireNonNulls((Object[]) timeUnits);
+
             this.year = year;
             this.timeUnitInfo = timeUnits;
         }
     }
 
+    /**
+     * 개별 {@link TimeUnit}과 그에 매칭되는 포맷 문자열 정보를 보관하는 데이터 클래스입니다.
+     */
     private static class TimeUnitInfo {
         private final TimeUnit unit;
         private final String unitStr;
 
         public TimeUnitInfo(TimeUnit unit, String unitStr) {
+            Objects.requireNonNull(unit);
+            Objects.requireNonNull(unitStr);
+
             this.unit = unit;
             this.unitStr = unitStr;
         }

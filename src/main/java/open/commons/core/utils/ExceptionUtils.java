@@ -56,7 +56,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 7. 5.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 7. 5.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -83,7 +83,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 10. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 10. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -185,7 +185,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 10. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 10. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <E>
@@ -223,7 +223,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2020. 10. 28.		parkjunohng77@gmail.com			최초 작성
+     * 2020. 10. 28.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param e
@@ -235,7 +235,7 @@ public class ExceptionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code errorMsg 또는 expected})가 {@code null}인 경우 발생.
+     *             파라미터({@code errorMsg, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -261,7 +261,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 10. 28.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 10. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param e
@@ -271,7 +271,7 @@ public class ExceptionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
+     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -287,7 +287,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 10. 28.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 10. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param e
@@ -299,7 +299,7 @@ public class ExceptionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
+     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -315,7 +315,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 10. 28.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 10. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param e
@@ -325,7 +325,7 @@ public class ExceptionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
+     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -341,7 +341,7 @@ public class ExceptionUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2020. 10. 28.        parkjunohng77@gmail.com         최초 작성
+     * 2020. 10. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param e
@@ -352,7 +352,7 @@ public class ExceptionUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code e 또는 expected})가 {@code null}인 경우 발생.
+     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 

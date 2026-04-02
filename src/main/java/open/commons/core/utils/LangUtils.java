@@ -58,7 +58,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -71,7 +71,7 @@ public class LangUtils {
      *            실행 함수
      *
      * @throws NullPointerException
-     *             파라미터({@code p 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code p, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
@@ -90,7 +90,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -105,7 +105,7 @@ public class LangUtils {
      *            실행 함수
      *
      * @throws NullPointerException
-     *             파라미터({@code p 또는 c})가 {@code null}인 경우 발생.
+     *             파라미터({@code p, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
@@ -126,7 +126,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -153,7 +153,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -181,7 +181,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param value
@@ -206,7 +206,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param value
@@ -233,7 +233,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -261,7 +261,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <T>
@@ -287,7 +287,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param clazz
@@ -313,7 +313,7 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 10. 26.        parkjunohng77@gmail.com         최초 작성
+     * 2018. 10. 26.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param clazz
@@ -362,8 +362,8 @@ public class LangUtils {
      * [개정이력]
      *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2018. 9. 26.     parkjunohng77@gmail.com         최초 작성
-     * 2019. 8. 27.     parkjunohng77@gmail.com         숫자값 초기화 누락 버그 수정.
+     * 2018. 9. 26.     parkjunhong77@gmail.com         최초 작성
+     * 2019. 8. 27.     parkjunhong77@gmail.com         숫자값 초기화 누락 버그 수정.
      * </pre>
      *
      * @param value

@@ -27,8 +27,6 @@
 package open.commons.core.utils;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.lang.invoke.CallSite;
@@ -62,6 +60,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,6 +74,11 @@ import open.commons.core.exception.TransformationFailedException;
  * @version 2.1.0
  * 
  */
+// 아래 내용에 적용됨.
+// - 대부분 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class ResultSetTransformer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResultSetTransformer.class);
@@ -84,98 +89,6 @@ public class ResultSetTransformer {
     private static final ConcurrentHashMap<Class<?>, List<ColumnPlan>> COLUMN_PLAN_CACHE = new ConcurrentHashMap<>();
 
     private ResultSetTransformer() {
-    }
-
-    /**
-     * {@code (setterMH bound, notNullable, colName, target, value) -> void} <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param setter
-     * @param nullable
-     * @param columnName
-     * @param target
-     * @param value
-     *
-     * @since 2025. 9. 8.
-     * @version 2.1.0
-     * 
-     */
-    @SuppressWarnings("unused")
-    private static void applyNullPolicy(MethodHandle setter, boolean nullable, String columnName, Object target, Object value) {
-        try {
-            if (value == null) {
-                if (nullable) {
-                    return; // nullable=true면 세터 호출 스킵
-                }
-                throw new SQLException("Column '" + columnName + "' is NULL but @ColumnDef.nullable=" + nullable);
-            }
-            // value != null이면 세터 호출
-            setter.invokeExact(target, value);
-        } catch (Throwable t) {
-            throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
-        }
-    }
-
-    @SuppressWarnings("unused")
-    private static Object bdToDouble(BigDecimal d) {
-        return d == null ? null : Double.valueOf(d.doubleValue());
-    }
-
-    @SuppressWarnings("unused")
-    private static Object bdToFloat(BigDecimal d) {
-        return d == null ? null : Float.valueOf(d.floatValue());
-    }
-
-    @SuppressWarnings("unused")
-    private static Object bdToInteger(BigDecimal d) {
-        return d == null ? null : Integer.valueOf(d.intValue());
-    }
-
-    @SuppressWarnings("unused")
-    private static Object bdToLong(BigDecimal d) {
-        return d == null ? null : Long.valueOf(d.longValue());
-    }
-
-    @SuppressWarnings("unused")
-    private static Object bdToShort(BigDecimal d) {
-        return d == null ? null : Short.valueOf(d.shortValue());
-    }
-
-    /**
-     * Boolean/Byte 래퍼: prim 호출 + wasNull()로 NULL 보존 <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param rs
-     * @param idx
-     * @return
-     * @throws SQLException
-     *
-     * @since 2025. 9. 8.
-     * @version 2.1.0
-     * 
-     */
-    @SuppressWarnings("unused")
-    private static Object boolWasNullBoolean(ResultSet rs, int idx) throws SQLException {
-        boolean v = rs.getBoolean(idx);
-        return rs.wasNull() ? null : Boolean.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object boolWasNullByte(ResultSet rs, int idx) throws SQLException {
-        byte v = rs.getByte(idx);
-        return rs.wasNull() ? null : Byte.valueOf(v);
     }
 
     private static Map<String, Integer> buildLabelIndexMap(ResultSetMetaData md) {
@@ -213,7 +126,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static Function<ResultSet, Object> buildRowMapper(Class<?> entityType, ResultSetMetaData md, List<String> tags) {
 
@@ -340,7 +252,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static MethodHandle constructorMH(MethodHandles.Lookup lookup, Class<?> cls) throws NoSuchMethodException, IllegalAccessException {
         MethodHandle h = lookup.findConstructor(cls, MethodType.methodType(void.class)); // ()V
@@ -356,81 +267,6 @@ public class ResultSetTransformer {
             if (allowed.contains(p.columnName))
                 res.add(p);
         return res;
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getBooleanOrNull(ResultSet rs, int idx) throws SQLException {
-        boolean v = rs.getBoolean(idx);
-        return rs.wasNull() ? null : Boolean.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getByteOrNull(ResultSet rs, int idx) throws SQLException {
-        byte v = rs.getByte(idx);
-        return rs.wasNull() ? null : Byte.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getDoubleOrNull(ResultSet rs, int idx) throws SQLException {
-        double v = rs.getDouble(idx);
-        return rs.wasNull() ? null : Double.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getFloatOrNull(ResultSet rs, int idx) throws SQLException {
-        float v = rs.getFloat(idx);
-        return rs.wasNull() ? null : Float.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getIntOrNull(ResultSet rs, int idx) throws SQLException {
-        int v = rs.getInt(idx);
-        return rs.wasNull() ? null : Integer.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getLongOrNull(ResultSet rs, int idx) throws SQLException {
-        long v = rs.getLong(idx);
-        return rs.wasNull() ? null : Long.valueOf(v);
-    }
-
-    @SuppressWarnings("unused")
-    private static Object getShortOrNull(ResultSet rs, int idx) throws SQLException {
-        short v = rs.getShort(idx);
-        return rs.wasNull() ? null : Short.valueOf(v);
-    }
-
-    /**
-     * ctor()로 객체 만들고, steps를 순회해 채운 뒤 객체를 반환합니다. <br>
-     * <b>유형: 실행 루틴/헬퍼</b>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param ctor
-     * @param steps
-     * @param rs
-     * @return
-     *
-     * @since 2025. 9. 8.
-     * @version 2.1.0
-     * 
-     */
-    @SuppressWarnings("unused")
-    private static Object materialize(MethodHandle ctor, MethodHandle[] steps, ResultSet rs) {
-        try {
-            final Object dst = ctor.invoke(); // ()->Object
-            for (int i = 0; i < steps.length; i++) {
-                steps[i].invokeExact(dst, rs); // (Object, ResultSet)->void
-            }
-            return dst;
-        } catch (Throwable t) {
-            throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
-        }
     }
 
     /**
@@ -452,7 +288,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static MethodHandle mhObj(MethodHandles.Lookup lookup, String name, Class<?> returnType) throws NoSuchMethodException, IllegalAccessException {
         MethodHandle h = lookup.findVirtual(ResultSet.class //
@@ -486,7 +321,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static MethodHandle mhWrapFromBigDecimal(MethodHandles.Lookup lookup, String convStaticName) throws NoSuchMethodException, IllegalAccessException {
         // reader: (ResultSet,int)->Object (BigDecimal)
@@ -515,7 +349,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static MethodHandle mhWrapFromPrimWasNull(MethodHandles.Lookup lookup, String staticName) throws NoSuchMethodException, IllegalAccessException {
         // 직접 구현
@@ -546,10 +379,12 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     @SuppressWarnings("unchecked")
-    public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
+    public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String @Nullable... columns) throws SQLException {
+        Objects.requireNonNull(objectType);
+        Objects.requireNonNull(rs);
+
         // 2-1) ResultSet 메타데이터 시그니처
         final ResultSetMetaData md = rs.getMetaData();
         // 컬럼 라벨/타입/개수 기반 시그니처
@@ -576,47 +411,6 @@ public class ResultSetTransformer {
         }
     }
 
-    private static byte[] readAll(InputStream in) throws java.io.IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] b = new byte[8192];
-        int n;
-        while ((n = in.read(b)) != -1)
-            bos.write(b, 0, n);
-        return bos.toByteArray();
-    }
-
-    /**
-     * getBinaryStream(idx)를 모두 읽어 ByteArrayInputStream 으로 감싸 반환 (NULL 안전) <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 8.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param rs
-     * @param idx
-     * @return
-     * @throws SQLException
-     *
-     * @since 2025. 9. 8.
-     * @version 2.1.0
-     * 
-     */
-    @SuppressWarnings("unused")
-    private static Object readAsByteArrayInputStream(ResultSet rs, int idx) throws SQLException {
-        InputStream in = rs.getBinaryStream(idx);
-        if (in == null)
-            return null;
-        try {
-            byte[] buf = readAll(in);
-            return new java.io.ByteArrayInputStream(buf);
-        } catch (IOException ioe) {
-            throw new SQLException("Failed to read binary stream", ioe);
-        }
-    }
-
     /**
      * 컬럼 데이터 유형에 맞는 함수를 제공합니다. <br>
      * <br>
@@ -637,7 +431,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static MethodHandle readerForType(MethodHandles.Lookup lookup, Class<?> columnType) throws NoSuchMethodException, IllegalAccessException {
 
@@ -761,9 +554,10 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static List<ColumnPlan> scanColumnPlans(Class<?> type) {
+        Objects.requireNonNull(type);
+
         final List<ColumnPlan> list = new ArrayList<>();
 
         for (Method m : AnnotationUtils.getAnnotatedMethodsAll(type, ColumnDef.class)) {
@@ -781,18 +575,6 @@ public class ResultSetTransformer {
         return list;
     }
 
-    @SuppressWarnings("unused")
-    private static void tryIgnoreSql(MethodHandle step, Object target, ResultSet rs) {
-        try {
-            step.invokeExact(target, rs);
-        } catch (Throwable t) {
-            if (!(t instanceof SQLException)) {
-                throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
-            }
-            // SQLException 은 무시 (optional 컬럼)
-        }
-    }
-
     /**
      * 래퍼 → 원시 정규화 <br>
      * 
@@ -808,7 +590,6 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static Class<?> unwrap(Class<?> c) {
         if (c == Integer.class)
@@ -847,9 +628,9 @@ public class ResultSetTransformer {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     private static MethodHandle wrapIgnoreSQLException(MethodHandles.Lookup lookup, MethodHandle step) throws NoSuchMethodException, IllegalAccessException {
+        @NonNull
         MethodHandle wrapper = lookup.findStatic(ResultSetTransformer.class, "tryIgnoreSql", MethodType.methodType(void.class, MethodHandle.class, Object.class, ResultSet.class));
         // (Object,ResultSet)->void
         wrapper = MethodHandles.insertArguments(wrapper, 0, step);
@@ -914,7 +695,7 @@ public class ResultSetTransformer {
         }
 
         @Override
-        public boolean equals(Object o) {
+        public boolean equals(@Nullable Object o) {
             if (this == o)
                 return true;
             if (!(o instanceof RowKey))

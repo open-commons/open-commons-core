@@ -64,7 +64,7 @@ public class FileExtensionExclusive implements FileFilter {
      * @see Set#addAll(Collection)
      */
     public FileExtensionExclusive(Collection<String> exts) {
-        AssertUtils2.collectionNotNull(exts);
+        AssertUtils2.notExistNull(exts);
 
         extensioins.addAll(exts);
     }

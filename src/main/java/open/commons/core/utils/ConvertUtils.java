@@ -97,7 +97,7 @@ public class ConvertUtils {
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      * 
      * @throws NullPointerException
-     *             파라미터({@code value 또는 clazz})가 {@code null}인 경우 발생.
+     *             파라미터({@code value, clazz 중에 1개라도})가 {@code null}인 경우 발생.
      */
     @SuppressWarnings("null")
     public static <T> void assertValue(Object value, Class<T> clazz, @Nullable Class<? extends RuntimeException> occurExeption) {
@@ -185,7 +185,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcType
@@ -195,7 +195,7 @@ public class ConvertUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code srcType 또는 targetType})가 {@code null}인 경우 발생.
+     *             파라미터({@code srcType, targetType 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
@@ -233,7 +233,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 2.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcObject
@@ -303,7 +303,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2022. 3. 15.		parkjunohng77@gmail.com			최초 작성
+     * 2022. 3. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param <T>
@@ -349,7 +349,7 @@ public class ConvertUtils {
      * [개정이력]
      *      날짜    	| 작성자	|	내용
      * ------------------------------------------
-     * 2021. 12. 3.		parkjunohng77@gmail.com			최초 작성
+     * 2021. 12. 3.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
      * @param srcType

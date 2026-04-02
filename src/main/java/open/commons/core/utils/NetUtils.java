@@ -128,7 +128,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2015. 3. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2015. 3. 4.      parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (3.0.0) 존재하지 않는 인터페이스에 대한 NPE 예외 방어 추가
      * </pre>
      *
@@ -170,7 +170,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2015. 3. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2015. 3. 4.      parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (3.0.0) Signed Integer 특성으로 인한 음수 IP 오류 해결(ip < 1 검증 제거)
      * </pre>
      *
@@ -207,7 +207,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 7. 12.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 7. 12.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param ipAddr
@@ -226,19 +226,19 @@ public class NetUtils {
     }
 
     /**
-     * IPv4 또는 IPv6 주소 형식 일치 여부를 제공합니다. <br>
+     * IPv4, IPv6 중에 1개라도 주소 형식 일치 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 7. 12.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 7. 12.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param ipAddr
      *            검증할 문자열 형태의 IP 주소 (Nullable)
      * 
-     * @return IPv4 또는 IPv6 형식에 맞으면 {@code true}, 그렇지 않으면 {@code false}
+     * @return IPv4, IPv6 중에 1개라도 형식에 맞으면 {@code true}, 그렇지 않으면 {@code false}
      *
      * @since 2021. 7. 12.
      * @version 1.8.0
@@ -257,7 +257,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2021. 7. 12.     parkjunohng77@gmail.com         최초 작성
+     * 2021. 7. 12.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param ipAddr
@@ -282,7 +282,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2015. 3. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2015. 3. 4.      parkjunhong77@gmail.com         최초 작성
      * 2026. 4. 1.      parkjunhong77@gmail.com         (3.0.0) 문자열 파싱 루프 및 메모리 최적화
      * </pre>
      *
@@ -327,7 +327,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2015. 3. 4.      parkjunohng77@gmail.com         최초 작성
+     * 2015. 3. 4.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param mac
@@ -352,7 +352,7 @@ public class NetUtils {
      * [개정이력]
      * 날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2023. 1. 5.      parkjunohng77@gmail.com         최초 작성
+     * 2023. 1. 5.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param ipAddr
