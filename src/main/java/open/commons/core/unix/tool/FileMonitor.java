@@ -907,9 +907,9 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
         String[] dirArgs = null;
         for (int i = 0; i < dirArr.length; i++) {
-            dirArgs = dirArr[i].trim().split("[" + FmConstants.DIR_OPT_DELIMITER + "]");
+            dirArgs = dirArr[i].strip().split("[" + FmConstants.DIR_OPT_DELIMITER + "]");
 
-            registerDirectory(Objects.requireNonNull(dirArgs[0].trim()) // directory
+            registerDirectory(Objects.requireNonNull(dirArgs[0].strip()) // directory
                     , dirArgs.length > 1 ? // check recursive
                             dirArgs[1].equals("0") ? false : true : false);
         }
@@ -919,7 +919,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         String[] fileArr = files.split("[" + FmConstants.FILE_DELIMITER + "]");
 
         for (int i = 0; i < fileArr.length; i++) {
-            registerFile(Objects.requireNonNull(fileArr[i].trim()), true);
+            registerFile(Objects.requireNonNull(fileArr[i].strip()), true);
         }
     }
 

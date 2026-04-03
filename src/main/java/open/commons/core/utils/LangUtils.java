@@ -43,7 +43,7 @@ public class LangUtils {
 
     private static final Predicate<Object> NULL = o -> o == null;
     private static final Predicate<Object> NOT_NULL = o -> o != null;
-    private static final Predicate<Object> NOT_NULL_EMPTY = o -> o != null && !((String) o).trim().isEmpty();
+    private static final Predicate<Object> NOT_NULL_EMPTY = o -> o != null && !((String) o).isBlank();
 
     @SuppressWarnings("null")
     private static final Pattern NUMBER_VALUE = Pattern.compile("(\\d+)(b|kb|mb|gb|tb|pb)?", Pattern.CASE_INSENSITIVE);
@@ -381,7 +381,7 @@ public class LangUtils {
     public static long toNumber(String value) {
         Objects.requireNonNull(value);
 
-        Matcher m = NUMBER_VALUE.matcher(value.trim().toLowerCase());
+        Matcher m = NUMBER_VALUE.matcher(value.strip().toLowerCase());
 
         if (m.matches()) {
             String number = m.group(1);

@@ -380,7 +380,7 @@ public class ReferenceableProperties extends Properties {
             do {
                 refIndex++;
                 g1 = m.group(1);
-                if (g1 != null && !g1.trim().isEmpty()) {
+                if (g1 != null && !g1.isBlank()) {
                     sb.append(g1);
                 }
 

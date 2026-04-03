@@ -1,3 +1,8 @@
+[2026/04/03]
+- Updated
+  + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
+    + open.commons.core.utils 패키지 완료
+  
 [2026/04/02]
 - Updated
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.

@@ -572,7 +572,7 @@ public class StopWatch {
                         , StringUtils.compact(LAST.equals(rn) ? "마지막" : rn, 10) // 작업이름
                         , getPercentage(rn) * 100 // 전체 소유시간 대비 비율
                         , t // 경과 시간 (단위: nano seconds)
-                        , getAsPretty(rn).trim().replaceAll("\\s{2,}", " ")));
+                        , getAsPretty(rn).strip().replaceAll("\\s{2,}", " ")));
             });
 
             return buf.toString();

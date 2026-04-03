@@ -42,12 +42,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import jakarta.validation.constraints.NotBlank;
 
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import open.commons.core.prog.StrLenRvrOrderingEntry;
 
@@ -58,10 +58,14 @@ import open.commons.core.prog.StrLenRvrOrderingEntry;
  * @since 2011. 06. 23.
  * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public class StringUtils {
-    public static final String MULTI_LINED_COMMENT_BEGIN = "^(\\s*)/\\*(.*)$";
 
-    public static final String MULTI_LINED_COMMENT_END = "^(.*)\\*/.*$";
+    private static final Logger LOGGER = LoggerFactory.getLogger(StringUtils.class);
 
     static Map<String, RegExTokenEscape> map = new HashMap<String, RegExTokenEscape>();
 
@@ -344,7 +348,7 @@ public class StringUtils {
 
         AssertUtils2.isFalse(len < 1);
 
-        String trimmed = str.trim();
+        String trimmed = str.strip();
         if (trimmed.length() <= len) {
             return trimmed;
         }
@@ -364,35 +368,35 @@ public class StringUtils {
      *
      * @param strings
      *            문자열 리스트
-     * @param delimeter
+     * @param delimiter
      *            문자열 연결자
      * @param startsWithDelimeter
      *            구분자로 시작하는지 여부
      * @param trim
-     *            String.trim() 처리 여부
+     *            String.strip() 처리 여부
      * @param addNulpty
      *            문자열이 Null 또는 빈문자열(Empty)인 경우 추가 여부
      *
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2020. 1. 16
      */
-    public static String concat(List<String> strings, String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
-        Objects.requireNonNull(delimeter);
+    public static String concat(List<String> strings, String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
+        Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
         StringBuilder buf = new StringBuilder();
         Iterator<String> itr = strings.iterator();
 
         if (itr.hasNext()) {
-            append(buf, startsWithDelimeter ? delimeter : "", next(itr.next(), trim, addNulpty));
+            append(buf, startsWithDelimeter ? delimiter : "", next(itr.next(), trim, addNulpty));
         }
 
         while (itr.hasNext()) {
-            append(buf, buf.length() < 1 && !startsWithDelimeter ? "" : delimeter, next(itr.next(), trim, addNulpty));
+            append(buf, buf.length() < 1 && !startsWithDelimeter ? "" : delimiter, next(itr.next(), trim, addNulpty));
         }
 
         return buf.toString();
@@ -408,12 +412,12 @@ public class StringUtils {
      * 2019. 10. 15.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            문자열 연결자
      * @param startsWithDelimeter
      *            구분자로 시작하는지 여부
      * @param trim
-     *            String.trim() 처리 여부
+     *            String.strip() 처리 여부
      * @param addNulpty
      *            문자열이 Null 또는 빈문자열(Empty)인 경우 추가 여부
      * @param strings
@@ -422,19 +426,19 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 10. 15.
      */
-    public static String concat(String delimeter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
-        Objects.requireNonNull(delimeter);
+    public static String concat(String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
+        Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
-        return concat(Arrays.asList(strings), delimeter, startsWithDelimeter, trim, addNulpty);
+        return concat(Arrays.asList(strings), delimiter, startsWithDelimeter, trim, addNulpty);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -443,7 +447,7 @@ public class StringUtils {
      * 2019. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -453,16 +457,16 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      */
-    public static <T> String concatenate(String delimeter, boolean startsWithDelimeter, Collection<T> data) {
-        return concatenate(delimeter, false, data, StreamUtils.identity());
+    public static <T> String concatenate(String delimiter, boolean startsWithDelimeter, Collection<T> data) {
+        return concatenate(delimiter, false, data, StreamUtils.identity());
     }
 
     /**
-     * 문자열들({@code data}) 사이에 구분자({@code delimeter})를 추가하여 결합합니다.
+     * 문자열들({@code data}) 사이에 구분자({@code delimiter})를 추가하여 결합합니다.
      *
      * <pre>
      * [개정이력]
@@ -476,7 +480,7 @@ public class StringUtils {
      *            데이터 타입
      * @param <R>
      *            변환된 결과 타입
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -488,13 +492,13 @@ public class StringUtils {
      * @return 결합된 문자열. 만약 {@code data}가 비어있다면 빈 문자열("")을 반환합니다.
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code data}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code data}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      * @version 3.0.0
      */
-    public static <T, R> String concatenate(String delimeter, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
-        Objects.requireNonNull(delimeter);
+    public static <T, R> String concatenate(String delimiter, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
+        Objects.requireNonNull(delimiter);
         Objects.requireNonNull(data);
         Objects.requireNonNull(gen);
 
@@ -502,13 +506,13 @@ public class StringUtils {
             return "";
         }
 
-        String joined = data.stream().map(gen).map(String::valueOf).collect(Collectors.joining(delimeter));
+        String joined = data.stream().map(gen).map(String::valueOf).collect(Collectors.joining(delimiter));
 
-        return startsWithDelimeter ? delimeter + joined : joined;
+        return startsWithDelimeter ? delimiter + joined : joined;
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -517,7 +521,7 @@ public class StringUtils {
      * 2019. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -529,18 +533,18 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code data}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code data}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      */
-    public static <K, V, R> String concatenate(String delimeter, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+    public static <K, V, R> String concatenate(String delimiter, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
         Objects.requireNonNull(data);
 
-        return concatenate(delimeter, startsWithDelimeter, data.entrySet(), gen);
+        return concatenate(delimiter, startsWithDelimeter, data.entrySet(), gen);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -549,7 +553,7 @@ public class StringUtils {
      * 2019. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -559,19 +563,19 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code objects} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code objects} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      */
-    public static String concatenate(String delimeter, boolean startsWithDelimeter, Object... objects) {
-        Objects.requireNonNull(delimeter);
+    public static String concatenate(String delimiter, boolean startsWithDelimeter, Object... objects) {
+        Objects.requireNonNull(delimiter);
         Objects.requireNonNull(objects);
 
-        return concatenate(delimeter, startsWithDelimeter, Arrays.asList(objects), StreamUtils.identity());
+        return concatenate(delimiter, startsWithDelimeter, Arrays.asList(objects), StreamUtils.identity());
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -580,7 +584,7 @@ public class StringUtils {
      * 2019. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param startsWithDelimeter
      *            구분자를 제일 앞에 넣을지 여부
@@ -590,19 +594,19 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      */
-    public static String concatenate(String delimeter, boolean startsWithDelimeter, String... strings) {
-        Objects.requireNonNull(delimeter);
+    public static String concatenate(String delimiter, boolean startsWithDelimeter, String... strings) {
+        Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
-        return concatenate(delimeter, startsWithDelimeter, Arrays.asList(strings), StreamUtils.identity());
+        return concatenate(delimiter, startsWithDelimeter, Arrays.asList(strings), StreamUtils.identity());
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다.
      *
      * <pre>
      * [개정이력]
@@ -611,7 +615,7 @@ public class StringUtils {
      * 2012. 01. 17.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param data
      *            데이터
@@ -619,16 +623,16 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2012. 01. 17.
      */
-    public static <T> String concatenate(String delimeter, Collection<T> data) {
-        return concatenate(delimeter, false, data, StreamUtils.identity());
+    public static <T> String concatenate(String delimiter, Collection<T> data) {
+        return concatenate(delimiter, false, data, StreamUtils.identity());
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -637,7 +641,7 @@ public class StringUtils {
      * 2019. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param strings
      *            데이터
@@ -647,18 +651,18 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code strings}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code strings}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      *
      * @see #concatenate(String, boolean, Collection, Function)
      */
-    public static <T, R> String concatenate(String delimeter, Collection<T> strings, Function<T, R> gen) {
-        return concatenate(delimeter, false, strings, gen);
+    public static <T, R> String concatenate(String delimiter, Collection<T> strings, Function<T, R> gen) {
+        return concatenate(delimiter, false, strings, gen);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다. <br>
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -667,7 +671,7 @@ public class StringUtils {
      * 2019. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param data
      *            데이터
@@ -677,18 +681,18 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code data}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code data}, {@code gen} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 6. 21.
      */
-    public static <K, V, R> String concatenate(String delimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
-        return concatenate(delimeter, false, data, gen);
+    public static <K, V, R> String concatenate(String delimiter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+        return concatenate(delimiter, false, data, gen);
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다.
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param data
      *            데이터
@@ -696,20 +700,20 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter})가 {@code null}인 경우, 파라미터({@code data})가 {@code null}이거나 {@code data}에
+     *             파라미터({@code delimiter})가 {@code null}인 경우, 파라미터({@code data})가 {@code null}이거나 {@code data}에
      *             {@code null}이 포함된 경우 발생.
      */
-    public static String concatenate(String delimeter, Object... data) {
-        Objects.requireNonNull(delimeter);
+    public static String concatenate(String delimiter, Object... data) {
+        Objects.requireNonNull(delimiter);
         ObjectUtils.requireNonNulls((Object[]) data);
 
-        return concatenate(delimeter, false, Arrays.asList(data), StreamUtils.identity());
+        return concatenate(delimiter, false, Arrays.asList(data), StreamUtils.identity());
     }
 
     /**
-     * 문자열들({@code strings}) 사이에 구분자({@code delimeter})를 추가합니다.
+     * 문자열들({@code strings}) 사이에 구분자({@code delimiter})를 추가합니다.
      *
-     * @param delimeter
+     * @param delimiter
      *            구분자
      * @param strings
      *            데이터
@@ -717,13 +721,13 @@ public class StringUtils {
      * @return 연결된 문자열
      *
      * @throws NullPointerException
-     *             파라미터({@code delimeter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code delimiter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static String concatenate(String delimeter, String... strings) {
-        Objects.requireNonNull(delimeter);
+    public static String concatenate(String delimiter, String... strings) {
+        Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
-        return concatenate(delimeter, false, Arrays.asList(strings), StreamUtils.identity());
+        return concatenate(delimiter, false, Arrays.asList(strings), StreamUtils.identity());
     }
 
     /**
@@ -873,7 +877,7 @@ public class StringUtils {
         Objects.requireNonNull(string);
         Objects.requireNonNull(chs);
 
-        String trimmed = string.trim();
+        String trimmed = string.strip();
         if (trimmed.length() != 1) {
             return false;
         }
@@ -1101,31 +1105,31 @@ public class StringUtils {
      *
      * @param string
      *            문자열
-     * @param pre
+     * @param prefix
      *            시작 식별자
-     * @param suf
+     * @param suffix
      *            종료 식별자
      *
      * @return 추출된 문자열. 조건을 만족하지 못할 경우 {@code null} 반환.
      *
      * @throws NullPointerException
-     *             파라미터({@code string}, {@code pre}, {@code suf} 중에 1개라도)가 {@code null}인 경우 발생.
+     *             파라미터({@code string}, {@code prefix}, {@code suffix} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static @Nullable String enclosingSmallestString(String string, String pre, String suf) {
-        ObjectUtils.requireNonNulls(string, pre, suf);
+    public static @Nullable String enclosingSmallestString(String string, String prefix, String suffix) {
+        ObjectUtils.requireNonNulls(string, prefix, suffix);
 
-        int preIndex = string.indexOf(pre);
+        int preIndex = string.indexOf(prefix);
         if (preIndex < 0) {
             return null;
         }
 
-        int sufIndex = pre.equals(suf) ? indexOf(string, "\"".equals(pre) ? "\"" : suf, 2) : string.indexOf(suf, preIndex + pre.length());
+        int sufIndex = prefix.equals(suffix) ? indexOf(string, "\"".equals(prefix) ? "\"" : suffix, 2) : string.indexOf(suffix, preIndex + prefix.length());
 
         if (sufIndex < 0) {
             return null;
         }
 
-        return preIndex + pre.length() < sufIndex ? string.substring(preIndex + pre.length(), sufIndex) : null;
+        return preIndex + prefix.length() < sufIndex ? string.substring(preIndex + prefix.length(), sufIndex) : null;
     }
 
     /**
@@ -1149,11 +1153,12 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
+     * 문자열({@code string})이 접미사({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      *            문자열
      * @param suffixes
+     *            접미사 목록
      * 
      * @return
      * 
@@ -1173,14 +1178,21 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})이 접두어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다.
-     * 
+     * 문자열({@code string})이 접미어({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다.
+     *
      * @param string
      *            문자열
      * @param suffixes
-     * @return
+     *            접미어 가변 인자
+     *
+     * @return 접미어 중 하나로 끝나는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code suffixes} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     public static boolean endsWithOneOf(String string, String... suffixes) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(suffixes);
 
         for (String suffix : suffixes) {
             if (string.endsWith(suffix)) {
@@ -1192,25 +1204,33 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 포함되었는지 여부를 제공합니다. <br>
-     * 
+     * 주어진 문자열이 포함되었는지 여부를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 9. 25.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 9. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param target
+     *            대상 문자열
      * @param strings
-     * @return
+     *            문자열 컬렉션
+     *
+     * @return 포함 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code target}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
-    public static boolean exists(String target, Collection<String> strings) {
+    public static boolean exists(String target, Collection<@Nullable String> strings) {
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(strings);
+
         for (String str : strings) {
-            if (str.equals(target)) {
+            if (target.equals(str)) {
                 return true;
             }
         }
@@ -1219,46 +1239,62 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 포함되었는지 여부를 제공합니다. <br>
-     * 
+     * 주어진 문자열이 포함되었는지 여부를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 9. 25.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 9. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param target
+     *            대상 문자열
      * @param strings
-     * @return
+     *            문자열 가변 인자
+     *
+     * @return 포함 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code target}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
-    public static boolean exists(String target, String... strings) {
-        return strings != null ? exists(target, Arrays.asList(strings)) : false;
+    public static boolean exists(String target, @Nullable String... strings) {
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(strings);
+
+        return exists(target, Arrays.asList(strings));
     }
 
     /**
-     * 주어진 문자열이 포함되었는지 여부를 제공합니다. <br>
-     * 
+     * 주어진 문자열이 포함되었는지 여부를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 9. 25.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 9. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param target
+     *            대상 문자열
      * @param strings
-     * @return
+     *            문자열 컬렉션
+     *
+     * @return 포함 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code target}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
-    public static boolean existsIgnoreCase(String target, Collection<String> strings) {
+    public static boolean existsIgnoreCase(String target, Collection<@Nullable String> strings) {
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(strings);
+
         for (String str : strings) {
-            if (str.equalsIgnoreCase(target)) {
+            if (target.equalsIgnoreCase(str)) {
                 return true;
             }
         }
@@ -1267,47 +1303,61 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 포함되었는지 여부를 제공합니다. <br>
-     * 
+     * 주어진 문자열이 포함되었는지 여부를 제공합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 9. 25.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 9. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param target
+     *            대상 문자열
      * @param strings
-     * @return
+     *            문자열 가변 인자
+     *
+     * @return 포함 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code target}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2020. 9. 25.
-     * 
      */
-    public static boolean existsIgnoreCase(String target, String... strings) {
-        return strings != null ? existsIgnoreCase(target, Arrays.asList(strings)) : false;
+    public static boolean existsIgnoreCase(String target, @Nullable String... strings) {
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(strings);
+
+        return existsIgnoreCase(target, Arrays.asList(strings));
     }
 
     /**
-     * 
-     * <br>
-     * 
+     * 버퍼({@code buf})에 있는 데이터를 백업({@code list})하고 비웁니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 9. 27.     	parkjunhong77@gmail.com			최초 작성
-     * 2023. 12. 15.		parkjunhong77@gmail.com			접근자 변경 (private -> public)
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 9. 27.      parkjunhong77@gmail.com     최초 작성
+     * 2023. 12. 15.     parkjunhong77@gmail.com     접근자 변경 (private &rarr; public)
      * </pre>
      *
      * @param buf
+     *            문자열 버퍼
      * @param list
+     *            백업할 리스트
+     *
+     * @throws NullPointerException
+     *             파라미터({@code buf}, {@code list} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * 
      */
     public static void flushBuffer(StringBuffer buf, ArrayList<String> list) {
-        if (buf.length() < 1) {
+        Objects.requireNonNull(buf);
+        Objects.requireNonNull(list);
+
+        if (buf.isEmpty()) {
             return;
         }
 
@@ -1317,184 +1367,175 @@ public class StringUtils {
 
     /**
      * 다수의 문자열 값을 하나의 byte 배열로 반환합니다.
-     * 
+     *
      * @param strings
-     * @return
+     *            문자열 가변 인자
+     *
+     * @return 병합된 바이트 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code strings})가 {@code null}인 경우 발생.
      */
-    public static byte[] getBytes(String... strings) {
+    public static byte[] getBytes(@Nullable String... strings) {
+        Objects.requireNonNull(strings);
+
         byte[][] bytes = new byte[strings.length][];
 
         for (int i = 0; i < strings.length; i++) {
-            bytes[i] = strings[i].getBytes();
+            if (strings[i] != null) {
+                bytes[i] = strings[i].getBytes();
+            }
         }
 
         return ArrayUtils.merge(bytes);
     }
 
     /**
-     * 문자열 중에서 자바 및 C/C++ 코멘트 부분을 추출합니다.<br>
-     * 
+     * 문자열을 구분자로 나눈 후 제일 마지막 값을 반환합니다.
+     *
      * @param string
      *            문자열
-     * @return
+     * @param delimiter
+     *            구분자
+     *
+     * @return 마지막 문자열. 구분자가 존재하지 않는 경우 {@code null}을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static String getComment(String string) {
-        final int[] sIndex = getCommentType(string);
-        int eIndex = -1;
-        switch (sIndex[0]) {
-            case 1: // type is '/**'
-                eIndex = string.indexOf("*/");
-                if (eIndex > sIndex[1]) {
-                    return string.substring(sIndex[1] + 3, eIndex);
-                } else {
-                    return "";
-                }
-            case 2: // type is '/*'
-                eIndex = string.indexOf("*/");
-                if (eIndex > sIndex[1]) {
-                    return string.substring(sIndex[1] + 2, eIndex);
-                } else {
-                    return "";
-                }
-            case 3: // type is '//'
-                return string.substring(sIndex[1] + 2);
-            default:
-                return "";
-        }
-    }
+    public static @Nullable String getLast(String string, String delimiter) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
 
-    private static int[] getCommentType(String string) {
-        int sIndex = string.indexOf("/**");
-        if (sIndex > -1) {
-            return new int[] { 1, sIndex };
+        int ps = string.lastIndexOf(delimiter);
+        if (ps > -1) {
+            // [PATCH] 버그 수정: 구분자의 길이가 2 이상일 경우를 대비해 delimiter.length() 반영
+            return string.substring(ps + delimiter.length());
         }
 
-        sIndex = string.indexOf("/*");
-        if (sIndex > -1) {
-            return new int[] { 2, sIndex };
-        }
-
-        sIndex = string.indexOf("//");
-        if (sIndex > -1) {
-            return new int[] { 3, sIndex };
-        }
-
-        return new int[] { 0, sIndex };
-    }
-
-    /**
-     * 문자열에서 큰따옴표로 묶인 문자열을 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @return 큰따옴표로 묶인 문자열. 없는 경우 {@code null} 반환.
-     */
-    public static String getDoubleQuotationString(String string) {
-        if (string != null) {
-            int sIndex = -1;
-            if ((sIndex = string.indexOf("\"")) > -1) {
-                int eIndex = indexOf(string, "\"", 2);
-                if (eIndex > -1) {
-                    return string.substring(sIndex + 1, eIndex);
-                }
-            }
-        }
         return null;
     }
 
     /**
-     * 문자열을 구분자로 나눈 후 제일 마지막 값을 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @param delimiter
-     * @return 마지막 문자열. 구분자가 존재하지 않는 경우 {@code null}을 반환합니다.
-     */
-    public static String getLast(String string, String delimiter) {
-        String rtnString = null;
-        int ps = string.lastIndexOf(delimiter);
-        if (ps > -1) {
-            rtnString = string.substring(ps + 1, string.length());
-        }
-        return rtnString;
-    }
-
-    /**
-     * 문자열에서 찾고 싶은 문자열이 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환합니다.<br>
-     * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환합니다. <br>
-     * 
+     * 문자열에서 찾고 싶은 문자가 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환합니다.<br>
+     * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 21.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * <pre>
      * e.g.
-     * indexOf("안녕하세요. 나는 하하입니다.", '하', 2) -> 11
-     * indexOf("안녕하세요. 나는 하하입니다.", '하', 4) -> -1
+     * indexOf("안녕하세요. 나는 하하입니다.", '하', 2) &rarr; 11
+     * indexOf("안녕하세요. 나는 하하입니다.", '하', 4) &rarr; -1
      * </pre>
-     * 
+     *
      * @param sourceString
+     *            대상 문자열
      * @param c
+     *            검색할 문자
      * @param ordinal
-     * @return
+     *            검색 문자가 나오는 횟수 (1부터 시작)
+     *
+     * @return 인덱스 위치. 조건을 만족하지 않으면 -1을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code sourceString})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 21.
-     * 
      */
     public static int indexOf(String sourceString, char c, int ordinal) {
-        int[] indice = indiceOf(sourceString, c);
+        Objects.requireNonNull(sourceString);
 
-        if (indice.length < ordinal || ordinal < 1) {
+        if (ordinal < 1) {
             return -1;
-        } else {
-            return indice[ordinal - 1];
         }
+
+        int[] indice = indiceOf(sourceString, c);
+        if (indice.length < ordinal) {
+            return -1;
+        }
+
+        return indice[ordinal - 1];
     }
 
     /**
      * 문자열에서 찾고 싶은 문자열이 지정한 횟수만큼 나오는 경우 원래 문자열에서 몇번째에 시작되는지를 반환합니다.<br>
      * 지정한 횟수만큼 발생하지 않거나 예외가 발생하면 -1을 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 1. 6.       parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * <pre>
      * e.g.
-     * indexOf("안녕하세요. 나는 하하입니다.", "하", 2) -> 11
-     * indexOf("안녕하세요. 나는 하하입니다.", "하", 4) -> -1
+     * indexOf("안녕하세요. 나는 하하입니다.", "하", 2) &rarr; 11
+     * indexOf("안녕하세요. 나는 하하입니다.", "하", 4) &rarr; -1
      * </pre>
-     * 
-     * 결과:
-     * 
+     *
      * @param sourceString
      *            대상 문자열
      * @param searchedString
      *            검색 문자열
      * @param ordinal
-     *            검색 문자열이 나오는 횟수
-     * @return
-     * 
-     * 
-     * 
+     *            검색 문자열이 나오는 횟수 (1부터 시작)
+     *
+     * @return 인덱스 위치. 조건을 만족하지 않으면 -1을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code sourceString}, {@code searchedString} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @since 2012. 1. 6.
      */
     public static int indexOf(String sourceString, String searchedString, int ordinal) {
-        int[] indice = indiceOf(sourceString, searchedString);
-        if (indice.length < ordinal || ordinal < 1) {
+        Objects.requireNonNull(sourceString);
+        Objects.requireNonNull(searchedString);
+
+        if (ordinal < 1) {
             return -1;
-        } else {
-            return indice[ordinal];
         }
+
+        int[] indice = indiceOf(sourceString, searchedString);
+        if (indice.length < ordinal) {
+            return -1;
+        }
+
+        // [PATCH] 버그 수정: 0-based 배열이므로 ordinal - 1 위치를 참조해야 안전함.
+        return indice[ordinal - 1];
     }
 
     /**
-     * {@code pre}와 {@code suf}로 둘어싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환합니다.
-     * 
+     * {@code prefix}와 {@code suffix}로 둘러싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환합니다.
+     *
      * @param string
      *            문자열
-     * @param pre
-     * @param suf
+     * @param prefix
+     *            시작 문자열
+     * @param suffix
+     *            종료 문자열
+     *
      * @return 길이 2인 배열. 만족하지 않는 경우 {@code null} 반환
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code prefix}, {@code suffix} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static int[] indexOf(String string, String pre, String suf) {
-        int preIndex = string.indexOf(pre);
+    public static int @Nullable [] indexOf(String string, String prefix, String suffix) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(prefix);
+        Objects.requireNonNull(suffix);
+
+        int preIndex = string.indexOf(prefix);
         if (preIndex < 0) {
             return null;
         }
 
-        int sufIndex = string.indexOf(suf);
+        int sufIndex = string.indexOf(suffix);
         if (sufIndex < 0) {
             return null;
         }
@@ -1504,33 +1545,37 @@ public class StringUtils {
 
     /**
      * 주어진 2개의 문자열이 서로 다른 시작부분의 인덱스를 반환합니다.
-     * 
+     *
      * @param str1
+     *            대상 문자열 1
      * @param str2
+     *            대상 문자열 2
      * @param begin
      *            비교 시작 위치
-     * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생합니다.
+     *
+     * @return 서로 다른 위치의 인덱스. 다음과 같은 경우 -1 반환:
      *         <ul>
-     *         <li>주어진 문자열이 {@code null}
-     *         <li>비교 시작 값이 음수
-     *         <li>주어진 문자열이 길이가 비교 시작값보다 작은 경우
-     *         <li>주어진 문자열의 길이가 0
+     *         <li>비교 시작 값이 음수</li>
+     *         <li>주어진 문자열 길이가 비교 시작값보다 작은 경우</li>
      *         </ul>
+     *
+     * @throws NullPointerException
+     *             파라미터({@code str1}, {@code str2} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     public static int indexOfDifferent(String str1, String str2, int begin) {
+        Objects.requireNonNull(str1);
+        Objects.requireNonNull(str2);
 
-        if (str1 == null || str2 == null || begin < 0 //
-                || str1.length() < begin || str2.length() < begin) {
+        if (begin < 0 || str1.length() < begin || str2.length() < begin) {
             return -1;
         }
 
         char[] cs1 = str1.toCharArray();
         char[] cs2 = str2.toCharArray();
+        int cl = Math.min(cs1.length, cs2.length);
 
-        // compare length
-        int cl = cs1.length < cs2.length ? cs1.length : cs2.length;
-
-        int i = 0;
+        // [PATCH] 버그 수정: i = 0이 아니라 파라미터로 받은 begin부터 시작하도록 수정
+        int i = begin;
         for (; i < cl; i++) {
             if (cs1[i] != cs2[i]) {
                 return i;
@@ -1541,220 +1586,243 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 2개의 문자열이 서로 다른 시작부분의 인덱스를 반환합니다.
-     * 
+     * 주어진 2개의 문자열이 처음부터 서로 다른 인덱스를 반환합니다.
+     *
      * @param str1
+     *            대상 문자열 1
      * @param str2
-     * @return 서로 다른 위치의 인덱스. -1은 다음과 같은 경우에 발생합니다.
-     *         <ul>
-     *         <li>주어진 문자열이 {@code null}
-     *         <li>주어진 문자열의 길이가 0
-     *         </ul>
-     * 
+     *            대상 문자열 2
+     *
+     * @return 서로 다른 위치의 인덱스.
+     *
      * @see #indexOfDifferent(String, String, int)
      */
     public static int indexOfDifferentAtFirst(String str1, String str2) {
+        // 순수 위임이므로 Null-check는 Core 메소드인 indexOfDifferent에 일임
         return indexOfDifferent(str1, str2, 0);
     }
 
     /**
      * 주어진 문자열 안에 찾고자하는 문자의 인덱스들을 반환합니다.<br>
      * 캐릭터가 존재하지 않는 경우 길이가 0 인 배열을 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2011. 11. 06.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param string
      *            문자열
      * @param c
-     * @return
-     * 
+     *            검색할 문자
+     *
+     * @return 인덱스 배열
+     *
      * @throws NullPointerException
-     *             {@code string}값이 {@code null}인 경우
-     * 
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
      * @since 2011. 11. 06.
      */
     public static int[] indiceOf(String string, char c) {
+        Objects.requireNonNull(string);
+
         if (string.indexOf(c) < 0) {
             return new int[0];
-        } else {
-            return ArrayUtils.indiceOf(string.toCharArray(), c);
         }
+
+        return ArrayUtils.indiceOf(string.toCharArray(), c);
     }
 
     /**
      * 주어진 문자열 안에 찾고자 하는 문자열의 인덱스들을 반환합니다.<br>
      * 찾고자 하는 문자열이 존재하지 않는 경우 길이가 0인 배열을 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 21.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param sourceString
+     *            대상 문자열
      * @param searchedString
-     * @return
+     *            검색 문자열
+     *
+     * @return 인덱스 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code sourceString}, {@code searchedString} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 21.
-     * 
      */
     public static int[] indiceOf(String sourceString, String searchedString) {
+        Objects.requireNonNull(sourceString);
+        Objects.requireNonNull(searchedString);
+
         if (searchedString.length() == 1) {
             return indiceOf(sourceString, searchedString.charAt(0));
-        } else if (sourceString.indexOf(searchedString) < 0) {
-            return new int[0];
-        } else {
-            int[] result = new int[sourceString.length() / searchedString.length()];
-
-            int index = 0;
-            int searchedIndex = -1;
-            for (int i = 0; i < sourceString.length();) {
-                if ((searchedIndex = sourceString.indexOf(searchedString, i)) > -1) {
-                    result[index++] = searchedIndex;
-                    i = searchedIndex + searchedString.length();
-                } else {
-                    i++;
-                }
-            }
-
-            if (result.length == index) {
-                return result;
-            } else {
-                return Arrays.copyOf(result, index);
-            }
         }
+
+        if (sourceString.indexOf(searchedString) < 0) {
+            return new int[0];
+        }
+
+        int[] result = new int[sourceString.length() / searchedString.length()];
+        int index = 0;
+        int start = 0;
+        int searchedIndex;
+
+        // [PATCH] 불필요한 전체 순회를 방지하고 발견 시에만 건너뛰도록 while 문으로 최적화
+        while ((searchedIndex = sourceString.indexOf(searchedString, start)) > -1) {
+            result[index++] = searchedIndex;
+            start = searchedIndex + searchedString.length();
+        }
+
+        return result.length == index ? result : Arrays.copyOf(result, index);
     }
 
     /**
      * 주어진 문자열이 모두 소문자인지 여부를 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 19.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 소문자로만 구성되어 있는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 19.
-     * 
      */
     public static boolean isAllLowcase(String string) {
+        Objects.requireNonNull(string);
+
         return !containsUppercase(string);
     }
 
     /**
      * 주어진 문자열이 모두 대문자인지 여부를 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 19.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 대문자로만 구성되어 있는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 19.
-     * 
      */
     public static boolean isAllUppercase(String string) {
+        Objects.requireNonNull(string);
+
         return !containsLowcase(string);
     }
 
     /**
      * 주어진 문자열이 10진수 숫자인지 여부를 반환합니다.
-     * 
-     * @param str
-     * @return
+     *
+     * @param string
+     *            문자열
+     *
+     * @return 10진수 숫자 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code str})가 {@code null}인 경우 발생.
      */
-    public static boolean isDecimalNumber(String str) {
-        if (str == null || (str = str.trim()).length() < 1) {
+    public static boolean isDecimalNumber(String string) {
+        Objects.requireNonNull(string);
+
+        String trimmed = string.strip();
+        if (trimmed.isEmpty()) {
             return false;
         }
 
-        char[] cs = str.toCharArray();
-
+        char[] cs = trimmed.toCharArray();
         int pos = 0;
 
+        // 음수 기호 처리
         if (cs[0] == '-') {
+            // 문자열이 "-" 단독일 경우 숫자가 아님 (기존 버그 수정)
+            if (cs.length == 1) {
+                return false;
+            }
             pos = 1;
         }
 
+        // 아스키코드 기반 10진수 숫자('0' ~ '9') 검증
         for (; pos < cs.length; pos++) {
-            if (cs[pos] < 48 || cs[pos] > 57) {
+            char c = cs[pos];
+            if (c < '0' || c > '9') {
                 return false;
             }
         }
-
-        // for (char n : str.toCharArray()) {
-        //
-        // if (n < 48 || n > 57) {
-        // return false;
-        // }
-        // }
 
         return true;
     }
 
     /**
-     * 빈 문자열인지 코멘트인지 여부를 반환합니다.
-     * 
+     * 주어진 문자열이 {@code null}이거나 빈 문자열(공백 포함)인지 여부를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 11.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) JDK 11+ isBlank() 로직으로 교체
+     * </pre>
+     *
      * @param string
      *            문자열
-     * @return
-     */
-    public static boolean isEmptyOrComment(String string) {
-        // getComment(string).trim().isEmpty();
-        return string.trim().isEmpty() || removeComment(string).trim().isEmpty();
-    }
-
-    /**
-     * 문자열이 자바변수인지 여부를 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @return
-     */
-    public static boolean isJavaIdentifier(String string) {
-        if (string != null && !string.isEmpty()) {
-            char[] chs = string.toCharArray();
-            if (Character.isJavaIdentifierStart(chs[0])) {
-                for (int i = 1; i < chs.length; i++) {
-                    if (!Character.isJavaIdentifierPart(chs[i])) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean isMultiLinedCommenEnded(String string) {
-        try {
-            return string.matches(MULTI_LINED_COMMENT_END);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public static boolean isMultiLinedCommentBegan(String string) {
-        try {
-            return string.matches(MULTI_LINED_COMMENT_BEGIN);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
-     * 주어진 문자열이 {@code null}이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @return
-     * 
-     * 
-     * 
+     *
+     * @return {@code null}이거나 빈 문자열인 경우 {@code true}
+     *
      * @since 2012. 01. 11.
      */
     public static boolean isNullOrEmptyString(@Nullable String string) {
-        if (isWhiteSpace(string)) {
-            return false;
-        } else {
-            return string == null || string.trim().isEmpty();
-        }
+        return string == null || string.isBlank();
     }
 
     /**
-     * 주어진 문자열들 모두 {@code null}이거나 trim() 처리후 빈 문자열인지 여부를 반환합니다.
-     * 
+     * 주어진 문자열들이 모두 {@code null}이거나 빈 문자열(공백 포함)인지 여부를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 19.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param strings
-     * @return
+     *            문자열 가변 인자
+     *
+     * @return 모두 조건을 만족하는 경우 {@code true}
+     *
+     * @throws NullPointerException
+     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 19.
-     * 
      */
     public static boolean isNullOrEmptyStringAnd(@Nullable String... strings) {
+        Objects.requireNonNull(strings);
+
         for (String string : strings) {
             if (!isNullOrEmptyString(string)) {
                 return false;
@@ -1765,14 +1833,28 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들 중에 {@code null}이거나 trim() 처리후 빈 문자열인지 포함되어 있는지 여부를 반환합니다.
-     * 
+     * 주어진 문자열들 중에 {@code null}이거나 빈 문자열(공백 포함)이 1개라도 포함되어 있는지 여부를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 19.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param strings
-     * @return
+     *            문자열 가변 인자
+     *
+     * @return 1개라도 조건을 만족하는 경우 {@code true}
+     *
+     * @throws NullPointerException
+     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 19.
-     * 
      */
     public static boolean isNullOrEmptyStringOr(@Nullable String... strings) {
+        Objects.requireNonNull(strings);
+
         for (String string : strings) {
             if (isNullOrEmptyString(string)) {
                 return true;
@@ -1782,12 +1864,27 @@ public class StringUtils {
         return false;
     }
 
-    public static OneCharacterString isOneCharacter(String string) {
-        if (string == null || string.length() < 1) {
-            throw new IllegalArgumentException("\"string\" must not be null and the length must be longer that zereo");
-        }
-        char[] cs = string.toCharArray();
+    /**
+     * 문자열이 동일한 단 하나의 문자로만 이루어져 있는지 확인하여 객체로 반환합니다.
+     *
+     * @param string
+     *            검증할 문자열
+     *
+     * @return 단일 문자로만 구성된 경우 객체 반환, 그렇지 않은 경우 {@code null} 반환
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     * @throws IllegalArgumentException
+     *             파라미터({@code string})가 빈 문자열인 경우 발생.
+     */
+    public static @Nullable OneCharacterString isOneCharacter(String string) {
+        Objects.requireNonNull(string);
 
+        if (string.isEmpty()) {
+            throw new IllegalArgumentException("\"string\" must not be empty");
+        }
+
+        char[] cs = string.toCharArray();
         for (int i = 0; i < cs.length - 1; i++) {
             if (cs[i] != cs[i + 1]) {
                 return null;
@@ -1797,208 +1894,223 @@ public class StringUtils {
         return new OneCharacterString(string);
     }
 
-    public static boolean isSingleLinedComment(String string) {
-        string = string.trim();
-        return string.startsWith("//") || (string.startsWith("/*") && string.endsWith("*/"));
-    }
-
     /**
-     * Returns whether <b>{@code string}</b> is a whitespace or not.
-     * 
+     * 문자열이 공백 문자로만 이루어져 있는지 여부를 반환합니다. (빈 문자열은 제외)
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 6. 28.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 로직 오류 수정 및 isBlank() 적용
+     * </pre>
+     *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 공백으로만 이루어진 경우 {@code true}
+     *
      * @since 2012. 6. 28.
-     * 
      */
     public static boolean isWhiteSpace(@Nullable String string) {
-        if (string != null) {
-            string = string.trim();
-            if (string.length() > 1) {
-                return false;
-            } else {
-                return string.isEmpty() ? false : Character.isWhitespace(string.charAt(0));
-            }
-        } else {
+        if (string == null || string.isEmpty()) {
             return false;
         }
+
+        return string.isBlank();
     }
 
     /**
      * 문자열에서 찾고자하는 문자의 가장 마지막 위치를 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 11. 27.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 11. 27.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 표준 API(lastIndexOf)로 위임하여 성능 최적화
      * </pre>
      *
      * @param string
+     *            대상 문자열
      * @param c
+     *            검색할 문자
+     *
      * @return 문자의 가장 마지막 위치. 없는 경우 -1.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2023. 11. 27.
      * @version 2.0.0
-     * 
      */
     public static int lastIndexOf(String string, char c) {
+        Objects.requireNonNull(string);
 
-        if (string == null || string.isEmpty()) {
-            return -1;
-        }
-
-        for (int idx = string.length() - 1; idx > -1; idx--) {
-            if (string.charAt(idx) == c) {
-                return idx;
-            }
-        }
-
-        return -1;
+        return string.lastIndexOf(c);
     }
 
     /**
      * 주어진 문자열에 'Left-Padding'을 적용하여 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 19.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 9. 19.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) String.repeat() 로직 적용
      * </pre>
      *
-     * @param str
+     * @param string
+     *            대상 문자열
      * @param padding
+     *            전체 길이
      * @param padChar
-     * @return
+     *            채울 문자
+     *
+     * @return 패딩이 적용된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 19.
      * @version 2.1.0
-     * 
      */
-    public static String leftPad(String str, int padding, char padChar) {
-        if (str == null) {
-            return null;
-        }
-        int strLength = str.length();
+    public static String leftPad(String string, int padding, char padChar) {
+        Objects.requireNonNull(string);
+
+        int strLength = string.length();
         if (strLength >= padding) {
-            return str;
+            return string;
         }
-        int padCount = padding - strLength;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < padCount; i++) {
-            sb.append(padChar);
-        }
-        sb.append(str);
-        return sb.toString();
+
+        return String.valueOf(padChar).repeat(padding - strLength) + string;
     }
 
     /**
      * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
-     * 
+     *
      * @param l
+     *            변환할 숫자
      * @param length
-     * @return
+     *            전체 길이
+     *
+     * @return 패딩이 적용된 문자열
      */
     public static String lpad(long l, int length) {
-        return lpad(String.valueOf(l), length);
+        // 순수 위임 (Core Method로 전달)
+        return lpad(String.valueOf(l), length, false);
     }
 
     /**
      * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
-     * 
+     *
      * @param l
+     *            변환할 숫자
      * @param length
-     * @return
+     *            전체 길이
+     * @param ommit
+     *            길이가 초과될 때 앞부분을 생략(omit)할지 여부
+     *
+     * @return 패딩이 적용된 문자열
      */
     public static String lpad(long l, int length, boolean ommit) {
+        // 순수 위임 (Core Method로 전달)
         return lpad(String.valueOf(l), length, ommit);
     }
 
     /**
      * 문자열을 주어진 길이만큼 Left Zero-Padding 을 적용시켜 반환합니다.<br>
      * 단, 문자열의 길이가 길이보다 긴 경우 원본 데이터를 반환합니다.
-     * 
-     * @param str
+     *
+     * @param string
+     *            대상 문자열
      * @param length
-     * @return
+     *            전체 길이
+     *
+     * @return 패딩이 적용된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
-    public static String lpad(String str, int length) {
-        if (str == null || str.length() >= length || length < 0) {
-            return str;
-        }
-
-        char[] cs = new char[length];
-
-        int i = 0;
-        for (; i < length - str.length(); i++) {
-            cs[i] = '0';
-        }
-
-        System.arraycopy(str.toCharArray(), 0, cs, i, str.length());
-
-        return new String(cs);
+    public static String lpad(String string, int length) {
+        return lpad(string, length, false);
     }
 
     /**
      * 문자열을 주어진 길이만큼 Left Zero-Padding 을 적용시켜 반환합니다.<br>
-     * 
-     * @param str
+     *
+     * @param string
+     *            대상 문자열
      * @param length
+     *            전체 길이
      * @param ommit
-     *            남는 부분 제거 여부
-     * @return
+     *            길이가 초과될 때 앞부분을 잘라낼지 여부
+     *
+     * @return 패딩이 적용된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
-    public static String lpad(String str, int length, boolean ommit) {
-        if (str == null || length < 0 || (ommit ? false : str.length() >= length)) {
-            return str;
+    public static String lpad(String string, int length, boolean ommit) {
+        Objects.requireNonNull(string);
+
+        if (length < 0) {
+            return string;
         }
 
-        char[] cs = new char[length];
-
-        int i = 0;
-        for (; i < length - str.length(); i++) {
-            cs[i] = '0';
+        int diff = length - string.length();
+        if (diff <= 0) {
+            return ommit ? string.substring(-diff) : string;
         }
 
-        System.arraycopy(str.toCharArray(), str.length() - length + i, cs, i, length - i);
-
-        return new String(cs);
+        return "0".repeat(diff) + string;
     }
 
     /**
      * 주어진 문자열에 대해서 왼쪽 trim 결과를 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 왼쪽 공백이 제거된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String ltrim(String string) {
-        char[] cStr = string.toCharArray();
+        Objects.requireNonNull(string);
 
-        int i = 0;
-        for (; i < cStr.length; i++) {
-            if (!Character.isWhitespace(cStr[i])) {
-                break;
-            }
-        }
-
-        return string.substring(i);
+        return string.stripLeading();
     }
 
     /**
      * 주어진 문자열의 앞에서부터 지우고자 하는 문자가 제거된 문자열을 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 16.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param string
      *            문자열
-     * @return
+     * @param c
+     *            제거할 문자
+     *
+     * @return 대상 문자가 제거된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 16.
-     * 
      */
     public static String ltrimSpecific(String string, char c) {
-        char[] cStr = string.toCharArray();
+        Objects.requireNonNull(string);
 
+        char[] cStr = string.toCharArray();
         int i = 0;
         for (; i < cStr.length; i++) {
             if (cStr[i] != c) {
@@ -2012,244 +2124,121 @@ public class StringUtils {
     /**
      * 주어진 문자열의 앞에서부터 지우고자하는 문자열이 제거된 문자열을 반환합니다.<br>
      * <br>
-     * ltrimSpecific("안녕하세요안녕하세요방갑습니다", "안녕하세요") -> 방갑습니다
-     * 
+     * ltrimSpecific("안녕하세요안녕하세요방갑습니다", "안녕하세요") &rarr; 방갑습니다
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 21.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) O(N) while 루프 기반으로 로직 최적화
+     * </pre>
+     *
      * @param sourceString
      *            주어진 문자열
      * @param targetString
      *            지우고자 하는 문자열
+     *
      * @return 새로운 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code sourceString}, {@code targetString} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 21.
-     * 
      */
     public static String ltrimSpecific(String sourceString, String targetString) {
-        if (sourceString.indexOf(targetString) != 0) {
+        Objects.requireNonNull(sourceString);
+        Objects.requireNonNull(targetString);
+
+        if (targetString.isEmpty()) {
             return sourceString;
-        } else {
-            int[] indice = indiceOf(sourceString, targetString);
-
-            if (indice.length < 2) {
-                return sourceString.substring(targetString.length());
-            } else {
-                // tsl: Targeted String Length
-                int tsl = targetString.length();
-                int i = 0;
-                for (; i < indice.length - 1; i++) {
-                    if (indice[i] + tsl != indice[i + 1]) {
-                        break;
-                    }
-                }
-
-                return sourceString.substring(indice[i] + tsl);
-            }
         }
+
+        while (sourceString.startsWith(targetString)) {
+            sourceString = sourceString.substring(targetString.length());
+        }
+
+        return sourceString;
     }
 
-    private static Optional<String> next(String str, boolean trim, boolean addNulpty) {
-        // null 확인
+    /**
+     * 조건에 따라 문자열을 변환하여 {@link Optional}로 감싸서 반환합니다.
+     *
+     * @param str
+     *            변환할 문자열
+     * @param trim
+     *            양끝 공백 제거 여부
+     * @param addNulpty
+     *            {@code null}이거나 빈 문자열일 때 대체 값을 추가할지 여부
+     *
+     * @return 변환된 문자열의 {@code Optional} 객체.
+     */
+    private static Optional<@Nullable String> next(@Nullable String str, boolean trim, boolean addNulpty) {
         if (str == null) {
             return Optional.ofNullable(addNulpty ? "null" : null);
-        } else
-        // 빈 문자열 확인
-        if (str.trim().isEmpty()) {
+        }
+
+        if (str.isBlank()) {
             return Optional.ofNullable(addNulpty ? (trim ? "" : str) : null);
-        } else {
-            return Optional.of(trim ? str.trim() : str);
-        }
-    }
-
-    /**
-     * 주어진 문자열이 {@link NotBlank}인지를 검증합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 8. 27.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param string
-     *            {@link String#trim()} 처리된 문자열.
-     * @return
-     *
-     * @since 2025. 8. 27.
-     * @version 2.1.0
-     * 
-     */
-    public static String notBlank(String string) {
-        Objects.requireNonNull(string);
-        AssertUtils2.isFalse(string.trim().length() < 1);
-        return string.trim();
-    }
-
-    /**
-     * 주어진 문자열이 모두 {@link NotBlank} 인지를 검증합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 8. 29.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param strings
-     * @return
-     *
-     * @since 2025. 8. 29.
-     * @version 2.1.0
-     * 
-     */
-    public static String[] notBlanks(String... strings) {
-        for (String string : strings) {
-            Objects.requireNonNull(string);
-            AssertUtils2.isFalse(string.trim().length() < 1);
-        }
-        return Stream.of(strings).map(s -> s.trim()).toArray(String[]::new);
-    }
-
-    /**
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2011. 6. 23.		parkjunhong77@gmail.com			최초 작성
-     * 2019. 1. 24.		parkjunhong77@gmail.com			복사 dest pos 버그 수정. (i * n -> i * strArray.length)
-     * </pre>
-     *
-     * @param string
-     *            문자열
-     * @param n
-     * @return
-     *
-     * 
-     * @since 2011. 6. 23.
-     */
-    public static String nTimesString(String string, int n) {
-        char[] cs = new char[string.length() * n];
-
-        char[] strArray = string.toCharArray();
-
-        for (int i = 0; i < n; i++) {
-            System.arraycopy(strArray, 0, cs, i * strArray.length, strArray.length);
         }
 
-        return new String(cs);
-    }
-
-    /**
-     * 문자열에서 코멘트 부분을 삭제한 문자열을 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @return
-     */
-    public static String removeComment(String string) {
-        int sIndex = -1;
-        // check '/**'
-        sIndex = string.indexOf("/**");
-        if (sIndex < 0) {
-            // check '/*'
-            sIndex = string.indexOf("/*");
-        }
-        if (sIndex > -1) {
-            int eIndex = string.indexOf("*/");
-
-            if (eIndex > sIndex) {
-                return substring(string, sIndex, eIndex + 2);
-            }
-        } else
-        // check '//'
-        if ((sIndex = string.indexOf("//")) > -1) {
-            return string.substring(0, sIndex);
-        }
-
-        return string;
-    }
-
-    /**
-     * '_'을 제거하고 바로 다음 문자를 대문자로 변경시킨다.<br>
-     * 예: {@code rk_disapp_info -> RkDisappInfo}
-     * 
-     * @param string
-     *            문자열
-     * @return
-     */
-    public static String removeUnderlineAndNextUppercase(String string) {
-
-        StringBuilder sb = new StringBuilder();
-        String[] strings = string.split(toRegExString("_"));
-
-        for (int i = 0; i < strings.length; i++) {
-            if (strings[i].length() > 0) {
-                sb.append(toUpperCase(strings[i], 0));
-            } else {
-                System.err.println("Oops! zero_string_element: " + string + "'s " + i + "th");
-            }
-        }
-
-        return sb.toString();
-    }
-
-    /**
-     * '_'을 제거하고 바로 다음 문자만 대문자로 변경시킨다. 나머지 문자는 모두 소문자이다.<br>
-     * 예: {@code INT_VALUE -> IntValue}
-     * 
-     * @param string
-     *            문자열
-     * @return
-     */
-    public static String removeUnderlineAndNextUppercaseOtherLowcase(String string) {
-        return removeUnderlineAndNextUppercase(string.toLowerCase());
+        return Optional.of(trim ? str.strip() : str);
     }
 
     /**
      * 주어진 문자열에서 문자를 변경합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 30.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 표준 API(replace) 위임 처리
+     * </pre>
+     *
      * @param string
      *            변경할 대상 문자열
      * @param o
      *            변경될 대상 문자
      * @param n
      *            새로운 문자
-     * @return
-     * 
+     *
+     * @return 변경된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 03. 30.
-     * 
      */
     public static String replace(String string, char o, char n) {
-        if (string != null) {
-            char[] cs = string.toCharArray();
+        Objects.requireNonNull(string);
 
-            for (int i = 0; i < cs.length; i++) {
-                if (cs[i] == o) {
-                    cs[i] = n;
-                }
-            }
-
-            return new String(cs);
-        } else {
-            return null;
-        }
+        return string.replace(o, n);
     }
 
     /**
      * 주어진 문자열에서 인덱스 배열에 해당하는 위치의 문자를 변경합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param t
+     *            바꿀 문자
      * @param indice
-     * @return
+     *            변경할 위치의 인덱스 배열
+     *
+     * @return 변경된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code indice} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     public static String replace(String string, char t, int... indice) {
-        char[] cs = string.toCharArray();
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(indice);
 
-        for (int i = 0; i < indice.length; i++) {
-            if (indice[i] < cs.length) {
-                cs[indice[i]] = t;
+        char[] cs = string.toCharArray();
+        for (int i : indice) {
+            if (i >= 0 && i < cs.length) {
+                cs[i] = t;
             }
         }
 
@@ -2258,297 +2247,219 @@ public class StringUtils {
 
     /**
      * 주어진 문자열에 포함된 문자를 새로운 문자열로 변경합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param o
      *            변경될 문자
-     * @param n
+     * @param newStr
      *            새로운 문자열
-     * @return
+     *
+     * @return 변경된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code newStr} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static String replace(String string, char o, String n) {
-        if (string != null && n != null && n.length() > 0) {
-            // If a new string contains only 1 character.
-            if (n.length() < 2) {
-                return replace(string, o, n.charAt(0));
-            }
+    public static String replace(String string, char o, String newStr) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(newStr);
 
-            int[] oIndice = indiceOf(string, o);
-
-            if (oIndice.length > 0) {
-                char[] cs = string.toCharArray();
-                char[] ncs = n.toCharArray();
-
-                char[] newcs = new char[cs.length + (ncs.length - 1) * oIndice.length];
-
-                int newcsCpIndex = 0; // The index to be copied of 'char[] newcs'
-                int csCpIndex = 0; // The index to be copied of 'char[] cs'
-                int lIndiceIndex = -1; // The latest index of 'char o'
-                int i = 0;
-                for (; i < oIndice.length; i++) {
-                    // step.1 : Copy strings between characters to be replaced.
-                    if ((lIndiceIndex = oIndice[i] - lIndiceIndex) > 1) {
-                        System.arraycopy(cs, csCpIndex, newcs, newcsCpIndex, lIndiceIndex - 1);
-                        // Increase the copied index of 'char[] newcs'
-                        newcsCpIndex += lIndiceIndex - 1;
-                    }
-                    // Change a latest index of 'char o'
-                    lIndiceIndex = oIndice[i];
-                    // Change a next index to be copied of 'char[] cs'
-                    csCpIndex = oIndice[i] + 1;
-
-                    // step.2 : Copy a new string
-                    System.arraycopy(ncs, 0, newcs, newcsCpIndex, ncs.length);
-
-                    // step.3 : Increase the copied index of 'char[] newcs'
-                    newcsCpIndex += ncs.length;
-                }
-
-                // step.4: Copy remained strings to 'char[] newcs'
-                if (oIndice[--i] < cs.length - 1) {
-                    System.arraycopy(cs, oIndice[i] + 1, newcs, newcsCpIndex, cs.length - 1 - oIndice[i]);
-                }
-
-                return new String(newcs);
-
-            }
-        }
-
-        return string;
+        return string.replace(String.valueOf(o), newStr);
     }
 
     /**
-     * 문자열에서 {@code olds}의 내용들을 {@code news}의 내용들로 순서대로 변환한 문자열을 반환합니다.
-     * 
+     * 문자열을 {@code map}의 매핑 정보에 맞추어 동시에 1-Pass로 변환한 후 반환합니다. <br>
+     * 이중 치환(Double Replacement)을 방지하며, 길이가 긴 키워드부터 우선 매칭됩니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 4. 3.       parkjunhong77@gmail.com     최초 작성 (이중 치환 버그 수정 및 1-Pass 로직 적용)
+     * </pre>
+     *
      * @param string
-     *            문자열
-     * @param olds
-     * @param news
-     * @return 2개의 {@link Collection}의 길이가 다르면 문자열을 그대로 반환합니다.
-     */
-    public static String replace(String string, Collection<String> olds, Collection<String> news) {
-        if (string != null && olds != null && news != null && olds.size() == news.size()) {
-            Iterator<String> itrOlds = olds.iterator();
-            Iterator<String> itrNews = news.iterator();
-
-            if (itrOlds.hasNext()) {
-                string = string.replace(itrOlds.next(), itrNews.next());
-            }
-            return string;
-        } else {
-            return string;
-        }
-    }
-
-    /**
-     * 문자열을 {@code map}의 내용에 맞추어 변환한 후 반환합니다.
-     * 
-     * @param string
-     *            문자열
+     *            원본 문자열
      * @param map
-     * @return {@code map}이 {@code null}이거나 문자열이 {@code null}인 경우 문자열을 그대로 반환합니다.
+     *            치환할 대상(Key)과 결과(Value)를 담은 매핑 정보
+     *
+     * @return 치환이 완료된 문자열. {@code map}이 비어있으면 원본을 그대로 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code map} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
+     * @version 3.0.0
      */
     public static String replace(String string, Map<String, String> map) {
-        if (string != null && map != null) {
-            Set<StrLenRvrOrderingEntry> set = new ConcurrentSkipListSet<StrLenRvrOrderingEntry>();
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(map);
 
-            for (Entry<String, String> entry : map.entrySet()) {
-                set.add(new StrLenRvrOrderingEntry(entry.getKey(), entry.getValue()));
-            }
-
-            for (StrLenRvrOrderingEntry entry : set) {
-                string = string.replaceAll(toRegExString(entry.getKey()), entry.getValue());
-            }
-
-            // for ( Entry<String, String> entry : map.entrySet() ) {
-            // string = string.replace(entry.getKey(), entry.getValue());
-            // }
-            return string;
-        } else {
+        if (map.isEmpty() || string.isEmpty()) {
             return string;
         }
-    }
 
-    /**
-     * 문자열의 내용을 변경한 후, 구분자로 나눈 문자열 배열을 반환합니다.
-     * 
-     * @param string
-     *            작업 대상 문자열
-     * @param oldString
-     *            이전 문자열
-     * @param newString
-     *            새로운 문자열
-     * @param delimeter
-     *            구분자
-     * @return
-     */
-    public static String[] replaceAndSplit(String string, String oldString, String newString, String delimeter) {
-        return string.replace(oldString, newString).split(delimeter);
-    }
-
-    /**
-     * @param string
-     *            문자열
-     * @param oldString
-     * @param newString
-     * @param delimeter
-     * @return
-     */
-    public static String replaceAndSplitAndToString(String string, String oldString, String newString, String delimeter) {
-        String[] strings = replaceAndSplit(string, oldString, newString, delimeter);
-        return concatenate(delimeter, strings);
-    }
-
-    /**
-     * 주어진 문자열에서 정해진 문자열들을 모두 빈칸으로 변환한 후 반환합니다.
-     * <p>
-     * <b> 단, 변경할 문자열들은 입력되는 순서대로 처리된다. </b>
-     * </p>
-     * 
-     * @param string
-     *            문자열
-     * @param oldStrings
-     *            정해진 문자열
-     * @return
-     */
-    public static String replaceToEmptyString(String string, CharSequence... oldStrings) {
-
-        for (CharSequence oldString : oldStrings) {
-            string = string.replace(oldString, "").trim();
+        // 1. 기존의 StrLenRvrOrderingEntry를 활용하여 가장 긴 문자열부터 매칭되도록 정렬
+        // (예: "AppleTree"가 "Apple"보다 먼저 매칭되도록 보장)
+        Set<StrLenRvrOrderingEntry> set = new ConcurrentSkipListSet<>();
+        for (Entry<String, String> entry : map.entrySet()) {
+            set.add(new StrLenRvrOrderingEntry(entry.getKey(), entry.getValue()));
         }
 
-        return string;
+        // 2. 정규식 다중 매칭(Alternation) 패턴 생성: (key1|key2|key3...)
+        // [PATCH] 기존 커스텀 toRegExString() 대신 더 완벽한 JVM 표준 Pattern.quote() 적용
+        String regex = set.stream().map(entry -> Pattern.quote(entry.getKey())).collect(Collectors.joining("|"));
+
+        Pattern pattern = Pattern.compile(regex);
+
+        // 3. JDK 9+ Matcher.replaceAll(Function)을 활용한 1-Pass 동시 치환
+        // 매칭된 키워드를 찾아 즉시 치환하며, 이미 치환된 영역은 다시 스캔하지 않음.
+        return pattern.matcher(string).replaceAll(match -> {
+            String replacement = map.get(match.group());
+            // [방어적 프로그래밍] map의 value가 null인 경우 빈 문자열로 처리
+            return replacement != null ? replacement : "";
+        });
     }
 
     /**
      * 주어진 문자열에 'Right-Padding'을 적용하여 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 9. 19.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 9. 19.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) String.repeat() 로직으로 교체
      * </pre>
      *
-     * @param str
+     * @param string
+     *            대상 문자열
      * @param padding
+     *            전체 길이
      * @param padChar
-     * @return
+     *            채울 문자
+     *
+     * @return 패딩이 적용된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 19.
      * @version 2.1.0
-     * 
      */
-    public static String rightPad(String str, int padding, char padChar) {
-        if (str == null) {
-            return null;
-        }
-        int strLength = str.length();
+    public static String rightPad(String string, int padding, char padChar) {
+        Objects.requireNonNull(string);
+
+        int strLength = string.length();
         if (strLength >= padding) {
-            return str;
+            return string;
         }
-        int padCount = padding - strLength;
-        StringBuilder sb = new StringBuilder(str);
-        for (int i = 0; i < padCount; i++) {
-            sb.append(padChar);
-        }
-        return sb.toString();
+
+        return string + String.valueOf(padChar).repeat(padding - strLength);
     }
 
     /**
      * 주어진 문자열에 대해서 오른쪽 trim 결과를 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 오른쪽 공백이 제거된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     * 
+     * @see String#stripTrailing();
      */
     public static String rtrim(String string) {
-        char[] cStr = string.toCharArray();
+        Objects.requireNonNull(string);
 
-        int idx = cStr.length;
-        int i = cStr.length - 1;
-        for (; i > -1; i--) {
-            if (!Character.isWhitespace(cStr[i])) {
-                break;
-            }
-            idx = i;
-        }
-
-        return string.substring(0, idx);
+        return string.stripTrailing();
     }
 
     /**
      * 주어진 문자열의 끝에서부터 지우고자하는 문자가 제거된 문자열을 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 16.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param string
      *            문자열
      * @param c
-     * @return
+     *            지우고자 하는 문자
+     *
+     * @return 문자가 제거된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 16.
-     * 
      */
     public static String rtrimSpecific(String string, char c) {
-        char[] cStr = string.toCharArray();
+        Objects.requireNonNull(string);
 
-        int idx = cStr.length;
-        int i = cStr.length - 1;
-        for (; i > -1; i--) {
-            if (cStr[i] != c) {
-                break;
-            }
-            idx = i;
+        int i = string.length() - 1;
+        while (i >= 0 && string.charAt(i) == c) {
+            i--;
         }
 
-        return string.substring(0, idx);
+        return string.substring(0, i + 1);
     }
 
     /**
      * 주어진 문자열의 끝에서부터 지우고자하는 문자열이 제거된 문자열을 반환합니다.<br>
      * <br>
-     * ltrimSpecific("안녕하세요안녕하세요방갑습니다", "방갑습니다") -> 안녕하세요안녕하세요
-     * 
+     * ltrimSpecific("안녕하세요안녕하세요방갑습니다", "방갑습니다") &rarr; 안녕하세요안녕하세요
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 02. 21.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) endsWith() 기반의 while 루프로 로직 최적화
+     * </pre>
+     *
      * @param sourceString
      *            주어진 문자열
      * @param targetString
      *            지우고자 하는 문자열
+     *
      * @return 새로운 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code sourceString}, {@code targetString} 중에 1개라도)가 {@code null}인 경우 발생.
+     *
      * @since 2012. 02. 21.
-     * 
      */
     public static String rtrimSpecific(String sourceString, String targetString) {
-        if (sourceString.lastIndexOf(targetString) != sourceString.length() - targetString.length()) {
+        Objects.requireNonNull(sourceString);
+        Objects.requireNonNull(targetString);
+
+        if (targetString.isEmpty()) {
             return sourceString;
-        } else {
-            int[] indice = indiceOf(sourceString, targetString);
-
-            if (indice.length < 2) {
-                return sourceString.substring(0, indice[0]);
-            } else {
-                // tsl: Targeted String Length
-                int tsl = targetString.length();
-                int i = indice.length - 1;
-                for (; i > 0; i--) {
-                    if (indice[i] - tsl != indice[i - 1]) {
-                        break;
-                    }
-                }
-
-                return sourceString.substring(0, indice[i]);
-            }
         }
+
+        while (sourceString.endsWith(targetString)) {
+            sourceString = sourceString.substring(0, sourceString.length() - targetString.length());
+        }
+
+        return sourceString;
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param delim
      *            문자열 구분자
      * @param trim
      *            문자열 {@link String#trim()} 여부
-     * @return
+     *
+     * @return 분리된 문자열 배열
      */
     public static String[] split(String string, String delim, boolean trim) {
         return split(string, delim, trim, 0);
@@ -2556,17 +2467,26 @@ public class StringUtils {
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param trim
      *            문자열 {@link String#trim()} 여부
-     * @return
+     * @param limit
+     *            최대 데이터 개수
+     *
+     * @return 분리된 문자열 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static String[] split(String string, String delim, boolean trim, int limit) {
-        String[] rtnStrings = string.split("[" + delim + "]", limit);
+    public static String[] split(String string, String delimiter, boolean trim, int limit) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
+
+        String[] rtnStrings = string.split("[" + delimiter + "]", limit);
 
         if (trim) {
             for (int i = 0; i < rtnStrings.length; i++) {
@@ -2579,12 +2499,12 @@ public class StringUtils {
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 4. 2.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 4. 2.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
@@ -2592,117 +2512,154 @@ public class StringUtils {
      * @param delim
      *            문자열 구분자
      * @param post
-     *            문자열 후처리 함수.
-     * @return
+     *            문자열 후처리 함수. 반환 결과에 따라 배열 원소가 {@code null}이 될 수 있습니다.
+     *
+     * @return 분리된 문자열 배열. 후처리 함수 결과에 따라 {@code null}이 포함될 수 있습니다.
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * 
      */
-    public static String[] split(String string, String delim, Function<String, String> post) {
+    public static @Nullable String[] split(String string, String delim, @Nullable Function<String, @Nullable String> post) {
         return split(string, delim, post, 0);
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 4. 2.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 4. 2.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param post
-     *            문자열 후처리 함수.
+     *            문자열 후처리 함수. 반환 결과에 따라 배열 원소가 {@code null}이 될 수 있습니다.
      * @param limit
      *            최대 데이터 개수
-     * @return
+     *
+     * @return 분리된 문자열 배열. 후처리 함수 결과에 따라 {@code null}이 포함될 수 있습니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * 
      */
-    public static String[] split(String string, String delim, Function<String, String> post, int limit) {
+    public static @Nullable String[] split(String string, String delimiter, @Nullable Function<String, @Nullable String> post, int limit) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
 
-        String[] rtnStrings = string.split("[" + delim + "]", limit);
+        String[] rtnStrings = string.split("[" + delimiter + "]", limit);
 
-        if (post != null) {
-            for (int i = 0; i < rtnStrings.length; i++) {
-                rtnStrings[i] = post.apply(rtnStrings[i]);
-            }
+        if (post == null) {
+            return rtnStrings;
         }
-        return rtnStrings;
+
+        String[] result = new String[rtnStrings.length];
+        for (int i = 0; i < rtnStrings.length; i++) {
+            result[i] = post.apply(rtnStrings[i]);
+        }
+        return result;
     }
 
     /**
      * 주어진 문자열을 일정크기로 나눈 후, 구분자로 연결한 결과를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 8. 24.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 8. 24.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
      * @param size
-     * @param delimeter
+     *            나눌 크기
+     * @param delimiter
      *            구분자
-     * @return
+     *
+     * @return 연결된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 24.
      * @version 2.0.0
-     * 
      */
-    public static String splitAndDelimiter(String string, int size, String delimeter) {
+    public static String splitAndDelimiter(String string, int size, String delimiter) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
+
         List<String> splited = new ArrayList<>();
         int len = string.length();
         int begin = 0;
         int end = Math.min(size, len);
+
         while (begin < len) {
             splited.add(string.substring(begin, end));
             begin = end;
             end = Math.min(end + size, len);
         }
 
-        return concatenate(delimeter, splited);
+        return concatenate(delimiter, splited);
     }
 
     /**
      * 문자열을 {@code splitRegEx}에 맞추어 배열로 만든 후, 구분자를 나누어진 문자들 사이에 추가한 후 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param splitRegEx
-     * @param delimeter
-     * @return
+     *            분리할 정규식
+     * @param delimiter
+     *            구분자
+     *
+     * @return 연결된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code splitRegEx}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static String splitAndDelimiter(String string, String splitRegEx, String delimeter) {
+    public static String splitAndDelimiter(String string, String splitRegEx, String delimiter) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(splitRegEx);
+        Objects.requireNonNull(delimiter);
+
         String[] strings = string.split(splitRegEx);
-        return concatenate(delimeter, strings);
+        return concatenate(delimiter, strings);
     }
 
     /**
      * 파라미터 문자열을 주어진 정규식 표현으로 나눈 후에, 주어진 인덱스에 해당하는 순서의 값을 반복적으로 나눈다.<br>
-     * 
+     *
      * @param string
      *            문자열
      * @param regExs
      *            String.split(String) 메소드의 파라미터로 쓰일 정규식들의 배열
      * @param selectedIndice
      *            정규식으로 나누어진 문자열 배열에서 선택할 문자열의 순서
-     * @return
+     *
+     * @return 찾아낸 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code selectedIndice}, {@code regExs} 중에 1개라도)가 {@code null}이거나,
+     *             파라미터({@code regExs})에 {@code null}이 포함된 경우 발생.
+     * @throws IllegalArgumentException
+     *             {@code regExs}의 길이와 {@code selectedIndice}의 길이가 다른 경우 발생.
      */
     public static String splitAndGet(String string, String[] regExs, int[] selectedIndice) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(selectedIndice);
+        ObjectUtils.requireNonNulls((Object[]) regExs);
 
-        if (regExs.length != selectedIndice.length)
-            throw new RuntimeException(StringUtils.class.getName() + ".splitAndget(String, String[], int[]): params=" + string + ", " + regExs + ", " + selectedIndice);
+        if (regExs.length != selectedIndice.length) {
+            throw new IllegalArgumentException("배열의 길이가 일치하지 않습니다. regExs: " + regExs.length + ", selectedIndice: " + selectedIndice.length);
+        }
 
         for (int i = 0; i < regExs.length; i++) {
             string = string.split(regExs[i])[selectedIndice[i]];
@@ -2712,147 +2669,152 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
+     * 주어진 문자열을 구분자로 분리한 후 Collection을 반환합니다.
+     *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param trim
      *            문자열 {@link String#trim()} 여부
-     * @return
+     *
+     * @return 분리된 문자열 컬렉션
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static Collection<String> splitAsCollection(String string, String delim, boolean trim) {
-        Collection<String> col = new ArrayList<String>();
+    public static Collection<String> splitAsCollection(String string, String delimiter, boolean trim) {
+        // 반환 타입 생성 위임이 발생하므로 Null-check 수행
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
 
-        String[] rtnStrings = split(string, delim, trim);
-
-        for (String str : rtnStrings) {
-            col.add(str);
-        }
-
-        return col;
+        return Arrays.asList(split(string, delimiter, trim));
     }
 
     /**
-     * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
-     * 
+     * 주어진 문자열을 구분자로 분리한 후 Collection을 반환합니다. <br>
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 4. 2.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 4. 2.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * @param delim
-     *            문자열 구분자@param string
+     * @param delimiter
+     *            문자열 구분자
      * @param post
-     *            문자열 후처리 함수.
-     * @return
+     *            문자열 후처리 함수. 반환 결과에 따라 원소가 {@code null}이 될 수 있습니다.
+     *
+     * @return 분리된 문자열 컬렉션. 후처리 함수 결과에 따라 {@code null}이 포함될 수 있습니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * 
      */
-    public static Collection<String> splitAsCollection(String string, String delim, Function<String, String> post) {
-        Collection<String> col = new ArrayList<String>();
+    public static Collection<@Nullable String> splitAsCollection(String string, String delimiter, @Nullable Function<String, @Nullable String> post) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
 
-        String[] rtnStrings = split(string, delim, post);
-
-        for (String str : rtnStrings) {
-            col.add(str);
-        }
-
-        return col;
+        return Arrays.asList(split(string, delimiter, post));
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 {@link Set}을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param trim
      *            구분된 문자열 {@link String#trim()} 여부
-     * @return
+     *
+     * @return 분리된 문자열 Set
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static Set<String> splitAsSet(String string, String delim, boolean trim) {
-        HashSet<String> set = new HashSet<String>();
+    public static Set<String> splitAsSet(String string, String delimiter, boolean trim) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
 
-        String[] rtnStrings = split(string, delim, trim);
-
-        for (String str : rtnStrings) {
-            set.add(str);
-        }
-
-        return set;
+        return new HashSet<>(Arrays.asList(split(string, delimiter, trim)));
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 {@link Set}을 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 4. 2.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 4. 2.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param post
-     *            문자열 후처리 함수
-     * @return
+     *            문자열 후처리 함수. 반환 결과에 따라 원소가 {@code null}이 될 수 있습니다.
+     *
+     * @return 분리된 문자열 Set. 후처리 함수 결과에 따라 {@code null}이 포함될 수 있습니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * 
      */
-    public static Set<String> splitAsSet(String string, String delim, Function<String, String> post) {
-        HashSet<String> set = new HashSet<String>();
+    public static Set<@Nullable String> splitAsSet(String string, String delimiter, @Nullable Function<String, @Nullable String> post) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
 
-        String[] rtnStrings = split(string, delim, post);
-
-        for (String str : rtnStrings) {
-            set.add(str);
-        }
-
-        return set;
+        return new HashSet<>(Arrays.asList(split(string, delimiter, post)));
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param trim
      *            문자열 {@link String#trim()} 여부
-     * @return
+     *
+     * @return 분리된 문자열 배열
      */
-    public static String[] splitWithoutBracket(String string, String delim, boolean trim) {
-        return splitWithoutBracket(string, delim, trim, 0);
+    public static String[] splitWithoutBracket(String string, String delimiter, boolean trim) {
+        return splitWithoutBracket(string, delimiter, trim, 0);
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
-     * @param delim
+     * @param delimiter
      *            문자열 구분자
      * @param trim
      *            문자열 {@link String#trim()} 여부
-     * @return
+     * @param limit
+     *            데이터 최대 개수
+     *
+     * @return 분리된 문자열 배열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    public static String[] splitWithoutBracket(String string, String delim, boolean trim, int limit) {
-        String[] rtnStrings = string.split("[" + delim + "]", limit);
+    public static String[] splitWithoutBracket(String string, String delimiter, boolean trim, int limit) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delimiter);
+
+        String[] rtnStrings = string.split("[" + delimiter + "]", limit);
 
         if (trim) {
             for (int i = 0; i < rtnStrings.length; i++) {
@@ -2865,12 +2827,12 @@ public class StringUtils {
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 4. 2.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 4. 2.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
@@ -2878,25 +2840,25 @@ public class StringUtils {
      * @param delim
      *            문자열 구분자
      * @param post
-     *            문자열 후처리 함수
-     * @return
+     *            문자열 후처리 함수. 반환 결과에 따라 배열 원소가 {@code null}이 될 수 있습니다.
+     *
+     * @return 분리된 문자열 배열. 후처리 함수 결과에 따라 {@code null}이 포함될 수 있습니다.
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * 
      */
-    public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post) {
+    public static @Nullable String[] splitWithoutBracket(String string, String delim, @Nullable Function<String, @Nullable String> post) {
         return splitWithoutBracket(string, delim, post, 0);
     }
 
     /**
      * 주어진 문자열을 구분자로 분리한 후 배열을 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 4. 2.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 4. 2.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
@@ -2904,47 +2866,61 @@ public class StringUtils {
      * @param delim
      *            문자열 구분자
      * @param post
-     *            문자열 후처리 함수
+     *            문자열 후처리 함수. 반환 결과에 따라 배열 원소가 {@code null}이 될 수 있습니다.
      * @param limit
      *            데이터 최대 개수
-     * @return
+     *
+     * @return 분리된 문자열 배열. 후처리 함수 결과에 따라 {@code null}이 포함될 수 있습니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code delim} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2025. 4. 2.
      * @version 2.1.0
-     * 
      */
-    public static String[] splitWithoutBracket(String string, String delim, Function<String, String> post, int limit) {
+    public static @Nullable String[] splitWithoutBracket(String string, String delim, @Nullable Function<String, @Nullable String> post, int limit) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(delim);
+
         String[] rtnStrings = string.split("[" + delim + "]", limit);
 
-        if (post != null) {
-            for (int i = 0; i < rtnStrings.length; i++) {
-                rtnStrings[i] = post.apply(rtnStrings[i]);
-            }
+        if (post == null) {
+            return rtnStrings;
         }
 
-        return rtnStrings;
+        @Nullable
+        String[] result = new String[rtnStrings.length];
+        for (int i = 0; i < rtnStrings.length; i++) {
+            result[i] = post.apply(rtnStrings[i]);
+        }
+        return result;
     }
 
     /**
      * 문자열이 숫자로 시작하는지 여부를 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2021. 6. 21.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2021. 6. 21.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 숫자로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static boolean startsWithDigit(String string) {
-        if (string == null || string.trim().isEmpty()) {
+        Objects.requireNonNull(string);
+
+        if (string.isEmpty()) {
             return false;
         }
 
@@ -2954,56 +2930,62 @@ public class StringUtils {
 
     /**
      * 주어진 문자열이 한글로 시작하는지 여부를 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2022. 4. 1.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2022. 4. 1.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * @return
+     *
+     * @return 한글로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2022. 4. 1.
      * @version 1.8.0
-     * 
      */
     public static boolean startswithHangul(String string) {
-        if (string == null) {
+        Objects.requireNonNull(string);
+
+        if (string.isEmpty()) {
             return false;
         }
-        return string.isEmpty() //
-                ? false //
-                : CharUtils.isKorean(string.charAt(0));
+        return CharUtils.isKorean(string.charAt(0));
     }
 
     /**
      * 주어진 문자열이 한글로 시작하는지 여부를 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2022. 4. 1.      parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2022. 4. 1.       parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * @param 문자열
-     *            trime 여부
-     * @return
+     * @param trim
+     *            {@link String#strip()} 적용 여부
+     *
+     * @return 한글로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2022. 4. 1.
      * @version 1.8.0
-     * 
      */
     public static boolean startswithHangul(String string, boolean trim) {
-        if (string == null) {
-            return false;
-        } else if (trim) {
-            string = string.trim();
+        Objects.requireNonNull(string);
+
+        if (trim) {
+            string = string.strip();
         }
 
         return startswithHangul(string);
@@ -3011,49 +2993,59 @@ public class StringUtils {
 
     /**
      * 문자열이 주어진 <b>{@code prefix}</b>로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
-     * 
+     *
      * @param string
+     *            대상 문자열
      * @param prefix
-     * @return
+     *            확인할 접두어
+     *
+     * @return 접두어로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code prefix} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     public static boolean startsWithIgnoreCase(String string, String prefix) {
-        boolean startsWith = false;
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(prefix);
 
-        if (string != null && prefix != null //
-                && string.length() >= prefix.length() // check lengths of two strings.
-        ) {
-            String headStr = string.substring(0, prefix.length());
-            startsWith = headStr.equalsIgnoreCase(prefix);
+        if (string.length() < prefix.length()) {
+            return false;
         }
 
-        return startsWith;
+        // [PATCH] substring 생성 오버헤드 방지 및 고속 비교를 위한 표준 API(regionMatches) 활용
+        return string.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
     /**
      * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. (대소문자 관계없이) <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 7. 30.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 7. 30.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
-     * 
      * @param prefixes
      *            접두어들
-     * @return
+     *
+     * @return 접두어 중 하나로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code prefixes} 중에 1개라도)가 {@code null}이거나, 파라미터({@code prefixes})에
+     *             {@code null}이 포함된 경우 발생.
      *
      * @since 2025. 7. 30.
-     * @version 2.1.0
-     * 
+     * @version 2.1.0f
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, Collection<String> prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, Collection<@Nullable String> prefixes) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(prefixes);
 
         for (String prefix : prefixes) {
-            if (startsWithIgnoreCase(string, prefix)) {
+            if (prefix != null && startsWithIgnoreCase(string, prefix)) {
                 return true;
             }
         }
@@ -3063,17 +3055,24 @@ public class StringUtils {
 
     /**
      * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. (대소문자 관계없이)
-     * 
+     *
      * @param string
      *            문자열
      * @param prefixes
-     *            접두어들
-     * @return
+     *            접두어 가변 인자
+     *
+     * @return 접두어 중 하나로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code prefixes} 중에 1개라도)가 {@code null}이거나, 파라미터({@code prefixes})에
+     *             {@code null}이 포함된 경우 발생.
      */
-    public static boolean startsWithIgnoreCaseOneOf(String string, String... prefixes) {
+    public static boolean startsWithIgnoreCaseOneOf(String string, @Nullable String... prefixes) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(prefixes);
 
         for (String prefix : prefixes) {
-            if (startsWithIgnoreCase(string, prefix)) {
+            if (prefix != null && startsWithIgnoreCase(string, prefix)) {
                 return true;
             }
         }
@@ -3083,28 +3082,34 @@ public class StringUtils {
 
     /**
      * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2025. 7. 30.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2025. 7. 30.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param string
      *            문자열
      * @param prefixes
      *            접두어들
-     * @return
+     *
+     * @return 접두어 중 하나로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code prefixes} 중에 1개라도)가 {@code null}이거나, 파라미터({@code prefixes})에
+     *             {@code null}이 포함된 경우 발생.
      *
      * @since 2025. 7. 30.
      * @version 2.1.0
-     * 
      */
-    public static boolean startsWithOneOf(String string, Collection<String> prefixes) {
+    public static boolean startsWithOneOf(String string, Collection<@Nullable String> prefixes) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(prefixes);
 
         for (String prefix : prefixes) {
-            if (string.startsWith(prefix)) {
+            if (prefix != null && string.startsWith(prefix)) {
                 return true;
             }
         }
@@ -3114,17 +3119,24 @@ public class StringUtils {
 
     /**
      * 문자열이 주어진 접두어들 중에 하나로 시작하는지 여부를 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param prefixes
-     *            접두어들
-     * @return
+     *            접두어 가변 인자
+     *
+     * @return 접두어 중 하나로 시작하는지 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code prefixes} 중에 1개라도)가 {@code null}이거나, 파라미터({@code prefixes})에
+     *             {@code null}이 포함된 경우 발생.
      */
-    public static boolean startsWithOneOf(String string, String... prefixes) {
+    public static boolean startsWithOneOf(String string, @Nullable String... prefixes) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(prefixes);
 
         for (String prefix : prefixes) {
-            if (string.startsWith(prefix)) {
+            if (prefix != null && string.startsWith(prefix)) {
                 return true;
             }
         }
@@ -3134,59 +3146,71 @@ public class StringUtils {
 
     /**
      * 파라미터로 받은 문자열 중에서 sIndex와 eIndex에 사이에 해당하는 부분을 제외한 나머지 문자열을 반환합니다.
-     * 
+     *
      * @param string
      *            대상 문자열
      * @param sIndex
      *            잘라낼 부분의 시작 인덱스 (inclusive)
      * @param eIndex
      *            잘라낸 부분의 마지막 인덱스 (exclusive)
-     * @return
+     *
+     * @return 제외 후 병합된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String substring(String string, int sIndex, int eIndex) {
+        Objects.requireNonNull(string);
 
         if (sIndex > -1 && eIndex > -1 && eIndex > sIndex) {
-            String s1 = string.substring(0, sIndex);
-            String s2 = string.substring(eIndex, string.length());
-
-            return s1 + s2;
-        } else {
-            return string;
+            return string.substring(0, sIndex) + string.substring(eIndex);
         }
+
+        return string;
     }
 
     /**
      * 문자열에서 {@code boundary} 문자열 다음부터 시작하는 문자열을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param boundary
-     *            <i>exclusive</i>
-     * @return {@code null} 은 {@code cutter}이 문자열에 포함되어 있지 않은 경우.
+     *            기준 문자열 (exclusive)
+     *
+     * @return 추출된 문자열. {@code boundary}가 존재하지 않으면 원본을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code boundary} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     public static String substringAfter(String string, String boundary) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(boundary);
+
         int index = string.indexOf(boundary);
         if (index < 0) {
             return string;
         }
 
-        if (index + boundary.length() < string.length()) {
-            return string.substring(index + boundary.length());
-        } else {
-            return "";
-        }
+        return string.substring(index + boundary.length());
     }
 
     /**
      * 문자열에서 {@code boundary} 문자열 직전까지 문자열을 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param boundary
-     *            <i>exclusive</i>
-     * @return {@code null} 은 {@code cutter}이 문자열에 포함되어 있지 않은 경우.
+     *            기준 문자열 (exclusive)
+     *
+     * @return 추출된 문자열. {@code boundary}가 존재하지 않으면 원본을 반환합니다.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string}, {@code boundary} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     public static String substringBefore(String string, String boundary) {
+        Objects.requireNonNull(string);
+        Objects.requireNonNull(boundary);
+
         int index = string.indexOf(boundary);
         if (index < 0) {
             return string;
@@ -3196,449 +3220,464 @@ public class StringUtils {
     }
 
     /**
-     * <pre>
-     * e.g. toBeanGetter("money") -> getMoney()
-     * </pre>
-     * 
-     * @param field
-     * @return
-     */
-    public static String toBeanGetter(String field) {
-        return "get" + toUpperCase(field, 0) + "()";
-    }
-
-    /**
-     * <pre>
-     * e.g. toBeanGetterName("money") -> getMoney
-     * </pre>
-     * 
-     * @param field
-     * @return
-     * @since 2012. 2. 6.
-     * 
-     */
-    public static String toBeanGetterName(String field) {
-        return "get" + toUpperCase(field, 0);
-    }
-
-    /**
-     * <pre>
-     * e.g. toBeanSetter("int", "money") -> setMoney(int money)
-     * </pre>
-     * 
-     * @param type
-     * @param field
-     * @return
-     */
-    public static String toBeanSetter(String type, String field) {
-        return "set" + toUpperCase(field, 0) + "( " + type + " " + field + " )";
-    };
-
-    /**
-     * <pre>
-     * e.g. toBeanSetter("money") -> setMoney
-     * </pre>
-     * 
-     * @param field
-     * @return
-     * @since 2012. 2. 6.
-     * 
-     */
-    public static String toBeanSetterName(String field) {
-        return "set" + toUpperCase(field, 0);
-    }
-
-    /**
-     * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
+     * camelCase 문자열을 kebab-case 문자열로 변경합니다.<br>
      * 예)
      * <ul>
-     * <li>camelCase -> camel-case
-     * <li>camelCase1 -> camel-case1
-     * <li>camel1Case -> camel1-case
+     * <li>camelCase &rarr; camel-case</li>
+     * <li>camelCase1 &rarr; camel-case1</li>
+     * <li>camel1Case &rarr; camel1-case</li>
      * </ul>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 16.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 1. 16.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param camelCase
-     * @return
+     *            카멜케이스 문자열
+     *
+     * @return 케밥케이스 문자열
      *
      * @since 2020. 1. 16.
-     * 
      */
     public static String toKebabCase(String camelCase) {
+        // 순수 위임 (Core Method로 전달)
         return toKebabCase0(camelCase, false);
     }
 
     /**
-     * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
-     * 
+     * camelCase 문자열을 kebab-case 문자열로 변경합니다.<br>
      * 예)
      * <ul>
      * 숫자 별도처리: false
-     * <li>camelCase -> camel-case
-     * <li>camelCase1 -> camel-case1
-     * <li>camel1Case -> camel1-case
+     * <li>camelCase &rarr; camel-case</li>
+     * <li>camelCase1 &rarr; camel-case1</li>
+     * <li>camel1Case &rarr; camel1-case</li>
      * </ul>
      * <ul>
      * 숫자 별도처리: true
-     * <li>camelCase -> camel-case
-     * <li>camelCase1 -> camel-case-1
-     * <li>camel1Case -> camel-1-case
+     * <li>camelCase &rarr; camel-case</li>
+     * <li>camelCase1 &rarr; camel-case-1</li>
+     * <li>camel1Case &rarr; camel-1-case</li>
      * </ul>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 9. 27.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 9. 27.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 불필요한 ArrayList 할당 제거 및 단일 루프로 O(1) 공간 복잡도 최적화
      * </pre>
      *
      * @param camelCase
      *            문자열
      * @param isSplitNum
      *            숫자 별도 처리 여부
-     * @return
+     *
+     * @return 케밥케이스 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code camelCase})가 {@code null}인 경우 발생.
      *
      * @since 2023. 9. 27.
-     * @version 2.0.0
-     * 
+     * @version 3.0.0
      */
     private static String toKebabCase0(String camelCase, boolean isSplitNum) {
+        Objects.requireNonNull(camelCase);
 
-        ArrayList<String> strs = new ArrayList<>();
-
-        StringBuffer buf = new StringBuffer();
-        for (char c : camelCase.toCharArray()) {
-            if (Character.isUpperCase(c) // 문자가 대문자인 경우
-                    || (isSplitNum && Character.isDigit(c)) // 숫자별도처리이고 문자가 숫자인 경우
-            ) {
-                flushBuffer(buf, strs);
-            }
-
-            buf.append(Character.toLowerCase(c));
+        if (camelCase.isEmpty()) {
+            return camelCase;
         }
 
-        flushBuffer(buf, strs);
-
-        return StringUtils.concat(strs, "-", false, false, false);
-    }
-
-    /**
-     * camelCase 문자열을 kebab_case 문자열로 변경합니다.<br>
-     * 예)
-     * <ul>
-     * <li>camelCase -> camel-Case
-     * <li>camelCase1 -> camel-Case-1
-     * <li>camel1Case -> camel-1-Case
-     * </ul>
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 9. 27.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param camelCase
-     * @return
-     *
-     * @since 2023. 9. 27.
-     * @version 2.0.0
-     * 
-     */
-    public static String toKebabCaseNum(String camelCase) {
-        return toKebabCase0(camelCase, true);
-    }
-
-    /**
-     * 주어진 문자열들을 가지고 LCC(Lower Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
-     * 예: TO, lOwER, camel, casE -> toLowerCamelCase
-     * 
-     * @param strings
-     * @return
-     * 
-     * 
-     * 
-     * @since 2012. 01. 10.
-     */
-    public static String toLowerCamelCase(String... strings) {
-        if (strings == null || strings.length < 1) {
-            return "";
-        } else {
-            StringBuffer result = new StringBuffer();
-            result.append(strings[0].toLowerCase());
-            for (int i = 1; i < strings.length; i++) {
-                result.append(toUpperCase(strings[i].toLowerCase(), 0));
+        StringBuilder sb = new StringBuilder(camelCase.length() + 5);
+        for (int i = 0; i < camelCase.length(); i++) {
+            char c = camelCase.charAt(i);
+            // 대문자이거나, 숫자별도처리가 켜져있는 상태에서 숫자인 경우 하이픈 추가
+            if (i > 0 && (Character.isUpperCase(c) || (isSplitNum && Character.isDigit(c)))) {
+                sb.append('-');
             }
-            return result.toString();
-        }
-    }
-
-    /**
-     * 문자열에서 {@code index}에 해당하는 캐릭터를 소문자로 변경한 후 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @param index
-     * @return
-     */
-    public static String toLowerCase(String string, int index) {
-
-        if (index > -1 && index < string.length()) {
-            char[] cs = string.toCharArray();
-            cs[index] = Character.toLowerCase(cs[index]);
-            return new String(cs);
-        } else {
-            System.err.println("index=" + index + ", string: " + string);
-            return string;
-        }
-    }
-
-    /**
-     * camelCase 문자열을 PascalCase 문자열로 변경합니다.<br>
-     * 예) camelCase -> CamelCase <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 16.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param camelCase
-     * @return
-     *
-     * @since 2020. 1. 16.
-     * 
-     */
-    public static String toPascalCase(String camelCase) {
-        ArrayList<String> strs = new ArrayList<>();
-
-        StringBuffer buf = new StringBuffer();
-        for (char c : camelCase.toCharArray()) {
-            if (Character.isUpperCase(c)) {
-                flushBuffer(buf, strs);
-            }
-
-            buf.append(buf.length() < 1 ? Character.toUpperCase(c) : Character.toLowerCase(c));
-        }
-
-        flushBuffer(buf, strs);
-
-        return StringUtils.concat(strs, "", false, false, false);
-    }
-
-    /**
-     * 문자열을 정규식에 사용할 수 있도록 변환한 후 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @return
-     */
-    public static String toRegExString(String string) {
-        char[] cs = string.toCharArray();
-        StringBuilder sb = new StringBuilder();
-
-        StringBuffer builder = new StringBuffer();
-        String cstr = null;
-        for (char c : cs) {
-            cstr = builder.append(c).toString();
-            if (map.containsKey(cstr)) {
-                RegExTokenEscape esc = map.get(cstr);
-                sb.append(nTimesString(esc.escape, esc.escCount) + c);
-            } else {
-                sb.append(c);
-            }
-            builder.setLength(0);
+            sb.append(Character.toLowerCase(c));
         }
 
         return sb.toString();
     }
 
     /**
-     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
+     * camelCase 문자열을 kebab-case 문자열로 변경합니다. (숫자 분리 적용)<br>
      * 예)
      * <ul>
-     * <li>camelCase -> camel_case
-     * <li>camel1Case -> camel1_case
-     * <li>camelCase1 -> camel_case1
+     * <li>camelCase &rarr; camel-case</li>
+     * <li>camelCase1 &rarr; camel-case-1</li>
+     * <li>camel1Case &rarr; camel-1-case</li>
      * </ul>
-     * 
+     *
+     * <br>
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2020. 1. 16.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 9. 27.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param camelCase
-     * @return
+     *            카멜케이스 문자열
+     *
+     * @return 숫자 분리가 적용된 케밥케이스 문자열
+     *
+     * @since 2023. 9. 27.
+     * @version 2.0.0
+     */
+    public static String toKebabCaseNum(String camelCase) {
+        // 순수 위임 (Core Method로 전달)
+        return toKebabCase0(camelCase, true);
+    }
+
+    /**
+     * 주어진 문자열들을 가지고 LCC(Lower Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
+     * 예: TO, lOwER, camel, casE &rarr; toLowerCamelCase
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 10.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param strings
+     *            문자열 가변 인자
+     *
+     * @return 로어카멜케이스 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *
+     * @since 2012. 01. 10.
+     */
+    public static String toLowerCamelCase(@Nullable String... strings) {
+        Objects.requireNonNull(strings);
+
+        if (strings.length == 0) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+        if (strings[0] != null) {
+            result.append(strings[0].toLowerCase());
+        }
+
+        for (int i = 1; i < strings.length; i++) {
+            if (strings[i] != null && !strings[i].isEmpty()) {
+                String lower = strings[i].toLowerCase();
+                result.append(Character.toUpperCase(lower.charAt(0)));
+                result.append(lower.substring(1));
+            }
+        }
+        return result.toString();
+    }
+
+    /**
+     * 문자열에서 {@code index}에 해당하는 캐릭터를 소문자로 변경한 후 반환합니다.
+     *
+     * @param string
+     *            문자열
+     * @param index
+     *            인덱스
+     *
+     * @return 변경된 문자열. 인덱스가 범위를 벗어나면 원본 문자열 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     */
+    public static String toLowerCase(String string, int index) {
+        Objects.requireNonNull(string);
+
+        if (index >= 0 && index < string.length()) {
+            char[] cs = string.toCharArray();
+            cs[index] = Character.toLowerCase(cs[index]);
+            return new String(cs);
+        }
+
+        LOGGER.error("index={}, string: {}", index, string);
+        return string;
+    }
+
+    /**
+     * camelCase 문자열을 PascalCase 문자열로 변경합니다.<br>
+     * 예) camelCase &rarr; CamelCase <br>
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 1. 16.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 루프 및 객체 생성 오버헤드를 제거한 O(1) 로직으로 최적화
+     * </pre>
+     *
+     * @param camelCase
+     *            카멜케이스 문자열
+     *
+     * @return 파스칼케이스 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code camelCase})가 {@code null}인 경우 발생.
      *
      * @since 2020. 1. 16.
-     * 
+     * @version 3.0.0
+     */
+    public static String toPascalCase(String camelCase) {
+        Objects.requireNonNull(camelCase);
+
+        if (camelCase.isEmpty()) {
+            return camelCase;
+        }
+
+        // [PATCH] 문자열의 첫 글자만 대문자로 올리면 원본의 의도를 100% 만족하며 불필요한 연산이 제거됨
+        return Character.toUpperCase(camelCase.charAt(0)) + camelCase.substring(1);
+    }
+
+    /**
+     * 문자열을 정규식에 사용할 수 있도록 변환(Escape)한 후 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 커스텀 이스케이프 맵 대신 JDK 표준 Pattern.quote() 적용
+     * </pre>
+     *
+     * @param string
+     *            원본 문자열
+     *
+     * @return 정규식 이스케이프 처리가 완료된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
+     */
+    public static String toRegExString(String string) {
+        Objects.requireNonNull(string);
+
+        // [PATCH] 레거시 커스텀 치환 엔진을 버리고 가장 안전한 JVM 표준 엔진으로 위임
+        return Pattern.quote(string);
+    }
+
+    /**
+     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
+     * 예)
+     * <ul>
+     * <li>camelCase &rarr; camel_case</li>
+     * <li>camel1Case &rarr; camel1_case</li>
+     * <li>camelCase1 &rarr; camel_case1</li>
+     * </ul>
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2020. 1. 16.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param camelCase
+     *            카멜케이스 문자열
+     *
+     * @return 스네이크케이스 문자열
+     *
+     * @since 2020. 1. 16.
      */
     public static String toSnakeCase(String camelCase) {
+        // 순수 위임 (Core Method로 전달)
         return toSnakeCase0(camelCase, false);
     }
 
     /**
-     * 
-     * <br>
-     * 
+     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 9. 27.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 9. 27.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 불필요한 ArrayList 할당 제거 및 최적화
      * </pre>
      *
      * @param camelCase
      *            문자열
      * @param isSplitNum
      *            숫자 별도 처리 여부
-     * @return
+     *
+     * @return 스네이크케이스 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code camelCase})가 {@code null}인 경우 발생.
      *
      * @since 2023. 9. 27.
-     * @version 2.0.0
-     * 
+     * @version 3.0.0
      */
     private static String toSnakeCase0(String camelCase, boolean isSplitNum) {
-        ArrayList<String> strs = new ArrayList<>();
+        Objects.requireNonNull(camelCase);
 
-        StringBuffer buf = new StringBuffer();
-        for (char c : camelCase.toCharArray()) {
-            if (Character.isUpperCase(c) // 문자가 대문자인 경우
-                    || (isSplitNum && Character.isDigit(c)) // 숫자별도처리이고 문자가 숫자인 경우
-            ) {
-                flushBuffer(buf, strs);
-            }
-
-            buf.append(Character.toLowerCase(c));
+        if (camelCase.isEmpty()) {
+            return camelCase;
         }
 
-        flushBuffer(buf, strs);
+        StringBuilder sb = new StringBuilder(camelCase.length() + 5);
+        for (int i = 0; i < camelCase.length(); i++) {
+            char c = camelCase.charAt(i);
+            if (i > 0 && (Character.isUpperCase(c) || (isSplitNum && Character.isDigit(c)))) {
+                sb.append('_');
+            }
+            sb.append(Character.toLowerCase(c));
+        }
 
-        return StringUtils.concat(strs, "_", false, false, false);
+        return sb.toString();
     }
 
     /**
-     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
+     * camelCase 문자열을 snake_case 문자열로 변경합니다. (숫자 분리 적용)<br>
      * 예)
      * <ul>
-     * <li>camelCase -> camel_case
-     * <li>camel1Case -> camel_1_case
-     * <li>camelCase1 -> camel_case_1
+     * <li>camelCase &rarr; camel_case</li>
+     * <li>camel1Case &rarr; camel_1_case</li>
+     * <li>camelCase1 &rarr; camel_case_1</li>
      * </ul>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2023. 9. 27.		parkjunhong77@gmail.com			최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2023. 9. 27.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param camelCase
-     * @return
+     *            카멜케이스 문자열
+     *
+     * @return 숫자 분리가 적용된 스네이크케이스 문자열
      *
      * @since 2023. 9. 27.
      * @version 2.0.0
-     * 
      */
     public static String toSnakeCaseNum(String camelCase) {
+        // 순수 위임 (Core Method로 전달)
         return toSnakeCase0(camelCase, true);
     }
 
     /**
-     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우{@code defaultValue}에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
-     * 
+     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우 {@code defaultValue}에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 17.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param string
-     *            문자열
+     *            확인할 문자열
      * @param defaultValue
-     * @return
-     * 
-     * 
+     *            대체할 기본값
+     *
+     * @return 결과 문자열
+     *
      * @since 2012. 01. 17.
-     * 
      */
-    public static String toString(String string, String defaultValue) {
+    public static @Nullable String toString(@Nullable String string, @Nullable String defaultValue) {
+        // 파라미터 null 허용 정책이 명확하므로 별도의 Objects.requireNonNull 검사는 생략
         return isNullOrEmptyString(string) ? defaultValue : string;
     }
 
-    public static String toStrings(Object... objects) {
-        switch (objects.length) {
-            case 0:
-                return "";
-            case 1:
-                return objects[0].toString();
-            default:
-                StringBuilder sb = new StringBuilder();
-                sb.append(objects[0]);
-                for (int i = 1; i < objects.length; i++) {
-                    sb.append(objects[i]);
-                }
-                return sb.toString().trim();
+    /**
+     * 주어진 가변 인자 객체들을 하나의 문자열로 결합하여 반환합니다.
+     *
+     * @param objects
+     *            결합할 객체 가변 인자
+     *
+     * @return 결합된 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code objects})가 {@code null}인 경우 발생.
+     */
+    public static String toStrings(@Nullable Object... objects) {
+        Objects.requireNonNull(objects);
+
+        if (objects.length == 0) {
+            return "";
         }
+        if (objects.length == 1) {
+            return objects[0] == null ? "null" : objects[0].toString();
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (Object obj : objects) {
+            sb.append(obj);
+        }
+        return sb.toString().strip();
     }
 
     /**
      * 주어진 문자열들을 가지고 UCC(Upper Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
-     * 예: upper, camel, case -> UpperCamelCase
-     * 
+     * 예: upper, camel, case &rarr; UpperCamelCase
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 01. 10.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param strings
-     * @return
-     * 
-     * 
+     *            문자열 가변 인자
+     *
+     * @return 어퍼카멜케이스(파스칼케이스) 문자열
+     *
+     * @throws NullPointerException
+     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *
      * @since 2012. 01. 10.
-     * 
      */
-    public static String toUpperCamelCase(String... strings) {
-        if (strings == null || strings.length < 1) {
+    public static String toUpperCamelCase(@Nullable String... strings) {
+        Objects.requireNonNull(strings);
+
+        if (strings.length == 0) {
             return "";
-        } else {
-            StringBuffer result = new StringBuffer();
-            for (int i = 0; i < strings.length; i++) {
-                result.append(toUpperCase(strings[i].toLowerCase(), 0));
-            }
-            return result.toString();
         }
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < strings.length; i++) {
+            if (strings[i] != null && !strings[i].isEmpty()) {
+                String lower = strings[i].toLowerCase();
+                result.append(Character.toUpperCase(lower.charAt(0)));
+                result.append(lower.substring(1));
+            }
+        }
+        return result.toString();
     }
 
     /**
      * 문자열에서 {@code index}에 해당하는 캐릭터를 대문자로 변경한 후 반환합니다.
-     * 
+     *
      * @param string
      *            문자열
      * @param index
-     * @return
+     *            인덱스
+     *
+     * @return 변경된 문자열. 인덱스가 범위를 벗어나면 원본 문자열 반환.
+     *
+     * @throws NullPointerException
+     *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String toUpperCase(String string, int index) {
+        Objects.requireNonNull(string);
 
-        if (index > -1 && index < string.length()) {
+        if (index >= 0 && index < string.length()) {
             char[] cs = string.toCharArray();
             cs[index] = Character.toUpperCase(cs[index]);
             return new String(cs);
-        } else {
-            System.err.println("index=" + index + ", string: " + string);
-            return string;
         }
-    }
 
-    /**
-     * VO 클래스 이름으로 변환한 결과를 반환합니다.
-     * 
-     * @param string
-     *            문자열
-     * @return
-     */
-    public static String toVoClassName(String string) {
-        return StringUtils.toUpperCase(StringUtils.removeUnderlineAndNextUppercaseOtherLowcase(string.trim()), 0) + "VO";
+        LOGGER.error("index={}, string: {}", index, string);
+        return string;
     }
 
     /**
@@ -3647,7 +3686,6 @@ public class StringUtils {
      * 
      * 
      * @since 2012. 3. 5.
-     * 
      */
     public static final class OneCharacterString {
         private final String string;

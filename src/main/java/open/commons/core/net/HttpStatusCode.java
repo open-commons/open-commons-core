@@ -477,7 +477,7 @@ public class HttpStatusCode implements Cloneable {
      *     Matcher matcher = null;
      * 
      *     while ((readline = reader.readLine()) != null) {
-     *         readline = readline.trim();
+     *         readline = readline.strip();
      * 
      *         // omit empty line
      *         if (readline.isEmpty()) {

@@ -110,7 +110,7 @@ public class SaxTextConverter {
         // #2. SAX Element에 해당하는 메소드
         Method m = methods.get(saxElement);
 
-        if (saxText != null && !saxText.trim().isEmpty() && m == null) {
+        if (saxText != null && !saxText.isBlank() && m == null) {
             throw new UnsupportedOperationException(String.format("Object: %s, sax-element: %s, sax-text: %s", obj.getClass().getName(), saxElement, saxText));
         } else if (m == null) {
             return;

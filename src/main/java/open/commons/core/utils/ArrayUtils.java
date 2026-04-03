@@ -1428,7 +1428,7 @@ public class ArrayUtils {
         chars[0] = (array[0] != null ? array[0] : "null").toString().toCharArray();
 
         for (int i = 1; i < array.length; i++) {
-            chars[i] = prepend((array[i] != null ? array[i] : "null").toString().trim().toCharArray(), delimiter);
+            chars[i] = prepend((array[i] != null ? array[i] : "null").toString().strip().toCharArray(), delimiter);
         }
 
         char[] merged = merge(chars);
@@ -1457,7 +1457,7 @@ public class ArrayUtils {
         chars[0] = (array[0] != null ? array[0] : "null").toString().toCharArray();
 
         for (int i = 1; i < array.length; i++) {
-            chars[i] = merge(delim, (array[i] != null ? array[i] : "null").toString().trim().toCharArray());
+            chars[i] = merge(delim, (array[i] != null ? array[i] : "null").toString().strip().toCharArray());
         }
 
         char[] merged = merge(chars);
@@ -5277,51 +5277,61 @@ public class ArrayUtils {
 
     /**
      * 여러 개의 배열을 하나의 배열로 합쳐서 반환합니다.
-     * 
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2012. 03. 12.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 불필요한 중간 배열 제거 및 빈 배열 병합 버그 수정
+     * </pre>
+     *
      * @param arrays
+     *            배열 가변 인자
+     *
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
+     *
      * @throws NullPointerException
      *             파라미터({@code arrays})가 {@code null}인 경우 발생.
-     * 
+     *
      * @since 2012. 03. 12.
-     * 
      */
     public static byte @Nullable [] merge(byte @Nullable []... arrays) {
-
         Objects.requireNonNull(arrays);
 
-        // null 이 아닌 배열의 인덱스
-        int[] evalArr = new int[arrays.length];
+        boolean allNull = true;
+        int totalLength = 0;
 
-        int evalIndex = 0;
-        // null이 아닌 배열의 인덱스를 보관합니다.
-        for (int i = 0; i < arrays.length; i++) {
-            if (arrays[i] != null) {
-                evalArr[evalIndex++] = i;
+        // 1차 순회: 전체 null 여부 확인 및 병합할 총 길이 계산
+        for (byte[] array : arrays) {
+            if (array != null) {
+                allNull = false;
+                totalLength += array.length;
             }
         }
 
-        // 실제 데이타를 포함하고 있는 배열들의 길이의 합
-        int mergeIndex = 0;
-        for (int i = 0; i < evalIndex; i++) {
-            mergeIndex += arrays[evalArr[i]].length;
+        // 모든 배열이 null인 경우 Javadoc 명세에 따라 null 반환
+        if (allNull) {
+            return null;
         }
 
-        if (mergeIndex != 0) {
-            byte[] mergedArray = new byte[mergeIndex];
+        // 모든 배열의 길이가 0인 경우 빈 배열 반환 (기존 버그 수정)
+        if (totalLength == 0) {
+            return new byte[0];
+        }
 
-            int copiedLength = 0;
-            for (int i = 0; i < evalIndex; i++) {
-                System.arraycopy(arrays[evalArr[i]], 0, mergedArray, copiedLength, arrays[evalArr[i]].length);
+        byte[] mergedArray = new byte[totalLength];
+        int destPos = 0;
 
-                copiedLength += arrays[evalArr[i]].length;
+        // 2차 순회: 실제 데이터 병합 복사
+        for (byte[] array : arrays) {
+            if (array != null && array.length > 0) {
+                System.arraycopy(array, 0, mergedArray, destPos, array.length);
+                destPos += array.length;
             }
-
-            return mergedArray;
         }
 
-        return null;
+        return mergedArray;
     }
 
     /**

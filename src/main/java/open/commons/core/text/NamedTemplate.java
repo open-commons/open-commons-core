@@ -158,7 +158,7 @@ public class NamedTemplate {
     public NamedTemplate addValue(String name, Object value) {
         Objects.requireNonNull(name);
 
-        this.values.put(trim ? name.trim() : name, value);
+        this.values.put(trim ? name.strip() : name, value);
 
         return this;
     }
@@ -189,7 +189,7 @@ public class NamedTemplate {
             Objects.requireNonNull(name);
 
             if (trim) {
-                name = name.trim();
+                name = name.strip();
             }
             this.values.put(name, value);
         });
@@ -509,7 +509,7 @@ public class NamedTemplate {
                     } else {
                         if (opened) {
                             if (nameBuf.length() > 0) {
-                                tokens.add(new NamedToken(trimmed ? Objects.requireNonNull(nameBuf.toString().trim()) : Objects.requireNonNull(nameBuf.toString()), true));
+                                tokens.add(new NamedToken(trimmed ? Objects.requireNonNull(nameBuf.toString().strip()) : Objects.requireNonNull(nameBuf.toString()), true));
                                 nameBuf.setLength(0);
                             }
                         } else {

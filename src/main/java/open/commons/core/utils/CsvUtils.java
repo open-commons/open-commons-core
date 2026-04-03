@@ -243,7 +243,7 @@ public class CsvUtils {
                     if (info.index < arr.length) {
                         String value = arr[info.index];
                         if (value != null)
-                            value = value.trim();
+                            value = value.strip();
 
                         Class<?> argType = info.method.getParameterTypes()[0];
                         Object arg = null;

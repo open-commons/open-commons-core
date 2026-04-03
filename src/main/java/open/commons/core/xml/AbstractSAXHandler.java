@@ -41,7 +41,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import open.commons.core.utils.ObjectUtils;
-import open.commons.core.utils.StringUtils;
 
 /**
  * <br>
@@ -332,7 +331,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     protected final String indentation() {
-        return new StringBuffer(StringUtils.nTimesString(this.indentStr, this.indent)).append(" ").toString();
+        return new StringBuffer(this.indentStr.repeat(this.indent)).append(" ").toString();
     }
 
     /**

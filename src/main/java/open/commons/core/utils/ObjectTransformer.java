@@ -151,7 +151,7 @@ public class ObjectTransformer {
     private static Function<Method, String> GETTER_KEYGEN = method -> {
         Getter annoGetter = method.getAnnotation(Getter.class);
         String name = annoGetter.name();
-        if (name.trim().isEmpty()) {
+        if (name.isBlank()) {
             name = method.getName();
             Matcher m = METHOD_GETTER.matcher(name);
             if (m.matches()) {
@@ -185,7 +185,7 @@ public class ObjectTransformer {
     private static Function<Method, String> SETTER_KEYGEN = method -> {
         Setter annoSetter = method.getAnnotation(Setter.class);
         String name = annoSetter.name();
-        if (name.trim().isEmpty()) {
+        if (name.isBlank()) {
             name = method.getName();
             Matcher m = METHOD_SETTER.matcher(name);
             if (m.matches()) {

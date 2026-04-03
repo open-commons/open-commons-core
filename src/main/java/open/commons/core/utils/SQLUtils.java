@@ -288,8 +288,8 @@ public class SQLUtils {
                         ) {
                             ColumnDecl anno = Objects.requireNonNull(m.getAnnotation(ColumnDecl.class));
 
-                            String annoValue = anno.value().trim();
-                            String annoColumn = anno.column().trim();
+                            String annoValue = anno.value().strip();
+                            String annoColumn = anno.column().strip();
 
                             if (StringUtils.isNullOrEmptyStringAnd(annoValue, annoColumn)) {
                                 throw new IllegalArgumentException(String.format("컬럼명은 빈문자열이 올 수 없습니다. column=%s, value=%s", annoColumn, annoValue));

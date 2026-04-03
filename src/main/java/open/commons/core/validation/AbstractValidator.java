@@ -33,11 +33,16 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.CollectionUtils;
@@ -52,6 +57,8 @@ import open.commons.core.utils.CollectionUtils;
  * 
  */
 public class AbstractValidator<D, T> implements IValidator<D, T> {
+
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     protected static final int INIT_VALID = 0xFFFFFFFF;
     protected static final int MAX_FEATURE_COUNT = 31;
@@ -73,13 +80,13 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
 
     private ConcurrentMap<Object, Integer> customeFeatures = new ConcurrentHashMap<Object, Integer>();
 
-    protected ITokenizer<D, T> tokenizer;
+    protected @Nullable ITokenizer<D, T> tokenizer;
 
     public AbstractValidator() {
         this(null);
     }
 
-    public AbstractValidator(ITokenizer<D, T> tokenizer) {
+    public AbstractValidator(@Nullable ITokenizer<D, T> tokenizer) {
 
         this.tokenizer = tokenizer;
 
@@ -99,7 +106,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     }
 
     public int addTokenValidator(ITokenValidator<T> tokenValidator) {
-        AssertUtils2.notNulls(tokenValidator);
+        Objects.requireNonNull(tokenValidator);
 
         int feature = getFeature(tokenValidator.isPositive());
 
@@ -108,8 +115,9 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
         return feature;
     }
 
-    @SafeVarargs
     public final List<Integer> addTokenValidators(ITokenValidator<T>... tokenValidators) {
+        Objects.requireNonNull(tokenValidators);
+
         List<Integer> features = new ArrayList<Integer>();
         for (ITokenValidator<T> tokenValidator : tokenValidators) {
             features.add(addTokenValidator(tokenValidator));
@@ -123,6 +131,9 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     }
 
     protected final int getCustomFeature(Object holder, ITokenValidator<T> tokenValidator) {
+        Objects.requireNonNull(holder);
+        Objects.requireNonNull(tokenValidator);
+
         Integer feature = customeFeatures.get(holder);
 
         if (feature == null) {
@@ -175,7 +186,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
         return reason;
     }
 
-    protected ITokenValidator<T> getTokenValidator(int feature) {
+    protected @Nullable ITokenValidator<T> getTokenValidator(int feature) {
         return tokenValidators.get(feature);
     }
 
@@ -299,6 +310,11 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      */
     protected final void setValid(int feature) {
         ITokenValidator<T> tokenValidator = tokenValidators.get(feature);
+
+        if (tokenValidator == null) {
+            logger.warn("feature({})에 해당하는 TokenValidator가 존재하지 않습니다.", feature);
+            return;
+        }
 
         int shift = 0x01 << feature;
 

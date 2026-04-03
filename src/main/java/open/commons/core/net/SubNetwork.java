@@ -359,7 +359,7 @@ public class SubNetwork {
     }
 
     // 아래 내용에 적용됨.
-    // - sb.toString().trim()
+    // - sb.toString().strip()
     // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
@@ -386,7 +386,7 @@ public class SubNetwork {
             }
         }
 
-        return sb.toString().trim();
+        return sb.toString().strip();
     }
 
     private static int[] dottedDecimalAddressToIntArr(String ipv4) {

@@ -646,7 +646,7 @@ public class IOUtils {
      * @version 3.0.0
      */
     public static void open(@Nullable String target) {
-        if (target == null || target.trim().isEmpty()) {
+        if (target == null || target.isBlank()) {
             return;
         }
 
