@@ -1,3 +1,8 @@
+[2026/04/06]
+- Updated
+  + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
+    + open.commons.core: 완료
+    
 [2026/04/03]
 - Updated
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.

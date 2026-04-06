@@ -29,6 +29,8 @@ package open.commons.core.validation;
 
 import java.util.Set;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * 
  * @since 2014. 4. 10.
@@ -51,15 +53,15 @@ public class FalseTokenValidator<T> extends NamedTokenValidator<T> {
      * @see open.commons.core.validation.ITokenValidator#getValidTokens()
      */
     @Override
-    public final Set<T> getValidTokens() {
-        return null;
+    public final @Nullable Set<T> getValidTokens() {
+        throw null;
     }
 
     /**
      * @see open.commons.core.validation.ITokenValidator#validate(java.lang.Object)
      */
     @Override
-    public final boolean validate(Object token) {
+    public final boolean validate(T token) {
         return false;
     }
 }

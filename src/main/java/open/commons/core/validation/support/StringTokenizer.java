@@ -26,27 +26,52 @@
 
 package open.commons.core.validation.support;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 
 import open.commons.core.validation.AbstractTokenizer;
 
+/**
+ * 문자열({@link CharSequence})을 문자({@link Character}) 단위로 토큰화하는 클래스입니다.
+ */
 public class StringTokenizer extends AbstractTokenizer<CharSequence, Character> {
 
-    public StringTokenizer(CharSequence data) throws NullPointerException {
+    /**
+     * 객체를 생성합니다.
+     *
+     * @param data
+     *            토큰화할 대상 문자열 데이터
+     *
+     * @throws NullPointerException
+     *             파라미터({@code data})가 {@code null}인 경우 발생.
+     */
+    public StringTokenizer(CharSequence data) {
         super(data);
     }
 
+    /**
+     * 데이터를 위한 토큰 반복자를 생성하여 반환합니다.
+     *
+     * @return 문자 토큰 반복자
+     */
     @Override
     protected Iterator<Character> tokenize() {
+        // [PATCH] ArrayList 객체 복사를 제거하고, 원본 데이터에 직접 접근하는 Zero-Allocation Iterator 구현
+        return new Iterator<Character>() {
+            private int cursor = 0;
 
-        List<Character> cs = new ArrayList<>();
+            @Override
+            public boolean hasNext() {
+                return cursor < data.length();
+            }
 
-        for (int i = 0; i < data.length(); i++) {
-            cs.add(data.charAt(i));
-        }
-
-        return cs.iterator();
+            @Override
+            public Character next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("더 이상 읽을 문자가 없습니다.");
+                }
+                return data.charAt(cursor++);
+            }
+        };
     }
 }

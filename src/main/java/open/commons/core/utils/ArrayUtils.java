@@ -9107,7 +9107,7 @@ public class ArrayUtils {
      *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
-    @SuppressWarnings({ "null" })
+    @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data, @Nullable IEquivalent<T[]> equivalent) {
         ObjectUtils.requireNonNulls(array, target, data);
 

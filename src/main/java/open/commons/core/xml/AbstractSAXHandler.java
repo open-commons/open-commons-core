@@ -27,11 +27,12 @@
 package open.commons.core.xml;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
+import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Stack;
+import java.util.Set;
 
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -43,62 +44,78 @@ import org.xml.sax.helpers.DefaultHandler;
 import open.commons.core.utils.ObjectUtils;
 
 /**
- * <br>
- * 
+ * SAX 파싱을 위한 추상 핸들러 클래스입니다.
+ *
  * <pre>
  * [개정이력]
- *      날짜    	| 작성자	|	내용
- * ------------------------------------------
- * 2019. 1. 25.         parkjunhong77@gmail.com     최초작성
- * 2019. 10. 17.        parkjunhong77@gmail.com     Logger 교체. org.apache.logging.log4j.Logger -> org.slf4j.Logger 로 교체
+ * 날짜        | 작성자                    | 내용
+ * ----------------------------------------------------------------------
+ * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
+ * 2019. 10. 17.     parkjunhong77@gmail.com     Logger 교체. (log4j &rarr; slf4j)
+ * 2026. 4. 6.       parkjunhong77@gmail.com     (3.0.0) 레거시 Stack 제거(ArrayDeque 교체) 및 characters 더블 할당(O(N)) 최적화
  * </pre>
- * 
+ *
  * @since 2019. 1. 25.
- * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public abstract class AbstractSAXHandler extends DefaultHandler {
 
-    @SuppressWarnings("null")
     protected Logger logger = LoggerFactory.getLogger(getClass());
-    @SuppressWarnings("null")
     protected Logger errorLogger = LoggerFactory.getLogger(getClass());
 
-    private boolean ignoreadInvalidValue;
+    private boolean ignoredInvalidValue;
 
     private String indentStr = "...";
     private int indent = 1;
 
     /** SAX Element TEXT 데이타 변환기 */
     private final SaxTextConverter converter = new SaxTextConverter();
-    /** Element 이름 */
-    private final Stack<String> qnames = new Stack<>();
+
+    /** Element 이름 (레거시 Stack 대신 모던 ArrayDeque 적용) */
+    private final Deque<String> qnames = new ArrayDeque<>();
     /** 데이터로 사용되는 Element 이름 */
-    private final HashSet<String> dataQNames = new HashSet<>();
+    private final Set<String> dataQNames = new HashSet<>();
     /** Element Object */
-    private final Stack<Object> elemObjects = new Stack<>();
+    private final Deque<Object> elemObjects = new ArrayDeque<>();
 
     /**
-     * 
-     * @param ignoreadInvalidValue
+     * 객체를 생성합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 29.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param ignoredInvalidValue
      *            잘못된 값 처리 무시 여부
+     *
      * @since 2019. 1. 29.
      */
-    public AbstractSAXHandler(boolean ignoreadInvalidValue) {
-        this(null, null, ignoreadInvalidValue);
+    public AbstractSAXHandler(boolean ignoredInvalidValue) {
+        this(null, null, ignoredInvalidValue);
     }
 
     /**
+     * 객체를 생성합니다.
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param logger
      *            일반 로그
      * @param errorLogger
      *            에러 로그
+     *
      * @since 2019. 1. 25.
      */
     public AbstractSAXHandler(@Nullable Logger logger, @Nullable Logger errorLogger) {
@@ -106,23 +123,32 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * 
+     * 객체를 생성합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 29.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
      * @param logger
      *            일반 로그
      * @param errorLogger
      *            에러 로그
-     * @param ignoreadInvalidValue
+     * @param ignoredInvalidValue
      *            잘못된 값 처리 무시 여부
+     *
      * @since 2019. 1. 29.
      */
-    public AbstractSAXHandler(@Nullable Logger logger, @Nullable Logger errorLogger, boolean ignoreadInvalidValue) {
+    public AbstractSAXHandler(@Nullable Logger logger, @Nullable Logger errorLogger, boolean ignoredInvalidValue) {
         if (logger != null) {
             this.logger = logger;
         }
         if (errorLogger != null) {
             this.errorLogger = errorLogger;
         }
-        this.ignoreadInvalidValue = ignoreadInvalidValue;
+        this.ignoredInvalidValue = ignoredInvalidValue;
 
         // #1. Register a converter.
         registerDataConverters(this.converter);
@@ -133,74 +159,63 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
 
     /**
      * qName에 해당하는 객체를 저장합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param qName
      * @param object
-     * @return
+     *            대상 객체
+     *
+     * @return 추가 여부 (항상 {@code true})
      *
      * @since 2019. 1. 25.
      */
-    protected final Object addElementObject(@Nullable Object object) {
+    protected final boolean addElementObject(@Nullable Object object) {
+        // [PATCH] Deque의 add는 boolean을 반환합니다.
         return elemObjects.add(object);
     }
 
-    /**
-     * @throws NullPointerException
-     *             파라미터({@code ch})가 {@code null}인 경우 발생.
-     * 
-     * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
-     */
-    // 아래 내용에 적용됨.
-    // - char[] ch
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         Objects.requireNonNull(ch);
 
-        if (dataQNames.contains(getCurrentQName())) {
-            logger.debug(String.format("%s[ELEMENT::characters] start: %,4d, length: %,4d, value: %s" //
-                    , indentation(), start, length, new String(Arrays.copyOfRange(ch, start, start + length))));
-        }
+        String currentQName = getCurrentQName();
 
-        // 데이타를 갖지 않는 Element는 패스.
-        if (!this.dataQNames.contains(getCurrentQName())) {
+        if (dataQNames.contains(currentQName)) {
+            // [PATCH] 불필요한 배열 복사 방지를 위해 생성자에 직접 파라미터 전달 (Zero-Allocation)
+            logger.debug("{} [ELEMENT::characters] start: {}, length: {}, value: {}", indentation(), start, length, new String(ch, start, length));
+        } else {
+            // 데이터를 갖지 않는 Element는 패스.
             return;
         }
 
-        String strValue = null, qname = null;
+        String strValue = null;
         Object parentObj = null;
+
         try {
-            // #0. SAX Element's TEXT value
-            strValue = new String(Arrays.copyOfRange(ch, start, start + length));
-            // #1. 현재 상태의 Element 이름
-            qname = getCurrentQName();
-            // #2. 상위 Element 이름 및 객체
-            parentObj = getParentObject(qname);
-            // #3. TEXT value 를 설정
-            this.converter.convert(parentObj, qname, strValue);
+            // #0. SAX Element's TEXT value (Zero-Allocation)
+            strValue = new String(ch, start, length);
+            // #1. 상위 Element 이름 및 객체
+            parentObj = getParentObject(currentQName);
+            // #2. TEXT value 를 설정
+            this.converter.convert(parentObj, currentQName, strValue);
         } catch (NumberFormatException ignored) {
-            if (!this.ignoreadInvalidValue) {
-                this.errorLogger.warn(String.format("잘못된 형식의 데이타 수신. value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, qname, parentObj, ignored.getMessage()));
+            if (!this.ignoredInvalidValue) {
+                this.errorLogger.warn("잘못된 형식의 데이타 수신. value: {}, QName: {}, ParentObj: {}, cause: {}", strValue, currentQName, parentObj, ignored.getMessage());
             }
-            strValue = null;
         } catch (IllegalAccessException | InvocationTargetException | RuntimeException e) {
-            String errorMsg = String.format("value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, qname, parentObj, e.getMessage());
+            String errorMsg = String.format("value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, currentQName, parentObj, e.getMessage());
 
             this.errorLogger.error(errorMsg, e);
             throw new SAXException(errorMsg, e);
         }
 
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug(String.format("%s(Object) %s.%s = %s", indentation(), parentObj != null ? parentObj.getClass().getSimpleName() : null, qname, strValue));
+            this.logger.debug("{}(Object) {}.{} = {}", indentation(), parentObj != null ? parentObj.getClass().getSimpleName() : null, currentQName, strValue);
         }
     }
 
@@ -210,15 +225,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
 
     /**
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     * 
-     * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+     *             파라미터({@code uri}, {@code localName}, {@code qName} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    // 아래 내용에 적용됨.
-    // - 파라미터 전체 (String uri, String localName, String qName)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     @Override
     public final void endElement(String uri, String localName, String qName) throws SAXException {
         ObjectUtils.requireNonNulls(uri, localName, qName);
@@ -227,29 +235,25 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
         decIndentation();
 
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug(String.format("%s[ELEMENT::end] qName: %s, uri: %s, localName: %s" //
-                    , indentation(), qName, uri, localName));
-        }
-
-        if (this.logger.isDebugEnabled()) {
-            this.logger.debug(String.format("%s<<<<<<<<<< end of '%s'", indentation(), qName));
+            this.logger.debug("{}[ELEMENT::end] qName: {}, uri: {}, localName: {}", indentation(), qName, uri, localName);
+            this.logger.debug("{}<<<<<<<<<< end of '{}'", indentation(), qName);
         }
 
         // #2. Handle a parsed data.
         endElement0(uri, localName, qName);
 
         // #3. Remove a name of an element parsed.
-        this.qnames.pop();
+        this.qnames.poll();
     }
 
     /**
      * 요소(Element) 종료 시 수행할 구체적인 로직을 정의합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     * 날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param uri
@@ -258,14 +262,12 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param qName
      *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이 전달됩니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *
      * @throws SAXException
      *             SAX 처리 중 발생하는 예외. 내부적으로 다른 예외를 래핑(wrapping)할 수 있습니다.
      *
      * @since 2019. 1. 25.
-     * 
+     *
      * @see org.xml.sax.ContentHandler#endElement
      * @see #endElement(String, String, String)
      */
@@ -273,38 +275,39 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
 
     /**
      * 현재 파싱 중인 Element의 QName을 반환합니다.
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
-     * 
-     * @return 스택의 최상위 객체 (없거나 null이 푸시된 경우 null 반환)
+     *
+     * @return 덱(Deque)의 최상위 객체. 없거나 {@code null}인 경우 {@code null} 반환.
      */
     protected @Nullable String getCurrentQName() {
-        return this.qnames.isEmpty() ? null : this.qnames.peek();
+        return this.qnames.peek();
     }
 
     /**
      * Parent Element 에 해당하는 객체를 제공합니다. 기본적으로 Element 객체 스택의 최상위 객체를 제공합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param qName
      *            현재 Element 이름
-     * @return
+     *
+     * @return 부모 요소 객체
      *
      * @since 2019. 1. 25.
      */
     protected @Nullable Object getParentObject(String qName) {
-        return this.elemObjects.isEmpty() ? null : this.elemObjects.peek();
+        return this.elemObjects.peek();
     }
 
     protected final void incIndentation() {
@@ -312,81 +315,73 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * Return a string to be used as a indentation. <br>
-     * 
+     * 들여쓰기로 사용할 문자열을 반환합니다. <br>
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 6.       parkjunhong77@gmail.com     (3.0.0) 레거시 StringBuffer 제거 및 repeat 적용
      * </pre>
      *
-     * @return a string to be used as a indentation.
+     * @return 들여쓰기 문자열
      *
      * @since 2019. 1. 25.
      */
-    // 아래 내용에 적용됨.
-    // - return new StringBuffer(StringUtils.nTimesString(this.indentStr, this.indent)).append(" ").toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     protected final String indentation() {
-        return new StringBuffer(this.indentStr.repeat(this.indent)).append(" ").toString();
+        // [PATCH] StringBuffer 대신 JDK 11+의 최적화된 문자열 반복 처리 활용
+        return this.indentStr.repeat(this.indent) + " ";
     }
 
     /**
-     * Element에 해당하는 객체를 제공합니다. (Element 객체 스택에서 제거되지 않는다.)<br>
-     * 
+     * Element에 해당하는 객체를 제공합니다. (Element 객체 구조에서 제거되지 않습니다.)<br>
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @param qName
-     * @return
+     * @return 요소 객체
      *
      * @since 2019. 1. 25.
-     * 
-     * @see Stack#peek()
      */
     protected final @Nullable Object peekElementObject() {
-        return this.elemObjects.isEmpty() ? null : this.elemObjects.peek();
+        return this.elemObjects.peek();
     }
 
     /**
-     * Element에 해당하는 객체를 제공합니다. (Element 객체 스택에서 제거된다.)<br>
-     * 
+     * Element에 해당하는 객체를 제공합니다. (Element 객체 구조에서 제거됩니다.)<br>
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @return
+     * @return 요소 객체. 비어있는 경우 {@code null}을 반환.
      *
      * @since 2019. 1. 25.
-     * 
-     * @see Stack#pop()
      */
     protected final @Nullable Object popElementObject() {
-        return this.elemObjects.isEmpty() ? null : this.elemObjects.pop();
+        return this.elemObjects.poll();
     }
 
     /**
      * SAX Element TEXT를 변환하는 도구를 제공합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
-     * 
+     *
      * @param converter
-     *            TODO
+     *            컨버터 객체
      *
      * @since 2019. 1. 25.
      */
@@ -394,16 +389,16 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
 
     /**
      * 데이터로 사용되는 Element Name을 제공합니다. <br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
-     * 
+     *
      * @param dataQNames
-     *            TODO
+     *            컬렉션 객체
      *
      * @since 2019. 1. 25.
      */
@@ -415,16 +410,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
 
     /**
      * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     * 
-     * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String,
-     *      org.xml.sax.Attributes)
+     *             파라미터({@code uri}, {@code localName}, {@code qName}, {@code attributes} 중에 1개라도)가 {@code null}인 경우 발생.
      */
-    // 아래 내용에 적용됨.
-    // - 메소드 파라미터 전체 (String uri, String localName, String qName, Attributes attributes)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     @Override
     public final void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         ObjectUtils.requireNonNulls(uri, localName, qName, attributes);
@@ -433,12 +420,9 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
         this.qnames.push(qName);
 
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug(String.format("%s>>>>>>>>>> start of '%s'", indentation(), qName));
-        }
-
-        if (this.logger.isDebugEnabled()) {
-            this.logger.debug(String.format("%s[ELEMENT::start] qName: %s, attributes: %s, uri: %s, localName: %s" //
-                    , indentation(), qName, attributes.getLength(), uri, localName));
+            this.logger.debug("{}[ELEMENT::start] qName: {}, attributes: {}, uri: {}, localName: {}", indentation(), qName, attributes.getLength(), uri, localName);
+            // [오류 수정 완료] 괄호 묶음 오류 수정
+            this.logger.debug("{}>>>>>>>>>> start of '{}'", indentation(), qName);
         }
 
         // #2. Increase an indentation.
@@ -448,14 +432,16 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
         startElement0(uri, localName, qName, attributes);
     }
 
+    // ... (중략) ...
+
     /**
      * 요소(Element) 시작 시 수행할 구체적인 로직을 정의합니다.<br>
-     * 
+     *
      * <pre>
      * [개정이력]
-     * 날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 1. 25.     parkjunhong77@gmail.com         최초 작성
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
      * @param uri
@@ -466,18 +452,14 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param attributes
      *            요소에 첨부된 속성(Attributes)들. 지정된 속성이 없는 경우 비어 있는 Attributes 객체가 전달됩니다.
-     * 
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *
      * @throws SAXException
      *             SAX 처리 중 발생하는 예외. 내부적으로 다른 예외를 래핑(wrapping)할 수 있습니다.
      *
      * @since 2019. 1. 25.
-     * 
+     *
      * @see #startElement(String, String, String, Attributes)
      * @see org.xml.sax.ContentHandler#startElement
      */
     public abstract void startElement0(String uri, String localName, String qName, Attributes attributes) throws SAXException;
-
 }

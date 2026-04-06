@@ -28,59 +28,148 @@
 package open.commons.core.validation;
 
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
-import open.commons.core.concurrent.Mutex;
-import open.commons.core.utils.AssertUtils2;
+import org.jspecify.annotations.Nullable;
 
 /**
- * 
+ * 기본 토큰 검증기 추상 클래스입니다.
+ *
+ * <pre>
+ * [개정이력]
+ * 날짜        | 작성자                    | 내용
+ * ----------------------------------------------------------------------
+ * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+ * </pre>
+ *
+ * @param <T>
+ *            토큰 타입
+ *
  * @since 2014. 4. 10.
- * 
  */
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings("null")
 public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
 
-    protected Set<T> validTokens = new HashSet<T>();
-    protected Mutex mutexValidTokens = new Mutex("validTokens");
+    /** 유효 토큰 셋 (스레드 안전성 확보) */
+    protected final Set<T> validTokens = ConcurrentHashMap.newKeySet();
 
-    private String name;
+    /** 검증기 식별 이름 */
+    private final String name;
 
+    /**
+     * 객체를 생성합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 6.       parkjunhong77@gmail.com     (3.0.0) 생성자 진입점 Null-Check 가드 클로즈 적용
+     * </pre>
+     *
+     * @param name
+     *            검증기 이름
+     *
+     * @throws NullPointerException
+     *             파라미터({@code name})가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 10.
+     */
     public DefaultTokenValidator(String name) {
+        Objects.requireNonNull(name);
+
         this.name = name;
     }
 
     /**
+     * 유효한 토큰을 추가합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param token
+     *            추가할 토큰
+     *
+     * @throws NullPointerException
+     *             파라미터({@code token})가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 10.
+     *
      * @see open.commons.core.validation.ITokenValidator#addValidToken(java.lang.Object)
      */
     @Override
     public void addValidToken(T token) {
-        AssertUtils2.notNull(token);
+        Objects.requireNonNull(token);
 
-        synchronized (mutexValidTokens) {
-            validTokens.add(token);
-        }
+        this.validTokens.add(token);
     }
 
     /**
+     * 검증기 이름을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @return 검증기 이름
+     *
+     * @since 2014. 4. 10.
+     *
      * @see open.commons.core.validation.ITokenValidator#getName()
      */
     @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
     /**
+     * 유효 토큰 셋을 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @return 수정 불가능한(Unmodifiable) 유효 토큰 셋
+     *
+     * @since 2014. 4. 10.
+     *
      * @see open.commons.core.validation.ITokenValidator#getValidTokens()
      */
     @Override
-    public Set<T> getValidTokens() {
-        synchronized (mutexValidTokens) {
-            return Collections.unmodifiableSet(validTokens);
-        }
+    public @Nullable Set<T> getValidTokens() {
+        return Collections.unmodifiableSet(validTokens);
     }
 
     /**
+     * 검증 결과가 양성(Positive)인지 여부를 반환합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @return 양성 여부 (항상 {@code true} 반환)
+     *
+     * @since 2014. 4. 10.
+     *
      * @see open.commons.core.validation.ITokenValidator#isPositive()
      */
     @Override
@@ -88,22 +177,38 @@ public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
         return true;
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "DefaultTokenValidator [name=" + name + ", validTokens=" + validTokens + "]";
     }
 
     /**
+     * 주어진 토큰의 유효성을 검증합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2014. 4. 10.      parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 6.       parkjunhong77@gmail.com     (3.0.0) ConcurrentHashMap Null-Key 에러 방지를 위한 가드 클로즈 보강
+     * </pre>
+     *
+     * @param token
+     *            검증할 토큰
+     *
+     * @return 유효 토큰 셋 포함 여부
+     *
+     * @throws NullPointerException
+     *             파라미터({@code token})가 {@code null}인 경우 발생.
+     *
+     * @since 2014. 4. 10.
+     *
      * @see open.commons.core.validation.ITokenValidator#validate(java.lang.Object)
      */
     @Override
     public boolean validate(T token) {
-        synchronized (mutexValidTokens) {
-            return validTokens.contains(token);
-        }
-    }
+        Objects.requireNonNull(token);
 
+        return this.validTokens.contains(token);
+    }
 }

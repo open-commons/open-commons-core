@@ -72,7 +72,11 @@ import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
  * @since 2011. 10. 24.
  * 
  */
-@SuppressWarnings("unchecked")
+// 아래 내용에 적용됨.
+// - 대부분의 JDK 표준 API
+// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+@SuppressWarnings({ "null", "unchecked" })
 public class CollectionUtils {
 
     private static final BiConsumer<StringBuilder, String[]> APPENDER_STR = (sb, strs) -> {
@@ -92,7 +96,7 @@ public class CollectionUtils {
      * @return 전달받은 {@code col}이 {@code null}인 경우, 새로운 객체.
      *
      */
-    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C add(C col, Class<? extends C> clazz, E elem) {
+    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C add(C col, Class<C> clazz, E elem) {
         if (col == null) {
             try {
                 col = clazz.getDeclaredConstructor().newInstance();
@@ -117,7 +121,7 @@ public class CollectionUtils {
      * @throws NullPointerException
      *             파라미터({@code elems})가 {@code null} 인 경우 발생.
      */
-    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addAll(C col, Class<? extends C> clazz, E... elems) {
+    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addAll(C col, Class<C> clazz, E... elems) {
         if (col == null) {
             try {
                 col = clazz.getDeclaredConstructor().newInstance();
@@ -152,13 +156,9 @@ public class CollectionUtils {
      * @since 2026. 3. 26.
      * @version 3.0.0
      */
-    // 아래 내용에 적용됨.
-    // - 'col' of "col.add(elem);"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings({ "null" })
-    public static <C extends Collection<E>, E> C addAll(C col, Collection<E> elems) {
-        ObjectUtils.requireNonNulls(col, elems);
+    public static <E extends @Nullable Object, C extends Collection<E>> C addAll(C col, Collection<E> elems) {
+        Objects.requireNonNull(col);
+        Objects.requireNonNull(elems);
 
         for (E elem : elems) {
             if (elem != null) {
@@ -190,13 +190,9 @@ public class CollectionUtils {
      *
      * @since 2019. 7. 4.
      */
-    // 아래 내용에 적용됨.
-    // - 'col' of "col.add(elem);"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
-    public static <C extends Collection<E>, E> C addAll(C col, E... elems) {
-        ObjectUtils.requireNonNulls(col, elems);
+    public static <E extends @Nullable Object, C extends Collection<E>> C addAll(C col, E... elems) {
+        Objects.requireNonNull(col);
+        Objects.requireNonNull(elems);
 
         for (E elem : elems) {
             if (elem != null) {
@@ -230,7 +226,7 @@ public class CollectionUtils {
      * 
      * @since 2017. 12. 13.
      */
-    public static <C extends @Nullable Collection<E>, E> C addAllIfNotNull(C col, Class<? extends C> clazz, Collection<E> elems) {
+    public static <E extends @Nullable Object, C extends @Nullable Collection<E>> C addAllIfNotNull(C col, Class<C> clazz, Collection<E> elems) {
         if (col == null) {
             try {
                 col = clazz.getDeclaredConstructor().newInstance();
@@ -255,7 +251,7 @@ public class CollectionUtils {
      * @throws NullPointerException
      *             파라미터({@code elems})가 {@code null}인 경우 발생.
      */
-    public static <C extends Collection<E>, E extends @Nullable Object> C addAllIfNotNull(C col, Class<? extends C> clazz, E... elems) {
+    public static <C extends Collection<E>, E extends @Nullable Object> C addAllIfNotNull(C col, Class<C> clazz, E... elems) {
         return addAll(col, clazz, elems);
     }
 
@@ -305,7 +301,7 @@ public class CollectionUtils {
      *
      * @since 2017. 12. 13.
      */
-    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addIfNotNull(C col, Class<? extends C> clazz, E elem) {
+    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addIfNotNull(C col, Class<C> clazz, E elem) {
         if (elem == null) {
             return col;
         }
@@ -478,11 +474,6 @@ public class CollectionUtils {
      * @since 2025. 9. 1.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Function<?, ?>에 호출되는 로컬 변수들.
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY extends Comparable<KEY>, R1, R2> TwoValueObject<List<R1>, List<R2>> alignBy( //
             List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R1> transformer1, Function<KEY, R1> emptyCreator1 //
             , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R2> transformer2, Function<KEY, R2> emptyCreator2 //
@@ -742,11 +733,6 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, K> Map<K, List<E>> elementToListValuedMap(Collection<E> col, Function<E, K> keyGen) {
         ObjectUtils.requireNonNulls(col, keyGen);
 
@@ -772,11 +758,6 @@ public class CollectionUtils {
      * @since 2021. 7. 13.
      * @version 1.8.0
      */
-    // 아래 내용에 적용됨.
-    // - newCol.add(e);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, C extends Collection<E>> void get(Collection<E> col, Predicate<E> p, C newCol) {
         ObjectUtils.requireNonNulls(col, newCol);
 
@@ -866,11 +847,6 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E> Collection<E> getIgnoreCase(Map<String, E> map, String keyIgnoreCase) {
         Objects.requireNonNull(map);
 
@@ -938,11 +914,6 @@ public class CollectionUtils {
      *
      * @since 2017. 7. 6.
      */
-    // 아래 내용에 적용됨.
-    // - Collectors.groupingBy(keyGen)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, K> Map<K, List<E>> listElementToListValuedMap(Collection<List<E>> col, Function<E, K> keyGen) {
         ObjectUtils.requireNonNulls(col, keyGen);
 
@@ -1161,11 +1132,6 @@ public class CollectionUtils {
      * @since 2020. 12. 21.
      * @version 1.8.0
      */
-    // 아래 내용에 적용됨.
-    // - return Stream.of(elems).toList();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object> List<E> newList(E @Nullable... elems) {
         if (elems == null || elems.length == 0) {
             return new ArrayList<>();
@@ -2327,11 +2293,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3..
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Stream.collect(Collectors.toList());
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> List<T> parallelSort(Collection<T> data, Comparator<T> sorter) {
         ObjectUtils.requireNonNulls(data, sorter);
 
@@ -2366,11 +2327,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3..
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Stream.collect(Collectors.toList());
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> List<T> parallelSort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
         ObjectUtils.requireNonNulls(data, filter, sorter);
 
@@ -2452,11 +2408,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider,
             Function<E, R> transformer) {
         return parallelSortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, Comparator.naturalOrder());
@@ -2501,11 +2452,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge( //
             Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
@@ -2552,12 +2498,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - keyProvider1.apply(o1)
-    // - keyProvider2.apply(o2)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge( //
             Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
@@ -2656,12 +2596,6 @@ public class CollectionUtils {
      * 
      * @since 2017. 10. 18.
      */
-    // 아래 내용에 적용됨.
-    // - return (E[]) Array.newInstance(type, 0);
-    // - return list.subList(pos, pos + len).toArray(read);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object> E[] readAsArray(List<E> list, int pos, int maxCount, Class<E> type) {
         ObjectUtils.requireNonNulls(list, type);
 
@@ -2729,11 +2663,6 @@ public class CollectionUtils {
      * @since 2023. 12. 13.
      * @version 2.0.0
      */
-    // 아래 내용에 적용됨.
-    // - Stream.collect(Collectors.toList());
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T extends @Nullable Object> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
         ObjectUtils.requireNonNulls(data, filter, sorter);
 
@@ -2771,11 +2700,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider) {
         return sort(data1, keyProvider, StreamUtils.identity(), data2, keyProvider, StreamUtils.identity(), Comparator.naturalOrder());
     }
@@ -2812,11 +2736,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, KEY extends Comparable<KEY>, R> List<R> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
         return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, Comparator.naturalOrder());
     }
@@ -2897,11 +2816,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sort( //
             List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
@@ -2958,11 +2872,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 3.0.0
      */
-    // 아래 내용에 적용됨.
-    // - "keyProvider1/2, transformer1/2" 에 사용된 d1, d2
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY, R> List<R> sort( //
             List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1, //
             List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2, //
@@ -3052,11 +2961,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
         return sortAndMerge(data1, keyProvider, StreamUtils.identity(), data2, keyProvider, StreamUtils.identity(), Comparator.naturalOrder());
     }
@@ -3095,11 +2999,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, KEY extends Comparable<KEY>, R> List<R> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
         return sortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, Comparator.naturalOrder());
     }
@@ -3143,11 +3042,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY extends Comparable<KEY>, R> List<R> sortAndMerge( //
             Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
@@ -3194,11 +3088,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 3.0.0
      */
-    // 아래 내용에 적용됨.
-    // - Stream.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E1, E2, KEY, R> List<R> sortAndMerge( //
             Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
@@ -3333,11 +3222,6 @@ public class CollectionUtils {
      * @since 2018. 4. 18.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - return col.toArray(size -> (E[]) Array.newInstance(type, size));
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E> E[] toArray(Collection<E> col, Class<E> type) {
         Objects.requireNonNull(col);
 
@@ -3380,11 +3264,6 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object, C extends Collection<NE>> //
             C toCollection(Collection<E> col, Function<E, NE> transformer, Supplier<C> collectionSupplier) {
         return StreamUtils.toCollection(col.stream(), transformer, collectionSupplier);
@@ -3434,11 +3313,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V, C extends Collection<V>> //
             C toCollection(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return StreamUtils.toCollection(col.stream(), keyMapper, valueMapper, mergeFunction, collectionFactory);
@@ -3466,11 +3340,6 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<List<T>>) ArrayList<T>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object> List<E> toList(Collection<E> col) {
         return toList(col, (Supplier<List<E>>) ArrayList<E>::new);
     }
@@ -3504,11 +3373,6 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<List<NE>>) ArrayList<NE>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Collection<E> col, Function<E, NE> transformer) {
         return toCollection(col, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
@@ -3625,11 +3489,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<List<V>>) ArrayList<V>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
@@ -3713,11 +3572,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<List<VV>>) ArrayList<V>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
@@ -3798,11 +3652,6 @@ public class CollectionUtils {
      * 
      * @since 2018. 9. 12.
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<List<NE>>) ArrayList<NE>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
         return StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
@@ -3846,11 +3695,6 @@ public class CollectionUtils {
      * 
      * @since 2017. 7. 6.
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<Map<K, E>>) HashMap<K, E>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Collection<E> col, Function<E, K> keyMapper) {
         return toMap(col, keyMapper, (Supplier<Map<K, E>>) HashMap<K, E>::new);
     }
@@ -3887,11 +3731,6 @@ public class CollectionUtils {
      *
      * @since 2018. 2. 8.
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
         ObjectUtils.requireNonNulls(col, keyGen, valueGen);
 
@@ -3935,11 +3774,6 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - 'map' of "map.put(keyGen.apply(v), v));"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, M map) {
         ObjectUtils.requireNonNulls(col, keyGen, map);
 
@@ -3994,11 +3828,6 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), BinaryOperators.last(), mapSupplier);
     }
@@ -4037,12 +3866,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // - (Supplier<Map<K,V>>) HashMap<K,V>::new;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
         return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
@@ -4085,11 +3908,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<Map<K,U>>) HashMap<K, U>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V, U> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
         return toMap(col, keyMapper, mergeFunction, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
@@ -4141,11 +3959,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
             M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, mergeFunction, transformer, mapSupplier);
@@ -4189,11 +4002,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, M extends Map<K, V>> //
             M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), mergeFunction, mapSupplier);
@@ -4241,11 +4049,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M> //
             Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
@@ -4296,11 +4099,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
             M toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, mapSupplier);
@@ -4348,17 +4146,12 @@ public class CollectionUtils {
      * 
      * @see #toMap(Collection, Function)
      */
-    // 아래 내용에 적용됨.
-    // - Collections.list(col)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyMapper) {
         return toMap(Collections.list(col), keyMapper);
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -4389,62 +4182,11 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen) {
-        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+        return (M) toMapHSV(col, keyGen, valueGen, new HashMap<>());
     }
 
     /**
-     * Transform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 원본 컬렉션의 요소와 해당 요소의 인덱스(0부터 시작)를 함께 고려하여 Key-Value 쌍을 생성합니다.
-     *
-     * <pre>
-     * [개정이력]
-     * 날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
-     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
-     * </pre>
-     *
-     * @param <E>
-     *            원본 데이터 유형 (a type of an element)
-     * @param <K>
-     *            데이터 식별정보 유형 (a type of a key)
-     * @param <V>
-     *            새로운 데이터 유형 (a type of a new element)
-     * @param <M>
-     *            생성할 대상 {@link Map} 구현체 유형 (not interface)
-     * @param col
-     *            원본 데이터 컬렉션
-     * @param keyGen
-     *            데이터와 인덱스를 받아 식별정보를 제공하는 함수
-     * @param valueGen
-     *            데이터와 인덱스를 받아 새로운 데이터를 생성하는 변환 함수
-     * @param mapClass
-     *            동적으로 인스턴스를 생성할 {@link Map}의 하위 클래스(Class) 메타데이터
-     * 
-     * @return 동적으로 생성되고 데이터가 추가된 대상 Map 인스턴스
-     * 
-     * @throws IllegalArgumentException
-     *             Map 인스턴스를 동적으로 생성할 수 없는 경우 (기본 생성자 부재, 접근 권한 등)
-     * 
-     * @since 2019. 8. 8.
-     * @version 3.0.0
-     */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
-            M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Class<M> mapClass) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapClass);
-
-        try {
-            M map = mapClass.getDeclaredConstructor().newInstance();
-            return toMapHSV(col, keyGen, valueGen, map);
-        } catch (ReflectiveOperationException e) {
-            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
-            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
-        }
-
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -4477,13 +4219,8 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - 'map' of "map.put(...)"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen,
-            M map) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
+            M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
         ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
 
         int i = 0;
@@ -4496,7 +4233,50 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * Transform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 원본 컬렉션의 요소와 해당 요소의 인덱스(0부터 시작)를 함께 고려하여 Key-Value 쌍을 생성합니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 206. 4. 6.       parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            원본 데이터 유형 (a type of an element)
+     * @param <K>
+     *            데이터 식별정보 유형 (a type of a key)
+     * @param <V>
+     *            새로운 데이터 유형 (a type of a new element)
+     * @param <M>
+     *            생성할 대상 {@link Map} 구현체 유형 (not interface)
+     * @param col
+     *            원본 데이터 컬렉션
+     * @param keyGen
+     *            데이터와 인덱스를 받아 식별정보를 제공하는 함수
+     * @param valueGen
+     *            데이터와 인덱스를 받아 새로운 데이터를 생성하는 변환 함수
+     * @param mapSupplier
+     *            동적으로 인스턴스를 생성할 {@link Map} 제공 함수
+     * 
+     * @return 동적으로 생성되고 데이터가 추가된 대상 Map 인스턴스
+     * 
+     * @throws IllegalArgumentException
+     *             Map 인스턴스를 동적으로 생성할 수 없는 경우 (기본 생성자 부재, 접근 권한 등)
+     * 
+     * @since 2026. 4. 6.
+     * @version 3.0.0
+     */
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
+            M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Supplier<M> mapSupplier) {
+        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+
+        return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
+    }
+
+    /**
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -4527,58 +4307,11 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen) {
-        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+        return (M) toMapHSV(col, keyGen, valueGen, new HashMap<>());
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
-     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            새로운 데이터 변환 함수
-     * @param mapClass
-     *            a sub-{@link Class} of a {@link Map}.
-     * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     *
-     * @since 2019. 8. 8.
-     * @version 3.0.0
-     */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen,
-            Class<M> mapClass) {
-
-        try {
-            M map = mapClass.getDeclaredConstructor().newInstance();
-            return toMapHSV(col, keyGen, valueGen, map);
-        } catch (ReflectiveOperationException e) {
-            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
-            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
-        }
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -4603,6 +4336,7 @@ public class CollectionUtils {
      *            새로운 데이터 변환 함수
      * @param map
      *            an instance of a {@link Map}.
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -4611,11 +4345,6 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - 'map' of "map.put(...)"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, M map) {
         ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
 
@@ -4629,7 +4358,49 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 6.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            데이터 식별정보 유형 a type of a key.
+     * @param <V>
+     *            데이터 유형 a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            데이터 식별정보 제공 함수.
+     * @param valueGen
+     *            새로운 데이터 변환 함수
+     * @param mapSupplier
+     *            {@link Map} 제공 함수
+     * 
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *
+     * @since 2026. 4. 6.
+     * @version 3.0.0
+     */
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen,
+            Supplier<M> mapSupplier) {
+        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+
+        return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
+    }
+
+    /**
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -4660,59 +4431,11 @@ public class CollectionUtils {
      * @since 2019. 8. 8.
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen) {
-        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
+        return (M) toMapHSV(col, keyGen, valueGen, new HashMap<>());
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2019. 8. 8.      parkjunhong77@gmail.com         최초 작성
-     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            새로운 데이터 변환 함수
-     * @param mapClass
-     *            a sub-{@link Class} of a {@link Map}.
-     * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     *
-     * @since 2019. 8. 8.
-     * @version 3.0.0
-     */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen,
-            Class<M> mapClass) {
-        try {
-            M map = mapClass.getDeclaredConstructor().newInstance();
-            return toMapHSV(col, keyGen, valueGen, map);
-        } catch (ReflectiveOperationException e) {
-            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
-            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
-        }
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <br>
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -4745,11 +4468,6 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - 'map' of "map.put(...)"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
         ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
 
@@ -4763,13 +4481,13 @@ public class CollectionUtils {
     }
 
     /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
      * 
      * <pre>
      * [개정이력]
-     *      날짜    	| 작성자	|	내용
+     *      날짜      | 작성자   |   내용
      * ------------------------------------------
-     * 2019. 1. 15.		parkjunhong77@gmail.com			최초 작성
+     * 2026. 4. 6.      parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
      * @param <E>
@@ -4786,43 +4504,7 @@ public class CollectionUtils {
      *            데이터 식별정보 제공 함수.
      * @param valueGen
      *            새로운 데이터 변환 함수
-     * @return
-     *
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     * 
-     * @since 2019. 1. 15.
-     */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
-        return (M) toMapHSV(col, keyGen, valueGen, HashMap.class);
-    }
-
-    /**
-     * Tranform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2019. 1. 15.		parkjunhong77@gmail.com			최초 작성
-     * 2026. 3. 9.      parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: Deprecated된 newInstance() 제거 및 명시적 예외 처리 적용
-     * </pre>
-     *
-     * @param <E>
-     *            a type of an element.
-     * @param <K>
-     *            데이터 식별정보 유형 a type of a key.
-     * @param <V>
-     *            데이터 유형 a type of a new element.
-     * @param <M>
-     *            a type of subclass of {@link Map}, not interface.
-     * @param col
-     *            elements.
-     * @param keyGen
-     *            데이터 식별정보 제공 함수.
-     * @param valueGen
-     *            새로운 데이터 변환 함수
-     * @param mapClass
+     * @param mapSupplier
      *            a sub-{@link Class} of a {@link Map}.
      * 
      * @return
@@ -4830,18 +4512,49 @@ public class CollectionUtils {
      * @throws NullPointerException
      *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
-     * @since 2019. 1. 15.
+     * @since 2026. 4. 6.
      * @version 3.0.0
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Class<M> mapClass) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
+            M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, Supplier<M> mapSupplier) {
+        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
 
-        try {
-            M map = mapClass.getDeclaredConstructor().newInstance();
-            return toMapHSV(col, keyGen, valueGen, map);
-        } catch (ReflectiveOperationException e) {
-            // 디버깅 추적성을 극대화하기 위해 구체적인 클래스 이름과 에러 사유를 명시합니다.
-            throw new IllegalArgumentException("Map 인스턴스 생성에 실패했습니다. 기본(Default) 생성자가 없거나 접근할 수 없습니다: " + mapClass.getName(), e);
-        }
+        return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
+    }
+
+    /**
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2019. 1. 15.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            데이터 식별정보 유형 a type of a key.
+     * @param <V>
+     *            데이터 유형 a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            데이터 식별정보 제공 함수.
+     * @param valueGen
+     *            새로운 데이터 변환 함수
+     * @return
+     *
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     * 
+     * @since 2019. 1. 15.
+     */
+    public static <E, K extends @Nullable Object, V> Map<K, V> toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
+        return toMapHSV(col, keyGen, valueGen, new HashMap<K, V>());
     }
 
     /**
@@ -4885,17 +4598,53 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 2.0.0
      */
-    // 아래 내용에 적용됨.
-    // - 'map' of "map.put(...)"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map) {
         ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
 
         col.forEach(e -> map.put(keyGen.apply(e), valueGen.apply(e)));
 
         return map;
+    }
+
+    /**
+     * 지정한 {@link Map}으로 {@link Collection}을 변환합니다. 각 키는 단일 값을 가집니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 6.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param <E>
+     *            a type of an element.
+     * @param <K>
+     *            데이터 식별정보 유형 a type of a key.
+     * @param <V>
+     *            데이터 유형 a type of a new element.
+     * @param <M>
+     *            a type of subclass of {@link Map}, not interface.
+     * @param col
+     *            elements.
+     * @param keyGen
+     *            데이터 식별정보 제공 함수.
+     * @param valueGen
+     *            새로운 데이터 변환 함수
+     * @param mapSupplier
+     *            {@link Map}.제공함수.
+     * 
+     * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
+     *
+     * @since 2026. 4. 6.
+     * @version 3.0.0
+     */
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Supplier<M> mapSupplier) {
+        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+
+        return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
     }
 
     /**
@@ -4997,11 +4746,6 @@ public class CollectionUtils {
      * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서 {@link TopNStrategy}를 선택하는 설정값을 변경할 수
      *      있습니다.
      */
-    // 아래 내용에 적용됨.
-    // - Collections.emptyList();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit, TopNStrategy strategy, boolean expensiveComparator) {
         ObjectUtils.requireNonNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
@@ -5073,11 +4817,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> List<T> topnByFullSort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
         ObjectUtils.requireNonNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
@@ -5120,11 +4859,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> List<T> topnByHeap(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
         ObjectUtils.requireNonNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
@@ -5185,12 +4919,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - Collections.emptyList()
-    // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> List<T> topnByQuickselect(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
         ObjectUtils.requireNonNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
@@ -5244,11 +4972,6 @@ public class CollectionUtils {
      * @since 2014. 10. 17.
      * @version 1.6.17
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<Set<E>>) HashSet<E>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object> Set<E> toSet(Collection<E> col) {
         return toSet(col, (Supplier<Set<E>>) HashSet<E>::new);
     }
@@ -5284,12 +5007,6 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      * @version
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // - (Supplier<Set<NE>>) HashSet<NE>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Collection<E> col, Function<E, NE> transformer) {
         return StreamUtils.toCollection(col.stream(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
@@ -5321,11 +5038,6 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - col.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E extends @Nullable Object, S extends Set<E>> S toSet(Collection<E> col, Supplier<S> setSupplier) {
         return StreamUtils.toCollection(col.stream(), setSupplier);
     }
@@ -5367,11 +5079,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<Set<V>>) HashSet<V>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
@@ -5461,11 +5168,6 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // - (Supplier<Set<V>>) HashSet<V>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
@@ -5546,11 +5248,6 @@ public class CollectionUtils {
      * 
      * @see {@link Object#toString()}, {@link AbstractCollection#toString()}
      */
-    // 아래 내용에 적용됨.
-    // - sb.toString()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static String toString(Collection<?> col) {
         Objects.requireNonNull(col);
 
@@ -5598,12 +5295,6 @@ public class CollectionUtils {
      * 
      * @since 2012. 02. 22.
      */
-    // 아래 내용에 적용됨.
-    // - itr.next()
-    // - sb.toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <T> String toString(Collection<T> col, String delim, String prefix, String suffix) {
         ObjectUtils.requireNonNulls(col, delim, prefix, suffix);
 
@@ -5624,26 +5315,16 @@ public class CollectionUtils {
     }
 
     private static class AscComparator<T extends Comparable<T>> implements java.util.Comparator<T> {
-        // 아래 내용에 적용됨.
-        // - 'o1'
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-        @SuppressWarnings("null")
         @Override
         public int compare(T o1, T o2) {
-            return o1.compareTo(o2);
+            return ComparableUtils.compare(o1, o2);
         }
     }
 
     private static class DescComparator<T extends Comparable<T>> implements java.util.Comparator<T> {
-        // 아래 내용에 적용됨.
-        // - 'o1'
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-        @SuppressWarnings("null")
         @Override
         public int compare(T o1, T o2) {
-            return -1 * o1.compareTo(o2);
+            return -1 * ComparableUtils.compare(o1, o2);
 
         }
     }
