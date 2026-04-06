@@ -2365,11 +2365,6 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    // 아래 내용에 적용됨.
-    // Comparator.naturalOrder()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    @SuppressWarnings("null")
     public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
         return parallelSortAndMerge(data1, keyProvider, StreamUtils.identity(), data2, keyProvider, StreamUtils.identity(), Comparator.naturalOrder());
     }
