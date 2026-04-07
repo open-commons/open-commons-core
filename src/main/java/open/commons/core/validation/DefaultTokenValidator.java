@@ -49,14 +49,10 @@ import org.jspecify.annotations.Nullable;
  *
  * @since 2014. 4. 10.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
 
     /** 유효 토큰 셋 (스레드 안전성 확보) */
+    @SuppressWarnings("null")
     protected final Set<T> validTokens = ConcurrentHashMap.newKeySet();
 
     /** 검증기 식별 이름 */

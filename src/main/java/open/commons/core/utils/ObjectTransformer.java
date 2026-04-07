@@ -96,7 +96,7 @@ import open.commons.core.function.PentagonFunction;
  */
 // 아래 내용에 적용됨.
 // - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
 // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
 @SuppressWarnings("null")
 public class ObjectTransformer {
@@ -146,9 +146,9 @@ public class ObjectTransformer {
      */
     // 아래 내용에 적용됨.
     // - name.substring(int)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    private static Function<Method, String> GETTER_KEYGEN = method -> {
+    private static final Function<Method, String> GETTER_KEYGEN = method -> {
         Getter annoGetter = method.getAnnotation(Getter.class);
         String name = annoGetter.name();
         if (name.isBlank()) {
@@ -180,9 +180,9 @@ public class ObjectTransformer {
      */
     // 아래 내용에 적용됨.
     // - name.substring(int)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-    private static Function<Method, String> SETTER_KEYGEN = method -> {
+    private static final Function<Method, String> SETTER_KEYGEN = method -> {
         Setter annoSetter = method.getAnnotation(Setter.class);
         String name = annoSetter.name();
         if (name.isBlank()) {
@@ -1568,8 +1568,6 @@ public class ObjectTransformer {
      *            변환 이후 속성 데이터 타입
      * @param converter
      *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
-     * @return
-     * 
      * @throws NullPointerException
      *             파라미터({@code srcPropertyClass, targetPropertyClass, converter 중에 1개라도})가 {@code null}인 경우 발생.
      *
@@ -1577,8 +1575,8 @@ public class ObjectTransformer {
      * @version 1.8.0
      * 
      */
-    public static <S, SF, T, TF> Object registerPropertyConverter(@Nullable Class<S> srcClass, Class<SF> srcPropertyClass, @Nullable String property,
-            @Nullable Class<T> targetClass, Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
+    public static <S, SF, T, TF> void registerPropertyConverter(@Nullable Class<S> srcClass, Class<SF> srcPropertyClass, @Nullable String property, @Nullable Class<T> targetClass,
+            Class<TF> targetPropertyClass, Function<SF, TF> converter) throws NullPointerException {
         AssertUtils2.notNulls("타입 및 함수 정보는 반드시 있어야 합니다.", srcPropertyClass, targetPropertyClass, converter);
 
         // primitive 타입, wrapper 타입인 경우 추가 자동 등록
@@ -1590,8 +1588,6 @@ public class ObjectTransformer {
                 FIELD_CONVERTERS.put(FIELD_CONVERTER_KEYGEN.apply(srcClass, srcPropType, property, targetClass, targetPropType), converter);
             }
         }
-
-        return null;
     }
 
     /**

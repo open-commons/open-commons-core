@@ -380,7 +380,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - toString()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @Override
@@ -416,6 +416,10 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @see {@link #register(File)}
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void register(File... files) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) files);
@@ -457,6 +461,10 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @throws NullPointerException
      *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void register(String... files) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) files);
@@ -498,8 +506,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) directories);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerDirectory(boolean recursive, File... directories) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) directories);
@@ -543,8 +551,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) directories);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerDirectory(File... directories) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) directories);
@@ -574,7 +582,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     // 아래 내용에 적용됨.
     // - subFiles.toArray(new File[0])
     // - subDirs.toArray(new File[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public void registerDirectory(File directory, boolean recursive) throws IOException {
@@ -659,8 +667,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) files);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerFile(boolean dedicated, File... files) {
         ObjectUtils.requireNonNulls((Object[]) files);
@@ -686,8 +694,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) files);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerFile(boolean dedicated, String... files) {
         ObjectUtils.requireNonNulls((Object[]) files);
@@ -825,8 +833,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) writers);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void removeFileContextWriter(IFileContextWriter... writers) {
         ObjectUtils.requireNonNulls((Object[]) writers);
@@ -1109,8 +1117,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) directories);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void unregisterDirectory(boolean recursive, File... directories) throws FileNotFoundException {
         ObjectUtils.requireNonNulls((Object[]) directories);
@@ -1148,7 +1156,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @see {@link #unregisterDirectory(boolean, File...)}
      */
-    @SuppressWarnings("null") // apply to 'dir'
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) directories);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public void unregisterDirectory(File... directories) throws FileNotFoundException {
         ObjectUtils.requireNonNulls((Object[]) directories);
 
@@ -1175,7 +1187,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - subDirs.toArray(new File[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public void unregisterDirectory(File directory, boolean recursive) throws FileNotFoundException {
@@ -1262,8 +1274,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) files);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void unregisterFile(File... files) {
         ObjectUtils.requireNonNulls((Object[]) files);

@@ -44,7 +44,6 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -59,7 +58,6 @@ import java.util.Vector;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,14 +70,10 @@ import open.commons.core.util.ArrayItr;
 /**
  * @since 2012. 01. 10.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class IOUtils {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(IOUtils.class);
+    @SuppressWarnings("null")
+    private static Logger sLogger = LoggerFactory.getLogger(IOUtils.class);
 
     // 애플리케이션 로드 시점에 OS별 명령어를 캐싱 (기존 아키텍처 유지)
     private static final @Nullable String COMMAND_OPEN;
@@ -98,6 +92,7 @@ public class IOUtils {
                 .orElse(null);
     }
 
+    @SuppressWarnings("null")
     public static final String LINE_SEPARATOR = System.lineSeparator();
 
     /**
@@ -164,10 +159,6 @@ public class IOUtils {
         }
     }
 
-    private static Charset defaultCharset() {
-        return Objects.requireNonNull(Charset.defaultCharset());
-    }
-
     /**
      * 주어진 {@link File}을 읽어오는 {@link BufferedReader}를 반환합니다. <br>
      *
@@ -189,10 +180,15 @@ public class IOUtils {
      *
      * @since 2012. 01. 10.
      */
+    // 아래 내용에 적용됨.
+    // - file.toPath()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static BufferedReader getReader(File file) throws IOException {
         Objects.requireNonNull(file);
 
-        return getReader(file.toPath(), defaultCharset());
+        return getReader(file.toPath(), CharUtils.defaultCharset());
     }
 
     /**
@@ -218,8 +214,14 @@ public class IOUtils {
      *
      * @since 2020. 9. 25.
      */
+    // 아래 내용에 적용됨.
+    // - file.toPath()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static BufferedReader getReader(File file, Charset cs) throws IOException {
-        ObjectUtils.requireNonNulls(file, cs);
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(cs);
 
         return getReader(file.toPath(), cs);
     }
@@ -245,8 +247,14 @@ public class IOUtils {
      *
      * @since 2020. 9. 25.
      */
+    // 아래 내용에 적용됨.
+    // - file.toPath()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static BufferedReader getReader(File file, String charsetNam) throws IOException {
-        ObjectUtils.requireNonNulls(file, charsetNam);
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(charsetNam);
 
         return getReader(file.toPath(), charsetNam);
     }
@@ -270,7 +278,7 @@ public class IOUtils {
      *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      */
     public static BufferedReader getReader(InputStream inStream) {
-        return getReader(inStream, CsvUtils.defaultCharset());
+        return getReader(inStream, CharUtils.defaultCharset());
     }
 
     /**
@@ -294,7 +302,8 @@ public class IOUtils {
      * @since 2020. 9. 25.
      */
     public static BufferedReader getReader(InputStream inStream, Charset cs) {
-        ObjectUtils.requireNonNulls(inStream, cs);
+        Objects.requireNonNull(inStream);
+        Objects.requireNonNull(cs);
 
         return new BufferedReader(new InputStreamReader(inStream, cs));
     }
@@ -312,9 +321,10 @@ public class IOUtils {
      * @since 2014. 6. 24.
      */
     public static BufferedReader getReader(InputStream inStream, String charsetName) {
-        ObjectUtils.requireNonNulls(inStream, charsetName);
+        Objects.requireNonNull(inStream);
+        Objects.requireNonNull(charsetName);
 
-        return getReader(inStream, requireCharset(charsetName));
+        return getReader(inStream, CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -339,7 +349,7 @@ public class IOUtils {
      * @since 2020. 9. 25.
      */
     public static BufferedReader getReader(Path path) throws IOException {
-        return getReader(path, defaultCharset());
+        return getReader(path, CharUtils.defaultCharset());
     }
 
     /**
@@ -364,10 +374,16 @@ public class IOUtils {
      *
      * @since 2020. 9. 25.
      */
+    // 아래 내용에 적용됨.
+    // - Files.newBufferedReader(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static BufferedReader getReader(Path path, Charset cs) throws IOException {
-        ObjectUtils.requireNonNulls(path, cs);
+        Objects.requireNonNull(path);
+        Objects.requireNonNull(cs);
 
-        return Files.newBufferedReader(path, requireCharset(cs));
+        return Files.newBufferedReader(path, CharUtils.requireCharset(cs));
     }
 
     /**
@@ -394,9 +410,10 @@ public class IOUtils {
      * @since 2020. 9. 25.
      */
     public static BufferedReader getReader(Path path, String charsetName) throws IOException {
-        ObjectUtils.requireNonNulls(path, charsetName);
+        Objects.requireNonNull(path);
+        Objects.requireNonNull(charsetName);
 
-        return getReader(path, requireCharset(charsetName));
+        return getReader(path, CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -423,9 +440,14 @@ public class IOUtils {
      *
      * @since 2012. 03. 12.
      */
+    // 아래 내용에 적용됨.
+    // - container.getName().toCharArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static @Nullable String getResourcePath(@Nullable Class<?> container) {
         if (container != null) {
-            char @NonNull [] clazzChars = container.getName().toCharArray();
+            char[] clazzChars = container.getName().toCharArray();
             int[] indice = ArrayUtils.indiceOf(clazzChars, '.');
             for (int i : indice) {
                 clazzChars[i] = '/';
@@ -483,6 +505,11 @@ public class IOUtils {
      *
      * @since 2012. 01. 10.
      */
+    // 아래 내용에 적용됨.
+    // - return Files.newBufferedWriter(file.toPath());
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static BufferedWriter getWriter(File file) throws IOException {
         Objects.requireNonNull(file);
 
@@ -520,6 +547,11 @@ public class IOUtils {
      *
      * @see {@link FileInputStream}
      */
+    // 아래 내용에 적용됨.
+    // - e.asIterator()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static SequenceInputStream newSequenceInputStream(Enumeration<File> e) throws FileNotFoundException {
         Objects.requireNonNull(e);
 
@@ -542,6 +574,11 @@ public class IOUtils {
      *
      * @see {@link FileInputStream}
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static SequenceInputStream newSequenceInputStream(File... files) throws FileNotFoundException {
         ObjectUtils.requireNonNulls((Object[]) files);
 
@@ -572,7 +609,8 @@ public class IOUtils {
      */
     @SuppressWarnings("resource")
     public static SequenceInputStream newSequenceInputStream(File file1, File file2) throws FileNotFoundException {
-        ObjectUtils.requireNonNulls(file1, file2);
+        Objects.requireNonNull(file1);
+        Objects.requireNonNull(file2);
 
         InputStream is1 = new FileInputStream(file1);
         InputStream is2 = new FileInputStream(file2);
@@ -596,6 +634,11 @@ public class IOUtils {
      *
      * @see {@link FileInputStream}
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static SequenceInputStream newSequenceInputStream(InputStream... insts) throws FileNotFoundException {
         ObjectUtils.requireNonNulls((Object[]) insts);
 
@@ -652,7 +695,7 @@ public class IOUtils {
 
         File file = new File(target);
         if (!file.exists()) {
-            LOGGER.error("There is not a file or a directory: " + target);
+            sLogger.error("There is not a file or a directory: " + target);
             return;
         }
 
@@ -710,6 +753,11 @@ public class IOUtils {
      *
      * @since 2015. 12. 10.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(data, totalRead)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] read(SocketChannel channel, final int length, boolean close) throws IOException {
         ObjectUtils.requireNonNulls(channel);
 
@@ -839,8 +887,14 @@ public class IOUtils {
      * @since 2021. 11. 18.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - ByteBuffer.allocate(accessible.getLength())
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T, R extends IRandomAccessible> T readChannel(FileChannel channel, Function<byte[], T> action, R accessible) throws IOException {
         channel.position(accessible.getPosition());
+
         return readChannel(channel, accessible.getLength(), ByteBuffer.allocate(accessible.getLength()), action);
     }
 
@@ -914,6 +968,11 @@ public class IOUtils {
      * @since 2020. 11. 13.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - accessible
+    // [PATCH] [Array-Null] 자바 배열(Array)의 가변성 및 와일드카드 제약으로 인한 IDE 분석기 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static <T, R extends IRandomAccessible> List<T> readChannel(FileChannel channel, int bufCapacity, Function<byte[], T> action, R... accessibles) throws IOException {
         return readChannel(channel, action, new ArrayItr<>(accessibles));
@@ -1112,20 +1171,24 @@ public class IOUtils {
      * @since 2020. 11. 13.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - file.getChannel()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T, R extends IRandomAccessible> Result<List<T>> readFile(RandomAccessFile file, Function<byte[], T> action, Iterable<R> accessibles) throws IOException {
         ObjectUtils.requireNonNulls(file, action, accessibles);
 
         List<T> data = null;
         boolean result = true;
         String message = null;
-        try (@NonNull
-        FileChannel channel = file.getChannel()) {
+        try (FileChannel channel = file.getChannel()) {
             data = readChannel(channel, action, accessibles);
         } catch (Exception e) {
             result = false;
             message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
 
-            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+            sLogger.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
 
             e.printStackTrace();
         }
@@ -1197,28 +1260,30 @@ public class IOUtils {
      * @since 2020. 11. 13.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - ByteBuffer.allocateDirect(len)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T, R extends IRandomAccessible> Result<T> readFile(RandomAccessFile file, Function<byte[], T> action, R accessible) throws IOException {
-        ObjectUtils.requireNonNulls(file, action, accessible);
-
-        boolean result = true;
-        String message = null;
-        @Nullable
-        T data = null;
-
-        ByteBuffer buf = null;
-        int len = accessible.getLength();
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(action);
+        Objects.requireNonNull(accessible);
 
         try (FileChannel channel = file.getChannel()) {
-            buf = ByteBuffer.allocateDirect(len);
+
+            int len = accessible.getLength();
+            ByteBuffer buf = ByteBuffer.allocateDirect(len);
             channel.position(accessible.getPosition());
-            data = readChannel(channel, len, buf, action);
+            T data = readChannel(channel, len, buf, action);
+
+            return new Result<>(data, false);
         } catch (Exception e) {
-            result = false;
-            message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
-            LOGGER.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+            String message = String.format("예외타입=%s, 원인=%s", e.getClass(), e.getMessage());
+            sLogger.error("예상치 못한 에러가 발생하였습니다. 원인={}", e.getMessage(), e);
+            return new Result<>((T) null, false).setMessage(message);
         }
 
-        return new Result<>(data, result).setMessage(message);
     }
 
     /**
@@ -1470,13 +1535,18 @@ public class IOUtils {
      *
      * @see #readFully(InputStream, int, boolean)
      */
+    // 아래 내용에 적용됨.
+    // - inStream.readAllBytes()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] readFully(InputStream inStream, final boolean close) throws IOException {
         Objects.requireNonNull(inStream);
 
         try {
             return inStream.readAllBytes();
         } catch (IOException e) {
-            LOGGER.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            sLogger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
             throw e;
         } finally {
             if (close) {
@@ -1545,6 +1615,11 @@ public class IOUtils {
      *
      * @since 2020. 9. 13.
      */
+    // 아래 내용에 적용됨.
+    // - baos.toByteArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] readFully(ReadableByteChannel channel, final int bufferSize, final boolean close) throws IOException {
         ObjectUtils.requireNonNulls(channel);
 
@@ -1569,10 +1644,10 @@ public class IOUtils {
             return baos.toByteArray();
 
         } catch (ClosedByInterruptException e) {
-            LOGGER.warn("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
+            sLogger.warn("클라이언트와의 연결이 해제되었습니다. detail={}", e.getMessage());
             throw e;
         } catch (IOException e) {
-            LOGGER.error("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
+            sLogger.error("I/O 에러가 발생하였습니다. detail={}", e.getMessage());
             throw e;
         } finally {
             if (close) {
@@ -1607,7 +1682,7 @@ public class IOUtils {
      * @see BufferedReader
      */
     public static List<String> readLines(File file) throws FileNotFoundException, IOException {
-        return readLines(file, defaultCharset());
+        return readLines(file, CharUtils.defaultCharset());
     }
 
     /**
@@ -1698,7 +1773,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(File file, long lineCount) throws FileNotFoundException, IOException {
-        return readLines(file, defaultCharset(), lineCount);
+        return readLines(file, CharUtils.defaultCharset(), lineCount);
     }
 
     /**
@@ -1756,7 +1831,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(File file, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(file, requireCharset(charsetName), lineCount);
+        return readLines(file, CharUtils.requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -1781,7 +1856,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(InputStream inStream) throws IOException {
-        return readLines(inStream, defaultCharset(), -1);
+        return readLines(inStream, CharUtils.defaultCharset(), -1);
     }
 
     /**
@@ -1840,11 +1915,16 @@ public class IOUtils {
      * @since 2021. 11. 10.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - linesStream.toList()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static List<String> readLines(InputStream inStream, @Nullable Charset charset, final long lineCount) throws IOException {
         Objects.requireNonNull(inStream);
 
         // BufferedReader 라이프사이클(close)은 호출자의 책임이므로 try-with-resources는 생략합니다.
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, requireCharset(charset)));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inStream, CharUtils.requireCharset(charset)));
 
         Stream<String> linesStream = reader.lines();
 
@@ -1852,7 +1932,6 @@ public class IOUtils {
             linesStream = linesStream.limit(lineCount);
         }
 
-        // JDK 16+의 toList()를 사용하여 불변 컬렉션으로 깔끔하게 반환
         return linesStream.toList();
     }
 
@@ -1881,7 +1960,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(InputStream inStream, long lineCount) throws IOException {
-        return readLines(inStream, defaultCharset(), lineCount);
+        return readLines(inStream, CharUtils.defaultCharset(), lineCount);
     }
 
     /**
@@ -1937,7 +2016,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(InputStream inStream, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(inStream, requireCharset(charsetName), lineCount);
+        return readLines(inStream, CharUtils.requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -1964,7 +2043,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(Path path) throws FileNotFoundException, IOException {
-        return readLines(path, defaultCharset(), -1);
+        return readLines(path, CharUtils.defaultCharset(), -1);
     }
 
     /**
@@ -2023,6 +2102,11 @@ public class IOUtils {
      * @since 2021. 11. 10.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - path.toFile()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static List<String> readLines(Path path, @Nullable Charset charset, final long lineCount) throws FileNotFoundException, IOException {
         Objects.requireNonNull(path);
 
@@ -2055,7 +2139,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(Path path, final long lineCount) throws FileNotFoundException, IOException {
-        return readLines(path, Charset.defaultCharset(), lineCount);
+        return readLines(path, CharUtils.defaultCharset(), lineCount);
     }
 
     /**
@@ -2113,7 +2197,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(Path path, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(path, requireCharset(charsetName), lineCount);
+        return readLines(path, CharUtils.requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -2139,7 +2223,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(String filepath) throws FileNotFoundException, IOException {
-        return readLines(filepath, defaultCharset(), -1);
+        return readLines(filepath, CharUtils.defaultCharset(), -1);
     }
 
     /**
@@ -2230,7 +2314,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(String filepath, final long lineCount) throws FileNotFoundException, IOException {
-        return readLines(filepath, defaultCharset(), lineCount);
+        return readLines(filepath, CharUtils.defaultCharset(), lineCount);
     }
 
     /**
@@ -2288,7 +2372,7 @@ public class IOUtils {
      * @version 1.8.0
      */
     public static List<String> readLines(String filepath, @Nullable String charsetName, long lineCount) throws IOException {
-        return readLines(filepath, requireCharset(charsetName), lineCount);
+        return readLines(filepath, CharUtils.requireCharset(charsetName), lineCount);
     }
 
     /**
@@ -2323,6 +2407,11 @@ public class IOUtils {
      * @since 2026. 03. 31.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(data, totalRead)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] readNonBlocking(SocketChannel channel, final int length, long timeoutMillis, boolean close) throws IOException {
         ObjectUtils.requireNonNulls(channel);
 
@@ -2426,67 +2515,24 @@ public class IOUtils {
      *
      * @since 2017. 9. 6.
      */
+    // 아래 내용에 적용됨.
+    // - inStream.readNBytes(length)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] readStream(InputStream inStream, final int length, boolean close) throws IOException {
         Objects.requireNonNull(inStream);
 
         try {
             return inStream.readNBytes(length);
         } catch (IOException e) {
-            LOGGER.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
+            sLogger.warn("데이터 읽는 도중 에러가 발생하였습니다. detail={}", e.getMessage(), e);
             throw e;
         } finally {
             if (close) {
                 close(inStream);
             }
         }
-    }
-
-    /**
-     * 파라미터에 해당하는 {@link Charset}을 제공합니다. <br>
-     *
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2026. 3. 11.     parkjunhong77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param charset
-     *            문자열 셋
-     *
-     * @return {@link Charset} 또는 {@code null}
-     *
-     * @since 2026. 3. 11.
-     * @version 3.0.0
-     */
-    private static Charset requireCharset(@Nullable Charset charset) {
-        return charset != null ? charset : requireCharset((String) null);
-    }
-
-    /**
-     * 파라미터에 해당하는 {@link Charset}을 제공합니다. <br>
-     *
-     * <pre>
-     * [개정이력]
-     *      날짜      | 작성자   |   내용
-     * ------------------------------------------
-     * 2026. 3. 11.     parkjunhong77@gmail.com         최초 작성
-     * </pre>
-     *
-     * @param charset
-     *            문자열 셋
-     *
-     * @return {@link Charset} 또는 {@code null}
-     *
-     * @since 2026. 3. 11.
-     * @version 3.0.0
-     */
-    private static Charset requireCharset(@Nullable String charset) {
-        return charset != null //
-                ? Charset.isSupported(charset) //
-                        ? Charset.forName(charset) //
-                        : StandardCharsets.UTF_8 //
-                : defaultCharset();
     }
 
     /**
@@ -2522,7 +2568,8 @@ public class IOUtils {
      * @see OutputStream#close()
      */
     public static int transfer(InputStream inStream, boolean closeInput, OutputStream outStream, boolean closeOutput) throws IOException {
-        ObjectUtils.requireNonNulls(inStream, outStream);
+        Objects.requireNonNull(inStream);
+        Objects.requireNonNull(outStream);
 
         try {
             long transferred = inStream.transferTo(outStream);
@@ -3334,13 +3381,13 @@ public class IOUtils {
      *
      * @since 2018. 9. 10.
      *
-     * @see #requireCharset(String)
+     * @see #CharUtils.requireCharset(String)
      * @see #transfer(Reader, boolean, Writer, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, boolean closeInput, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
 
-        return transfer(inStream, requireCharset(inCharset), closeInput, outStream, requireCharset(outCharset), closeOutput);
+        return transfer(inStream, CharUtils.requireCharset(inCharset), closeInput, outStream, CharUtils.requireCharset(outCharset), closeOutput);
     }
 
     /**
@@ -3491,13 +3538,13 @@ public class IOUtils {
      *
      * @since 2018. 9. 10.
      *
-     * @see #requireCharset(String)
+     * @see #CharUtils.requireCharset(String)
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
 
-        return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
+        return transfer(inStream, CharUtils.requireCharset(inCharset), true, outStream, CharUtils.requireCharset(outCharset), true);
     }
 
     /**
@@ -3531,14 +3578,14 @@ public class IOUtils {
      *
      * @since 2021. 1. 14.
      *
-     * @see #requireCharset(String)
+     * @see #CharUtils.requireCharset(String)
      * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, outStream, outCharset);
 
-        return transfer(inStream, requireCharset(inCharset), true, outStream, requireCharset(outCharset), true);
+        return transfer(inStream, CharUtils.requireCharset(inCharset), true, outStream, CharUtils.requireCharset(outCharset), true);
     }
 
     /**
@@ -3570,7 +3617,7 @@ public class IOUtils {
     public static int transfer(InputStream inStream, String inCharset, Writer writer) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, writer);
 
-        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
+        return transfer(new InputStreamReader(inStream, CharUtils.requireCharset(inCharset)), true, writer, true);
     }
 
     /**
@@ -3604,7 +3651,7 @@ public class IOUtils {
     public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, writer);
 
-        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
+        return transfer(new InputStreamReader(inStream, CharUtils.requireCharset(inCharset)), close, writer, close);
     }
 
     /**
@@ -3642,7 +3689,7 @@ public class IOUtils {
     public static int transfer(InputStream inStream, String inCharset, Writer writer, boolean close, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, writer, close);
 
-        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), close, writer, close);
+        return transfer(new InputStreamReader(inStream, CharUtils.requireCharset(inCharset)), close, writer, close);
     }
 
     /**
@@ -3678,7 +3725,7 @@ public class IOUtils {
     public static int transfer(InputStream inStream, String inCharset, Writer writer, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(inStream, inCharset, writer);
 
-        return transfer(new InputStreamReader(inStream, requireCharset(inCharset)), true, writer, true);
+        return transfer(new InputStreamReader(inStream, CharUtils.requireCharset(inCharset)), true, writer, true);
     }
 
     /**
@@ -3715,7 +3762,7 @@ public class IOUtils {
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, Charset outCharset, boolean closeOutput) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3756,7 +3803,7 @@ public class IOUtils {
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, Charset outCharset, boolean closeOutput, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3793,7 +3840,7 @@ public class IOUtils {
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, String outCharset, boolean closeOutput) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3834,7 +3881,7 @@ public class IOUtils {
     public static int transfer(Reader reader, boolean closeReader, OutputStream outStream, String outCharset, boolean closeOutput, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, closeReader, new OutputStreamWriter(outStream, requireCharset(outCharset)), closeOutput);
+        return transfer(reader, closeReader, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), closeOutput);
     }
 
     /**
@@ -3863,7 +3910,8 @@ public class IOUtils {
      * @since 2018. 9. 26.
      */
     public static int transfer(Reader reader, boolean closeReader, Writer writer, boolean closeWriter) throws IOException {
-        ObjectUtils.requireNonNulls(reader, writer);
+        Objects.requireNonNull(reader);
+        Objects.requireNonNull(writer);
 
         try {
             long transferred = reader.transferTo(writer);
@@ -3942,7 +3990,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
+        return transfer(reader, true, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), true);
     }
 
     /**
@@ -3977,7 +4025,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
+        return transfer(reader, close, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), close);
     }
 
     /**
@@ -4016,7 +4064,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, boolean close, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
+        return transfer(reader, close, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), close);
     }
 
     /**
@@ -4052,7 +4100,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, Charset outCharset, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
+        return transfer(reader, true, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), true);
     }
 
     /**
@@ -4084,7 +4132,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, String outCharset) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
+        return transfer(reader, true, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), true);
     }
 
     /**
@@ -4119,7 +4167,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
+        return transfer(reader, close, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), close);
     }
 
     /**
@@ -4158,7 +4206,7 @@ public class IOUtils {
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, boolean close, int readBufferSize) throws IOException {
         ObjectUtils.requireNonNulls(reader, outStream, outCharset);
 
-        return transfer(reader, close, new OutputStreamWriter(outStream, requireCharset(outCharset)), close);
+        return transfer(reader, close, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), close);
     }
 
     /**
@@ -4192,7 +4240,7 @@ public class IOUtils {
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(Reader reader, OutputStream outStream, String outCharset, int readBufferSize) throws IOException {
-        return transfer(reader, true, new OutputStreamWriter(outStream, requireCharset(outCharset)), true);
+        return transfer(reader, true, new OutputStreamWriter(outStream, CharUtils.requireCharset(outCharset)), true);
     }
 
     /**

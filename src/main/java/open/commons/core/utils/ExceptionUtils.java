@@ -41,12 +41,11 @@ import org.jspecify.annotations.Nullable;
  * @since 2015. 1. 13.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class ExceptionUtils {
+
+    private static String getMessage(Throwable e) {
+        return Objects.requireNonNull(e.getMessage(), "null");
+    }
 
     /**
      * 
@@ -137,7 +136,7 @@ public class ExceptionUtils {
      * 
      * @version 1.8.00
      */
-    public static <E extends Throwable> E newException(Class<E> type, @Nullable Supplier<Class<?> @Nullable []> argTypes, @Nullable Object @Nullable [] args,
+    public static <E extends Throwable> E newException(Class<E> type, @Nullable Supplier<@Nullable Class<?> @Nullable []> argTypes, @Nullable Object @Nullable [] args,
             @Nullable String format, @Nullable Object @Nullable... msgArgs) {
 
         ObjectUtils.requireNonNulls(type);
@@ -277,7 +276,7 @@ public class ExceptionUtils {
      * 
      */
     public static boolean startsWith(Throwable e, String expected) {
-        return startsWith(e.getMessage(), expected, false);
+        return startsWith(getMessage(e), expected, false);
     }
 
     /**
@@ -304,8 +303,13 @@ public class ExceptionUtils {
      * @since 2020. 10. 28.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - getMessage(e).substring(toffset)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean startsWith(Throwable e, String expected, int toffset) {
-        return startsWith(e.getMessage().substring(toffset), expected, false);
+        return startsWith(getMessage(e).substring(toffset), expected, false);
     }
 
     /**
@@ -331,7 +335,7 @@ public class ExceptionUtils {
      * 
      */
     public static boolean startsWithIgnoreCase(Throwable e, String expected) {
-        return startsWith(e.getMessage(), expected, true);
+        return startsWith(getMessage(e), expected, true);
     }
 
     /**
@@ -357,8 +361,13 @@ public class ExceptionUtils {
      * @since 2020. 10. 28.
      * 
      */
+    // 아래 내용에 적용됨.
+    // - getMessage(e).substring(toffset)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean startsWithIgnoreCase(Throwable e, String expected, int toffset) {
-        return startsWith(e.getMessage().substring(toffset), expected, true);
+        return startsWith(getMessage(e).substring(toffset), expected, true);
     }
 
     /**
@@ -369,6 +378,11 @@ public class ExceptionUtils {
      * @throws NullPointerException
      *             파라미터({@code stacks})가 {@code null}이거나 {@code stacks}에 {@code null}이 포함된 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - buf.toString();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toString(StackTraceElement... stacks) {
         Objects.requireNonNull(stacks);
 
@@ -398,6 +412,11 @@ public class ExceptionUtils {
      * @throws NullPointerException
      *             파라미터({@code e})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - writer.toString();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toString(Throwable e) {
         Objects.requireNonNull(e);
 

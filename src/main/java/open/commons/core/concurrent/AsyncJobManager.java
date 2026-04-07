@@ -273,7 +273,7 @@ public class AsyncJobManager<K, V> {
 
         private static final Map<Object, AsyncJobManager<?, ?>> SINGLETON = new HashMap<>();
 
-        private static ReentrantLock LOCK = new ReentrantLock();
+        private static ReentrantLock sLock = new ReentrantLock();
 
         /**
          * 주어진 key에 해당하는 {@link AsyncJobManager} 객체를 반환합니다. <br>
@@ -299,7 +299,7 @@ public class AsyncJobManager<K, V> {
         @SuppressWarnings("unchecked")
         public static <K> AsyncJobManager<K, ?> getManager(Object holder) {
 
-            ReentrantLock lock = LOCK;
+            ReentrantLock lock = sLock;
             lock.lock();
 
             try {

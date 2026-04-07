@@ -59,7 +59,7 @@ public class StopWatch {
     /** 종료 구간 식별자 */
     // 아래 내용에 적용됨.
     // - UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static final String LAST = UUID.nameUUIDFromBytes(String.valueOf(System.nanoTime()).getBytes()).toString();
@@ -629,7 +629,7 @@ public class StopWatch {
      */
     // 아래 내용에 적용됨.
     // - builder.toString()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @Override
@@ -745,8 +745,8 @@ public class StopWatch {
          * @see java.lang.Object#toString()
          */
         // 아래 내용에 적용됨.
-        // - return builder.toString();
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // - builder.toString();
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         @Override

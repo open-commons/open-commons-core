@@ -32,7 +32,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -57,11 +56,6 @@ import open.commons.core.function.IOTripleFunction;
  *
  * @since 2018. 9. 10.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class ZipUtils {
 
     /** 인스턴스 생성 방지 */
@@ -139,6 +133,11 @@ public class ZipUtils {
      * @since 2023. 8. 2.
      * @version 2.0.0
      */
+    // 아래 내용에 적용됨.
+    // - File.toPath()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean ungzip(File inputFile, Charset inCharset, File outputFile) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, inCharset, outputFile);
         return ungzip(inputFile.toPath(), inCharset, outputFile.toPath());
@@ -171,7 +170,8 @@ public class ZipUtils {
      */
     public static boolean ungzip(File inputFile, File outputFile) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, outputFile);
-        return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
+
+        return ungzip(inputFile, CharUtils.defaultCharset(), outputFile);
     }
 
     /**
@@ -244,7 +244,7 @@ public class ZipUtils {
      */
     public static boolean ungzip(Path inputFile, Path outputFile) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, outputFile);
-        return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
+        return ungzip(inputFile, CharUtils.defaultCharset(), outputFile);
     }
 
     /**
@@ -306,7 +306,7 @@ public class ZipUtils {
      */
     public static boolean ungzip(String inputFile, String outputFile) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, outputFile);
-        return ungzip(inputFile, StandardCharsets.UTF_8, outputFile);
+        return ungzip(inputFile, CharUtils.defaultCharset(), outputFile);
     }
 
     /**
@@ -336,6 +336,11 @@ public class ZipUtils {
      * @since 2021. 11. 9.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - File.toPath()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean unzip(File inputFile, Charset inCharset, File outputDir) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, inCharset, outputDir);
         return unzip(inputFile.toPath(), inCharset, outputDir.toPath());
@@ -368,7 +373,7 @@ public class ZipUtils {
      */
     public static boolean unzip(File inputFile, File outputDir) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, outputDir);
-        return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
+        return unzip(inputFile, CharUtils.defaultCharset(), outputDir);
     }
 
     /**
@@ -465,8 +470,8 @@ public class ZipUtils {
      */
     public static boolean unzip(Path inputFile, Path outputDir) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, outputDir);
-        
-        return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
+
+        return unzip(inputFile, CharUtils.defaultCharset(), outputDir);
     }
 
     /**
@@ -498,7 +503,7 @@ public class ZipUtils {
      */
     public static boolean unzip(String inputFile, Charset inCharset, String outputDir) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, inCharset, outputDir);
-        
+
         return unzip(new File(inputFile), inCharset, new File(outputDir));
     }
 
@@ -529,8 +534,8 @@ public class ZipUtils {
      */
     public static boolean unzip(String inputFile, String outputDir) throws IOException {
         ObjectUtils.requireNonNulls(inputFile, outputDir);
-        
-        return unzip(inputFile, StandardCharsets.UTF_8, outputDir);
+
+        return unzip(inputFile, CharUtils.defaultCharset(), outputDir);
     }
 
     /**
@@ -640,8 +645,8 @@ public class ZipUtils {
      */
     public static boolean zip(File input, File output, int compressionLevel) throws IOException {
         ObjectUtils.requireNonNulls(input, output);
-        
-        return zip(input, StandardCharsets.UTF_8, output, StandardCharsets.UTF_8, compressionLevel);
+
+        return zip(input, CharUtils.defaultCharset(), output, CharUtils.defaultCharset(), compressionLevel);
     }
 
     /**
@@ -678,7 +683,7 @@ public class ZipUtils {
      */
     public static boolean zip(String input, Charset inCharset, String output, Charset outCharset, int compressionLevel) throws IOException {
         ObjectUtils.requireNonNulls(input, inCharset, output, outCharset);
-        
+
         return zip(new File(input), inCharset, new File(output), outCharset, compressionLevel);
     }
 
@@ -710,7 +715,7 @@ public class ZipUtils {
      */
     public static boolean zip(String input, String output, int compressionLevel) throws IOException {
         ObjectUtils.requireNonNulls(input, output);
-        
-        return zip(input, StandardCharsets.UTF_8, output, StandardCharsets.UTF_8, compressionLevel);
+
+        return zip(input, CharUtils.defaultCharset(), output, CharUtils.defaultCharset(), compressionLevel);
     }
 }

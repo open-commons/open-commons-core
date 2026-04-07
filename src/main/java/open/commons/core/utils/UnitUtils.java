@@ -40,11 +40,6 @@ import open.commons.core.util.PrefixDataUnit;
  * @since 2021. 11. 4.
  * @version 1.8.0
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class UnitUtils {
 
     // prevent to create an instance.
@@ -66,6 +61,12 @@ public class UnitUtils {
      *
      * @return 천 단위마다 콤마(,)가 추가된 문자열
      */
+    // 아래 내용에 적용됨.
+    // - String.replaceAll(...)
+    // - String.join(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String addComma(String val) {
         String[] arr = val.split("[.]");
         if (arr.length == 1) {
@@ -196,6 +197,12 @@ public class UnitUtils {
      *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit, boolean)
      */
+    // 아래 내용에 적용됨.
+    // - BigDecimal.toString()
+    // - String.join(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String binaryStorageAlsoSubUnitAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean trim) {
         Objects.requireNonNull(srcUnit);
         Objects.requireNonNull(dstUnit);
@@ -315,6 +322,11 @@ public class UnitUtils {
      *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
+    // 아래 내용에 적용됨.
+    // - BigDecimal.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String binaryStorageAsString(long size, BinaryDataUnit srcUnit, BinaryDataUnit dstUnit, boolean pretty, boolean attachUnitStr) {
         Objects.requireNonNull(srcUnit);
         Objects.requireNonNull(dstUnit);
@@ -398,6 +410,11 @@ public class UnitUtils {
      *
      * @return 결합된 문자열
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String concat(Object... objects) {
         StringBuilder sb = new StringBuilder();
         for (Object o : objects) {
@@ -561,6 +578,11 @@ public class UnitUtils {
      *
      * @see PrefixDataUnit#convert(long, PrefixDataUnit, boolean)
      */
+    // 아래 내용에 적용됨.
+    // - BigDecimal.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String convertAlsoSubUnitAsString(long size, PrefixDataUnit srcUnit, PrefixDataUnit dstUnit, boolean pretty, boolean trim) {
         Objects.requireNonNull(srcUnit);
         Objects.requireNonNull(dstUnit);
@@ -678,6 +700,11 @@ public class UnitUtils {
      *
      * @see BinaryDataUnit#convert(long, BinaryDataUnit)
      */
+    // 아래 내용에 적용됨.
+    // - BigDecimal.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String convertAsString(long size, PrefixDataUnit srcUnit, PrefixDataUnit dstUnit, boolean pretty, boolean attachUnitStr) {
         Objects.requireNonNull(srcUnit);
         Objects.requireNonNull(dstUnit);

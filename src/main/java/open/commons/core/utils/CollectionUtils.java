@@ -74,7 +74,7 @@ import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
  */
 // 아래 내용에 적용됨.
 // - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+// [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
 // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
 @SuppressWarnings({ "null", "unchecked" })
 public class CollectionUtils {
@@ -5334,13 +5334,13 @@ public class CollectionUtils {
 
         // ---- 하이브리드 의사결정 임계값(시작점). JMH로 환경에 맞게 미세 조정하세요.
         /** 전체 데이터 개수(M)이 작으면 FULL_SORT 유리 */
-        private static int FULL_SORT_M_THREADHOLD = 20_000;
+        private static int fullSortThreadhold = 20_000;
         /** N/M ≤ 10% → HEAP_SORT */
-        private static double HEAP_SORT_RATIO = 0.10;
+        private static double heapSortRatio = 0.10;
         /** N/M ≥ 40% → FULL_SORT */
-        private static double FULL_SORT_RATIO = 0.40;
+        private static double fullSortRatio = 0.40;
         /** 아주 작은 N은 HEAP_SORT 가중 */
-        private static int HEAP_SORT_N_THRESHOLD = 32;
+        private static int heapSortThreadhold = 32;
 
         private static final Random RNG = new Random();
 
@@ -5352,18 +5352,18 @@ public class CollectionUtils {
          * 우선순위
          * <li>1. 전체 데이터 개수 (M)
          * <ul>
-         * <li>{@link TopN#FULL_SORT_M_THREADHOLD} 보다 작으면({@code &lt;}) {@link TopNStrategy#FULL_SORT}
+         * <li>{@link TopN#fullSortThreadhold} 보다 작으면({@code &lt;}) {@link TopNStrategy#FULL_SORT}
          * </ul>
          * <li>2. 선택하려는 데이터 개수 (N) 와 N/M의 비율 고정값 (0.25)
          * <ul>
-         * <li>{@link TopN#HEAP_SORT_N_THRESHOLD} 보다 작으고, ({@code &lt;}) 비율이 0.25 보다 작거나 같으면
+         * <li>{@link TopN#heapSortThreadhold} 보다 작으고, ({@code &lt;}) 비율이 0.25 보다 작거나 같으면
          * {@link TopNStrategy#HEAP_SORT}
          * </ul>
          * <li>3. N/M 의 비율
          * <ul>
          * 설정값
-         * <li>{@link TopN#HEAP_SORT_RATIO} 보다 작으면({@code &lt;}) {@link TopNStrategy#HEAP_SORT}
-         * <li>{@link TopN#FULL_SORT_RATIO} 보다 크거나 같으면({@code >=}) {@link TopNStrategy#FULL_SORT}
+         * <li>{@link TopN#heapSortRatio} 보다 작으면({@code &lt;}) {@link TopNStrategy#HEAP_SORT}
+         * <li>{@link TopN#fullSortRatio} 보다 크거나 같으면({@code >=}) {@link TopNStrategy#FULL_SORT}
          * </ul>
          * <li>4. 정렬 비교 함수의 비용에 따라
          * <ul>
@@ -5393,18 +5393,18 @@ public class CollectionUtils {
          */
         private static TopNStrategy decideStrategy(int fullCount, int limit, boolean expensiveComparator) {
             // 작은 M 보호장치: 전체 정렬이 대체로 이득
-            if (fullCount < FULL_SORT_M_THREADHOLD) {
+            if (fullCount < fullSortThreadhold) {
                 return TopNStrategy.FULL_SORT;
             }
 
             double ratio = (double) limit / (double) fullCount;
 
             // 아주 작은 N은 힙 쪽 가중
-            if (limit <= HEAP_SORT_N_THRESHOLD && ratio <= 0.25) {
+            if (limit <= heapSortThreadhold && ratio <= 0.25) {
                 return TopNStrategy.HEAP_SORT;
-            } else if (ratio < HEAP_SORT_RATIO) {
+            } else if (ratio < heapSortRatio) {
                 return TopNStrategy.HEAP_SORT;
-            } else if (ratio >= FULL_SORT_RATIO) {
+            } else if (ratio >= fullSortRatio) {
                 return TopNStrategy.FULL_SORT;
             } else
             // 중간 구간: 비교자 비용이 크면 FULL_SORT 가중, 아니면 QUICKSELECT 권장
@@ -5514,10 +5514,10 @@ public class CollectionUtils {
          * 
          */
         public static void setAutoConfiguration(int fullSortThreshold, double fullSortRatio, int heapSortThreshold, double heapSortRatio) {
-            TopN.FULL_SORT_M_THREADHOLD = fullSortThreshold;
-            TopN.FULL_SORT_RATIO = fullSortRatio;
-            TopN.HEAP_SORT_N_THRESHOLD = heapSortThreshold;
-            TopN.HEAP_SORT_RATIO = heapSortRatio;
+            TopN.fullSortThreadhold = fullSortThreshold;
+            TopN.fullSortRatio = fullSortRatio;
+            TopN.heapSortThreadhold = heapSortThreshold;
+            TopN.heapSortRatio = heapSortRatio;
         }
 
         private static <T> void swap(List<T> data, int from, int to) {

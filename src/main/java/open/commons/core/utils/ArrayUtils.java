@@ -472,7 +472,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - (T[]) Array.newInstance(array.getClass().getComponentType(), 1)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] add(T @Nullable [] array, T value) {
@@ -533,7 +533,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static boolean[] addIfAbsent(boolean @Nullable [] array, boolean value) {
@@ -556,7 +556,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static byte[] addIfAbsent(byte @Nullable [] array, byte value) {
@@ -589,7 +589,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Byte[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static byte[] addIfAbsent(byte @Nullable [] array, byte @Nullable... values) {
@@ -619,7 +619,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static char[] addIfAbsent(char @Nullable [] array, char value) {
@@ -652,7 +652,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Character[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static char[] addIfAbsent(char @Nullable [] array, char @Nullable... values) {
@@ -682,7 +682,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static double[] addIfAbsent(double @Nullable [] array, double value) {
@@ -715,7 +715,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Double[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static double[] addIfAbsent(double @Nullable [] array, double @Nullable... values) {
@@ -745,7 +745,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static float[] addIfAbsent(float @Nullable [] array, float value) {
@@ -779,7 +779,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Float[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static float[] addIfAbsent(float @Nullable [] array, float @Nullable... values) {
@@ -809,7 +809,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] addIfAbsent(int @Nullable [] array, int value) {
@@ -842,7 +842,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Integer[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] addIfAbsent(int @Nullable [] array, int @Nullable... values) {
@@ -872,7 +872,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static long[] addIfAbsent(long @Nullable [] array, long value) {
@@ -905,7 +905,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Long[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static long[] addIfAbsent(long @Nullable [] array, long @Nullable... values) {
@@ -935,7 +935,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static short[] addIfAbsent(short @Nullable [] array, short value) {
@@ -968,7 +968,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
     // - indice.toArray(new Short[0])
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static short[] addIfAbsent(short @Nullable [] array, short @Nullable... values) {
@@ -1008,7 +1008,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] addIfAbsent(T @Nullable [] array, T value) {
@@ -1034,8 +1034,8 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) classes);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static Class<?>[] adjustByLength(int length, Class<?>... classes) {
         ObjectUtils.requireNonNulls((Object[]) classes);
@@ -1117,7 +1117,7 @@ public class ArrayUtils {
 
     // 아래 내용에 적용됨.
     // - arr1.getClass().getComponentType()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static <T> void assertComponentType(T[] arr1, Class<?> valueType) {
@@ -1127,7 +1127,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - arr1.getClass().getComponentType()
     // - arr2.getClass().getComponentType()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static <T> void assertComponentType(T[] arr1, T[] arr2) {
@@ -1415,7 +1415,7 @@ public class ArrayUtils {
      * @return
      */
     // apply to '배열 데이터 null-check'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> @Nullable String concatenate(T @Nullable [] array, char delimiter) {
@@ -1443,7 +1443,7 @@ public class ArrayUtils {
      * @return
      */
     // apply to '배열 데이터 null-check'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> @Nullable String concatenate(T @Nullable [] array, String delimiter) {
@@ -1981,7 +1981,7 @@ public class ArrayUtils {
      * 
      */
     // apply to 'return newArr'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] copy(T[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
@@ -2023,7 +2023,7 @@ public class ArrayUtils {
      * 
      */
     // apply to 'return copy'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOf(T[] original, int newLength, Class<? extends U[]> newType, Function<T, U> clone) {
@@ -2099,7 +2099,7 @@ public class ArrayUtils {
      * 
      */
     // apply to 'return copy'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOfRange(T[] original, int from, int to, Class<? extends U[]> newType, Function<T, U> clone) {
@@ -2408,8 +2408,8 @@ public class ArrayUtils {
      *             파라미터({@code array})가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
-    // - sb.toString()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> String elementString(T[] array, String delimiter) {
@@ -2654,8 +2654,8 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) bytes);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static byte[] getDecElements(byte[][] bytes) {
         ObjectUtils.requireNonNulls((Object[]) bytes);
@@ -2725,8 +2725,8 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) bytes);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static byte[] getIncElements(byte[][] bytes) {
         ObjectUtils.requireNonNulls((Object[]) bytes);
@@ -2815,8 +2815,8 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) bytes);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static byte[] getPlainElements(byte[][] bytes, int index) {
         ObjectUtils.requireNonNulls((Object[]) bytes);
@@ -3152,7 +3152,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(boolean[] array, boolean value) {
@@ -3201,7 +3201,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(boolean[] array, boolean[] values) {
@@ -3267,7 +3267,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(byte[] array, byte value) {
@@ -3315,7 +3315,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(byte[] array, byte[] values) {
@@ -3381,7 +3381,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(char[] array, char value) {
@@ -3430,7 +3430,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(char[] array, char[] values) {
@@ -3496,7 +3496,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(double[] array, double value) {
@@ -3544,7 +3544,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(double[] array, double[] values) {
@@ -3610,7 +3610,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(float[] array, float value) {
@@ -3659,7 +3659,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(float[] array, float[] values) {
@@ -3725,7 +3725,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(int[] array, int value) {
@@ -3774,7 +3774,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(int[] array, int[] values) {
@@ -3840,7 +3840,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(long[] array, long value) {
@@ -3887,7 +3887,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(long[] array, long[] values) {
@@ -3953,7 +3953,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(short[] array, short value) {
@@ -4000,7 +4000,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, indicePos)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(short[] array, short[] values) {
@@ -4086,7 +4086,7 @@ public class ArrayUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> int[] indiceOf(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
@@ -4162,7 +4162,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     // apply to 'return Arrays.copyOf(indice, indicePos);'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> int[] indiceOfArray(T[] array, T[] values, @Nullable IEquivalent<T[]> equi) {
@@ -4379,7 +4379,7 @@ public class ArrayUtils {
      *             파라미터({@code initValue})가 {@code null}인 경우 발생.
      */
     // apply to 'return array'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[] initArray(int length, T initValue) {
@@ -5149,7 +5149,7 @@ public class ArrayUtils {
      * 
      */
     // apply to 'return newArray'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[] insert(T[] array, T value, int... indice) {
@@ -5255,7 +5255,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static boolean[] merge(boolean @Nullable [] arr1, boolean @Nullable [] arr2) {
@@ -5350,7 +5350,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static byte[] merge(byte @Nullable [] arr1, byte @Nullable [] arr2) {
@@ -5390,7 +5390,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static byte[] merge(byte @Nullable [] arr1, byte @Nullable [] arr2, int length) {
@@ -5475,7 +5475,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static char[] merge(char @Nullable [] arr1, char @Nullable [] arr2) {
@@ -5562,7 +5562,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static double[] merge(double @Nullable [] arr1, double @Nullable [] arr2) {
@@ -5647,7 +5647,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static float[] merge(float @Nullable [] arr1, float @Nullable [] arr2) {
@@ -5731,7 +5731,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] merge(int @Nullable [] arr1, int @Nullable [] arr2) {
@@ -5816,7 +5816,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static long[] merge(long @Nullable [] arr1, long @Nullable [] arr2) {
@@ -5898,7 +5898,7 @@ public class ArrayUtils {
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static short[] merge(short @Nullable [] arr1, short @Nullable [] arr2) {
@@ -5983,10 +5983,10 @@ public class ArrayUtils {
      */
 
     // 아래 내용에 적용됨.
-    // - return merged;
+    // - merged;
     // - Arrays.copyOf(arr1, arr1.length)
     // - Arrays.copyOf(arr2, arr1.length)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] merge(T @Nullable [] arr1, T @Nullable [] arr2) {
@@ -6011,8 +6011,8 @@ public class ArrayUtils {
     }
 
     // 아래 내용에 적용됨.
-    // - return (T[][]) Array.newInstance(type, size);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - (T[][]) Array.newInstance(type, size);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static <T extends @Nullable Object> T[] newArray(Class<T> type, int size) {
@@ -6549,8 +6549,8 @@ public class ArrayUtils {
      * 
      */
     // 아래 내용에 적용됨.
-    // - return (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] prepend(T @Nullable [] array, @Nullable T value) {
@@ -7053,8 +7053,8 @@ public class ArrayUtils {
      * @since 2012. 03. 09.
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(tempArray, keepCount);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(tempArray, keepCount);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] removeAll(T[] array, Predicate<T> filter) {
@@ -9172,8 +9172,8 @@ public class ArrayUtils {
      * @since 2012. 03. 30.
      */
     // 아래 내용에 적용됨.
-    // - return newArray;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - newArray;
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] replaceAllToArray(T[] array, T target, T[] data, @Nullable IEquivalent<T> equivalent) {
@@ -9561,8 +9561,8 @@ public class ArrayUtils {
      * @since 2012. 02. 22.
      */
     // 아래 내용에 적용됨.
-    // - return reversed;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - reversed;
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] reverse(T[] array) {
@@ -9990,8 +9990,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new boolean[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new boolean[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static boolean[][] split(boolean[] array, boolean value) {
@@ -10054,8 +10054,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new byte[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new byte[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static byte[][] split(byte[] array, byte value) {
@@ -10119,8 +10119,8 @@ public class ArrayUtils {
      */
 
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new char[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new char[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static char[][] split(char[] array, char value) {
@@ -10184,8 +10184,8 @@ public class ArrayUtils {
      */
 
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new double[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new double[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static double[][] split(double[] array, double value) {
@@ -10248,8 +10248,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new float[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new float[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static float[][] split(float[] array, float value) {
@@ -10312,8 +10312,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new int[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new int[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[][] split(int[] array, int value) {
@@ -10376,8 +10376,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new long[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new long[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static long[][] split(long[] array, long value) {
@@ -10440,8 +10440,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(new short[splitedList.size()][]);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(new short[splitedList.size()][]);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static short[][] split(short[] array, short value) {
@@ -10563,8 +10563,8 @@ public class ArrayUtils {
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
-    // - return splitedList.toArray(result);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - splitedList.toArray(result);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[][] split(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
@@ -10633,9 +10633,9 @@ public class ArrayUtils {
      * @since 2021. 6. 24.
      */
     // 아래 내용에 적용됨.
-    // - return (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
-    // - return Arrays.copyOfRange(array, splitIdx + 1, array.length);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - (T[]) Array.newInstance(array.getClass().getComponentType(), 0);
+    // - Arrays.copyOfRange(array, splitIdx + 1, array.length);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[] splitAfter(T[] array, Predicate<T> at) {
@@ -10684,9 +10684,9 @@ public class ArrayUtils {
      * @since 2021. 6. 21.
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(array, array.length);
-    // - return newArr;
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(array, array.length);
+    // - newArr;
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[] splitAt(T[] array, Predicate<T> at, @Nullable UnaryOperator<T> post) {
@@ -10740,9 +10740,9 @@ public class ArrayUtils {
      * @since 2021. 6. 21.
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(array, array.length);
-    // - return Arrays.copyOfRange(array, 0, splitIdx);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(array, array.length);
+    // - Arrays.copyOfRange(array, 0, splitIdx);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[] splitBefore(T[] array, Predicate<T> at) {

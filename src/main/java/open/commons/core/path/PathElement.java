@@ -52,7 +52,7 @@ public class PathElement implements Iterable<String> {
 
     // 아래 내용에 적용됨.
     // - File.separator
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static final String DEFAULT_SEPARATOR = File.separator;
@@ -130,13 +130,13 @@ public class PathElement implements Iterable<String> {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) elems);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public PathElement(String... elems) {
-        this(DEFAULT_SEPARATOR);
-
         ObjectUtils.requireNonNulls((Object[]) elems);
+        
+        this(DEFAULT_SEPARATOR);
 
         for (String elem : elems) {
             add(elem);
@@ -177,7 +177,7 @@ public class PathElement implements Iterable<String> {
      */
     // 아래 내용에 적용됨.
     // - this.sepChar = separator.toCharArray();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public PathElement(String separator, char[] elems, int[][] elemLength) {
@@ -234,7 +234,7 @@ public class PathElement implements Iterable<String> {
      */
     // 아래 내용에 적용됨.
     // - createPathValue(npc); // char[] npc = path.toCharArray(); 에서 @NonNull이 보장되지 않음.
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public void add(@Nullable String path) {
@@ -323,7 +323,7 @@ public class PathElement implements Iterable<String> {
 
     // 아래 내용에 적용됨.
     // - sepChar = separator.toCharArray();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public void clear() {
@@ -520,8 +520,8 @@ public class PathElement implements Iterable<String> {
      * 
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(elemLength, elemLength.length);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(elemLength, elemLength.length);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public int[][] getElementLengths() {
@@ -538,8 +538,8 @@ public class PathElement implements Iterable<String> {
      * 
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(elems, elems.length);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(elems, elems.length);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public char[] getElements() {
@@ -557,8 +557,8 @@ public class PathElement implements Iterable<String> {
      * 
      */
     // 아래 내용에 적용됨.
-    // - return this.paths[index];
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - this.paths[index];
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String getPath(int index) {
@@ -583,8 +583,8 @@ public class PathElement implements Iterable<String> {
      * 
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(this.paths, this.paths.length);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(this.paths, this.paths.length);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String[] getPaths() {
@@ -612,8 +612,8 @@ public class PathElement implements Iterable<String> {
      * 
      */
     // 아래 내용에 적용됨.
-    // - return Arrays.copyOf(this.paths, index + 1);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - Arrays.copyOf(this.paths, index + 1);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String[] getPaths(int index) {
@@ -707,7 +707,7 @@ public class PathElement implements Iterable<String> {
     // 아래 내용에 적용됨.
     // - this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount - 2][2]);
     // - this.elemLength = Arrays.copyOf(this.elemLength, this.elemCount - 1);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String remove() {
@@ -766,7 +766,7 @@ public class PathElement implements Iterable<String> {
      */
     // 아래 내용에 적용됨.
     // - this.sepChar = separator.toCharArray();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String setSeparator(String separator) {
@@ -871,8 +871,8 @@ public class PathElement implements Iterable<String> {
          * @see java.util.Iterator#next()
          */
         // 아래 내용에 적용됨.
-        // - return this.itrArray[pos];
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // - this.itrArray[pos];
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         @Override

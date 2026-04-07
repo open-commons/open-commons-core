@@ -311,8 +311,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @return
      */
     // 아래 내용에 적용됨.
-    // - return String.valueOf(v);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - String.valueOf(v);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     protected final String fit(long v) {
@@ -324,8 +324,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
     }
 
     // 아래 내용에 적용됨.
-    // - return sb.toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String formedValue() {
@@ -566,8 +566,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @return
      */
     // 아래 내용에 적용됨.
-    // - return sb.toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public String value() {
@@ -608,7 +608,7 @@ public class TimeInfo implements Comparable<TimeInfo> {
      */
     // 아래 내용에 적용됨.
     // - timeInfo = timeInfo.substring(0, 8);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static TimeInfo createInstance(String timeInfo) {

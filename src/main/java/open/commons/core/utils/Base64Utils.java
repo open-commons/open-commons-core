@@ -41,16 +41,23 @@ import java.util.Objects;
  * @version 3.0.0
  * 
  */
-// 아래 내용에 적용됨.
-// - 'Encoder, Decoder' 제공 함수
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class Base64Utils {
 
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static final Encoder URL_ENCODER = Base64.getUrlEncoder();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static final Decoder URL_DECODER = Base64.getUrlDecoder();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static final Encoder ENCODER = Base64.getEncoder();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static final Decoder DECODER = Base64.getDecoder();
 
     /**
@@ -63,6 +70,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - DECODER.decode(bytes);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] decode(byte[] bytes) {
         Objects.requireNonNull(bytes);
 
@@ -97,6 +109,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code buffer})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - DECODER.decode(buffer)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static ByteBuffer decode(ByteBuffer buffer) {
         Objects.requireNonNull(buffer);
 
@@ -113,6 +130,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - DECODER.decode(string);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] decode(String string) {
         Objects.requireNonNull(string);
 
@@ -132,7 +154,7 @@ public class Base64Utils {
     public static String decodeFromUrlSafeString(byte[] base64EncodedString) {
         Objects.requireNonNull(base64EncodedString);
 
-        return decodeFromUrlSafeString(base64EncodedString, StandardCharsets.UTF_8);
+        return decodeFromUrlSafeString(base64EncodedString, CharUtils.defaultCharset());
     }
 
     /**
@@ -151,7 +173,7 @@ public class Base64Utils {
         Objects.requireNonNull(base64EncodedBytes);
 
         byte[] decoded = URL_DECODER.decode(base64EncodedBytes);
-        return new String(decoded, Objects.requireNonNullElse(charset, StandardCharsets.UTF_8));
+        return new String(decoded, Objects.requireNonNullElse(charset, CharUtils.defaultCharset()));
     }
 
     /**
@@ -165,7 +187,7 @@ public class Base64Utils {
      *             파라미터({@code base64EncodedString})가 {@code null}인 경우 발생.
      */
     public static String decodeFromUrlSafeString(String base64EncodedString) {
-        return decodeFromUrlSafeString(base64EncodedString, StandardCharsets.UTF_8);
+        return decodeFromUrlSafeString(base64EncodedString, CharUtils.defaultCharset());
     }
 
     /**
@@ -186,7 +208,7 @@ public class Base64Utils {
         byte[] base64Bytes = base64EncodedString.getBytes(StandardCharsets.ISO_8859_1);
         byte[] decoded = URL_DECODER.decode(base64Bytes);
 
-        return new String(decoded, Objects.requireNonNullElse(charset, StandardCharsets.UTF_8));
+        return new String(decoded, Objects.requireNonNullElse(charset, CharUtils.defaultCharset()));
     }
 
     /**
@@ -202,7 +224,7 @@ public class Base64Utils {
     public static String decodeToString(byte[] bytes) {
         Objects.requireNonNull(bytes);
 
-        return new String(DECODER.decode(bytes), StandardCharsets.UTF_8);
+        return new String(DECODER.decode(bytes), CharUtils.defaultCharset());
     }
 
     /**
@@ -218,7 +240,7 @@ public class Base64Utils {
     public static String decodeToString(String string) {
         Objects.requireNonNull(string);
 
-        return new String(DECODER.decode(string), StandardCharsets.UTF_8);
+        return new String(DECODER.decode(string), CharUtils.defaultCharset());
     }
 
     /**
@@ -231,6 +253,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ENCODER.encode(bytes);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] encode(byte[] bytes) {
         Objects.requireNonNull(bytes);
 
@@ -247,6 +274,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code buffer})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ENCODER.encode(buffer);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static ByteBuffer encode(ByteBuffer buffer) {
         Objects.requireNonNull(buffer);
 
@@ -263,6 +295,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ENCODER.encodeToString(bytes);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String encodeToString(byte[] bytes) {
         Objects.requireNonNull(bytes);
 
@@ -279,6 +316,11 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code bytes})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - URL_ENCODER.encodeToString(bytes);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String encodeToUrlSafeString(byte[] bytes) {
         Objects.requireNonNull(bytes);
 
@@ -298,7 +340,7 @@ public class Base64Utils {
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
     public static String encodeToUrlSafeString(String string) {
-        return encodeToUrlSafeString(string, StandardCharsets.UTF_8);
+        return encodeToUrlSafeString(string, CharUtils.defaultCharset());
     }
 
     /**
@@ -313,9 +355,14 @@ public class Base64Utils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - URL_ENCODER.encodeToString(string.getBytes(CharUtils.requireCharset(charset)));
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String encodeToUrlSafeString(String string, Charset charset) {
         Objects.requireNonNull(string);
 
-        return URL_ENCODER.encodeToString(string.getBytes(Objects.requireNonNullElse(charset, StandardCharsets.UTF_8)));
+        return URL_ENCODER.encodeToString(string.getBytes(CharUtils.requireCharset(charset)));
     }
 }

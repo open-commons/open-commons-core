@@ -48,21 +48,16 @@ import java.util.function.Function;
  * @since 2018. 1. 9.
  * @version 3.0.0
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class TimeUtils {
 
     /** default time unit info */
     private static final TimeUnitExpr DEFAULT_TIME_UNIT_DEF = TimeUnitBuilder.create().build();
 
     /** default locale */
-    private static final Locale DEFAULT_LOCALE = Locale.getDefault();
+    private static final Locale DEFAULT_LOCALE = LocaleUtils.defaultLocale();
 
     // [안전성] 멀티 쓰레드 환경에서의 가시성(Visibility) 보장을 위한 volatile 적용
-    private static volatile Locale CURRENT_LOCALE = DEFAULT_LOCALE;
+    private static volatile Locale currentLocale = DEFAULT_LOCALE;
 
     // [안전성] 동시성 환경에서 안전한 ConcurrentHashMap으로 변경
     private static final ConcurrentHashMap<Locale, TimeUnitExpr> TIME_UNITS = new ConcurrentHashMap<>();
@@ -88,6 +83,7 @@ public class TimeUtils {
     };
 
     /** 제외시킬 시간 단위 (Thread-Safe Set으로 변경 및 오타 교정) */
+    @SuppressWarnings("null")
     private static final ConcurrentHashMap.KeySetView<TimeUnit, Boolean> OMITTED_TIME_UNITS = ConcurrentHashMap.newKeySet();
 
     /** discard none. */
@@ -129,6 +125,11 @@ public class TimeUtils {
      *
      * @since 2018. 11. 15.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) units);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static void addOmit(TimeUnit... units) {
         ObjectUtils.requireNonNulls((Object[]) units);
 
@@ -137,9 +138,10 @@ public class TimeUtils {
         }
     }
 
+    @SuppressWarnings("null")
     private static final TimeUnitExpr getTimeUnits() {
         // [안전성/최적화] getOrDefault를 활용하여 Race Condition 방지
-        return TIME_UNITS.getOrDefault(CURRENT_LOCALE, DEFAULT_TIME_UNIT_DEF);
+        return TIME_UNITS.getOrDefault(currentLocale, DEFAULT_TIME_UNIT_DEF);
     }
 
     private static long mod(long time, TimeUnit unit) {
@@ -208,6 +210,11 @@ public class TimeUtils {
      *
      * @since 2018. 11. 15.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) units);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static void removeOmit(TimeUnit... units) {
         ObjectUtils.requireNonNulls((Object[]) units);
 
@@ -237,7 +244,7 @@ public class TimeUtils {
     public static void setLocale(Locale locale) {
         Objects.requireNonNull(locale);
 
-        CURRENT_LOCALE = locale;
+        currentLocale = locale;
     }
 
     private static void setTimeUnit(StringBuilder timeBuf, String unit) {
@@ -295,7 +302,7 @@ public class TimeUtils {
         Objects.requireNonNull(expr);
 
         if (setCurrentLocale) {
-            CURRENT_LOCALE = locale;
+            currentLocale = locale;
         }
 
         TIME_UNITS.put(locale, expr);
@@ -330,6 +337,11 @@ public class TimeUtils {
      * @since 2018. 1. 9.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - timeBuf.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toFormattedString(long time, TimeUnit timeUnit) {
         Objects.requireNonNull(timeUnit);
 
@@ -694,6 +706,11 @@ public class TimeUtils {
         private final String year;
         private final TimeUnitInfo[] timeUnitInfo;
 
+        // 아래 내용에 적용됨.
+        // - ObjectUtils.requireNonNulls((Object[]) timeUnits);
+        // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+        // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+        @SuppressWarnings("null")
         public TimeUnitExpr(String year, TimeUnitInfo[] timeUnits) {
             Objects.requireNonNull(year);
             ObjectUtils.requireNonNulls((Object[]) timeUnits);

@@ -31,16 +31,97 @@ import open.commons.core.utils.NumberUtils.IntegerType;
  * @since 2012. 2. 8.
  *
  */
-// 아래 내용에 적용됨.
-// - JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class IntegerUtils {
 
     private static final int BINARY_DIGIT_LENGTH = 32;
     private static final int OCTAL_DIGIT_LENGTH = 12;
     private static final int HEX_DIGIT_LENGTH = 8;
+
+    /**
+     * <p>
+     * <font color="red">[JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 메소드 <br>
+     * [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거' </font>
+     * </p>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 7.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param value
+     * @return
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     */
+    // 아래 내용에 적용됨.
+    // - Integer.toBinaryString(value)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static String _toBinaryString(int value) {
+        return Integer.toBinaryString(value);
+    }
+
+    /**
+     * <p>
+     * <font color="red">[JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 메소드 <br>
+     * [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거' </font>
+     * </p>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 7.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param value
+     * @return
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     */
+    // 아래 내용에 적용됨.
+    // - Integer.toHexString(value)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static String _toHexString(int value) {
+        return Integer.toHexString(value);
+    }
+
+    /**
+     * 
+     * <p>
+     * <font color="red">[JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 메소드 <br>
+     * [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거' </font>
+     * </p>
+     * <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 7.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param value
+     * @return
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     */
+    // 아래 내용에 적용됨.
+    // - Integer.toOctalString(value)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static String _toOctalString(int value) {
+        return Integer.toOctalString(value);
+    }
 
     /**
      * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로 이루어진 int 배열을 반환합니다.
@@ -65,6 +146,11 @@ public class IntegerUtils {
      *
      * @see #byteArrayToInt(byte[])
      */
+    // 아래 내용에 적용됨.
+    // - values[i]
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] byteArraysToIntArray(byte[]... values) {
         Objects.requireNonNull(values);
 
@@ -120,31 +206,6 @@ public class IntegerUtils {
     }
 
     /**
-     * <br>
-     *
-     * <pre>
-     * [개정이력]
-     * 날짜        | 작성자                    | 내용
-     * ----------------------------------------------------------------------
-     * 2012. 2. 8.      parkjunhong77@gmail.com     최초 작성
-     * </pre>
-     *
-     * @param strings
-     *
-     * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code strings})가 {@code null}인 경우 발생.
-     *
-     * @since 2012. 2. 8.
-     */
-    private static String concat(String... strings) {
-        Objects.requireNonNull(strings);
-
-        return String.join("", strings);
-    }
-
-    /**
      * 문자열 앞에 '0x'를 붙여 반환합니다. <br>
      *
      * <br>
@@ -163,10 +224,14 @@ public class IntegerUtils {
      * @since 2020. 12. 17.
      *
      * @version 1.8.0
-     *
      */
+    // 아래 내용에 적용됨.
+    // - new StringBuilder().append("0x").append(str).toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String hex(String str) {
-        return concat("", "0x", str);
+        return new StringBuilder().append("0x").append(str).toString();
     }
 
     /**
@@ -218,7 +283,6 @@ public class IntegerUtils {
      * @since 2014. 7. 10. - 내부 구현 변경.
      *
      * @see String#substring(int)
-     *
      */
     public static int parseInt(String value, int begin) throws IndexOutOfBoundsException, NumberFormatException {
         Objects.requireNonNull(value);
@@ -250,8 +314,12 @@ public class IntegerUtils {
      * @since 2014. 7. 10. - 내부 구현 변경.
      *
      * @see String#substring(int, int)
-     *
      */
+    // 아래 내용에 적용됨.
+    // - buf.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int parseInt(String value, int begin, int end) throws IndexOutOfBoundsException, NumberFormatException {
         Objects.requireNonNull(value);
 
@@ -292,10 +360,9 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     *
      */
     public static char[] toBinary32CharArray(int value) {
-        return toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH);
+        return toCharArray(_toBinaryString(value), BINARY_DIGIT_LENGTH);
     }
 
     /**
@@ -318,10 +385,9 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
     public static char[] toBinary32CharArray(int value, int length) {
-        return toCharArray(Integer.toBinaryString(value), length);
+        return toCharArray(_toBinaryString(value), length);
     }
 
     /**
@@ -341,8 +407,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toBinary32String(int value) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), BINARY_DIGIT_LENGTH));
     }
@@ -366,8 +436,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toBinary32String(int value, int length) {
         return String.valueOf(toCharArray(Integer.toBinaryString(value), length));
     }
@@ -389,7 +463,6 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     *
      */
     public static byte[] toByteArray(int value) {
         byte[] returnedValue = new byte[4];
@@ -454,6 +527,11 @@ public class IntegerUtils {
      *
      * @since 2012. 2. 8.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOfRange(barr, 4 - length, 4)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] toByteArray(int value, int length) {
         if (length < 1 || length > 4) {
             new IllegalArgumentException("Length must be gt 0 & le 4. arg: " + length);
@@ -492,7 +570,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     *
      */
     public static char[] toCharArray(String value, int length) {
         Objects.requireNonNull(value);
@@ -529,10 +606,9 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 8.
-     *
      */
     public static char[] toHexCharArray(int value) {
-        return toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH);
+        return toCharArray(_toHexString(value), HEX_DIGIT_LENGTH);
     }
 
     /**
@@ -553,10 +629,9 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 8.
-     *
      */
     public static char[] toHexCharArray(int value, int length) {
-        return toCharArray(Integer.toHexString(value), length);
+        return toCharArray(_toHexString(value), length);
     }
 
     /**
@@ -576,8 +651,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 8.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toHexString(int value) {
         return String.valueOf(toCharArray(Integer.toHexString(value), HEX_DIGIT_LENGTH));
     }
@@ -601,7 +680,6 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 8.
-     *
      */
     public static String toHexString(int value, boolean padding) {
         String hexValue = toHexString(value);
@@ -636,8 +714,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 8.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toHexString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toHexString(value), length));
     }
@@ -662,7 +744,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 8.
-     *
      */
     public static String toHexString(String value) {
         Objects.requireNonNull(value);
@@ -692,7 +773,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 8.
-     *
      */
     public static String toHexString(String value, boolean padding) {
         Objects.requireNonNull(value);
@@ -721,7 +801,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 2. 8.
-     *
      */
     public static String toHexString(String value, int length) {
         Objects.requireNonNull(value);
@@ -748,8 +827,12 @@ public class IntegerUtils {
      * @since 2020. 12. 17.
      *
      * @version 1.8.0
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.join(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toIPv4(int nums) {
         int[] ar = new int[4];
         ar[3] = nums & 0xFF;
@@ -781,8 +864,12 @@ public class IntegerUtils {
      * @since 2020. 12. 17.
      *
      * @version 1.8.0
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.join(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toIPv4(int[] nums) {
         Objects.requireNonNull(nums);
 
@@ -808,10 +895,9 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
     public static char[] toOctalCharArray(int value) {
-        return toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH);
+        return toCharArray(_toOctalString(value), OCTAL_DIGIT_LENGTH);
     }
 
     /**
@@ -832,10 +918,9 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
     public static char[] toOctalCharArray(int value, int length) {
-        return toCharArray(Integer.toOctalString(value), length);
+        return toCharArray(_toOctalString(value), length);
     }
 
     /**
@@ -855,8 +940,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toOctalString(int value) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), OCTAL_DIGIT_LENGTH));
     }
@@ -880,7 +969,6 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
     public static String toOctalString(int value, boolean padding) {
         String octValue = toOctalString(value);
@@ -915,8 +1003,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 02. 22.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toOctalString(int value, int length) {
         return String.valueOf(toCharArray(Integer.toOctalString(value), length));
     }
@@ -941,7 +1033,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     *
      */
     public static String toOctalString(String value) {
         Objects.requireNonNull(value);
@@ -971,7 +1062,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     *
      */
     public static String toOctalString(String value, boolean padding) {
         Objects.requireNonNull(value);
@@ -1000,7 +1090,6 @@ public class IntegerUtils {
      *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2012. 02. 22.
-     *
      */
     public static String toOctalString(String value, int length) {
         Objects.requireNonNull(value);
@@ -1025,8 +1114,12 @@ public class IntegerUtils {
      * @return
      *
      * @since 2012. 2. 9.
-     *
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toWellFormed32bitBinaryString(int value) {
         char[] str = new char[32];
 

@@ -80,14 +80,14 @@ import open.commons.core.utils.OrderingUtils;
  * 
  */
 public class ReferenceableProperties extends Properties {
-    /** ${key} 형태의 문자열을 처리하는 정규식 */
-    private static final String referencingRegEx = "^([^$]*)\\$\\{\\s*([^(\\{|\\|\\s|\\})]+)\\s*[}]([^}].*)?$";
-
-    /** {@link #referencingRegEx}를 처리하는 패턴 객체 */
-    private static final Pattern referencingPattern = Objects.requireNonNull(Pattern.compile(referencingRegEx));
-
-    /** */
     private static final long serialVersionUID = 1L;
+
+    /** ${key} 형태의 문자열을 처리하는 정규식 */
+    private static final String REFERENCING_REG_EX = "^([^$]*)\\$\\{\\s*([^(\\{|\\|\\s|\\})]+)\\s*[}]([^}].*)?$";
+
+    /** {@link #REFERENCING_REG_EX}를 처리하는 패턴 객체 */
+    private static final Pattern REFERENCING_PATTERN = Objects.requireNonNull(Pattern.compile(REFERENCING_REG_EX));
+
     /** 프로퍼티의 {@code key=value} 중에 다른 {@code key}를 참조하지 않는 값들 */
     transient private final Map<String, String> keyReferencing = new HashMap<String, String>();
 
@@ -130,7 +130,7 @@ public class ReferenceableProperties extends Properties {
     }
 
     private boolean isReferencingValue(@Nullable String value) {
-        return referencingPattern.matcher(value).matches();
+        return REFERENCING_PATTERN.matcher(value).matches();
     }
 
     /**
@@ -164,8 +164,8 @@ public class ReferenceableProperties extends Properties {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) inStreams);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public synchronized void load(InputStream... inStreams) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) inStreams);
@@ -217,8 +217,8 @@ public class ReferenceableProperties extends Properties {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) readers);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public synchronized void load(Reader... readers) throws IOException {
         ObjectUtils.requireNonNulls((Object[]) readers);
@@ -268,8 +268,9 @@ public class ReferenceableProperties extends Properties {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) ins);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public synchronized void loadFromXML(InputStream... ins) throws IOException, InvalidPropertiesFormatException {
         ObjectUtils.requireNonNulls((Object[]) ins);
@@ -361,13 +362,13 @@ public class ReferenceableProperties extends Properties {
 
     // 아래 내용에 적용됨.
     // - input = sb.toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private Result<String> resolveRef0(String keyOfInput, String input) {
         StringBuilder sb = new StringBuilder();
 
-        Matcher m = referencingPattern.matcher(input);
+        Matcher m = REFERENCING_PATTERN.matcher(input);
 
         if (m.matches()) {
             String g1 = null;
@@ -399,7 +400,7 @@ public class ReferenceableProperties extends Properties {
 
                 g3 = m.group(3);
                 if (g3 != null) {
-                    m = referencingPattern.matcher(g3);
+                    m = REFERENCING_PATTERN.matcher(g3);
 
                     if (!m.matches()) {
                         sb.append(g3);

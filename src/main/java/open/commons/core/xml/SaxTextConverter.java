@@ -52,11 +52,6 @@ import open.commons.core.utils.CollectionUtils;
  *
  * @since 2019. 1. 24.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class SaxTextConverter {
 
     /**
@@ -67,36 +62,26 @@ public class SaxTextConverter {
     private static final ConcurrentMap<Class<?>, Map<String, Method>> ANNOTATED_METHOD_CACHE = new ConcurrentHashMap<>();
 
     /**
+     * 기본 변환기
+     * 
+     * <li>키: Full Qualified class name.<br>
+     * <li>값: converter
+     */
+    protected static final ConcurrentMap<String, Function<String, ?>> DEFAULT_CONVERTERS = new ConcurrentHashMap<>();
+
+    static {
+        initialize();
+    }
+
+    /**
+     * 변환기 선정의 우선순위는 '객체 변환기'가 더 높음
+     * 
      * <li>키: Full Qualified class name.<br>
      * <li>값: converter
      *
      * @see Class#getName()
      */
-    // [PATCH] O(log N) 인 SkipListMap 대신 정렬이 불필요하므로 O(1) 인 ConcurrentHashMap 사용
-    private final ConcurrentMap<String, Function<String, ?>> CONVERTERS = new ConcurrentHashMap<>();
-
-    // default converter
-    {
-        registerConverter(String.class.getName(), s -> s);
-
-        // primitive type
-        registerConverter(char.class.getName(), s -> s.charAt(0));
-        registerConverter(byte.class.getName(), Byte::parseByte);
-        registerConverter(boolean.class.getName(), Boolean::parseBoolean);
-        registerConverter(int.class.getName(), Integer::parseInt);
-        registerConverter(long.class.getName(), Long::parseLong);
-        registerConverter(float.class.getName(), Float::parseFloat);
-        registerConverter(double.class.getName(), Double::parseDouble);
-
-        // primitive wrapper class
-        registerConverter(Character.class.getName(), s -> s.charAt(0));
-        registerConverter(Byte.class.getName(), Byte::valueOf);
-        registerConverter(Boolean.class.getName(), Boolean::valueOf);
-        registerConverter(Integer.class.getName(), Integer::valueOf);
-        registerConverter(Long.class.getName(), Long::valueOf);
-        registerConverter(Float.class.getName(), Float::valueOf);
-        registerConverter(Double.class.getName(), Double::valueOf);
-    }
+    private final ConcurrentMap<String, Function<String, ?>> converters = new ConcurrentHashMap<>();
 
     public SaxTextConverter() {
     }
@@ -133,6 +118,9 @@ public class SaxTextConverter {
         Objects.requireNonNull(saxElement);
 
         // #1. 해당 Object의 Annotated 메소드 (캐싱을 통해 SAX 파싱의 리플렉션 병목 완벽 제거)
+        // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+        // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+        @SuppressWarnings("null")
         Map<String, Method> methods = ANNOTATED_METHOD_CACHE.computeIfAbsent(obj.getClass() //
                 , clazz -> CollectionUtils.toMapHSV(AnnotationUtils.getAnnotatedMethodsAll(clazz, SaxElement.class), m -> m.getAnnotation(SaxElement.class).value(), m -> m));
 
@@ -145,9 +133,13 @@ public class SaxTextConverter {
             return;
         }
 
-        // #3. 데이타 변환
         String fqcn = m.getParameters()[0].getType().getName();
-        Function<String, ?> converter = this.CONVERTERS.get(fqcn);
+        // 아래 내용에 적용됨.
+        // - fqcn
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
+        Function<String, ?> converter = getConverter0(fqcn);
 
         if (converter == null) {
             throw new UnsupportedOperationException(String.format("NO CONVERTER !!! Object: %s, sax-element: %s, sax-text: %s", obj.getClass().getName(), saxElement, saxText));
@@ -176,15 +168,24 @@ public class SaxTextConverter {
      *
      * @since 2019. 1. 24.
      */
-    @SuppressWarnings("unchecked")
     public <R> Function<String, R> getConverter(String fqcn) {
         Objects.requireNonNull(fqcn, "Full Qualified Class Name MUST NOT BE NULL !!!");
 
-        Function<String, R> c = (Function<String, R>) CONVERTERS.get(fqcn);
+        @SuppressWarnings("unchecked")
+        Function<String, R> c = (Function<String, R>) getConverter0(fqcn);
 
         Objects.requireNonNull(c, "No converter for " + fqcn);
 
         return c;
+    }
+
+    private @Nullable Function<String, ?> getConverter0(String fqcn) {
+        Function<String, ?> converter = this.converters.get(fqcn);
+        if (converter == null) {
+            converter = DEFAULT_CONVERTERS.get(fqcn);
+            this.converters.put(fqcn, converter);
+        }
+        return converter;
     }
 
     /**
@@ -211,12 +212,46 @@ public class SaxTextConverter {
      *
      * @see Class#getName()
      */
-    @SuppressWarnings("unchecked")
     public <R> @Nullable Function<String, R> registerConverter(String fqcn, Function<String, R> converter) {
+        return registerConverter0(fqcn, converter, this.converters);
+    }
+
+    // default converter
+    private static void initialize() {
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
+        ConverterMeta[] cms = new ConverterMeta[] { new ConverterMeta(String.class.getName(), s -> s) //
+                // primitive type
+                , new ConverterMeta(char.class.getName(), s -> s.charAt(0)) //
+                , new ConverterMeta(byte.class.getName(), Byte::parseByte) //
+                , new ConverterMeta(boolean.class.getName(), Boolean::parseBoolean) //
+                , new ConverterMeta(int.class.getName(), Integer::parseInt) //
+                , new ConverterMeta(long.class.getName(), Long::parseLong) //
+                , new ConverterMeta(float.class.getName(), Float::parseFloat) //
+                , new ConverterMeta(double.class.getName(), Double::parseDouble) //
+                // primitive wrapper class
+                , new ConverterMeta(Character.class.getName(), s -> s.charAt(0)) //
+                , new ConverterMeta(Byte.class.getName(), Byte::valueOf) //
+                , new ConverterMeta(Boolean.class.getName(), Boolean::valueOf) //
+                , new ConverterMeta(Integer.class.getName(), Integer::valueOf) //
+                , new ConverterMeta(Long.class.getName(), Long::valueOf) //
+                , new ConverterMeta(Float.class.getName(), Float::valueOf) //
+                , new ConverterMeta(Double.class.getName(), Double::valueOf) };
+
+        for (ConverterMeta cm : cms) {
+            registerConverter0(cm.fqcn, cm.converter, DEFAULT_CONVERTERS);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <R> @Nullable Function<String, R> registerConverter0(String fqcn, Function<String, R> converter, ConcurrentMap<String, Function<String, ?>> converters) {
         Objects.requireNonNull(fqcn, "Class<?> MUST NOT BE NULL !!!");
         Objects.requireNonNull(converter, "Converter MUST NOT BE NULL !!!");
 
-        return (Function<String, R>) CONVERTERS.put(fqcn, converter);
+        return (Function<String, R>) converters.put(fqcn, converter);
     }
 
+    record ConverterMeta(String fqcn, Function<String, ?> converter) {
+    }
 }

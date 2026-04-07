@@ -52,7 +52,7 @@ import open.commons.core.utils.ObjectUtils;
  */
 public class DefaultThreadFactory implements ThreadFactory {
 
-    private static final AtomicInteger poolNumber = new AtomicInteger(1);
+    private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
 
     private final AtomicInteger threadNumber = new AtomicInteger(1);
     private final String namePrefix;
@@ -106,7 +106,7 @@ public class DefaultThreadFactory implements ThreadFactory {
 
         this.threadType = threadType;
         this.group = Thread.currentThread().getThreadGroup();
-        this.namePrefix = Objects.requireNonNull(String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), poolNumber.getAndIncrement()));
+        this.namePrefix = Objects.requireNonNull(String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), POOL_NUMBER.getAndIncrement()));
     }
 
     /**

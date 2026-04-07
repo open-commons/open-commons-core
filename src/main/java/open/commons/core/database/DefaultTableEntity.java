@@ -66,7 +66,7 @@ import open.commons.core.utils.ObjectUtils;
 public abstract class DefaultTableEntity implements ITableEntity {
 
     /** 메타데이터 생성 함수. */
-    private static Function<Class<?>, TableMetadata> TABLE_METADATA_GEN = clazz -> {
+    private static final Function<Class<?>, TableMetadata> TABLE_METADATA_GEN = clazz -> {
         // 1. 테이블 이름 조회
         @Nullable
         TableDef tableDef = clazz.getAnnotation(TableDef.class);
@@ -147,8 +147,8 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     // 아래 내용에 적용됨.
-    // - return sb.toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private String createKV(Collection<ColumnConf> columns, Collection<String> values, String concatenator) {
@@ -319,7 +319,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
      */
     // 아래 내용에 적용됨.
     // - CACHE_TABLE_METADATA.computeIfAbsent(getClass(), TABLE_METADATA_GEN)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private TableMetadata getMetadata() {
@@ -364,7 +364,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
 
     // 아래 내용에 적용됨.
     // - Collectors.joining(", ")
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private String serializeColumns(Collection<ColumnConf> columns) {
@@ -373,7 +373,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
 
     // 아래 내용에 적용됨.
     // - String.join(", ", values)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private String serializeValues(Collection<String> values) {

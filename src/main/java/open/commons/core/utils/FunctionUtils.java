@@ -339,7 +339,7 @@ public class FunctionUtils {
      */
     // 아래 내용에 적용됨.
     // - r.getData()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, R extends @Nullable Object> //
@@ -468,7 +468,7 @@ public class FunctionUtils {
      */
     // 아래 내용에 적용됨.
     // - r.getData()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
@@ -568,7 +568,7 @@ public class FunctionUtils {
      */
     // 아래 내용에 적용됨.
     // - r.getData()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <R extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object> //
@@ -617,7 +617,7 @@ public class FunctionUtils {
      */
     // 아래 내용에 적용됨.
     // - future.get()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <R> Result<R> getOnAsync(Future<Result<R>> future) {
@@ -1475,9 +1475,12 @@ public class FunctionUtils {
      * 
      */
     // 아래 내용에 적용됨.
-    // - (Object[]) actions
-    // - Stream.findAny()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - ObjectUtils.requireNonNulls((Object[]) actions);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    // 아래 내용에 적용됨.
+    // - Arraysl.finaAny()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
@@ -1522,9 +1525,12 @@ public class FunctionUtils {
      * 
      */
     // 아래 내용에 적용됨.
-    // - (Object[]) actions
+    // - ObjectUtils.requireNonNulls((Object[]) actions);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    // 아래 내용에 적용됨.
     // - Stream.findAny()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs

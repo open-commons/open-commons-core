@@ -82,9 +82,9 @@ public class Closeables implements AutoCloseable {
      *             파라미터({@code closeables})에 'null'이 포함된 경우 발생.
      */
     // 아래 내용에 적용됨.
-    // ObjectUtils.requireNonNulls((Object[]) closeables);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // - ObjectUtils.requireNonNulls((Object[]) closeables);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void addAll(AutoCloseable @Nullable... closeables) {
         if (closeables == null) {
@@ -208,8 +208,8 @@ public class Closeables implements AutoCloseable {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) closeables);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static Closeables list(AutoCloseable... closeables) {
         ObjectUtils.requireNonNulls((Object[]) closeables);

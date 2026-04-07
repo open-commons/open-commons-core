@@ -291,7 +291,7 @@ public class CsvUtils {
      */
     // 아래 내용에 적용됨.
     // - CSVreaderBuilder.build()
-    // [PATCH] 외부 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [3rdParty-Null] 외부 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static CSVReader newCSVReader(Reader reader, CsvFileConfig config) {
@@ -334,7 +334,7 @@ public class CsvUtils {
      */
     // 아래 내용에 적용됨.
     // - CSVreaderBuilder.build()
-    // [PATCH] 외부 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [3rdParty-Null] 외부 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static ICSVWriter newCSVWriter(Writer writer, CsvWriteConfig config) {
@@ -428,7 +428,7 @@ public class CsvUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.asList(objects)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
@@ -464,7 +464,7 @@ public class CsvUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.asList(objects)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
@@ -6195,7 +6195,7 @@ public class CsvUtils {
      */
     // 아래 내용에 적용됨.
     // - Files.newOutputStream(path, options)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator,

@@ -326,11 +326,10 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
         private @Nullable String fileGroup;
 
         // 아래 내용에 적용됨.
-        // - return new ProcessRollingFileAppender(getName(), layout, ...);
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // - new ProcessRollingFileAppender(getName(), layout, ...);
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
-
         @Override
         public @Nullable ProcessRollingFileAppender build() {
             // Even though some variables may be annotated with @Required, we must still perform validation here for

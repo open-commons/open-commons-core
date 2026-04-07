@@ -508,7 +508,7 @@ public class StreamUtils {
     // 아래 내용에 적용됨.
     // - Stream.collect(Collectors.toMap(...));
     // - Supplier.get();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V, C extends Collection<V>, M extends Map<K, V>> //
@@ -566,7 +566,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - ArrayList<NE>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
@@ -649,7 +649,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - Array<NE>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {
@@ -840,7 +840,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction) {
@@ -1091,7 +1091,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - 'intermediateMap, resultMap' of "intermediateMap.forEach((k, v) -> resultMap.put(k, transformer.apply(v)));"
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
@@ -1146,7 +1146,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new,
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction) {
@@ -1314,7 +1314,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - (Supplier<Set<NE>>) HashSet<NE>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
@@ -1397,7 +1397,7 @@ public class StreamUtils {
      */
     // 아래 내용에 적용됨.
     // - (Supplier<Set<NE>>) HashSet<NE>::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Stream<E> stream, Predicate<E> filter, Function<E, NE> transformer) {

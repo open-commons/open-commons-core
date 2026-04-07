@@ -49,11 +49,6 @@ import open.commons.core.date.YearMonthDay;
  * @since 2011. 07. 12.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class DateUtil {
 
     public static final String REGEX_yyyyMMDD_HHmmss = "(\\d{4})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*\\s?\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2})\\s*.\\s*(\\d{1,2}).?";
@@ -77,6 +72,7 @@ public class DateUtil {
      * 
      * @see #REGEX_yyyyMMDD
      */
+    @SuppressWarnings("null")
     public static final Pattern yyyyMMDD = Pattern.compile(REGEX_yyyyMMDD);
 
     /**
@@ -84,6 +80,7 @@ public class DateUtil {
      * 
      * @see #REGEX_yyyyMMDD_HHmm
      */
+    @SuppressWarnings("null")
     public static final Pattern yyyyMMDD_HHmm = Pattern.compile(REGEX_yyyyMMDD_HHmm);
 
     /**
@@ -91,10 +88,85 @@ public class DateUtil {
      * 
      * @see #REGEX_yyyyMMDD_HHmmss
      */
+    @SuppressWarnings("null")
     public static final Pattern yyyyMMDD_HHmmss = Pattern.compile(REGEX_yyyyMMDD_HHmmss);
 
     /** 날짜를 구성하는 문자형 데이터를 정수형 데이터로 제공합니다. */
     private static final Function<String, Integer> CAL_S2I = s -> s != null ? Integer.parseInt(s) : 0;
+
+    /**
+     * <p>
+     * <font color="red">[JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 메소드 <br>
+     * [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거' </font>
+     * </p>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 7.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param dateformat
+     * @param date
+     * @return
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     */
+    // 아래 내용에 적용됨.
+    // - dateformat.format(date)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static String _dateformat(SimpleDateFormat dateformat, @Nullable Date date) {
+        return dateformat.format(date);
+    }
+
+    /**
+     * [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 메소드 <br>
+     * [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 7.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @param pattern
+     * @param date
+     * @return
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     */
+    private static String _dateformat(String pattern, @Nullable Date date) {
+        return _dateformat(new SimpleDateFormat(pattern), date);
+    }
+
+    /**
+     * [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 메소드 <br>
+     * [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜    	| 작성자	|	내용
+     * ------------------------------------------
+     * 2026. 4. 7.		parkjunhong77@gmail.com			최초 작성
+     * </pre>
+     *
+     * @return
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     * 
+     * @see Calendar#getInstance()
+     */
+    @SuppressWarnings("null")
+    private static Calendar _getInstance() {
+        return Calendar.getInstance();
+    }
 
     /**
      * 주어진 시간이 경과한 후에 현재 시간 이후인지 여부를 제공합니다.
@@ -111,7 +183,7 @@ public class DateUtil {
      * @since 2017. 1. 9.
      */
     public static boolean afterNow(long timestamp, int calenderField, int value) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = _getInstance();
         cal.setTimeInMillis(timestamp);
         cal.add(calenderField, value);
 
@@ -133,7 +205,7 @@ public class DateUtil {
      * @since 2017. 1. 9.
      */
     public static boolean beforeNow(long timestamp, int calenderField, int value) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = _getInstance();
         cal.setTimeInMillis(timestamp);
         cal.add(calenderField, value);
 
@@ -337,7 +409,7 @@ public class DateUtil {
      * 
      */
     public static int diffDayToNow(Calendar cal) {
-        return diffDay(cal, Calendar.getInstance());
+        return diffDay(cal, _getInstance());
     }
 
     /**
@@ -362,7 +434,7 @@ public class DateUtil {
      * 
      */
     public static int diffDayToNow(Date date) {
-        return diffDay0(newCalendar(date), Calendar.getInstance());
+        return diffDay0(newCalendar(date), _getInstance());
     }
 
     /**
@@ -387,7 +459,7 @@ public class DateUtil {
      * 
      */
     public static int diffDayToNow(int year, int month, int day) {
-        return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
+        return diffDay0(newCalendar(year, month, day), _getInstance());
     }
 
     /**
@@ -412,7 +484,7 @@ public class DateUtil {
      * 
      */
     public static int diffDayToNow(@Nullable String year, @Nullable String month, @Nullable String day) {
-        return diffDay0(newCalendar(year, month, day), Calendar.getInstance());
+        return diffDay0(newCalendar(year, month, day), _getInstance());
     }
 
     /**
@@ -433,7 +505,7 @@ public class DateUtil {
      * @since 2020. 9. 10.
      */
     public static Calendar getCalendar(int field, int amount) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = _getInstance();
         cal.add(field, amount);
         return cal;
     }
@@ -456,8 +528,13 @@ public class DateUtil {
      *
      * @since 2020. 9. 10.
      */
+    // 아래 내용에 적용됨.
+    // - cal.getTime()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Date getDate(int field, int amount) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = _getInstance();
         cal.add(field, amount);
         return cal.getTime();
     }
@@ -484,7 +561,7 @@ public class DateUtil {
     public static String getDateString(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("yyyyMMdd").format(date);
+        return _dateformat("yyyyMMdd", date);
     }
 
     /**
@@ -509,7 +586,7 @@ public class DateUtil {
     public static String getDateTimeString(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("yyyyMMddHHmmss").format(date);
+        return _dateformat("yyyyMMddHHmmss", date);
     }
 
     /**
@@ -534,7 +611,7 @@ public class DateUtil {
     public static String getDay(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("dd").format(date);
+        return _dateformat("dd", date);
     }
 
     /**
@@ -562,6 +639,11 @@ public class DateUtil {
      * 
      * @since 2014. 4. 3.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) discards);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, Locale locale, YearMonthDay... discards) {
         ObjectUtils.requireNonNulls(cal1, cal2, locale);
         ObjectUtils.requireNonNulls((Object[]) discards);
@@ -636,7 +718,7 @@ public class DateUtil {
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, YearMonthDay... discards) {
-        return getDisplayNameOfDays(cal1, cal2, weekend, style, Locale.getDefault(), discards);
+        return getDisplayNameOfDays(cal1, cal2, weekend, style, LocaleUtils.defaultLocale(), discards);
     }
 
     /**
@@ -685,7 +767,7 @@ public class DateUtil {
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, YearMonthDay... discards) {
-        return getDisplayNameOfDays(cal1, cal2, weekend, Calendar.LONG, Locale.getDefault(), discards);
+        return getDisplayNameOfDays(cal1, cal2, weekend, Calendar.LONG, LocaleUtils.defaultLocale(), discards);
     }
 
     /**
@@ -738,7 +820,7 @@ public class DateUtil {
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, int style, YearMonthDay... discards) {
-        return getDisplayNameOfDays(cal1, cal2, true, style, Locale.getDefault(), discards);
+        return getDisplayNameOfDays(cal1, cal2, true, style, LocaleUtils.defaultLocale(), discards);
     }
 
     /**
@@ -781,7 +863,7 @@ public class DateUtil {
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, YearMonthDay... discards) {
-        return getDisplayNameOfDays(cal1, cal2, true, Calendar.LONG, Locale.getDefault(), discards);
+        return getDisplayNameOfDays(cal1, cal2, true, Calendar.LONG, LocaleUtils.defaultLocale(), discards);
     }
 
     /**
@@ -791,7 +873,7 @@ public class DateUtil {
      * @return
      */
     public static String getHHmm() {
-        return new SimpleDateFormat("HHmm").format(new Date());
+        return _dateformat("HHmm", new Date());
     }
 
     /**
@@ -808,7 +890,7 @@ public class DateUtil {
     public static String getHHmm(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("HHmm").format(date);
+        return _dateformat("HHmm", date);
     }
 
     /**
@@ -833,7 +915,7 @@ public class DateUtil {
     public static String getMonth(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("MM").format(date);
+        return _dateformat("MM", date);
     }
 
     /**
@@ -843,7 +925,7 @@ public class DateUtil {
      * @return
      */
     public static String getTimeModeString() {
-        return new SimpleDateFormat("MMddHHmmss").format(new Date());
+        return _dateformat("MMddHHmmss", new Date());
     }
 
     /**
@@ -858,7 +940,7 @@ public class DateUtil {
     public static String getTimeModeString(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("MMddHHmmss").format(date);
+        return _dateformat("MMddHHmmss", date);
     }
 
     /**
@@ -913,7 +995,7 @@ public class DateUtil {
      * @since 2020. 9. 10.
      */
     public static long getTimestamp(int field, int amount) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = _getInstance();
         cal.add(field, amount);
         return cal.getTime().getTime();
     }
@@ -946,7 +1028,7 @@ public class DateUtil {
     public static String getTimestampString(Calendar cal, SimpleDateFormat dateFormat) {
         ObjectUtils.requireNonNulls(cal, dateFormat);
 
-        return dateFormat.format(cal.getTime());
+        return _dateformat(dateFormat, cal.getTime());
     }
 
     /**
@@ -977,7 +1059,7 @@ public class DateUtil {
     public static String getTimestampString(Calendar cal, String format) {
         ObjectUtils.requireNonNulls(cal, format);
 
-        return new SimpleDateFormat(format).format(cal.getTime());
+        return _dateformat(format, cal.getTime());
     }
 
     /**
@@ -1008,7 +1090,7 @@ public class DateUtil {
     public static String getTimestampString(Date date, String format) {
         ObjectUtils.requireNonNulls(date, format);
 
-        return new SimpleDateFormat(format).format(date);
+        return _dateformat(format, date);
     }
 
     /**
@@ -1038,7 +1120,7 @@ public class DateUtil {
     public static String getTimestampString(long timestamp, SimpleDateFormat dateFormat) {
         Objects.requireNonNull(dateFormat);
 
-        return dateFormat.format(new Date(timestamp));
+        return _dateformat(dateFormat, new Date(timestamp));
     }
 
     /**
@@ -1068,7 +1150,7 @@ public class DateUtil {
     public static String getTimestampString(long timestamp, String format) {
         Objects.requireNonNull(format);
 
-        return new SimpleDateFormat(format).format(new Date(timestamp));
+        return _dateformat(format, new Date(timestamp));
     }
 
     /**
@@ -1097,7 +1179,7 @@ public class DateUtil {
     public static String getTimestampString(String format) {
         Objects.requireNonNull(format);
 
-        return new SimpleDateFormat(format).format(new Date());
+        return _dateformat(format, new Date());
     }
 
     /**
@@ -1107,7 +1189,7 @@ public class DateUtil {
      * @return
      */
     public static String getTimeString() {
-        return new SimpleDateFormat("HHmmss").format(new Date());
+        return _dateformat("HHmmss", new Date());
     }
 
     /**
@@ -1136,7 +1218,7 @@ public class DateUtil {
     public static String getTimeString(Calendar cal) {
         Objects.requireNonNull(cal);
 
-        return new SimpleDateFormat("HHmmss").format(cal.getTime());
+        return _dateformat("HHmmss", cal.getTime());
     }
 
     /**
@@ -1151,7 +1233,7 @@ public class DateUtil {
     public static String getTimeString(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("HHmmss").format(date);
+        return _dateformat("HHmmss", date);
     }
 
     /**
@@ -1174,7 +1256,7 @@ public class DateUtil {
      * 
      */
     public static String getTimeString(long timestamp) {
-        return new SimpleDateFormat("HHmmss").format(new Date(timestamp));
+        return _dateformat("HHmmss", new Date(timestamp));
     }
 
     /**
@@ -1201,7 +1283,7 @@ public class DateUtil {
      * @return
      */
     public static String getYear() {
-        return new SimpleDateFormat("yyyy").format(new Date());
+        return _dateformat("yyyy", new Date());
     }
 
     /**
@@ -1216,7 +1298,7 @@ public class DateUtil {
     public static String getYear(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat("yyyy").format(date);
+        return _dateformat("yyyy", date);
     }
 
     /**
@@ -1261,7 +1343,7 @@ public class DateUtil {
     public static boolean isPast(Date date, int timeValue, int timeField) {
         Objects.requireNonNull(date);
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
 
         calendar.set(timeField, timeValue);
 
@@ -1284,7 +1366,7 @@ public class DateUtil {
     public static Calendar newCalendar(Calendar calendar, int... fields) {
         ObjectUtils.requireNonNulls(calendar, fields);
 
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = _getInstance();
         cal.clear();
 
         for (int field : fields) {
@@ -1309,7 +1391,7 @@ public class DateUtil {
     public static Calendar newCalendar(Date date) {
         Objects.requireNonNull(date);
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.setTimeInMillis(date.getTime());
 
         return calendar;
@@ -1368,7 +1450,7 @@ public class DateUtil {
      * @since 2020. 11. 5.
      */
     public static Calendar newCalendar(int year, int month, int date, int hourOfDay, int minute, int second) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.set(year, month, date, hourOfDay, minute, second);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
@@ -1384,7 +1466,7 @@ public class DateUtil {
      * @since 2014. 4. 2.
      */
     public static Calendar newCalendar(long timeInMillis) {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.setTimeInMillis(timeInMillis);
 
         return calendar;
@@ -1445,19 +1527,19 @@ public class DateUtil {
     public static Calendar newCalendar(@Nullable String year, @Nullable String month, @Nullable String date, @Nullable String hourOfDay, @Nullable String minute,
             @Nullable String second) {
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.set(CAL_S2I.apply(year), CAL_S2I.apply(month), CAL_S2I.apply(date), CAL_S2I.apply(hourOfDay), CAL_S2I.apply(minute), CAL_S2I.apply(second));
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
     }
 
+    // 아래 내용에 적용됨.
+    // - new StringBuilder().repeat('0', i).toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String pad(int i) {
-        StringBuilder sb = new StringBuilder();
-
-        if (i < 10) {
-            sb.append('0');
-        }
-        return sb.append(i).toString();
+        return new StringBuilder().repeat('0', i).toString();
     }
 
     /**
@@ -1533,7 +1615,7 @@ public class DateUtil {
     public static Calendar resetDateFields(int... dateFields) {
         Objects.requireNonNull(dateFields);
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
         resetDateFields(calendar, dateFields);
@@ -1556,7 +1638,7 @@ public class DateUtil {
     public static Calendar resetDateFields(long timeInMillis, int... dateFields) {
         Objects.requireNonNull(dateFields);
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.setTimeInMillis(timeInMillis);
 
         resetDateFields(calendar, dateFields);
@@ -1595,7 +1677,7 @@ public class DateUtil {
         int minute = Integer.parseInt(m.group(5));
         int second = Integer.parseInt(m.group(6));
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = _getInstance();
         calendar.clear();
 
         calendar.set(Calendar.YEAR, year);
@@ -1631,7 +1713,7 @@ public class DateUtil {
     public static String toISO8601Format(Calendar calendar) {
         Objects.requireNonNull(calendar);
 
-        return new SimpleDateFormat(REGEX_ISO_8601_FORMAT).format(calendar.getTime());
+        return _dateformat(REGEX_ISO_8601_FORMAT, calendar.getTime());
     }
 
     /**
@@ -1657,7 +1739,7 @@ public class DateUtil {
     public static String toISO8601Format(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat(REGEX_ISO_8601_FORMAT).format(date);
+        return _dateformat(REGEX_ISO_8601_FORMAT, date);
     }
 
     /**
@@ -1683,7 +1765,7 @@ public class DateUtil {
     public static String toISO8601Format(Long timestamp) {
         Objects.requireNonNull(timestamp);
 
-        return new SimpleDateFormat(REGEX_ISO_8601_FORMAT).format(new Date(timestamp));
+        return _dateformat(REGEX_ISO_8601_FORMAT, new Date(timestamp));
     }
 
     /**
@@ -1701,7 +1783,7 @@ public class DateUtil {
     public static String toISOFormat(Calendar calendar) {
         Objects.requireNonNull(calendar);
 
-        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(calendar.getTime());
+        return _dateformat(REGEX_ISO_FORMAT, calendar.getTime());
     }
 
     /**
@@ -1727,7 +1809,7 @@ public class DateUtil {
     public static String toISOFormat(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(date);
+        return _dateformat(REGEX_ISO_FORMAT, date);
     }
 
     /**
@@ -1753,7 +1835,7 @@ public class DateUtil {
     public static String toISOFormat(Long timestamp) {
         Objects.requireNonNull(timestamp);
 
-        return new SimpleDateFormat(REGEX_ISO_FORMAT).format(new Date(timestamp));
+        return _dateformat(REGEX_ISO_FORMAT, new Date(timestamp));
     }
 
     /**
@@ -1771,7 +1853,7 @@ public class DateUtil {
     public static String toISOFormatNoTZ(Calendar calendar) {
         Objects.requireNonNull(calendar);
 
-        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(calendar.getTime());
+        return _dateformat(REGEX_ISO_FORMAT_NO_TZ, calendar.getTime());
     }
 
     /**
@@ -1797,7 +1879,7 @@ public class DateUtil {
     public static String toISOFormatNoTZ(Date date) {
         Objects.requireNonNull(date);
 
-        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(date);
+        return _dateformat(REGEX_ISO_FORMAT_NO_TZ, date);
     }
 
     /**
@@ -1855,7 +1937,7 @@ public class DateUtil {
     public static String toISOFormatNoTZ(Long timestamp) {
         Objects.requireNonNull(timestamp);
 
-        return new SimpleDateFormat(REGEX_ISO_FORMAT_NO_TZ).format(new Date(timestamp));
+        return _dateformat(REGEX_ISO_FORMAT_NO_TZ, new Date(timestamp));
     }
 
     /**
@@ -1869,6 +1951,11 @@ public class DateUtil {
      * 
      * @since 2014. 4. 8.
      */
+    // 아래 내용에 적용됨.
+    // - m.group(1), m.group(2), m.group(3)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toISOFormatNoTZ(String dateStr) {
         Objects.requireNonNull(dateStr);
 
@@ -1917,6 +2004,11 @@ public class DateUtil {
      * 
      * @see {@value #MESSAGE_ISO_FORMAT_NO_TZ}
      */
+    // 아래 내용에 적용됨.
+    // - MessageFormat.format(MESSAGE_ISO_FORMAT_NO_TZ, year, month, dayOfMonth, hourOfDay, min, sec)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toISOFormatNoTZ(String year, String month, String dayOfMonth, String hourOfDay, String min, String sec) {
         ObjectUtils.requireNonNulls(year, month, dayOfMonth, hourOfDay, min, sec);
 
@@ -1998,7 +2090,7 @@ public class DateUtil {
     public static String toString(Date date, String pattern) {
         ObjectUtils.requireNonNulls(date, pattern);
 
-        return new SimpleDateFormat(pattern).format(date);
+        return _dateformat(pattern, date);
     }
 
     /**
@@ -2025,7 +2117,7 @@ public class DateUtil {
     public static String toString(Long timestamp, String pattern) {
         ObjectUtils.requireNonNulls(timestamp, pattern);
 
-        return new SimpleDateFormat(pattern).format(new Date(timestamp));
+        return _dateformat(pattern, new Date(timestamp));
     }
 
     /**
@@ -2102,6 +2194,6 @@ public class DateUtil {
     public static String toString(String pattern) {
         Objects.requireNonNull(pattern);
 
-        return new SimpleDateFormat(pattern).format(new Date());
+        return _dateformat(pattern, new Date());
     }
 }

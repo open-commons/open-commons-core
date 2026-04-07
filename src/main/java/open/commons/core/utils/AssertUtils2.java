@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.exception.AssertionException;
@@ -52,7 +51,6 @@ import open.commons.core.exception.AssertionException;
  * @version 2.1.0
  * 
  */
-@NullUnmarked
 public class AssertUtils2 {
 
     private AssertUtils2() {
@@ -60,7 +58,7 @@ public class AssertUtils2 {
 
     // 아래 내용에 적용됨.
     // - cons.newInstance(msg)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static RuntimeException assert0(@Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {

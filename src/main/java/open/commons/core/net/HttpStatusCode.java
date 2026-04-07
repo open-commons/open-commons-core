@@ -43,7 +43,7 @@ import org.jspecify.annotations.Nullable;
  */
 public class HttpStatusCode implements Cloneable {
 
-    private static ConcurrentHashMap<Integer, HttpStatusCode> httpStatusCodes = new ConcurrentHashMap<Integer, HttpStatusCode>();
+    private static final ConcurrentHashMap<Integer, HttpStatusCode> httpStatusCodes = new ConcurrentHashMap<Integer, HttpStatusCode>();
 
     static {
 

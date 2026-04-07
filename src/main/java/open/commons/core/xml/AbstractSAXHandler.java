@@ -57,14 +57,11 @@ import open.commons.core.utils.ObjectUtils;
  *
  * @since 2019. 1. 25.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public abstract class AbstractSAXHandler extends DefaultHandler {
 
+    @SuppressWarnings("null")
     protected Logger logger = LoggerFactory.getLogger(getClass());
+    @SuppressWarnings("null")
     protected Logger errorLogger = LoggerFactory.getLogger(getClass());
 
     private boolean ignoredInvalidValue;
@@ -171,14 +168,31 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      *            대상 객체
      *
      * @return 추가 여부 (항상 {@code true})
+     * 
+     * @throws NullPointerException
+     *             파라미터가 {@code null}인 경우 (ArrayDeque 제약사항)
      *
      * @since 2019. 1. 25.
      */
-    protected final boolean addElementObject(@Nullable Object object) {
-        // [PATCH] Deque의 add는 boolean을 반환합니다.
+    protected final boolean addElementObject(Object object) {
+        Objects.requireNonNull(object, "Element 객체는 null일 수 없습니다.");
         return elemObjects.add(object);
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     *
+     * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
+     */
+    // 아래 내용에 적용됨.
+    // - char[] ch
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         Objects.requireNonNull(ch);
@@ -227,6 +241,11 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * @throws NullPointerException
      *             파라미터({@code uri}, {@code localName}, {@code qName} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - public final void endElement(String uri, String localName, String qName) throws SAXException {
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public final void endElement(String uri, String localName, String qName) throws SAXException {
         ObjectUtils.requireNonNulls(uri, localName, qName);
@@ -283,10 +302,20 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * 2019. 1. 25.      parkjunhong77@gmail.com     최초 작성
      * </pre>
      *
-     * @return 덱(Deque)의 최상위 객체. 없거나 {@code null}인 경우 {@code null} 반환.
+     * @return 덱(Deque)의 최상위 객체.
+     * 
+     * @throws java.util.NoSuchElementException
+     *             XML 파싱 컨텍스트 외부에서 호출되어 스택이 비어있는 경우
+     * 
+     * @since 2019. 1. 25.
      */
-    protected @Nullable String getCurrentQName() {
-        return this.qnames.peek();
+    // 아래 내용에 적용됨.
+    // - this.qnames.getFirst()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    protected String getCurrentQName() {
+        return this.qnames.getFirst();
     }
 
     /**
@@ -303,11 +332,19 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      *            현재 Element 이름
      *
      * @return 부모 요소 객체
+     * 
+     * @throws java.util.NoSuchElementException
+     *             XML 파싱 컨텍스트 외부에서 호출되어 스택이 비어있는 경우
      *
      * @since 2019. 1. 25.
      */
-    protected @Nullable Object getParentObject(String qName) {
-        return this.elemObjects.peek();
+    // 아래 내용에 적용됨.
+    // - this.elemObjects.getFirst()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    protected Object getParentObject(String qName) {
+        return this.elemObjects.getFirst();
     }
 
     protected final void incIndentation() {
@@ -345,11 +382,19 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * </pre>
      *
      * @return 요소 객체
+     * 
+     * @throws java.util.NoSuchElementException
+     *             스택이 비어있는 경우
      *
      * @since 2019. 1. 25.
      */
-    protected final @Nullable Object peekElementObject() {
-        return this.elemObjects.peek();
+    // 아래 내용에 적용됨.
+    // - this.elemObjects.getFirst()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    protected final Object peekElementObject() {
+        return this.elemObjects.getFirst();
     }
 
     /**
@@ -363,11 +408,19 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * </pre>
      *
      * @return 요소 객체. 비어있는 경우 {@code null}을 반환.
+     * 
+     * @throws java.util.NoSuchElementException
+     *             스택이 비어있는 경우
      *
      * @since 2019. 1. 25.
      */
-    protected final @Nullable Object popElementObject() {
-        return this.elemObjects.poll();
+    // 아래 내용에 적용됨.
+    // - this.elemObjects.removeFirst()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    protected final Object popElementObject() {
+        return this.elemObjects.removeFirst();
     }
 
     /**
@@ -412,6 +465,12 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * @throws NullPointerException
      *             파라미터({@code uri}, {@code localName}, {@code qName}, {@code attributes} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - public final void startElement(String uri, String localName, String qName, Attributes attributes) throws
+    // SAXException {
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public final void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         ObjectUtils.requireNonNulls(uri, localName, qName, attributes);

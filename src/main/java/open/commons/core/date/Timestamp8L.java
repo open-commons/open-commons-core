@@ -52,7 +52,7 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
 
     // 아래 내용에 적용됨.
     // - Timestamp8L.class.getSimpleName()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static final String CLASS = Timestamp8L.class.getSimpleName();
@@ -65,19 +65,19 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
 
     private static final int[] CONVERTOR = new int[] { Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, };
 
-    private static final String format = "yyyyMMdd";
-    private static final String regex = "(\\d{4})" // year
+    private static final String FORMAT_YYYYMMdd = "yyyyMMdd";
+    private static final String REGEX_YYYYMMdd = "(\\d{4})" // year
             + "(\\d{2})" // month
             + "(\\d{2})" // day
     ;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat(format);
+    private SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_YYYYMMdd);
     // 아래 내용에 적용됨.
     // - Pattern.compile(regex)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private Pattern regexPattern = Pattern.compile(regex);
+    private Pattern regexPattern = Pattern.compile(REGEX_YYYYMMdd);
 
     private String year = "0";
 
@@ -163,8 +163,8 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
     }
 
     // 아래 내용에 적용됨.
-    // - return getCalendar().getTime();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - getCalendar().getTime();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private Date createDatetime(String datetime) {

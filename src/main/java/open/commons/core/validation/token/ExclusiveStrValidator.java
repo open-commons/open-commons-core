@@ -47,11 +47,6 @@ public class ExclusiveStrValidator extends DefaultTokenValidator<CharSequence> {
     /**
      * @see open.commons.core.validation.DefaultTokenValidator#validate(java.lang.Object)
      */
-    // 아래 내용에 적용됨.
-    // - CharSequence token
-    // [PATCH] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
-    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
-    @SuppressWarnings("null")
     @Override
     public boolean validate(CharSequence token) {
         return !super.validate(token);

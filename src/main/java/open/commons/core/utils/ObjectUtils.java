@@ -63,13 +63,9 @@ import open.commons.core.stream.ClassSpliterator;
  * @since 2018. 1. 31.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class ObjectUtils {
 
+    @SuppressWarnings("null")
     static final Logger LOGGER = LoggerFactory.getLogger(ObjectUtils.class);
 
     private static final Function<Object, Short> shortFunction = o -> Short.parseShort(o.toString());
@@ -87,6 +83,7 @@ public class ObjectUtils {
      * @since 2020. 12. 22.
      * @version 1.8.0
      */
+    @SuppressWarnings("null")
     private static final Set<Class<?>> PRIMITIVE_CLASSES = Set.of(boolean.class //
             , byte.class //
             , char.class //
@@ -103,6 +100,7 @@ public class ObjectUtils {
      * @since 2020. 12. 22.
      * @version 1.8.0
      */
+    @SuppressWarnings("null")
     private static final Set<Class<?>> WRAPPER_CLASSES = Set.of( //
             Boolean.class //
             , Byte.class //
@@ -184,6 +182,11 @@ public class ObjectUtils {
      * @since 2019. 9. 3.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) standardTypes);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     private static boolean checkType(Class<?> targetType, Class<?>... standardTypes) {
         Objects.requireNonNull(targetType);
         ObjectUtils.requireNonNulls((Object[]) standardTypes);
@@ -266,6 +269,11 @@ public class ObjectUtils {
      * @since 2021. 12. 3.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Arays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean containsNull(boolean visitValue, Object... array) {
         Objects.requireNonNull(array);
 
@@ -892,6 +900,12 @@ public class ObjectUtils {
         Objects.requireNonNull(type);
 
         // [캐싱] 클래스에 대한 Setter 정보를 최초 1회만 스캔하여 저장합니다.
+        // 아래 내용에 적용됨.
+        // - Method.getParameterTypes()
+        // - MethodHandles.Lookup.unreflect(...)
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         List<SetterInfo> setters = SETTER_CACHE.computeIfAbsent(type, k -> {
             List<SetterInfo> list = new ArrayList<>();
             MethodHandles.Lookup lookup = MethodHandles.lookup();
@@ -912,7 +926,6 @@ public class ObjectUtils {
 
                 try {
                     // Method.invoke 보다 압도적으로 빠른 MethodHandle로 변환하여 저장
-                    @NonNull
                     MethodHandle handle = lookup.unreflect(m);
                     list.add(new SetterInfo(name, paramType, handle));
                 } catch (IllegalAccessException e) {
@@ -969,6 +982,11 @@ public class ObjectUtils {
      * @since 2021. 12. 3.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Stream.toArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Class<?>[] readClasses(boolean forceToPrimitive, Object... objects) {
         return readClassesAsStream(forceToPrimitive, objects).toArray(Class<?>[]::new);
     }
@@ -1017,6 +1035,11 @@ public class ObjectUtils {
      * @since 2021. 12. 3.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Stream.collect(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static List<Class<?>> readClassesAsList(boolean forceToPrimitive, Object... objects) {
         return readClassesAsStream(forceToPrimitive, objects).collect(Collectors.toList());
     }
@@ -1065,6 +1088,11 @@ public class ObjectUtils {
      * @since 2021. 12. 3.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) standardTypes);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static Stream<Class<?>> readClassesAsStream(boolean forceToPrimitive, Object... objects) {
         ObjectUtils.requireNonNulls((Object[]) objects);
 
@@ -1156,8 +1184,6 @@ public class ObjectUtils {
      * @param converter
      *            '이전 타입 -> 이후 타입' 변환 함수
      * 
-     * @return
-     * 
      * @throws NullPointerException
      *             파라미터({@code srcFieldClass, targetFieldClass, converter 중에 1개라도})가 {@code null}인 경우 발생.
      * 
@@ -1166,8 +1192,8 @@ public class ObjectUtils {
      * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)
      */
-    public static <SF, TF> Object registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> converter) throws NullPointerException {
-        return ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, converter);
+    public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> converter) throws NullPointerException {
+        ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, converter);
     }
 
     /**
@@ -1340,7 +1366,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Boolean> toBoolean(Collection<Object> objects) {
-        return to(objects, booleanFunction, ArrayList::new);
+        return toBoolean(objects, booleanFunction);
     }
 
     /**
@@ -1372,7 +1398,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Boolean> toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toBoolean(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -1406,6 +1432,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -1441,7 +1472,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, booleanFunction, collectionSupplier);
+        return toBoolean(objects, booleanFunction, collectionSupplier);
     }
 
     /**
@@ -1466,7 +1497,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Byte> toByte(Collection<Object> objects) {
-        return to(objects, byteFunction, ArrayList::new);
+        return toByte(objects, byteFunction);
     }
 
     /**
@@ -1498,7 +1529,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Byte> toByte(Collection<Object> objects, Function<Object, Byte> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toByte(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -1533,6 +1564,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Function<Object, Byte> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -1568,7 +1604,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, byteFunction, collectionSupplier);
+        return toByte(objects, byteFunction, collectionSupplier);
     }
 
     /**
@@ -1593,7 +1629,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Double> toDouble(Collection<Object> objects) {
-        return to(objects, doubleFunction, ArrayList::new);
+        return toDouble(objects, doubleFunction);
     }
 
     /**
@@ -1625,7 +1661,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Double> toDouble(Collection<Object> objects, Function<Object, Double> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toDouble(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -1660,6 +1696,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Function<Object, Double> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -1695,7 +1736,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, doubleFunction, collectionSupplier);
+        return toDouble(objects, doubleFunction, collectionSupplier);
     }
 
     /**
@@ -1720,7 +1761,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Float> toFloat(Collection<Object> objects) {
-        return to(objects, floatFunction, ArrayList::new);
+        return toFloat(objects, floatFunction, ArrayList::new);
     }
 
     /**
@@ -1752,7 +1793,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Float> toFloat(Collection<Object> objects, Function<Object, Float> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toFloat(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -1787,6 +1828,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Function<Object, Float> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -1822,7 +1868,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, floatFunction, collectionSupplier);
+        return toFloat(objects, floatFunction, collectionSupplier);
     }
 
     /**
@@ -1847,7 +1893,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Integer> toInteger(Collection<Object> objects) {
-        return to(objects, intFunction, ArrayList::new);
+        return toInteger(objects, intFunction, ArrayList::new);
     }
 
     /**
@@ -1879,7 +1925,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Integer> toInteger(Collection<Object> objects, Function<Object, Integer> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toInteger(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -1914,6 +1960,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Function<Object, Integer> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -1949,7 +2000,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, intFunction, collectionSupplier);
+        return toInteger(objects, intFunction, collectionSupplier);
     }
 
     /**
@@ -1974,7 +2025,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Long> toLong(Collection<Object> objects) {
-        return to(objects, longFunction, ArrayList::new);
+        return toLong(objects, longFunction, ArrayList::new);
     }
 
     /**
@@ -2006,7 +2057,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Long> toLong(Collection<Object> objects, Function<Object, Long> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toLong(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -2041,6 +2092,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Function<Object, Long> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -2076,7 +2132,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, longFunction, collectionSupplier);
+        return toLong(objects, longFunction, collectionSupplier);
     }
 
     /**
@@ -2101,7 +2157,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Short> toShort(Collection<Object> objects) {
-        return to(objects, shortFunction, ArrayList::new);
+        return toShort(objects, shortFunction, ArrayList::new);
     }
 
     /**
@@ -2133,7 +2189,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<Short> toShort(Collection<Object> objects, Function<Object, Short> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toShort(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -2168,6 +2224,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Function<Object, Short> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -2203,7 +2264,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, shortFunction, collectionSupplier);
+        return toShort(objects, shortFunction, collectionSupplier);
     }
 
     /**
@@ -2228,7 +2289,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<String> toString(Collection<Object> objects) {
-        return to(objects, strFunction, ArrayList::new);
+        return toString(objects, strFunction, ArrayList::new);
     }
 
     /**
@@ -2260,7 +2321,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static List<String> toString(Collection<Object> objects, Function<Object, String> transformer) {
-        return to(objects, transformer, ArrayList::new);
+        return toString(objects, transformer, ArrayList::new);
     }
 
     /**
@@ -2295,6 +2356,11 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - to(objects, transformer, collectionSupplier)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static <R extends Collection<String>> R toString(Collection<Object> objects, Function<Object, String> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
@@ -2330,7 +2396,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <R extends Collection<String>> R toString(Collection<Object> objects, Supplier<R> collectionSupplier) {
-        return to(objects, strFunction, collectionSupplier);
+        return toString(objects, strFunction, collectionSupplier);
     }
 
     /**
@@ -2377,7 +2443,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         Objects.requireNonNull(targetClass);
 
         return transform(src, lookupSrcSuper //
@@ -2559,7 +2625,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         Objects.requireNonNull(src);
         Objects.requireNonNull(collectionSupplier);
 

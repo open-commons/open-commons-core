@@ -82,8 +82,8 @@ public class FileExtensionExclusive implements FileFilter {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) exts);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public FileExtensionExclusive(String... exts) {
         ObjectUtils.requireNonNulls((Object[]) exts);
@@ -105,7 +105,7 @@ public class FileExtensionExclusive implements FileFilter {
     // 아래 내용에 적용됨.
     // - pathname.getName()
     // - extensioins.toArray(String[]::new
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @Override
@@ -128,8 +128,8 @@ public class FileExtensionExclusive implements FileFilter {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) exts);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void add(String... exts) {
         ObjectUtils.requireNonNulls((Object[]) exts);

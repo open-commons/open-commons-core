@@ -41,11 +41,6 @@ import org.jspecify.annotations.Nullable;
  *
  * @since 2013. 5. 23.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class ThreadUtils {
 
     // Prevent to create a new instance.
@@ -90,6 +85,11 @@ public class ThreadUtils {
      * @since 2021. 12. 3.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - stacks[2 + distance].getMethodName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getMethodName(int distance) {
         Thread thread = Thread.currentThread();
         StackTraceElement[] stacks = thread.getStackTrace();
@@ -118,6 +118,11 @@ public class ThreadUtils {
      *
      * @since 2013. 5. 23.
      */
+    // 아래 내용에 적용됨.
+    // - writer.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getStackTrace(Throwable e) {
         Objects.requireNonNull(e);
 
@@ -150,12 +155,16 @@ public class ThreadUtils {
      *
      * @since 2013. 5. 23.
      */
+    // 아래 내용에 적용됨.
+    // - thread.getName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String setThreadName(String name) {
         Objects.requireNonNull(name);
 
         Thread thread = Thread.currentThread();
         String otn = thread.getName();
-
         thread.setName(name);
 
         return otn;

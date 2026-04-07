@@ -58,27 +58,15 @@ import open.commons.core.prog.StrLenRvrOrderingEntry;
  * @since 2011. 06. 23.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class StringUtils {
 
+    @SuppressWarnings("null")
     private static final Logger LOGGER = LoggerFactory.getLogger(StringUtils.class);
 
-    static Map<String, RegExTokenEscape> map = new HashMap<String, RegExTokenEscape>();
+    static final Map<String, RegExTokenEscape> map = new HashMap<String, RegExTokenEscape>();
 
     static {
-        try {
-            Properties regExTokenEscape = new Properties();
-            regExTokenEscape.load(StringUtils.class.getResourceAsStream("/properties/RegExTokenEscape.properties"));
-
-            for (Entry<Object, Object> entry : regExTokenEscape.entrySet()) {
-                map.put((String) entry.getKey(), new RegExTokenEscape(((String) entry.getKey()).charAt(0), (String) entry.getValue()));
-            }
-        } catch (Exception ignored) {
-        }
+        init();
     }
 
     private static void append(StringBuilder buf, String concatenator, Optional<String> data) {
@@ -190,6 +178,11 @@ public class StringUtils {
      *
      * @since 2012. 02. 21.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] backIndiceOf(String string, char c) {
         Objects.requireNonNull(string);
 
@@ -343,6 +336,11 @@ public class StringUtils {
      * @since 2022. 1. 5.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder().toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String compact(String str, int len) {
         Objects.requireNonNull(str);
 
@@ -384,6 +382,11 @@ public class StringUtils {
      *
      * @since 2020. 1. 16
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String concat(List<String> strings, String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
@@ -430,6 +433,11 @@ public class StringUtils {
      *
      * @since 2019. 10. 15.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String concat(String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
@@ -497,6 +505,11 @@ public class StringUtils {
      * @since 2019. 6. 21.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - Stream.collect(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T, R> String concatenate(String delimiter, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(data);
@@ -537,6 +550,11 @@ public class StringUtils {
      *
      * @since 2019. 6. 21.
      */
+    // 아래 내용에 적용됨.
+    // - Map.entrySet()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K, V, R> String concatenate(String delimiter, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
         Objects.requireNonNull(data);
 
@@ -567,6 +585,11 @@ public class StringUtils {
      *
      * @since 2019. 6. 21.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String concatenate(String delimiter, boolean startsWithDelimeter, Object... objects) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(objects);
@@ -598,6 +621,11 @@ public class StringUtils {
      *
      * @since 2019. 6. 21.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String concatenate(String delimiter, boolean startsWithDelimeter, String... strings) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
@@ -703,6 +731,11 @@ public class StringUtils {
      *             파라미터({@code delimiter})가 {@code null}인 경우, 파라미터({@code data})가 {@code null}이거나 {@code data}에
      *             {@code null}이 포함된 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) data);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static String concatenate(String delimiter, Object... data) {
         Objects.requireNonNull(delimiter);
         ObjectUtils.requireNonNulls((Object[]) data);
@@ -723,6 +756,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code delimiter}, {@code strings} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String concatenate(String delimiter, String... strings) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
@@ -754,6 +792,11 @@ public class StringUtils {
      *
      * @since 2020. 11. 9.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) strs);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static boolean contains(String string, CharSequence... strs) {
         Objects.requireNonNull(string);
         ObjectUtils.requireNonNulls((Object[]) strs);
@@ -789,6 +832,11 @@ public class StringUtils {
      *
      * @since 2012. 1. 6.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) strs);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static boolean containsAll(String string, CharSequence... strs) {
         Objects.requireNonNull(string);
         ObjectUtils.requireNonNulls((Object[]) strs);
@@ -814,6 +862,11 @@ public class StringUtils {
      *
      * @see #containsWhat(String, Predicate)
      */
+    // 아래 내용에 적용됨.
+    // - Character::isDigit
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static boolean containsDigit(String string) {
         return containsWhat(string, Character::isDigit);
     }
@@ -856,6 +909,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Character::isLowerCase
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static boolean containsLowcase(String string) {
         return containsWhat(string, Character::isLowerCase);
     }
@@ -902,6 +960,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Character::isUpperCase
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static boolean containsUppercase(String string) {
         return containsWhat(string, Character::isUpperCase);
     }
@@ -962,6 +1025,11 @@ public class StringUtils {
      *
      * @since 2019. 6. 28.
      */
+    // 아래 내용에 적용됨.
+    // - Character::isWhitespace
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static boolean containsWhitespace(String string) {
         return containsWhat(string, Character::isWhitespace);
     }
@@ -1045,6 +1113,11 @@ public class StringUtils {
      *
      * @since 2017. 1. 5.
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String cutOff(@Nullable String string, int length) {
         if (string == null) {
             return "null";
@@ -1260,6 +1333,11 @@ public class StringUtils {
      *
      * @since 2020. 9. 25.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean exists(String target, @Nullable String... strings) {
         Objects.requireNonNull(target);
         Objects.requireNonNull(strings);
@@ -1324,6 +1402,11 @@ public class StringUtils {
      *
      * @since 2020. 9. 25.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean existsIgnoreCase(String target, @Nullable String... strings) {
         Objects.requireNonNull(target);
         Objects.requireNonNull(strings);
@@ -1376,14 +1459,20 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code strings})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.merge(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] getBytes(@Nullable String... strings) {
         Objects.requireNonNull(strings);
 
         byte[][] bytes = new byte[strings.length][];
 
         for (int i = 0; i < strings.length; i++) {
-            if (strings[i] != null) {
-                bytes[i] = strings[i].getBytes();
+            String str = strings[i];
+            if (str != null) {
+                bytes[i] = str.getBytes();
             }
         }
 
@@ -1625,6 +1714,11 @@ public class StringUtils {
      *
      * @since 2011. 11. 06.
      */
+    // 아래 내용에 적용됨.
+    // - String.toCharArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(String string, char c) {
         Objects.requireNonNull(string);
 
@@ -1658,6 +1752,11 @@ public class StringUtils {
      *
      * @since 2012. 02. 21.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int[] indiceOf(String sourceString, String searchedString) {
         Objects.requireNonNull(sourceString);
         Objects.requireNonNull(searchedString);
@@ -1682,6 +1781,23 @@ public class StringUtils {
         }
 
         return result.length == index ? result : Arrays.copyOf(result, index);
+    }
+
+    // 아래 내용에 적용됨.
+    // - (String) entry.getValue()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static void init() {
+        try {
+            Properties regExTokenEscape = new Properties();
+            regExTokenEscape.load(StringUtils.class.getResourceAsStream("/properties/RegExTokenEscape.properties"));
+
+            for (Entry<Object, Object> entry : regExTokenEscape.entrySet()) {
+                map.put((String) entry.getKey(), new RegExTokenEscape(((String) entry.getKey()).charAt(0), (String) entry.getValue()));
+            }
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -1998,6 +2114,11 @@ public class StringUtils {
      *
      * @return 패딩이 적용된 문자열
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String lpad(long l, int length) {
         // 순수 위임 (Core Method로 전달)
         return lpad(String.valueOf(l), length, false);
@@ -2015,6 +2136,11 @@ public class StringUtils {
      *
      * @return 패딩이 적용된 문자열
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String lpad(long l, int length, boolean ommit) {
         // 순수 위임 (Core Method로 전달)
         return lpad(String.valueOf(l), length, ommit);
@@ -2053,6 +2179,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String lpad(String string, int length, boolean ommit) {
         Objects.requireNonNull(string);
 
@@ -2079,6 +2210,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.stripLeading()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String ltrim(String string) {
         Objects.requireNonNull(string);
 
@@ -2107,6 +2243,11 @@ public class StringUtils {
      *
      * @since 2012. 02. 16.
      */
+    // 아래 내용에 적용됨.
+    // - Strinbg.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String ltrimSpecific(String string, char c) {
         Objects.requireNonNull(string);
 
@@ -2146,6 +2287,11 @@ public class StringUtils {
      *
      * @since 2012. 02. 21.
      */
+    // 아래 내용에 적용됨.
+    // - String.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String ltrimSpecific(String sourceString, String targetString) {
         Objects.requireNonNull(sourceString);
         Objects.requireNonNull(targetString);
@@ -2173,6 +2319,12 @@ public class StringUtils {
      *
      * @return 변환된 문자열의 {@code Optional} 객체.
      */
+    // 아래 내용에 적용됨.
+    // - Optional.ofNullable(...)
+    // - Optional.of(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static Optional<@Nullable String> next(@Nullable String str, boolean trim, boolean addNulpty) {
         if (str == null) {
             return Optional.ofNullable(addNulpty ? "null" : null);
@@ -2210,6 +2362,11 @@ public class StringUtils {
      *
      * @since 2012. 03. 30.
      */
+    // 아래 내용에 적용됨.
+    // - String.replace(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String replace(String string, char o, char n) {
         Objects.requireNonNull(string);
 
@@ -2260,6 +2417,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code newStr} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.relace(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String replace(String string, char o, String newStr) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(newStr);
@@ -2290,6 +2452,12 @@ public class StringUtils {
      *
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - EntrySet.getKey(), EntrySet.getValue()
+    // - Matcher.replaceAll(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String replace(String string, Map<String, String> map) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(map);
@@ -2370,6 +2538,11 @@ public class StringUtils {
      * 
      * @see String#stripTrailing();
      */
+    // 아래 내용에 적용됨.
+    // - String.stripTrailing()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String rtrim(String string) {
         Objects.requireNonNull(string);
 
@@ -2398,6 +2571,11 @@ public class StringUtils {
      *
      * @since 2012. 02. 16.
      */
+    // 아래 내용에 적용됨.
+    // - String.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String rtrimSpecific(String string, char c) {
         Objects.requireNonNull(string);
 
@@ -2434,6 +2612,11 @@ public class StringUtils {
      *
      * @since 2012. 02. 21.
      */
+    // 아래 내용에 적용됨.
+    // - String.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String rtrimSpecific(String sourceString, String targetString) {
         Objects.requireNonNull(sourceString);
         Objects.requireNonNull(targetString);
@@ -2482,6 +2665,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.split(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String[] split(String string, String delimiter, boolean trim, int limit) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
@@ -2550,6 +2738,11 @@ public class StringUtils {
      * @since 2025. 4. 2.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - String.split(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static @Nullable String[] split(String string, String delimiter, @Nullable Function<String, @Nullable String> post, int limit) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
@@ -2625,6 +2818,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code splitRegEx}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.split(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String splitAndDelimiter(String string, String splitRegEx, String delimiter) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(splitRegEx);
@@ -2652,6 +2850,11 @@ public class StringUtils {
      * @throws IllegalArgumentException
      *             {@code regExs}의 길이와 {@code selectedIndice}의 길이가 다른 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) regExs);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static String splitAndGet(String string, String[] regExs, int[] selectedIndice) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(selectedIndice);
@@ -2683,6 +2886,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Collection<String> splitAsCollection(String string, String delimiter, boolean trim) {
         // 반환 타입 생성 위임이 발생하므로 Null-check 수행
         Objects.requireNonNull(string);
@@ -2716,6 +2924,11 @@ public class StringUtils {
      * @since 2025. 4. 2.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.asList(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Collection<@Nullable String> splitAsCollection(String string, String delimiter, @Nullable Function<String, @Nullable String> post) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
@@ -2810,6 +3023,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code delimiter} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.split(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String[] splitWithoutBracket(String string, String delimiter, boolean trim, int limit) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
@@ -2878,6 +3096,12 @@ public class StringUtils {
      * @since 2025. 4. 2.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - String.split(...)
+    // - new String[]
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static @Nullable String[] splitWithoutBracket(String string, String delim, @Nullable Function<String, @Nullable String> post, int limit) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delim);
@@ -2888,7 +3112,6 @@ public class StringUtils {
             return rtnStrings;
         }
 
-        @Nullable
         String[] result = new String[rtnStrings.length];
         for (int i = 0; i < rtnStrings.length; i++) {
             result[i] = post.apply(rtnStrings[i]);
@@ -2981,6 +3204,11 @@ public class StringUtils {
      * @since 2022. 4. 1.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - String.strip()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static boolean startswithHangul(String string, boolean trim) {
         Objects.requireNonNull(string);
 
@@ -3182,6 +3410,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code boundary} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String substringAfter(String string, String boundary) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(boundary);
@@ -3207,6 +3440,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string}, {@code boundary} 중에 1개라도)가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - String.substring(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String substringBefore(String string, String boundary) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(boundary);
@@ -3284,6 +3522,11 @@ public class StringUtils {
      * @since 2023. 9. 27.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String toKebabCase0(String camelCase, boolean isSplitNum) {
         Objects.requireNonNull(camelCase);
 
@@ -3336,26 +3579,36 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들을 가지고 LCC(Lower Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
-     * 예: TO, lOwER, camel, casE &rarr; toLowerCamelCase
+     * 주어진 문자열들을 조합하여 LCC(Lower Camel Case) 형태의 단일 문자열을 반환합니다.<br>
+     * 예: "TO", "lOwER", "camel", "casE" &rarr; "toLowerCamelCase" *
+     * <p>
+     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게 무시됩니다. 첫 번째로 발견되는 '유효한' 문자열이 Lower
+     * Camel Case의 시작 단어가 됩니다.
+     * </p>
      *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
      * ----------------------------------------------------------------------
      * 2012. 01. 10.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 7.       parkjunhong77@gmail.com     (3.0.0) 가변 인자 내 null/empty 처리 로직 개선 및 상태 기반 루프 적용
      * </pre>
      *
      * @param strings
-     *            문자열 가변 인자
+     *            문자열 가변 인자 (배열 자체 및 내부 요소로 {@code null} 허용)
      *
-     * @return 로어카멜케이스 문자열
+     * @return 로어 카멜 케이스로 조합된 문자열. 유효한 문자열이 하나도 없는 경우 빈 문자열({@code ""}) 반환.
      *
      * @throws NullPointerException
-     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *             파라미터 배열({@code strings}) 자체가 {@code null}인 경우 발생.
      *
      * @since 2012. 01. 10.
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toLowerCamelCase(@Nullable String... strings) {
         Objects.requireNonNull(strings);
 
@@ -3364,17 +3617,26 @@ public class StringUtils {
         }
 
         StringBuilder result = new StringBuilder();
-        if (strings[0] != null) {
-            result.append(strings[0].toLowerCase());
-        }
+        // [PATCH] 인덱스(0, 1...)에 의존하지 않고, '첫 번째 유효 단어'인지 추적하는 플래그 도입
+        boolean isFirstValidWord = true;
 
-        for (int i = 1; i < strings.length; i++) {
-            if (strings[i] != null && !strings[i].isEmpty()) {
-                String lower = strings[i].toLowerCase();
-                result.append(Character.toUpperCase(lower.charAt(0)));
-                result.append(lower.substring(1));
+        for (String str : strings) {
+            // null 및 빈 문자열은 철저히 무시 (Skip)
+            if (str != null && !str.isEmpty()) {
+                String lower = str.toLowerCase();
+
+                if (isFirstValidWord) {
+                    // 첫 번째 유효 단어는 무조건 전체 소문자로 append
+                    result.append(lower);
+                    isFirstValidWord = false;
+                } else {
+                    // 두 번째 유효 단어부터는 첫 글자만 대문자로 변경 (Upper Camel Case 처리)
+                    result.append(Character.toUpperCase(lower.charAt(0)));
+                    result.append(lower.substring(1));
+                }
             }
         }
+
         return result.toString();
     }
 
@@ -3456,6 +3718,11 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code string})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Pattern.quote(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toRegExString(String string) {
         Objects.requireNonNull(string);
 
@@ -3492,7 +3759,17 @@ public class StringUtils {
     }
 
     /**
-     * camelCase 문자열을 snake_case 문자열로 변경합니다.<br>
+     * camelCase(또는 PascalCase) 문자열을 snake_case 문자열로 변경합니다.<br>
+     * *
+     * <p>
+     * <b>[변환 예시]</b>
+     * </p>
+     * <ul>
+     * <li>{@code "camelCase"} &rarr; {@code "camel_case"}</li>
+     * <li>{@code "PascalCase"} &rarr; {@code "pascal_case"}</li>
+     * <li>{@code "user123Id"}, {@code isSplitNum = false} &rarr; {@code "user123_id"}</li>
+     * <li>{@code "user123Id"}, {@code isSplitNum = true} &rarr; {@code "user_1_2_3_id"}</li>
+     * </ul>
      *
      * <pre>
      * [개정이력]
@@ -3500,14 +3777,15 @@ public class StringUtils {
      * ----------------------------------------------------------------------
      * 2023. 9. 27.      parkjunhong77@gmail.com     최초 작성
      * 2026. 4. 3.       parkjunhong77@gmail.com     (3.0.0) 불필요한 ArrayList 할당 제거 및 최적화
+     * 2026. 4. 7.       parkjunhong77@gmail.com     (3.0.0) isSplitNum 동작 방식에 대한 Javadoc 예시 보강
      * </pre>
      *
      * @param camelCase
-     *            문자열
+     *            변환할 원본 문자열 (절대 {@code null} 불가)
      * @param isSplitNum
-     *            숫자 별도 처리 여부
+     *            숫자를 만났을 때 별도의 단어로 취급하여 언더스코어({@code _})로 분리할지 여부
      *
-     * @return 스네이크케이스 문자열
+     * @return 소문자와 언더스코어로 구성된 스네이크 케이스 문자열
      *
      * @throws NullPointerException
      *             파라미터({@code camelCase})가 {@code null}인 경우 발생.
@@ -3515,6 +3793,11 @@ public class StringUtils {
      * @since 2023. 9. 27.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String toSnakeCase0(String camelCase, boolean isSplitNum) {
         Objects.requireNonNull(camelCase);
 
@@ -3525,6 +3808,8 @@ public class StringUtils {
         StringBuilder sb = new StringBuilder(camelCase.length() + 5);
         for (int i = 0; i < camelCase.length(); i++) {
             char c = camelCase.charAt(i);
+
+            // 첫 글자가 아니면서, 대문자이거나 (숫자 분리 옵션이 켜져있고 숫자인 경우) 언더스코어 추가
             if (i > 0 && (Character.isUpperCase(c) || (isSplitNum && Character.isDigit(c)))) {
                 sb.append('_');
             }
@@ -3598,6 +3883,12 @@ public class StringUtils {
      * @throws NullPointerException
      *             파라미터({@code objects})가 {@code null}인 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - Object.toString()
+    // - String.strip()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toStrings(@Nullable Object... objects) {
         Objects.requireNonNull(objects);
 
@@ -3605,7 +3896,8 @@ public class StringUtils {
             return "";
         }
         if (objects.length == 1) {
-            return objects[0] == null ? "null" : objects[0].toString();
+            Object o = objects[0];
+            return o == null ? "null" : o.toString();
         }
 
         StringBuilder sb = new StringBuilder();
@@ -3616,26 +3908,36 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열들을 가지고 UCC(Upper Camel Case)형태로 표현한 하나의 문자열을 반환합니다.<br>
-     * 예: upper, camel, case &rarr; UpperCamelCase
+     * 주어진 문자열들을 조합하여 UCC(Upper Camel Case, Pascal Case) 형태의 단일 문자열을 반환합니다.<br>
+     * 예: "upper", "camel", "case" &rarr; "UpperCamelCase" *
+     * <p>
+     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게 무시됩니다.
+     * </p>
      *
      * <pre>
      * [개정이력]
      * 날짜        | 작성자                    | 내용
      * ----------------------------------------------------------------------
      * 2012. 01. 10.     parkjunhong77@gmail.com     최초 작성
+     * 2026. 4. 7.       parkjunhong77@gmail.com     (3.0.0) 향상된 for 루프(Enhanced for-loop) 적용 및 Javadoc 보강
      * </pre>
      *
      * @param strings
-     *            문자열 가변 인자
+     *            문자열 가변 인자 (배열 자체 및 내부 요소로 {@code null} 허용)
      *
-     * @return 어퍼카멜케이스(파스칼케이스) 문자열
+     * @return 어퍼 카멜 케이스(파스칼 케이스)로 조합된 문자열. 유효한 문자열이 하나도 없는 경우 빈 문자열({@code ""}) 반환.
      *
      * @throws NullPointerException
-     *             파라미터({@code strings})가 {@code null}인 경우 발생.
+     *             파라미터 배열({@code strings}) 자체가 {@code null}인 경우 발생.
      *
      * @since 2012. 01. 10.
+     * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toUpperCamelCase(@Nullable String... strings) {
         Objects.requireNonNull(strings);
 
@@ -3644,13 +3946,14 @@ public class StringUtils {
         }
 
         StringBuilder result = new StringBuilder();
-        for (int i = 0; i < strings.length; i++) {
-            if (strings[i] != null && !strings[i].isEmpty()) {
-                String lower = strings[i].toLowerCase();
+        for (String str : strings) {
+            if (str != null && !str.isEmpty()) {
+                String lower = str.toLowerCase();
                 result.append(Character.toUpperCase(lower.charAt(0)));
                 result.append(lower.substring(1));
             }
         }
+
         return result.toString();
     }
 
@@ -3692,6 +3995,11 @@ public class StringUtils {
         private final String c2str;
         private final char c;
 
+        // 아래 내용에 적용됨.
+        // - String.valueOf(...)
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         OneCharacterString(String string) {
             this.string = string;
             this.c = string.charAt(0);
@@ -3746,18 +4054,63 @@ public class StringUtils {
         }
     }
 
-    static class RegExTokenEscape {
+    /**
+     * 정규식 토큰 이스케이프 정보를 담는 불변(Immutable) 데이터 클래스입니다.
+     *
+     * <pre>
+     * [개정이력]
+     * 날짜        | 작성자                    | 내용
+     * ----------------------------------------------------------------------
+     * 2026. 4. 7.       parkjunhong77@gmail.com     (3.0.0) Zero-Allocation 파싱 적용 및 불변성 강제
+     * </pre>
+     *
+     * @since 2026. 4. 7.
+     * @version 3.0.0
+     */
+    static final class RegExTokenEscape {
 
-        String escape;
-        int escCount;
-        char token;
+        /** 이스케이프 대상 토큰 문자 */
+        final char token;
+        /** 이스케이프 문자열 */
+        final String escape;
+        /** 이스케이프 적용 횟수 */
+        final int escCount;
 
+        /**
+         * 속성 키와 값을 파싱하여 객체를 생성합니다.
+         *
+         * @param propKey
+         *            토큰 문자
+         * @param propValue
+         *            콤마({@code ,})로 구분된 이스케이프 문자열 및 횟수 (예: {@code "\\,2"})
+         *
+         * @throws NullPointerException
+         *             파라미터({@code propValue})가 {@code null}인 경우 발생.
+         * @throws IllegalArgumentException
+         *             {@code propValue} 형식이 올바르지 않은 경우 (콤마 구분자 누락)
+         * @throws NumberFormatException
+         *             이스케이프 횟수를 정수로 변환할 수 없는 경우 발생.
+         */
+        // 아래 내용에 적용됨.
+        // - String.substring(...)
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         RegExTokenEscape(char propKey, String propValue) {
-            token = propKey;
+            Objects.requireNonNull(propValue, "propValue는 null일 수 없습니다.");
 
-            String[] tmp = propValue.split(toRegExString(","));
-            escape = tmp[0];
-            escCount = Integer.parseInt(tmp[1]);
+            this.token = propKey;
+
+            // [PATCH] 정규식(split) 엔진 구동 및 String[] 배열 할당 오버헤드를 완전히 제거한 파싱 로직
+            int commaIndex = propValue.indexOf(',');
+
+            // Fail-Fast: 콤마가 없는 비정상 데이터 방어
+            if (commaIndex < 0) {
+                throw new IllegalArgumentException("올바르지 않은 속성 값 형식입니다. (콤마 구분자 누락): " + propValue);
+            }
+
+            this.escape = propValue.substring(0, commaIndex);
+            this.escCount = Integer.parseInt(propValue.substring(commaIndex + 1));
         }
     }
 }

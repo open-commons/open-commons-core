@@ -101,8 +101,8 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
      *             파라미터({@code context})가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
-    // - sb.toString()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     protected final String contextToString(open.commons.core.unix.tool.IFileModifyListener.FileContext context) {

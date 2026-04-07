@@ -58,7 +58,8 @@ public class AnnotationUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code accObj, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code accObj, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우
+     *             발생.
      *
      * @since 2020. 11. 9.
      * 
@@ -66,8 +67,8 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
@@ -102,7 +103,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}이거나 {@code annoClass}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClass 중에 1개라도})가 {@code null}이거나 {@code annoClass}에 {@code null}이 포함된 경우
+     *             발생.
      *
      * @since 2019. 5. 29.
      * @version 3.0.0
@@ -113,7 +115,7 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.stream(...).filter(...).peek(...).toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation> annoClass) {
@@ -146,15 +148,17 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * @since 2026. 3. 4.
      * @version 3.0.0
      * 
      */
-    // apply to 'f', 'Collectors.toList()'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -229,7 +233,7 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     // apply to 'Collectors.toList()'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation> annoClass) {
@@ -262,7 +266,8 @@ public class AnnotationUtils {
      * 
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      * 
      * @since 2020. 11. 9.
      * @version 3.0.0
@@ -271,9 +276,10 @@ public class AnnotationUtils {
      * @see Class#getDeclaredFields()
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
-    // apply to 'f', 'Collectors.toList()'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -351,7 +357,7 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - .filter(f -> f.isAnnotationPresent(annoClass))
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
@@ -383,7 +389,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * @since 2020. 11. 9.
      * @version 3.0.0
@@ -392,9 +399,9 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - .filter(f -> existAllAnnotations(f, annoClasses))
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -457,7 +464,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * 
      * @since 2022. 9. 2.
@@ -466,8 +474,8 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -504,7 +512,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 필드 목록 (불변 리스트)
      * 
      * @throws NullPointerException
-     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우
+     *             발생.
      * 
      * @since 2022. 9. 2.
      * @version 3.0.0
@@ -512,8 +521,8 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
@@ -550,7 +559,7 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - Arrays.stream(...).filter(...).peek(...).toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation> annoClass) {
@@ -581,7 +590,8 @@ public class AnnotationUtils {
      * @return
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * 
      * @since 2026. 3. 4.
@@ -589,10 +599,9 @@ public class AnnotationUtils {
      * 
      */
     // 아래 내용에 적용됨.
-    // - '.filter(m -> existAllAnnotations(m, annoClasses))' 에서 파라미터로 사용되는 'm'
-    // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -660,7 +669,7 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation> annoClass) {
@@ -690,7 +699,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -699,10 +709,9 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - '.filter(m -> existAllAnnotations(m, annoClasses))' 에서 파라미터로 사용되는 'm'
-    // - Collectors.toList()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -763,7 +772,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우
+     *             발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -772,8 +782,8 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation>... annoClasses) {
@@ -801,7 +811,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code tyeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code tyeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -811,9 +822,9 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - '.filter(m -> existAllAnnotations(m, annoClasses))' 에서 파라미터로 사용되는 'm'
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -852,7 +863,7 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - .filter(m -> m.isAnnotationPresent(annoClass))
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
@@ -881,7 +892,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code typeClass, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된
+     *             경우 발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -889,8 +901,8 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
@@ -926,7 +938,8 @@ public class AnnotationUtils {
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
-     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우 발생.
+     *             파라미터({@code object, annoClasses 중에 1개라도})가 {@code null}이거나 {@code annoClasses}에 {@code null}이 포함된 경우
+     *             발생.
      *
      * 
      * @since 2020. 11. 9.
@@ -935,8 +948,8 @@ public class AnnotationUtils {
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {

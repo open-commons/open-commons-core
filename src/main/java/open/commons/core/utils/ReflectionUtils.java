@@ -46,11 +46,6 @@ import open.commons.core.util.IFilter;
  *
  * @since 2011. 1. 2.
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class ReflectionUtils {
 
     /**
@@ -185,6 +180,11 @@ public class ReflectionUtils {
      *
      * @since 2014. 6. 18.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) standardTypes);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static List<GenericTypeVariable> createGenericTypeVariables(Class<?> targetClass, boolean lastCopy, Class<?>... typeVarClasses) {
         Objects.requireNonNull(targetClass);
         ObjectUtils.requireNonNulls((Object[]) typeVarClasses);
@@ -333,6 +333,11 @@ public class ReflectionUtils {
      * @throws IllegalArgumentException
      *             파라미터({@code parameterTypes}) 배열 내부에 {@code null}이 포함된 경우 발생.
      */
+    // 아래 내용에 적용됨.
+    // - targetClass.getDeclaredMethod(methodName, parameterTypes)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static @Nullable Class<?> getActualTypeArgument(Class<?> targetClass, String methodName, int paramIndex, int actualTypeIndex, Class<?> @Nullable... parameterTypes)
             throws NoSuchMethodException {
         Objects.requireNonNull(targetClass);
@@ -500,6 +505,11 @@ public class ReflectionUtils {
      * @since 2019. 6. 17.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass))
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static final <T extends Annotation> Map<Constructor<?>, T> getAnnotatedConstructors(Object object, Class<T> annotationClass) {
         Objects.requireNonNull(object);
         Objects.requireNonNull(annotationClass);
@@ -509,7 +519,7 @@ public class ReflectionUtils {
         return Arrays.stream(implClass.getDeclaredConstructors()) //
                 .filter(c -> c.isAnnotationPresent(annotationClass)) //
                 .collect( //
-                        Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)) //
+                        Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass))//
                 );
     }
 
@@ -569,6 +579,11 @@ public class ReflectionUtils {
      *
      * @see Class#getDeclaredFields()
      */
+    // 아래 내용에 적용됨.
+    // - Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)) //
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass, @Nullable IFilter<T> filter) {
         Objects.requireNonNull(object);
         Objects.requireNonNull(annotationClass);
@@ -612,6 +627,12 @@ public class ReflectionUtils {
      *
      * @see Class#getMethods()
      */
+    // 아래 내용에 적용됨.
+    // - Collectors.toList()
+    // - Stream.collect(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annotationClass, Class<?> targetClass) {
         Objects.requireNonNull(annotationClass);
         Objects.requireNonNull(targetClass);
@@ -707,6 +728,12 @@ public class ReflectionUtils {
      * @see Class#isAssignableFrom(Class)
      * @see Class#getDeclaredFields()
      */
+    // 아래 내용에 적용됨.
+    // - Collectors.toList()
+    // - Stream.collect(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static List<Field> getDeclaredFields(Object instance, Class<?> targetType) {
         Objects.requireNonNull(instance);
         Objects.requireNonNull(targetType);
@@ -715,7 +742,7 @@ public class ReflectionUtils {
 
         return Arrays.stream(clazz.getDeclaredFields()) //
                 .filter(field -> targetType.isAssignableFrom(field.getType())) //
-                .toList();
+                .collect(Collectors.toList());
     }
 
     /**
@@ -740,7 +767,13 @@ public class ReflectionUtils {
      * @throws NullPointerException
      *             파라미터 중에 1개라도 {@code null}인 경우 발생.
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    // 아래 내용에 적용됨.
+    // - field.getName()
+    // - (TypeVariable) type
+    // - ((TypeVariable) type).getName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings({ "rawtypes", "unchecked", "null" })
     public static <T extends Annotation> Collection<FieldTypeVariable> getTypeVariableName(Class<?> targetClass, Class<T> annotationClass) {
         Collection<FieldTypeVariable> fieldTypeVars = new HashSet<FieldTypeVariable>();
 
@@ -999,6 +1032,11 @@ public class ReflectionUtils {
      * @throws NullPointerException
      *             파라미터 중에 1개라도 {@code null}인 경우 발생. 또한, {@code candidates}에 {@code null}이 포함된 경우에도 발생.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) candidates);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static boolean subclassOneOf(Class<?> targetClass, Class<?>... candidates) {
         Objects.requireNonNull(targetClass);
         ObjectUtils.requireNonNulls((Object[]) candidates);
@@ -1060,6 +1098,11 @@ public class ReflectionUtils {
      *
      * @since 2014. 5. 2.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) candidates);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public static List<Class<?>> superclasses(Object object, Class<?>... candidates) {
         Objects.requireNonNull(object);
         ObjectUtils.requireNonNulls((Object[]) candidates);

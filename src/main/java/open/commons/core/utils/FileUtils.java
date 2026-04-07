@@ -53,7 +53,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,13 +64,9 @@ import open.commons.core.io.Consumers;
  * @since 2019. 8. 8.
  * 
  */
-// 아래 내용에 적용됨.
-// - JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class FileUtils {
 
+    @SuppressWarnings("null")
     private static final Logger logger = LoggerFactory.getLogger(FileUtils.class);
 
     static final FileFilter READ_FILE = new FileFilter() {
@@ -113,7 +108,6 @@ public class FileUtils {
      * @return 성공 여부
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static boolean clearDirectory(@Nullable File dir) {
         if (dir == null || dir.isFile() || dir.list().length < 1) {
@@ -149,7 +143,6 @@ public class FileUtils {
      *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static boolean clearDirectory(String dir) {
         Objects.requireNonNull(dir);
@@ -181,7 +174,6 @@ public class FileUtils {
      *             I/O 오류가 발생한 경우.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static void copyFile(File src, File target) throws IOException {
         ObjectUtils.requireNonNulls(src, target);
@@ -213,7 +205,6 @@ public class FileUtils {
      *             I/O 오류가 발생한 경우.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static void copyFile(String src, String target) throws IOException {
         ObjectUtils.requireNonNulls(src, target);
@@ -249,10 +240,14 @@ public class FileUtils {
      * 
      * @see Paths#get(String, String...)
      */
+    // 아래 내용에 적용됨.
+    // - Paths.get(first, more);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path createFileIfNotExist(String first, String... more) throws IOException {
         Objects.requireNonNull(first);
 
-        @NonNull
         Path file = Paths.get(first, more);
         if (!Files.exists(file)) {
             Files.createDirectories(file.getParent());
@@ -313,7 +308,6 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 13.
-     * 
      */
     public static boolean delete(File file, boolean forced) {
         Objects.requireNonNull(file);
@@ -365,7 +359,6 @@ public class FileUtils {
      *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     private static void deleteDir(File dir, boolean forced) {
         Objects.requireNonNull(dir);
@@ -412,8 +405,12 @@ public class FileUtils {
      *             파라미터({@code dirs})가 {@code null}이거나 {@code dirs}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) dirs);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     private static void deleteDirs(boolean forced, File... dirs) {
         ObjectUtils.requireNonNulls((Object[]) dirs);
 
@@ -441,8 +438,12 @@ public class FileUtils {
      *             파라미터({@code files})가 {@code null}이거나 {@code files}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     private static void deleteFiles(File... files) {
         ObjectUtils.requireNonNulls((Object[]) files);
 
@@ -474,7 +475,6 @@ public class FileUtils {
      *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static void emptyDir(File dir) {
         Objects.requireNonNull(dir);
@@ -508,8 +508,12 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - file.getName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFileExtension(File file) {
         Objects.requireNonNull(file);
 
@@ -541,8 +545,12 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - filename.substring(index + 1)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFileExtension(String file) {
         Objects.requireNonNull(file);
 
@@ -574,8 +582,12 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - file.substring(backIndex + 1);
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFileName(String file) {
         Objects.requireNonNull(file);
 
@@ -606,8 +618,12 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - filename.substring(0, index)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFileNameNoExtension(File file) {
         Objects.requireNonNull(file);
 
@@ -639,8 +655,12 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - filename.substring(0, index)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFileNameNoExtension(String file) {
         String filename = getFileName(file);
 
@@ -670,8 +690,13 @@ public class FileUtils {
      *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - file.getAbsolutePath();
+    // - filename.substring(0, backIndex)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFilePath(File file) {
         Objects.requireNonNull(file);
 
@@ -708,6 +733,11 @@ public class FileUtils {
      * 
      * @see File#getParent()
      */
+    // 아래 내용에 적용됨.
+    // - file.substring(0, backIndex)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String getFilePath(String file) {
         Objects.requireNonNull(file);
 
@@ -741,6 +771,11 @@ public class FileUtils {
      * 
      * @see File#lastModified()
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) fileFilters);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static Path getLatestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
         Objects.requireNonNull(absoluteDirPath);
@@ -792,6 +827,11 @@ public class FileUtils {
      * 
      * @see File#lastModified()
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) fileFilters);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public static Path getOldestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
         Objects.requireNonNull(absoluteDirPath);
@@ -838,8 +878,12 @@ public class FileUtils {
      *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - dir.listFiles(READ_DIR)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static File[] listDirectories(File dir) {
         Objects.requireNonNull(dir);
 
@@ -871,8 +915,12 @@ public class FileUtils {
      *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - dir.listFiles(READ_FILE)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static File[] listFiles(File dir) {
         Objects.requireNonNull(dir);
 
@@ -910,7 +958,6 @@ public class FileUtils {
      *
      * @since 2021. 2. 8.
      * @version 1.8.0
-     * 
      */
     public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
         ObjectUtils.requireNonNulls(directory, filter);
@@ -921,6 +968,11 @@ public class FileUtils {
 
         final Set<Path> files = new HashSet<>();
         Files.walkFileTree(directory, EnumSet.noneOf(FileVisitOption.class), maxDepth, new SimpleFileVisitor<Path>() {
+            // 아래 내용에 적용됨.
+            // - public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+            // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+            @SuppressWarnings("null")
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                 if (filter.apply(file, attrs)) {
@@ -965,7 +1017,6 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      */
     public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector) throws IOException {
         ObjectUtils.requireNonNulls(directory, filter, collector);
@@ -1033,6 +1084,11 @@ public class FileUtils {
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
+    // 아래 내용에 적용됨.
+    // - stream.toArray(Path[]::new)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path[] listFilesAsArray(Path directory, Predicate<Path> filter) throws IOException {
         return listFiles(directory, filter, stream -> stream.toArray(Path[]::new));
     }
@@ -1095,6 +1151,11 @@ public class FileUtils {
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
+    // 아래 내용에 적용됨.
+    // - Collectors.toList()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static List<Path> listFilesAsList(Path directory, Predicate<Path> filter) throws IOException {
         return listFiles(directory, filter, stream -> stream.collect(Collectors.toList()));
     }
@@ -1158,6 +1219,11 @@ public class FileUtils {
      * 
      * @see #listFiles(Path, Predicate, Function)
      */
+    // 아래 내용에 적용됨.
+    // - Collectors.toSet()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Set<Path> listFilesAsSet(Path directory, Predicate<Path> filter) throws IOException {
         return listFiles(directory, filter, stream -> stream.collect(Collectors.toSet()));
     }
@@ -1194,6 +1260,11 @@ public class FileUtils {
      * 
      * @see Files#move(Path, Path, CopyOption...)
      */
+    // 아래 내용에 적용됨.
+    // - Files.move(source.toPath(), target.toPath(), options)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path move(File source, File target, CopyOption... options) throws IOException {
         ObjectUtils.requireNonNulls(source, target, options);
 
@@ -1232,6 +1303,11 @@ public class FileUtils {
      * 
      * @see Files#move(Path, Path, CopyOption...)
      */
+    // 아래 내용에 적용됨.
+    // - Files.move(source, target, options)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path move(Path source, Path target, CopyOption... options) throws IOException {
         ObjectUtils.requireNonNulls(source, target, options);
 
@@ -1270,6 +1346,11 @@ public class FileUtils {
      * 
      * @see Files#move(Path, Path, CopyOption...)
      */
+    // 아래 내용에 적용됨.
+    // - Files.move(source, Paths.get(target), options)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path move(Path source, String target, CopyOption... options) throws IOException {
         ObjectUtils.requireNonNulls(source, target, options);
 
@@ -1308,6 +1389,11 @@ public class FileUtils {
      * 
      * @see Files#move(Path, Path, CopyOption...)
      */
+    // 아래 내용에 적용됨.
+    // - Files.move(Paths.get(source), target, options)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path move(String source, Path target, CopyOption... options) throws IOException {
         ObjectUtils.requireNonNulls(source, target, options);
 
@@ -1346,6 +1432,11 @@ public class FileUtils {
      * 
      * @see Files#move(Path, Path, CopyOption...)
      */
+    // 아래 내용에 적용됨.
+    // - Files.move(Paths.get(source), Paths.get(target), options)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path move(String source, String target, CopyOption... options) throws IOException {
         ObjectUtils.requireNonNulls(source, target, options);
 
@@ -1382,6 +1473,12 @@ public class FileUtils {
      *
      * @since 2019. 8. 8.
      */
+    // 아래 내용에 적용됨.
+    // - inStream.readAllBytes()
+    // - inStream.readNBytes(length)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static byte[] readFully(InputStream inStream, int length, boolean readAll) throws IOException {
         Objects.requireNonNull(inStream);
 
@@ -1453,7 +1550,6 @@ public class FileUtils {
      *             파라미터({@code file} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static boolean save(File file, String data) {
         ObjectUtils.requireNonNulls(file, data);
@@ -1502,7 +1598,6 @@ public class FileUtils {
      *             파라미터({@code file}, {@code data}, {@code charset} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static boolean save(File file, String data, String charset) {
         ObjectUtils.requireNonNulls(file, data, charset);
@@ -1549,7 +1644,6 @@ public class FileUtils {
      *             파라미터({@code pathname} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static boolean save(String pathname, String data) {
         ObjectUtils.requireNonNulls(pathname, data);
@@ -1582,7 +1676,6 @@ public class FileUtils {
      *             파라미터({@code pathname}, {@code data}, {@code charset} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
     public static boolean save(String pathname, String data, String charset) {
         ObjectUtils.requireNonNulls(pathname, data, charset);
@@ -1611,8 +1704,12 @@ public class FileUtils {
      *             파라미터({@code strings})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - sb.append(strings[i]).toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static String toFilepath(String... strings) {
         Objects.requireNonNull(strings);
 
@@ -1657,8 +1754,12 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - options.toArray(new OpenOption[0])
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path write(Path filepath, String data, boolean append) throws IOException {
         ObjectUtils.requireNonNulls(filepath, data);
 
@@ -1714,8 +1815,12 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - Files.write(path, data.getBytes(), options)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path write(Path path, String data, OpenOption... options) throws IOException {
         ObjectUtils.requireNonNulls(path, data, options);
 
@@ -1753,8 +1858,12 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - Paths.get(dirpath, filename)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path write(String dirpath, String filename, String data, boolean append) throws IOException {
         ObjectUtils.requireNonNulls(dirpath, filename, data);
 
@@ -1788,7 +1897,6 @@ public class FileUtils {
      *
      * @since 2023. 11. 15.
      * @version 2.0.0
-     * 
      */
     public static Path writeAppend(Path filepath, String data) throws IOException {
         return write(filepath, data, true);
@@ -1821,8 +1929,12 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - Paths.get(filepath)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path writeAppend(String filepath, String data) throws IOException {
         return write(Paths.get(filepath), data, true);
     }
@@ -1856,7 +1968,6 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * 
      */
     public static Path writeAppend(String dirpath, String filename, String data) throws IOException {
         return write(dirpath, filename, data, true);
@@ -1889,8 +2000,12 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * 
      */
+    // 아래 내용에 적용됨.
+    // - Paths.get(filepath)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static Path writeNew(String filepath, String data) throws IOException {
         return write(Paths.get(filepath), data, false);
     }
@@ -1924,7 +2039,6 @@ public class FileUtils {
      *
      * @since 2023. 11. 7.
      * @version 2.0.0
-     * 
      */
     public static Path writeNew(String dirpath, String filename, String data) throws IOException {
         return write(dirpath, filename, data, false);

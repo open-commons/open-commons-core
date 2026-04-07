@@ -50,11 +50,6 @@ import org.jspecify.annotations.Nullable;
  * @since 2015. 1. 6.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class MapUtils {
 
     public static void clear(Map<?, ?>... maps) {
@@ -95,6 +90,11 @@ public class MapUtils {
      * @since 2025. 10. 21.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - Stream.flatMap(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(Map<K, C> multi) {
         Objects.requireNonNull(multi, "A parameter 'multi' must not be 'null'.");
 
@@ -130,6 +130,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - Stream.concat(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(Map<K, V> single, Map<K, C> multi) {
         ObjectUtils.requireNonNulls(single, multi);
 
@@ -407,7 +412,13 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Map<K, U>>) HashMap<K, U>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, U> Map<K, U> map(Map<K, V> map, Function<V, U> transformer) {
+        // M extends Map<K, U>
         return map(map, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
@@ -498,6 +509,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Map<NK, V>>) HashMap<NK, V>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK> //
             Map<NK, V> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
@@ -548,6 +564,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Map<NK, U>>) HashMap<NK, U>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK extends @Nullable Object, U extends @Nullable Object> //
             Map<NK, U> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
         return map(single, multi, keyMapper, mergeFunction, transformer, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
@@ -592,6 +613,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Map<NK, U>>) HashMap<NK, U>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK, U, M> //
             Map<NK, U> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
         return map(single, multi, keyMapper, valueFunction, mergeFunction, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
@@ -1312,6 +1338,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Set<V>>) HashSet<V>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K, V> Set<V> toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi) {
         return toCollection(single, multi, (Supplier<Set<V>>) HashSet<V>::new);
     }
@@ -1359,6 +1390,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Set<V>>) HashSet<V>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V, NK extends @Nullable Object> Set<V> toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
             BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
@@ -1459,6 +1495,11 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
+    // 아래 내용에 적용됨.
+    // - (Supplier<Set<V>>) HashSet<V>::new
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <K extends @Nullable Object, V, NK extends @Nullable Object> Set<V> toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
             Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);

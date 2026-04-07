@@ -67,18 +67,16 @@ import open.commons.core.function.TripleFunction;
  * @since 2017. 9. 22.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class SQLUtils {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings({ "unused", "null" })
     private static final Logger LOGGER = LoggerFactory.getLogger(SQLUtils.class);
 
+    @SuppressWarnings("null")
     public static final Pattern METHOD_BOOLEAN_PATTERN = Pattern.compile("^(is|get)(.+)$");
+    @SuppressWarnings("null")
     public static final Pattern METHOD_PATTERN = Pattern.compile("^(get)(.+)$");
+    @SuppressWarnings("null")
     public static final Pattern METHOD_SETTER_PATTERN = Pattern.compile("^(set)(.+)$");
 
     /**
@@ -183,6 +181,12 @@ public class SQLUtils {
      * 
      * @see ColumnConstraint
      */
+    // 아래 내용에 적용됨.
+    // - value.toString()
+    // - new ArrayList<>(validations.values()).toArray(new Character[] {})
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static char[] checkColumnConstraints(Object object) {
         Objects.requireNonNull(object);
 

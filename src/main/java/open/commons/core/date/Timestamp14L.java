@@ -51,7 +51,7 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
 
     // 아래 내용에 적용됨.
     // - Timestamp14L.class.getSimpleName()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static final String CLASS = Timestamp14L.class.getSimpleName();
@@ -67,8 +67,8 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
 
     private static final int[] CONVERTOR = new int[] { Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND };
 
-    private static final String format = "yyyyMMddHHmmss";
-    private static final String regex = "(\\d{4})" // year
+    private static final String FORMAT_YYYYMMddHHmmss = "yyyyMMddHHmmss";
+    private static final String REGEX_YYYYMMddHHmmss = "(\\d{4})" // year
             + "(\\d{2})" // month
             + "(\\d{2})" // day
             + "(\\d{2})" // hour
@@ -76,24 +76,19 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
             + "(\\d{2})" // sec
     ;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat(format);
+    private SimpleDateFormat sdf = new SimpleDateFormat(FORMAT_YYYYMMddHHmmss);
     // 아래 내용에 적용됨.
     // - Pattern.compile(regex)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private Pattern regexPattern = Pattern.compile(regex);
+    private Pattern regexPattern = Pattern.compile(REGEX_YYYYMMddHHmmss);
 
     private String year = "0";
-
     private String month = "0";
-
     private String day = "0";
-
     private String hour = "0";
-
     private String min = "0";
-
     private String sec = "0";
 
     private Date date;
@@ -173,8 +168,8 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     }
 
     // 아래 내용에 적용됨.
-    // - return getCalendar().getTime();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - getCalendar().getTime();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private Date createDatetime(String datetime) {
@@ -459,12 +454,12 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     public static class TimeValue3L {
         // 아래 내용에 적용됨.
         // - TimeValue3L.class.getSimpleName()
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         private static final String CLASS = TimeValue3L.class.getSimpleName();
 
-        private static final String regex = "(\\d*)" // day
+        private static final String REGEX = "(\\d*)" // day
                 + "([0-1]\\d{1}|2[0-4])" // hour
                 + "([0-5]\\d{1})" // minute
                 + "([0-5]\\d{1})" // second
@@ -479,10 +474,10 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
 
         // 아래 내용에 적용됨.
         // - Pattern.compile(regex)
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
-        private final Pattern regexPattern = Pattern.compile(regex);
+        private final Pattern regexPattern = Pattern.compile(REGEX);
 
         private int sign = 0;
 

@@ -45,7 +45,7 @@ import open.commons.core.utils.MapUtils;
 public class ThreadLocalContextService {
 
     private static final ConcurrentHashMap<Object, IThreadLocalContext> CONTEXTS = new ConcurrentHashMap<>();
-    private static final Mutex mutex = new Mutex("thread-context-service");
+    private static final Mutex STATIC_MUTEX = new Mutex("thread-context-service");
 
     private ThreadLocalContextService() {
     }
@@ -72,7 +72,7 @@ public class ThreadLocalContextService {
     public static void clear(Object type) {
         Objects.requireNonNull(type, "Thread Context 의 식별정보는 null 일 수 없습니다.");
 
-        synchronized (mutex) {
+        synchronized (STATIC_MUTEX) {
             IThreadLocalContext tc = CONTEXTS.remove(type);
             if (tc != null) {
                 tc.clear();
@@ -97,7 +97,7 @@ public class ThreadLocalContextService {
      * 
      */
     public static void clearAll() {
-        synchronized (mutex) {
+        synchronized (STATIC_MUTEX) {
             CONTEXTS.values().forEach(c -> c.clear());
             CONTEXTS.clear();
         }
@@ -128,7 +128,7 @@ public class ThreadLocalContextService {
     public static IThreadLocalContext context(Object type) {
         Objects.requireNonNull(type, "Thread Context 의 식별정보는 null 일 수 없습니다.");
 
-        synchronized (mutex) {
+        synchronized (STATIC_MUTEX) {
             Supplier<IThreadLocalContext> s = () -> new ThreadLocalContext(Objects.requireNonNull( //
                     ThreadLocal.withInitial(HashMap::new) //
             ));

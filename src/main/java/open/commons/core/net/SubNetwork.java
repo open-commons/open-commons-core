@@ -52,21 +52,21 @@ public class SubNetwork {
     protected static final String TO_STRING_FORMAT = "%-10s: %-35s / %s";
     // 아래 내용에 적용됨.
     // - Pattern.compile(REGEX_IPV4)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static final Pattern PATTERN_IPV4 = Pattern.compile(REGEX_IPV4);
 
     // 아래 내용에 적용됨.
     // - Pattern.compile(REGEX_IPV4_STRICT)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings({ "unused", "null" })
     private static final Pattern PATTERN_IPV4_STRICT = Pattern.compile(REGEX_IPV4_STRICT);
 
     // 아래 내용에 적용됨.
     // - Pattern.compile(CIDR_NOTATION)
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static final Pattern PATTERN_CIDR_NOTATION = Pattern.compile(CIDR_NOTATION);
@@ -335,8 +335,8 @@ public class SubNetwork {
     }
 
     // 아래 내용에 적용됨.
-    // - return sb.toString();
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @Override
@@ -359,8 +359,8 @@ public class SubNetwork {
     }
 
     // 아래 내용에 적용됨.
-    // - sb.toString().strip()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // - StringBuilder.toString()().strip()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private String toWellFormed32bitBinaryString(int value) {
@@ -429,7 +429,7 @@ public class SubNetwork {
 
     // 아래 내용에 적용됨.
     // - ipv4Expr.toString()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     private static String dotValueToIPv4Expr(Object... values) {

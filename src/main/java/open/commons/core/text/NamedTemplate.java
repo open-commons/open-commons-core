@@ -373,7 +373,7 @@ public class NamedTemplate {
      */
     // 아래 내용에 적용됨.
     // - parser.tokens.stream()
-    // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Set<TwoValueObject<String, Boolean>> getNames(String pattern) {
@@ -427,8 +427,8 @@ public class NamedTemplate {
 
         // 아래 내용에 적용됨.
         // - String.join(name, "{", "}")
-        // - return buf.toString();
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // - buf.toString();
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         String format(ConcurrentMap<String, Object> values) {
@@ -457,8 +457,8 @@ public class NamedTemplate {
         }
 
         // 아래 내용에 적용됨.
-        // - return tokens.iterator();
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // - tokens.iterator();
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         Iterator<NamedToken> names() {
@@ -564,8 +564,8 @@ public class NamedTemplate {
         }
 
         // 아래 내용에 적용됨.
-        // - return value != null ? value.toString() : defaultValue;
-        // [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // - value != null ? value.toString() : defaultValue;
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         private static String value(String key, Map<String, Object> values, String defaultValue) {

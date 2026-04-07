@@ -56,11 +56,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2014. 4. 10.
  * 
  */
-// 아래 내용에 적용됨.
-// - 대부분의 JDK 표준 API
-// [PATCH] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-// [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
-@SuppressWarnings("null")
 public class AbstractValidator<D, T> implements IValidator<D, T> {
 
     protected static final int INIT_VALID = 0xFFFFFFFF;
@@ -68,6 +63,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     protected static final int INIT_FEATURES = 0x00;
     protected static final int UNKNOWN_TOKEN_FEATURE = 31;
 
+    @SuppressWarnings("null")
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private int valid = INIT_VALID;
@@ -79,6 +75,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     private final ConcurrentSkipListMap<Integer, ITokenValidator<T>> tokenValidators = new ConcurrentSkipListMap<>();
 
     /** Unknown Tokens (스레드 안전성 확보) */
+    @SuppressWarnings("null")
     private final Set<T> unknownTokens = ConcurrentHashMap.newKeySet();
 
     /** 검증 실패 사유 (스레드 안전성 확보) */
@@ -147,6 +144,11 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *             파라미터({@code tokenValidators})가 {@code null}이거나, 파라미터({@code tokenValidators})에 {@code null}이 포함된 경우
      *             발생.
      */
+    // 아래 내용에 적용됨.
+    // - ObjectUtils.requireNonNulls((Object[]) tokenValidators);
+    // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     @SafeVarargs
     public final List<Integer> addTokenValidators(ITokenValidator<T>... tokenValidators) {
         ObjectUtils.requireNonNulls((Object[]) tokenValidators);
@@ -235,6 +237,11 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      * 
      * * @return 검증 실패 사유 문자열
      */
+    // 아래 내용에 적용됨.
+    // - String.join(", ", customReasons)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String getInvalidReason() {
 
         // 1. tokenValidators에서 실패 사유 추출
@@ -242,7 +249,8 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
                 .filter(entry -> !isValid(entry.getKey())) //
                 .map(entry -> {
                     ITokenValidator<T> validator = entry.getValue();
-                    return String.join("", validator.getName(), ", expected: ", validator.getValidTokens().toString());
+                    Set<T> tokens = validator.getValidTokens();
+                    return String.join("", validator.getName(), ", expected: ", tokens != null ? tokens.toString() : "null");
                 }) //
                 .collect(Collectors.toList());
 
@@ -272,6 +280,11 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *
      * @return 토큰 셋 (수정 불가)
      */
+    // 아래 내용에 적용됨.
+    // - Collections.unmodifiableSet(unknownTokens)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Set<T> getUnknownTokens() {
         return Collections.unmodifiableSet(unknownTokens);
     }
@@ -466,6 +479,11 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     /**
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()();
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -533,7 +551,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
         }
 
         validate0(fully);
-        postValid(this.tokenizer);
+        postValid(Objects.requireNonNull(this.tokenizer));
 
         return isValid();
     }
@@ -545,8 +563,9 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *            전체 검증(Fail-Fast 무시) 여부
      */
     protected final void validate0(boolean fully) {
-        while (this.tokenizer != null && this.tokenizer.hasToken()) {
-            if (!valid0(this.tokenizer.getToken()) && !fully) {
+        ITokenizer<D, T> tokenizer = this.tokenizer;
+        while (tokenizer != null && tokenizer.hasToken()) {
+            if (!valid0(tokenizer.getToken()) && !fully) {
                 // [PATCH] Fail-Fast 보강: fully가 false일 경우 즉시 중단
                 break;
             }
