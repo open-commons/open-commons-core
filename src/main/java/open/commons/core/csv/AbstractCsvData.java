@@ -425,12 +425,12 @@ public abstract class AbstractCsvData {
      * 
      */
     @SuppressWarnings("null") // apply to 'Supplier<@Nullable String> value'
-    private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delim, char quote, char escape, @Nullable String nullValue,
+    private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delimiter, char quote, char escape, @Nullable String nullValue,
             BiConsumer<String, Integer> consumer) {
         int index = 0;
         String str = null;
         for (Supplier<@Nullable String> value : orderedValues) {
-            consumer.accept(processString((str = value.get()) != null ? str : nullValue, delim, quote, escape), index);
+            consumer.accept(processString((str = value.get()) != null ? str : nullValue, delimiter, quote, escape), index);
             index++;
         }
     }

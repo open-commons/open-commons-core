@@ -995,13 +995,14 @@ public class ArrayUtils {
      * 
      * @param array
      * @param value
+     * 
      * @return a new array contains new {@code value} or null if both of parameters are {@code null}.
      * 
-     * @Exception {@link ArrayStoreException} - {@code T} is Wrapper Class of primitive types and {@code value} is the
-     *            primitive type's value.
-     *            <p>
-     *            e.g. add(new Boolean[] { true }, false);
-     *            </p>
+     * @throws ArrayStoreException
+     *             {@code T} is Wrapper Class of primitive types and {@code value} is the primitive type's value.
+     *             <p>
+     *             e.g. add(new Boolean[] { true }, false);
+     *             </p>
      * 
      * @since 2012. 3. 9.
      * 
@@ -1140,7 +1141,7 @@ public class ArrayUtils {
      *            최소값
      * @param max
      *            최대값
-     * @param value
+     * @param values
      *            값
      * @since 2012. 03. 13.
      * 
@@ -2007,7 +2008,7 @@ public class ArrayUtils {
      * </pre>
      *
      * @param <T>
-     * @param <TT>
+     * @param <U>
      * @param original
      * @param newLength
      * @param newType
@@ -2840,9 +2841,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -2874,9 +2875,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -2908,9 +2909,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -2942,9 +2943,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -2976,9 +2977,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -3010,9 +3011,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -3044,9 +3045,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -3078,9 +3079,9 @@ public class ArrayUtils {
      * 2021. 6. 21.     parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
-     * @param <T>
      * @param array
      * @param c
+     * 
      * @return
      * 
      * @throws NullPointerException
@@ -6029,10 +6030,10 @@ public class ArrayUtils {
      * 2021. 12. 28.        parkjunhong77@gmail.com         최초 작성
      * </pre>
      *
+     * @param value
+     *            새로운 데이터
      * @param array
      *            데이터를 추가할 배열
-     * @param values
-     *            새로운 데이터
      * @return
      * 
      * @throws NullPointerException

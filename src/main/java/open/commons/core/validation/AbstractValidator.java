@@ -343,7 +343,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     }
 
     /**
-     * @see open.commons.validation.IValidator#postValid(ITokenizer<D, T>)
+     * @see open.commons.core.validation.IValidator#postValid(open.commons.core.validation.ITokenizer)
      */
     @Override
     public boolean postValid(ITokenizer<D, T> data) {
@@ -351,7 +351,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
     }
 
     /**
-     * @see open.commons.validation.IValidator#preValid(ITokenizer<D, T>)
+     * @see open.commons.core.validation.IValidator#preValid(open.commons.core.validation.ITokenizer)
      */
     @Override
     public boolean preValid(ITokenizer<D, T> data) {

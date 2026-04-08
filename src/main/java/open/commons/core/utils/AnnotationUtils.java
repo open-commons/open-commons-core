@@ -931,10 +931,11 @@ public class AnnotationUtils {
      * 2020. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     * @param typeClass
-     *            대상 클래스
-     * @param annoClass
+     * @param object
+     *            대상 객체
+     * @param annoClasses
      *            찾고자 하는 어노테이션 클래스
+     * 
      * @return 어노테이션이 적용된 메소드 목록
      * 
      * @throws NullPointerException
@@ -1040,9 +1041,10 @@ public class AnnotationUtils {
      * 2019. 5. 29.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     * @param obj
+     * @param type 
      * @param annoClass
      *            찾고자 하는 {@link Annotation} 타입
+     *            
      * @return {@link AnnotationFormatError} 또는 {@code null}
      * 
      * @throws NullPointerException
