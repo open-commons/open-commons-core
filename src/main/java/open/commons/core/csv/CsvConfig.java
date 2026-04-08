@@ -42,7 +42,6 @@ import java.util.Objects;
  * @since 2021. 6. 25.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class CsvConfig extends CsvCommon {
 
@@ -64,10 +63,8 @@ public class CsvConfig extends CsvCommon {
      * 2021. 6. 25.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -95,7 +92,6 @@ public class CsvConfig extends CsvCommon {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -125,7 +121,6 @@ public class CsvConfig extends CsvCommon {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
@@ -152,7 +147,6 @@ public class CsvConfig extends CsvCommon {
      *            escape 문자
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      */
     public CsvConfig(char separator, char quotechar, char escape) {
         this(separator, quotechar, escape, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -180,7 +174,6 @@ public class CsvConfig extends CsvCommon {
      *            데이터 앞쪽의 whitespace 제거 여부
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      */
     public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes) {
         this(separator, quotechar, escape, strictQuotes, DEFAULT_IGNORE_LEADING_WHITESPACE);
@@ -208,7 +201,6 @@ public class CsvConfig extends CsvCommon {
      *            데이터 앞쪽의 whitespace 제거 여부
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      */
     public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace) {
         super(separator, quotechar, escape);
@@ -314,7 +306,6 @@ public class CsvConfig extends CsvCommon {
      *
      * @since 2021. 6. 25.
      * 
-     *
      * @see java.lang.Object#toString()
      */
     @Override

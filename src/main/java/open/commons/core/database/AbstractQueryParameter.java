@@ -37,7 +37,6 @@ import open.commons.core.database.annotation.AQueryIndex;
 
 /**
  * 
- * 
  * @since 2013. 11. 8.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */

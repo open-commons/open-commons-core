@@ -38,7 +38,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2014. 4. 1.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FieldTypeVariable {
 

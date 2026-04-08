@@ -37,7 +37,6 @@ import open.commons.core.utils.StringUtils;
  * 
  * @since 2023. 11. 15.
  * @version _._._
- * 
  */
 public class TestFIleUtils {
 
@@ -51,10 +50,8 @@ public class TestFIleUtils {
      * 2023. 11. 15.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2023. 11. 15.
      * @version _._._
-     * 
      */
     public TestFIleUtils() {
     }

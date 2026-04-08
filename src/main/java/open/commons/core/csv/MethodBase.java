@@ -40,7 +40,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2021. 6. 18.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class MethodBase implements Supplier<String> {
 
@@ -62,7 +61,6 @@ public class MethodBase implements Supplier<String> {
      * 
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public MethodBase(Object owner, Method method) {
         ObjectUtils.requireNonNulls(owner, method);
@@ -85,7 +83,6 @@ public class MethodBase implements Supplier<String> {
      *
      * @since 2021. 6. 18.
      * 
-     *
      * @see java.util.function.Supplier#get()
      */
     @Override
@@ -103,7 +100,6 @@ public class MethodBase implements Supplier<String> {
      * @since 2023. 10. 26.
      * @version _._._
      * 
-     *
      * @see java.lang.Object#toString()
      */
     @Override

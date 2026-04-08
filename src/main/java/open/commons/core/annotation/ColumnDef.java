@@ -38,7 +38,6 @@ import java.sql.ResultSet;
  * 
  * @since 2017. 9. 22.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.FIELD })
@@ -57,7 +56,6 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * 
      * @since 2017. 9. 5.
      */
     boolean caseSensitive() default false;
@@ -78,7 +76,6 @@ public @interface ColumnDef {
      *
      * @since 2020. 1. 16.
      * 
-     * 
      * @see ColumnNameType
      */
     ColumnNameType columnNameType() default ColumnNameType.NAME;
@@ -97,7 +94,6 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * 
      * @since 2017. 9. 5.
      */
     String name() default "";
@@ -115,7 +111,6 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * 
      * @since 2019. 2. 18. (v1.6.3)
      */
     boolean nullable() default true;
@@ -133,7 +128,6 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * 
      * @since 2018. 5. 4.
      */
     boolean required() default true;
@@ -152,7 +146,6 @@ public @interface ColumnDef {
      *
      * @return
      *
-     * 
      * @since 2017. 9. 5.
      */
     Class<?> type() default Class.class;
@@ -161,7 +154,6 @@ public @interface ColumnDef {
      * DBMS 컬럼명 표기 타입
      * 
      * @since 2020. 1. 16.
-     * 
      */
     public static enum ColumnNameType {
         /**

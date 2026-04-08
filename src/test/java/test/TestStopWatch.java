@@ -33,7 +33,6 @@ import open.commons.core.utils.ThreadUtils;
  * 
  * @since 2022. 1. 5.
  * @version _._._
- * 
  */
 public class TestStopWatch {
 
@@ -47,10 +46,8 @@ public class TestStopWatch {
      * 2022. 1. 5.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2022. 1. 5.
      * @version _._._
-     * 
      */
     public TestStopWatch() {
     }

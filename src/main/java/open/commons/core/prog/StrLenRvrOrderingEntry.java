@@ -26,10 +26,8 @@ import open.commons.core.utils.ObjectUtils;
 /**
  * String Length Reverse Ordering Entry
  * 
- * 
  * @since 2011. 09. 18.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class StrLenRvrOrderingEntry implements Comparable<StrLenRvrOrderingEntry> {
 

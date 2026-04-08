@@ -27,10 +27,8 @@ import org.jspecify.annotations.Nullable;
 
 /***
  * 
- * 
  * @since 2011. 10. 07.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class SvnDirExclusive implements FileFilter {
 

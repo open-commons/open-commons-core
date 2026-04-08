@@ -48,7 +48,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * 
  * @since 2015. 1. 6.
- * 
  */
 public class MapUtils {
 
@@ -65,7 +64,6 @@ public class MapUtils {
     /**
      * {@link Collection} 형태의 값을 갖는 {@link Map} 정보를 하나의 1차원 형태의 {@link Stream}으로 제공합니다. <br>
      *
-     * 
      * <pre>
      * [개정이력]
      * 날짜      | 작성자   |   내용
@@ -1382,7 +1380,6 @@ public class MapUtils {
      * ------------------------------------------
      * 2025. 8. 20.     parkjunhong77@gmail.com         최초 작성
      * </pre>
-     *
      *
      * @param <K>
      *            데이터 식별정보 (Nullable).

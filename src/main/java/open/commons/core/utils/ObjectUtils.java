@@ -61,7 +61,6 @@ import open.commons.core.stream.ClassSpliterator;
  * Object 타입의 데이터 처리를 지원하는 유틸리티 클래스.
  * 
  * @since 2018. 1. 31.
- * 
  */
 public class ObjectUtils {
 
@@ -450,7 +449,6 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * @author parkjunhong77@gmail.com
      */
     public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws IllegalArgumentException {
         return src -> {
@@ -595,7 +593,6 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 6.
      * @version 1.8.0
-     * @author parkjunhong77@gmail.com
      */
     @SuppressWarnings("unchecked")
     public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws NullPointerException {
@@ -1100,9 +1097,7 @@ public class ObjectUtils {
      * @param converter
      *            '이전 타입 -> 이후 타입' 변환 함수
      * 
-     *
      * @since 2021. 12. 2.
-     * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)
      */
     public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> converter) throws NullPointerException {
@@ -1133,7 +1128,6 @@ public class ObjectUtils {
      *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
      *
      * @since 2021. 12. 2.
-     * @author Park_Jun_Hong (parkjunhong77@gmail.com)
      * 
      * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)
      */

@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.database.annotation;
 
@@ -61,7 +60,6 @@ public @interface TableDef {
      * @since 2022. 1. 7.
      * @version 1.8.0
      * 
-     * 
      * @see ColumnValue
      */
     boolean sortedColumns() default false;
@@ -80,7 +78,6 @@ public @interface TableDef {
      *
      * @since 2013. 7. 12.
      * @version 1.8.0
-     * 
      */
     String table();
 }

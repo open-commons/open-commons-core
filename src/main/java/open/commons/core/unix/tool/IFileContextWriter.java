@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.unix.tool;
 
@@ -35,7 +34,6 @@ import java.io.IOException;
  * 
  * @since 2013. 5. 23.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IFileContextWriter extends Closeable {
 

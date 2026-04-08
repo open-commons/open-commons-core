@@ -36,7 +36,6 @@ import com.opencsv.ICSVWriter;
  * @since 2022. 3. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class CsvCommon {
 
@@ -76,10 +75,8 @@ public abstract class CsvCommon {
      * 2026. 2. 26.     parkjunhong77@gmai.com      {@link #DEFAULT_LINE_END} 추가
      * </pre>
      *
-     *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -106,7 +103,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_LINE_END
@@ -132,7 +128,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_LINE_END
      */
@@ -157,7 +152,6 @@ public abstract class CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public CsvCommon(char separator, char quotechar, char escape) {
         this(separator, quotechar, escape, DEFAULT_LINE_END);
@@ -181,7 +175,6 @@ public abstract class CsvCommon {
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * 
      */
     public CsvCommon(char separator, char quotechar, char escape, String lineEnd) {
         Objects.requireNonNull(lineEnd);
@@ -207,7 +200,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #escape
      */
 
@@ -230,7 +222,6 @@ public abstract class CsvCommon {
      * @since 2026. 2. 26.
      * @version 3.0.0
      * 
-     *
      * @see #lineEnd
      */
 
@@ -253,7 +244,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #quotechar
      */
 
@@ -276,7 +266,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #separator
      */
 
@@ -300,7 +289,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #escape
      */
     public void setEscape(char escape) {
@@ -323,7 +311,6 @@ public abstract class CsvCommon {
      * @since 2026. 2. 26.
      * @version 3.0.0
      * 
-     *
      * @see #lineEnd
      */
     public void setLineEnd(String lineEnd) {
@@ -348,7 +335,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #quotechar
      */
     public void setQuotechar(char quotechar) {
@@ -371,7 +357,6 @@ public abstract class CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #separator
      */
     public void setSeparator(char separator) {
@@ -383,7 +368,6 @@ public abstract class CsvCommon {
      * @since 2026. 2. 26.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.

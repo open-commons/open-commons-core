@@ -52,7 +52,6 @@ package open.commons.core.net;
  * 
  * @since 2014. 5. 26.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class Protocols {
 

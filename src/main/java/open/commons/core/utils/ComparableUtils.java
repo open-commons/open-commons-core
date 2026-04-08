@@ -15,7 +15,6 @@
  */
 
 /**
-* 
 */
 package open.commons.core.utils;
 
@@ -90,7 +89,6 @@ public class ComparableUtils {
      *
      * @since 2021. 8. 15.
      * @version 3.0.0
-     * 
      */
     public static <T extends @Nullable Comparable<T>> int compare(T o1, T o2) {
         if (o1 == o2) {

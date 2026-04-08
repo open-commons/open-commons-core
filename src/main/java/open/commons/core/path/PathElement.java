@@ -46,7 +46,6 @@ import open.commons.core.utils.StringUtils;
  * 
  * @since 2012. 3. 9.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class PathElement implements Iterable<String> {
 
@@ -86,7 +85,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @since 2012. 03. 12.
      * 
-     * 
      * @see PathElement#PathElement(String)
      */
     public PathElement() {
@@ -99,7 +97,6 @@ public class PathElement implements Iterable<String> {
      * @param delimiter
      *            경로 구분자 <BR>
      * @since 2012. 03. 15.
-     * 
      */
     public PathElement(char separator) {
         this(Objects.requireNonNull( //
@@ -114,7 +111,6 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 15.
-     * 
      */
     public PathElement(char[] elems, int[][] elemLength) {
         this(DEFAULT_SEPARATOR, elems, elemLength);
@@ -126,7 +122,6 @@ public class PathElement implements Iterable<String> {
      * @param elems
      *            경로를 구성하는 문자열들 <BR>
      * @since 2012. 03. 15.
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) elems);
@@ -151,7 +146,6 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 12.
-     * 
      */
     public PathElement(String separator) {
         Objects.requireNonNull(separator, "A delimiter must not be 'null': delimiter=null");
@@ -173,7 +167,6 @@ public class PathElement implements Iterable<String> {
      * 
      *            <BR>
      * @since 2012. 03. 15.
-     * 
      */
     // 아래 내용에 적용됨.
     // - this.sepChar = separator.toCharArray();
@@ -215,7 +208,6 @@ public class PathElement implements Iterable<String> {
      * @param path
      *            <BR>
      * @since 2012. 03. 12.
-     * 
      */
     public void add(char path) {
         char[] npc = new char[] { path };
@@ -230,7 +222,6 @@ public class PathElement implements Iterable<String> {
      * @param path
      *            <BR>
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - createPathValue(npc); // char[] npc = path.toCharArray(); 에서 @NonNull이 보장되지 않음.
@@ -253,7 +244,6 @@ public class PathElement implements Iterable<String> {
      *            <BR>
      * @since 2012. 03. 15.
      * 
-     * 
      * @see #add(String)
      */
     public void addAll(char @Nullable... paths) {
@@ -272,7 +262,6 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * 
      * 
      * @see #add(String)
      */
@@ -295,7 +284,6 @@ public class PathElement implements Iterable<String> {
      * @param paths
      *            <BR>
      * @since 2012. 03. 15.
-     * 
      * 
      * @see #add(String)
      */
@@ -357,7 +345,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @since 2012. 03. 22.
      * 
-     * 
      * @see java.lang.Object#clone()
      */
     @SuppressWarnings("null")
@@ -381,7 +368,6 @@ public class PathElement implements Iterable<String> {
      * @param path
      * @return <BR>
      * @since 2012. 03. 12.
-     * 
      */
     public boolean contains(@Nullable String path) {
         if (path != null) {
@@ -432,7 +418,6 @@ public class PathElement implements Iterable<String> {
      * @param npc
      *            <BR>
      * @since 2012. 03. 15.
-     * 
      */
     private void createPathValue(char[] npc) {
         elems = ArrayUtils.merge(elems, npc);
@@ -452,7 +437,6 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * 
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -488,7 +472,6 @@ public class PathElement implements Iterable<String> {
      * @param c2
      * @return <BR>
      * @since 2012. 03. 12.
-     * 
      */
     private boolean equalsChars(char[] c1, char[] c2) {
         for (int i = 0; i < c1.length; i++) {
@@ -504,7 +487,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * 
      */
     public int getElemCount() {
         synchronized (mtxPaths) {
@@ -517,7 +499,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(elemLength, elemLength.length);
@@ -535,7 +516,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(elems, elems.length);
@@ -554,7 +534,6 @@ public class PathElement implements Iterable<String> {
      * @param index
      * @return <BR>
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - this.paths[index];
@@ -580,7 +559,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 14.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(this.paths, this.paths.length);
@@ -609,7 +587,6 @@ public class PathElement implements Iterable<String> {
      *            inclusive
      * @return <BR>
      * @since 2012. 03. 15.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(this.paths, index + 1);
@@ -634,7 +611,6 @@ public class PathElement implements Iterable<String> {
      * @param count
      * @return <BR>
      * @since 2012. 03. 15.
-     * 
      */
     private String[] getPaths_internal(int count) {
         String[] paths = new String[count];
@@ -653,7 +629,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @return <BR>
      * @since 2012. 03. 14.
-     * 
      */
     public String getSeparator() {
         return separator;
@@ -663,7 +638,6 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 22.
-     * 
      * 
      * @see java.lang.Object#hashCode()
      */
@@ -685,7 +659,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @since 2012. 03. 14.
      * 
-     * 
      * @see java.lang.Iterable#iterator()
      */
     public Iterator<String> iterator() {
@@ -702,7 +675,6 @@ public class PathElement implements Iterable<String> {
      * 
      *             <BR>
      * @since 2012. 03. 14.
-     * 
      */
     // 아래 내용에 적용됨.
     // - this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount - 2][2]);
@@ -741,7 +713,6 @@ public class PathElement implements Iterable<String> {
      * 
      *         <BR>
      * @since 2012. 03. 12.
-     * 
      */
     public String setSeparator(char separator) {
         synchronized (mtxPaths) {
@@ -759,7 +730,6 @@ public class PathElement implements Iterable<String> {
      * @param delimiter
      * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다. <BR>
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - this.sepChar = separator.toCharArray();
@@ -781,7 +751,6 @@ public class PathElement implements Iterable<String> {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      * 
      * @see java.lang.Object#toString()
      */
@@ -847,7 +816,6 @@ public class PathElement implements Iterable<String> {
          * 
          * @since 2012. 03. 14.
          * 
-         * 
          * @see java.util.Iterator#hasNext()
          */
         @Override
@@ -863,7 +831,6 @@ public class PathElement implements Iterable<String> {
          * @except ArrayIndexOutOfBoundsException
          * 
          * @since 2012. 03. 14.
-         * 
          * 
          * @see java.util.Iterator#next()
          */
@@ -882,9 +849,7 @@ public class PathElement implements Iterable<String> {
 
         /**
          * 
-         * 
          * @since 2012. 03. 14.
-         * 
          * 
          * @see java.util.Iterator#remove()
          */

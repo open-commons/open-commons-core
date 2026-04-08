@@ -98,7 +98,6 @@ public interface SQLConsumer<T> {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * 
      */
     public static SQLConsumer<PreparedStatement> setParameters(Object... params) {
         return setParametersAndRelease(true, params);
@@ -157,7 +156,6 @@ public interface SQLConsumer<T> {
      *
      * @since 2021. 7. 19.
      * @version 1.8.0
-     * 
      */
     public static SQLConsumer<PreparedStatement> setParametersAndRelease(boolean autoRelease, Object... params) {
         Objects.requireNonNull(params);

@@ -75,7 +75,6 @@ public class ByteUtils {
      * 
      * @param data
      * @return
-     * 
      */
     public static String hexBinString(byte... data) {
         return hexBinString("", false, data);
@@ -180,7 +179,6 @@ public class ByteUtils {
      * 
      * @param hexBinString
      * @return
-     * 
      * 
      * @since 2014. 4. 25.: Remove colon(:)s and white-spaces in input string.
      */

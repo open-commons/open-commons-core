@@ -34,7 +34,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * 
  * @since 2014. 4. 11.
- * 
  */
 public class TrueTokenValidator<T> extends NamedTokenValidator<T> {
 

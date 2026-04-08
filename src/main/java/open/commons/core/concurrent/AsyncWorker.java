@@ -35,7 +35,6 @@ import open.commons.core.lang.DefaultRunnable;
  * @since 2022. 7. 12.
  * @version 2.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class AsyncWorker<E> extends DefaultRunnable {
 
@@ -51,10 +50,8 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * 2022. 7. 12.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * 
      */
     public AsyncWorker() {
     }
@@ -73,7 +70,6 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * 
      */
     public void add(E data) {
         if (data == null) {
@@ -89,7 +85,6 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * @since 2022. 7. 12.
      * @version 2.0.0
      * 
-     *
      * @see open.commons.core.lang.DefaultRunnable#afterStop()
      */
     @Override
@@ -108,10 +103,8 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * 2022. 7. 12.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * 
      */
     public void clear() {
         this.queue.clear();
@@ -123,7 +116,6 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      * @since 2022. 7. 12.
      * @version 2.0.0
      * 
-     *
      * @see open.commons.core.lang.DefaultRunnable#close()
      */
     @Override
@@ -146,7 +138,6 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * 
      */
     protected final E get() {
         return this.queue.poll();
@@ -166,7 +157,6 @@ public abstract class AsyncWorker<E> extends DefaultRunnable {
      *
      * @since 2022. 7. 12.
      * @version 2.0.0
-     * 
      */
     protected final int size() {
         return this.queue.size();

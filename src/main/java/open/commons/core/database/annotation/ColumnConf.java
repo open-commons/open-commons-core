@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.database.annotation;
 
@@ -37,7 +36,6 @@ import java.lang.annotation.Target;
 /**
  * @since 2013. 7. 12.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

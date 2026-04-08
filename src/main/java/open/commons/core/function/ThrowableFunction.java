@@ -33,7 +33,6 @@ import java.util.Objects;
  * @since 2025. 10. 23.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @FunctionalInterface
 public interface ThrowableFunction<T, R> {

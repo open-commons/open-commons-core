@@ -43,7 +43,6 @@ import java.util.function.Function;
  * @since 2021. 4. 28.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @FunctionalInterface
 public interface IOFunction<T, R> {
@@ -59,7 +58,6 @@ public interface IOFunction<T, R> {
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
      * 
-     *
      * @see #compose(Function)
      */
     default <V> IOFunction<T, V> andThen(IOFunction<? super R, ? extends V> after) {

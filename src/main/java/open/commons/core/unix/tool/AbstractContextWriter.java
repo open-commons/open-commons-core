@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.unix.tool;
 
@@ -48,7 +47,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2013. 5. 27.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class AbstractContextWriter implements IFileContextWriter {
 

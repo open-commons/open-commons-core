@@ -37,7 +37,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * 
  * @since 2017. 12. 4.
- * 
  */
 public class MathUtils {
 

@@ -77,7 +77,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2022. 5. 13.
  * @version 2.0.0
  * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
- * 
  */
 @NullUnmarked
 @Plugin(name = ProcessRollingFileAppender.PLUGIN_NAME, category = Core.CATEGORY_NAME, elementType = Appender.ELEMENT_TYPE, printObject = true)
@@ -259,7 +258,6 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      *
      * @since 2022. 10. 18.
      * @version _._._
-     * 
      */
     public static boolean registerContext(String contextName, String contextHolder, String context) {
         ObjectUtils.requireNonNulls(contextName, contextHolder, context);

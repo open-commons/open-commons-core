@@ -38,10 +38,8 @@ import open.commons.core.concurrent.Mutex;
 
 /**
  * 
- * 
  * @since 2012. 11. 02.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FileRecursiveHandler {
 
@@ -182,9 +180,7 @@ public class FileRecursiveHandler {
      * 
      * <BR>
      * 
-     * 
      * @since 2012. 01. 18.
-     * 
      */
     public void handle() {
         if (filehandlers.size() > 0) {
@@ -198,7 +194,6 @@ public class FileRecursiveHandler {
     /**
      * @param dir
      * @since 2012. 03. 13.
-     * 
      */
     protected final void handleDir(File dir) {
         Objects.requireNonNull(dir);
@@ -290,9 +285,7 @@ public class FileRecursiveHandler {
     /**
      * 에러 내용을 모두 삭제합니다.
      * 
-     * 
      * <BR>
-     * 
      * 
      * @since 2012. 01. 18.
      */

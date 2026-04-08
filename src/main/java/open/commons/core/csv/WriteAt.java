@@ -40,7 +40,6 @@ import java.lang.reflect.Method;
  * @since 2022. 3. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Retention(RUNTIME)
 @Target(METHOD)
@@ -60,7 +59,6 @@ public @interface WriteAt {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     int index();
 
@@ -78,7 +76,6 @@ public @interface WriteAt {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     boolean nullIsEmpty() default true;
 }

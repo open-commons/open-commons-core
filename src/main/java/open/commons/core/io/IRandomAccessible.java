@@ -31,7 +31,6 @@ package open.commons.core.io;
  * @since 2020. 11. 13.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IRandomAccessible {
 
@@ -49,7 +48,6 @@ public interface IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * 
      */
     int getLength();
 
@@ -67,7 +65,6 @@ public interface IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * 
      */
     int getNextPosition();
 
@@ -85,7 +82,6 @@ public interface IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * 
      */
     int getPosition();
 }

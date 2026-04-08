@@ -53,7 +53,6 @@ import open.commons.core.utils.TimeUtils;
  * 
  * @since 2019. 2. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class StopWatch {
     /** 종료 구간 식별자 */
@@ -138,7 +137,6 @@ public class StopWatch {
      *
      * @return
      *
-     * 
      * @since 2019. 2. 20.
      */
     public Long get() {
@@ -194,7 +192,6 @@ public class StopWatch {
      *
      * @return
      *
-     * 
      * @since 2019. 2. 20.
      */
     public @Nullable String getAsPretty() {
@@ -242,7 +239,6 @@ public class StopWatch {
      *
      * @since 2022. 1. 5.
      * @version 1.8.0
-     * 
      */
     public Double getPercentage(String name) {
         Objects.requireNonNull(name);
@@ -298,8 +294,6 @@ public class StopWatch {
      * 2019. 2. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
-     * 
      * @since 2019. 2. 20.
      */
     public void pause() {
@@ -329,7 +323,6 @@ public class StopWatch {
      * @param r
      * @return
      *
-     * 
      * @since 2019. 2. 20.
      */
     private @Nullable String pretty(@Nullable Long r) {
@@ -425,8 +418,6 @@ public class StopWatch {
      * 2019. 2. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
-     * 
      * @since 2019. 2. 20.
      */
     public void reset() {
@@ -461,7 +452,6 @@ public class StopWatch {
      *
      * @throws IllegalStateException
      *
-     * 
      * @since 2019. 2. 20.
      */
     public StopWatch start() throws IllegalStateException {
@@ -502,7 +492,6 @@ public class StopWatch {
      * @since 2022. 1. 5.
      * @version 1.8.0
      * 
-     * 
      * @see #stats(boolean)
      */
     public String stats() {
@@ -526,7 +515,6 @@ public class StopWatch {
      *
      * @since 2022. 1. 5.
      * @version 1.8.0
-     * 
      */
     @SuppressWarnings("null")
     public String stats(boolean alsoLast) {
@@ -572,10 +560,8 @@ public class StopWatch {
      * 2019. 2. 20.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @return
      * @throws IllegalStateException
-     * 
      * 
      * @since 2019. 2. 20.
      */
@@ -653,7 +639,6 @@ public class StopWatch {
      *
      * @return
      *
-     * 
      * @since 2019. 2. 20.
      */
     public static StopWatch startNow() {
@@ -694,7 +679,6 @@ public class StopWatch {
          * @param begin
          * @return
          *
-         * 
          * @since 2019. 2. 20.
          */
         public long fromBegin(long begin) {
@@ -713,7 +697,6 @@ public class StopWatch {
          *
          * @return
          *
-         * 
          * @since 2019. 2. 20.
          */
         public long get() {

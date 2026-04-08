@@ -68,7 +68,6 @@ public class DataUtils {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      *
-     * 
      * @since 2014. 9. 26.
      */
     public static void hide(@Nullable Collection<?> objects) throws IllegalArgumentException, IllegalAccessException {
@@ -100,7 +99,6 @@ public class DataUtils {
      *
      * @since 2014. 9. 26.
      * @version 3.0.0
-     * 
      */
     public static void hide(final @Nullable Object object) throws IllegalArgumentException, IllegalAccessException {
         if (object == null) {

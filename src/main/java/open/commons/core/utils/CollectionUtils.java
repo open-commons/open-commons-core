@@ -68,9 +68,7 @@ import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
 
 /**
  * 
- * 
  * @since 2011. 10. 24.
- * 
  */
 // 아래 내용에 적용됨.
 // - 대부분의 JDK 표준 API
@@ -94,7 +92,6 @@ public class CollectionUtils {
      * @param elem
      *            새로운 데이터
      * @return 전달받은 {@code col}이 {@code null}인 경우, 새로운 객체.
-     *
      */
     public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C add(C col, Class<C> clazz, E elem) {
         if (col == null) {
@@ -211,7 +208,6 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 {@code col}이 {@code null}인 경우, 새로운 객체.
      *
-     * 
      * @since 2017. 12. 13.
      */
     public static <E extends @Nullable Object, C extends @Nullable Collection<E>> C addAllIfNotNull(C col, Class<C> clazz, Collection<E> elems) {
@@ -5092,7 +5088,6 @@ public class CollectionUtils {
          * <li>그렇지 않으면? {@link TopNStrategy#QUICKSELECT}
          * </ul>
          * 
-         * 
          * <pre>
          * [개정이력]
          *      날짜    	| 작성자	|	내용
@@ -5110,7 +5105,6 @@ public class CollectionUtils {
          *
          * @since 2025. 9. 3.
          * @version 2.1.0
-         * 
          */
         private static TopNStrategy decideStrategy(int fullCount, int limit, boolean expensiveComparator) {
             // 작은 M 보호장치: 전체 정렬이 대체로 이득
@@ -5156,7 +5150,6 @@ public class CollectionUtils {
          *
          * @since 2025. 9. 3.
          * @version 2.1.0
-         * 
          */
         private static <T> int partitionByComparator(List<T> data, Comparator<T> sorter, int left, int right, int pivotIdx) {
             T pivotVal = data.get(pivotIdx);
@@ -5190,7 +5183,6 @@ public class CollectionUtils {
          *
          * @since 2025. 9. 3.
          * @version 2.1.0
-         * 
          */
         private static <T> void quickselectTopNInPlace(List<T> data, Comparator<T> sorter, int limit) {
             int left = 0;
@@ -5232,7 +5224,6 @@ public class CollectionUtils {
          *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (<)
          * @since 2025. 9. 3.
          * @version 2.1.0
-         * 
          */
         public static void setAutoConfiguration(int fullSortThreshold, double fullSortRatio, int heapSortThreshold, double heapSortRatio) {
             TopN.fullSortThreadhold = fullSortThreshold;

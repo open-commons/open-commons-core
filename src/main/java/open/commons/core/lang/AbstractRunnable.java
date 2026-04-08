@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.lang;
 
@@ -36,7 +35,6 @@ import open.commons.core.concurrent.Mutex;
  * 
  * @since 2013. 6. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class AbstractRunnable implements IRunnable {
 
@@ -108,9 +106,7 @@ public abstract class AbstractRunnable implements IRunnable {
      * 2019. 10. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2019. 10. 2.
-     * 
      */
     public void join() {
         join(0, 0);
@@ -129,7 +125,6 @@ public abstract class AbstractRunnable implements IRunnable {
      * @param millis
      *
      * @since 2019. 10. 2.
-     * 
      */
     public void join(long millis) {
         join(millis, 0);
@@ -149,7 +144,6 @@ public abstract class AbstractRunnable implements IRunnable {
      * @param nanos
      *
      * @since 2019. 10. 2.
-     * 
      */
     @SuppressWarnings("null")
     public void join(long millis, int nanos) {

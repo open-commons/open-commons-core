@@ -457,7 +457,6 @@ public class SubNetwork {
      * @param hostPartBin
      * @since 2026. 3. 19.
      * @version 3.0.0
-     * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
     private static record NetInfo(String ipv4, int ipBin, String netmask, int netmaskInt, int netmaskBin, String network, int networkBin, String broadcast, int broadcastBin,
             int hostPartBin) {

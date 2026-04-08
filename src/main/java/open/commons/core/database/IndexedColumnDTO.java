@@ -35,7 +35,6 @@ import open.commons.core.utils.StringUtils;
 /**
  * @since 2020. 11. 4.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class IndexedColumnDTO extends AbstractCsvData {
 
@@ -166,7 +165,6 @@ public class IndexedColumnDTO extends AbstractCsvData {
      * @since 2021. 6. 18.
      * @version 3.0.0
      * 
-     *
      * @see open.commons.core.csv.AbstractCsvData#getHeaders()
      */
     @Override
@@ -189,7 +187,6 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2026. 3. 4.
      * @version 3.0.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - CACHE_HEADER_METADATA.computeIfAbsent(getClass(), HEADER_METADATA_GEN)
@@ -216,7 +213,6 @@ public class IndexedColumnDTO extends AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 3.0.0
-     * 
      */
     @SuppressWarnings("null")
     public List<Supplier<@Nullable String>> getValues() {

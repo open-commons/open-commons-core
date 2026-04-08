@@ -39,7 +39,6 @@ import open.commons.core.function.SQLConsumer;
  * 
  * @since 2019. 2. 22.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNull SQLConsumer<PreparedStatement>> {
 

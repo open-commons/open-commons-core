@@ -52,7 +52,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2018. 9. 10.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Resource
 public class Consumers<T> implements Closeable {

@@ -39,7 +39,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2014. 6. 24.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class HttpStatusCode implements Cloneable {
 

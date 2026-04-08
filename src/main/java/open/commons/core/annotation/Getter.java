@@ -40,7 +40,6 @@ import java.lang.annotation.Target;
  * @since 2019. 6. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * 
  * @see Setter
  */
 @Documented

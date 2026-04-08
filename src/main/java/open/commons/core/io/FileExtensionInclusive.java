@@ -36,7 +36,6 @@ import open.commons.core.utils.StringUtils;
  * <BR>
  * 
  * @since 2012. 01. 20.
- * 
  */
 public class FileExtensionInclusive implements FileFilter {
 
@@ -66,7 +65,6 @@ public class FileExtensionInclusive implements FileFilter {
      * @param exts
      *            파일 확장자
      * @since 2012. 01. 20.
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) exts);
@@ -86,7 +84,6 @@ public class FileExtensionInclusive implements FileFilter {
      * @return
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.io.FileFilter#accept(java.io.File)
      */

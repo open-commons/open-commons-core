@@ -32,7 +32,6 @@ package open.commons.core.io;
  * @since 2020. 11. 12.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Deprecated(since = "3.0.0", forRemoval = true)
 @SuppressWarnings("null")
@@ -73,7 +72,6 @@ public class TextLineInfo implements IRandomAccessible {
      *
      * @since 2020. 11. 12.
      * 
-     *
      * @see open.commons.core.io.IRandomAccessible#getLength()
      */
     @Override
@@ -171,7 +169,6 @@ public class TextLineInfo implements IRandomAccessible {
      *
      * @since 2020. 11. 13.
      * 
-     *
      * @see java.lang.Object#toString()
      */
     @Override

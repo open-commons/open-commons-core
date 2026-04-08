@@ -43,7 +43,6 @@ import java.util.function.Function;
  * @since 2021. 11. 11.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @FunctionalInterface
 public interface ReflectionFunction<T, R> {
@@ -61,7 +60,6 @@ public interface ReflectionFunction<T, R> {
      * 
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      */
     default <V> ReflectionFunction<T, V> andThen(Function<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
@@ -83,7 +81,6 @@ public interface ReflectionFunction<T, R> {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      */
     R apply(T t) throws ReflectiveOperationException;
 }

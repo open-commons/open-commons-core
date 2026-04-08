@@ -43,7 +43,6 @@ import open.commons.core.utils.CollectionUtils;
  * @since 2020. 12. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class NumString<N extends Number> implements CharSequence {
 
@@ -78,7 +77,6 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * 
-     *
      * @see java.lang.CharSequence#charAt(int)
      */
     @Override
@@ -110,7 +108,6 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * 
-     *
      * @see java.lang.CharSequence#length()
      */
     @Override
@@ -155,7 +152,6 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * 
-     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -179,7 +175,6 @@ public class NumString<N extends Number> implements CharSequence {
      * 
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * 
      */
     public static <N extends Number> List<NumString<N>> sequence(Collection<N> nums) {
         Objects.requireNonNull(nums);
@@ -204,7 +199,6 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * 
      */
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, Collection<T> nums) {
         Objects.requireNonNull(f);
@@ -234,7 +228,6 @@ public class NumString<N extends Number> implements CharSequence {
      * @return
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * 
      */
     @SafeVarargs
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, T @Nullable... nums) {
@@ -259,7 +252,6 @@ public class NumString<N extends Number> implements CharSequence {
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
-     * 
      */
     @SafeVarargs
     public static <N extends Number> List<NumString<N>> sequence(N @Nullable... nums) {

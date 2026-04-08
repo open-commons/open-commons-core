@@ -63,7 +63,6 @@ import open.commons.core.utils.OrderingUtils;
  * 	println(entry.getKey() + " = " + new File((String) entry.getValue()).getAbsolutePath());
  * }
  * 		
- * 		
  * -------------
  * 결과:
  * root = E:\00.Development\00.Code\OpenCommons\.
@@ -71,13 +70,10 @@ import open.commons.core.utils.OrderingUtils;
  * test.pkg = E:\00.Development\00.Code\OpenCommons\.\test\open\test
  * test.dir = E:\00.Development\00.Code\OpenCommons\.\test
  * 
- * 
- * 
  * </pre>
  * 
  * @since 2012. 02. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class ReferenceableProperties extends Properties {
     private static final long serialVersionUID = 1L;
@@ -139,7 +135,6 @@ public class ReferenceableProperties extends Properties {
      * 
      * @since 2012. 02. 15.
      * 
-     * 
      * @see java.util.Properties#load(java.io.InputStream)
      */
     @SuppressWarnings("null")
@@ -185,7 +180,6 @@ public class ReferenceableProperties extends Properties {
      * 
      * @since 2012. 02. 15.
      * 
-     * 
      * @see java.util.Properties#load(java.io.Reader)
      */
     @SuppressWarnings("null")
@@ -203,7 +197,6 @@ public class ReferenceableProperties extends Properties {
      * @throws IOException
      * 
      * @since 2012. 02. 15.
-     * 
      * 
      * @see java.util.Properties#load(java.io.Reader)
      */
@@ -234,7 +227,6 @@ public class ReferenceableProperties extends Properties {
      * @throws InvalidPropertiesFormatException
      * 
      * @since 2012. 02. 15.
-     * 
      */
     @SuppressWarnings("null")
     @Override
@@ -252,7 +244,6 @@ public class ReferenceableProperties extends Properties {
      * @throws InvalidPropertiesFormatException
      * 
      * @since 2012. 02. 15.
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) ins);
@@ -279,9 +270,7 @@ public class ReferenceableProperties extends Properties {
     /**
      * 다른 값들을 참조하는 것과 그렇지 않은 것들을 초기화 합니다.
      * 
-     * 
      * @since 2012. 02. 15.
-     * 
      */
     private void readyResolveRef() {
         keyReferencing.clear();

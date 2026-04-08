@@ -37,7 +37,6 @@ import java.util.function.Consumer;
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose functional method is {@link #accept(Object)}.
  *
- *
  * @param <T>
  *            the type of the first argument to the operation
  * @param <U>
@@ -45,7 +44,6 @@ import java.util.function.Consumer;
  * @param <V>
  *            the type of the third argument to the operation
  *
- * 
  * @since 2020. 1. 20.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)

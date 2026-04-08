@@ -24,14 +24,12 @@
 */
 
 /**
- * 
  */
 package open.commons.core;
 
 /**
  * 
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class TwoValueObject<F, S> {
 

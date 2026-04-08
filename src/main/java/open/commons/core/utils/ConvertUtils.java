@@ -31,7 +31,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * @author Park Jun-Hong.(mail_to:parkjunhong77@gmail.com)
  * @since 2011. 8. 2.
- * 
  */
 @SuppressWarnings("unchecked")
 public class ConvertUtils {
@@ -188,7 +187,6 @@ public class ConvertUtils {
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
-     * 
      */
     public static boolean isAssignableFrom(Class<?> srcType, Class<?> targetType) {
         ObjectUtils.requireNonNulls(srcType, targetType);
@@ -233,7 +231,6 @@ public class ConvertUtils {
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
-     * 
      */
     @SuppressWarnings("null")
     public static <S, T> boolean isAssignableFrom(S srcObject, T targetObject) {
@@ -303,7 +300,6 @@ public class ConvertUtils {
      *
      * @since 2022. 3. 15.
      * @version 1.8.0
-     * 
      */
     public static <T> T toPrimitiveTypeValue(Class<T> primitiveType, String value, boolean unsigned) {
         Objects.requireNonNull(primitiveType);
@@ -340,7 +336,6 @@ public class ConvertUtils {
      * 
      * @since 2021. 12. 3.
      * @version 1.8.0
-     * 
      */
     public static Class<?> translateToPrimitive(Class<?> srcType) {
         Objects.requireNonNull(srcType);

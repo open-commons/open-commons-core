@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.collection;
 
@@ -34,10 +33,8 @@ import java.util.Objects;
 /**
  * 문자열로 표현된 integer/long 값에 대한 {@link Comparator}
  * 
- * 
  * @since 2013. 6. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class StringIntegerComparator implements Comparator<String> {
 

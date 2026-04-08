@@ -29,7 +29,6 @@ import open.commons.core.utils.NumberUtils.IntegerType;
  * int 및 {@link Integer}에 데이타 처리를 위한 메소드 제공 클래스
  *
  * @since 2012. 2. 8.
- *
  */
 public class IntegerUtils {
 

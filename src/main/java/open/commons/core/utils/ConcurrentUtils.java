@@ -43,7 +43,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2025. 9. 30.
  * @version 2.1.0
- * 
  */
 public class ConcurrentUtils {
 
@@ -72,7 +71,6 @@ public class ConcurrentUtils {
      *
      * @since 2025. 9. 30.
      * @version 2.1.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - ForkJoinPool.commonPool()
@@ -130,7 +128,6 @@ public class ConcurrentUtils {
      * {@link java.util.concurrent.ConcurrentHashMap}, 락이 구현된 객체 등)
      * </p>
      *
-     * 
      * <pre>
      * [개정이력]
      *      날짜    	| 작성자	|	내용
@@ -209,7 +206,6 @@ public class ConcurrentUtils {
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
-     * 
      */
     @SuppressWarnings("null")
     private static <U> List<U> waitAndApply(List<CompletableFuture<U>> jobs) {

@@ -36,7 +36,6 @@ import open.commons.core.utils.IntegerUtils;
  * 
  * @since 2020. 12. 17.
  * @version 1.8.0
- * 
  */
 public class TestByteUtils {
 

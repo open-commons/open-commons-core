@@ -42,7 +42,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2021. 12. 3.
  * @version 0.3.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class ClassSpliterator implements Spliterator<Class<?>> {
 
@@ -67,7 +66,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * 
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) data);
@@ -96,7 +94,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * 
      * @since 2021. 12. 3.
      * @version 0.3.0
-     * 
      */
     public ClassSpliterator(Object... data) {
         this(false, data);
@@ -107,7 +104,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @since 2021. 12. 3.
      * @version 0.3.0
      * 
-     *
      * @see java.util.Spliterator#characteristics()
      */
     @Override
@@ -120,7 +116,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @since 2021. 12. 3.
      * @version 0.3.0
      * 
-     *
      * @see java.util.Spliterator#estimateSize()
      */
     @Override
@@ -158,7 +153,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @since 2021. 12. 3.
      * @version 0.3.0
      * 
-     *
      * @see java.util.Spliterator#trySplit()
      */
     @Override

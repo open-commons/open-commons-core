@@ -39,7 +39,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * 
  * @since 2015. 1. 13.
- * 
  */
 public class ExceptionUtils {
 
@@ -67,7 +66,6 @@ public class ExceptionUtils {
      *
      * @since 2021. 7. 5.
      * @version 1.8.0
-     * 
      */
     public static <E extends Throwable> E newException(Class<E> type, Class<?> @Nullable [] argTypes, @Nullable Object @Nullable [] args, @Nullable String format,
             @Nullable Object @Nullable... msgArgs) {
@@ -95,7 +93,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 15.
-     * 
      */
     public static <E extends Throwable> E newException(Class<E> type, @Nullable String format, @Nullable Object @Nullable... args) {
         return newException(type, () -> null, null, format, args);
@@ -193,7 +190,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 20.
-     * 
      */
     public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object @Nullable... args) {
         ObjectUtils.requireNonNulls(type, parent, format);
@@ -225,7 +221,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * 
      */
     private static boolean startsWith(String errorMsg, String expected, boolean ignoreCase) {
         ObjectUtils.requireNonNulls(errorMsg, expected);
@@ -258,7 +253,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * 
      */
     public static boolean startsWith(Throwable e, String expected) {
         return startsWith(getMessage(e), expected, false);
@@ -283,7 +277,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * 
      */
     // 아래 내용에 적용됨.
     // - getMessage(e).substring(toffset)
@@ -311,7 +304,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * 
      */
     public static boolean startsWithIgnoreCase(Throwable e, String expected) {
         return startsWith(getMessage(e), expected, true);
@@ -335,7 +327,6 @@ public class ExceptionUtils {
      * @return
      *
      * @since 2020. 10. 28.
-     * 
      */
     // 아래 내용에 적용됨.
     // - getMessage(e).substring(toffset)

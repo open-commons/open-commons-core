@@ -54,7 +54,6 @@ import open.commons.core.utils.ObjectUtils;
  * @param <T>
  *            {token} 데이터를 검증에 사용될 단위 데이터 타입
  * @since 2014. 4. 10.
- * 
  */
 public class AbstractValidator<D, T> implements IValidator<D, T> {
 

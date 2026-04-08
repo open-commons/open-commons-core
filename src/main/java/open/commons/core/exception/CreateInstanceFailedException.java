@@ -37,7 +37,6 @@ import org.jspecify.annotations.Nullable;
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * 
  * @see Class#newInstance()
  * @see InstantiationException
  * @see IllegalAccessException
@@ -68,7 +67,6 @@ public class CreateInstanceFailedException extends RuntimeException {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public CreateInstanceFailedException(Class<?> objectType, @Nullable String message, @Nullable Throwable cause) {
         Objects.requireNonNull(objectType);
@@ -95,7 +93,6 @@ public class CreateInstanceFailedException extends RuntimeException {
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
-     * 
      */
     public CreateInstanceFailedException(Class<?> objectType, @Nullable Throwable cause) {
         Objects.requireNonNull(objectType);
@@ -109,7 +106,6 @@ public class CreateInstanceFailedException extends RuntimeException {
      * @since 2025. 8. 30.
      * @version 2.1.0
      * 
-     *
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.

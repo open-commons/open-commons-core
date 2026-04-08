@@ -45,10 +45,8 @@ import open.commons.core.annotation.ColumnDef.ColumnNameType;
  * @version 1.6.17
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * 
  * @see PreparedStatement
  * @see PreparedStatement#setObject(int, Object)
- * 
  */
 @Documented
 @Retention(RUNTIME)
@@ -71,7 +69,6 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * 
      */
     boolean caseSensitive() default false;
 
@@ -98,7 +95,6 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 16.
      * 
-     * 
      * @see ColumnDef#columnNameType()
      */
     ColumnNameType columnNameType() default ColumnNameType.NAME;
@@ -118,7 +114,6 @@ public @interface ColumnValue {
      *
      * @since 2025. 4. 9.
      * @version 2.1.0
-     * 
      */
     String columnType() default "";
 
@@ -137,7 +132,6 @@ public @interface ColumnValue {
      *
      * @since 2022. 11. 1.
      * @version 2.0.0
-     * 
      */
     boolean defaultColumn() default false;
 
@@ -181,7 +175,6 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
-     * 
      */
     String name() default "";
 
@@ -200,7 +193,6 @@ public @interface ColumnValue {
      *
      * @since 2020. 1. 22.
      * @version 1.8.0
-     * 
      */
     int order() default Integer.MAX_VALUE;
 
@@ -218,7 +210,6 @@ public @interface ColumnValue {
      *
      * @since 2022. 11. 1.
      * @version 2.0.0
-     * 
      */
     boolean primaryKey() default false;
 
@@ -236,7 +227,6 @@ public @interface ColumnValue {
      *
      * @since 2021. 11. 29.
      * @version 1.8.0
-     * 
      */
     boolean updatable() default false;
 
@@ -255,7 +245,6 @@ public @interface ColumnValue {
      *
      * @since 2021. 12. 1.
      * @version 1.8.0
-     * 
      */
     String variableBinding() default "?";
 }

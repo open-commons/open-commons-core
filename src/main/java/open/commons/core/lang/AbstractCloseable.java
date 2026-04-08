@@ -44,7 +44,6 @@ import org.slf4j.LoggerFactory;
  * 
  * @since 2019. 2. 19.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class AbstractCloseable implements CloseableContainer {
 

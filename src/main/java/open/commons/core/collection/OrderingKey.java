@@ -35,7 +35,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 3. 8.
  * @author Park Jun-Hong (parkjunhong77@gmail.com) *
- * 
  */
 public class OrderingKey<T extends Comparable<T>> implements Comparable<OrderingKey<T>> {
 
@@ -51,7 +50,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @param o
      *            정렬에 사용되는 값 <BR>
      * @since 2012. 3. 8.
-     * 
      */
     public OrderingKey(Object v, T o) {
         value = v;
@@ -63,7 +61,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 8.
-     * 
      * 
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
@@ -78,7 +75,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @since 2026. 3. 13.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @SuppressWarnings("unchecked")
@@ -99,7 +95,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * 
      *         <BR>
      * @since 2012. 3. 8.
-     * 
      */
     public T getOrder() {
         return order;
@@ -110,7 +105,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * 
      *         <BR>
      * @since 2012. 3. 8.
-     * 
      */
     public Object getValue() {
         return value;
@@ -121,7 +115,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @since 2026. 3. 13.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -133,7 +126,6 @@ public class OrderingKey<T extends Comparable<T>> implements Comparable<Ordering
      * @return
      * 
      * @since 2012. 3. 8.
-     * 
      * 
      * @see java.lang.Object#toString()
      */

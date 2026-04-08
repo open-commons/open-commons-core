@@ -52,7 +52,6 @@ import open.commons.core.collection.IContainer;
  * @since 2012. 02. 21.
  * @version 1.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @SuppressWarnings("unchecked")
 public class ArrayUtils {
@@ -67,7 +66,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static boolean[] add(boolean @Nullable [] array, boolean value) {
 
@@ -102,7 +100,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static boolean[] add(boolean @Nullable [] array, boolean @Nullable... values) {
         return merge(array, values);
@@ -118,7 +115,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static byte[] add(byte @Nullable [] array, byte value) {
         byte[] newArray = null;
@@ -152,7 +148,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static byte[] add(byte @Nullable [] array, byte @Nullable... values) {
         return merge(array, values);
@@ -166,7 +161,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static char[] add(char @Nullable [] array, char value) {
         char[] newArray = null;
@@ -201,7 +195,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static char[] add(char @Nullable [] array, char @Nullable... values) {
         return merge(array, values);
@@ -215,7 +208,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static double[] add(double @Nullable [] array, double value) {
         double[] newArray = null;
@@ -250,7 +242,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static double[] add(double @Nullable [] array, double @Nullable... values) {
         return merge(array, values);
@@ -264,7 +255,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static float[] add(float @Nullable [] array, float value) {
         float[] newArray = null;
@@ -299,7 +289,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static float[] add(float @Nullable [] array, float @Nullable... values) {
         return merge(array, values);
@@ -313,7 +302,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static int[] add(int @Nullable [] array, int value) {
         int[] newArray = null;
@@ -348,7 +336,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static int[] add(int @Nullable [] array, int @Nullable... values) {
         return merge(array, values);
@@ -362,7 +349,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static long[] add(long @Nullable [] array, long value) {
         long[] newArray = null;
@@ -397,7 +383,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static long[] add(long @Nullable [] array, long @Nullable... values) {
         return merge(array, values);
@@ -411,7 +396,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     public static short[] add(short @Nullable [] array, short value) {
         short[] newArray = null;
@@ -446,7 +430,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static short[] add(short @Nullable [] array, short @Nullable... values) {
         return merge(array, values);
@@ -466,7 +449,6 @@ public class ArrayUtils {
      *             </p>
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - (T[]) Array.newInstance(array.getClass().getComponentType(), 1)
@@ -513,7 +495,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     public static <T extends @Nullable Object> T[] add(T @Nullable [] array, T @Nullable... values) {
         return ArrayUtils.<T> merge(array, values);
@@ -527,7 +508,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -550,7 +530,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -582,7 +561,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -613,7 +591,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -645,7 +622,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -676,7 +652,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -708,7 +683,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -739,7 +713,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -771,7 +744,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
 
     // 아래 내용에 적용됨.
@@ -803,7 +775,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -835,7 +806,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -866,7 +836,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -898,7 +867,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -929,7 +897,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -961,7 +928,6 @@ public class ArrayUtils {
      * @return
      *
      * @since 2019. 7. 4.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -1003,7 +969,6 @@ public class ArrayUtils {
      *             </p>
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(array, array.length)
@@ -1064,7 +1029,6 @@ public class ArrayUtils {
      *
      * @since 2023. 7. 25.
      * @version 2.0.0
-     * 
      */
     public static <T extends @Nullable Object> @Nullable List<T> asList(T @Nullable [] arr) {
         return arr != null ? Arrays.asList(arr) : null;
@@ -1090,7 +1054,6 @@ public class ArrayUtils {
      *
      * @since 2023. 7. 25.
      * @version 2.0.0
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable List<R> asList(T @Nullable [] arr, Function<T, R> f) {
         if (arr == null) {
@@ -1139,7 +1102,6 @@ public class ArrayUtils {
      * @param values
      *            값
      * @since 2012. 03. 13.
-     * 
      */
     private static void checkRange(int min, int max, int... values) {
         for (int index : values) {
@@ -1674,7 +1636,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static boolean[] copy(boolean[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1707,7 +1668,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static byte[] copy(byte[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1740,7 +1700,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static char[] copy(char[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1773,7 +1732,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static double[] copy(double[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1806,7 +1764,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static float[] copy(float[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1839,7 +1796,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static int[] copy(int[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1872,7 +1828,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static long[] copy(long[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1905,7 +1860,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     public static short[] copy(short[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
         ObjectUtils.requireNonNulls(arr, indice);
@@ -1938,7 +1892,6 @@ public class ArrayUtils {
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
-     * 
      */
     // apply to 'return newArr'
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
@@ -1977,7 +1930,6 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * 
      */
     // apply to 'return copy'
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
@@ -2017,7 +1969,6 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * 
      */
     public static <T extends @Nullable Object> T[] copyOf(T[] original, int newLength, Function<T, T> clone) {
         Objects.requireNonNull(original);
@@ -2047,7 +1998,6 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * 
      */
     // apply to 'return copy'
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
@@ -2091,7 +2041,6 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
-     * 
      */
     public static <T extends @Nullable Object> T[] copyOfRange(T[] original, int from, int to, Function<T, T> clone) {
         Objects.requireNonNull(original);
@@ -2106,7 +2055,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(boolean @Nullable [] array, boolean value) {
 
@@ -2132,7 +2080,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(byte @Nullable [] array, byte value) {
 
@@ -2158,7 +2105,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(char @Nullable [] array, char value) {
 
@@ -2184,7 +2130,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(double @Nullable [] array, double value) {
 
@@ -2210,7 +2155,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(float @Nullable [] array, float value) {
 
@@ -2236,7 +2180,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(int @Nullable [] array, int value) {
 
@@ -2262,7 +2205,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(long @Nullable [] array, long value) {
 
@@ -2288,7 +2230,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static int countOf(short @Nullable [] array, short value) {
 
@@ -2314,7 +2255,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static <T extends @Nullable Object> int countOf(T @Nullable [] array, T value) {
         return ArrayUtils.<T> countOf(array, value, null);
@@ -2327,7 +2267,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * @since 2012. 03. 27.
-     * 
      */
     public static <T extends @Nullable Object> int countOf(T @Nullable [] array, T value, @Nullable IEquivalent<T> equivalent) {
 
@@ -2389,7 +2328,6 @@ public class ArrayUtils {
      *
      * @since 2021. 8. 15.
      * @version 1.8.0
-     * 
      */
     public static <T extends @Nullable Object> @Nullable List<Entry<Integer, T>> entrySet(T @Nullable [] array) {
         if (array == null) {
@@ -2412,10 +2350,7 @@ public class ArrayUtils {
      * 
      * @return
      * 
-     * 
-     * 
      * @since 2012. 03. 14.
-     * 
      */
     public static <T extends @Nullable Object> boolean equals(T @Nullable [] array1, T @Nullable [] array2) {
         return ArrayUtils.<T> equals(array1, array2, null);
@@ -2544,10 +2479,7 @@ public class ArrayUtils {
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return
      * 
-     * 
-     * 
      * @since 2012. 03. 14.
-     * 
      */
     public static <T extends @Nullable Object> boolean equals(T @Nullable [] array1, T @Nullable [] array2, @Nullable IEquivalent<T> equivalent) {
         if (array1 != null && array2 != null) {
@@ -2591,7 +2523,6 @@ public class ArrayUtils {
      * 
      * @param bytes
      * 
-     * 
      * @see ArrayIndexOutOfBoundsException
      */
     // 아래 내용에 적용됨.
@@ -2629,7 +2560,6 @@ public class ArrayUtils {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static <T> T getFirst(T[] array) {
         Objects.requireNonNull(array);
@@ -2721,7 +2651,6 @@ public class ArrayUtils {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static <T> T getLast(T[] array) throws NullPointerException, ArrayIndexOutOfBoundsException {
         Objects.requireNonNull(array);
@@ -2776,7 +2705,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2807,7 +2735,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2838,7 +2765,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(char[] array, Function<Character, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2869,7 +2795,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(double[] array, Function<Double, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2900,7 +2825,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(float[] array, Function<Float, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2931,7 +2855,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(int[] array, Function<Integer, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2962,7 +2885,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(long[] array, Function<Long, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -2993,7 +2915,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static int indexOf(short[] array, Function<Short, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -3024,7 +2945,6 @@ public class ArrayUtils {
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
-     * 
      */
     public static <T extends @Nullable Object> int indexOf(T[] array, Function<T, Boolean> c) {
         ObjectUtils.requireNonNulls(array, c);
@@ -3047,7 +2967,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3156,7 +3075,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3264,7 +3182,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3373,7 +3290,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3481,7 +3397,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3590,7 +3505,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3699,7 +3613,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3806,7 +3719,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3913,7 +3825,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     public static <T extends @Nullable Object> int[] indiceOf(T[] array, T value) {
         return ArrayUtils.<T> indiceOf(array, value, null);
@@ -3930,7 +3841,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(indice, count)
@@ -3971,7 +3881,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 30.
-     * 
      */
     public static <T extends @Nullable Object> int[] indiceOf(T[] array, T[] values) {
         return ArrayUtils.<T> indiceOfArray(array, values, null);
@@ -4243,7 +4152,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static boolean[] insert(boolean[] array, boolean value, int index) {
         if (index < 0 || index > array.length) {
@@ -4275,7 +4183,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static boolean[] insert(boolean[] array, boolean value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4323,7 +4230,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static byte[] insert(byte[] array, byte value, int index) {
         Objects.requireNonNull(array);
@@ -4357,7 +4263,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static byte[] insert(byte[] array, byte value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4405,7 +4310,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static char[] insert(char[] array, char value, int index) {
         Objects.requireNonNull(array);
@@ -4439,7 +4343,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static char[] insert(char[] array, char value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4487,7 +4390,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static double[] insert(double[] array, double value, int index) {
         Objects.requireNonNull(array);
@@ -4521,7 +4423,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static double[] insert(double[] array, double value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4569,7 +4470,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static float[] insert(float[] array, float value, int index) {
         Objects.requireNonNull(array);
@@ -4603,7 +4503,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static float[] insert(float[] array, float value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4651,7 +4550,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static int[] insert(int[] array, int value, int index) {
         Objects.requireNonNull(array);
@@ -4685,7 +4583,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static int[] insert(int[] array, int value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4733,7 +4630,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static long[] insert(long[] array, long value, int index) {
         Objects.requireNonNull(array);
@@ -4767,7 +4663,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static long[] insert(long[] array, long value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4815,7 +4710,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static short[] insert(short[] array, short value, int... indice) {
         ObjectUtils.requireNonNulls(array, indice);
@@ -4863,7 +4757,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static short[] insert(short[] array, short value, int index) {
         Objects.requireNonNull(array);
@@ -4897,7 +4790,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     public static <T extends @Nullable Object> T[] insert(T[] array, T value, int index) {
         Objects.requireNonNull(array);
@@ -4931,7 +4823,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 13.
-     * 
      */
     // apply to 'return newArray'
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
@@ -4980,9 +4871,7 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     * 
      * @since 2012. 03. 12.
-     * 
      */
     public static boolean @Nullable [] merge(boolean @Nullable []... arrays) {
 
@@ -5029,7 +4918,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5118,7 +5006,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5153,9 +5040,7 @@ public class ArrayUtils {
      *            2번째 배열에서 복사할 크기
      * @return
      * 
-     * 
      * @since 2012. 3. 9.
-     * @author Park Jun-Hong (fafanmama@naver.com)
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5187,7 +5072,6 @@ public class ArrayUtils {
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @since 2012. 03. 12.
-     * 
      */
     public static char @Nullable [] merge(char @Nullable []... arrays) {
 
@@ -5234,7 +5118,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5265,9 +5148,7 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     * 
      * @since 2012. 03. 12.
-     * 
      */
     public static double @Nullable [] merge(double @Nullable []... arrays) {
 
@@ -5313,9 +5194,7 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5346,9 +5225,7 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     * 
      * @since 2012. 03. 12.
-     * 
      */
     public static float @Nullable [] merge(float @Nullable []... arrays) {
 
@@ -5395,7 +5272,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5427,7 +5303,6 @@ public class ArrayUtils {
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @since 2012. 03. 12.
-     * 
      */
     public static int @Nullable [] merge(int @Nullable []... arrays) {
         Objects.requireNonNull(arrays);
@@ -5473,7 +5348,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5505,7 +5379,6 @@ public class ArrayUtils {
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @since 2012. 03. 12.
-     * 
      */
     public static long @Nullable [] merge(long @Nullable []... arrays) {
         Objects.requireNonNull(arrays);
@@ -5550,9 +5423,7 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * 
      * @since 2012. 3. 9.
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.copyOf(arr1, arr1.length)
@@ -5584,7 +5455,6 @@ public class ArrayUtils {
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @since 2012. 03. 12.
-     * 
      */
     public static short @Nullable [] merge(short @Nullable []... arrays) {
         Objects.requireNonNull(arrays);
@@ -5660,9 +5530,7 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     * 
      * @since 2012. 03. 12.
-     * 
      */
     public static <T> T @Nullable [] merge(T @Nullable []... arrays) {
         Objects.requireNonNull(arrays);
@@ -5803,8 +5671,6 @@ public class ArrayUtils {
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
-     * 
-     * 
      */
     public static Object[] objectArray(Object @Nullable [] array, Object @Nullable... values) {
 
@@ -5832,7 +5698,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static boolean[] prepend(boolean @Nullable [] array, boolean value) {
         boolean[] newArray = null;
@@ -5870,7 +5735,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static boolean[] prepend(boolean @Nullable [] array, boolean @Nullable... values) {
         return merge(values, array);
@@ -5885,7 +5749,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static byte[] prepend(byte @Nullable [] array, byte value) {
         byte[] newArray = null;
@@ -5921,7 +5784,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static byte[] prepend(byte @Nullable [] array, byte @Nullable... values) {
         return merge(values, array);
@@ -5936,7 +5798,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static char[] prepend(char @Nullable [] array, char value) {
         char[] newArray = null;
@@ -5972,7 +5833,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static char[] prepend(char @Nullable [] array, char @Nullable... values) {
         return merge(values, array);
@@ -5987,7 +5847,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static double[] prepend(double @Nullable [] array, double value) {
         double[] newArray = null;
@@ -6023,7 +5882,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static double[] prepend(double @Nullable [] array, double @Nullable... values) {
         return merge(values, array);
@@ -6038,7 +5896,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static float[] prepend(float @Nullable [] array, float value) {
         float[] newArray = null;
@@ -6074,7 +5931,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static float[] prepend(float @Nullable [] array, float @Nullable... values) {
         return merge(values, array);
@@ -6089,7 +5945,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static int[] prepend(int @Nullable [] array, int value) {
         int[] newArray = null;
@@ -6125,7 +5980,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static int[] prepend(int @Nullable [] array, int @Nullable... values) {
         return merge(values, array);
@@ -6140,7 +5994,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static long[] prepend(long @Nullable [] array, long value) {
         long[] newArray = null;
@@ -6176,7 +6029,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static long[] prepend(long @Nullable [] array, long @Nullable... values) {
         return merge(values, array);
@@ -6191,7 +6043,6 @@ public class ArrayUtils {
      * 
      * @return
      * @since 2012. 03. 12.
-     * 
      */
     public static short[] prepend(short @Nullable [] array, short value) {
         short[] newArray = null;
@@ -6227,7 +6078,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     public static short[] prepend(short @Nullable [] array, short @Nullable... values) {
         return merge(values, array);
@@ -6243,7 +6093,6 @@ public class ArrayUtils {
      * @return
      * 
      * @since 2012. 03. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - (T[]) Array.newInstance(array.getClass().getComponentType(), 1);
@@ -6291,7 +6140,6 @@ public class ArrayUtils {
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
-     * 
      */
     @SafeVarargs
     public static <T extends @Nullable Object> T[] prepend(T @Nullable [] array, T @Nullable... values) {
@@ -10917,7 +10765,6 @@ public class ArrayUtils {
      *
      * @since 2023. 7. 25.
      * @version 2.0.0
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> R @Nullable [] transform(T @Nullable [] arr, Function<T, R> f) {
         if (arr == null) {
@@ -10956,7 +10803,6 @@ public class ArrayUtils {
          *
          * @since 2021. 8. 15.
          * 
-         *
          * @see java.util.Map.Entry#getKey()
          */
         @Override
@@ -10978,7 +10824,6 @@ public class ArrayUtils {
          *
          * @since 2021. 8. 15.
          * 
-         *
          * @see java.util.Map.Entry#getValue()
          */
         @Override
@@ -11001,7 +10846,6 @@ public class ArrayUtils {
          *
          * @since 2021. 8. 15.
          * 
-         *
          * @see java.util.Map.Entry#setValue(java.lang.Object)
          */
         @Override

@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.lang;
 
@@ -47,10 +46,8 @@ import open.commons.core.utils.ThreadUtils;
  * 2019. 10. 17.        parkjunhong77@gmail.com         {@link #beforeStartup()}에 Process ID 를 {@link ThreadContext}에 'pid'란 이름으로 추가.
  * </pre>
  * 
- * 
  * @since 2013. 6. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class DefaultRunnable extends AbstractRunnable implements AutoCloseable {
 
@@ -82,9 +79,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      * 2019. 10. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2019. 10. 17.
-     * 
      */
     protected void beforeRun() {
     }
@@ -178,9 +173,7 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
      * 2019. 10. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2019. 10. 17.
-     * 
      */
     protected abstract void runInternal();
 }

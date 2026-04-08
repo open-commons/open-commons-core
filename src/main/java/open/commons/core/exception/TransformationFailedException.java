@@ -36,7 +36,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2025. 9. 8.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class TransformationFailedException extends RuntimeException {
 
@@ -63,7 +62,6 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass) {
         this(srcClass, targetClass, null, null, true, true);
@@ -87,7 +85,6 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message) {
         this(srcClass, targetClass, message, null, true, true);
@@ -112,7 +109,6 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause) {
         this(srcClass, targetClass, message, cause, true, true);
@@ -139,7 +135,6 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause, boolean enableSuppression,
             boolean writableStackTrace) {
@@ -168,7 +163,6 @@ public class TransformationFailedException extends RuntimeException {
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
-     * 
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, Throwable cause) {
         this(srcClass, targetClass, null, cause, true, true);
@@ -179,7 +173,6 @@ public class TransformationFailedException extends RuntimeException {
      * @since 2025. 9. 8.
      * @version 2.1.0
      * 
-     *
      * @see java.lang.Throwable#getLocalizedMessage()
      */
     // 아래 내용에 적용됨.
@@ -214,7 +207,6 @@ public class TransformationFailedException extends RuntimeException {
      * @since 2025. 9. 9.
      * @version 2.1.0
      * 
-     *
      * @see java.lang.Throwable#getMessage()
      */
     @Override

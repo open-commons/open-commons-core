@@ -33,7 +33,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2014. 5. 2.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IFilter<T> {
 

@@ -31,7 +31,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 01. 30.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class CommonProperties {
 
@@ -54,7 +53,6 @@ public class CommonProperties {
      * @return <BR>
      * @since 2012. 01. 30.
      * 
-     * 
      * @see Properties#get(Object)
      */
     public static @Nullable String getProperty(String key) {
@@ -68,7 +66,6 @@ public class CommonProperties {
      * @param keyPrefix
      * @return <BR>
      * @since 2012. 01. 30.
-     * 
      */
     public static Properties subProperteis(String keyPrefix) {
         Objects.requireNonNull(keyPrefix);

@@ -61,7 +61,6 @@ public @interface ColumnDecl {
      *
      * @return
      *
-     * 
      * @since 2019. 6. 17.
      */
     boolean caseSensitive() default false;
@@ -80,7 +79,6 @@ public @interface ColumnDecl {
      *
      * @return
      *
-     * 
      * @since 2019. 6. 17.
      */
     @AliasFor("value")

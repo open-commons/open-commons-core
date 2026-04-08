@@ -33,7 +33,6 @@ import java.sql.SQLException;
  * 
  * @since 2017. 12. 29.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IRowMapperSetter<T> {
 
@@ -52,7 +51,6 @@ public interface IRowMapperSetter<T> {
      * @return
      * @throws SQLException
      *
-     * 
      * @since 2017. 12. 29.
      */
     public T set(ResultSet rs, int rowNum) throws SQLException;

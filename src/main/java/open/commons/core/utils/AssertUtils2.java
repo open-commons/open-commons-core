@@ -41,7 +41,6 @@ import open.commons.core.exception.AssertionException;
 /**
  * 'assert'의 단어적 의미에 부합되는 기능을 제공하는 클래스.<br>
  * 
- * 
  * <p style="color:red">
  * 기존 {@code AssertUtils} 클래스가 'assert'의 단어적 의미와 상반되는 기능을 제공하였기 때문에,<br>
  * {@code 3.0.0} 이전 버전의 {@code AssertUtils}를 사용한 코드는 기능을 수정해야 합니다.
@@ -49,7 +48,6 @@ import open.commons.core.exception.AssertionException;
  * 
  * @since 2025. 6. 24.
  * @version 2.1.0
- * 
  */
 public class AssertUtils2 {
 

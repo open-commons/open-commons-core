@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.config;
 
@@ -37,7 +36,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2013. 5. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class EntryInstance<K, V> implements Entry<K, V> {
 
@@ -59,7 +57,6 @@ public class EntryInstance<K, V> implements Entry<K, V> {
      * @since 2026. 3. 13.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -99,7 +96,6 @@ public class EntryInstance<K, V> implements Entry<K, V> {
      * @since 2026. 3. 13.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#hashCode()
      */
     @Override

@@ -65,7 +65,6 @@ import open.commons.core.function.TripleFunction;
 /**
  * 
  * @since 2017. 9. 22.
- * 
  */
 public class SQLUtils {
 
@@ -132,7 +131,6 @@ public class SQLUtils {
      * @return
      * 
      * @see ColumnValue#defaultColumn()
-     * 
      */
     public static final Function<Class<?>, List<Method>> COLUMN_VALUE_METHOD_PROVIDER = typeClass -> {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
@@ -260,7 +258,6 @@ public class SQLUtils {
      *
      * @since 2019. 6. 17.
      * 
-     * 
      * @see ColumnDecl
      */
     public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns) throws RuntimeException {
@@ -352,7 +349,6 @@ public class SQLUtils {
      *
      * @since 2022. 11. 24.
      * @version 2.0.0
-     * 
      */
     public static String getColumnName(ColumnValue clmnValue, Method method) {
         Objects.requireNonNull(clmnValue);
@@ -377,7 +373,6 @@ public class SQLUtils {
      *
      * @since 2020. 09. 24.
      * @version 1.8.0
-     * 
      * 
      * @see ColumnValue
      * @see ColumnValue#name()
@@ -431,7 +426,6 @@ public class SQLUtils {
      *
      * @since 2022. 11. 25.
      * @version 2.0.0
-     * 
      */
     public static String getColumnName(String clmnName, ColumnNameType clmnNameType, String defaultClmnName) {
         ObjectUtils.requireNonNulls(clmnName, clmnNameType, defaultClmnName);
@@ -460,7 +454,6 @@ public class SQLUtils {
      *
      * @since 2022. 11. 24.
      * @version 2.0.0
-     * 
      */
     private static String getColumnName(String clmnName, ColumnNameType clmnNameType, Supplier<String> defaultClmnName) {
         // 설정된 컬럼명이 빈 문자열이 경우 처리
@@ -526,7 +519,6 @@ public class SQLUtils {
      *
      * @since 2022. 1. 7.
      * @version 1.8.0
-     * 
      */
     public static boolean isSortedColumns(Class<?> entityType) {
         TableDef anno = AnnotationUtils.getAnnotation(entityType, TableDef.class);
@@ -549,7 +541,6 @@ public class SQLUtils {
      * @return
      *
      * @since 2020. 11. 9.
-     * 
      */
     public static int lengthOnOracle(String str) {
         int len = 0;
@@ -586,7 +577,6 @@ public class SQLUtils {
      * @throws InvocationTargetException
      * @throws SQLException
      *
-     * 
      * @since 2017. 9. 5.
      */
     public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String... columns) throws SQLException {
@@ -612,7 +602,6 @@ public class SQLUtils {
      *
      * @since 2020. 12. 22.
      * @version 1.8.0
-     * 
      */
     public static int setParameters(PreparedStatement stmt, int index, Object obj, String @Nullable... columnNames) throws SQLException {
         Objects.requireNonNull(stmt);
@@ -825,7 +814,6 @@ public class SQLUtils {
      *
      * @since 2022. 1. 7.
      * @version 1.8.0
-     * 
      */
     public static void sortColumns(Class<?> entityType, List<Method> columnBindingMethods) {
 

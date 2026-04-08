@@ -45,7 +45,6 @@ import open.commons.core.utils.ObjectUtils;
  * 2026. 02. 26.        parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: SecurityManager 제거 및 Thread.Builder 적용
  * </pre>
  *
- * 
  * @since 2017. 9. 12.
  * @version 3.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -74,7 +73,6 @@ public class DefaultThreadFactory implements ThreadFactory {
      * @param monitor
      *
      * @since 2017. 9.12
-     * 
      */
     public DefaultThreadFactory(String monitor) {
         this(monitor, ThreadType.VIRTUAL);
@@ -96,7 +94,6 @@ public class DefaultThreadFactory implements ThreadFactory {
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * 
      */
     public DefaultThreadFactory(String monitor, ThreadType threadType) {
         ObjectUtils.requireNonNulls(monitor, threadType);

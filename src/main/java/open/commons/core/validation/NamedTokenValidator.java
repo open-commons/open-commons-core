@@ -30,7 +30,6 @@ package open.commons.core.validation;
 /**
  * 
  * @since 2014. 4. 11.
- * 
  */
 public abstract class NamedTokenValidator<T> implements ITokenValidator<T> {
 

@@ -40,7 +40,6 @@ import java.util.function.Function;
  * @since 2020. 1. 30.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @FunctionalInterface
 public interface HexaFunction<T, U, V, W, X, Y, R> {
@@ -65,7 +64,6 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      *
      * @since 2020. 1. 30.
      * @version 1.8.0
-     * 
      */
     default <Z> HexaFunction<T, U, V, W, X, Y, Z> andThen(Function<? super R, ? extends Z> after) {
         Objects.requireNonNull(after);
@@ -93,7 +91,6 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      *
      * @since 2020. 1. 30.
      * @version 1.8.0
-     * 
      */
     R apply(T t, U u, V v, W w, X x, Y y);
 }

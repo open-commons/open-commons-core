@@ -55,7 +55,6 @@ import java.util.function.Function;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @see Function
- * 
  */
 @FunctionalInterface
 public interface PentagonFunction<T, U, V, W, X, R> {

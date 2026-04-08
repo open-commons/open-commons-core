@@ -53,7 +53,6 @@ import java.util.function.Function;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @see Function
- * 
  */
 @FunctionalInterface
 public interface QuadFunction<T, U, V, W, R> {

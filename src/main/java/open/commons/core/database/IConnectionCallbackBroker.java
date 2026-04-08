@@ -33,8 +33,6 @@ import java.sql.SQLException;
 /**
  * SQL 쿼리에 파라미터를 설정하는 역할을 정의한 인터페이스.
  * 
- * 
- * 
  * <br>
  * 
  * <pre>
@@ -47,7 +45,6 @@ import java.sql.SQLException;
  * @param <T>
  * @since 2019. 2. 19.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IConnectionCallbackBroker {
 
@@ -63,7 +60,6 @@ public interface IConnectionCallbackBroker {
      *
      * @return
      *
-     * 
      * @since 2019. 2. 19.
      */
     String getQuery();
@@ -84,7 +80,6 @@ public interface IConnectionCallbackBroker {
      * @throws SQLException
      *
      * @since 2020. 10. 29.
-     * 
      */
     public PreparedStatement getStatement(Connection con) throws SQLException;
 
@@ -98,7 +93,6 @@ public interface IConnectionCallbackBroker {
      * 2019. 2. 19.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     * 
      * @param stmt
      * @since 2019. 2. 19.
      */

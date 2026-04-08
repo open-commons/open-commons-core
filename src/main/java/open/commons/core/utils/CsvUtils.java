@@ -78,7 +78,6 @@ import com.opencsv.exceptions.CsvException;
  * 
  * @since 2021. 11. 11.
  * @version 1.8.0
- * 
  */
 public class CsvUtils {
 
@@ -215,7 +214,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 3.0.0
-     * 
      */
     public static final <E> Function<String[], E> defaultCreator(Class<E> type) {
         Objects.requireNonNull(type);
@@ -281,7 +279,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - CSVreaderBuilder.build()
@@ -324,7 +321,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - CSVreaderBuilder.build()
@@ -383,7 +379,6 @@ public class CsvUtils {
      * 
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> String[][] objectsToArray(Collection<E> objects, Function<E, String[]> creator) {
         Objects.requireNonNull(creator);
@@ -415,7 +410,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - Arrays.asList(objects)
@@ -447,7 +441,6 @@ public class CsvUtils {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #objectsToArray(Collection, Function)
      */
     // 아래 내용에 적용됨.
@@ -478,7 +471,6 @@ public class CsvUtils {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #objectToArray(Object, Function)
      */
     public static <E> String[] objectToArray(E object) {
@@ -506,7 +498,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     @SuppressWarnings("null")
     public static <E> String[] objectToArray(E object, Function<E, String[]> creator) {
@@ -537,7 +528,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), (Consumer<E>) null, close);
@@ -568,7 +558,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), afterCreation, close);
@@ -598,7 +587,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
         return readAsList(reader, defaultCreator(type), validator, null, close);
@@ -631,7 +619,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Class<E> type, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -664,7 +651,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -700,7 +686,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Function<String[], E> creator, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, creator, (Predicate<E>) null, afterCreation, close);
@@ -734,7 +719,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -839,7 +823,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, Class<E> type, boolean close) throws IOException {
@@ -880,7 +863,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, Class<E> type, @Nullable Predicate<E> validator, boolean close)
@@ -923,7 +905,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, boolean close) throws IOException {
@@ -967,7 +948,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, @Nullable Predicate<E> validator,
@@ -1006,7 +986,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type, boolean close) throws IOException {
@@ -1047,7 +1026,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -1089,7 +1067,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, Function<String[], E> creator, boolean close) throws IOException {
@@ -1132,7 +1109,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset //
             , char separator, char quotechar, char escape, boolean strictQuotes, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close)
@@ -1170,7 +1146,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Class<E> type, boolean close)
             throws IOException {
@@ -1211,7 +1186,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Class<E> type,
             @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -1252,7 +1226,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Function<String[], E> creator,
             boolean close) throws IOException {
@@ -1294,7 +1267,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, char escape, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -1330,7 +1302,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, charset, CsvFileConfig.DEFAULT_SKIP_LINE_COUNT, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -1367,7 +1338,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Class<E> type, @Nullable Predicate<E> validator,
             boolean close) throws IOException {
@@ -1406,7 +1376,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -1447,7 +1416,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, char quotechar, Function<String[], E> creator,
             @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -1481,7 +1449,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, charset, CsvFileConfig.DEFAULT_SKIP_LINE_COUNT, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
@@ -1516,7 +1483,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -1553,7 +1519,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(inputStream, charset, 0, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -1591,7 +1556,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, char separator, Function<String[], E> creator, @Nullable Predicate<E> validator,
             boolean close) throws IOException {
@@ -1633,7 +1597,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, boolean close) throws IOException {
@@ -1678,7 +1641,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
@@ -1721,7 +1683,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -1766,7 +1727,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
@@ -1811,7 +1771,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, boolean close) throws IOException {
@@ -1857,7 +1816,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -1897,7 +1855,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Class<E> type, boolean close) throws IOException {
@@ -1939,7 +1896,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -1982,7 +1938,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Function<String[], E> creator, boolean close) throws IOException {
@@ -2027,7 +1982,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -2066,7 +2020,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Class<E> type, boolean close)
             throws IOException {
@@ -2107,7 +2060,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Class<E> type,
             Predicate<E> validator, boolean close) throws IOException {
@@ -2150,7 +2102,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Function<String[], E> creator,
             boolean close) throws IOException {
@@ -2194,7 +2145,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, char escape, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -2232,7 +2182,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Class<E> type, boolean close)
             throws IOException {
@@ -2272,7 +2221,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Class<E> type,
             @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -2313,7 +2261,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -2356,7 +2303,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, char quotechar, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -2392,7 +2338,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, charset, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -2429,7 +2374,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -2468,7 +2412,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -2509,7 +2452,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, Charset charset, int skip, char separator, Function<String[], E> creator,
             @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -2541,7 +2483,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -2575,7 +2516,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -2611,7 +2551,6 @@ public class CsvUtils {
      * @since 2022. 3. 30.
      * @version 1.8.0
      * 
-     * 
      * @see ReadAt
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, CsvFileConfig config, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -2646,7 +2585,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -2684,7 +2622,6 @@ public class CsvUtils {
      * @since 2021. 11. 11.
      * @version 1.8.0
      * 
-     * 
      * @see ReadAt
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, CsvFileConfig config, Function<String[], E> creator, boolean close) throws IOException {
@@ -2721,7 +2658,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -2762,7 +2698,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, boolean close) throws IOException {
@@ -2803,7 +2738,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -2845,7 +2779,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, boolean close) throws IOException {
@@ -2889,7 +2822,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -2927,7 +2859,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type, boolean close)
             throws IOException {
@@ -2967,7 +2898,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type,
             Predicate<E> validator, boolean close) throws IOException {
@@ -3008,7 +2938,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Function<String[], E> creator, boolean close) throws IOException {
@@ -3051,7 +2980,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -3088,7 +3016,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Class<E> type, boolean close) throws IOException {
@@ -3128,7 +3055,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -3169,7 +3095,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Function<String[], E> creator, boolean close) throws IOException {
@@ -3212,7 +3137,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -3248,7 +3172,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
         return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -3285,7 +3208,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -3324,7 +3246,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -3365,7 +3286,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Function<String[], E> creator, @Nullable Predicate<E> validator,
             boolean close) throws IOException {
@@ -3399,7 +3319,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Class<E> type, boolean close) throws IOException {
         readAsList(inputStream, skip, separator, defaultCreator(type), close);
@@ -3435,7 +3354,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -3473,7 +3391,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(inputStream, defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -3511,7 +3428,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -3543,7 +3459,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, boolean close) throws IOException {
         return readAsList(newCSVReader(reader, config), type, close);
@@ -3575,7 +3490,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(newCSVReader(reader, config), type, afterCreation, close);
@@ -3607,7 +3521,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
         return readAsList(newCSVReader(reader, config), type, validator, close);
@@ -3641,7 +3554,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, CsvFileConfig config, Class<E> type, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation,
             boolean close) throws IOException {
@@ -3676,7 +3588,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -3714,7 +3625,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      * 
      * @see ReadAt
      */
@@ -3755,7 +3665,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, boolean close) throws IOException {
@@ -3796,7 +3705,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
@@ -3837,7 +3745,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -3880,7 +3787,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
@@ -3923,7 +3829,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Function<String[], E> creator, boolean close) throws IOException {
@@ -3967,7 +3872,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -4005,7 +3909,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type, boolean close)
             throws IOException {
@@ -4045,7 +3948,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type,
             Consumer<E> afterCreation, boolean close) throws IOException {
@@ -4085,7 +3987,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type,
             @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -4127,7 +4028,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type,
             @Nullable Predicate<E> validator, Consumer<E> afterCreation, boolean close) throws IOException {
@@ -4168,7 +4068,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Function<String[], E> creator,
             boolean close) throws IOException {
@@ -4211,7 +4110,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Function<String[], E> creator,
             Predicate<E> validator, boolean close) throws IOException {
@@ -4248,7 +4146,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
@@ -4286,7 +4183,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, @Nullable Consumer<E> afterCreation,
             boolean close) throws IOException {
@@ -4325,7 +4221,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, @Nullable Predicate<E> validator,
             boolean close) throws IOException {
@@ -4366,7 +4261,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Class<E> type, @Nullable Predicate<E> validator,
             Consumer<E> afterCreation, boolean close) throws IOException {
@@ -4407,7 +4301,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Function<String[], E> creator, boolean close)
             throws IOException {
@@ -4449,7 +4342,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, Function<String[], E> creator,
             @Nullable Predicate<E> validator, boolean close) throws IOException {
@@ -4484,7 +4376,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
@@ -4521,7 +4412,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, @Nullable Consumer<E> afterCreation, boolean close)
             throws IOException {
@@ -4559,7 +4449,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -4599,7 +4488,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Class<E> type, @Nullable Predicate<E> validator,
             @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
@@ -4638,7 +4526,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
@@ -4678,7 +4565,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, Function<String[], E> creator, @Nullable Predicate<E> validator,
             boolean close) throws IOException {
@@ -4712,7 +4598,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4747,7 +4632,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4782,7 +4666,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4819,7 +4702,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Class<E> type, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation,
             boolean close) throws IOException {
@@ -4856,7 +4738,6 @@ public class CsvUtils {
      *
      * @since 2021. 11. 12.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Function<String[], E> creator, boolean close) throws IOException {
         return readAsList(reader, skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
@@ -4894,7 +4775,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 30.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
@@ -4929,7 +4809,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, (String[]) null, beforeCreation, close);
@@ -4965,7 +4844,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -4999,7 +4877,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, CSVWriter writer, String @Nullable [] header, @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, header, defaultCreator(), beforeCreation, close);
@@ -5029,7 +4906,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, file, config, defaultCreator(), close);
@@ -5061,7 +4937,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, file, config, defaultCreator(), beforeCreation, close);
@@ -5093,7 +4968,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, file, config, null, creator, null, close);
@@ -5127,7 +5001,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -5160,7 +5033,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String @Nullable [] header, boolean close) throws IOException {
         return write(data, file, config, header, defaultCreator(), close);
@@ -5194,7 +5066,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String @Nullable [] header, @Nullable Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -5229,7 +5100,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator, boolean close)
             throws IOException {
@@ -5267,7 +5137,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, File file, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator,
             @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
@@ -5309,7 +5178,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, ICSVWriter writer, String @Nullable [] header, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -5367,7 +5235,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, outputStream, config, defaultCreator(), close);
@@ -5399,7 +5266,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, @Nullable Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -5432,7 +5298,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, outputStream, config, null, creator, null, close);
@@ -5466,7 +5331,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -5499,7 +5363,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String @Nullable [] header, boolean close) throws IOException {
         return write(data, outputStream, config, header, defaultCreator(), close);
@@ -5533,7 +5396,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String @Nullable [] header, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -5568,7 +5430,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator,
             boolean close) throws IOException {
@@ -5605,7 +5466,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, OutputStream outputStream, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator,
             @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
@@ -5640,7 +5500,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, boolean close, OpenOption... options) throws IOException {
         return write(data, path, config, defaultCreator(), close, options);
@@ -5674,7 +5533,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, @Nullable Consumer<E> beforeCreation, boolean close, OpenOption... options)
             throws IOException {
@@ -5709,7 +5567,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Function<E, String[]> creator, boolean close, OpenOption... options)
             throws IOException {
@@ -5746,7 +5603,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation, boolean close,
             OpenOption... options) throws IOException {
@@ -5781,7 +5637,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String @Nullable [] header, boolean close, OpenOption... options)
             throws IOException {
@@ -5818,7 +5673,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String @Nullable [] header, @Nullable Consumer<E> beforeCreation, boolean close,
             OpenOption... options) throws IOException {
@@ -5855,7 +5709,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Path path, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator, boolean close,
             OpenOption... options) throws IOException {
@@ -5895,7 +5748,6 @@ public class CsvUtils {
      *
      * @since 2022. 03. 22.
      * @version 1.8.0
-     * 
      */
     // 아래 내용에 적용됨.
     // - Files.newOutputStream(path, options)
@@ -5933,7 +5785,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, filepath, config, defaultCreator(), close);
@@ -5965,7 +5816,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, filepath, config, defaultCreator(), beforeCreation, close);
@@ -5997,7 +5847,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, filepath, config, null, creator, null, close);
@@ -6031,7 +5880,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -6064,7 +5912,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String @Nullable [] header, boolean close) throws IOException {
         return write(data, filepath, config, header, defaultCreator(), close);
@@ -6098,7 +5945,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String @Nullable [] header, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -6133,7 +5979,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator, boolean close)
             throws IOException {
@@ -6170,7 +6015,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, String filepath, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator,
             @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
@@ -6201,7 +6045,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, boolean close) throws IOException {
         return write(data, writer, config, defaultCreator(), close);
@@ -6233,7 +6076,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {
         return write(data, writer, config, defaultCreator(), beforeCreation, close);
@@ -6265,7 +6107,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, Function<E, String[]> creator, boolean close) throws IOException {
         return write(data, writer, config, null, creator, null, close);
@@ -6299,7 +6140,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
@@ -6332,7 +6172,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String @Nullable [] header, boolean close) throws IOException {
         return write(data, writer, config, header, defaultCreator(), close);
@@ -6366,7 +6205,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String @Nullable [] header, @Nullable Consumer<E> beforeCreation, boolean close)
             throws IOException {
@@ -6401,7 +6239,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator, boolean close)
             throws IOException {
@@ -6438,7 +6275,6 @@ public class CsvUtils {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public static <E> Result<Long> write(Collection<E> data, Writer writer, CsvWriteConfig config, String @Nullable [] header, Function<E, String[]> creator,
             @Nullable Consumer<E> beforeCreation, boolean close) throws IOException {

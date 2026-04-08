@@ -38,7 +38,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2021. 6. 18.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FieldBase implements Supplier<String> {
 
@@ -60,7 +59,6 @@ public class FieldBase implements Supplier<String> {
      * 
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public FieldBase(Object owner, Field field) {
         ObjectUtils.requireNonNulls(owner, field);
@@ -83,7 +81,6 @@ public class FieldBase implements Supplier<String> {
      *
      * @since 2021. 6. 18.
      * 
-     *
      * @see java.util.function.Supplier#get()
      */
     @Override

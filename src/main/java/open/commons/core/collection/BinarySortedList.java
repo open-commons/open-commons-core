@@ -37,7 +37,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2019. 1. 22.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class BinarySortedList<E extends Comparable<E>> extends Vector<E> {
 

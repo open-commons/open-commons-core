@@ -44,7 +44,6 @@ import open.commons.core.utils.ExceptionUtils;
  * @since 2021. 6. 18.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class AbstractCsvData {
 
@@ -65,10 +64,8 @@ public abstract class AbstractCsvData {
      * 2021. 6. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public AbstractCsvData() {
         this(CsvConfig.DEFAULT_SEPARATOR, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
@@ -90,7 +87,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public AbstractCsvData(char separator) {
         this(separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER);
@@ -116,7 +112,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public AbstractCsvData(char separator, char quote, char escape) {
         this.delimiter = separator;
@@ -146,7 +141,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     @SuppressWarnings("unused")
     public final String csv(char delim, char quote, char escape, String nullValue) {
@@ -178,7 +172,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2020. 11. 4.
      * 
-     * 
      * @see AQueryIndex
      * @see #csv(char, char, char, String)
      */
@@ -188,7 +181,6 @@ public abstract class AbstractCsvData {
 
     /**
      * 
-     *
      * <br>
      * 
      * <pre>
@@ -229,7 +221,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public String[] csvArray(char delim, char quote, char escape, @Nullable String nullValue) {
         List<Supplier<@Nullable String>> providers = getValues();
@@ -260,7 +251,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2020. 11. 4.
      * 
-     * 
      * @see AQueryIndex
      * @see #csv(char, char, char, String)
      */
@@ -270,7 +260,6 @@ public abstract class AbstractCsvData {
 
     /**
      * 
-     *
      * <br>
      * 
      * <pre>
@@ -348,7 +337,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public abstract List<String> getHeaders();
 
@@ -387,7 +375,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public abstract List<Supplier<@Nullable String>> getValues();
 
@@ -422,7 +409,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     @SuppressWarnings("null") // apply to 'Supplier<@Nullable String> value'
     private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delimiter, char quote, char escape, @Nullable String nullValue,
@@ -456,7 +442,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     private @Nullable String processString(@Nullable String str, char delim, char quote, char escape) {
         if (str == null) {
@@ -505,7 +490,6 @@ public abstract class AbstractCsvData {
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public static <T extends AbstractCsvData> List<String> columns(Class<T> target) {
         Objects.requireNonNull(target);

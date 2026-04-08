@@ -45,7 +45,6 @@ import open.commons.core.utils.ExceptionUtils;
  * @since 2021. 6. 25.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class CsvFileConfig extends CsvConfig {
 
@@ -68,10 +67,8 @@ public class CsvFileConfig extends CsvConfig {
      * 2021. 6. 25.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -102,7 +99,6 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -132,7 +128,6 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -172,7 +167,6 @@ public class CsvFileConfig extends CsvConfig {
      * 
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, Charset charset) {
         Objects.requireNonNull(charset);
@@ -211,7 +205,6 @@ public class CsvFileConfig extends CsvConfig {
      * 
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, String charsetName) {
         this(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CsvUtils.charset(charsetName));
@@ -236,7 +229,6 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -265,7 +257,6 @@ public class CsvFileConfig extends CsvConfig {
      *            파일을 읽을 때 최초 무시할 라인 개수
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -297,7 +288,6 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
@@ -328,7 +318,6 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
@@ -357,7 +346,6 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
@@ -382,10 +370,8 @@ public class CsvFileConfig extends CsvConfig {
      * @param charset
      *            문자열 셋
      *
-     *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -414,7 +400,6 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -446,7 +431,6 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -476,7 +460,6 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_STRICT_QUOTES
@@ -503,7 +486,6 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -616,7 +598,6 @@ public class CsvFileConfig extends CsvConfig {
      * @param charsetName
      *            the charsetName to set
      * 
-     *
      * @since 2021. 6. 25.
      * @version 1.8.0
      * @see #charsetName
@@ -666,7 +647,6 @@ public class CsvFileConfig extends CsvConfig {
      *
      * @since 2021. 6. 25.
      * 
-     *
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.

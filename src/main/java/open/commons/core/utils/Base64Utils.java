@@ -39,7 +39,6 @@ import java.util.Objects;
  * 
  * @since 2026. 3. 12.
  * @version 3.0.0
- * 
  */
 public class Base64Utils {
 

@@ -38,8 +38,6 @@ import open.commons.core.utils.ThreadUtils;
  * 
  * @since 2013. 6. 19.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
- * 
  */
 public class TimeInfo implements Comparable<TimeInfo> {
 
@@ -464,7 +462,6 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * @return
      * 
      * @deprecated Internally none of use.
-     * 
      */
     @Deprecated
     protected final boolean out(int v, int min, int max) {
@@ -584,7 +581,6 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 
      * @param ms
      * @return
-     * 
      */
     public static TimeInfo createInstance(long ms) {
         TimeInfo time = new TimeInfo((int) TimeUnit.MILLISECONDS.toSeconds(ms));

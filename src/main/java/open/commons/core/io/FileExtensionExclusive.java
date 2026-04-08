@@ -42,7 +42,6 @@ import open.commons.core.utils.StringUtils;
  * 
  * @since 2012. 01. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FileExtensionExclusive implements FileFilter {
 
@@ -72,7 +71,6 @@ public class FileExtensionExclusive implements FileFilter {
      *            파일 확장자
      * 
      * @since 2012. 01. 20.
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) exts);
@@ -92,7 +90,6 @@ public class FileExtensionExclusive implements FileFilter {
      * @return
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.io.FileFilter#accept(java.io.File)
      */

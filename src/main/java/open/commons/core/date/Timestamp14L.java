@@ -45,7 +45,6 @@ import open.commons.core.utils.StringUtils;
  * 
  * @since 2013. 6. 19.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class Timestamp14L implements Comparable<Timestamp14L> {
 
@@ -227,7 +226,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * @since 2026. 3. 16.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -360,7 +358,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * @since 2026. 3. 16.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -501,7 +498,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
          * @since 2026. 3. 16.
          * @version 3.0.0
          * 
-         *
          * @see java.lang.Object#equals(java.lang.Object)
          */
         @Override
@@ -586,7 +582,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
          * @since 2026. 3. 16.
          * @version 3.0.0
          * 
-         *
          * @see java.lang.Object#hashCode()
          */
         @Override

@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.database;
 
@@ -35,7 +34,6 @@ import java.util.Collection;
  * 
  * @since 2013. 7. 12.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface ITableEntity extends Comparable<ITableEntity> {
 

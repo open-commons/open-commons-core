@@ -29,10 +29,8 @@ package open.commons.core.concurrent;
 /**
  * Mutual Exclusive Object with a name.
  * 
- * 
  * @since 2012. 10. 31.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public final class Mutex {
     /**

@@ -72,7 +72,6 @@ import open.commons.core.exception.TransformationFailedException;
  * 
  * @since 2025. 9. 8.
  * @version 2.1.0
- * 
  */
 public class ResultSetTransformer {
 

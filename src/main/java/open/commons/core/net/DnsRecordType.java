@@ -37,7 +37,6 @@ import java.util.Objects;
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * 
  * @see <a href=
  *      "https://en.wikipedia.org/wiki/List_of_DNS_record_types">https://en.wikipedia.org/wiki/List_of_DNS_record_types</a>
  */
@@ -805,7 +804,6 @@ public enum DnsRecordType {
      * @return a string of an instance of {@link DnsRecordType}
      *
      * @since 2022. 2. 11.
-     * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
      */
     public String get() {
         return this.type;
@@ -815,7 +813,6 @@ public enum DnsRecordType {
      * @return
      *
      * @since 2022. 2. 14.
-     * 
      */
     public String getDesc() {
         return this.desc;
@@ -825,7 +822,6 @@ public enum DnsRecordType {
      * @return type id
      *
      * @since 2022. 2. 14.
-     * 
      */
     public int getId() {
         return this.id;
@@ -833,7 +829,6 @@ public enum DnsRecordType {
 
     /**
      * @since 2022. 2. 11.
-     * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
      *
      * @see java.lang.Enum#toString()
      */
@@ -855,7 +850,6 @@ public enum DnsRecordType {
      * @return an instance of {@link DnsRecordType}
      *
      * @since 2022. 2. 11.
-     * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
      *
      * @see #get(String, boolean)
      */
@@ -873,7 +867,6 @@ public enum DnsRecordType {
      * @return an instance of {@link DnsRecordType}
      *
      * @since 2022. 2. 11.
-     * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
      */
     public static DnsRecordType get(String type, boolean ignoreCase) {
         Objects.requireNonNull(type, "'type' MUST NOT be null. input: " + type);

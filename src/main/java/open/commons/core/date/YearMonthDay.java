@@ -40,7 +40,6 @@ import open.commons.core.utils.DateUtil;
  * 
  * @since 2014. 4. 3.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class YearMonthDay {
 

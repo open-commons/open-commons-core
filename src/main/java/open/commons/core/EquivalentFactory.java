@@ -35,7 +35,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 03. 22.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class EquivalentFactory {
 
@@ -273,7 +272,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<boolean[]> booleanArrayEquiv() {
 
@@ -285,7 +283,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<byte[]> byteArrayEquiv() {
 
@@ -297,7 +294,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<char[]> charArrayEquiv() {
 
@@ -309,7 +305,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<double[]> doubleArrayEquiv() {
 
@@ -321,7 +316,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<float[]> floatArrayEquiv() {
 
@@ -335,7 +329,6 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * 
      */
     public static @Nullable IEquivalent<?> get(Object key) {
         Objects.requireNonNull(key);
@@ -351,7 +344,6 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * 
      */
     @SuppressWarnings("unchecked")
     public static <T> IEquivalent<T> getDefault() {
@@ -363,7 +355,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<int @Nullable []> intArrayEquiv() {
         return intEquiv;
@@ -374,7 +365,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<long @Nullable []> longArrayEquiv() {
         return longEquiv;
@@ -388,7 +378,6 @@ public class EquivalentFactory {
      * @return
      * 
      * @since 2012. 03. 30.
-     * 
      */
     public static @Nullable IEquivalent<?> register(@Nullable Object key, IEquivalent<?> equivalent) {
         Objects.requireNonNull(equivalent);
@@ -407,7 +396,6 @@ public class EquivalentFactory {
      * 
      * @return <BR>
      * @since 2012. 03. 22.
-     * 
      */
     public static IEquivalent<short[]> shortArrayEquiv() {
 

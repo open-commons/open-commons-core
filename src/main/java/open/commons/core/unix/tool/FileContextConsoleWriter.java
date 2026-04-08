@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.unix.tool;
 
@@ -36,7 +35,6 @@ import java.util.Objects;
 /**
  * @since 2013. 5. 23.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public final class FileContextConsoleWriter extends AbstractContextWriter {
 

@@ -15,7 +15,6 @@
  */
 
 /**
-* 
 */
 package open.commons.core.utils;
 
@@ -62,7 +61,6 @@ import open.commons.core.io.Consumers;
 /**
  * 
  * @since 2019. 8. 8.
- * 
  */
 public class FileUtils {
 

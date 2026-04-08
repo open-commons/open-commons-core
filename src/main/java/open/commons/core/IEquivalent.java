@@ -33,7 +33,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 03. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @FunctionalInterface
 public interface IEquivalent<T extends @Nullable Object> {

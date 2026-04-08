@@ -41,7 +41,6 @@ import java.lang.annotation.Target;
  * @since 2019. 6. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
- * 
  * @see Getter
  */
 @Documented
@@ -63,7 +62,6 @@ public @interface Setter {
      *
      * @since 2025. 9. 5.
      * @version 2.1.0
-     * 
      */
     boolean deepConvert() default true;
 

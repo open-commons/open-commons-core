@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.unix.tool;
 
@@ -38,7 +37,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2013. 5. 23.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FileContextFileWriter extends AbstractContextWriter {
 

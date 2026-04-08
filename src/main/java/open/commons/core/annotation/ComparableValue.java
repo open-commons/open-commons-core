@@ -33,10 +33,8 @@ import java.lang.annotation.Target;
 
 /**
  * 
- * 
  * @since 2014. 11. 7
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  * 
  * @see Comparable
  */

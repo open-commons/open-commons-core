@@ -35,7 +35,6 @@ import open.commons.core.utils.FunctuationTable;
  * 
  * @since 2013. 6. 21.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FmConstants {
 

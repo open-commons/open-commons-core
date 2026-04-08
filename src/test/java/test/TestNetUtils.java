@@ -32,7 +32,6 @@ import open.commons.core.utils.NetUtils;
  * 
  * @since 2021. 7. 12.
  * @version _._._
- * 
  */
 public class TestNetUtils {
 
@@ -46,10 +45,8 @@ public class TestNetUtils {
      * 2021. 7. 12.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 7. 12.
      * @version _._._
-     * 
      */
     public TestNetUtils() {
     }

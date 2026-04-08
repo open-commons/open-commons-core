@@ -44,7 +44,6 @@ public class ClassUtils {
      * 2026. 3. 25.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2026. 3. 25.
      * @version 3.0.0
      */

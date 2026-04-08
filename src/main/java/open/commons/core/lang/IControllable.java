@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.lang;
 
@@ -32,7 +31,6 @@ package open.commons.core.lang;
  * 
  * @since 2013. 6. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IControllable {
 

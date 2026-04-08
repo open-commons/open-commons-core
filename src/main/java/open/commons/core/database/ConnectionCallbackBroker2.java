@@ -75,7 +75,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
      * @param setter
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * 
-     * 
      * @since 2019. 2. 19.
      */
     public ConnectionCallbackBroker2(String query, @Nullable T setter) {
@@ -170,7 +169,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
      * @param stmt
      * @param setter
      *
-     * 
      * @since 2019. 2. 19.
      */
     protected abstract void set(PreparedStatement stmt, T setter) throws SQLException;

@@ -37,7 +37,6 @@ import org.jspecify.annotations.Nullable;
  * @since 2019. 2. 20.
  * @version 1.6.3
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class ConcurrentJobManager<E> extends ConcurrentWorker<E> implements IJobFinishedListener<E> {
 

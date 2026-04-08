@@ -46,13 +46,11 @@ import java.util.function.Consumer;
  * @param <V>
  *            the type of the third argument to the operation
  *
- * 
  * @since 2017. 7. 20.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  * 
  * @see Consumer
- * 
  */
 @FunctionalInterface
 public interface TripleConsumer<T, U, V> {

@@ -33,8 +33,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * 이 인터페이스의 목적은 동일한 타입의 객체간 포함관계에 대한 확인 기능을 지원하는 것이다.<br>
  * 
- * 
- * 
  * @param <T>
  * 
  * @since 2012. 7. 30.

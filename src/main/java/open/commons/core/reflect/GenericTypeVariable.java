@@ -47,8 +47,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2014. 3. 28.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
- * 
  */
 public class GenericTypeVariable implements Cloneable {
 

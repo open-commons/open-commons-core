@@ -31,7 +31,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * @since 2012. 02. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class PropertyNoSeedException extends RuntimeException {
 

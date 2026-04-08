@@ -75,10 +75,8 @@ public class FIFOMap<K, V> implements Map<K, V> {
      * 2021. 5. 18.		parkjunhong77@gmail.com			데이터({@link #orderedValues}) 미삭제 버그 수정
      * </pre>
      *
-     *
      * @since 2021. 5. 18.
      * 
-     *
      * @see java.util.Map#clear()
      */
     @Override

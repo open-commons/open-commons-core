@@ -32,7 +32,6 @@ import open.commons.core.validation.DefaultTokenValidator;
 /**
  * 
  * @since 2014. 4. 10.
- * 
  */
 public class LowercaseValidator extends DefaultTokenValidator<Character> {
 

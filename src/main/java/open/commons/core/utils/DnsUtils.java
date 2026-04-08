@@ -34,7 +34,6 @@ import java.util.regex.Pattern;
  * 
  * @since 2022. 2. 11.
  * @version 1.8.0
- * 
  */
 public class DnsUtils {
 
@@ -75,7 +74,6 @@ public class DnsUtils {
      *
      * @since 2022. 2. 11.
      * @version 1.8.0
-     * 
      */
     public static boolean isValid(String domainName) {
         Objects.requireNonNull(domainName);

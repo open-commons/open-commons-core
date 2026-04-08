@@ -81,11 +81,8 @@ import open.commons.core.function.Predicates;
  * open.commons.core.utils.StreamUtils.runOnSync(Predicate&lt;R&gt;, Supplier&lt;R&gt;...): {@link FunctionUtils#runOnSync(Predicate, Supplier...)}
  * </pre>
  * 
- * 
  * @since 2020. 4. 10.
  * @version 1.8.0
- * 
- * 
  */
 public class StreamUtils {
 

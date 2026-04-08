@@ -43,7 +43,6 @@ import open.commons.core.lang.DefaultRunnable;
  * 
  * @since 2018. 5. 29.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public abstract class ConcurrentWorker<E> extends DefaultRunnable {
 
@@ -92,7 +91,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * 
      */
     public boolean contains(@Nullable E o) {
         synchronized (this.mutexQueue) {
@@ -110,9 +108,7 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * 2019. 10. 2.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2019. 10. 2.
-     * 
      */
     protected void doneJob() {
         mutexWJC.lock();
@@ -163,7 +159,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @return
      *
-     * 
      * @since 2019. 1. 25.
      * @see Queue#poll()
      */
@@ -227,7 +222,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 2. 19.
      * @version 1.8.0
-     * 
      */
     public int getJobCount() {
         mutexWJC.lock();
@@ -251,7 +245,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2019. 1. 25.
-     * 
      */
     protected final Object getMutexForQueue() {
         return this.mutexQueue;
@@ -272,7 +265,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2019. 1. 25.
      * @version 3.0.0
-     * 
      */
     public void push(Collection<E> data) {
         Objects.requireNonNull(data);
@@ -304,7 +296,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @param data
      *
      * @since 2019. 1. 25.
-     * 
      */
     public void push(E data) {
         Objects.requireNonNull(data);
@@ -337,7 +328,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2019. 10. 2.
-     * 
      */
     public boolean remainsWorkJob() {
         mutexWJC.lock();
@@ -363,7 +353,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2021. 9. 14.
      * @version 1.8.0
-     * 
      */
     public boolean remove(@Nullable E o) {
         synchronized (this.mutexQueue) {
@@ -392,7 +381,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @return
      *
      * @since 2018. 5. 29.
-     * 
      */
     protected int size() {
         return queue.size();

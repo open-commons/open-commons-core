@@ -40,7 +40,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2012. 02. 15.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class Result<T> {
 
@@ -74,7 +73,6 @@ public class Result<T> {
      * 
      * @since 2012. 02. 15.
      * 
-     * 
      * @see #Result(Object, boolean)
      */
     public Result(@Nullable T data) {
@@ -88,7 +86,6 @@ public class Result<T> {
      * @param result
      * 
      * @since 2012. 02. 15.
-     * 
      */
     public Result(@Nullable T data, boolean result) {
         this.data = data;
@@ -100,7 +97,6 @@ public class Result<T> {
      * 
      * @return
      * @since 2012. 05. 30.
-     * @author Park Jun Hong (jhpark@ymtech.kr)
      */
     public Result<T> andFalse() {
         this.result = false;
@@ -113,7 +109,6 @@ public class Result<T> {
      * 
      * @return
      * @since 2012. 05. 30.
-     * @author Park Jun Hong (jhpark@ymtech.kr)
      */
     public Result<T> andTrue() {
         this.result = true;
@@ -126,7 +121,6 @@ public class Result<T> {
      * @since 2026. 3. 13.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @SuppressWarnings("unchecked")
@@ -148,7 +142,6 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * 
      */
     public @Nullable T getData() {
         return this.data;
@@ -176,7 +169,6 @@ public class Result<T> {
      * @return
      * 
      * @since 2012. 02. 15.
-     * 
      */
     public boolean getResult() {
         return this.result;
@@ -187,7 +179,6 @@ public class Result<T> {
      * @since 2026. 3. 13.
      * @version 3.0.0
      * 
-     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -209,7 +200,6 @@ public class Result<T> {
      *
      * @since 2021. 10. 28.
      * @version 1.8.0
-     * 
      */
     public boolean isError() {
         return !this.getResult();
@@ -283,7 +273,6 @@ public class Result<T> {
      *
      * @since 2020. 2. 14.
      * @version 1.8.0
-     * 
      */
     public Result<T> setMessage(String format, @Nullable Object... args) {
         Objects.requireNonNull(format);
@@ -364,7 +353,6 @@ public class Result<T> {
      *
      * @since 2020. 11. 20.
      * @version 1.8.0
-     * 
      */
     public static <N> Result<N> copyOf(Result<?> o) {
         Objects.requireNonNull(o);
@@ -388,7 +376,6 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * @version
-     * 
      */
     public static <T> Result<T> error(@Nullable String errorMessage) {
         return new Result<T>().setMessage(errorMessage);
@@ -413,7 +400,6 @@ public class Result<T> {
      *
      * @since 2021. 7. 14.
      * @version 1.8.0
-     * 
      */
     public static <T> Result<T> error(String format, @Nullable Object... args) {
         return new Result<T>().setMessage(format, args);
@@ -438,7 +424,6 @@ public class Result<T> {
      * @return
      *
      * @since 2020. 11. 3.
-     * 
      */
     public static <T> @Nullable String getTrueMessage(Result<T> result, String format, @Nullable Object... args) {
         ObjectUtils.requireNonNulls(result, format, args);
@@ -465,7 +450,6 @@ public class Result<T> {
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
-     * 
      */
     public static <T> Result<T> success(String format, @Nullable Object... args) {
         return success(null, format, args);
@@ -487,7 +471,6 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * @version
-     * 
      */
     public static <T> Result<T> success(@Nullable T data) {
         return new Result<T>(data, true);
@@ -514,7 +497,6 @@ public class Result<T> {
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
-     * 
      */
     public static <T> Result<T> success(@Nullable T data, String format, @Nullable Object... args) {
         return Result.success(data).setMessage(format, args);

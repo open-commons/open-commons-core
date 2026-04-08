@@ -35,7 +35,6 @@ import java.lang.annotation.Target;
 /**
  * @since 2013. 11. 8.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -58,7 +57,6 @@ public @interface AQueryIndex {
      *
      * @since 2020. 12. 8.
      * @version 1.8.0
-     * 
      */
     String name() default "";
 }

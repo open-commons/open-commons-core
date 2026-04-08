@@ -34,7 +34,6 @@ import java.util.function.Supplier;
  * @since 2020. 8. 29.
  * @version 1.7.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @FunctionalInterface
 public interface Runner {

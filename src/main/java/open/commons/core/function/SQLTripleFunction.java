@@ -57,7 +57,6 @@ import open.commons.core.utils.SQLUtils;
  * @param <R>
  *            the type of the result of the function
  *
- * 
  * @since 2020. 1. 20.
  * @version 1.6.17
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
@@ -127,10 +126,8 @@ public interface SQLTripleFunction<T, U, V, R> {
      *         <li>d: 저정할 데이터
      *         </ul>
      * 
-     *
      * @since 2020. 1. 22.
      * @version 1.8.0
-     * 
      * 
      * @see ColumnValue
      */

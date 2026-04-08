@@ -30,7 +30,6 @@ package open.commons.core.net;
 /**
  * 
  * @since 2014. 5. 30.
- * 
  */
 public class EtherType {
 

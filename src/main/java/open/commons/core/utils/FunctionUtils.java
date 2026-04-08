@@ -46,8 +46,6 @@ import open.commons.core.function.Runner;
  * 
  * @since 2020. 8. 29.
  * @version 1.7.0
- * 
- * 
  */
 public class FunctionUtils {
 
@@ -241,7 +239,6 @@ public class FunctionUtils {
      * @return 결과를 제공하는 공급자 객체
      *
      * @since 2020. 6. 12.
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
@@ -283,7 +280,6 @@ public class FunctionUtils {
      * @return 에러 메시지를 반환하는 공급자 객체
      *
      * @since 2020. 6. 11.
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
         return build(action, param, onSuccess, t -> t.getMessage());
@@ -317,7 +313,6 @@ public class FunctionUtils {
      * @return 발생한 에러 메시지를 반환하는(정상인 경우 null) 공급자 객체
      *
      * @since 2020. 6. 12.
-     * 
      */
     // 아래 내용에 적용됨.
     // - r.getData()
@@ -369,7 +364,6 @@ public class FunctionUtils {
      * @return 실행 및 에러 결과를 통합하여 반환하는 공급자 객체
      *
      * @since 2020. 4. 11.
-     * 
      */
     public static <R extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(Supplier<R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
@@ -407,7 +401,6 @@ public class FunctionUtils {
      * @return 예외 메시지 등을 반환하는 문자열 공급자 객체
      *
      * @since 2020. 4. 11.
-     * 
      */
     public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess) {
         return build(action, onSuccess, t -> t.getMessage());
@@ -437,7 +430,6 @@ public class FunctionUtils {
      * @return 에러 메시지를 반환하거나 정상이면 null을 반환하는 공급자 객체
      *
      * @since 2020. 4. 11.
-     * 
      */
     // 아래 내용에 적용됨.
     // - r.getData()
@@ -492,7 +484,6 @@ public class FunctionUtils {
      * @return 실행 과정의 에러 메시지를 제공하는 객체
      *
      * @since 2020. 4. 7.
-     * 
      */
     public static <R extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object> //
             Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess) {
@@ -531,7 +522,6 @@ public class FunctionUtils {
      * @return 실행 결과를 제공하는 공급자 객체
      *
      * @since 2020. 4. 10.
-     * 
      */
     // 아래 내용에 적용됨.
     // - r.getData()
@@ -577,7 +567,6 @@ public class FunctionUtils {
      * @return 비동기 작업 결과
      *
      * @since 2020. 6. 14.
-     * 
      */
     // 아래 내용에 적용됨.
     // - future.get()
@@ -618,7 +607,6 @@ public class FunctionUtils {
      * @return 조건에 맞는 반환 데이터
      *
      * @since 2021. 5. 18.
-     * 
      */
     public static <T> T ifThenElse(Supplier<Boolean> condition, Supplier<T> then, Supplier<T> elze) {
         ObjectUtils.requireNonNulls(condition, then, elze);
@@ -650,7 +638,6 @@ public class FunctionUtils {
      * @return 조건에 맞는 반환 데이터
      *
      * @since 2021. 5. 18.
-     * 
      */
     public static <T extends @Nullable Object> T ifThenElse(Supplier<Boolean> condition, T then, T elze) {
         Objects.requireNonNull(condition);
@@ -762,7 +749,6 @@ public class FunctionUtils {
      *            정상인 경우 실행할 함수
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static void runIf(@Nullable Object value, Runner then) {
         Objects.requireNonNull(then);
@@ -792,7 +778,6 @@ public class FunctionUtils {
      *            {@code null}인 경우 실행할 함수
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static void runIf(@Nullable Object value, Runner then, Runner elze) {
         ObjectUtils.requireNonNulls(then, elze);
@@ -824,7 +809,6 @@ public class FunctionUtils {
      *            정상인 경우 실행할 소비 함수
      *
      * @since 2025. 8. 8.
-     * 
      */
     public static <T extends @Nullable Object> void runIf(T value, Consumer<T> then) {
         Objects.requireNonNull(then);
@@ -856,7 +840,6 @@ public class FunctionUtils {
      *            검사 통과 시 수행할 실행기
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static <T extends @Nullable Object> void runIf(T value, Predicate<T> p, Consumer<T> then) {
         ObjectUtils.requireNonNulls(p, then);
@@ -890,7 +873,6 @@ public class FunctionUtils {
      *            실패한 경우 수행할 함수
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static <T extends @Nullable Object> void runIf(T value, Predicate<T> p, Consumer<T> then, Consumer<T> elze) {
         ObjectUtils.requireNonNulls(p, then, elze);
@@ -928,7 +910,6 @@ public class FunctionUtils {
      * @return 함수 실행 결과 (불일치 시 null)
      *
      * @since 2020. 6. 14.
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run) {
         ObjectUtils.requireNonNulls(test, run);
@@ -964,7 +945,6 @@ public class FunctionUtils {
      * @return 실행된 결과 또는 기본값
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
         ObjectUtils.requireNonNulls(test, run);
@@ -1000,7 +980,6 @@ public class FunctionUtils {
      * @return 함수의 처리 결과 또는 기본값 공급의 결과
      *
      * @since 2020. 7. 21.
-     * 
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
         ObjectUtils.requireNonNulls(test, run);
@@ -1038,7 +1017,6 @@ public class FunctionUtils {
      * @return 계산 반환된 결과나 null 값 반환
      *
      * @since 2020. 6. 14.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param,
             Function<U, R> run) {
@@ -1079,7 +1057,6 @@ public class FunctionUtils {
      * @return 실행 함수의 반환 결과 또는 기본값
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
@@ -1120,7 +1097,6 @@ public class FunctionUtils {
      * @return 성공적인 처리 결과 또는 기본값
      *
      * @since 2020. 7. 22.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
@@ -1186,7 +1162,6 @@ public class FunctionUtils {
      *            수행될 처리 함수
      *
      * @since 2020. 8. 29.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test, Supplier<U> param, Consumer<U> run) {
         ObjectUtils.requireNonNulls(test, param, run);
@@ -1226,7 +1201,6 @@ public class FunctionUtils {
      * @return 처리가 된 반환 결과 또는 null
      *
      * @since 2020. 6. 14.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
@@ -1267,7 +1241,6 @@ public class FunctionUtils {
      * @return 최종 반환 결과 또는 기본값
      *
      * @since 2021. 11. 15.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {
@@ -1308,7 +1281,6 @@ public class FunctionUtils {
      * @return 대상 결과를 처리하여 얻거나 제공받은 데이터
      *
      * @since 2020. 7. 21.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
@@ -1343,7 +1315,6 @@ public class FunctionUtils {
      *            매개변수를 다루는 실제 실행 함수
      *
      * @since 2020. 8. 29.
-     * 
      */
     public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test, U param, Consumer<U> run) {
         ObjectUtils.requireNonNulls(test, run);
@@ -1375,7 +1346,6 @@ public class FunctionUtils {
      * @return 선택된 요소 존재 유무
      *
      * @since 2020. 4. 7.
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) actions);
@@ -1421,7 +1391,6 @@ public class FunctionUtils {
      * @return 조건에 맞는 하나 이상의 존재 여부 혹은 데이터 반환
      *
      * @since 2020. 4. 7.
-     * 
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) actions);

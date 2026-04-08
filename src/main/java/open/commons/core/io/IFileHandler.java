@@ -34,7 +34,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2011. 09. 29.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public interface IFileHandler {
 

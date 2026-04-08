@@ -35,7 +35,6 @@ import java.lang.annotation.Target;
  * 
  * @since 2012. 11. 22
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

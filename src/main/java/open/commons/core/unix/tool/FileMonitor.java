@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.unix.tool;
 
@@ -56,7 +55,6 @@ import open.commons.core.utils.ThreadUtils;
 /**
  * @since 2013. 5. 23.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyListener {
 
@@ -635,7 +633,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param files
      *            to register.
      * 
-     * 
      * @see {@link #register(File)}
      */
     // 아래 내용에 적용됨.
@@ -1024,7 +1021,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            directory to unregister
      * @throws FileNotFoundException
      * 
-     * 
      * @see {@link #unregisterFile(File)}<br>
      *      {@link #unregisterDirectory(File)}
      */
@@ -1268,7 +1264,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     /**
      * 
      * @param directory
-     * 
      */
     void unregisterWatchService(String directory) {
         Objects.requireNonNull(directory);
@@ -1377,9 +1372,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
     /**
      * File Create Handler
-     * 
-     * 
-     * 
      */
     class FileCreateHandler implements IRunnable {
 
@@ -1465,9 +1457,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
     /**
      * File Delete Handler
-     * 
-     * 
-     * 
      */
     class FileDeleteHandler implements IRunnable {
 
@@ -1558,9 +1547,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
     /**
      * File Modify Handler
-     * 
-     * 
-     * 
      */
     class FileModifyHandler implements IRunnable {
 

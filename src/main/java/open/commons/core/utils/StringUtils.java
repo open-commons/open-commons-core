@@ -53,10 +53,7 @@ import open.commons.core.prog.StrLenRvrOrderingEntry;
 
 /**
  * 
- * 
- * 
  * @since 2011. 06. 23.
- * 
  */
 public class StringUtils {
 
@@ -962,7 +959,6 @@ public class StringUtils {
      *            찾을 문자
      *
      * @return 문자({@code ch})의 개수
-     *
      */
     public static int countOf(String string, char ch) {
         Objects.requireNonNull(string);
@@ -3687,8 +3683,6 @@ public class StringUtils {
     /**
      * 하나의 문자로 이루어진 문자열
      * 
-     * 
-     * 
      * @since 2012. 3. 5.
      */
     public static final class OneCharacterString {
@@ -3713,7 +3707,6 @@ public class StringUtils {
          * @return
          * 
          * @since 2012. 3. 5.
-         * 
          */
         public String c2str() {
             return c2str;
@@ -3722,9 +3715,7 @@ public class StringUtils {
         /**
          * @return the c
          * 
-         * 
          * @since 2012. 3. 5.
-         * 
          */
         public final char getC() {
             return c;
@@ -3732,8 +3723,6 @@ public class StringUtils {
 
         /**
          * @return the string
-         * 
-         * 
          * 
          * @since 2012. 3. 5.
          */
@@ -3745,7 +3734,6 @@ public class StringUtils {
          * @return
          * 
          * @since 2012. 3. 5.
-         * 
          * 
          * @see java.lang.Object#toString()
          */

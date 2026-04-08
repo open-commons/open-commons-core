@@ -36,7 +36,6 @@ import open.commons.core.utils.CsvUtils;
  * @since 2022. 3. 17.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class CsvWriteConfig extends CsvCommon {
 
@@ -54,10 +53,8 @@ public class CsvWriteConfig extends CsvCommon {
      * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_SEPARATOR
      * @see #DEFAULT_QUOTE_CHARACTER
@@ -82,7 +79,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_CHARSET_NAME
@@ -106,7 +102,6 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      * @see #DEFAULT_CHARSET_NAME
@@ -133,7 +128,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator, char quotechar, char escape) {
@@ -157,10 +151,8 @@ public class CsvWriteConfig extends CsvCommon {
      * @param charset
      *            파일 Charset
      * 
-     *
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      */
     public CsvWriteConfig(char separator, char quotechar, char escape, Charset charset) {
         this(separator, quotechar, escape, DEFAULT_LINE_END, charset);
@@ -189,7 +181,6 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
-     * 
      */
     public CsvWriteConfig(char separator, char quotechar, char escape, String lineEnd, Charset charset) {
         super(separator, quotechar, escape, lineEnd);
@@ -218,7 +209,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     * 
      * @see #DEFAULT_ESCAPE_CHARACTER
      */
     public CsvWriteConfig(char separator, char quotechar, Charset charset) {
@@ -240,7 +230,6 @@ public class CsvWriteConfig extends CsvCommon {
      * 
      * @since 2022. 3. 17.
      * @version 1.8.0
-     * 
      * 
      * @see #DEFAULT_QUOTE_CHARACTER
      * @see #DEFAULT_ESCAPE_CHARACTER
@@ -264,7 +253,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #charset
      */
 
@@ -287,7 +275,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #charsetName
      */
 
@@ -311,7 +298,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #charset
      */
     public void setCharset(Charset charset) {
@@ -337,7 +323,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see #charsetName
      */
     public void setCharsetName(String charsetName) {
@@ -352,7 +337,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
-     *
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.

@@ -31,7 +31,6 @@ package open.commons.core.io;
  * @since 2021. 11. 19.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class RandomAccessConfig implements IRandomAccessible {
 
@@ -57,7 +56,6 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * 
      */
     public RandomAccessConfig(int position, int length) {
         this(position, length, -1);
@@ -79,7 +77,6 @@ public class RandomAccessConfig implements IRandomAccessible {
      *
      * @since 2021. 11. 19.
      * @version 1.8.0
-     * 
      */
     public RandomAccessConfig(int position, int length, int nextPosition) {
         this.position = position;
@@ -92,7 +89,6 @@ public class RandomAccessConfig implements IRandomAccessible {
      * @since 2021. 11. 19.
      * @version 1.8.0
      * 
-     *
      * @see open.commons.core.io.IRandomAccessible#getLength()
      */
     @Override
@@ -105,7 +101,6 @@ public class RandomAccessConfig implements IRandomAccessible {
      * @since 2021. 11. 19.
      * @version 1.8.0
      * 
-     *
      * @see open.commons.core.io.IRandomAccessible#getNextPosition()
      */
     @Override
@@ -118,7 +113,6 @@ public class RandomAccessConfig implements IRandomAccessible {
      * @since 2021. 11. 19.
      * @version 1.8.0
      * 
-     *
      * @see open.commons.core.io.IRandomAccessible#getPosition()
      */
     @Override
@@ -131,7 +125,6 @@ public class RandomAccessConfig implements IRandomAccessible {
      * @since 2021. 11. 19.
      * @version 1.8.0
      * 
-     *
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.

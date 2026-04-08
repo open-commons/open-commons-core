@@ -32,7 +32,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * @since 2014. 3. 25.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class AssertionException extends RuntimeException {
     private static final long serialVersionUID = 1L;

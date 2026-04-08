@@ -40,7 +40,6 @@ import open.commons.core.utils.ObjectUtils;
  * {@link Map}과 유사한 성격을 갖는다.
  * 
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class NValues {
     private static final String CLASS = Objects.requireNonNull(NValues.class.getSimpleName());

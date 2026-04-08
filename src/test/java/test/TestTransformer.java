@@ -38,7 +38,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2025. 9. 8.
  * @version 2.1.0
- * 
  */
 public class TestTransformer {
 

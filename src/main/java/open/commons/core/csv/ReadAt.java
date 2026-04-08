@@ -57,7 +57,6 @@ import java.lang.annotation.Target;
  * @since 2021. 11. 11.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Retention(RUNTIME)
 @Target(METHOD)
@@ -76,7 +75,6 @@ public @interface ReadAt {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      */
     int index();
 
@@ -94,7 +92,6 @@ public @interface ReadAt {
      *
      * @since 2021. 11. 11.
      * @version 1.8.0
-     * 
      */
     boolean skippable() default false;
 
@@ -112,7 +109,6 @@ public @interface ReadAt {
      *
      * @since 2022. 3. 15.
      * @version 1.8.0
-     * 
      */
     boolean unsigned() default false;
 }

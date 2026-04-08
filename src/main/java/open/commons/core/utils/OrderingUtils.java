@@ -27,7 +27,6 @@ import java.util.Objects;
  * 정렬 관련 유틸리티. <br>
  * 
  * @since 2012. 02. 15.
- * 
  */
 public class OrderingUtils {
 
@@ -220,7 +219,6 @@ public class OrderingUtils {
      * @param i
      * @return
      *
-     * 
      * @since 2019. 1. 15.
      */
     public static String intToOrdinal(int i) {

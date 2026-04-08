@@ -35,7 +35,6 @@ import java.util.Objects;
  * 
  * @since 2019. 6. 28.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class IterableEnumeration<T> implements Iterable<T> {
 
@@ -54,7 +53,6 @@ public class IterableEnumeration<T> implements Iterable<T> {
      * @param enumeration
      * 
      * @since 2019. 6. 28.
-     * 
      */
     public IterableEnumeration(Enumeration<T> enumeration) {
         Objects.requireNonNull(enumeration);

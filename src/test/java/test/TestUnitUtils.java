@@ -34,7 +34,6 @@ import open.commons.core.utils.UnitUtils;
  * 
  * @since 2021. 11. 5.
  * @version _._._
- * 
  */
 public class TestUnitUtils {
 
@@ -48,10 +47,8 @@ public class TestUnitUtils {
      * 2021. 11. 5.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 11. 5.
      * @version _._._
-     * 
      */
     public TestUnitUtils() {
     }

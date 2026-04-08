@@ -47,7 +47,6 @@ import open.commons.core.date.YearMonthDay;
  * </pre>
  * 
  * @since 2011. 07. 12.
- * 
  */
 public class DateUtil {
 
@@ -303,7 +302,6 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static int diffDay(int y1, int m1, int d1, int y2, int m2, int d2) {
         return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
@@ -332,7 +330,6 @@ public class DateUtil {
      * 
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static int diffDay(@Nullable String y1, @Nullable String m1, @Nullable String d1, @Nullable String y2, @Nullable String m2, @Nullable String d2) {
 
@@ -356,7 +353,6 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     private static int diffDay0(Calendar cal1, Calendar cal2) {
         ObjectUtils.requireNonNulls(cal1, cal2);
@@ -391,7 +387,6 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static int diffDayToNow(Calendar cal) {
         return diffDay(cal, _getInstance());
@@ -413,7 +408,6 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static int diffDayToNow(Date date) {
         return diffDay0(newCalendar(date), _getInstance());
@@ -438,7 +432,6 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static int diffDayToNow(int year, int month, int day) {
         return diffDay0(newCalendar(year, month, day), _getInstance());
@@ -463,7 +456,6 @@ public class DateUtil {
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
-     * 
      */
     public static int diffDayToNow(@Nullable String year, @Nullable String month, @Nullable String day) {
         return diffDay0(newCalendar(year, month, day), _getInstance());
@@ -700,7 +692,6 @@ public class DateUtil {
      *
      * @return
      * 
-     * 
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, Locale locale, YearMonthDay... discards) {
@@ -719,7 +710,6 @@ public class DateUtil {
      *            제외시키는 일자
      *
      * @return
-     * 
      * 
      * @since 2014. 4. 3.
      */
@@ -895,7 +885,6 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * 
      */
     public static long getTimestamp(Calendar cal, int field, int amount) {
         Objects.requireNonNull(cal);
@@ -1032,7 +1021,6 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * 
      */
     public static String getTimestampString(long timestamp, SimpleDateFormat dateFormat) {
         Objects.requireNonNull(dateFormat);
@@ -1059,7 +1047,6 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * 
      */
     public static String getTimestampString(long timestamp, String format) {
         Objects.requireNonNull(format);
@@ -1158,7 +1145,6 @@ public class DateUtil {
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
-     * 
      */
     public static String getTimeString(long timestamp) {
         return _dateformat("HHmmss", new Date(timestamp));
@@ -1488,7 +1474,6 @@ public class DateUtil {
      * 
      * @since 2021. 2. 18.
      * @version 1.8.0
-     * 
      */
     public static Calendar resetDateFields(int... dateFields) {
         Objects.requireNonNull(dateFields);
@@ -1894,7 +1879,6 @@ public class DateUtil {
      * </table>
      * </p>
      * 
-     * 
      * <table border="1" width="500">
      * <tr>
      * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인 경우</td>
@@ -1991,7 +1975,6 @@ public class DateUtil {
      * <tr>
      * </table>
      * </p>
-     * 
      * 
      * <table border="1" width="500">
      * <tr>

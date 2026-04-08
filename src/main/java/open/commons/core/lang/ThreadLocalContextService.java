@@ -40,7 +40,6 @@ import open.commons.core.utils.MapUtils;
  * @since 2025. 6. 24.
  * @version 2.1.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class ThreadLocalContextService {
 
@@ -64,7 +63,6 @@ public class ThreadLocalContextService {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * 
      */
     public static void clear(Object type) {
         Objects.requireNonNull(type, "Thread Context 의 식별정보는 null 일 수 없습니다.");
@@ -88,10 +86,8 @@ public class ThreadLocalContextService {
      * 2025. 6. 24.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * 
      */
     public static void clearAll() {
         synchronized (STATIC_MUTEX) {
@@ -116,7 +112,6 @@ public class ThreadLocalContextService {
      *
      * @since 2025. 6. 24.
      * @version 2.1.0
-     * 
      */
     @SuppressWarnings("null") // apply to 's' as parameter of MapUtils.getOrDefault(...)
     public static IThreadLocalContext context(Object type) {

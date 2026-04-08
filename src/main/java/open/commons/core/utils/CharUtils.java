@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.utils;
 

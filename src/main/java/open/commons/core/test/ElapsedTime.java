@@ -76,7 +76,6 @@ public class ElapsedTime {
      *            <li>false: 종료
      *            </ul>
      *
-     * 
      * @throws IllegalStateException
      *             현재 상태와 비교상태가 다른 경우.
      * @since 2018. 10. 1.
@@ -102,7 +101,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @throws IllegalStateException
      *             측정 중인 경우
      * @since 2018. 9. 28.
@@ -125,7 +123,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      */
     public long end() {
@@ -149,7 +146,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      */
     public long getEnd() {
@@ -170,7 +166,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      */
     public long getStart() {
@@ -191,7 +186,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      */
     public boolean isRunning() {
@@ -208,8 +202,6 @@ public class ElapsedTime {
      * 2018. 9. 28.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
-     * 
      * @since 2018. 9. 28.
      */
     public void reset() {
@@ -230,7 +222,6 @@ public class ElapsedTime {
      *
      * @param running
      *
-     * 
      * @since 2018. 9. 28.
      */
     private void setRunning(boolean running) {
@@ -249,7 +240,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      */
     public long start() {
@@ -274,7 +264,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      * 
      * @throws IllegalStateException
@@ -299,7 +288,6 @@ public class ElapsedTime {
      *
      * @return
      *
-     * 
      * @since 2018. 9. 28.
      */
     public String toFormattedElapsed() {

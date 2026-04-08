@@ -38,7 +38,6 @@ import java.lang.annotation.Target;
  * 
  * @since 2020. 11. 9.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @Retention(RUNTIME)
 @Target({ FIELD, METHOD })

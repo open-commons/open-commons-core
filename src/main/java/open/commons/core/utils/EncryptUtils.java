@@ -41,7 +41,6 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * 
  * @since 2018. 11. 20.
- * 
  */
 public class EncryptUtils {
 
@@ -113,7 +112,6 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * 
      * @since 2018. 11. 20.
      */
     public static String decrypt(String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
@@ -150,7 +148,6 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * 
      * @since 2018. 11. 20.
      */
     public static String decrypt(String algorithm, String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
@@ -191,7 +188,6 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * 
      * @since 2018. 11. 20.
      * 
      * @see #encrypt(String, String, String, String, String)
@@ -230,7 +226,6 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * 
      * @since 2018. 11. 20.
      */
     public static byte[] encrypt(String key, String keyCharset, String plainText, String textCharset) //
@@ -268,7 +263,6 @@ public class EncryptUtils {
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
      *
-     * 
      * @since 2018. 11. 20.
      */
     // 아래 내용에 적용됨.

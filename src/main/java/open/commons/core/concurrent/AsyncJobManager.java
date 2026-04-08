@@ -103,7 +103,6 @@ public class AsyncJobManager<K, V> {
      *
      * @since 2020. 11. 10.
      * @version 1.8.0
-     * 
      */
     public @Nullable Future<?> get(@Nullable K key) {
         if (key == null) {
@@ -136,7 +135,6 @@ public class AsyncJobManager<K, V> {
      *
      * @since 2024. 5. 9.
      * @version 2.0.0
-     * 
      */
     public @Nullable Map<K, Future<?>> getJobs() {
         ReentrantLock lock = LOCK;
@@ -165,7 +163,6 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * 
      */
     public boolean has(@Nullable K key) {
         if (key == null) {
@@ -200,7 +197,6 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * 
      */
     public boolean register(@Nullable K key, @Nullable Future<?> job) {
         if (key == null || job == null) {
@@ -242,7 +238,6 @@ public class AsyncJobManager<K, V> {
      * @return
      *
      * @since 2020. 11. 10.
-     * 
      */
     // public Future<V> unregister(K key) {
     public @Nullable Future<?> unregister(@Nullable K key) {
@@ -267,7 +262,6 @@ public class AsyncJobManager<K, V> {
      * 
      * @since 2020. 11. 11.
      * @version 1.8.0
-     * 
      */
     public static class Builder {
 
@@ -294,7 +288,6 @@ public class AsyncJobManager<K, V> {
          *
          * @since 2020. 11. 10.
          * @version 1.8.0
-         * 
          */
         @SuppressWarnings("unchecked")
         public static <K> AsyncJobManager<K, ?> getManager(Object holder) {

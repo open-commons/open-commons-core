@@ -24,7 +24,6 @@
 */
 
 /**
- * 
  */
 package open.commons.core.database;
 
@@ -61,7 +60,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2013. 7. 12.
  * @author Park Jun-Hong (parkjunhong77@gmail.com) *
- * 
  */
 public abstract class DefaultTableEntity implements ITableEntity {
 
@@ -121,7 +119,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
      *
      * @since 2021. 6. 18.
      * @version 2.0.0
-     * 
      */
     @Override
     public final int count() {
@@ -402,8 +399,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
      * ------------------------------------------
      * 2026. 3. 4.          parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 클래스 레벨 캐싱 적용 및 reflection 최적화
      * </pre>
-     *
-     * 
      *
      * @see open.commons.core.database.ITableEntity#toParameters()
      */

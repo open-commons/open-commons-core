@@ -32,7 +32,6 @@ package open.commons.core.lang;
  * @since 2021. 6. 18.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class Char implements CharSequence {
 
@@ -48,10 +47,8 @@ public class Char implements CharSequence {
      * 2021. 6. 18.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2021. 6. 18.
      * @version 1.8.0
-     * 
      */
     public Char(char c) {
         this.c = c;
@@ -72,7 +69,6 @@ public class Char implements CharSequence {
      *
      * @since 2021. 6. 18.
      * 
-     *
      * @see java.lang.CharSequence#charAt(int)
      */
     @Override
@@ -97,7 +93,6 @@ public class Char implements CharSequence {
      *
      * @since 2021. 6. 18.
      * 
-     *
      * @see java.lang.CharSequence#length()
      */
     @Override
@@ -121,7 +116,6 @@ public class Char implements CharSequence {
      *
      * @since 2021. 6. 18.
      * 
-     *
      * @see java.lang.CharSequence#subSequence(int, int)
      */
     @Override
@@ -146,7 +140,6 @@ public class Char implements CharSequence {
      *
      * @since 2021. 6. 18.
      * 
-     *
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.

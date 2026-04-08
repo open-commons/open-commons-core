@@ -30,7 +30,6 @@ package open.commons.core.validation.token;
 /**
  * 
  * @since 2014. 4. 10.
- * 
  */
 public interface IValidResult {
 

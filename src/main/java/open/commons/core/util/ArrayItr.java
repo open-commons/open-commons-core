@@ -35,7 +35,6 @@ import java.util.concurrent.locks.ReentrantLock;
  * 
  * @since 2019. 10. 24.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
 
@@ -74,7 +73,6 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      *
      * @since 2020. 11. 13.
      * 
-     *
      * @see java.lang.Iterable#iterator()
      */
     @Override
@@ -109,10 +107,8 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * 2020. 11. 13.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2020. 11. 13.
      * @version 1.8.0
-     * 
      */
     public void reset() {
         try {
@@ -133,9 +129,7 @@ public class ArrayItr<E> implements Iterator<E>, Iterable<E> {
      * 2019. 10. 24.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     *
      * @since 2019. 10. 24.
-     * 
      */
     public void rollback() {
         try {

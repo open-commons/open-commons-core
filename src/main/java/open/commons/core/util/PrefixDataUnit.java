@@ -46,7 +46,6 @@ import open.commons.core.utils.ObjectUtils;
  * @since 2021. 11. 5.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 @SuppressWarnings("null")
 public enum PrefixDataUnit {
@@ -170,7 +169,6 @@ public enum PrefixDataUnit {
      * @since 2021. 11. 5.
      * @version 1.8.0
      * 
-     * 
      * @see #convertHasRemain(long, PrefixDataUnit)
      */
     public BigDecimal convert(long size, PrefixDataUnit unit) {
@@ -199,7 +197,6 @@ public enum PrefixDataUnit {
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * 
      */
     public BigDecimal[] convert(long size, PrefixDataUnit unit, boolean alsoSubUnit) {
         Objects.requireNonNull(unit);
@@ -229,7 +226,6 @@ public enum PrefixDataUnit {
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * 
      */
     public BigDecimal[] convert(long size, PrefixDataUnit bigUnit, PrefixDataUnit littleUnit) {
         ObjectUtils.requireNonNulls(bigUnit, littleUnit);
@@ -276,7 +272,6 @@ public enum PrefixDataUnit {
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * 
      */
     public PrefixDataUnit down() {
         return switch (this) {
@@ -297,7 +292,6 @@ public enum PrefixDataUnit {
      * @return a string of an instance of {@link PrefixDataUnit}
      *
      * @since 2021. 11. 5.
-     * 
      */
     public String get() {
         return this.str;
@@ -306,7 +300,6 @@ public enum PrefixDataUnit {
     /**
      * @since 2021. 11. 5.
      * 
-     *
      * @see java.lang.Enum#toString()
      */
     @Override
@@ -328,7 +321,6 @@ public enum PrefixDataUnit {
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
-     * 
      */
     public PrefixDataUnit up() {
         return switch (this) {
@@ -353,7 +345,6 @@ public enum PrefixDataUnit {
      *
      * @since 2021. 11. 5.
      * 
-     *
      * @see #get(String, boolean)
      */
     public static PrefixDataUnit get(String str) {
@@ -370,7 +361,6 @@ public enum PrefixDataUnit {
      * @return an instance of {@link PrefixDataUnit}
      *
      * @since 2021. 11. 5.
-     * 
      */
     public static PrefixDataUnit get(String unitStr, boolean ignoreCase) {
         Objects.requireNonNull(unitStr);

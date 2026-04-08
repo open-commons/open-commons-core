@@ -39,7 +39,6 @@ import open.commons.core.utils.ObjectUtils;
  * 
  * @since 2012. 01. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class FixedThreadPoolService implements ExecutorService {
 
@@ -51,7 +50,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws IllegalArgumentException
      *             {@link ExecutorService} 객체가 {@code null}인 경우
      * @since 2012. 01. 20.
-     * 
      */
     public FixedThreadPoolService(ExecutorService executor) {
         Objects.requireNonNull(executor, "executor must not be 'null'");
@@ -63,7 +61,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param nThreads
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see Executors#newFixedThreadPool(int)
      */
@@ -77,7 +74,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param threadFactory
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see Executors#newFixedThreadPool(int, ThreadFactory)
      */
@@ -96,7 +92,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#awaitTermination(long, java.util.concurrent.TimeUnit)
      */
     @SuppressWarnings("null")
@@ -113,7 +108,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.Executor#execute(java.lang.Runnable)
      */
     @SuppressWarnings("null")
@@ -129,7 +123,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @return
      * @since 2012. 01. 20.
-     * 
      */
     public ExecutorService getService() {
         return executor;
@@ -143,7 +136,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws InterruptedException
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection)
      */
@@ -166,7 +158,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#invokeAll(java.util.Collection, long, java.util.concurrent.TimeUnit)
      */
     @SuppressWarnings("null")
@@ -186,7 +177,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws ExecutionException
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.util.concurrent.ExecutorService#invokeAny(java.util.Collection)
      */
@@ -212,7 +202,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#invokeAny(java.util.Collection, long, java.util.concurrent.TimeUnit)
      */
     @SuppressWarnings("null")
@@ -230,7 +219,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#isShutdown()
      */
     @Override
@@ -245,7 +233,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#isTerminated()
      */
     @Override
@@ -257,7 +244,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * Forwarding to a {@link ExecutorService} instance.
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.util.concurrent.ExecutorService#shutdown()
      */
@@ -274,7 +260,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#shutdownNow()
      */
     @Override
@@ -289,7 +274,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.util.concurrent.Callable)
      */
@@ -308,7 +292,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see java.util.concurrent.ExecutorService#submit(java.lang.Runnable)
      */
@@ -329,7 +312,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @since 2012. 01. 20.
      * 
-     * 
      * @see java.util.concurrent.ExecutorService#submit(java.lang.Runnable, java.lang.Object)
      */
     @SuppressWarnings("null")
@@ -343,10 +325,7 @@ public class FixedThreadPoolService implements ExecutorService {
     /**
      * 현재 실행되고 있는 명령이 모두 종료한 후에 서비스를 종료시킨다.
      * 
-     * 
-     * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see ExecutorService#isTerminated()
      * @see ExecutorService#shutdown()
@@ -366,7 +345,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 현재 서비스를 종료 시킨다.
      * 
      * @since 2012. 01. 20.
-     * 
      * 
      * @see ExecutorService#shutdownNow()
      */
@@ -389,7 +367,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param pool
      *
      * @since 2012. 1. 20.
-     * 
      */
     public static void shutdownAndAwaitTermination(ExecutorService pool) {
         Objects.requireNonNull(pool);

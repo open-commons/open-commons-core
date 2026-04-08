@@ -32,7 +32,6 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 03. 20.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
  */
 public class DefaultEquivalent<T extends @Nullable Object> implements IEquivalent<T> {
 
@@ -42,7 +41,6 @@ public class DefaultEquivalent<T extends @Nullable Object> implements IEquivalen
      * @return
      * 
      * @since 2012. 03. 20.
-     * 
      * 
      * @see open.commons.core.IEquivalent#equals(java.lang.Object, java.lang.Object)
      */
@@ -63,7 +61,6 @@ public class DefaultEquivalent<T extends @Nullable Object> implements IEquivalen
      * @param t2
      * @return <BR>
      * @since 2012. 03. 20.
-     * 
      */
     protected final boolean nullEquals(@Nullable T t1, @Nullable T t2) {
         if (t1 == null && t2 == null) {

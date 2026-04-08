@@ -37,7 +37,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * 
  * @since 2019. 6. 28.
- * 
  */
 public class LangUtils {
 
