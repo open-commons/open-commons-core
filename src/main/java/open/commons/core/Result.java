@@ -23,6 +23,8 @@ import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
 
+import open.commons.core.utils.ObjectUtils;
+
 /**
  * true/false 결과와 함께 관련 데이타를 같이 전달해주는 클래스 <BR>
  * 
@@ -43,15 +45,13 @@ import org.jspecify.annotations.Nullable;
 public class Result<T> {
 
     /** 결과와 관련된 데이타 */
-    @Nullable
-    private T data;
+    private @Nullable T data;
 
     /** true/false 값 */
     private boolean result;
 
     /** 성공/실패에 대한 정보 */
-    @Nullable
-    private String message;
+    private @Nullable String message;
 
     /**
      * 결과값과 데이타 값으로 기본값을 사용하는 생성자.<br>
@@ -280,12 +280,18 @@ public class Result<T> {
      * @param args
      *            메시지 파라미터.
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 2. 14.
      * @version 1.8.0
      * 
      */
-    public Result<T> setMessage(String format, Object... args) {
+    public Result<T> setMessage(String format, @Nullable Object... args) {
+        Objects.requireNonNull(format);
+        Objects.requireNonNull(args);
+
         this.message = String.format(format, args);
         return this;
     }
@@ -321,9 +327,13 @@ public class Result<T> {
      *
      * @since 2020. 4. 11.
      * 
-     *
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
 
@@ -337,7 +347,7 @@ public class Result<T> {
         builder.append(message);
         builder.append("]");
 
-        return Objects.requireNonNull(builder.toString());
+        return builder.toString();
     }
 
     /**
@@ -352,13 +362,19 @@ public class Result<T> {
      *
      * @param <N>
      * @param o
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code o})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 20.
      * @version 1.8.0
      * 
      */
     public static <N> Result<N> copyOf(Result<?> o) {
+        Objects.requireNonNull(o);
+
         return new Result<N>(null, o.getResult()).setMessage(o.getMessage());
     }
 
@@ -380,7 +396,7 @@ public class Result<T> {
      * @version
      * 
      */
-    public static <T> Result<T> error(String errorMessage) {
+    public static <T> Result<T> error(@Nullable String errorMessage) {
         return new Result<T>().setMessage(errorMessage);
     }
 
@@ -400,12 +416,15 @@ public class Result<T> {
      * @param args
      *            메시지 정보
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 7. 14.
      * @version 1.8.0
      * 
      */
-    public static <T> Result<T> error(String format, Object... args) {
+    public static <T> Result<T> error(String format, @Nullable Object... args) {
         return new Result<T>().setMessage(format, args);
     }
 
@@ -424,13 +443,18 @@ public class Result<T> {
      * @param result
      * @param format
      * @param args
-     *            TODO
+     * 
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 3.
      * 
      */
-    public static <T> @Nullable String getTrueMessage(Result<T> result, String format, Object... args) {
+    public static <T> @Nullable String getTrueMessage(Result<T> result, String format, @Nullable Object... args) {
+        ObjectUtils.requireNonNulls(result, format, args);
+
         return result.getResult() ? String.format(format, args) : result.getMessage();
     }
 
@@ -450,12 +474,15 @@ public class Result<T> {
      * @param args
      *            메시지 정보
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
      * 
      */
-    public static <T> Result<T> success(String format, Object... args) {
+    public static <T> Result<T> success(String format, @Nullable Object... args) {
         return success(null, format, args);
     }
 
@@ -499,12 +526,15 @@ public class Result<T> {
      * @param args
      *            메시지 정보
      * @return
+     * 
+     * @throws NullPointerException
+     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
      * 
      */
-    public static <T> Result<T> success(@Nullable T data, String format, Object... args) {
+    public static <T> Result<T> success(@Nullable T data, String format, @Nullable Object... args) {
         return Result.success(data).setMessage(format, args);
     }
 
