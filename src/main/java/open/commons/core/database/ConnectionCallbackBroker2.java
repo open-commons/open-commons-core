@@ -76,9 +76,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * 
      * 
-     * @throws NullPointerException
-     *             파라미터({@code query})가 {@code null}인 경우 발생.
-     * 
      * @since 2019. 2. 19.
      */
     public ConnectionCallbackBroker2(String query, @Nullable T setter) {
@@ -102,9 +99,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * @param forStoredProcedure
      *            실행 쿼리가 Stored Procedure를 실행하는지 여부
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code query})가 {@code null}인 경우 발생.
      * 
      * @since 2020. 10. 29.
      */
@@ -136,8 +130,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
 
     /**
      * @throws SQLException
-     * @throws NullPointerException
-     *             파라미터({@code con})가 {@code null}인 경우 발생.
      * 
      * @since 2020. 10. 29.
      * 
@@ -153,8 +145,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code stmt})가 {@code null}인 경우 발생.
      * 
      * @see open.commons.core.database.IConnectionCallbackBroker#set(PreparedStatement)
      */
@@ -179,9 +169,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
      *
      * @param stmt
      * @param setter
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code stmt, setter})가 {@code null}인 경우 발생.
      *
      * 
      * @since 2019. 2. 19.

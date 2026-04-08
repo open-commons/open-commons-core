@@ -63,8 +63,6 @@ public final class FileContextConsoleWriter extends AbstractContextWriter {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code context})가 {@code null}인 경우 발생.
      * 
      * @see open.commons.core.unix.tool.IFileContextWriter#write(open.commons.core.unix.tool.IFileModifyListener.FileContext)
      */

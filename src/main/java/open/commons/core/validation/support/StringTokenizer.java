@@ -41,9 +41,6 @@ public class StringTokenizer extends AbstractTokenizer<CharSequence, Character> 
      *
      * @param data
      *            토큰화할 대상 문자열 데이터
-     *
-     * @throws NullPointerException
-     *             파라미터({@code data})가 {@code null}인 경우 발생.
      */
     public StringTokenizer(CharSequence data) {
         super(data);

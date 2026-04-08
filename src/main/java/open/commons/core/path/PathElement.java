@@ -135,7 +135,7 @@ public class PathElement implements Iterable<String> {
     @SuppressWarnings("null")
     public PathElement(String... elems) {
         ObjectUtils.requireNonNulls((Object[]) elems);
-        
+
         this(DEFAULT_SEPARATOR);
 
         for (String elem : elems) {
@@ -758,9 +758,6 @@ public class PathElement implements Iterable<String> {
      * 
      * @param delimiter
      * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다. <BR>
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code separator})가 {@code null}인 경우 발생.
      * @since 2012. 03. 12.
      * 
      */

@@ -113,9 +113,6 @@ public class ThreadUtils {
      *
      * @return 스택 트레이스가 기록된 문자열
      *
-     * @throws NullPointerException
-     *             파라미터({@code e})가 {@code null}인 경우 발생.
-     *
      * @since 2013. 5. 23.
      */
     // 아래 내용에 적용됨.
@@ -149,9 +146,6 @@ public class ThreadUtils {
      *            새롭게 지정할 쓰레드 이름
      *
      * @return 변경되기 전의 원래 쓰레드 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      *
      * @since 2013. 5. 23.
      */
@@ -216,9 +210,6 @@ public class ThreadUtils {
      *            쓰레드에서 실행할 작업 객체 가변 인자 (내부 요소가 {@code null}인 경우 해당 요소는 무시됨)
      *
      * @return 생성된 {@link Thread} 객체 목록
-     *
-     * @throws NullPointerException
-     *             파라미터({@code runnables})가 {@code null}인 경우 발생.
      *
      * @since 2026. 4. 2.
      * @version 3.0.0

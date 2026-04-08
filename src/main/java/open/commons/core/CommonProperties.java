@@ -56,9 +56,6 @@ public class CommonProperties {
      * 
      * 
      * @see Properties#get(Object)
-     * 
-     * @throws NullPointerException
-     *             {@code key}가 null인 경우
      */
     public static @Nullable String getProperty(String key) {
         Objects.requireNonNull(key);
@@ -72,9 +69,6 @@ public class CommonProperties {
      * @return <BR>
      * @since 2012. 01. 30.
      * 
-     * 
-     * @throws NullPointerException
-     *             {@code keyPrefix}가 {@code null}인 경우 발생.
      */
     public static Properties subProperteis(String keyPrefix) {
         Objects.requireNonNull(keyPrefix);

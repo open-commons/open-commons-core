@@ -70,9 +70,6 @@ public class LangUtils {
      * @param c
      *            실행 함수
      *
-     * @throws NullPointerException
-     *             파라미터({@code p, c 중에 1개라도})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIf(T value, Predicate<Object> p, Consumer<T> c) {
@@ -104,9 +101,6 @@ public class LangUtils {
      * @param c
      *            실행 함수
      *
-     * @throws NullPointerException
-     *             파라미터({@code p, c 중에 1개라도})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIf(T value, T defaultValue, Predicate<Object> p, Consumer<T> c) {
@@ -136,9 +130,6 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
-     * @throws NullPointerException
-     *             파라미터({@code c})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIfNotNull(T value, Consumer<T> c) {
@@ -165,9 +156,6 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
-     * @throws NullPointerException
-     *             파라미터({@code c})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIfNotNull(T value, T defaultValue, Consumer<T> c) {
@@ -188,9 +176,6 @@ public class LangUtils {
      *            문자열
      * @param c
      *            실행함수
-     *
-     * @throws NullPointerException
-     *             파라미터({@code c})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
@@ -215,9 +200,6 @@ public class LangUtils {
      *            기본값
      * @param c
      *            실행함수
-     *
-     * @throws NullPointerException
-     *             파라미터({@code c})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
@@ -245,9 +227,6 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
-     * @throws NullPointerException
-     *             파라미터({@code c})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIfNull(T value, T defaultValue, Consumer<T> c) {
@@ -271,9 +250,6 @@ public class LangUtils {
      * @param c
      *            실행함수
      *
-     * @throws NullPointerException
-     *             파라미터({@code c})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIfNullEmpty(T value, Consumer<T> c) {
@@ -294,9 +270,6 @@ public class LangUtils {
      *            클래스 타입
      *
      * @return 캐릭터형 타입 여부
-     *
-     * @throws NullPointerException
-     *             파라미터({@code clazz})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
@@ -320,9 +293,6 @@ public class LangUtils {
      *            클래스 타입
      *
      * @return 숫자형 타입 여부
-     *
-     * @throws NullPointerException
-     *             파라미터({@code clazz})가 {@code null}인 경우 발생.
      *
      * @since 2018. 10. 26.
      */
@@ -370,9 +340,6 @@ public class LangUtils {
      *            문자열
      *
      * @return 계산된 바이트 단위의 숫자
-     *
-     * @throws NullPointerException
-     *             파라미터({@code value})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             단위 문자열 형식이 잘못된 경우 발생.
      *

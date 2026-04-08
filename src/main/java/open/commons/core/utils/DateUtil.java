@@ -225,9 +225,6 @@ public class DateUtil {
      *         <li>0: 시작구간 초과 종료구간 이하
      *         <li>양수: 종료구간 초과
      *         </ul>
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      */
     public static int compare(String date, String sDate, String eDate) {
         ObjectUtils.requireNonNulls(date, sDate, eDate);
@@ -255,9 +252,6 @@ public class DateUtil {
      * 
      * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
      * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2 중에 1개라도})가 {@code null}인 경우 발생.
-     * 
      * @since 2014. 4. 2.
      */
     public static int diffDay(Calendar cal1, Calendar cal2) {
@@ -279,9 +273,6 @@ public class DateUtil {
      * @param date2
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 2.
      */
@@ -362,9 +353,6 @@ public class DateUtil {
      * @param cal2
      * 
      * @return 양수인 경우 첫번째 날짜가 크고, 음수인 경우 두번째 날짜가 큰 경우이다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
@@ -400,9 +388,6 @@ public class DateUtil {
      * @param cal
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
@@ -425,9 +410,6 @@ public class DateUtil {
      * @param date
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 26.
      * @version 2.0.0
@@ -554,9 +536,6 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getDateString(Date date) {
         Objects.requireNonNull(date);
@@ -579,9 +558,6 @@ public class DateUtil {
      * 예) 날짜가 2011년 1월 1일 1시 1분 1초인 경우 "20110101010101'
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getDateTimeString(Date date) {
         Objects.requireNonNull(date);
@@ -604,9 +580,6 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getDay(Date date) {
         Objects.requireNonNull(date);
@@ -632,10 +605,6 @@ public class DateUtil {
      *            제외시키는 일자
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, locale, discards 중에 1개라도})가 {@code null}이거나 {@code discard}가 {@code null}을
-     *             포함한 경우 발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -711,10 +680,6 @@ public class DateUtil {
      * 
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
-     *             발생.
-     * 
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, YearMonthDay... discards) {
@@ -735,10 +700,6 @@ public class DateUtil {
      *
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, locale, discards 중에 1개라도})가 {@code null}이거나 {@code discards}에 {@code null}이
-     *             포함된 경우 발생.
-     * 
      * 
      * @since 2014. 4. 3.
      */
@@ -758,10 +719,6 @@ public class DateUtil {
      *            제외시키는 일자
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
-     *             발생.
      * 
      * 
      * @since 2014. 4. 3.
@@ -787,10 +744,6 @@ public class DateUtil {
      *
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, locale, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이
-     *             포함된 경우 발생.
-     * 
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, int style, Locale locale, YearMonthDay... discards) {
@@ -813,10 +766,6 @@ public class DateUtil {
      *
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
-     *             발생.
-     * 
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, int style, YearMonthDay... discards) {
@@ -835,10 +784,6 @@ public class DateUtil {
      *
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, discards 중에 1개라도 })가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
-     *             발생.
-     * 
      * @since 2014. 4. 3.
      */
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, Locale locale, YearMonthDay... discards) {
@@ -855,10 +800,6 @@ public class DateUtil {
      *            제외시키는 일자
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal1, cal2, discards 중에 1개라도})가 {@code null}이거나 {@code discards}에 {@code null}이 포함된 경우
-     *             발생.
      * 
      * @since 2014. 4. 3.
      */
@@ -883,9 +824,6 @@ public class DateUtil {
      * @param date
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getHHmm(Date date) {
         Objects.requireNonNull(date);
@@ -908,9 +846,6 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "01'
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getMonth(Date date) {
         Objects.requireNonNull(date);
@@ -933,9 +868,6 @@ public class DateUtil {
      * 예) 2011년 7월 24일 오후 3시 20분 12초: 0724152012
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getTimeModeString(Date date) {
         Objects.requireNonNull(date);
@@ -960,9 +892,6 @@ public class DateUtil {
      *            날짜 데이터
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1016,9 +945,6 @@ public class DateUtil {
      *            시분초 표기포맷.
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal, dateFormat})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1047,9 +973,6 @@ public class DateUtil {
      *            시분초 표기포맷.
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal, format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1078,9 +1001,6 @@ public class DateUtil {
      *            시분초 표기포맷.
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal, format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1109,9 +1029,6 @@ public class DateUtil {
      *            시간 표기 포맷.
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code dateFormat})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1139,9 +1056,6 @@ public class DateUtil {
      *            시간 표기 포맷.
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1167,9 +1081,6 @@ public class DateUtil {
      *            시분초 표기포맷.
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code format})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1206,9 +1117,6 @@ public class DateUtil {
      *            시간 객체
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cal})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 27.
      * @version 1.8.0
@@ -1226,9 +1134,6 @@ public class DateUtil {
      * 예) 오후 3시 20분 12초: 152012
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getTimeString(Date date) {
         Objects.requireNonNull(date);
@@ -1265,9 +1170,6 @@ public class DateUtil {
      * @param calendar
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      */
     public static String getTimezoneOffset(Calendar calendar) {
         Objects.requireNonNull(calendar);
@@ -1291,9 +1193,6 @@ public class DateUtil {
      * 예) 현재 날짜가 2011년 1월 1일인 경우 "20110101'
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static String getYear(Date date) {
         Objects.requireNonNull(date);
@@ -1314,9 +1213,6 @@ public class DateUtil {
      *            시간 값
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar, date 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static boolean isPast(Calendar calendar, Date date, int timeField, int timeValue) {
         ObjectUtils.requireNonNulls(calendar, date);
@@ -1336,9 +1232,6 @@ public class DateUtil {
      *            시간 구역
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public static boolean isPast(Date date, int timeValue, int timeField) {
         Objects.requireNonNull(date);
@@ -1357,9 +1250,6 @@ public class DateUtil {
      * @param fields
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar, fields 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1382,9 +1272,6 @@ public class DateUtil {
      * @param timeInMillis
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1550,9 +1437,6 @@ public class DateUtil {
      * 
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
-     * 
      * @since 2014. 4. 2.
      */
     public static void renewCalendar(Calendar calendar, int... fields) {
@@ -1576,9 +1460,6 @@ public class DateUtil {
      * @param calendar
      * @param dateFields
      *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar, dateFields 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1605,9 +1486,6 @@ public class DateUtil {
      *
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code dateFields})가 {@code null}인 경우 발생.
-     * 
      * @since 2021. 2. 18.
      * @version 1.8.0
      * 
@@ -1629,9 +1507,6 @@ public class DateUtil {
      * @param calendar
      * @param dateFields
      *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code dateFields})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1657,9 +1532,6 @@ public class DateUtil {
      *            <li>2014년12월12일 12시12분12초
      *            </ul>
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 2.
      */
@@ -1705,9 +1577,6 @@ public class DateUtil {
      *
      * @return ISO 8601 포맷 문자열
      * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
-     * 
      * @since 2026. 3. 30.
      */
     public static String toISO8601Format(Calendar calendar) {
@@ -1730,9 +1599,6 @@ public class DateUtil {
      *            변환할 시간 객체
      *
      * @return ISO 8601 포맷 문자열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      * 
      * @since 2026. 3. 30.
      */
@@ -1757,9 +1623,6 @@ public class DateUtil {
      * 
      * @return ISO 8601 포맷 문자열
      * 
-     * @throws NullPointerException
-     *             파라미터({@code timestamp})가 {@code null}인 경우 발생.
-     * 
      * @since 2026. 3. 30.
      */
     public static String toISO8601Format(Long timestamp) {
@@ -1772,9 +1635,6 @@ public class DateUtil {
      * @param calendar
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 7.
      * 
@@ -1801,9 +1661,6 @@ public class DateUtil {
      *
      * @return ISO 포맷 문자열
      * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
-     * 
      * @since 2026. 3. 30.
      */
     public static String toISOFormat(Date date) {
@@ -1826,9 +1683,6 @@ public class DateUtil {
      * @param timestamp
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code timestamp})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
      */
@@ -1842,9 +1696,6 @@ public class DateUtil {
      * @param calendar
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 7.
      * 
@@ -1870,9 +1721,6 @@ public class DateUtil {
      *            변환할 시간 객체
      *
      * @return ISO 포맷 문자열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      * 
      * @since 2026. 3. 30.
      */
@@ -1928,9 +1776,6 @@ public class DateUtil {
      * @param timestamp
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code timestamp})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
      */
@@ -1945,9 +1790,6 @@ public class DateUtil {
      * @param dateStr
      *            . 포맷: {@value #REGEX_yyyyMMDD}
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code dateStr})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 8.
      */
@@ -1975,9 +1817,6 @@ public class DateUtil {
      * 
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
-     * 
      * @since 2014. 4. 8.
      */
     public static String toISOFormatNoTZ(String year, String month, String dayOfMonth) {
@@ -1996,9 +1835,6 @@ public class DateUtil {
      * @param sec
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 7.
      * 
@@ -2083,9 +1919,6 @@ public class DateUtil {
      *            패턴
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date, pattern 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public static String toString(Date date, String pattern) {
         ObjectUtils.requireNonNulls(date, pattern);
@@ -2108,9 +1941,6 @@ public class DateUtil {
      * @param pattern
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code timestamp, pattern 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 5.
      */
@@ -2187,9 +2017,6 @@ public class DateUtil {
      *            패턴
      *
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
      */
     public static String toString(String pattern) {
         Objects.requireNonNull(pattern);

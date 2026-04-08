@@ -46,8 +46,6 @@ public class EntryInstance<K, V> implements Entry<K, V> {
     private @Nullable V value;
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code key})가 {@code null}인 경우 발생.
      */
     public EntryInstance(K key, @Nullable V value) {
         Objects.requireNonNull(key);

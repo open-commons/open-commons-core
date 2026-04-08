@@ -65,9 +65,6 @@ public class CreateInstanceFailedException extends RuntimeException {
      *            오류 메시지.
      * @param cause
      *            오류 정보.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code objectType})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0
@@ -95,9 +92,6 @@ public class CreateInstanceFailedException extends RuntimeException {
      *            데이터 유형.
      * @param cause
      *            오류 정보.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code objectType})가 {@code null}인 경우 발생.
      *
      * @since 2025. 8. 30.
      * @version 2.1.0

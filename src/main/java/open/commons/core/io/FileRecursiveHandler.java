@@ -112,8 +112,6 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     protected final void $handle$(File file) {
         Objects.requireNonNull(file);
@@ -133,8 +131,6 @@ public class FileRecursiveHandler {
      * 파일 처리 핸들러를 추가합니다.
      * 
      * @param handle
-     * @throws NullPointerException
-     *             파라미터({@code handle})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 18.
      */
@@ -201,9 +197,6 @@ public class FileRecursiveHandler {
 
     /**
      * @param dir
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      * @since 2012. 03. 13.
      * 
      */
@@ -243,8 +236,6 @@ public class FileRecursiveHandler {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     protected final void handleFile(File file) {
         Objects.requireNonNull(file);
@@ -277,9 +268,6 @@ public class FileRecursiveHandler {
      * 등록되어 있던 파일 처리 핸드러를 제거합니다.
      * 
      * @param handle
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code handle})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 18.
      */
@@ -345,8 +333,6 @@ public class FileRecursiveHandler {
      * 
      * @param rootpath
      * @return 기존 최상위 절대 경로
-     * @throws NullPointerException
-     *             파라미터({@code rootpath})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 18.
      */

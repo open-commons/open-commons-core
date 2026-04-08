@@ -35,28 +35,20 @@ public class OutOfRangedValue extends RuntimeException {
     private Object value;
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
      */
     public OutOfRangedValue(Object value, Object min, Object max) {
         this(value, min, max, null, null);
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
      */
     public OutOfRangedValue(Object value, Object min, Object max, @Nullable String message) {
         this(value, min, max, message, null);
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
      */
     /**
-     * @throws NullPointerException
-     *             파라미터({@code value, min, max})가 {@code null}인 경우 발생.
      */
     public OutOfRangedValue(Object value, Object min, Object max, @Nullable String message, @Nullable Throwable cause) {
         ObjectUtils.requireNonNulls(value, min, max);

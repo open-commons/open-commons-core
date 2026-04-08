@@ -853,9 +853,6 @@ public enum DnsRecordType {
      *            a string for {@link DnsRecordType} instance.
      *
      * @return an instance of {@link DnsRecordType}
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2022. 2. 11.
      * @author Park_Jun_Hong (jhpark@ymtech.co.kr)
@@ -874,9 +871,6 @@ public enum DnsRecordType {
      *            ignore {@code <b>case-sensitive</b>} or not.
      *
      * @return an instance of {@link DnsRecordType}
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2022. 2. 11.
      * @author Park_Jun_Hong (jhpark@ymtech.co.kr)

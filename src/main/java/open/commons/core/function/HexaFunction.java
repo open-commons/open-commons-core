@@ -62,9 +62,6 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      *
      * @since 2020. 1. 30.
      * @version 1.8.0

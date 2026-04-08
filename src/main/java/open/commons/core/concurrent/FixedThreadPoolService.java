@@ -52,9 +52,6 @@ public class FixedThreadPoolService implements ExecutorService {
      *             {@link ExecutorService} 객체가 {@code null}인 경우
      * @since 2012. 01. 20.
      * 
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code executor})가 {@code null}인 경우 발생.
      */
     public FixedThreadPoolService(ExecutorService executor) {
         Objects.requireNonNull(executor, "executor must not be 'null'");
@@ -79,9 +76,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param nThreads
      * @param threadFactory
      * 
-     * @throws NullPointerException
-     *             파라미터({@code threadFactory})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 01. 20.
      * 
      * 
@@ -99,8 +93,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param unit
      * @return
      * @throws InterruptedException
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -118,9 +110,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * Forwarding to a {@link ExecutorService} instance.
      * 
      * @param command
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code command})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -152,8 +141,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param tasks
      * @return
      * @throws InterruptedException
-     * @throws NullPointerException
-     *             파라미터({@code tasks})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -176,8 +163,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param unit
      * @return
      * @throws InterruptedException
-     * @throws NullPointerException
-     *             파라미터({@code tasks, unit})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -199,8 +184,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @return
      * @throws InterruptedException
      * @throws ExecutionException
-     * @throws NullPointerException
-     *             파라미터({@code tasks})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -226,8 +209,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @throws InterruptedException
      * @throws ExecutionException
      * @throws TimeoutException
-     * @throws NullPointerException
-     *             파라미터({@code tasks, unit})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -307,9 +288,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param task
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code task})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 01. 20.
      * 
      * 
@@ -328,9 +306,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @param task
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code task})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -351,9 +326,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * @param task
      * @param result
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code tasks})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -415,9 +387,6 @@ public class FixedThreadPoolService implements ExecutorService {
      * </pre>
      *
      * @param pool
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pool})가 {@code null}인 경우 발생.
      *
      * @since 2012. 1. 20.
      * 

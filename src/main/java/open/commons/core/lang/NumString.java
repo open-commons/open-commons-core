@@ -54,8 +54,6 @@ public class NumString<N extends Number> implements CharSequence {
     /**
      * 
      * @param number
-     * @throws NullPointerException
-     *             파라미터({@code number})가 {@code null}인 경우 발생.
      * 
      * @since 2020. 12. 17.
      */
@@ -178,8 +176,6 @@ public class NumString<N extends Number> implements CharSequence {
      * @param <N>
      * @param nums
      * @return
-     * @throws NullPointerException
-     *             파라미터({@code nums})가 {@code null}인 경우 발생.
      * 
      * @since 2020. 12. 17.
      * @version 1.8.0
@@ -205,8 +201,6 @@ public class NumString<N extends Number> implements CharSequence {
      * @param f
      * @param nums
      * @return
-     * @throws NullPointerException
-     *             파라미터({@code f, nums 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 12. 17.
      * @version 1.8.0
@@ -238,8 +232,6 @@ public class NumString<N extends Number> implements CharSequence {
      * @param f
      * @param nums
      * @return
-     * @throws NullPointerException
-     *             파라미터({@code f})가 {@code null}인 경우 발생.
      * @since 2020. 12. 17.
      * @version 1.8.0
      * 

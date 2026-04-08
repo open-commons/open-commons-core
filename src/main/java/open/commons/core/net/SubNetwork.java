@@ -92,8 +92,6 @@ public class SubNetwork {
      * @throws IllegalArgumentException
      *             if the parameter is invalid, i.e. does not match n.n.n.n/m where n=1-3 decimal digits, m = 1-3
      *             decimal digits in range 1-32
-     * @throws NullPointerException
-     *             파라미터({@code cidrNotation})가 {@code null}인 경우 발생.
      */
     public SubNetwork(String cidrNotation) throws IllegalArgumentException {
         Objects.requireNonNull(cidrNotation);
@@ -110,8 +108,6 @@ public class SubNetwork {
      * 
      * @param ipv4
      * @param subnetMask
-     * @throws NullPointerException
-     *             파라미터({@code ipv4})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             Thrown if an argument is not matched to {@link #REGEX_IPV4} or CIDR is not valid.
      * @since Apr 13, 2015
@@ -139,8 +135,6 @@ public class SubNetwork {
      *            An IP address, e.g. "192.168.0.1"
      * @param mask
      *            A dotted decimal netmask e.g. "255.255.0.0"
-     * @throws NullPointerException
-     *             파라미터({@code ipv4, mask 중에 1개라도})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             if the address or mask is invalid, i.e. does not match n.n.n.n where n=1-3 decimal digits and the
      *             mask is not all zeros
@@ -297,8 +291,6 @@ public class SubNetwork {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code ipv4})가 {@code null}인 경우 발생.
      */
     public boolean matched(String ipv4) {
         Objects.requireNonNull(ipv4);
@@ -307,8 +299,6 @@ public class SubNetwork {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code ipv4})가 {@code null}인 경우 발생.
      */
     public boolean matched(String ipv4, boolean logged) {
         Objects.requireNonNull(ipv4);

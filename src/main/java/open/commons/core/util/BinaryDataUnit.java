@@ -171,9 +171,6 @@ public enum BinaryDataUnit {
      *
      * @return 변환된 크기의 {@link BigDecimal} 값
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 3.0.0
      *
@@ -202,9 +199,6 @@ public enum BinaryDataUnit {
      *            변환 범위 끝 단위
      *
      * @return 단위별로 나누어진 크기들의 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code bigUnit, littleUnit}) 중에 1개라도 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             변환 단위의 순서(크기)가 잘못 지정된 경우 발생.
      *
@@ -260,9 +254,6 @@ public enum BinaryDataUnit {
      *            하위 단위 포함 변환 여부
      *
      * @return 단위별로 변환된 데이터 크기 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -359,9 +350,6 @@ public enum BinaryDataUnit {
      *            {@link BinaryDataUnit} 인스턴스를 찾기 위한 문자열
      *
      * @return 일치하는 {@link BinaryDataUnit} 인스턴스
-     *
-     * @throws NullPointerException
-     *             파라미터({@code str})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             매칭되는 단위를 찾을 수 없는 경우 발생.
      *
@@ -382,9 +370,6 @@ public enum BinaryDataUnit {
      *            대소문자 무시 여부 ({@code true}면 무시)
      *
      * @return 일치하는 {@link BinaryDataUnit} 인스턴스
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unitStr})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             매칭되는 단위를 찾을 수 없는 경우 발생.
      *

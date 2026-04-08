@@ -78,8 +78,6 @@ public interface TripleConsumer<T, U, V> {
      *            the operation to perform after this operation
      * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default TripleConsumer<T, U, V> andThen(TripleConsumer<? super T, ? super U, ? super V> after) {
         Objects.requireNonNull(after);

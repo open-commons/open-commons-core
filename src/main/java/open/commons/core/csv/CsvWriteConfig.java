@@ -157,9 +157,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @param charset
      *            파일 Charset
      * 
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
@@ -189,9 +186,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @param lineEnd
      *            기본 줄바꿈 문자열
      * @param charset
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code lineEnd, charset})가 {@code null}인 경우 발생.
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
@@ -220,9 +214,6 @@ public class CsvWriteConfig extends CsvCommon {
      *            문자열로 묶어주는 문자
      * @param charset
      *            파일 Charset
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 17.
      * @version 1.8.0
@@ -246,9 +237,6 @@ public class CsvWriteConfig extends CsvCommon {
      *            데이터를 구분하는 문자
      * @param charset
      *            파일 Charset
-     *
-     * @throws NullPointerException
-     *             파라미터({@code charset})가 {@code null}인 경우 발생.
      * 
      * @since 2022. 3. 17.
      * @version 1.8.0
@@ -320,9 +308,6 @@ public class CsvWriteConfig extends CsvCommon {
      * @param charset
      *            the charset to set
      *
-     * @throws NullPointerException
-     *             파라미터({@code charset})가 {@code null}인 경우 발생.
-     *
      * @since 2022. 3. 17.
      * @version 1.8.0
      * 
@@ -348,9 +333,6 @@ public class CsvWriteConfig extends CsvCommon {
      *
      * @param charsetName
      *            the charsetName to set
-     *
-     * @throws NullPointerException
-     *             파라미터({@code charsetName})가 {@code null}인 경우 발생.
      * 
      * @since 2022. 3. 17.
      * @version 1.8.0

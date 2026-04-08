@@ -178,9 +178,6 @@ public abstract class CsvCommon {
      * @param quotechar
      * @param escape
      * @param lineEnd
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code lineEnd})가 {@code null}인 경우 발생.
      *
      * @since 2026. 2. 26.
      * @version 3.0.0
@@ -323,9 +320,6 @@ public abstract class CsvCommon {
      * @param lineEnd
      *            the lineEnd to set
      *
-     *
-     * @throws NullPointerException
-     *             파라미터({@code lineEnd})가 {@code null}인 경우 발생.
      * @since 2026. 2. 26.
      * @version 3.0.0
      * 

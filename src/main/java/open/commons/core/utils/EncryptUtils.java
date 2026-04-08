@@ -74,8 +74,6 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * 
      * @since 2018. 11. 20.
      * 
@@ -114,8 +112,6 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -153,8 +149,6 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -196,8 +190,6 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -237,8 +229,6 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -277,8 +267,6 @@ public class EncryptUtils {
      * @throws InvalidAlgorithmParameterException
      * @throws IllegalBlockSizeException
      * @throws BadPaddingException
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * 
      * @since 2018. 11. 20.
@@ -322,9 +310,6 @@ public class EncryptUtils {
      * @param charset
      *            key charset
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * @throws UnsupportedEncodingException
      * 
      * @since 2018. 11. 20.

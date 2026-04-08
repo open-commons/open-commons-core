@@ -60,9 +60,6 @@ public class MethodBase implements Supplier<String> {
      * @param owner
      * @param method
      * 
-     * @throws NullPointerException
-     *             파라미터({@code owner, method})가 {@code null}인 경우 발생.
-     * 
      * @since 2021. 6. 18.
      * @version 1.8.0
      * 

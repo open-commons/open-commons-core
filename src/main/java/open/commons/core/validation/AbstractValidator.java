@@ -119,9 +119,6 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *            토큰 검증기
      *
      * @return 할당된 Feature 식별자
-     *
-     * @throws NullPointerException
-     *             파라미터({@code tokenValidator})가 {@code null}인 경우 발생.
      */
     public int addTokenValidator(ITokenValidator<T> tokenValidator) {
         Objects.requireNonNull(tokenValidator);
@@ -139,10 +136,6 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *            토큰 검증기 가변 인자
      *
      * @return 할당된 Feature 식별자 리스트
-     *
-     * @throws NullPointerException
-     *             파라미터({@code tokenValidators})가 {@code null}이거나, 파라미터({@code tokenValidators})에 {@code null}이 포함된 경우
-     *             발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) tokenValidators);
@@ -180,9 +173,6 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *            토큰 검증기
      *
      * @return 할당된 Feature 식별자
-     *
-     * @throws NullPointerException
-     *             파라미터({@code holder}, {@code tokenValidator} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     protected final int getCustomFeature(Object holder, ITokenValidator<T> tokenValidator) {
         Objects.requireNonNull(holder);

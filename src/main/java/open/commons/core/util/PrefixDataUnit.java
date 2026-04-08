@@ -166,9 +166,6 @@ public enum PrefixDataUnit {
      * @param unit
      *            변환 단위
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
@@ -199,9 +196,6 @@ public enum PrefixDataUnit {
      * @param alsoSubUnit
      *            하위 단위 포함 변환 여부.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
@@ -232,9 +226,6 @@ public enum PrefixDataUnit {
      * @param littleUnit
      *            변환범위 끝 단위.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code bigUnit, littleUnit 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
@@ -377,9 +368,6 @@ public enum PrefixDataUnit {
      *            ignore {@code <b>case-sensitive</b>} or not.
      *
      * @return an instance of {@link PrefixDataUnit}
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code unitSTr})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * 

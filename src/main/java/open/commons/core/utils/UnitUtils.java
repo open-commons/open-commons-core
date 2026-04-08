@@ -93,9 +93,6 @@ public class UnitUtils {
      *
      * @return 변환된 크기의 {@link BigDecimal} 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -123,9 +120,6 @@ public class UnitUtils {
      *
      * @return 하위 단위별로 분할된 {@link BigDecimal} 배열
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -152,9 +146,6 @@ public class UnitUtils {
      *            변환 단위
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -188,9 +179,6 @@ public class UnitUtils {
      *            사이즈가 '0'인 하위 단위의 문자열 제외 여부
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -247,9 +235,6 @@ public class UnitUtils {
      *
      * @return 포맷팅된 용량 문자열
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -276,9 +261,6 @@ public class UnitUtils {
      *            변환 단위
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -313,9 +295,6 @@ public class UnitUtils {
      *            단위 문자열(예: KiB) 추가 여부
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -358,9 +337,6 @@ public class UnitUtils {
      *
      * @return 포맷팅된 용량 문자열
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -390,9 +366,6 @@ public class UnitUtils {
      *            천 단위 콤마(,) 추가 여부
      *
      * @return 단위 식별자가 없는 숫자 형태의 포맷팅된 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0
@@ -440,9 +413,6 @@ public class UnitUtils {
      *
      * @return 변환된 크기의 {@link BigDecimal} 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -470,9 +440,6 @@ public class UnitUtils {
      *
      * @return 하위 단위별로 분할된 {@link BigDecimal} 배열
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -499,9 +466,6 @@ public class UnitUtils {
      *            변환 단위
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -532,9 +496,6 @@ public class UnitUtils {
      *            사이즈가 '0'인 단위 제외 여부
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -569,9 +530,6 @@ public class UnitUtils {
      *            사이즈가 '0'인 단위 제외 여부
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -623,9 +581,6 @@ public class UnitUtils {
      *
      * @return 포맷팅된 용량 문자열
      *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
-     *
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
@@ -654,9 +609,6 @@ public class UnitUtils {
      *            천 단위 콤마(,) 추가 여부
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -691,9 +643,6 @@ public class UnitUtils {
      *            단위 문자열 추가 여부
      *
      * @return 포맷팅된 용량 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code srcUnit}, {@code dstUnit} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 4.
      * @version 1.8.0
@@ -735,9 +684,6 @@ public class UnitUtils {
      *            천 단위 콤마(,) 추가 여부
      *
      * @return 단위 식별자가 없는 숫자 형태의 포맷팅된 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code unit})가 {@code null}인 경우 발생.
      *
      * @since 2021. 11. 5.
      * @version 1.8.0

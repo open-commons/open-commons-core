@@ -72,9 +72,6 @@ public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
      * @param name
      *            검증기 이름
      *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
-     *
      * @since 2014. 4. 10.
      */
     public DefaultTokenValidator(String name) {
@@ -95,9 +92,6 @@ public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
      *
      * @param token
      *            추가할 토큰
-     *
-     * @throws NullPointerException
-     *             파라미터({@code token})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 10.
      *
@@ -193,9 +187,6 @@ public abstract class DefaultTokenValidator<T> implements ITokenValidator<T> {
      *            검증할 토큰
      *
      * @return 유효 토큰 셋 포함 여부
-     *
-     * @throws NullPointerException
-     *             파라미터({@code token})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 10.
      *

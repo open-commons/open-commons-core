@@ -71,9 +71,6 @@ public interface SQLConsumer<T> {
      *            the operation to perform after this operation
      * @return a composed {@code Consumer} that performs in sequence this operation followed by the {@code after}
      *         operation
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default SQLConsumer<T> andThen(SQLConsumer<? super T> after) {
         Objects.requireNonNull(after);
@@ -98,9 +95,6 @@ public interface SQLConsumer<T> {
      * @param params
      *            쿼리 파라미터.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code params})가 {@code null}인 경우 발생.
      *
      * @since 2020. 1. 22.
      * @version 1.6.17
@@ -160,9 +154,6 @@ public interface SQLConsumer<T> {
      *            파라미터 자원 해제 여부.
      * @param params
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code params})가 {@code null}인 경우 발생.
      *
      * @since 2021. 7. 19.
      * @version 1.8.0

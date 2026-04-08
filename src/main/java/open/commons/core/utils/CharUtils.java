@@ -180,9 +180,6 @@ public class CharUtils {
      *            변환할 문자 배열
      * 
      * @return 하위 8비트만 추출된 바이트 배열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code cs})가 {@code null}인 경우 발생.
      */
     public static byte[] toBytes(char[] cs) {
         Objects.requireNonNull(cs);

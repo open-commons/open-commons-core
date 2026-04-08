@@ -256,9 +256,6 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @param context
      *            속성값
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code contextName, contextHolder 중에 1개라도 또는 context})가 {@code null}인 경우 발생.
      *
      * @since 2022. 10. 18.
      * @version _._._

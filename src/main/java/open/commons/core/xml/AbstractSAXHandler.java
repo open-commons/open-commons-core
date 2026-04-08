@@ -168,9 +168,6 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      *            대상 객체
      *
      * @return 추가 여부 (항상 {@code true})
-     * 
-     * @throws NullPointerException
-     *             파라미터가 {@code null}인 경우 (ArrayDeque 제약사항)
      *
      * @since 2019. 1. 25.
      */
@@ -238,8 +235,6 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code uri}, {@code localName}, {@code qName} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - public final void endElement(String uri, String localName, String qName) throws SAXException {
@@ -462,8 +457,6 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code uri}, {@code localName}, {@code qName}, {@code attributes} 중에 1개라도)가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - public final void startElement(String uri, String localName, String qName, Attributes attributes) throws

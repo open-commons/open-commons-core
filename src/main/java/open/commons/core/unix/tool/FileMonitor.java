@@ -195,9 +195,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            writer to add.
      * 
      * @return whether to add or not.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code writer})가 {@code null}인 경우 발생.
      */
     public boolean addFileContextWriter(IFileContextWriter writer) {
         Objects.requireNonNull(writer);
@@ -270,9 +267,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *
      * @param args
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code args})가 {@code null}인 경우 발생.
      *
      * @since 2013. 5. 23.
      */
@@ -411,8 +405,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            files or files in directories to register.
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * 
      * @see {@link #register(File)}
      */
@@ -436,8 +428,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            directory to register
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * 
      * @see {@link #registerFile(File, boolean)}<br>
      *      {@link #registerDirectory(File)}
@@ -458,8 +448,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param files
      *            files or files in directories to register.
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) files);
@@ -480,8 +468,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param file
      *            fully qualified path to register.
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * 
      * @see {@link #register(File)}
      */
@@ -499,8 +485,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param directories
      *            directories to register.
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * 
      * @see {@link #registerDirectory(File, boolean)}
      */
@@ -526,8 +510,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            directory to contain files to register.
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * 
      * @see {@link #registerDirectory(File, boolean)}
      */
@@ -544,8 +526,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            directories to register
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우.
      * 
      * @see {@link #registerDirectory(boolean, File...)}
      */
@@ -572,8 +552,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param recursive
      *            whether sub-directories is registered or not.
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * 
      * @see {@link #register(File)}<br>
      *      {@link #registerDirectory(boolean, File...)}<br>
@@ -639,8 +617,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            하위 디렉토리 포함 여부
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      * 
      * @see {@link #registerDirectory(File, boolean)}
      */
@@ -658,9 +634,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param dedicated
      * @param files
      *            to register.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우.
      * 
      * 
      * @see {@link #register(File)}
@@ -687,9 +660,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param files
      *            to register.
      * 
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우.
-     * 
      * @see {@link #register(File)}
      */
     // 아래 내용에 적용됨.
@@ -711,9 +681,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param file
      *            file to register.
      * @param dedicated
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     public void registerFile(File file, boolean dedicated) {
         Objects.requireNonNull(file);
@@ -753,8 +720,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param dedicated
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * 
      * @see @ link #registerFile(File)}
      */
@@ -772,8 +737,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @param path
      * 
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code path})가 {@code null}인 경우 발생.
      * 
      * @see {@link #register(File)}
      */
@@ -793,9 +756,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            whether monitor sub-directories are current or newly or not.
      * @param dedicated
      *            whether monitor only one file or not.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * @return
      * @return
      */
@@ -828,8 +788,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param writers
      *            writers to remove.
-     * @throws NullPointerException
-     *             파라미터({@code writers})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) writers);
@@ -1064,9 +1022,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param file
      *            directory to unregister
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * 
@@ -1088,9 +1043,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param file
      *            fully qualified path to unregister.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregister(File)}
@@ -1108,9 +1060,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            whether sub-directories is unregistered or not.
      * @param directories
      *            directories to unregister.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregisterDirectory(File, boolean)}
@@ -1135,9 +1084,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param directory
      *            directory to contain files to unregister.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      */
     public void unregisterDirectory(File directory) throws FileNotFoundException {
@@ -1149,9 +1095,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param directories
      *            directories to unregister
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code directories})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregisterDirectory(boolean, File...)}
@@ -1176,9 +1119,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            directory to contain files to unregister.
      * @param recursive
      *            whether sub-directories is unregistered or not.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregister(File)}<br>
@@ -1236,9 +1176,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            등록할 디렉토리
      * @param recursive
      *            하위 디렉토리 포함 여부
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregisterDirectory(File, boolean)}
@@ -1267,9 +1204,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param files
      *            to unregister.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * @see {@link #unregister(File)}
      */
     // 아래 내용에 적용됨.
@@ -1292,9 +1226,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @param file
      *            file to unregister.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     public void unregisterFile(File file) {
         Objects.requireNonNull(file);
@@ -1323,9 +1254,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * Unregister
      * 
      * @param path
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code path})가 {@code null}인 경우 발생.
      * @throws FileNotFoundException
      * 
      * @see {@link #unregister(File)}
@@ -1340,9 +1268,6 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     /**
      * 
      * @param directory
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
      * 
      */
     void unregisterWatchService(String directory) {

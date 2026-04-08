@@ -56,9 +56,6 @@ public class FileExtensionExclusive implements FileFilter {
      * @param exts
      *            파일 확장자
      * 
-     * @throws NullPointerException
-     *             파라미터({@code exts})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 01. 20.
      * 
      * @see Set#addAll(Collection)
@@ -73,9 +70,6 @@ public class FileExtensionExclusive implements FileFilter {
      * 
      * @param exts
      *            파일 확장자
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code exts})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * 
      * @since 2012. 01. 20.
      * 
@@ -123,8 +117,6 @@ public class FileExtensionExclusive implements FileFilter {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code exts})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) exts);

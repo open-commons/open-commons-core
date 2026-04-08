@@ -95,9 +95,6 @@ public class ConvertUtils {
      * @param clazz
      * @param occurExeption
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code value, clazz 중에 1개라도})가 {@code null}인 경우 발생.
      */
     @SuppressWarnings("null")
     public static <T> void assertValue(Object value, Class<T> clazz, @Nullable Class<? extends RuntimeException> occurExeption) {
@@ -143,9 +140,6 @@ public class ConvertUtils {
      *         <li>{@link #TYPE_CONST_DOUBLE}
      *         <li>{@link #TYPE_CONST_OBJECT}
      *         </ul>
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code clazz})가 {@code null}인 경우 발생.
      */
     public static byte getTypeConst(Class<?> clazz) {
         Objects.requireNonNull(clazz);
@@ -166,9 +160,7 @@ public class ConvertUtils {
      *         <li>Float
      *         <li>Double
      *         </ul>
-     * 
-     * @throws NullPointerException
-     *             // * 파라미터({@code clazz})가 {@code null}인 경우 발생.
+     *         // * 파라미터({@code clazz})가 {@code null}인 경우 발생.
      */
     public static Class<?> getWrapperClass(Class<?> clazz) {
         Objects.requireNonNull(clazz);
@@ -193,9 +185,6 @@ public class ConvertUtils {
      * @param targetType
      *            대상 타입.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcType, targetType 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 2.
      * @version 1.8.0
@@ -265,9 +254,6 @@ public class ConvertUtils {
      * @param primitiveType
      * @param value
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code primitiveType})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 2.
      */
@@ -314,9 +300,6 @@ public class ConvertUtils {
      * @param unsigned
      *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long ({@link Long})인 경우 unsigned 여부
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code primitiveType})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 15.
      * @version 1.8.0
@@ -354,9 +337,6 @@ public class ConvertUtils {
      *
      * @param srcType
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code srcType})가 {@code null}인 경우 발생.
      * 
      * @since 2021. 12. 3.
      * @version 1.8.0
@@ -405,9 +385,6 @@ public class ConvertUtils {
      * 
      * @param primitiveType
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code primitiveType})가 {@code null}인 경우 발생.
      */
     public static Class<?> translateToWrapper(Class<?> primitiveType) {
         Objects.requireNonNull(primitiveType);

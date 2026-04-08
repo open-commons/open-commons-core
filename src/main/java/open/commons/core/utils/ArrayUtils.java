@@ -464,8 +464,6 @@ public class ArrayUtils {
      *             <p>
      *             e.g. add(new Boolean[] { true }, false);
      *             </p>
-     * @throws NullPointerException
-     *             파라미터({@code array, value 모두})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 3. 9.
      * 
@@ -1028,9 +1026,6 @@ public class ArrayUtils {
      * @param classes
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code classeses})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
-     * 
      * @since 2014. 6. 18.
      */
     // 아래 내용에 적용됨.
@@ -1159,9 +1154,6 @@ public class ArrayUtils {
      * @param v1
      * @param v2
      * @return
-     * 
-     * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(byte[] v1, byte[] v2) {
         ObjectUtils.requireNonNulls(v1, v2);
@@ -1188,9 +1180,6 @@ public class ArrayUtils {
      * @param v1
      * @param v2
      * @return
-     * 
-     * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(char[] v1, char[] v2) {
         ObjectUtils.requireNonNulls(v1, v2);
@@ -1217,9 +1206,6 @@ public class ArrayUtils {
      * @param v1
      * @param v2
      * @return
-     * 
-     * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(double[] v1, double[] v2) {
 
@@ -1247,9 +1233,6 @@ public class ArrayUtils {
      * @param v1
      * @param v2
      * @return
-     * 
-     * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(float[] v1, float[] v2) {
 
@@ -1277,9 +1260,6 @@ public class ArrayUtils {
      * @param v1
      * @param v2
      * @return
-     * 
-     * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static int comparable(int[] v1, int[] v2) {
 
@@ -1307,9 +1287,6 @@ public class ArrayUtils {
      * @param v1
      * @param v2
      * @return
-     * 
-     * @throws NullPointerException
-     *             두 개의 입력값 중 하나라도 {@code null}인 경우.
      */
     public static <T extends Comparable<T>> int comparable(T[] v1, T[] v2) {
 
@@ -1694,8 +1671,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1729,8 +1704,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1764,8 +1737,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1799,8 +1770,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1834,8 +1803,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1869,8 +1836,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1904,8 +1869,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1939,8 +1902,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -1974,8 +1935,6 @@ public class ArrayUtils {
      *            복사할 데이터의 index.
      * @return
      * @throws ArrayIndexOutOfBoundsException
-     * @throws NullPointerException
-     *             파라미터({@code arr, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2023. 8. 2.
      * @version 2.0.0
@@ -2015,9 +1974,6 @@ public class ArrayUtils {
      * @param clone
      *            deep copy 함수
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code original, newType 중에 1개라도 또는 clone})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
@@ -2058,9 +2014,6 @@ public class ArrayUtils {
      * @param clone
      *            deep copy 함수
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code original})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
@@ -2091,9 +2044,6 @@ public class ArrayUtils {
      * @param clone
      *            deep copy 함수
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code original, newType 중에 1개라도 또는 clone})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
@@ -2138,9 +2088,6 @@ public class ArrayUtils {
      * @param clone
      *            deep copy 함수
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code original})가 {@code null}인 경우 발생.
      *
      * @since 2021. 8. 19.
      * @version 1.8.0
@@ -2404,9 +2351,6 @@ public class ArrayUtils {
     }
 
     /**
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - StringBuilder.toString()()
@@ -2647,9 +2591,6 @@ public class ArrayUtils {
      * 
      * @param bytes
      * 
-     * @throws NullPointerException
-     *             파라미터({@code bytes})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
-     * 
      * 
      * @see ArrayIndexOutOfBoundsException
      */
@@ -2683,8 +2624,6 @@ public class ArrayUtils {
      * @param <T>
      * @param array
      * @return
-     * @throws NullPointerException
-     *             배열이 null 인 경우
      * @throws ArrayIndexOutOfBoundsException
      *             배열의 길이가 0인 경우
      *
@@ -2719,9 +2658,6 @@ public class ArrayUtils {
      * 
      * @param bytes
      * 
-     * @throws NullPointerException
-     *             파라미터({@code bytes})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
-     * 
      * @see ArrayIndexOutOfBoundsException
      */
     // 아래 내용에 적용됨.
@@ -2746,9 +2682,6 @@ public class ArrayUtils {
      * 
      * @param objects
      * @param obj
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code objs})가 {@code null}인 경우 발생.
      * 
      * @return 데이터의 인덱스, 없는 경우 -1.
      */
@@ -2783,8 +2716,6 @@ public class ArrayUtils {
      * @param <T>
      * @param array
      * @return
-     * @throws NullPointerException
-     *             배열이 null 인 경우
      * @throws ArrayIndexOutOfBoundsException
      *             배열의 길이가 0인 경우
      *
@@ -2808,9 +2739,6 @@ public class ArrayUtils {
      * 
      * @param bytes
      * @param index
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code bytes})가 {@code null}이거나 {@code null}을 포함한 경우 발생.
      * 
      * @see ArrayIndexOutOfBoundsException
      */
@@ -2845,9 +2773,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2879,9 +2804,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2913,9 +2835,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2947,9 +2866,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -2981,9 +2897,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3015,9 +2928,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3049,9 +2959,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3083,9 +2990,6 @@ public class ArrayUtils {
      * @param c
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3117,9 +3021,6 @@ public class ArrayUtils {
      * @param array
      * @param c
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, c 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 21.
      * @version 1.8.0
@@ -3144,9 +3045,6 @@ public class ArrayUtils {
      * @param array
      * @param value
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -3193,9 +3091,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3260,9 +3155,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3307,9 +3199,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3374,9 +3263,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3422,9 +3308,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3489,9 +3372,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3536,9 +3416,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3603,9 +3480,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3651,9 +3525,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3718,9 +3589,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3766,9 +3634,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3833,9 +3698,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3879,9 +3741,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -3946,9 +3805,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -3992,9 +3848,6 @@ public class ArrayUtils {
      * @param values
      *            찾고자 하는 배열 (길이가 1 이상이어야 함)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -4059,9 +3912,6 @@ public class ArrayUtils {
      * @param value
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 12.
      * 
      */
@@ -4078,9 +3928,6 @@ public class ArrayUtils {
      * @param equivalent
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -4123,9 +3970,6 @@ public class ArrayUtils {
      *            찾고자 하는 배열
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 중에 1개라도})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 30.
      * 
      */
@@ -4155,9 +3999,6 @@ public class ArrayUtils {
      * @param equi
      *            배열 동등성 비교 인터페이스 ({@code null}인 경우 기본 제공 팩토리 사용)
      * @return 찾은 위치의 시작과 끝 인덱스가 쌍으로 담긴 배열 (찾지 못한 경우 길이가 0인 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code values})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 30.
      * @version 1.8.0
@@ -4375,9 +4216,6 @@ public class ArrayUtils {
      * @param initValue
      *            초기값
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code initValue})가 {@code null}인 경우 발생.
      */
     // apply to 'return array'
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
@@ -4403,9 +4241,6 @@ public class ArrayUtils {
      * @param value
      * @param index
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4438,9 +4273,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4490,9 +4322,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -4526,9 +4355,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4578,9 +4404,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -4614,9 +4437,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4666,9 +4486,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -4702,9 +4519,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4754,9 +4568,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -4790,9 +4601,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4842,9 +4650,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -4878,9 +4683,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -4930,9 +4732,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -4966,9 +4765,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -5018,9 +4814,6 @@ public class ArrayUtils {
      * @param indice
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -5069,9 +4862,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -5106,9 +4896,6 @@ public class ArrayUtils {
      * @param index
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 13.
      * 
      */
@@ -5142,9 +4929,6 @@ public class ArrayUtils {
      * @param value
      * @param indice
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, indice 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 13.
      * 
@@ -5196,9 +4980,6 @@ public class ArrayUtils {
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
-     * 
      * 
      * @since 2012. 03. 12.
      * 
@@ -5247,9 +5028,6 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -5291,9 +5069,6 @@ public class ArrayUtils {
      *            배열 가변 인자
      *
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 12.
      */
@@ -5342,9 +5117,6 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -5381,9 +5153,6 @@ public class ArrayUtils {
      *            2번째 배열에서 복사할 크기
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * 
      * @since 2012. 3. 9.
      * @author Park Jun-Hong (fafanmama@naver.com)
@@ -5416,9 +5185,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -5467,9 +5233,6 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -5501,9 +5264,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * 
      * @since 2012. 03. 12.
@@ -5553,9 +5313,6 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * 
      * @since 2012. 3. 9.
      * 
@@ -5588,9 +5345,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * 
      * @since 2012. 03. 12.
@@ -5639,8 +5393,6 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 3. 9.
      * 
@@ -5673,9 +5425,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -5723,9 +5472,6 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 3. 9.
      * 
      */
@@ -5757,9 +5503,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -5807,9 +5550,6 @@ public class ArrayUtils {
      * @param arr2
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
-     * 
      * 
      * @since 2012. 3. 9.
      * 
@@ -5842,9 +5582,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -5891,8 +5628,6 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 3. 9.
      */
@@ -5924,9 +5659,6 @@ public class ArrayUtils {
      * 
      * @param arrays
      * @return 합쳐진 배열. 모든 배열이 {@code null}인 경우 {@code null}을 반환합니다.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arrays})가 {@code null}인 경우 발생.
      * 
      * 
      * @since 2012. 03. 12.
@@ -5974,9 +5706,6 @@ public class ArrayUtils {
      * @param arr1
      * @param arr2
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code arr1, arr2 모두})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 3. 9.
      * 
@@ -6035,9 +5764,6 @@ public class ArrayUtils {
      * @param array
      *            데이터를 추가할 배열
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code value, array 모두})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
@@ -6074,9 +5800,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 28.
      * @version 1.8.0
@@ -6144,9 +5867,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6198,9 +5918,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6252,9 +5969,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6306,9 +6020,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6360,9 +6071,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6414,9 +6122,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6468,9 +6173,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6522,9 +6224,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6542,9 +6241,6 @@ public class ArrayUtils {
      * @param value
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, value 모두})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 12.
      * 
@@ -6592,9 +6288,6 @@ public class ArrayUtils {
      * @param values
      *            새로운 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array, values 모두})가 {@code null}인 경우 발생.
      *
      * @since 2023. 8. 29.
      * @version 2.0.0
@@ -6622,9 +6315,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 09.
      */
@@ -6676,9 +6366,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 09.
      */
     public static byte[] removeAll(byte[] array, byte value) {
@@ -6728,9 +6415,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 09.
      */
@@ -6782,9 +6466,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 09.
      */
     public static double[] removeAll(double[] array, double value) {
@@ -6834,9 +6515,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 09.
      */
@@ -6888,9 +6566,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 09.
      */
     public static int[] removeAll(int[] array, int value) {
@@ -6941,9 +6616,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 09.
      */
     public static long[] removeAll(long[] array, long value) {
@@ -6993,9 +6665,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 09.
      */
@@ -7048,9 +6717,6 @@ public class ArrayUtils {
      *            제거할 요소를 판별하는 조건 (true 반환 시 제거)
      * @return 조건에 맞는 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열 그대로 반환)
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code filter})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 09.
      */
     // 아래 내용에 적용됨.
@@ -7101,9 +6767,6 @@ public class ArrayUtils {
      *            제거할 대상 값
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열 그대로 반환)
      * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     * 
      * @since 2012. 03. 09.
      */
     public static <T extends @Nullable Object> T[] removeAll(T[] array, T value) {
@@ -7129,9 +6792,6 @@ public class ArrayUtils {
      * @param equivalent
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return 지정된 값이 제거된 새로운 배열 (제거할 값이 없으면 원본 배열 그대로 반환)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 03. 09.
      */
@@ -7160,9 +6820,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7202,9 +6859,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7244,9 +6898,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7286,9 +6937,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7328,9 +6976,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7370,9 +7015,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7412,9 +7054,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7454,9 +7093,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7496,9 +7132,6 @@ public class ArrayUtils {
      * @param index
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws ArrayIndexOutOfBoundsException
      *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
@@ -7540,9 +7173,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static boolean[] removeFirst(boolean[] array, boolean value) {
@@ -7575,9 +7205,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7612,9 +7239,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static char[] removeFirst(char[] array, char value) {
@@ -7647,9 +7271,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7684,9 +7305,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static float[] removeFirst(float[] array, float value) {
@@ -7719,9 +7337,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7756,9 +7371,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static long[] removeFirst(long[] array, long value) {
@@ -7792,9 +7404,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static short[] removeFirst(short[] array, short value) {
@@ -7827,9 +7436,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static <T extends @Nullable Object> T[] removeFirst(T[] array, T value) {
@@ -7853,9 +7459,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 첫 번째로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7893,9 +7496,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static boolean[] removeLast(boolean[] array, boolean value) {
@@ -7928,9 +7528,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7965,9 +7562,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static char[] removeLast(char[] array, char value) {
@@ -8000,9 +7594,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -8037,9 +7628,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static float[] removeLast(float[] array, float value) {
@@ -8072,9 +7660,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -8109,9 +7694,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static long[] removeLast(long[] array, long value) {
@@ -8145,9 +7727,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static short[] removeLast(short[] array, short value) {
@@ -8180,9 +7759,6 @@ public class ArrayUtils {
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 09.
      */
     public static <T extends @Nullable Object> T[] removeLast(T[] array, T value) {
@@ -8206,9 +7782,6 @@ public class ArrayUtils {
      * @param value
      *            제거할 값
      * @return 마지막으로 일치하는 값이 제거된 새로운 배열. 일치하는 값이 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -8250,9 +7823,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static boolean[] replaceAll(boolean[] array, boolean target, boolean[] data) {
@@ -8281,9 +7851,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8349,9 +7916,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static byte[] replaceAll(byte[] array, byte target, byte[] data) {
@@ -8380,9 +7944,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8448,9 +8009,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static char[] replaceAll(char[] array, char target, char[] data) {
@@ -8479,9 +8037,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8547,9 +8102,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static double[] replaceAll(double[] array, double target, double[] data) {
@@ -8578,9 +8130,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8646,9 +8195,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static float[] replaceAll(float[] array, float target, float[] data) {
@@ -8677,9 +8223,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8745,9 +8288,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static int[] replaceAll(int[] array, int target, int[] data) {
@@ -8776,9 +8316,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8844,9 +8381,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static long[] replaceAll(long[] array, long target, long[] data) {
@@ -8875,9 +8409,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -8943,9 +8474,6 @@ public class ArrayUtils {
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
      *
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 03. 30.
      */
     public static short[] replaceAll(short[] array, short target, short[] data) {
@@ -8974,9 +8502,6 @@ public class ArrayUtils {
      * @param data
      *            교체할 새로운 값 배열
      * @return {@code target}이 {@code data}로 교체된 새로운 배열. 교체 대상 없으면 원본 배열.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 30.
      */
@@ -9034,8 +8559,6 @@ public class ArrayUtils {
      * @param data
      *            새로운 데이타 배열
      * @return 치환이 완료된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
     public static <T extends @Nullable Object> T[] replaceAll(T[] array, T target, T[] data) {
@@ -9054,8 +8577,6 @@ public class ArrayUtils {
      * @param data
      *            새로운 데이타
      * @return 치환이 완료된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code target})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
     public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T data) {
@@ -9074,8 +8595,6 @@ public class ArrayUtils {
      * @param data
      *            새로운 데이타 배열
      * @return 치환이 완료된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
     public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data) {
@@ -9104,8 +8623,6 @@ public class ArrayUtils {
      * @param equivalent
      *            배열 구간의 동등성을 판단하는 비교자
      * @return 치환이 완료된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array}, {@code target} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
     @SuppressWarnings("null")
@@ -9168,8 +8685,6 @@ public class ArrayUtils {
      * @param equivalent
      *            {@code T}가 동일한지를 판단하는 비교자
      * @return 치환이 완료된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code data})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
     // 아래 내용에 적용됨.
@@ -9233,8 +8748,6 @@ public class ArrayUtils {
      * @param equivalent
      *            배열 구간의 동등성을 판단하는 비교자
      * @return 치환이 완료된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code target})가 {@code null}인 경우 발생.
      * @since 2012. 03. 30.
      */
     public static <T extends @Nullable Object> T[] replaceAllToData(T[] array, T[] target, T data, @Nullable IEquivalent<T[]> equivalent) {
@@ -9259,8 +8772,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static boolean[] reverse(boolean[] array) {
@@ -9296,8 +8807,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static byte[] reverse(byte[] array) {
@@ -9333,8 +8842,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static char[] reverse(char[] array) {
@@ -9370,8 +8877,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static double[] reverse(double[] array) {
@@ -9407,8 +8912,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static float[] reverse(float[] array) {
@@ -9444,8 +8947,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static int[] reverse(int[] array) {
@@ -9481,8 +8982,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static long[] reverse(long[] array) {
@@ -9518,8 +9017,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     public static short[] reverse(short[] array) {
@@ -9557,8 +9054,6 @@ public class ArrayUtils {
      * @param array
      *            원본 배열
      * @return 순서가 역순으로 변경된 새로운 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 02. 22.
      */
     // 아래 내용에 적용됨.
@@ -9591,8 +9086,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(boolean[] array) {
@@ -9635,8 +9128,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(byte[] array) {
@@ -9679,8 +9170,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(char[] array) {
@@ -9723,8 +9212,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(double[] array) {
@@ -9767,8 +9254,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(float[] array) {
@@ -9811,8 +9296,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(int[] array) {
@@ -9855,8 +9338,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(long[] array) {
@@ -9899,8 +9380,6 @@ public class ArrayUtils {
      * 
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static void reverseInPlace(short[] array) {
@@ -9945,8 +9424,6 @@ public class ArrayUtils {
      *            배열 요소의 타입
      * @param array
      *            원본 배열 (메소드 실행 후 내부 요소의 순서가 변경됨)
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2026. 03. 26.
      */
     public static <T extends @Nullable Object> void reverseInPlace(T[] array) {
@@ -9985,9 +9462,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10049,9 +9523,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10113,9 +9584,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
 
@@ -10178,9 +9646,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
 
@@ -10243,9 +9708,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10307,9 +9769,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10371,9 +9830,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10435,9 +9891,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용할 값
      * @return 주어진 값으로 구분된 2차원 배열. 모든 요소가 구분자와 일치하는 경우 길이가 0인 배열을 반환합니다.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10493,9 +9946,6 @@ public class ArrayUtils {
      * @param value
      *            구분자로 사용되는 데이타
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     public static <T> T[][] split(T[] array, T value) {
@@ -10559,8 +10009,6 @@ public class ArrayUtils {
      * @param equivalent
      *            클래스 또는 타입 T의 equals(T obj) 메소드가 아닌 다른 비교 기준을 제공하는 객체
      * @return 주어진 값으로 구분된 배열, 모든 값이 주어진 값과 동일한 경우 길이가 0 인 배열
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @since 2012. 03. 20.
      */
     // 아래 내용에 적용됨.
@@ -10628,9 +10076,6 @@ public class ArrayUtils {
      * @param at
      *            조건에 맞는지 비교하는 함수 (해당 데이터는 제외됨)
      * @return 조건 일치 데이터 이후의 새로운 배열. 일치하는 데이터가 없거나 마지막 요소인 경우 빈 배열 반환.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code at})가 {@code null}인 경우 발생.
      * @since 2021. 6. 24.
      */
     // 아래 내용에 적용됨.
@@ -10679,9 +10124,6 @@ public class ArrayUtils {
      * @param post
      *            조건에 맞는 데이터를 후처리하는 함수 ({@code null} 가능)
      * @return 조건 일치 데이터까지의 새로운 배열. 일치하는 데이터가 없으면 전체 배열 반환.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code at})가 {@code null}인 경우 발생.
      * @since 2021. 6. 21.
      */
     // 아래 내용에 적용됨.
@@ -10735,9 +10177,6 @@ public class ArrayUtils {
      * @param at
      *            조건에 맞는지 비교하는 함수 (해당 데이터는 제외됨)
      * @return 조건 일치 데이터 직전까지의 새로운 배열. 일치하는 데이터가 없으면 전체 배열 반환.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array} 또는 {@code at})가 {@code null}인 경우 발생.
      * @since 2021. 6. 21.
      */
     // 아래 내용에 적용됨.
@@ -10785,9 +10224,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      *
@@ -10835,9 +10271,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      *
@@ -10885,9 +10318,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      *
@@ -10935,9 +10365,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      *
@@ -10985,9 +10412,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      *
@@ -11035,9 +10459,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      *
@@ -11085,9 +10506,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      * 
@@ -11135,9 +10553,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      * 
@@ -11187,9 +10602,6 @@ public class ArrayUtils {
      *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
      * 
      * @return 분리된 2개의 배열을 담은 2차원 배열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code array})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             분리 지점({@code index})이 배열 범위를 벗어난 경우 발생.
      * 

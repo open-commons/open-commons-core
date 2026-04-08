@@ -50,9 +50,6 @@ public class OrderingUtils {
      * @param comparator
      *            비교연산자
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e, list 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 10.
      */
@@ -133,9 +130,6 @@ public class OrderingUtils {
      *            비교연산자
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e, list 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 10.
      */

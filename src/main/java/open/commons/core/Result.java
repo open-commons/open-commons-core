@@ -280,9 +280,6 @@ public class Result<T> {
      * @param args
      *            메시지 파라미터.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 2. 14.
      * @version 1.8.0
@@ -364,9 +361,6 @@ public class Result<T> {
      * @param o
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code o})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 20.
      * @version 1.8.0
@@ -416,9 +410,6 @@ public class Result<T> {
      * @param args
      *            메시지 정보
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2021. 7. 14.
      * @version 1.8.0
@@ -445,9 +436,6 @@ public class Result<T> {
      * @param args
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 3.
      * 
@@ -474,9 +462,6 @@ public class Result<T> {
      * @param args
      *            메시지 정보
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2023. 12. 6.
      * @version 2.0.0
@@ -526,9 +511,6 @@ public class Result<T> {
      * @param args
      *            메시지 정보
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code format, args 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2023. 12. 6.
      * @version 2.0.0

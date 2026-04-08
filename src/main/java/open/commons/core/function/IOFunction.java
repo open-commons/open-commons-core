@@ -59,9 +59,6 @@ public interface IOFunction<T, R> {
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
      * 
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
-     * 
      *
      * @see #compose(Function)
      */

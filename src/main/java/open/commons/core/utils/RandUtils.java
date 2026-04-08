@@ -44,9 +44,6 @@ public class RandUtils {
      * @param string
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2015. 2. 6.
      * @see {@link String#hashCode()}
@@ -72,9 +69,6 @@ public class RandUtils {
      *            한계값.
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code seed})가 {@code null}인 경우 발생.
      */
     public static int randomNumber(byte[] seed, int limit) {
         Objects.requireNonNull(seed);
@@ -145,9 +139,6 @@ public class RandUtils {
      * @param string
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code string})가 {@code null}인 경우 발생.
      *
      * @since 2015. 2. 6.
      */

@@ -139,9 +139,6 @@ public class FileUtils {
      *
      * @return 성공 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     public static boolean clearDirectory(String dir) {
@@ -166,9 +163,6 @@ public class FileUtils {
      *            원본 파일
      * @param target
      *            대상 파일
-     *
-     * @throws NullPointerException
-     *             파라미터({@code src} 또는 {@code target})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -198,9 +192,6 @@ public class FileUtils {
      * @param target
      *            대상 파일 경로
      *
-     * @throws NullPointerException
-     *             파라미터({@code src} 또는 {@code target})가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -228,10 +219,6 @@ public class FileUtils {
      *            경로 나머지 부분
      *
      * @return 생성된 파일 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code first})가 {@code null}인 경우, 파라미터({@code more})가 {@code null}이거나 {@code more}에
-     *             {@code null}이 포함된 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -274,9 +261,6 @@ public class FileUtils {
      *
      * @return 파일이나 디렉토리의 삭제 성공 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      * 
      * @see #delete(File, boolean)
@@ -303,9 +287,6 @@ public class FileUtils {
      *            {@link File} 인스턴스가 디렉토리인 경우, 다른 파일이나 디렉토리가 포함되어 있어도 강제로 삭제할지 여부
      *
      * @return 파일이나 디렉토리의 삭제 성공 여부
-     *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 03. 13.
      */
@@ -355,9 +336,6 @@ public class FileUtils {
      * @param forced
      *            디렉토리 내 파일 존재 여부와 무관하게 강제로 삭제할지 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     private static void deleteDir(File dir, boolean forced) {
@@ -401,9 +379,6 @@ public class FileUtils {
      * @param dirs
      *            삭제할 디렉토리 배열
      *
-     * @throws NullPointerException
-     *             파라미터({@code dirs})가 {@code null}이거나 {@code dirs}에 {@code null}이 포함된 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     // 아래 내용에 적용됨.
@@ -433,9 +408,6 @@ public class FileUtils {
      *
      * @param files
      *            삭제할 파일 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}이거나 {@code files}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2019. 8. 8.
      */
@@ -471,9 +443,6 @@ public class FileUtils {
      * @param dir
      *            삭제할 대상 디렉토리
      *
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     public static void emptyDir(File dir) {
@@ -503,9 +472,6 @@ public class FileUtils {
      *            확장자를 추출할 파일 객체
      *
      * @return 파일 확장자. 대상이 파일이 아닌 경우 {@code ""} 반환.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
      */
@@ -541,9 +507,6 @@ public class FileUtils {
      *
      * @return 파일 확장자. 확장자가 없는 경우 {@code ""}를 반환.
      *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 7.
      */
     // 아래 내용에 적용됨.
@@ -578,9 +541,6 @@ public class FileUtils {
      *
      * @return 추출된 파일명
      *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 7.
      */
     // 아래 내용에 적용됨.
@@ -613,9 +573,6 @@ public class FileUtils {
      *            대상 파일 객체
      *
      * @return 확장자가 제외된 파일명
-     *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
      */
@@ -651,9 +608,6 @@ public class FileUtils {
      *
      * @return 확장자가 제외된 파일명
      *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 7.
      */
     // 아래 내용에 적용됨.
@@ -685,9 +639,6 @@ public class FileUtils {
      *            대상 파일 객체
      *
      * @return 파일 경로 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 7.
      */
@@ -726,9 +677,6 @@ public class FileUtils {
      *
      * @return 디렉토리 경로 문자열
      *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 7.
      * 
      * @see File#getParent()
@@ -761,10 +709,6 @@ public class FileUtils {
      *            파일 필터 조건
      *
      * @return <b>{@code nullable}</b>
-     *
-     * @throws NullPointerException
-     *             파라미터({@code absoluteDirPath})가 {@code null}인 경우, 파라미터({@code fileFilters})가 {@code null}이거나
-     *             {@code fileFilters}에 {@code null}이 포함된 경우 발생.
      *
      * @since 2024. 8. 14.
      * @version 2.0.0
@@ -818,10 +762,6 @@ public class FileUtils {
      *
      * @return <b>{@code nullable}</b>
      *
-     * @throws NullPointerException
-     *             파라미터({@code absoluteDirPath})가 {@code null}인 경우, 파라미터({@code fileFilters})가 {@code null}이거나
-     *             {@code fileFilters}에 {@code null}이 포함된 경우 발생.
-     *
      * @since 2024. 8. 14.
      * @version 2.0.0
      * 
@@ -874,9 +814,6 @@ public class FileUtils {
      *
      * @return 하위 디렉토리 배열
      *
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     // 아래 내용에 적용됨.
@@ -910,9 +847,6 @@ public class FileUtils {
      *            탐색할 디렉토리
      *
      * @return 하위 파일 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code dir})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
      */
@@ -949,9 +883,6 @@ public class FileUtils {
      *            파일 또는 디렉토리 필터
      *
      * @return 조건에 맞는 파일 집합
-     *
-     * @throws NullPointerException
-     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 예외 발생 시
@@ -1009,9 +940,6 @@ public class FileUtils {
      *
      * @return 필터링 및 변환이 완료된 결과 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code directory}, {@code filter}, {@code collector} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 예외 발생 시
      *
@@ -1041,9 +969,6 @@ public class FileUtils {
      *
      * @return 하위 파일 정보를 나타내는 배열
      *
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 예외 발생 시
      *
@@ -1072,9 +997,6 @@ public class FileUtils {
      *            파일 필터 조건
      *
      * @return 필터링된 파일 정보를 담는 배열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 예외 발생 시
@@ -1108,9 +1030,6 @@ public class FileUtils {
      *
      * @return 하위 파일 정보를 나타내는 리스트
      *
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 예외 발생 시
      *
@@ -1139,9 +1058,6 @@ public class FileUtils {
      *            파일 필터 조건
      *
      * @return 필터링된 파일 정보를 담는 리스트
-     *
-     * @throws NullPointerException
-     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 예외 발생 시
@@ -1175,9 +1091,6 @@ public class FileUtils {
      *
      * @return 하위 파일 정보를 나타내는 집합(Set)
      *
-     * @throws NullPointerException
-     *             파라미터({@code directory})가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 예외 발생 시
      *
@@ -1206,9 +1119,6 @@ public class FileUtils {
      *            파일 필터 조건
      *
      * @return 필터링된 파일 정보를 담는 집합(Set)
-     *
-     * @throws NullPointerException
-     *             파라미터({@code directory} 또는 {@code filter})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 예외 발생 시
@@ -1248,9 +1158,6 @@ public class FileUtils {
      *            복사 또는 이동 설정
      * 
      * @return 변경된 파일 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -1292,9 +1199,6 @@ public class FileUtils {
      *
      * @return 변경된 파일 경로 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -1334,9 +1238,6 @@ public class FileUtils {
      *            복사 또는 이동 설정
      *
      * @return 변경된 파일 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -1378,9 +1279,6 @@ public class FileUtils {
      *
      * @return 변경된 파일 경로 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -1420,9 +1318,6 @@ public class FileUtils {
      *            복사 또는 이동 설정
      *
      * @return 변경된 파일 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code source}, {@code target}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -1464,9 +1359,6 @@ public class FileUtils {
      *            -1이거나 {@link Integer#MAX_VALUE}인 경우 무시됨)
      * 
      * @return 스트림에서 읽어들인 바이트 배열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 예외가 발생하거나 조기 EOF(premature EOF)가 감지된 경우
@@ -1546,9 +1438,6 @@ public class FileUtils {
      *
      * @return 저장 성공 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code file} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     public static boolean save(File file, String data) {
@@ -1594,9 +1483,6 @@ public class FileUtils {
      *
      * @return 저장 성공 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code file}, {@code data}, {@code charset} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     public static boolean save(File file, String data, String charset) {
@@ -1640,9 +1526,6 @@ public class FileUtils {
      *
      * @return 저장 성공 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code pathname} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     public static boolean save(String pathname, String data) {
@@ -1672,9 +1555,6 @@ public class FileUtils {
      *
      * @return 저장 성공 여부
      *
-     * @throws NullPointerException
-     *             파라미터({@code pathname}, {@code data}, {@code charset} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @since 2019. 8. 8.
      */
     public static boolean save(String pathname, String data, String charset) {
@@ -1699,9 +1579,6 @@ public class FileUtils {
      *            경로 요소 문자열 배열
      *
      * @return 조합된 파일 경로 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code strings})가 {@code null}인 경우 발생.
      *
      * @since 2019. 8. 8.
      */
@@ -1745,9 +1622,6 @@ public class FileUtils {
      *            기존 파일에 추가 여부
      *
      * @return 데이터가 쓰인 파일의 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -1807,9 +1681,6 @@ public class FileUtils {
      *
      * @return 데이터가 쓰인 파일의 경로 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code path}, {@code data}, {@code options} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -1850,9 +1721,6 @@ public class FileUtils {
      *
      * @return 데이터가 쓰인 파일의 경로 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code dirpath}, {@code filename}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -1889,9 +1757,6 @@ public class FileUtils {
      *
      * @return 데이터가 쓰인 파일의 경로 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -1920,9 +1785,6 @@ public class FileUtils {
      *            저장할 데이터
      *
      * @return 데이터가 쓰인 파일의 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -1960,9 +1822,6 @@ public class FileUtils {
      *
      * @return 데이터가 쓰인 파일의 경로 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code dirpath}, {@code filename}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
      *
@@ -1991,9 +1850,6 @@ public class FileUtils {
      *            저장할 데이터
      *
      * @return 데이터가 쓰인 파일의 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code filepath} 또는 {@code data})가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.
@@ -2030,9 +1886,6 @@ public class FileUtils {
      *            저장할 데이터
      *
      * @return 데이터가 쓰인 파일의 경로 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code dirpath}, {@code filename}, {@code data} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @throws IOException
      *             I/O 오류가 발생한 경우.

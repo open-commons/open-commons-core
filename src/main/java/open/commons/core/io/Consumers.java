@@ -86,8 +86,6 @@ public class Consumers<T> implements Closeable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code removables})에 'null'이 포함된 경우 발생.
      */
     public void addAll(@Nullable Collection<T> removables) {
         if (removables == null) {
@@ -100,8 +98,6 @@ public class Consumers<T> implements Closeable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code removables})에 'null'이 포함된 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) removables);

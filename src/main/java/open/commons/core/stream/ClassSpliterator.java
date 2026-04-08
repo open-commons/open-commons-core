@@ -65,9 +65,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @param data
      *            데이터
      * 
-     * @throws NullPointerException
-     *             파라미터({@code data})가 {@code null}인 경우 발생.
-     * 
      * @since 2021. 12. 3.
      * @version 0.3.0
      * 
@@ -96,9 +93,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * 
      * @param data
      *            데이터
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code data})가 {@code null}인 경우 발생.
      * 
      * @since 2021. 12. 3.
      * @version 0.3.0
@@ -135,8 +129,6 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code action})가 {@code null}인 경우 발생.
      *
      * @since 2021. 12. 3.
      * @version 0.3.0

@@ -60,9 +60,6 @@ public class TransformationFailedException extends RuntimeException {
      *            원본 데이터 유형
      * @param targetClass
      *            대상 데이터 유형
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
@@ -87,9 +84,6 @@ public class TransformationFailedException extends RuntimeException {
      * @param targetClass
      *            대상 데이터 유형
      * @param message
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
@@ -115,9 +109,6 @@ public class TransformationFailedException extends RuntimeException {
      *            대상 데이터 유형
      * @param message
      * @param cause
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
@@ -145,9 +136,6 @@ public class TransformationFailedException extends RuntimeException {
      * @param cause
      * @param enableSuppression
      * @param writableStackTrace
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcClass, targetClass})가 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0

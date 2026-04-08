@@ -113,8 +113,6 @@ public class MathUtils {
      * 
      * @throws IllegalArgumentException
      *             파라미터 데이터의 개수가 0인 경우 발생.
-     * @throws NullPointerException
-     *             파라미터({@code data})가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 9.
      * @version 2.1.0
@@ -163,9 +161,6 @@ public class MathUtils {
      *            값을 추출할 컬렉션 데이터
      * 
      * @return 최대값
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             컬렉션({@code values})이 비어있는 경우 발생.
      * 
@@ -196,9 +191,6 @@ public class MathUtils {
      *            값을 추출할 가변 인자 데이터
      * 
      * @return 최대값
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             파라미터({@code values})의 길이가 0인 경우 발생.
      *
@@ -234,9 +226,6 @@ public class MathUtils {
      *            값을 추출할 컬렉션 데이터
      * 
      * @return 최소값
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             컬렉션({@code values})이 비어있는 경우 발생.
      * 
@@ -267,9 +256,6 @@ public class MathUtils {
      *            값을 추출할 가변 인자 데이터
      * 
      * @return 최소값
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}인 경우 발생.
      * @throws IllegalArgumentException
      *             파라미터({@code values})의 길이가 0인 경우 발생.
      *

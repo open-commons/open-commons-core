@@ -54,8 +54,6 @@ public class FileCopyHandler implements IFileHandler {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      */
     @Override
     public void handleFile(File file) throws Exception {

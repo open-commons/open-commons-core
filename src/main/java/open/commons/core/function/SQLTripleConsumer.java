@@ -80,8 +80,6 @@ public interface SQLTripleConsumer<T, U, V> {
      * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation
      * @throws SQLException
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      * @since 1.6.17
      */
     default SQLTripleConsumer<T, U, V> andThen(TripleConsumer<? super T, ? super U, ? super V> after) throws SQLException {

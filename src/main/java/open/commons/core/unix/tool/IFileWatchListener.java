@@ -48,9 +48,6 @@ public interface IFileWatchListener {
      *            <li>{@link StandardWatchEventKinds#ENTRY_MODIFY}
      *            <li>{@link StandardWatchEventKinds#ENTRY_DELETE}
      *            </ul>
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pathname})가 {@code null}인 경우 발생.
      */
     void watch(String pathname, @Nullable Kind<?> kind);
 }

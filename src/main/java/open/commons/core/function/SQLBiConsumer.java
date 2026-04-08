@@ -72,9 +72,6 @@ public interface SQLBiConsumer<T, U> {
      *            the operation to perform after this operation
      * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
      *         operation
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      */
     default SQLBiConsumer<T, U> andThen(SQLBiConsumer<? super T, ? super U> after) {
         Objects.requireNonNull(after);

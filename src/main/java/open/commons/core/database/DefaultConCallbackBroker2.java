@@ -46,9 +46,6 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNul
     /**
      * @param query
      * 
-     * @throws NullPointerException
-     *             파라미터({@code query})가 {@code null}인 경우 발생.
-     * 
      * @since 2019. 2. 22.
      */
     public DefaultConCallbackBroker2(String query) {
@@ -59,9 +56,6 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNul
      * 
      * @param query
      * @param setter
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code query})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 22.
      */
@@ -86,9 +80,6 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNul
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * @param forStoredProcedure
      *            실행 쿼리가 Stored Procedure를 실행하는지 여부
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code query})가 {@code null}인 경우 발생.
      * @since 2020. 10. 29.
      */
     public DefaultConCallbackBroker2(String query, @Nullable SQLConsumer<PreparedStatement> setter, boolean forStoredProcedure) {

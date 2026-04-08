@@ -69,9 +69,6 @@ public class ConcurrentUtils {
      * @param actor
      *            수행할 작업.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 30.
      * @version 2.1.0
@@ -107,9 +104,6 @@ public class ConcurrentUtils {
      * @param executor
      *            작업 실행 환경
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * 
      * @since 2025. 9. 30.
      * @version 2.1.0
@@ -150,9 +144,6 @@ public class ConcurrentUtils {
      *            처리 결과를 적용할 타겟 객체 (Thread-Safe 권장)
      * @param actors
      *            수행할 작업들
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code bucket, actors 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2025. 10. 1.
      * @version 2.1.0
@@ -184,9 +175,6 @@ public class ConcurrentUtils {
      *            수행할 작업들
      * @param executor
      *            작업 실행 환경
-     *
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      * 
      * @since 2025. 10. 1.
      * @version 2.1.0
@@ -218,9 +206,6 @@ public class ConcurrentUtils {
      * @param jobs
      *            대기할 비동기 작업 목록
      * @return 모든 작업의 결과 목록
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code jobs})가 {@code null}인 경우 발생.
      *
      * @since 2025. 10. 1.
      * @version 2.1.0

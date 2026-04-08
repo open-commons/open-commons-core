@@ -273,9 +273,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      * @since 2019. 1. 25.
      * @version 3.0.0
      * 
-     * 
-     * @throws NullPointerException
-     *             {@code data}가 null인 경우
      */
     public void push(Collection<E> data) {
         Objects.requireNonNull(data);
@@ -308,9 +305,6 @@ public abstract class ConcurrentWorker<E> extends DefaultRunnable {
      *
      * @since 2019. 1. 25.
      * 
-     * 
-     * @throws NullPointerException
-     *             {@code data}가 {@code null}인 경우 발생.
      */
     public void push(E data) {
         Objects.requireNonNull(data);

@@ -70,8 +70,6 @@ public class GenericTypeVariable implements Cloneable {
     /**
      * @param paramClass
      *            클래스 생성시 실제 적용된 Generic Parameter Class
-     * @throws NullPointerException
-     *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
      */
     public GenericTypeVariable(Class<?> paramClass) {
         this(paramClass, null);
@@ -82,9 +80,6 @@ public class GenericTypeVariable implements Cloneable {
      *            클래스 생성시 실제 적용된 Generic Parameter Class
      * @param typeVarName
      *            클래스 생성시 적용된 Generic Literal
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
      */
     public GenericTypeVariable(Class<?> paramClass, @Nullable String typeVarName) {
         AssertUtils2.notNull(paramClass, null, "paramClass MUST NOT be null. paramClass: null");
@@ -94,8 +89,6 @@ public class GenericTypeVariable implements Cloneable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code typeVar})가 {@code null}인 경우 발생.
      */
     public void addGenericParamType(GenericTypeVariable typeVar) {
         AssertUtils2.notNull(typeVar, "paramType MUST NOT be null. typeVar: null");
@@ -108,9 +101,6 @@ public class GenericTypeVariable implements Cloneable {
     /**
      * 
      * @param typeVars
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code typeVars})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 6. 18.
      */
@@ -176,8 +166,6 @@ public class GenericTypeVariable implements Cloneable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
      */
     public void reset(Class<?> paramClass) {
         AssertUtils2.notNull(paramClass, "paramClass MUST NOT be null. paramClass: null");
@@ -219,9 +207,6 @@ public class GenericTypeVariable implements Cloneable {
      * @param paramClass
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
-     * 
      * @see ConvertUtils#getWrapperClass(Class)
      */
     public static GenericTypeVariable getParamType(Class<?> paramClass) {
@@ -238,9 +223,6 @@ public class GenericTypeVariable implements Cloneable {
      *            TypeVariable Literal
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code paramClass})가 {@code null}인 경우 발생.
      * 
      * @see ConvertUtils#getWrapperClass(Class)
      */

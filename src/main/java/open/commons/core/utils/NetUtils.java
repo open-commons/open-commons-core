@@ -103,9 +103,6 @@ public class NetUtils {
      *            검색할 대상 네트워크 인터페이스
      * 
      * @return IPv4에 해당하는 주소 객체. 존재하지 않을 경우 {@code null} 반환.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code ni})가 {@code null}인 경우 발생.
      *
      * @since 2015. 3. 4.
      */
@@ -136,9 +133,6 @@ public class NetUtils {
      *            검색할 네트워크 인터페이스의 이름 (예: "eth0", "en0")
      * 
      * @return IPv4에 해당하는 주소 객체. 이름에 해당하는 인터페이스가 없거나 IPv4 주소가 없으면 {@code null} 반환.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * @throws SocketException
      *             네트워크 인터페이스 검색 중 입출력 오류가 발생한 경우.
      *
@@ -290,9 +284,6 @@ public class NetUtils {
      *            변환할 대상의 MAC 주소 바이트 배열
      * 
      * @return 콜론(:)으로 구분된 MAC 주소 문자열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code mac})가 {@code null}인 경우 발생.
      *
      * @since 2015. 3. 4.
      * @version 3.0.0
@@ -304,7 +295,7 @@ public class NetUtils {
     @SuppressWarnings("null")
     public static String toPrettyString(byte[] mac) {
         Objects.requireNonNull(mac, "A parameter 'mac' must not be 'null'.");
-        
+
         String macStr = toString(mac);
 
         // [최적화] toCharArray 복사 제거 및 Capacity 명시를 통한 Resizing 방지
@@ -334,9 +325,6 @@ public class NetUtils {
      *            변환할 대상의 MAC 주소 바이트 배열
      * 
      * @return 16진수로 변환된 문자열
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code mac})가 {@code null}인 경우 발생.
      *
      * @since 2015. 3. 4.
      * @version 1.8.0

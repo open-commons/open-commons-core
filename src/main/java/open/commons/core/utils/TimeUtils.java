@@ -120,9 +120,6 @@ public class TimeUtils {
      * @param units
      *            제외할 시간 단위 가변 인자
      *
-     * @throws NullPointerException
-     *             파라미터({@code units})가 {@code null}인 경우 발생. 또한, {@code units}에 {@code null}이 포함된 경우에도 발생.
-     *
      * @since 2018. 11. 15.
      */
     // 아래 내용에 적용됨.
@@ -205,9 +202,6 @@ public class TimeUtils {
      * @param units
      *            제거할 시간 단위 가변 인자
      *
-     * @throws NullPointerException
-     *             파라미터({@code units})가 {@code null}인 경우 발생. 또한, {@code units}에 {@code null}이 포함된 경우에도 발생.
-     *
      * @since 2018. 11. 15.
      */
     // 아래 내용에 적용됨.
@@ -236,9 +230,6 @@ public class TimeUtils {
      * @param locale
      *            설정하려는 로케일
      *
-     * @throws NullPointerException
-     *             파라미터({@code locale})가 {@code null}인 경우 발생.
-     *
      * @since 2018. 11. 15.
      */
     public static void setLocale(Locale locale) {
@@ -266,9 +257,6 @@ public class TimeUtils {
      * @param expr
      *            등록할 {@link TimeUnit} Expression
      *
-     * @throws NullPointerException
-     *             파라미터({@code locale, expr} 중에 1개라도)가 {@code null}인 경우 발생.
-     *
      * @since 2018. 11. 15.
      */
     public static void setTimeUnitExpr(Locale locale, TimeUnitExpr expr) {
@@ -291,9 +279,6 @@ public class TimeUtils {
      *            등록할 {@link TimeUnit} Expression
      * @param setCurrentLocale
      *            현재 {@link Locale}로 설정할지 여부
-     *
-     * @throws NullPointerException
-     *             파라미터({@code locale, expr} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2018. 11. 15.
      */
@@ -330,9 +315,6 @@ public class TimeUtils {
      *            입력된 시간 값의 단위
      *
      * @return 포맷팅된 시간 문자열
-     *
-     * @throws NullPointerException
-     *             파라미터({@code timeUnit})가 {@code null}인 경우 발생.
      *
      * @since 2018. 1. 9.
      * @version 3.0.0
@@ -447,9 +429,6 @@ public class TimeUtils {
          *            설정할 문자열 표현식
          *
          * @return 빌더 자기 자신 (Method Chaining 지원)
-         *
-         * @throws NullPointerException
-         *             파라미터({@code unit, expr} 중에 1개라도)가 {@code null}인 경우 발생.
          * @throws IllegalArgumentException
          *             지원하지 않는 시간 단위가 입력된 경우 발생.
          *
@@ -503,9 +482,6 @@ public class TimeUtils {
          *
          * @return 빌더 자기 자신
          *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
-         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setDay(String expr) {
@@ -527,9 +503,6 @@ public class TimeUtils {
          *            설정할 문자열 표현식
          *
          * @return 빌더 자기 자신
-         *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
          *
          * @since 2018. 11. 15.
          */
@@ -553,9 +526,6 @@ public class TimeUtils {
          *
          * @return 빌더 자기 자신
          *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
-         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMicrosecond(String expr) {
@@ -578,9 +548,6 @@ public class TimeUtils {
          *
          * @return 빌더 자기 자신
          *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
-         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setMillisecond(String expr) {
@@ -602,8 +569,6 @@ public class TimeUtils {
          *            설정할 문자열 표현식
          *
          * @return 빌더 자기 자신 খানকে
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
          *
          * @since 2018. 11. 15.
          */
@@ -627,9 +592,6 @@ public class TimeUtils {
          *
          * @return 빌더 자기 자신
          *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
-         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setNanosecond(String expr) {
@@ -652,9 +614,6 @@ public class TimeUtils {
          *
          * @return 빌더 자기 자신
          *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
-         *
          * @since 2018. 11. 15.
          */
         public TimeUnitBuilder setSecond(String expr) {
@@ -676,9 +635,6 @@ public class TimeUtils {
          *            설정할 문자열 표현식
          *
          * @return 빌더 자기 자신
-         *
-         * @throws NullPointerException
-         *             파라미터({@code expr})가 {@code null}인 경우 발생.
          *
          * @since 2018. 11. 15.
          */

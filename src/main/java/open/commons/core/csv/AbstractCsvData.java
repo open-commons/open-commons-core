@@ -502,9 +502,6 @@ public abstract class AbstractCsvData {
      * @param target
      *            대상 클래스
      * @return 컬럼명 목록
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code target})가 {@code null}인 경우 발생.
      *
      * @since 2021. 6. 18.
      * @version 1.8.0
@@ -540,9 +537,6 @@ public abstract class AbstractCsvData {
      * @param target
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code target})가 {@code null}인 경우 발생.
      *
      * @since 2020. 11. 4.
      * 

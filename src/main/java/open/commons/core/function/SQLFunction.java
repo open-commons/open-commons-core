@@ -61,8 +61,6 @@ public interface SQLFunction<T, R> {
      * @param after
      *            the function to apply after this function is applied
      * @return a composed function that first applies this function and then applies the {@code after} function
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 3. 28.
      * @see 1.6.5

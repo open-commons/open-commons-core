@@ -53,9 +53,6 @@ public abstract class AbstractTokenizer<D, T> implements ITokenizer<D, T> {
      *
      * @param data
      *            대상 데이터
-     *
-     * @throws NullPointerException
-     *             파라미터({@code data})가 {@code null}인 경우 발생.
      */
     public AbstractTokenizer(D data) {
         Objects.requireNonNull(data);

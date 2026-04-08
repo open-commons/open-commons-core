@@ -93,9 +93,6 @@ public class ExceptionUtils {
      * @param args
      *            로그 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code type})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 15.
      * 
@@ -130,9 +127,6 @@ public class ExceptionUtils {
      * @return 조건에 맞춰 동적으로 생성된 예외 객체
      * 
      * @since 2021. 7. 5.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code type})가 {@code null}인 경우 발생.
      * 
      * @version 1.8.00
      */
@@ -197,9 +191,6 @@ public class ExceptionUtils {
      * @param args
      *            로그 데이터
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code type, parent, format})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 20.
      * 
@@ -232,9 +223,6 @@ public class ExceptionUtils {
      * @param ignoreCase
      *            대소문자 무시 여부
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code errorMsg, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -268,9 +256,6 @@ public class ExceptionUtils {
      * @param expected
      *            확인할 '시작 문자열'
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -296,9 +281,6 @@ public class ExceptionUtils {
      * @param toffset
      *            비교 시작 위치
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -327,9 +309,6 @@ public class ExceptionUtils {
      * @param expected
      *            확인할 '시작 문자열'
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -354,9 +333,6 @@ public class ExceptionUtils {
      *            확인할 '시작 문자열'
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e, expected 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2020. 10. 28.
      * 
@@ -374,9 +350,6 @@ public class ExceptionUtils {
      * @param stacks
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code stacks})가 {@code null}이거나 {@code stacks}에 {@code null}이 포함된 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - buf.toString();
@@ -408,9 +381,6 @@ public class ExceptionUtils {
      * @param e
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code e})가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - writer.toString();

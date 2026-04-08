@@ -78,8 +78,6 @@ public class Closeables implements AutoCloseable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code closeables})에 'null'이 포함된 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) closeables);
@@ -175,9 +173,6 @@ public class Closeables implements AutoCloseable {
      * @param quiet
      *            예외발생 여부
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code closeable})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 11.
      */
@@ -200,9 +195,6 @@ public class Closeables implements AutoCloseable {
      * @param closeables
      *            {@link Closeable} ...
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code closeables})가 {@code null}인 경우 발생.
      *
      * @since 2018. 9. 10.
      */

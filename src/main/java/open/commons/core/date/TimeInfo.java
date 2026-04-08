@@ -281,9 +281,6 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 
      * @param other
      * 
-     * @throws NullPointerException
-     *             파라미터({@code other})가 {@code null}인 경우 발생.
-     * 
      * @return
      */
     public TimeInfo diff(TimeInfo other) {
@@ -600,9 +597,6 @@ public class TimeInfo implements Comparable<TimeInfo> {
      * 시간정보 표시 문자열.
      * 
      * @param timeInfo
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code timeInfo})가 {@code null}인 경우 발생.
      * 
      * @return
      */

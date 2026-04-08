@@ -136,8 +136,6 @@ public class ReferenceableProperties extends Properties {
     /**
      * @param inStream
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code inStream})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 15.
      * 
@@ -157,8 +155,6 @@ public class ReferenceableProperties extends Properties {
     /**
      * @param inStreams
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code inStreams})가 'null' 또는 {@code null}을 포함한 경우 발생.
      * 
      * @since 2012. 02. 15.
      */
@@ -186,8 +182,6 @@ public class ReferenceableProperties extends Properties {
     /**
      * @param reader
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code reader})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 15.
      * 
@@ -207,8 +201,6 @@ public class ReferenceableProperties extends Properties {
     /**
      * @param reader
      * @throws IOException
-     * @throws NullPointerException
-     *             파라미터({@code readers})가 'null', 또는 'null'은 포함한 경우 발생.
      * 
      * @since 2012. 02. 15.
      * 
@@ -240,8 +232,6 @@ public class ReferenceableProperties extends Properties {
      * @param in
      * @throws IOException
      * @throws InvalidPropertiesFormatException
-     * @throws NullPointerException
-     *             파라미터({@code in})가 {@code null}인 경우 발생.
      * 
      * @since 2012. 02. 15.
      * 
@@ -260,8 +250,6 @@ public class ReferenceableProperties extends Properties {
      * @param in
      * @throws IOException
      * @throws InvalidPropertiesFormatException
-     * @throws NullPointerException
-     *             파라미터({@code ins})가 'null' 또는 {@code null}을 포함한 경우 발생.
      * 
      * @since 2012. 02. 15.
      * 

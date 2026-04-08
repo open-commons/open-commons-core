@@ -76,9 +76,6 @@ public class DirectoryWatchService implements IRunnable {
      * @param directory
      *            must be <b>{@code ABSOLUTE PATHNAME}</b>
      * @param resurvice
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code fileMonitor, directory 중에 1개라도})가 {@code null}인 경우 발생.
      */
     public DirectoryWatchService(FileMonitor fileMonitor, String directory, boolean resurvice) {
         ObjectUtils.requireNonNulls(fileMonitor, directory);
@@ -93,9 +90,6 @@ public class DirectoryWatchService implements IRunnable {
      * 
      * @param files
      *            files to monitor
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code files})가 {@code null}인 경우 발생.
      */
     // 아래 내용에 적용됨.
     // - ObjectUtils.requireNonNulls((Object[]) files);

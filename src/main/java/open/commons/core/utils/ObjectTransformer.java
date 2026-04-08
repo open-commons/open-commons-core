@@ -296,9 +296,6 @@ public class ObjectTransformer {
      *            데이터 변환 함수
      * 
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터중에 1개라도 {@code null}인 경우 발생.
      *
      * @since 2025. 9. 8.
      * @version 2.1.0
@@ -1212,9 +1209,6 @@ public class ObjectTransformer {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcClass, targetClass 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2026. 3. 10.
      * @version 3.0.0
@@ -1568,8 +1562,6 @@ public class ObjectTransformer {
      *            변환 이후 속성 데이터 타입
      * @param converter
      *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
-     * @throws NullPointerException
-     *             파라미터({@code srcPropertyClass, targetPropertyClass, converter 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
@@ -1623,10 +1615,6 @@ public class ObjectTransformer {
      *            '이전 속성 타입 -> 이후 속성 타입' 변환 함수
      * @param targetToSrc
      *            '이후 속성 타입 -> 이번 속성 타입' 변환 함수
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code srcPropertyClass, targetPropertyClass, srcToTarget, targetToSrc 중에 1개라도})가 {@code null}인
-     *             경우 발생.
      *
      * @since 2022. 3. 22.
      * @version 1.8.0
@@ -1706,9 +1694,6 @@ public class ObjectTransformer {
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
      *            </ul>
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code src, target 중에 1개라도})가 {@code null}인 경우 발생.
      * 
      * @return
      *

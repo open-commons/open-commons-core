@@ -72,9 +72,6 @@ public class DnsUtils {
      * @param domainName
      *            도메인 이름
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code domainName})가 {@code null}인 경우 발생.
      *
      * @since 2022. 2. 11.
      * @version 1.8.0

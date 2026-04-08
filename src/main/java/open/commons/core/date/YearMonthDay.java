@@ -125,8 +125,6 @@ public class YearMonthDay {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      */
     public boolean match(Calendar calendar) {
         Objects.requireNonNull(calendar);
@@ -137,8 +135,6 @@ public class YearMonthDay {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public boolean match(Date date) {
         Objects.requireNonNull(date);
@@ -189,8 +185,6 @@ public class YearMonthDay {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code calendar})가 {@code null}인 경우 발생.
      */
     public static YearMonthDay getYMD(Calendar calendar) {
         Objects.requireNonNull(calendar);

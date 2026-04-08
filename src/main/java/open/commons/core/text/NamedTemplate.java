@@ -112,9 +112,6 @@ public class NamedTemplate {
      *
      * @param pattern
      *            a string represents a pattern
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 17.
      */
@@ -128,9 +125,6 @@ public class NamedTemplate {
      *            a string represents a pattern
      * @param trim
      *            whether a name is trimmed or not.
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 17.
      */
@@ -149,9 +143,6 @@ public class NamedTemplate {
      * @param value
      *            a value
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2014. 4. 23.
      */
@@ -176,9 +167,6 @@ public class NamedTemplate {
      *
      * @param newValues
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}이거나 '키'가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 13.
      */
@@ -227,9 +215,6 @@ public class NamedTemplate {
      * @param attached
      *            기존 데이터에 추가 여부. <b><i>{@code false}</i></b>인 경우, 새로운 데이터로 변경.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 13.
      * 
@@ -259,9 +244,6 @@ public class NamedTemplate {
      *
      * @param values
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code values})가 {@code null}인 경우 발생.
      *
      * @since 2014. 4. 13.
      */
@@ -283,10 +265,6 @@ public class NamedTemplate {
      *            data
      * @return
      * 
-     * @throws NullPointerException
-     *             파라미터({@code pattern, values 중에 1개라도})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
-     *             발생.
-     * 
      * @since 2014. 4. 8.
      * 
      * @see #format(String, Map, boolean)
@@ -306,10 +284,6 @@ public class NamedTemplate {
      * @param trim
      *            whether a name is trimmed or not.
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pattern, values 중에 1개라도})가 {@code null}이거나 <b><i>{@code values}</i></b>의 '키'에 'null'이 포함된 경우
-     *             발생.
      * 
      * @since 2014. 4. 8.
      */
@@ -339,9 +313,6 @@ public class NamedTemplate {
      * @param name
      * @param value
      * @return
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code pattern, name 중에 1개라도})가 {@code null}인 경우 발생.
      *
      * @since 2014. 9. 5.
      */
@@ -365,8 +336,6 @@ public class NamedTemplate {
      *
      * @param pattern
      * @return
-     * @throws NullPointerException
-     *             파라미터({@code pattern})가 {@code null}인 경우 발생.
      * @since 2025. 8. 26.
      * @version 2.1.0
      * 

@@ -97,9 +97,6 @@ public class DefaultThreadFactory implements ThreadFactory {
      * @since 2026. 2. 26.
      * @version 3.0.0
      * 
-     * 
-     * @throws NullPointerException
-     *             {@code monitor, threadType}가 {@code null}인 경우 발생.
      */
     public DefaultThreadFactory(String monitor, ThreadType threadType) {
         ObjectUtils.requireNonNulls(monitor, threadType);
@@ -112,9 +109,6 @@ public class DefaultThreadFactory implements ThreadFactory {
     /**
      * 
      * @see java.util.concurrent.ThreadFactory#newThread(java.lang.Runnable)
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code r})가 {@code null}인 경우 발생.
      */
     @SuppressWarnings("null")
     @Override

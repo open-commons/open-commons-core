@@ -79,8 +79,6 @@ public interface SQLTripleFunction<T, U, V, R> {
      * @return a composed function that first applies this function and then applies the {@code after} function
      * @throws SQLException
      *             if occurs an exception while interworking with DBMS.
-     * @throws NullPointerException
-     *             파라미터({@code after})가 {@code null}인 경우 발생.
      * @since 1.6.17
      */
     default <W> SQLTripleFunction<T, U, V, W> andThen(Function<? super R, ? extends W> after) throws SQLException {

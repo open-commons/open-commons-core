@@ -53,9 +53,6 @@ public class IterableEnumeration<T> implements Iterable<T> {
      *
      * @param enumeration
      * 
-     * @throws NullPointerException
-     *             파라미터({@code enumeration})가 {@code null}인 경우 발생.
-     * 
      * @since 2019. 6. 28.
      * 
      */
@@ -88,9 +85,6 @@ public class IterableEnumeration<T> implements Iterable<T> {
          * </pre>
          *
          * @param enumeration
-         * 
-         * @throws NullPointerException
-         *             파라미터({@code enumeration})가 {@code null}인 경우 발생.
          * 
          * @since 2019. 6. 28.
          */

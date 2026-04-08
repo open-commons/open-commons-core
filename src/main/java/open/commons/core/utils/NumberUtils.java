@@ -58,9 +58,6 @@ public class NumberUtils {
      *
      * @return '0x'가 추가된 문자열
      *
-     * @throws NullPointerException
-     *             파라미터({@code str})가 {@code null}인 경우 발생.
-     *
      * @since 2020. 12. 17.
      * @version 1.8.0
      */
@@ -85,9 +82,6 @@ public class NumberUtils {
      *            진법을 판별할 숫자 문자열
      *
      * @return 16진수(16), 8진수(8), 또는 기본 10진수(10)
-     *
-     * @throws NullPointerException
-     *             파라미터({@code value})가 {@code null}인 경우 발생.
      *
      * @since 2014. 7. 10.
      */
@@ -144,9 +138,6 @@ public class NumberUtils {
      *            변환할 숫자 문자열
      *
      * @return 변환된 숫자 객체
-     *
-     * @throws NullPointerException
-     *             파라미터({@code value})가 {@code null}인 경우 발생.
      * @throws NumberFormatException
      *             파라미터({@code value})가 숫자 형식이 아닌 경우 발생.
      *
@@ -175,9 +166,6 @@ public class NumberUtils {
      *            반환될 숫자의 래퍼/원시 타입 명세
      *
      * @return 지정된 타입으로 변환된 숫자 객체
-     *
-     * @throws NullPointerException
-     *             파라미터 중 하나라도 {@code null}인 경우 발생.
      * @throws NumberFormatException
      *             파라미터({@code value})가 숫자 형식이 아닌 경우 발생.
      *

@@ -98,8 +98,6 @@ public class FieldTypeVariable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code field})가 {@code null}인 경우 발생.
      */
     public void setField(Field field) {
         Objects.requireNonNull(field);
@@ -108,8 +106,6 @@ public class FieldTypeVariable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code fieldName})가 {@code null}인 경우 발생.
      */
     public void setFieldName(String fieldName) {
         Objects.requireNonNull(fieldName);
@@ -118,8 +114,6 @@ public class FieldTypeVariable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code typeVariable})가 {@code null}인 경우 발생.
      */
     public void setTypeVariable(TypeVariable<? extends GenericDeclaration> typeVariable) {
         Objects.requireNonNull(typeVariable);
@@ -128,8 +122,6 @@ public class FieldTypeVariable {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code typeVarName})가 {@code null}인 경우 발생.
      */
     public void setTypeVarName(String typeVarName) {
         Objects.requireNonNull(typeVarName);

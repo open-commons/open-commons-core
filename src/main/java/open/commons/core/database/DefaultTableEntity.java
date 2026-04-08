@@ -134,8 +134,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code table})가 {@code null}인 경우 발생.
      */
     @Override
     public String createInsertQuery(String table) {
@@ -166,9 +164,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code selects, where})가 {@code null}인 경우 발생.
      *
      * @see open.commons.core.database.ITableEntity#createSelectQuery(java.util.Collection, int[])
      */
@@ -180,8 +175,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createSelectQuery(int... where) {
@@ -191,8 +184,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code table, selects, where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createSelectQuery(String table, Collection<Integer> selects, int... where) {
@@ -209,8 +200,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code table, where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createSelectQuery(String table, int... where) {
@@ -220,8 +209,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code updates, where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createUpdateQuery(Collection<Integer> updates, int... where) {
@@ -231,8 +218,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createUpdateQuery(int... where) {
@@ -246,8 +231,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code table, updates, where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createUpdateQuery(String table, Collection<Integer> updates, int... where) {
@@ -263,8 +246,6 @@ public abstract class DefaultTableEntity implements ITableEntity {
     }
 
     /**
-     * @throws NullPointerException
-     *             파라미터({@code table, where})가 {@code null}인 경우 발생.
      */
     @Override
     public String createUpdateQuery(String table, int... where) {

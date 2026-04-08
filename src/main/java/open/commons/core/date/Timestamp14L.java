@@ -106,9 +106,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     /**
      * 
      * @param calendar
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code calender})가 {@code null}인 경우 발생.
      */
     public Timestamp14L(Calendar calendar) {
         this(Objects.requireNonNull( //
@@ -120,9 +117,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * 
      * @param date
      *            날짜 객체
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code date})가 {@code null}인 경우 발생.
      */
     public Timestamp14L(Date date) {
         this.date = createDatetime(Objects.requireNonNull( //
@@ -134,9 +128,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * 
      * @param datetime
      *            숫자로 이루어진 14자리 일시 정보
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code datetime})가 {@code null}인 경우 발생.
      */
     public Timestamp14L(String datetime) {
         Objects.requireNonNull(datetime);
@@ -193,9 +184,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * 현재 값과 입력받은 값의 차이를 반환합니다.<br>
      * 
      * @param other
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code other})가 {@code null}인 경우 발생.
      * 
      * @return
      */
@@ -401,9 +389,6 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * 
      * @param datetime
      *            숫자로 이루어진 14자리 일시 정보
-     * 
-     * @throws NullPointerException
-     *             파라미터({@code datetime})가 {@code null}인 경우 발생.
      */
     public void setDatetime(String datetime) {
         Objects.requireNonNull(datetime);

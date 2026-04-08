@@ -105,9 +105,6 @@ public class StopWatch {
      *
      * @param name
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 20.
      * 
@@ -168,9 +165,6 @@ public class StopWatch {
      *
      * @param name
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 20.
      * 
@@ -219,9 +213,6 @@ public class StopWatch {
      *
      * @param name
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 20.
      */
@@ -248,9 +239,6 @@ public class StopWatch {
      *
      * @param name
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      *
      * @since 2022. 1. 5.
      * @version 1.8.0
@@ -284,9 +272,6 @@ public class StopWatch {
      *
      * @param name
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 20.
      * 
@@ -367,9 +352,6 @@ public class StopWatch {
      *
      * @param name
      * @return 기록 정보.
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 20.
      */
@@ -417,9 +399,6 @@ public class StopWatch {
      *
      * @param name
      * @return
-     *
-     * @throws NullPointerException
-     *             파라미터({@code name})가 {@code null}인 경우 발생.
      * 
      * @since 2019. 2. 20.
      */

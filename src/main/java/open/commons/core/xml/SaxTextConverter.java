@@ -107,8 +107,6 @@ public class SaxTextConverter {
      * @throws IllegalAccessException
      * @throws IllegalArgumentException
      * @throws InvocationTargetException
-     * @throws NullPointerException
-     *             파라미터({@code obj}, {@code saxElement} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 24.
      * @version 3.0.0
@@ -163,9 +161,6 @@ public class SaxTextConverter {
      *
      * @return 등록된 변환기 함수 객체
      *
-     * @throws NullPointerException
-     *             파라미터({@code fqcn})가 {@code null}인 경우 발생하거나, 해당 클래스명에 등록된 변환기가 없는 경우 발생.
-     *
      * @since 2019. 1. 24.
      */
     public <R> Function<String, R> getConverter(String fqcn) {
@@ -204,9 +199,6 @@ public class SaxTextConverter {
      *            등록할 변환기 함수
      *
      * @return 이전에 등록되어 있던 변환기. (없을 경우 {@code null})
-     *
-     * @throws NullPointerException
-     *             파라미터({@code fqcn}, {@code converter} 중에 1개라도)가 {@code null}인 경우 발생.
      *
      * @since 2019. 1. 24.
      *

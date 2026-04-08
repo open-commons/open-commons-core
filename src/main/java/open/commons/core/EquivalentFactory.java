@@ -336,9 +336,6 @@ public class EquivalentFactory {
      * 
      * @since 2012. 03. 30.
      * 
-     * 
-     * @throws NullPointerException
-     *             {@code key}가 {@code null}인 경우 발생.
      */
     public static @Nullable IEquivalent<?> get(Object key) {
         Objects.requireNonNull(key);
@@ -392,9 +389,6 @@ public class EquivalentFactory {
      * 
      * @since 2012. 03. 30.
      * 
-     * 
-     * @throws NullPointerException
-     *             {@code equivalent}가 {@code null}인 경우 발생.
      */
     public static @Nullable IEquivalent<?> register(@Nullable Object key, IEquivalent<?> equivalent) {
         Objects.requireNonNull(equivalent);

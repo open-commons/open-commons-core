@@ -101,9 +101,6 @@ public class FilenameUtils {
      *            접미사
      * @return 출력 디렉토리 이름
      *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 13.
      */
     public static String toOutputDir(File file, String suffix) {
@@ -132,9 +129,6 @@ public class FilenameUtils {
      *            접미사
      * @return 출력 디렉토리 이름
      *
-     * @throws NullPointerException
-     *             파라미터({@code inputfile})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 13.
      */
     public static String toOutputDir(File inputfile, String prefix, String suffix) {
@@ -158,9 +152,6 @@ public class FilenameUtils {
      * @param inputfileString
      *            대상 파일 이름 문자열
      * @return 출력 디렉토리 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfileString})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -187,9 +178,6 @@ public class FilenameUtils {
      * @param suffix
      *            접미사
      * @return 출력 디렉토리 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfileString})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -219,9 +207,6 @@ public class FilenameUtils {
      *            접미사
      * @return 출력 디렉토리 이름
      *
-     * @throws NullPointerException
-     *             파라미터({@code inputfileString})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 13.
      */
     public static String toOutputDir(String inputfileString, String prefix, String suffix) {
@@ -245,9 +230,6 @@ public class FilenameUtils {
      * @param inputfile
      *            대상 파일
      * @return 출력 디렉토리 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfile})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -274,9 +256,6 @@ public class FilenameUtils {
      * @param ext
      *            확장자
      * @return 출력 파일 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfile})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -305,9 +284,6 @@ public class FilenameUtils {
      * @param ext
      *            확장자
      * @return 출력 파일 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code file})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -339,9 +315,6 @@ public class FilenameUtils {
      *            확장자
      * @return 출력 파일 이름
      *
-     * @throws NullPointerException
-     *             파라미터({@code inputfile})가 {@code null}인 경우 발생.
-     *
      * @since 2012. 3. 13.
      */
     public static String toOutputFilename(File inputfile, String prefix, String suffix, String ext) {
@@ -367,9 +340,6 @@ public class FilenameUtils {
      * @param ext
      *            확장자
      * @return 출력 파일 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfileString})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -398,9 +368,6 @@ public class FilenameUtils {
      * @param ext
      *            확장자
      * @return 출력 파일 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfileString})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
@@ -431,9 +398,6 @@ public class FilenameUtils {
      * @param ext
      *            확장자
      * @return 출력 파일 이름
-     *
-     * @throws NullPointerException
-     *             파라미터({@code inputfileString})가 {@code null}인 경우 발생.
      *
      * @since 2012. 3. 13.
      */
