@@ -132,13 +132,18 @@ public abstract class DefaultTableEntity implements ITableEntity {
 
     /**
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String createInsertQuery(String table) {
         Objects.requireNonNull(table, "테이블 이름이 설정되지 않았습니다.");
 
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO ").append(table).append(" (").append(serializeColumns(getAllColumns())).append(") VALUES (").append(serializeValues(getAllValues())).append(");");
-        return Objects.requireNonNull(query.toString());
+        return query.toString();
     }
 
     // 아래 내용에 적용됨.
@@ -180,8 +185,11 @@ public abstract class DefaultTableEntity implements ITableEntity {
         return createSelectQuery(getTableName(), getAllIndice(), where);
     }
 
-    /**
-     */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String createSelectQuery(String table, Collection<Integer> selects, int... where) {
         ObjectUtils.requireNonNullsWithMessage(table, selects, where);
@@ -193,7 +201,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
         if (where.length > 0) {
             query.append(" WHERE ").append(createKV(getColumns(where), getValues(where), "AND"));
         }
-        return Objects.requireNonNull(query.toString());
+        return query.toString();
     }
 
     /**
@@ -227,8 +235,11 @@ public abstract class DefaultTableEntity implements ITableEntity {
         return createUpdateQuery(getTableName(), allColumns, where);
     }
 
-    /**
-     */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String createUpdateQuery(String table, Collection<Integer> updates, int... where) {
         ObjectUtils.requireNonNullsWithMessage(table, updates, where);
@@ -239,7 +250,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
         if (where.length > 0) {
             query.append(" WHERE ").append(createKV(getColumns(where), getValues(where), "AND"));
         }
-        return Objects.requireNonNull(query.toString());
+        return query.toString();
     }
 
     /**
@@ -270,17 +281,22 @@ public abstract class DefaultTableEntity implements ITableEntity {
     private Collection<ColumnConf> getColumns(Collection<Integer> indice) {
         TableMetadata meta = getMetadata();
 
-        return Objects.requireNonNull(indice.stream() //
+        return indice.stream() //
                 .map(i -> meta.indexMap().get(i)) //
                 .filter(Objects::nonNull) //
                 .flatMap(List::stream) //
                 .map(ColumnMeta::config) //
                 .filter(Objects::nonNull) //
-                .toList());
+                .toList();
     }
 
+    // 아래 내용에 적용됨.
+    // - Stream.toList()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private Collection<ColumnConf> getColumns(int... indice) {
-        return getColumns(Objects.requireNonNull(Arrays.stream(indice).boxed().toList()));
+        return getColumns(Arrays.stream(indice).boxed().toList());
     }
 
     /**
@@ -324,17 +340,18 @@ public abstract class DefaultTableEntity implements ITableEntity {
         return values;
     }
 
+    // 아래 내용에 적용됨.
+    // - Stream.toList()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private Collection<String> getValues(int... indice) {
-        return getValues(Objects.requireNonNull( //
-                Arrays.stream(indice).boxed().toList() //
-        ));
+        return getValues(Arrays.stream(indice).boxed().toList());
     }
 
-    private Object getValueSafe(Field field) {
+    private @Nullable Object getValueSafe(Field field) {
         try {
-            return Objects.requireNonNull(//
-                    field.get(this) //
-            );
+            return field.get(this);
         } catch (IllegalAccessException e) {
             throw new IllegalArgumentException(e);
         }

@@ -37,6 +37,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jspecify.annotations.Nullable;
 
+import open.commons.core.collection.concurrent.ConcurrentLinkedHashMap;
+
 /**
  * 입력된 순서대로 정렬되는 {@link Map}
  * 
@@ -45,7 +47,10 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 11. 6.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
+ * @deprecated {@link ConcurrentLinkedHashMap} 을 사용하기 바랍니다.
  */
+@Deprecated(since = "3.0.0", forRemoval = true)
 public class FIFOMap<K, V> implements Map<K, V> {
 
     private AtomicInteger seqSeed = new AtomicInteger();

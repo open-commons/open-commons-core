@@ -95,12 +95,17 @@ public class DefaultThreadFactory implements ThreadFactory {
      * @since 2026. 2. 26.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - String.format(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public DefaultThreadFactory(String monitor, ThreadType threadType) {
         ObjectUtils.requireNonNulls(monitor, threadType);
 
         this.threadType = threadType;
         this.group = Thread.currentThread().getThreadGroup();
-        this.namePrefix = Objects.requireNonNull(String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), POOL_NUMBER.getAndIncrement()));
+        this.namePrefix = String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), POOL_NUMBER.getAndIncrement());
     }
 
     /**

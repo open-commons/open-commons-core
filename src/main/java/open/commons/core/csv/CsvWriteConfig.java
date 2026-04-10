@@ -29,7 +29,7 @@ package open.commons.core.csv;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-import open.commons.core.utils.CsvUtils;
+import open.commons.core.utils.CharUtils;
 
 /**
  * 
@@ -62,7 +62,7 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig() {
-        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CsvUtils.charset(DEFAULT_CHARSET_NAME));
+        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -84,7 +84,7 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CsvUtils.charset(DEFAULT_CHARSET_NAME));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -107,7 +107,7 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator, char quotechar) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, CsvUtils.charset(DEFAULT_CHARSET_NAME));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -131,7 +131,7 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator, char quotechar, char escape) {
-        this(separator, quotechar, escape, CsvUtils.charset(DEFAULT_CHARSET_NAME));
+        this(separator, quotechar, escape, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -182,13 +182,18 @@ public class CsvWriteConfig extends CsvCommon {
      * @since 2026. 2. 26.
      * @version 3.0.0
      */
+    // 아래 내용에 적용됨.
+    // - Charset.displayName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public CsvWriteConfig(char separator, char quotechar, char escape, String lineEnd, Charset charset) {
         super(separator, quotechar, escape, lineEnd);
 
         Objects.requireNonNull(charset);
 
         this.charset = charset;
-        this.charsetName = Objects.requireNonNull(charset.displayName());
+        this.charsetName = charset.displayName();
     }
 
     /**
@@ -300,11 +305,16 @@ public class CsvWriteConfig extends CsvCommon {
      * 
      * @see #charset
      */
+    // 아래 내용에 적용됨.
+    // - Charset.displayName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void setCharset(Charset charset) {
         Objects.requireNonNull(charset);
 
         this.charset = charset;
-        this.charsetName = Objects.requireNonNull(charset.displayName());
+        this.charsetName = charset.displayName();
     }
 
     /**
@@ -329,7 +339,7 @@ public class CsvWriteConfig extends CsvCommon {
         Objects.requireNonNull(charsetName);
 
         this.charsetName = charsetName;
-        this.charset = CsvUtils.charset(charsetName);
+        this.charset = CharUtils.requireCharset(charsetName);
     }
 
     /**
@@ -340,7 +350,7 @@ public class CsvWriteConfig extends CsvCommon {
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.
-    // - builder.toString();
+    // - StringBuilder.toString()
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")

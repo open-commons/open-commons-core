@@ -533,14 +533,15 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
 
     @Override
     public final boolean validate(boolean fully) {
-        Objects.requireNonNull(this.tokenizer, "ITokenizer가 설정되지 않았습니다.");
+        ITokenizer<D, T> tokenizer = this.tokenizer;
+        Objects.requireNonNull(tokenizer, "ITokenizer가 설정되지 않았습니다.");
 
-        if (!preValid(this.tokenizer) && !fully) {
+        if (!preValid(tokenizer) && !fully) {
             return isValid();
         }
 
         validate0(fully);
-        postValid(Objects.requireNonNull(this.tokenizer));
+        postValid(tokenizer);
 
         return isValid();
     }

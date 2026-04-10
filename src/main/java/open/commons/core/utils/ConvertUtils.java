@@ -164,9 +164,8 @@ public class ConvertUtils {
     public static Class<?> getWrapperClass(Class<?> clazz) {
         Objects.requireNonNull(clazz);
 
-        return primitiveTypesWrapperClass.containsKey(clazz) //
-                ? Objects.requireNonNull(primitiveTypesWrapperClass.get(clazz)) //
-                : clazz;
+        Class<?> wc = primitiveTypesWrapperClass.get(clazz);
+        return wc != null ? wc : clazz;
     }
 
     /**

@@ -521,6 +521,11 @@ public class ObjectUtils {
      * @since 2021. 12. 6.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Optional.get()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
         Objects.requireNonNull(srcCol);
         Objects.requireNonNull(targetClass);
@@ -533,7 +538,7 @@ public class ObjectUtils {
                 .findFirst() //
                 .map(e -> (Class<S>) e.getClass());
 
-        return getTransformer(Objects.requireNonNull(fromInstance.get()), lookupSrcSuper, targetClass, lookupTargetSuper);
+        return getTransformer(fromInstance.get(), lookupSrcSuper, targetClass, lookupTargetSuper);
     }
 
     /**

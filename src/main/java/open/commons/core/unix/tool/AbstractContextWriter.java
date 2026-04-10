@@ -50,7 +50,8 @@ import open.commons.core.utils.ObjectUtils;
  */
 public abstract class AbstractContextWriter implements IFileContextWriter {
 
-    protected static final String LINE_SEPARATOR = Objects.requireNonNull(System.getProperty("line.separator"));
+    @SuppressWarnings("null")
+    protected static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("[yyyy/MM/dd hh:mm:ss] ");
 

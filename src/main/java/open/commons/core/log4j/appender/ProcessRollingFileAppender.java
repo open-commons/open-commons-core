@@ -256,8 +256,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      *            속성값
      * @return
      *
-     * @since 2022. 10. 18.
-     * @version _._._
+     * @since 2022. 10. 18.builder.toString()
      */
     public static boolean registerContext(String contextName, String contextHolder, String context) {
         ObjectUtils.requireNonNulls(contextName, contextHolder, context);

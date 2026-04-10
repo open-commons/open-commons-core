@@ -64,8 +64,13 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @see Executors#newFixedThreadPool(int)
      */
+    // 아래 내용에 적용됨.
+    // - Executors.newFixedThreadPool(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public FixedThreadPoolService(int nThreads) {
-        executor = Objects.requireNonNull(Executors.newFixedThreadPool(nThreads));
+        executor = Executors.newFixedThreadPool(nThreads);
     }
 
     /**
@@ -77,9 +82,15 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @see Executors#newFixedThreadPool(int, ThreadFactory)
      */
+    // 아래 내용에 적용됨.
+    // - Executors.newFixedThreadPool(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public FixedThreadPoolService(int nThreads, ThreadFactory threadFactory) {
         Objects.requireNonNull(threadFactory, "threadFactory");
-        executor = Objects.requireNonNull(Executors.newFixedThreadPool(nThreads, threadFactory));
+
+        executor = Executors.newFixedThreadPool(nThreads, threadFactory);
     }
 
     /**
@@ -262,9 +273,14 @@ public class FixedThreadPoolService implements ExecutorService {
      * 
      * @see java.util.concurrent.ExecutorService#shutdownNow()
      */
+    // 아래 내용에 적용됨.
+    // - ExecutorService.shutdownNow()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public List<Runnable> shutdownNow() {
-        return Objects.requireNonNull(executor.shutdownNow());
+        return executor.shutdownNow();
     }
 
     /**

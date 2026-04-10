@@ -362,9 +362,9 @@ public class NamedTemplate {
 
         boolean parsed = false;
 
-        private StringBuffer nameBuf = new StringBuffer();
+        private StringBuilder nameBuf = new StringBuilder();
 
-        private StringBuffer nonameBuf = new StringBuffer();
+        private StringBuilder nonameBuf = new StringBuilder();
 
         /**
          * @param pattern
@@ -431,6 +431,11 @@ public class NamedTemplate {
             return tokens.iterator();
         }
 
+        // 아래 내용에 적용됨.
+        // - StringBuilder.toString()
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings("null")
         void parse() {
 
             nameBuf.setLength(0);
@@ -457,9 +462,7 @@ public class NamedTemplate {
                         }
 
                         if (nonameBuf.length() > 0) {
-                            tokens.add(new NamedToken(Objects.requireNonNull( //
-                                    nonameBuf.toString() //
-                            ), false));
+                            tokens.add(new NamedToken(nonameBuf.toString(), false));
                             nonameBuf.setLength(0);
                         }
 
@@ -475,7 +478,7 @@ public class NamedTemplate {
                     } else {
                         if (opened) {
                             if (nameBuf.length() > 0) {
-                                tokens.add(new NamedToken(trimmed ? Objects.requireNonNull(nameBuf.toString().strip()) : Objects.requireNonNull(nameBuf.toString()), true));
+                                tokens.add(new NamedToken(trimmed ? nameBuf.toString().strip() : nameBuf.toString(), true));
                                 nameBuf.setLength(0);
                             }
                         } else {

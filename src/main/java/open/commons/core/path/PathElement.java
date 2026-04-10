@@ -98,10 +98,13 @@ public class PathElement implements Iterable<String> {
      *            경로 구분자 <BR>
      * @since 2012. 03. 15.
      */
+    // 아래 내용에 적용됨.
+    // - String.valueOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public PathElement(char separator) {
-        this(Objects.requireNonNull( //
-                String.valueOf(separator) //
-        ));
+        this(String.valueOf(separator));
     }
 
     /**
@@ -265,14 +268,17 @@ public class PathElement implements Iterable<String> {
      * 
      * @see #add(String)
      */
+    // 아래 내용에 적용됨.
+    // - String.toCharArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void addAll(@Nullable List<String> paths) {
 
         if (paths != null) {
             synchronized (mtxPaths) {
                 for (String path : paths) {
-                    createPathValue(Objects.requireNonNull( //
-                            path.toCharArray() //
-                    ));
+                    createPathValue(path.toCharArray());
                 }
             }
         }
@@ -287,14 +293,17 @@ public class PathElement implements Iterable<String> {
      * 
      * @see #add(String)
      */
+    // 아래 내용에 적용됨.
+    // - String.toCharArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void addAll(String @Nullable... paths) {
 
         if (paths != null) {
             synchronized (mtxPaths) {
                 for (String path : paths) {
-                    createPathValue(Objects.requireNonNull( //
-                            path.toCharArray() //
-                    ));
+                    createPathValue(path.toCharArray());
                 }
             }
         }
@@ -366,9 +375,16 @@ public class PathElement implements Iterable<String> {
      * 주어진 경로를 포함하고 있는지 여부를 반환합니다.
      * 
      * @param path
-     * @return <BR>
+     * 
+     * @return
+     * 
      * @since 2012. 03. 12.
      */
+    // 아래 내용에 적용됨.
+    // - String.toCharArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public boolean contains(@Nullable String path) {
         if (path != null) {
             int pl = path.length();
@@ -400,9 +416,7 @@ public class PathElement implements Iterable<String> {
 
                 System.arraycopy(elems, el[0], elemChars, 0, el[1]);
 
-                if (equalsChars(Objects.requireNonNull( //
-                        path.toCharArray() //
-                ), elemChars)) {
+                if (equalsChars(path.toCharArray(), elemChars)) {
                     return true;
                 }
             }

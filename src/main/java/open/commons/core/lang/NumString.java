@@ -115,12 +115,17 @@ public class NumString<N extends Number> implements CharSequence {
         return string().length();
     }
 
+    // 아래 내용에 적용됨.
+    // - Number.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private String string() {
-        if (string == null) {
-            string = this.number.toString();
+        if (string != null) {
+            return string;
+        } else {
+            return string = this.number.toString();
         }
-
-        return Objects.requireNonNull(string);
     }
 
     /**

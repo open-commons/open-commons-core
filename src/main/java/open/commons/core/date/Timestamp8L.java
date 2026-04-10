@@ -88,10 +88,13 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
     /**
      * 현재 날짜 정보를 가지고 객체를 생성합니다.
      */
+    // 아래 내용에 적용됨.
+    // - Calendar.getTime()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp8L() {
-        this(Objects.requireNonNull( //
-                Calendar.getInstance().getTime() //
-        ));
+        this(Calendar.getInstance().getTime());
 
     }
 
@@ -99,10 +102,13 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
      * 
      * @param calendar
      */
+    // 아래 내용에 적용됨.
+    // - Calendar.getTime()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp8L(Calendar calendar) {
-        this(Objects.requireNonNull( //
-                calendar.getTime() //
-        ));
+        this(calendar.getTime());
     }
 
     /**
@@ -110,10 +116,13 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
      * @param date
      *            날짜 객체
      */
+    // 아래 내용에 적용됨.
+    // - SimpleDateFormat.format(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp8L(Date date) {
-        this.date = createDatetime(Objects.requireNonNull( //
-                sdf.format(date) //
-        ));
+        this.date = createDatetime(sdf.format(date));
     }
 
     /**
@@ -333,6 +342,11 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
      * @param value
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - SimpleDateFormat.format(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp8L update(int field, int value) {
         Timestamp8L oldTs = clone();
 
@@ -340,9 +354,7 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
             Calendar cal = getCalendar();
             cal.add(CONVERTOR[field], value);
 
-            setDatetime(Objects.requireNonNull( //
-                    sdf.format(cal.getTime()) //
-            ));
+            setDatetime(sdf.format(cal.getTime()));
         }
 
         return oldTs;

@@ -38,6 +38,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jspecify.annotations.Nullable;
 
+import open.commons.core.collection.concurrent.ConcurrentLinkedHashSet;
+
 /**
  * 추가된 순서대로 정렬되는 {@link Set}
  * 
@@ -45,7 +47,10 @@ import org.jspecify.annotations.Nullable;
  * 
  * @since 2012. 11. 6.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
+ * 
+ * @deprecated {@link ConcurrentLinkedHashSet}을 사용하세요.
  */
+@Deprecated(since = "3.0.0", forRemoval = true)
 public class FIFOSet<E> implements Set<E> {
 
     private AtomicInteger seqSeed = new AtomicInteger();

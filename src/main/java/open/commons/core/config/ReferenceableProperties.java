@@ -82,7 +82,8 @@ public class ReferenceableProperties extends Properties {
     private static final String REFERENCING_REG_EX = "^([^$]*)\\$\\{\\s*([^(\\{|\\|\\s|\\})]+)\\s*[}]([^}].*)?$";
 
     /** {@link #REFERENCING_REG_EX}를 처리하는 패턴 객체 */
-    private static final Pattern REFERENCING_PATTERN = Objects.requireNonNull(Pattern.compile(REFERENCING_REG_EX));
+    @SuppressWarnings("null")
+    private static final Pattern REFERENCING_PATTERN = Pattern.compile(REFERENCING_REG_EX);
 
     /** 프로퍼티의 {@code key=value} 중에 다른 {@code key}를 참조하지 않는 값들 */
     transient private final Map<String, String> keyReferencing = new HashMap<String, String>();
@@ -314,7 +315,10 @@ public class ReferenceableProperties extends Properties {
             if (key == null) {
                 continue;
             }
-            result = resolveRef0(key, Objects.requireNonNull(entry.getValue(), "'keyReferencing'의 값(value)는 {@code null}을 허용하지 않습니다."));
+            String value = entry.getValue();
+            Objects.requireNonNull(value, "'keyReferencing'의 값(value)는 {@code null}을 허용하지 않습니다.");
+
+            result = resolveRef0(key, value);
 
             if (result.getResult()) {
                 keyReferenced.put(key, result.getData());

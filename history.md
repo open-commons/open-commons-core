@@ -1,3 +1,13 @@
+[2026/04/10]
+- Add
+  + open.commons.core.collection.concurrent
+    + ConcurrentLinkedHashMap&lt;K, V&gt;: Thread-safe SequencedMap&lt;K, V&gt;
+    + ConcurrentLinkedHashSet&lt;E&gt;: Thread-safe SequencedSet&ltE&gt;
+- deprecated
+  + open.commons.core.collection
+    + FIFOMap&lt;K, V&gt;
+    + FIFOSet&lt;E&gt;  
+
 [2026/04/07]
 - Updated
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.

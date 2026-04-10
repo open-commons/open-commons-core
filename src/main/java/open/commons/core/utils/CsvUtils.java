@@ -93,51 +93,6 @@ public class CsvUtils {
     }
 
     /**
-     * 문자열셋을 객체를 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2026. 3. 16.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param charset
-     *            문자열 셋.
-     * @return
-     *
-     * @since 2026. 3. 16.
-     * @version 3.0.0
-     * 
-     * @see Charset#forName(String)
-     */
-    public static Charset charset(String charset) {
-        Objects.requireNonNull(charset);
-        return Objects.requireNonNull(Charset.forName(charset));
-    }
-
-    /**
-     * 기본 문자열셋을 제공합니다. <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2026. 3. 27.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @return
-     *
-     * @since 2026. 3. 27.
-     * @version 3.0.0
-     * 
-     * @see Charset#defaultCharset()
-     */
-    public static Charset defaultCharset() {
-        return Objects.requireNonNull(Charset.defaultCharset());
-    }
-
-    /**
      * 객체를 {@link String}[]로 변환하는 함수를 제공합니다. <br>
      * *
      * 
@@ -2701,7 +2656,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, type, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, type, close);
     }
 
     /**
@@ -2741,7 +2696,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, type, validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, type, validator, close);
     }
 
     /**
@@ -2782,7 +2737,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, creator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, creator, close);
     }
 
     /**
@@ -2825,7 +2780,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             boolean ignoreLeadingWhiteSpace, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, creator, validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, creator, validator, close);
     }
 
     /**
@@ -2862,7 +2817,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type, boolean close)
             throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
     }
 
     /**
@@ -2901,7 +2856,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes, Class<E> type,
             Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, validator,
+                close);
     }
 
     /**
@@ -2941,7 +2897,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Function<String[], E> creator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, close);
     }
 
     /**
@@ -2983,7 +2939,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape, boolean strictQuotes,
             Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, strictQuotes, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator,
+                validator, close);
     }
 
     /**
@@ -3019,8 +2976,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Class<E> type, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type,
-                close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
+                type, close);
     }
 
     /**
@@ -3058,8 +3015,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type,
-                validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
+                type, validator, close);
     }
 
     /**
@@ -3098,8 +3055,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Function<String[], E> creator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator,
-                close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
+                creator, close);
     }
 
     /**
@@ -3140,8 +3097,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, char escape//
             , Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator,
-                validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, escape, CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE,
+                creator, validator, close);
     }
 
     /**
@@ -3174,7 +3131,7 @@ public class CsvUtils {
      * @version 1.8.0
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Class<E> type, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
                 CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
     }
 
@@ -3211,7 +3168,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
                 CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, validator, close);
     }
 
@@ -3249,7 +3206,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Function<String[], E> creator, boolean close)
             throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
                 CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, close);
     }
 
@@ -3289,7 +3246,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, char quotechar, Function<String[], E> creator, @Nullable Predicate<E> validator,
             boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, quotechar, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
                 CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, validator, close);
     }
 
@@ -3322,8 +3279,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Class<E> type, boolean close) throws IOException {
         readAsList(inputStream, skip, separator, defaultCreator(type), close);
-        return readAsList(inputStream, defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
-                CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
+                CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, close);
     }
 
     /**
@@ -3358,8 +3315,8 @@ public class CsvUtils {
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Class<E> type, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
         readAsList(inputStream, skip, separator, defaultCreator(type), validator, close);
-        return readAsList(inputStream, defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
-                CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
+                CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, type, validator, close);
     }
 
     /**
@@ -3393,8 +3350,8 @@ public class CsvUtils {
      * @version 1.8.0
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Function<String[], E> creator, boolean close) throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
-                CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
+                CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, close);
     }
 
     /**
@@ -3431,8 +3388,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(InputStream inputStream, int skip, char separator, Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close)
             throws IOException {
-        return readAsList(inputStream, defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER, CsvConfig.DEFAULT_STRICT_QUOTES,
-                CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, validator, close);
+        return readAsList(inputStream, CharUtils.defaultCharset(), skip, separator, CsvConfig.DEFAULT_QUOTE_CHARACTER, CsvConfig.DEFAULT_ESCAPE_CHARACTER,
+                CsvConfig.DEFAULT_STRICT_QUOTES, CsvConfig.DEFAULT_IGNORE_LEADING_WHITESPACE, creator, validator, close);
     }
 
     /**
@@ -3668,7 +3625,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, boolean close) throws IOException {
-        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, defaultCharset()), type, close);
+        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.defaultCharset()), type, close);
     }
 
     /**
@@ -3708,7 +3665,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
-        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, defaultCharset()), type, afterCreation, close);
+        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.defaultCharset()), type, afterCreation,
+                close);
     }
 
     /**
@@ -3748,7 +3706,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, defaultCharset()), type, validator, close);
+        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.defaultCharset()), type, validator, close);
     }
 
     /**
@@ -3790,8 +3748,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Class<E> type, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation, boolean close) throws IOException {
-        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, defaultCharset()), type, validator, afterCreation,
-                close);
+        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.defaultCharset()), type, validator,
+                afterCreation, close);
     }
 
     /**
@@ -3832,7 +3790,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Function<String[], E> creator, boolean close) throws IOException {
-        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, defaultCharset()), creator, close);
+        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.defaultCharset()), creator, close);
     }
 
     /**
@@ -3875,7 +3833,8 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(Reader reader, int skip, char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace,
             Function<String[], E> creator, @Nullable Predicate<E> validator, boolean close) throws IOException {
-        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, defaultCharset()), creator, validator, close);
+        return readAsList(reader, new CsvFileConfig(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.defaultCharset()), creator, validator,
+                close);
     }
 
     /**

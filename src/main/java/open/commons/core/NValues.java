@@ -42,7 +42,8 @@ import open.commons.core.utils.ObjectUtils;
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
 public class NValues {
-    private static final String CLASS = Objects.requireNonNull(NValues.class.getSimpleName());
+    @SuppressWarnings("null")
+    private static final String CLASS = NValues.class.getSimpleName();
 
     private String[] names;
     private Object[] values;
@@ -120,8 +121,13 @@ public class NValues {
      * 
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - Arrays.copyOf(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public String[] names() {
-        return Objects.requireNonNull(Arrays.copyOf(names, names.length));
+        return Arrays.copyOf(names, names.length);
     }
 
     /**

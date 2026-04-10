@@ -289,21 +289,18 @@ public class AsyncJobManager<K, V> {
          * @since 2020. 11. 10.
          * @version 1.8.0
          */
-        @SuppressWarnings("unchecked")
+        // 아래 내용에 적용됨.
+        // - Map.computeIfAbsent(...)
+        // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+        // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+        @SuppressWarnings({ "null", "unchecked" })
         public static <K> AsyncJobManager<K, ?> getManager(Object holder) {
+            Objects.requireNonNull(holder);
 
             ReentrantLock lock = sLock;
             lock.lock();
-
             try {
-                if (SINGLETON.containsKey(holder)) {
-                    return (AsyncJobManager<K, ?>) Objects.requireNonNull(SINGLETON.get(holder));
-                } else {
-                    AsyncJobManager<K, ?> m = new AsyncJobManager<K, Object>();
-                    SINGLETON.put(holder, m);
-
-                    return m;
-                }
+                return (AsyncJobManager<K, ?>) SINGLETON.computeIfAbsent(holder, _ -> new AsyncJobManager<K, Object>());
             } catch (Throwable t) {
                 throw ExceptionUtils.newException(RuntimeException.class, t, "Occurs an unknown case");
             } finally {

@@ -33,7 +33,6 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.function.Function;
 
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -46,7 +45,7 @@ import org.jspecify.annotations.Nullable;
  * 
  * @see ConnectionCallbackBroker
  */
-public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnectionCallbackBroker {
+public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbackBroker {
 
     private final String query;
 
@@ -134,13 +133,19 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
      * 
      * @see open.commons.core.database.IConnectionCallbackBroker#getStatement(java.sql.Connection)
      */
+    // 아래 내용에 적용됨.
+    // - Connection.prepareCall(...)
+    // - Connection.prepareStatement(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public final PreparedStatement getStatement(Connection con) throws SQLException {
         Objects.requireNonNull(con);
 
         return forStoredProcedure //
-                ? Objects.requireNonNull(con.prepareCall(getQuery())) //
-                : Objects.requireNonNull(con.prepareStatement(getQuery()));
+                ? con.prepareCall(getQuery()) //
+                : con.prepareStatement(getQuery());
     }
 
     /**
@@ -186,6 +191,11 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
     /**
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -194,6 +204,6 @@ public abstract class ConnectionCallbackBroker2<@NonNull T> implements IConnecti
         builder.append(", setter=");
         builder.append(setter);
         builder.append("]");
-        return Objects.requireNonNull(builder.toString());
+        return builder.toString();
     }
 }

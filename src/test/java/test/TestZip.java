@@ -48,8 +48,7 @@ public class TestZip {
      * 2021. 11. 9.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     * @since 2021. 11. 9.
-     * @version _._._
+     * @since 2021. 11. 9.builder.toString()
      */
     public TestZip() {
     }

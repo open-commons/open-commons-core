@@ -114,10 +114,15 @@ public class SQLUtils {
      * 
      * @return 패턴과 매칭되지 않는 경우 {@code null}을 반환합니다.
      */
+    // 아래 내용에 적용됨.
+    // - Matcher.group(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static final BiFunction<Pattern, String, @Nullable String> METHOD_MATCHER = (ptn, str) -> {
         Matcher m = ptn.matcher(str);
         if (m.matches()) {
-            return StringUtils.toLowerCase(Objects.requireNonNull(m.group(2)), 0);
+            return StringUtils.toLowerCase(m.group(2), 0);
         } else {
             return null;
         }
@@ -455,10 +460,15 @@ public class SQLUtils {
      * @since 2022. 11. 24.
      * @version 2.0.0
      */
+    // 아래 내용에 적용됨.
+    // - Supplier.get()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static String getColumnName(String clmnName, ColumnNameType clmnNameType, Supplier<String> defaultClmnName) {
         // 설정된 컬럼명이 빈 문자열이 경우 처리
         if (StringUtils.isNullOrEmptyString(clmnName)) {
-            clmnName = Objects.requireNonNull(defaultClmnName.get());
+            clmnName = defaultClmnName.get();
             return switch (clmnNameType) {
                 case CAMEL_CASE -> StringUtils.toLowerCase(clmnName, 0);
                 case NAME -> clmnName;
@@ -603,13 +613,18 @@ public class SQLUtils {
      * @since 2020. 12. 22.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Function.apply(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static int setParameters(PreparedStatement stmt, int index, Object obj, String @Nullable... columnNames) throws SQLException {
         Objects.requireNonNull(stmt);
         Objects.requireNonNull(obj);
 
         // #1. @ColumnValue 어노테이션이 설정된 Method 조회
         Class<?> type = obj.getClass();
-        List<Method> methods = Objects.requireNonNull(COLUMN_VALUE_METHOD_PROVIDER.apply(type));
+        List<Method> methods = COLUMN_VALUE_METHOD_PROVIDER.apply(type);
 
         // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
         if (columnNames == null || columnNames.length < 1) {

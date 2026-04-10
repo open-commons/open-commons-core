@@ -48,8 +48,7 @@ public class TestCsvWriteAt {
      * 2022. 3. 17.		parkjunhong77@gmail.com			최초 작성
      * </pre>
      *
-     * @since 2022. 3. 17.
-     * @version _._._
+     * @since 2022. 3. 17.builder.toString()
      */
     public TestCsvWriteAt() {
     }

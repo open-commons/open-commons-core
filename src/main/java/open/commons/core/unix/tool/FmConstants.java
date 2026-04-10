@@ -26,8 +26,6 @@
 */
 package open.commons.core.unix.tool;
 
-import java.util.Objects;
-
 import open.commons.core.utils.FunctuationTable;
 
 /**
@@ -44,11 +42,11 @@ public class FmConstants {
     public static final String LOG_DELIMITER = ",";
     public static final String FILENAME_VERBOSE_DELIMITER = ":";
 
-    public static final String DIR_DELIMITER_DESC = Objects.requireNonNull(FunctuationTable.getDesc(DIR_DELIMITER));
-    public static final String DIR_OPT_DELIMITER_DESC = Objects.requireNonNull(FunctuationTable.getDesc(DIR_OPT_DELIMITER));
-    public static final String FILE_DELIMITER_DESC = Objects.requireNonNull(FunctuationTable.getDesc(FILE_DELIMITER));
-    public static final String LOG_DELIMITER_DESC = Objects.requireNonNull(FunctuationTable.getDesc(LOG_DELIMITER));
-    public static final String FILENAME_VERBOSE_DELIMITER_DESC = Objects.requireNonNull(FunctuationTable.getDesc(FILENAME_VERBOSE_DELIMITER));
+    public static final String DIR_DELIMITER_DESC = FunctuationTable.getDesc(DIR_DELIMITER);
+    public static final String DIR_OPT_DELIMITER_DESC = FunctuationTable.getDesc(DIR_OPT_DELIMITER);
+    public static final String FILE_DELIMITER_DESC = FunctuationTable.getDesc(FILE_DELIMITER);
+    public static final String LOG_DELIMITER_DESC = FunctuationTable.getDesc(LOG_DELIMITER);
+    public static final String FILENAME_VERBOSE_DELIMITER_DESC = FunctuationTable.getDesc(FILENAME_VERBOSE_DELIMITER);
 
     // prevent to create a new instance.
     private FmConstants() {

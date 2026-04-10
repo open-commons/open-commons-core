@@ -28,6 +28,7 @@ package open.commons.core.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
 
@@ -72,17 +73,19 @@ public class FunctuationTable {
 
     }
 
-    public static @Nullable String getDesc(String mark) {
+    public static String getDesc(String mark) {
         String rtnValue = getName(mark);
 
-        if (rtnValue != null) {
-            rtnValue = rtnValue + "(" + mark + ")";
+        if (rtnValue == null) {
+            rtnValue = mark;
         }
 
-        return rtnValue;
+        return rtnValue + "(" + mark + ")";
     }
 
     public static @Nullable String getName(String mark) {
+        Objects.requireNonNull(mark);
+
         return functuations.get(mark);
     }
 }

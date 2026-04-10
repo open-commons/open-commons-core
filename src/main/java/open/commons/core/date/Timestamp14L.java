@@ -95,10 +95,13 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     /**
      * 현재 날짜 정보를 가지고 객체를 생성합니다.
      */
+    // 아래 내용에 적용됨.
+    // - Calendar.getTime()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp14L() {
-        this(Objects.requireNonNull( //
-                Calendar.getInstance().getTime() //
-        ));
+        this(Calendar.getInstance().getTime());
 
     }
 
@@ -106,10 +109,13 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * 
      * @param calendar
      */
+    // 아래 내용에 적용됨.
+    // - Calendar.getTime()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp14L(Calendar calendar) {
-        this(Objects.requireNonNull( //
-                calendar.getTime() //
-        ));
+        this(calendar.getTime());
     }
 
     /**
@@ -117,10 +123,13 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * @param date
      *            날짜 객체
      */
+    // 아래 내용에 적용됨.
+    // - SimpleDateFormat.format(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp14L(Date date) {
-        this.date = createDatetime(Objects.requireNonNull( //
-                sdf.format(date) //
-        ));
+        this.date = createDatetime(sdf.format(date));
     }
 
     /**
@@ -186,6 +195,11 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * 
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public TimeValue3L diff(Timestamp14L other) {
         Objects.requireNonNull(other);
 
@@ -205,20 +219,17 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
         long h = TimeUnit.MINUTES.toHours(m);
         long d = TimeUnit.HOURS.toDays(h);
 
-        StringBuilder tsString = new StringBuilder();
-
+        StringBuilder sb = new StringBuilder();
         // day
-        tsString.append(d);
+        sb.append(d);
         // hour
-        tsString.append(StringUtils.lpad(h % 24, 2));
+        sb.append(StringUtils.lpad(h % 24, 2));
         // minute
-        tsString.append(StringUtils.lpad(m % 60, 2));
+        sb.append(StringUtils.lpad(m % 60, 2));
         // second
-        tsString.append(StringUtils.lpad(s % 60, 2));
+        sb.append(StringUtils.lpad(s % 60, 2));
 
-        return new TimeValue3L(Objects.requireNonNull( //
-                tsString.toString() //
-        ), sign);
+        return new TimeValue3L(sb.toString(), sign);
     }
 
     /**
@@ -418,6 +429,11 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      * @param value
      * @return
      */
+    // 아래 내용에 적용됨.
+    // - SimpleDateFormat.format(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public Timestamp14L update(int field, int value) {
         Timestamp14L oldTs = clone();
 
@@ -425,9 +441,7 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
             Calendar cal = getCalendar();
             cal.add(CONVERTOR[field], value);
 
-            setDatetime(Objects.requireNonNull( //
-                    sdf.format(cal.getTime()) //
-            ));
+            setDatetime(sdf.format(cal.getTime()));
         }
 
         return oldTs;

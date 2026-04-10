@@ -142,16 +142,20 @@ public abstract class AbstractCsvData {
      * @since 2021. 6. 18.
      * @version 1.8.0
      */
-    @SuppressWarnings("unused")
+    // 아래 내용에 적용됨.
+    // - String.join(...)
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public final String csv(char delim, char quote, char escape, String nullValue) {
         List<Supplier<@Nullable String>> providers = getValues();
 
         final List<String> csvStr = new ArrayList<>();
-        handleValue(providers, delim, quote, escape, nullValue, (str, idx) -> {
+        handleValue(providers, delim, quote, escape, nullValue, (str, _) -> {
             csvStr.add(str);
         });
 
-        return Objects.requireNonNull(String.join(new Char(delim), csvStr));
+        return String.join(new Char(delim), csvStr);
     }
 
     /**

@@ -226,9 +226,9 @@ public class AssertUtils2 {
     }
 
     public static void isInterface(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull(object, "The object MUST NOT be null. object: null");
+        Objects.requireNonNull(object, "The object MUST NOT be null. object: null");
 
-        if (!isInterface_(Objects.requireNonNull(object))) {
+        if (!isInterface_(object)) {
             throw assert0(exClass, "The object is MUST be interface." + msg0(msg));
         }
     }
@@ -265,9 +265,11 @@ public class AssertUtils2 {
     }
 
     public static void isNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
-        isNull(null, objects, null);
+        if (objects == null) {
+            return;
+        }
 
-        for (Object object : Objects.requireNonNull(objects)) {
+        for (Object object : objects) {
             if (object != null) {
                 throw assert0(IAE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
             }
@@ -375,7 +377,8 @@ public class AssertUtils2 {
     public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass,
             @Nullable String msgFormat, Object... msgArgs) {
         try {
-            if (Objects.requireNonNull(object).isEmpty()) {
+            Objects.requireNonNull(object);
+            if (object.isEmpty()) {
                 throw assert0(IAE_CLASS(exClass), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
             } else {
                 return object;
@@ -476,9 +479,9 @@ public class AssertUtils2 {
     }
 
     public static void notInterface(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        notNull(object, "The object MUST NOT be null. object: null");
+        Objects.requireNonNull(object, "The object MUST NOT be null. object: null");
 
-        if (isInterface_(Objects.requireNonNull(object))) {
+        if (isInterface_(object)) {
             throw assert0(exClass, "The object is MUST NOT be interface." + msg0(msg));
 
         }
@@ -516,7 +519,8 @@ public class AssertUtils2 {
      */
     public static Object notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msgFormat, Object... msgArgs) {
         try {
-            return Objects.requireNonNull(object);
+            Objects.requireNonNull(object);
+            return object;
         } catch (NullPointerException e) {
             throw assert0(NPE_CLASS(exClass), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
         }
@@ -545,7 +549,7 @@ public class AssertUtils2 {
             throw assert0(NPE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
         }
 
-        for (Object object : Objects.requireNonNull(objects)) {
+        for (Object object : objects) {
             if (object == null) {
                 throw assert0(NPE_CLASS(exClass), "objects: " + Arrays.toString(objects) + msg0(msg));
             }

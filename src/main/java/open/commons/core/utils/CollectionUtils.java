@@ -37,6 +37,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,7 +62,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.TwoValueObject;
-import open.commons.core.collection.FIFOMap;
 import open.commons.core.function.BinaryOperators;
 import open.commons.core.function.Predicates;
 import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
@@ -647,7 +647,7 @@ public class CollectionUtils {
     ) {
         ObjectUtils.requireNonNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
 
-        Map<KEY, TREE> top = new FIFOMap<>();
+        Map<KEY, TREE> top = new LinkedHashMap<>();
         Map<KEY, TREE> elements = new HashMap<>();
 
         for (E d : data) {

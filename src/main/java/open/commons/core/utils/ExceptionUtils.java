@@ -43,7 +43,8 @@ import org.jspecify.annotations.Nullable;
 public class ExceptionUtils {
 
     private static String getMessage(Throwable e) {
-        return Objects.requireNonNull(e.getMessage(), "null");
+        String msg = e.getMessage();
+        return msg != null ? msg : "null";
     }
 
     /**

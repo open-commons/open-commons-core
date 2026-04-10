@@ -93,7 +93,7 @@ public abstract class AbstractTokenizer<D, T> implements ITokenizer<D, T> {
             return this.tokens;
         }
 
-        return this.tokens = Objects.requireNonNull(tokenize(), "tokenize()의 결과는 null일 수 없습니다.");
+        return this.tokens = tokenize();
     }
 
     /**

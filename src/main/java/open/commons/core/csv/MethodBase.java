@@ -28,7 +28,6 @@ package open.commons.core.csv;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 import org.jspecify.annotations.Nullable;
@@ -98,10 +97,14 @@ public class MethodBase implements Supplier<String> {
     /**
      *
      * @since 2023. 10. 26.
-     * @version _._._
      * 
      * @see java.lang.Object#toString()
      */
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -110,6 +113,7 @@ public class MethodBase implements Supplier<String> {
         builder.append(", owner=");
         builder.append(owner.getClass());
         builder.append("]");
-        return Objects.requireNonNull(builder.toString());
+
+        return builder.toString();
     }
 }

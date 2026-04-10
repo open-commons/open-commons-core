@@ -81,65 +81,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
     static final String CONFIG_VERBOSE_FILENAME = "config.verbose.filename";
     static final String CONFIG_VERBOSE_DIRECTORY = "config.verbose.directory";
 
-    private static final String HELP_MESSAGE;
-
-    static {
-        StringBuffer sb = new StringBuffer();
-
-        sb.append("This is for logging files via java\n");
-        sb.append("\n");
-        sb.append("Usage\n");
-        sb.append("[Java]\n");
-        sb.append(" java -jar jtail.jar [option]\n");
-        sb.append(" e.g. java -jar jtail.jar -d . -o c:\\log.txt -vf\n");
-        sb.append("      java -jar jtail.jar -d . -o c:\\log.txt -vf\n");
-        sb.append("\n");
-        sb.append("[Wrapper]\n");
-        sb.append(" jtail [option]\n");
-        sb.append(" e.g. jtail -d . -o \"c:\\log.txt -vf\"\n");
-        sb.append("      jtail -f \".\\log.txt\" . -o \"c:\\log.txt\" -vf\n");
-        sb.append("\n");
-        sb.append("[Requriemtns]\n");
-        sb.append("JRE         : JRE 1.7 or higher\n");
-        sb.append("\n");
-        sb.append("[Option]\n");
-        sb.append(" -d [value] : directories. Values are delimited by ");
-        sb.append(FmConstants.DIR_DELIMITER_DESC);
-        sb.append(".\n");
-        sb.append("     format : directory");
-        sb.append(FmConstants.DIR_OPT_DELIMITER);
-        sb.append("{recursive}.\n");
-        sb.append("              'recursive' is 0/1 and optional, default is 0(Zero). 0(Zero) means false, 1 true.\n");
-        sb.append("              '/home/usr' is equal to '/home/usr");
-        sb.append(FmConstants.DIR_OPT_DELIMITER);
-        sb.append("0'.\n");
-        sb.append("              ex) /usr/" + FmConstants.DIR_OPT_DELIMITER + "0" + FmConstants.DIR_DELIMITER + "/bin/");
-        sb.append(FmConstants.DIR_OPT_DELIMITER + "1,/usr,/opt" + FmConstants.DIR_OPT_DELIMITER);
-        sb.append("1\n");
-        sb.append(" -f [value] : files. Values are delimited by " + FmConstants.FILE_DELIMITER_DESC);
-        sb.append(".\n");
-        sb.append("              ex) c:\\windows\\abc.txt" + FmConstants.FILE_DELIMITER);
-        sb.append("d:\\myhome\\xyz.log\n");
-        sb.append(" -o [value] : log files. Log files are delimited by " + FmConstants.LOG_DELIMITER_DESC);
-        sb.append(". Default is System-out.\n");
-        sb.append("              Directories of log files don't be contained in '-d' values.\n");
-        sb.append("              It is to prevent infinite loop to log.\n");
-        sb.append("              ex) c:\\log\\myapp_log.txt" + FmConstants.LOG_DELIMITER + "d:\\myapp\\monitor.log\n");
-        sb.append(" -c         : Console output.\n");
-        sb.append(" -v         : set all verbose option. (-vt, -vf, -vd)\n");
-        sb.append(" -vt        : set enable timestamp verbose.\n");
-        sb.append(" -vf        : set enable filename verbose.\n");
-        sb.append("     format : -vf" + FmConstants.FILENAME_VERBOSE_DELIMITER + "{filename_length}\n");
-        sb.append("              ex) -vf" + FmConstants.FILENAME_VERBOSE_DELIMITER + "20\n");
-        sb.append("              Default is infinite.\n");
-        sb.append(" -vd        : set enable directory verbose.\n");
-
-        HELP_MESSAGE = Objects.requireNonNull(
-                // [PATCH] JDK 표준 API의 JSpecify 미지원 우회용 임시 널 체크.
-                // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 requireNonNull 래핑 제거.
-                sb.toString() //
-        );
-    }
+    private static final String HELP_MESSAGE = initializeHelpMessage();
 
     static String vfLength = "";
 
@@ -268,6 +210,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *
      * @since 2013. 5. 23.
      */
+    // 아래 내용에 적용됨.
+    // 'String[] args' 의 값
+    // [PATCH] [Array-Null] 자바 배열(Array)의 가변성 및 와일드카드 제약으로 인한 IDE 분석기 오탐 우회
+    // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
+    @SuppressWarnings("null")
     public boolean init(String[] args) {
         Objects.requireNonNull(args);
 
@@ -278,7 +225,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
             // parse '-d'
             if (ARGS_DIR.equals(arg)) {
-                setConfig(CONFIG_DIRS, Objects.requireNonNull(args[i + 1]));
+                setConfig(CONFIG_DIRS, args[i + 1]);
 
                 ready = true;
 
@@ -287,7 +234,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             } else
             // parse '-f'
             if (ARGS_FILE.equals(arg)) {
-                setConfig(CONFIG_FILES, Objects.requireNonNull(args[i + 1]));
+                setConfig(CONFIG_FILES, args[i + 1]);
 
                 ready = true;
 
@@ -296,7 +243,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             } else
             // parse '-o'
             if (ARGS_OUTPUT_FILES.equals(arg)) {
-                setConfig(CONFIG_OUTPUT_FILES, Objects.requireNonNull(args[i + 1]));
+                setConfig(CONFIG_OUTPUT_FILES, args[i + 1]);
 
                 i += 2;
             } else
@@ -322,7 +269,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             if (arg.startsWith(ARGS_VF)) {
                 String[] vf = arg.split(":");
                 if (vf.length > 1) {
-                    setConfig(CONFIG_VERBOSE_FILENAME, Objects.requireNonNull(vf[1]));
+                    setConfig(CONFIG_VERBOSE_FILENAME, vf[1]);
                 }
 
                 i++;
@@ -618,12 +565,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @see {@link #registerDirectory(File, boolean)}
      */
+    // 아래 내용에 적용됨.
+    // - File.getCanonicalFile()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void registerDirectory(String dir, boolean recursive) throws IOException {
         Objects.requireNonNull(dir);
 
-        registerDirectory(Objects.requireNonNull( //
-                new File(dir).getCanonicalFile() //
-        ), recursive);
+        registerDirectory(new File(dir).getCanonicalFile(), recursive);
     }
 
     /**
@@ -679,6 +629,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            file to register.
      * @param dedicated
      */
+    // 아래 내용에 적용됨.
+    // - File.getAbsolutePath()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void registerFile(File file, boolean dedicated) {
         Objects.requireNonNull(file);
 
@@ -687,9 +642,7 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         }
 
         // register a watch service to directory contains this file.
-        DirectoryWatchService service = registerWatchService(Objects.requireNonNull( //
-                file.getParentFile().getAbsolutePath() //
-        ), false, dedicated);
+        DirectoryWatchService service = registerWatchService(file.getParentFile().getAbsolutePath(), false, dedicated);
         if (service.isDedicated()) {
             service.addFiles(file.getAbsolutePath());
         }
@@ -720,12 +673,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @see @ link #registerFile(File)}
      */
+    // 아래 내용에 적용됨.
+    // - File.getCanonicalFile()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void registerFile(String file, boolean dedicated) throws IOException {
         Objects.requireNonNull(file);
 
-        registerFile(Objects.requireNonNull( //
-                new File(file).getCanonicalFile() //
-        ), dedicated);
+        registerFile(new File(file).getCanonicalFile(), dedicated);
     }
 
     /**
@@ -737,12 +693,15 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * 
      * @see {@link #register(File)}
      */
+    // 아래 내용에 적용됨.
+    // - Path.toFile()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void registerPath(Path path) throws IOException {
         Objects.requireNonNull(path);
 
-        register(Objects.requireNonNull( //
-                path.toFile() //
-        ));
+        register(path.toFile());
     }
 
     /**
@@ -865,6 +824,11 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - String.stripe()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private void setDirectories(String dirs) throws IOException {
         String[] dirArr = dirs.split("[" + FmConstants.DIR_DELIMITER + "]");
 
@@ -872,17 +836,22 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         for (int i = 0; i < dirArr.length; i++) {
             dirArgs = dirArr[i].strip().split("[" + FmConstants.DIR_OPT_DELIMITER + "]");
 
-            registerDirectory(Objects.requireNonNull(dirArgs[0].strip()) // directory
+            registerDirectory(dirArgs[0].strip() // directory
                     , dirArgs.length > 1 ? // check recursive
                             dirArgs[1].equals("0") ? false : true : false);
         }
     }
 
+    // 아래 내용에 적용됨.
+    // - String.stripe()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private void setFiles(String files) throws IOException {
         String[] fileArr = files.split("[" + FmConstants.FILE_DELIMITER + "]");
 
         for (int i = 0; i < fileArr.length; i++) {
-            registerFile(Objects.requireNonNull(fileArr[i].strip()), true);
+            registerFile(fileArr[i].strip(), true);
         }
     }
 
@@ -1364,6 +1333,65 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
             showHelp();
             System.exit(1);
         }
+    }
+
+    // 아래 내용에 적용됨.
+    // - StringBuilder.toString()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static String initializeHelpMessage() {
+        StringBuffer sb = new StringBuffer();
+
+        sb.append("This is for logging files via java\n");
+        sb.append("\n");
+        sb.append("Usage\n");
+        sb.append("[Java]\n");
+        sb.append(" java -jar jtail.jar [option]\n");
+        sb.append(" e.g. java -jar jtail.jar -d . -o c:\\log.txt -vf\n");
+        sb.append("      java -jar jtail.jar -d . -o c:\\log.txt -vf\n");
+        sb.append("\n");
+        sb.append("[Wrapper]\n");
+        sb.append(" jtail [option]\n");
+        sb.append(" e.g. jtail -d . -o \"c:\\log.txt -vf\"\n");
+        sb.append("      jtail -f \".\\log.txt\" . -o \"c:\\log.txt\" -vf\n");
+        sb.append("\n");
+        sb.append("[Requriemtns]\n");
+        sb.append("JRE         : JRE 1.7 or higher\n");
+        sb.append("\n");
+        sb.append("[Option]\n");
+        sb.append(" -d [value] : directories. Values are delimited by ");
+        sb.append(FmConstants.DIR_DELIMITER_DESC);
+        sb.append(".\n");
+        sb.append("     format : directory");
+        sb.append(FmConstants.DIR_OPT_DELIMITER);
+        sb.append("{recursive}.\n");
+        sb.append("              'recursive' is 0/1 and optional, default is 0(Zero). 0(Zero) means false, 1 true.\n");
+        sb.append("              '/home/usr' is equal to '/home/usr");
+        sb.append(FmConstants.DIR_OPT_DELIMITER);
+        sb.append("0'.\n");
+        sb.append("              ex) /usr/" + FmConstants.DIR_OPT_DELIMITER + "0" + FmConstants.DIR_DELIMITER + "/bin/");
+        sb.append(FmConstants.DIR_OPT_DELIMITER + "1,/usr,/opt" + FmConstants.DIR_OPT_DELIMITER);
+        sb.append("1\n");
+        sb.append(" -f [value] : files. Values are delimited by " + FmConstants.FILE_DELIMITER_DESC);
+        sb.append(".\n");
+        sb.append("              ex) c:\\windows\\abc.txt" + FmConstants.FILE_DELIMITER);
+        sb.append("d:\\myhome\\xyz.log\n");
+        sb.append(" -o [value] : log files. Log files are delimited by " + FmConstants.LOG_DELIMITER_DESC);
+        sb.append(". Default is System-out.\n");
+        sb.append("              Directories of log files don't be contained in '-d' values.\n");
+        sb.append("              It is to prevent infinite loop to log.\n");
+        sb.append("              ex) c:\\log\\myapp_log.txt" + FmConstants.LOG_DELIMITER + "d:\\myapp\\monitor.log\n");
+        sb.append(" -c         : Console output.\n");
+        sb.append(" -v         : set all verbose option. (-vt, -vf, -vd)\n");
+        sb.append(" -vt        : set enable timestamp verbose.\n");
+        sb.append(" -vf        : set enable filename verbose.\n");
+        sb.append("     format : -vf" + FmConstants.FILENAME_VERBOSE_DELIMITER + "{filename_length}\n");
+        sb.append("              ex) -vf" + FmConstants.FILENAME_VERBOSE_DELIMITER + "20\n");
+        sb.append("              Default is infinite.\n");
+        sb.append(" -vd        : set enable directory verbose.\n");
+
+        return sb.toString();
     }
 
     public static void showHelp() {

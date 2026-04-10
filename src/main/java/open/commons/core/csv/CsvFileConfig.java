@@ -29,7 +29,7 @@ package open.commons.core.csv;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
-import open.commons.core.utils.CsvUtils;
+import open.commons.core.utils.CharUtils;
 import open.commons.core.utils.ExceptionUtils;
 
 /**
@@ -80,7 +80,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig() {
         this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                CsvUtils.charset(DEFAULT_CHARSET_NAME));
+                CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -108,7 +108,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig(char separator) {
         this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                CsvUtils.charset(DEFAULT_CHARSET_NAME));
+                CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -137,7 +137,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig(char separator, char quotechar) {
         this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                CsvUtils.charset(DEFAULT_CHARSET_NAME));
+                CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -168,12 +168,17 @@ public class CsvFileConfig extends CsvConfig {
      * @since 2021. 6. 25.
      * @version 1.8.0
      */
+    // 아래 내용에 적용됨.
+    // - Charset.displayName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, Charset charset) {
         Objects.requireNonNull(charset);
 
         super(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace);
         this.charset = charset;
-        this.charsetName = Objects.requireNonNull(charset.displayName());
+        this.charsetName = charset.displayName();
 
         setSkip(skip);
     }
@@ -207,7 +212,7 @@ public class CsvFileConfig extends CsvConfig {
      * @version 1.8.0
      */
     public CsvFileConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace, int skip, String charsetName) {
-        this(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CsvUtils.charset(charsetName));
+        this(separator, quotechar, escape, strictQuotes, ignoreLeadingWhiteSpace, skip, CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -264,7 +269,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvFileConfig(char separator, char quotechar, int skip) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(DEFAULT_CHARSET_NAME));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -323,7 +328,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
      */
     public CsvFileConfig(char separator, char quotechar, int skip, String charsetName) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(charsetName));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -352,7 +357,8 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_SKIP_LINE_COUNT
      */
     public CsvFileConfig(char separator, char quotechar, String charsetName) {
-        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT, CsvUtils.charset(charsetName));
+        this(separator, quotechar, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
+                CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -408,7 +414,8 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvFileConfig(char separator, int skip) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(DEFAULT_CHARSET_NAME));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip,
+                CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -466,7 +473,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
      */
     public CsvFileConfig(char separator, int skip, String charsetName) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CsvUtils.charset(charsetName));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, skip, CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -495,7 +502,7 @@ public class CsvFileConfig extends CsvConfig {
      */
     public CsvFileConfig(char separator, String charsetName) {
         this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE, DEFAULT_SKIP_LINE_COUNT,
-                CsvUtils.charset(charsetName));
+                CharUtils.requireCharset(charsetName));
     }
 
     /**
@@ -578,11 +585,16 @@ public class CsvFileConfig extends CsvConfig {
      * @version 1.8.0
      * @see #charset
      */
+    // 아래 내용에 적용됨.
+    // - Charset.displayName()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public void setCharset(Charset charset) {
         Objects.requireNonNull(charset);
 
         this.charset = charset;
-        this.charsetName = Objects.requireNonNull(charset.displayName());
+        this.charsetName = charset.displayName();
     }
 
     /**
@@ -606,7 +618,7 @@ public class CsvFileConfig extends CsvConfig {
         Objects.requireNonNull(charsetName);
 
         this.charsetName = charsetName;
-        this.charset = CsvUtils.charset(charsetName);
+        this.charset = CharUtils.requireCharset(charsetName);
     }
 
     /**
@@ -650,7 +662,7 @@ public class CsvFileConfig extends CsvConfig {
      * @see java.lang.Object#toString()
      */
     // 아래 내용에 적용됨.
-    // - builder.toString();
+    // - StringBuilder.toString()
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
