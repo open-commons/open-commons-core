@@ -39,7 +39,6 @@ import java.util.SequencedMap;
 import java.util.SequencedSet;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 import org.jspecify.annotations.Nullable;
 
@@ -106,9 +105,11 @@ public class ConcurrentLinkedHashMap<K extends @Nullable Object, V extends @Null
     public Set<Map.Entry<K, V>> entrySet() {
         this.mutex.lock();
         try {
-            // [PATCH] Map.entry()는 null을 허용하지 않으므로 SimpleImmutableEntry 사용
-            return Collections
-                    .unmodifiableSet(this.internalMap.entrySet().stream().map(AbstractMap.SimpleImmutableEntry::new).collect(Collectors.toCollection(LinkedHashSet::new)));
+            LinkedHashSet<Map.Entry<K, V>> snapshot = new LinkedHashSet<>();
+            for (Map.Entry<K, V> entry : this.internalMap.entrySet()) {
+                snapshot.add(new AbstractMap.SimpleImmutableEntry<>(entry));
+            }
+            return Collections.unmodifiableSet(snapshot);
         } finally {
             this.mutex.unlock();
         }
@@ -153,7 +154,6 @@ public class ConcurrentLinkedHashMap<K extends @Nullable Object, V extends @Null
     public Set<K> keySet() {
         this.mutex.lock();
         try {
-            // [PATCH] Set.copyOf()는 null을 허용하지 않으므로 LinkedHashSet으로 복사 후 불변 래핑
             return Collections.unmodifiableSet(new LinkedHashSet<>(this.internalMap.keySet()));
         } finally {
             this.mutex.unlock();
