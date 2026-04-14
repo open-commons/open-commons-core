@@ -124,7 +124,14 @@ public interface SQLConsumer<T> {
      * 
      * @see SQLUtils#setParameters(PreparedStatement, int, Object, String...)
      */
-    @SuppressWarnings("null") // apply to 'stmt'
+    // 아래 내용에 적용됨.
+    // - ArrayUtils.prepend(columnNames, ...)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    // - 'stmt' of 'stmt -> SQLUtils.setParameters(stmt, 0, param, columnNames)'
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static SQLConsumer<PreparedStatement> setParameters(Object param, String @Nullable... columnNames) {
         if (ObjectUtils.isWrapper(param) //
                 || String.class.equals(param.getClass()) //

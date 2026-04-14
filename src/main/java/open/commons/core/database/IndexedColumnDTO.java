@@ -42,7 +42,12 @@ public class IndexedColumnDTO extends AbstractCsvData {
     private static final Map<Class<?>, HeaderMetadata> CACHE_HEADER_METADATA = new ConcurrentHashMap<>();
 
     /** 헤더 메타데이터 생성 함수 */
-    @SuppressWarnings("null") // apply to 'List<String> headers, List<Method> methods, List<Method> valueMethods'
+    // 아래 내용에 적용됨.
+    // - Field.getName()
+    // - Stream.toList()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     private static final Function<Class<?>, HeaderMetadata> HEADER_METADATA_GEN = clazz -> {
         // 1. 헤더 추출 로직 (클래스 계층 순회)
         Map<String, Field> headerFields = new HashMap<>();

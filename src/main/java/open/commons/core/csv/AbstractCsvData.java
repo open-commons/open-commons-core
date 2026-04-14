@@ -414,7 +414,11 @@ public abstract class AbstractCsvData {
      * @since 2021. 6. 18.
      * @version 1.8.0
      */
-    @SuppressWarnings("null") // apply to 'Supplier<@Nullable String> value'
+    // 아래 내용에 적용됨.
+    // - str = value.get()
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delimiter, char quote, char escape, @Nullable String nullValue,
             BiConsumer<String, Integer> consumer) {
         int index = 0;

@@ -431,22 +431,22 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             return locking;
         }
 
-        @SuppressWarnings("null") // apply to 'this.filename.replace(...)
         private void updateFilename(String contextName, String contextHolder) {
-            if (this.fileName != null && this.fileName.contains(contextHolder)) {
+            String _fileName = this.fileName;
+            if (_fileName != null && _fileName.contains(contextHolder)) {
                 String context = ThreadContext.get(contextName);
                 if (context != null) {
-                    this.fileName = this.fileName.replace(contextHolder, context);
+                    this.fileName = _fileName.replace(contextHolder, context);
                 }
             }
         }
 
-        @SuppressWarnings("null") // apply to 'this.filePattern.replace(...)
         private void updateFilePattern(String contextName, String contextHolder) {
-            if (this.filePattern != null && this.filePattern.contains(contextHolder)) {
+            String _filePattern = this.filePattern;
+            if (_filePattern != null && _filePattern.contains(contextHolder)) {
                 String context = ThreadContext.get(contextName);
                 if (context != null) {
-                    this.filePattern = this.filePattern.replace(contextHolder, context);
+                    this.filePattern = _filePattern.replace(contextHolder, context);
                 }
             }
         }

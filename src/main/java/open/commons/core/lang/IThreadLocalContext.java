@@ -153,9 +153,12 @@ public interface IThreadLocalContext {
      * @since 2025. 6. 24.
      * @version 2.1.0
      */
-    @SuppressWarnings("null") // apply to 'Object o'
+    // 아래 내용에 적용됨.
+    // - 'o' of 'set(key, o);'
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     default Object getOrCompute(Object key, Supplier<Object> supplier) {
-        @Nullable
         Object o = get(key);
         if (o == null) {
             o = supplier.get();

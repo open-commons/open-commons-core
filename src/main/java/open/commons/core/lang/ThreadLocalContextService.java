@@ -113,14 +113,16 @@ public class ThreadLocalContextService {
      * @since 2025. 6. 24.
      * @version 2.1.0
      */
-    @SuppressWarnings("null") // apply to 's' as parameter of MapUtils.getOrDefault(...)
+    // 아래 내용에 적용됨.
+    // - MapUtils.getOrDefault(CONTEXTS, type, s, true)
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     public static IThreadLocalContext context(Object type) {
         Objects.requireNonNull(type, "Thread Context 의 식별정보는 null 일 수 없습니다.");
 
         synchronized (STATIC_MUTEX) {
-            Supplier<IThreadLocalContext> s = () -> new ThreadLocalContext(Objects.requireNonNull( //
-                    ThreadLocal.withInitial(HashMap::new) //
-            ));
+            Supplier<IThreadLocalContext> s = () -> new ThreadLocalContext(ThreadLocal.withInitial(HashMap::new));
             return MapUtils.getOrDefault(CONTEXTS, type, s, true);
         }
     }

@@ -131,7 +131,11 @@ public interface SQLTripleFunction<T, U, V, R> {
      * 
      * @see ColumnValue
      */
-    @SuppressWarnings("null") // apply to 'stmt, obj'.
+    // 아래 내용에 적용됨.
+    // - 'stmt, obj' of '(stmt, cur, obj) -> SQLUtils.setParameters(stmt, cur, obj, columnNames)'
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     public static <T> SQLTripleFunction<PreparedStatement, Integer, T, Integer> setParameters(String @Nullable... columnNames) {
         return (stmt, cur, obj) -> SQLUtils.setParameters(stmt, cur, obj, columnNames);
     }
