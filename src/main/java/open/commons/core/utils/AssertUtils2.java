@@ -340,6 +340,19 @@ public class AssertUtils2 {
         return msg != null ? " (" + msg + ")" : "";
     }
 
+    public static void notBlank(@Nullable String string) {
+        notBlank(string, "주어진 문자열은 비어 있거나 whitespace로만 이루어져 있습니다. 문자열=%s", string);
+    }
+
+    @SuppressWarnings("null")
+    public static void notBlank(@Nullable String string, @Nullable String format, @Nullable Object @Nullable... args) {
+        notNull(string, IllegalArgumentException.class);
+
+        if (string.isBlank()) {
+            throw ExceptionUtils.newException(IllegalArgumentException.class, format, args);
+        }
+    }
+
     public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object) {
         return notEmpty(object, (Class<? extends RuntimeException>) null, (String) null);
     }

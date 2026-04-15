@@ -1,3 +1,9 @@
+[2026/04/15]
+- Add
+  + open.commons.core.utils.AssertUtils2
+    + notBlank(String)
+    + notBlank(String, String, Object...)
+
 [2026/04/10]
 - Add
   + open.commons.core.collection.concurrent
