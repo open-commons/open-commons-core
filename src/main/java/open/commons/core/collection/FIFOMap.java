@@ -30,7 +30,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -232,9 +231,14 @@ public class FIFOMap<K, V> implements Map<K, V> {
         return sb.toString();
     }
 
+    // 아래 내용에 적용됨.
+    // - Map.values()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public synchronized Collection<V> values() {
-        return Objects.requireNonNull(this.orderedValues.values());
+        return this.orderedValues.values();
     }
 
     public class FIFOEntry implements Entry<K, V> {

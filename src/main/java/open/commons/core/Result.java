@@ -275,8 +275,7 @@ public class Result<T> {
      * @version 1.8.0
      */
     public Result<T> setMessage(String format, @Nullable Object... args) {
-        Objects.requireNonNull(format);
-        Objects.requireNonNull(args);
+        AssertUtils2.notNulls(format, args);
 
         this.message = String.format(format, args);
         return this;

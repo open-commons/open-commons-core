@@ -31,7 +31,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -125,9 +124,14 @@ public class FIFOSet<E> implements Set<E> {
         return this.values.isEmpty();
     }
 
+    // 아래 내용에 적용됨.
+    // - Collection.iterator()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public synchronized Iterator<E> iterator() {
-        return Objects.requireNonNull(this.orderedValues.values().iterator());
+        return this.orderedValues.values().iterator();
     }
 
     @Override
@@ -179,20 +183,34 @@ public class FIFOSet<E> implements Set<E> {
         return this.values.size();
     }
 
+    // 아래 내용에 적용됨.
+    // - Collection.toArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public synchronized Object[] toArray() {
-        return Objects.requireNonNull(this.orderedValues.values().toArray());
+        return this.orderedValues.values().toArray();
     }
 
+    // 아래 내용에 적용됨.
+    // - Collection.toArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @Override
     public synchronized <T> T[] toArray(T[] a) {
-        return Objects.requireNonNull(this.orderedValues.values().toArray(a));
+        return this.orderedValues.values().toArray(a);
     }
 
+    // 아래 내용에 적용됨.
+    // - Collection.toArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
     @Override
     public String toString() {
-        return Objects.requireNonNull(this.orderedValues.values().toString());
+        return this.orderedValues.values().toString();
     }
 
 }

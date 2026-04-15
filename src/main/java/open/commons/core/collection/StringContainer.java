@@ -28,8 +28,6 @@
 */
 package open.commons.core.collection;
 
-import java.util.Objects;
-
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -38,8 +36,13 @@ import org.jspecify.annotations.Nullable;
  */
 public class StringContainer extends AContainer<String> {
 
+    // 아래 내용에 적용됨.
+    // - container.contains()
+    // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
+    // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
+    @SuppressWarnings("null")
     @Override
     public boolean contains(@Nullable String container, @Nullable String contained) {
-        return checkNull(container, contained) && Objects.requireNonNull(container).contains(contained);
+        return checkNull(container, contained) && container.contains(contained);
     }
 }

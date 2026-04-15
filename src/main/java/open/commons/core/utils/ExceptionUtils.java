@@ -140,22 +140,22 @@ public class ExceptionUtils {
             if (argTypes != null && format != null) {
                 // 케이스 1: 커스텀 파라미터 + 포맷 메시지
                 Class<?>[] paramTypes = ArrayUtils.add(argTypes.get(), String.class);
-                c = type.getConstructor(paramTypes);
+                c = type.getDeclaredConstructor(paramTypes);
                 initArgs = ArrayUtils.add(args, String.format(format, msgArgs));
 
             } else if (argTypes != null) {
                 // 케이스 2: 커스텀 파라미터만 존재
-                c = type.getConstructor(argTypes.get());
+                c = type.getDeclaredConstructor(argTypes.get());
                 initArgs = args != null ? args : new Object[0];
 
             } else if (format != null) {
                 // 케이스 3: 포맷 메시지만 존재
-                c = type.getConstructor(String.class);
+                c = type.getDeclaredConstructor(String.class);
                 initArgs = new Object[] { String.format(format, msgArgs) };
 
             } else {
                 // 케이스 4: 파라미터가 없는 기본 생성자
-                c = type.getConstructor();
+                c = type.getDeclaredConstructor();
                 initArgs = new Object[0];
             }
 

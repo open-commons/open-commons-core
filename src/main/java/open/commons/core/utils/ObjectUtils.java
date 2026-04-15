@@ -2905,7 +2905,7 @@ public class ObjectUtils {
      * @since 2019. 7. 11.
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
-        Objects.requireNonNull(targetClass);
+        AssertUtils2.notNulls(src, targetClass);
 
         return transform(src, lookupSrcSuper //
                 , (Supplier<T>) () -> {
@@ -3069,7 +3069,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
-        Objects.requireNonNull(targetInstanceSupplier);
+        AssertUtils2.notNulls(src, targetInstanceSupplier);
 
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }

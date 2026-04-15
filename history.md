@@ -1,3 +1,10 @@
+[2026/04/16]
+- Modify
+  + 내부 메소드 보정
+    + open.commons.core.utils.AssertUtils2
+    + open.commons.core.utils.ExceptionUtils
+    + open.commons.core.utils.ObjectUtils
+
 [2026/04/15]
 - Add
   + open.commons.core.utils.AssertUtils2
