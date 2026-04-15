@@ -128,7 +128,7 @@ public class MapUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(Map<K, V> single, Map<K, C> multi) {
-        ObjectUtils.requireNonNulls(single, multi);
+        AssertUtils2.notNulls(single, multi);
 
         // 불필요한 Stream.of() 및 flatMap() 래핑을 제거하고, 가장 빠르고 표준적인 concat 적용
         return Stream.concat(single.values().stream(), flat(multi));
@@ -339,7 +339,7 @@ public class MapUtils {
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, NK, NV extends @Nullable Object, C extends Collection<NV>, M extends Map<NK, C>> //
             M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction, Supplier<M> mapSupplier, Supplier<C> colSupplier) {
-        ObjectUtils.requireNonNulls(map, keyMapper, valueFunction, mapSupplier, colSupplier);
+        AssertUtils2.notNulls(map, keyMapper, valueFunction, mapSupplier, colSupplier);
 
         return map.entrySet().stream() //
                 .filter(entry -> entry.getValue() != null) //
@@ -435,7 +435,7 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> M map(Map<K, V> map, Function<V, U> transformer, Supplier<M> mapSupplier) {
-        ObjectUtils.requireNonNulls(map, transformer, mapSupplier);
+        AssertUtils2.notNulls(map, transformer, mapSupplier);
 
         return map.entrySet().stream() //
                 .filter(entry -> entry.getValue() != null) //
@@ -772,7 +772,7 @@ public class MapUtils {
     public static <K extends @Nullable Object, V extends @Nullable Object, NV extends @Nullable Object> Map<K, NV> merge(Map<K, V> bucket, Map<K, V> newData,
             BiFunction<V, V, NV> aggrValue, @Nullable Map<K, NV> newBucket) {
 
-        ObjectUtils.requireNonNulls(bucket, newData, aggrValue);
+        AssertUtils2.notNulls(bucket, newData, aggrValue);
 
         if (newBucket == null) {
             newBucket = new HashMap<>();
@@ -1015,7 +1015,7 @@ public class MapUtils {
      */
     public static <K extends @Nullable Object, V, C extends Collection<V>> //
             C toCollection(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Supplier<C> collectionFactory) {
-        ObjectUtils.requireNonNulls(single, multi, collectionFactory);
+        AssertUtils2.notNulls(single, multi, collectionFactory);
 
         return flat(single, multi).collect(Collectors.toCollection(collectionFactory));
     }

@@ -45,7 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import open.commons.core.utils.AssertUtils2;
-import open.commons.core.utils.ObjectUtils;
 
 /**
  * 
@@ -137,13 +136,13 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      * @return 할당된 Feature 식별자 리스트
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) tokenValidators);
+    // - AssertUtils2.notNulls((Object[]) tokenValidators);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public final List<Integer> addTokenValidators(ITokenValidator<T>... tokenValidators) {
-        ObjectUtils.requireNonNulls((Object[]) tokenValidators);
+        AssertUtils2.notNulls((Object[]) tokenValidators);
 
         List<Integer> featuresList = new CopyOnWriteArrayList<>();
         for (ITokenValidator<T> tokenValidator : tokenValidators) {

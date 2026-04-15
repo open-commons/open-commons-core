@@ -188,7 +188,7 @@ public class ConvertUtils {
      * @version 1.8.0
      */
     public static boolean isAssignableFrom(Class<?> srcType, Class<?> targetType) {
-        ObjectUtils.requireNonNulls(srcType, targetType);
+        AssertUtils2.notNulls(srcType, targetType);
 
         switch (getTypeConst(srcType)) {
             case TYPE_CONST_BOOLEAN:
@@ -233,7 +233,7 @@ public class ConvertUtils {
      */
     @SuppressWarnings("null")
     public static <S, T> boolean isAssignableFrom(S srcObject, T targetObject) {
-        ObjectUtils.requireNonNulls(srcObject, targetObject);
+        AssertUtils2.notNulls(srcObject, targetObject);
 
         return isAssignableFrom(srcObject.getClass(), targetObject.getClass());
     }
@@ -254,7 +254,7 @@ public class ConvertUtils {
      * @since 2014. 4. 2.
      */
     public static <T> T toPrimitiveTypeValue(Class<T> primitiveType, String value) {
-        ObjectUtils.requireNonNulls(primitiveType, value);
+        AssertUtils2.notNulls(primitiveType, value);
 
         switch (getTypeConst(primitiveType)) {
             case TYPE_CONST_BOOLEAN:
@@ -427,7 +427,7 @@ public class ConvertUtils {
      * @return
      */
     public static <T> T[] wrapClassArray(Class<?> componentType, Object array) {
-        ObjectUtils.requireNonNulls(componentType, array);
+        AssertUtils2.notNulls(componentType, array);
 
         if (boolean.class.equals(componentType)) {
             return (T[]) ArrayUtils.toWrapperArray((boolean[]) array);

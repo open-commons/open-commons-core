@@ -42,9 +42,9 @@ import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.concurrent.Mutex;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.FileUtils;
 import open.commons.core.utils.IOUtils;
-import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.ThreadUtils;
 
 /**
@@ -77,7 +77,7 @@ public class DirectoryWatchService implements IRunnable {
      * @param resurvice
      */
     public DirectoryWatchService(FileMonitor fileMonitor, String directory, boolean resurvice) {
-        ObjectUtils.requireNonNulls(fileMonitor, directory);
+        AssertUtils2.notNulls(fileMonitor, directory);
 
         this.fileMonitor = fileMonitor;
         this.directory = directory;
@@ -91,12 +91,12 @@ public class DirectoryWatchService implements IRunnable {
      *            files to monitor
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void addFiles(String... files) {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         synchronized (filesMutex) {
             if (dedicated) {

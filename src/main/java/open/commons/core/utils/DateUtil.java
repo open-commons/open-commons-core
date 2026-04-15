@@ -226,7 +226,7 @@ public class DateUtil {
      *         </ul>
      */
     public static int compare(String date, String sDate, String eDate) {
-        ObjectUtils.requireNonNulls(date, sDate, eDate);
+        AssertUtils2.notNulls(date, sDate, eDate);
 
         int resultValue = date.compareTo(sDate);
 
@@ -355,7 +355,7 @@ public class DateUtil {
      * @version 2.0.0
      */
     private static int diffDay0(Calendar cal1, Calendar cal2) {
-        ObjectUtils.requireNonNulls(cal1, cal2);
+        AssertUtils2.notNulls(cal1, cal2);
 
         long time1 = cal1.getTimeInMillis();
         long time2 = cal2.getTimeInMillis();
@@ -601,13 +601,13 @@ public class DateUtil {
      * @since 2014. 4. 3.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) discards);
+    // - AssertUtils2.notNulls((Object[]) discards);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, Locale locale, YearMonthDay... discards) {
-        ObjectUtils.requireNonNulls(cal1, cal2, locale);
-        ObjectUtils.requireNonNulls((Object[]) discards);
+        AssertUtils2.notNulls(cal1, cal2, locale);
+        AssertUtils2.notNulls((Object[]) discards);
 
         List<String> displayNames = new ArrayList<String>();
 
@@ -941,7 +941,7 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, SimpleDateFormat dateFormat) {
-        ObjectUtils.requireNonNulls(cal, dateFormat);
+        AssertUtils2.notNulls(cal, dateFormat);
 
         return _dateformat(dateFormat, cal.getTime());
     }
@@ -969,7 +969,7 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Calendar cal, String format) {
-        ObjectUtils.requireNonNulls(cal, format);
+        AssertUtils2.notNulls(cal, format);
 
         return _dateformat(format, cal.getTime());
     }
@@ -997,7 +997,7 @@ public class DateUtil {
      * @see SimpleDateFormat
      */
     public static String getTimestampString(Date date, String format) {
-        ObjectUtils.requireNonNulls(date, format);
+        AssertUtils2.notNulls(date, format);
 
         return _dateformat(format, date);
     }
@@ -1201,7 +1201,7 @@ public class DateUtil {
      * @return
      */
     public static boolean isPast(Calendar calendar, Date date, int timeField, int timeValue) {
-        ObjectUtils.requireNonNulls(calendar, date);
+        AssertUtils2.notNulls(calendar, date);
 
         calendar.set(timeField, timeValue);
         return calendar.getTime().after(date);
@@ -1240,7 +1240,7 @@ public class DateUtil {
      * @since 2014. 4. 2.
      */
     public static Calendar newCalendar(Calendar calendar, int... fields) {
-        ObjectUtils.requireNonNulls(calendar, fields);
+        AssertUtils2.notNulls(calendar, fields);
 
         Calendar cal = _getInstance();
         cal.clear();
@@ -1450,7 +1450,7 @@ public class DateUtil {
      * @since 2014. 4. 2.
      */
     public static void resetDateFields(Calendar calendar, int... dateFields) {
-        ObjectUtils.requireNonNulls(calendar, dateFields);
+        AssertUtils2.notNulls(calendar, dateFields);
 
         for (int field : dateFields) {
             calendar.set(field, 0);
@@ -1805,7 +1805,7 @@ public class DateUtil {
      * @since 2014. 4. 8.
      */
     public static String toISOFormatNoTZ(String year, String month, String dayOfMonth) {
-        ObjectUtils.requireNonNulls(year, month, dayOfMonth);
+        AssertUtils2.notNulls(year, month, dayOfMonth);
 
         return toISOFormatNoTZ(year, month, dayOfMonth, "00", "00", "00");
     }
@@ -1831,7 +1831,7 @@ public class DateUtil {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static String toISOFormatNoTZ(String year, String month, String dayOfMonth, String hourOfDay, String min, String sec) {
-        ObjectUtils.requireNonNulls(year, month, dayOfMonth, hourOfDay, min, sec);
+        AssertUtils2.notNulls(year, month, dayOfMonth, hourOfDay, min, sec);
 
         return MessageFormat.format(MESSAGE_ISO_FORMAT_NO_TZ, year, month, dayOfMonth, hourOfDay, min, sec);
     }
@@ -1905,7 +1905,7 @@ public class DateUtil {
      * @return
      */
     public static String toString(Date date, String pattern) {
-        ObjectUtils.requireNonNulls(date, pattern);
+        AssertUtils2.notNulls(date, pattern);
 
         return _dateformat(pattern, date);
     }
@@ -1929,7 +1929,7 @@ public class DateUtil {
      * @since 2020. 11. 5.
      */
     public static String toString(Long timestamp, String pattern) {
-        ObjectUtils.requireNonNulls(timestamp, pattern);
+        AssertUtils2.notNulls(timestamp, pattern);
 
         return _dateformat(pattern, new Date(timestamp));
     }

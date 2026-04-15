@@ -33,8 +33,8 @@ import java.util.function.Consumer;
 
 import org.jspecify.annotations.Nullable;
 
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.ConvertUtils;
-import open.commons.core.utils.ObjectUtils;
 
 /**
  * Object의 {@link Class}를 제공하는 객체.
@@ -68,12 +68,12 @@ public class ClassSpliterator implements Spliterator<Class<?>> {
      * @version 0.3.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) data);
+    // - AssertUtils2.notNulls((Object[]) data);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public ClassSpliterator(boolean forceToPrimitive, Object... data) {
-        ObjectUtils.requireNonNulls((Object[]) data);
+        AssertUtils2.notNulls((Object[]) data);
 
         this.forceToPrimitive = forceToPrimitive;
         this.data = data;

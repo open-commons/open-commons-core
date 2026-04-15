@@ -41,7 +41,7 @@ import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -172,7 +172,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
     /**
      */
     protected final void write(OutputStream out, open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
-        ObjectUtils.requireNonNulls(out, context);
+        AssertUtils2.notNulls(out, context);
 
         out.write(contextToString(context).getBytes());
     }
@@ -180,7 +180,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
     /**
      */
     protected final void write(PrintStream out, open.commons.core.unix.tool.IFileModifyListener.FileContext context) {
-        ObjectUtils.requireNonNulls(out, context);
+        AssertUtils2.notNulls(out, context);
 
         out.print(contextToString(context));
     }
@@ -188,7 +188,7 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
     /**
      */
     protected final void write(Writer writer, open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
-        ObjectUtils.requireNonNulls(writer, context);
+        AssertUtils2.notNulls(writer, context);
 
         writer.write(contextToString(context));
     }

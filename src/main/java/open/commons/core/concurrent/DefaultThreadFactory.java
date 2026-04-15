@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * JDK 25 환경에 최적화된 ThreadFactory 구현체입니다. *
@@ -101,7 +101,7 @@ public class DefaultThreadFactory implements ThreadFactory {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public DefaultThreadFactory(String monitor, ThreadType threadType) {
-        ObjectUtils.requireNonNulls(monitor, threadType);
+        AssertUtils2.notNulls(monitor, threadType);
 
         this.threadType = threadType;
         this.group = Thread.currentThread().getThreadGroup();

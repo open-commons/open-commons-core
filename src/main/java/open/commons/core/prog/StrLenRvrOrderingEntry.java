@@ -21,7 +21,7 @@ package open.commons.core.prog;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * String Length Reverse Ordering Entry
@@ -43,7 +43,7 @@ public class StrLenRvrOrderingEntry implements Comparable<StrLenRvrOrderingEntry
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public StrLenRvrOrderingEntry(String k, String v) {
-        ObjectUtils.requireNonNulls(k, v);
+        AssertUtils2.notNulls(k, v);
 
         key = k.strip();
         len = k.length();

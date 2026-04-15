@@ -131,7 +131,7 @@ public class ExceptionUtils {
     public static <E extends Throwable> E newException(Class<E> type, @Nullable Supplier<@Nullable Class<?> @Nullable []> argTypes, @Nullable Object @Nullable [] args,
             @Nullable String format, @Nullable Object @Nullable... msgArgs) {
 
-        ObjectUtils.requireNonNulls(type);
+        AssertUtils2.notNulls(type);
 
         try {
             Constructor<E> c;
@@ -193,7 +193,7 @@ public class ExceptionUtils {
      * @since 2020. 10. 20.
      */
     public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object @Nullable... args) {
-        ObjectUtils.requireNonNulls(type, parent, format);
+        AssertUtils2.notNulls(type, parent, format);
 
         try {
             Constructor<E> c = type.getConstructor(String.class, Throwable.class);
@@ -224,7 +224,7 @@ public class ExceptionUtils {
      * @since 2020. 10. 28.
      */
     private static boolean startsWith(String errorMsg, String expected, boolean ignoreCase) {
-        ObjectUtils.requireNonNulls(errorMsg, expected);
+        AssertUtils2.notNulls(errorMsg, expected);
 
         if (errorMsg.length() < expected.length()) {
             return false;

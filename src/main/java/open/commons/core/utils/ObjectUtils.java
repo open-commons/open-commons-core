@@ -139,7 +139,7 @@ public class ObjectUtils {
      * @version 1.8.0
      */
     public static boolean checkType(Class<?> targetType, Class<?> standardType) {
-        ObjectUtils.requireNonNulls(targetType, standardType);
+        AssertUtils2.notNulls(targetType, standardType);
 
         return switch (standardType.getName()) {
             case "boolean", "java.lang.Boolean" -> checkType(targetType, boolean.class, Boolean.class);
@@ -175,13 +175,13 @@ public class ObjectUtils {
      * @version 1.8.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) standardTypes);
+    // - AssertUtils2.notNulls((Object[]) standardTypes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     private static boolean checkType(Class<?> targetType, Class<?>... standardTypes) {
         Objects.requireNonNull(targetType);
-        ObjectUtils.requireNonNulls((Object[]) standardTypes);
+        AssertUtils2.notNulls((Object[]) standardTypes);
 
         for (Class<?> standard : standardTypes) {
             if (standard.isAssignableFrom(targetType)) {
@@ -365,7 +365,7 @@ public class ObjectUtils {
      * @version 2.1.0
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o, Function<T, R> manipulator, Supplier<R> sup) {
-        ObjectUtils.requireNonNulls(manipulator, sup);
+        AssertUtils2.notNulls(manipulator, sup);
 
         return o != null ? manipulator.apply(o) : sup.get();
     }
@@ -1010,12 +1010,12 @@ public class ObjectUtils {
      * @version 1.8.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) standardTypes);
+    // - AssertUtils2.notNulls((Object[]) standardTypes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static Stream<Class<?>> readClassesAsStream(boolean forceToPrimitive, Object... objects) {
-        ObjectUtils.requireNonNulls((Object[]) objects);
+        AssertUtils2.notNulls((Object[]) objects);
 
         return StreamSupport.stream(new ClassSpliterator(forceToPrimitive, objects), false);
     }

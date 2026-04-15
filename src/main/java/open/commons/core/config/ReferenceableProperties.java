@@ -37,7 +37,7 @@ import org.jspecify.annotations.Nullable;
 import open.commons.core.Result;
 import open.commons.core.config.exception.PropertyNoSeedException;
 import open.commons.core.config.exception.PropertySelfReferenceException;
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.OrderingUtils;
 
 /**
@@ -155,12 +155,12 @@ public class ReferenceableProperties extends Properties {
      * @since 2012. 02. 15.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) inStreams);
+    // - AssertUtils2.notNulls((Object[]) inStreams);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public synchronized void load(InputStream... inStreams) throws IOException {
-        ObjectUtils.requireNonNulls((Object[]) inStreams);
+        AssertUtils2.notNulls((Object[]) inStreams);
 
         readyReferencing = false;
 
@@ -202,12 +202,12 @@ public class ReferenceableProperties extends Properties {
      * @see java.util.Properties#load(java.io.Reader)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) readers);
+    // - AssertUtils2.notNulls((Object[]) readers);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public synchronized void load(Reader... readers) throws IOException {
-        ObjectUtils.requireNonNulls((Object[]) readers);
+        AssertUtils2.notNulls((Object[]) readers);
 
         readyReferencing = false;
 
@@ -247,13 +247,13 @@ public class ReferenceableProperties extends Properties {
      * @since 2012. 02. 15.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) ins);
+    // - AssertUtils2.notNulls((Object[]) ins);
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public synchronized void loadFromXML(InputStream... ins) throws IOException, InvalidPropertiesFormatException {
-        ObjectUtils.requireNonNulls((Object[]) ins);
+        AssertUtils2.notNulls((Object[]) ins);
 
         readyReferencing = false;
 

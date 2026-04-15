@@ -18,7 +18,7 @@ package open.commons.core.exception;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -51,7 +51,7 @@ public class OutOfRangedValue extends RuntimeException {
     /**
      */
     public OutOfRangedValue(Object value, Object min, Object max, @Nullable String message, @Nullable Throwable cause) {
-        ObjectUtils.requireNonNulls(value, min, max);
+        AssertUtils2.notNulls(value, min, max);
 
         super(message + "[value: " + value + ", max: " + max + ", min: " + min + "]", cause);
 

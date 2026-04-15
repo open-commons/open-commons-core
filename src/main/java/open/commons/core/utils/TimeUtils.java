@@ -123,12 +123,12 @@ public class TimeUtils {
      * @since 2018. 11. 15.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) units);
+    // - AssertUtils2.notNulls((Object[]) units);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static void addOmit(TimeUnit... units) {
-        ObjectUtils.requireNonNulls((Object[]) units);
+        AssertUtils2.notNulls((Object[]) units);
 
         for (TimeUnit unit : units) {
             OMITTED_TIME_UNITS.add(unit);
@@ -205,12 +205,12 @@ public class TimeUtils {
      * @since 2018. 11. 15.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) units);
+    // - AssertUtils2.notNulls((Object[]) units);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static void removeOmit(TimeUnit... units) {
-        ObjectUtils.requireNonNulls((Object[]) units);
+        AssertUtils2.notNulls((Object[]) units);
 
         for (TimeUnit unit : units) {
             OMITTED_TIME_UNITS.remove(unit);
@@ -663,13 +663,13 @@ public class TimeUtils {
         private final TimeUnitInfo[] timeUnitInfo;
 
         // 아래 내용에 적용됨.
-        // - ObjectUtils.requireNonNulls((Object[]) timeUnits);
+        // - AssertUtils2.notNulls((Object[]) timeUnits);
         // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
         // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
         @SuppressWarnings("null")
         public TimeUnitExpr(String year, TimeUnitInfo[] timeUnits) {
             Objects.requireNonNull(year);
-            ObjectUtils.requireNonNulls((Object[]) timeUnits);
+            AssertUtils2.notNulls((Object[]) timeUnits);
 
             this.year = year;
             this.timeUnitInfo = timeUnits;

@@ -33,7 +33,7 @@ import java.util.concurrent.TimeoutException;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -174,7 +174,7 @@ public class FixedThreadPoolService implements ExecutorService {
     @SuppressWarnings("null")
     @Override
     public <T> List<Future<T>> invokeAll(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException {
-        ObjectUtils.requireNonNulls(tasks, unit);
+        AssertUtils2.notNulls(tasks, unit);
 
         return Objects.requireNonNull(executor.invokeAll(tasks, timeout, unit));
     }
@@ -218,7 +218,7 @@ public class FixedThreadPoolService implements ExecutorService {
     @SuppressWarnings("null")
     @Override
     public <T> T invokeAny(Collection<? extends Callable<T>> tasks, long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
-        ObjectUtils.requireNonNulls(tasks, unit);
+        AssertUtils2.notNulls(tasks, unit);
 
         return executor.invokeAny(tasks, timeout, unit);
     }

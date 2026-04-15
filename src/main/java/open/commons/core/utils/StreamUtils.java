@@ -211,7 +211,7 @@ public class StreamUtils {
      */
     public static <E extends @Nullable Object, NE extends @Nullable Object, C extends Collection<NE>> C toCollection(Stream<E> stream, Predicate<E> filter,
             Function<E, NE> transformer, Supplier<C> collectionSupplier) {
-        ObjectUtils.requireNonNulls(stream, filter, transformer, collectionSupplier);
+        AssertUtils2.notNulls(stream, filter, transformer, collectionSupplier);
 
         return stream //
                 .filter(Objects::nonNull) //
@@ -487,7 +487,7 @@ public class StreamUtils {
             C toCollection(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, V> valueMapper //
                     , BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier, Supplier<C> collectionFactory //
     ) {
-        ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
+        AssertUtils2.notNulls(stream, filter, keyMapper, valueMapper, mergeFunction, mapSupplier, collectionFactory);
 
         // 1. 첫 번째 Stream을 통해 중복이 병합된 Map을 생성합니다.
         @NonNull
@@ -1032,7 +1032,7 @@ public class StreamUtils {
     public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
             M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction //
                     , Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
-        ObjectUtils.requireNonNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
+        AssertUtils2.notNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
 
         // 1. 내부 처리용 Map을 먼저 완성합니다.
         Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, identity(), mergeFunction, mergeMapSupplier);
@@ -1131,7 +1131,7 @@ public class StreamUtils {
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
             M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
-        ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
+        AssertUtils2.notNulls(stream, filter, keyMapper, valueFunction, mergeFunction, mapSupplier);
         return stream //
                 .filter(Objects::nonNull) //
                 .filter(filter) //
@@ -1192,7 +1192,7 @@ public class StreamUtils {
      */
     public static <K, V extends @Nullable Object, U extends @Nullable Object, C extends Collection<U>, M extends Map<K, C>> //
             M toMap(Stream<V> stream, Predicate<V> filter, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier, Supplier<C> collectionSupplier) {
-        ObjectUtils.requireNonNulls(stream, filter, keyMapper, valueFunction, mapSupplier, collectionSupplier);
+        AssertUtils2.notNulls(stream, filter, keyMapper, valueFunction, mapSupplier, collectionSupplier);
 
         return stream //
                 .filter(Objects::nonNull) //

@@ -28,7 +28,6 @@ import java.util.Set;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.AssertUtils2;
-import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StringUtils;
 
 /**
@@ -67,12 +66,12 @@ public class FileExtensionInclusive implements FileFilter {
      * @since 2012. 01. 20.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) exts);
+    // - AssertUtils2.notNulls((Object[]) exts);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public FileExtensionInclusive(String... exts) {
-        ObjectUtils.requireNonNulls((Object[]) exts);
+        AssertUtils2.notNulls((Object[]) exts);
 
         for (String ext : exts) {
             extensioins.add(ext);
@@ -108,12 +107,12 @@ public class FileExtensionInclusive implements FileFilter {
     /**
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) exts);
+    // - AssertUtils2.notNulls((Object[]) exts);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void add(String... exts) {
-        ObjectUtils.requireNonNulls((Object[]) exts);
+        AssertUtils2.notNulls((Object[]) exts);
 
         synchronized (extensioins) {
             for (String ext : exts) {

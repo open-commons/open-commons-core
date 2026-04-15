@@ -61,14 +61,14 @@ public class AnnotationUtils {
      * @see AccessibleObject#isAnnotationPresent(Class)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static boolean existAllAnnotations(AccessibleObject accObj, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(accObj);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         for (Class<? extends Annotation> annoClass : annoClasses) {
             if (!accObj.isAnnotationPresent(annoClass)) {
@@ -109,7 +109,7 @@ public class AnnotationUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(typeClass, annoClass);
+        AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getDeclaredFields()) //
                 .filter(f -> f.isAnnotationPresent(annoClass)) //
@@ -141,14 +141,14 @@ public class AnnotationUtils {
      * @version 3.0.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFields(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getDeclaredFields())// create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
@@ -179,7 +179,7 @@ public class AnnotationUtils {
      * @see #getAnnotatedFields(Class, Class)
      */
     public static List<Field> getAnnotatedFields(Object object, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(object, annoClass);
+        AssertUtils2.notNulls(object, annoClass);
 
         return getAnnotatedFields(object.getClass(), annoClass);
     }
@@ -213,7 +213,7 @@ public class AnnotationUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(typeClass, annoClass);
+        AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getFields()) // create fields stream
                 .filter(f -> f.isAnnotationPresent(annoClass)) // check annotation
@@ -246,14 +246,14 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
@@ -287,7 +287,7 @@ public class AnnotationUtils {
      * @see #getAnnotatedFieldsAll(Class, Class)
      */
     public static List<Field> getAnnotatedFieldsAll(Object object, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(object, annoClass);
+        AssertUtils2.notNulls(object, annoClass);
 
         return getAnnotatedFieldsAll(object.getClass(), annoClass);
     }
@@ -322,7 +322,7 @@ public class AnnotationUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(typeClass, annoClass);
+        AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getFields()) // create fields stream
                 .filter(f -> f.isAnnotationPresent(annoClass)) // check annotation
@@ -356,14 +356,14 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
                 .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
@@ -392,7 +392,7 @@ public class AnnotationUtils {
      * @version 3.0.0
      */
     public static Stream<Field> getAnnotatedFieldsAllAsStream(Object object, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(object, annoClass);
+        AssertUtils2.notNulls(object, annoClass);
 
         return getAnnotatedFieldsAllAsStream(object.getClass(), annoClass);
     }
@@ -419,14 +419,14 @@ public class AnnotationUtils {
      * @version 3.0.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         Class<?> type = typeClass;
 
@@ -461,14 +461,14 @@ public class AnnotationUtils {
      * @version 3.0.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Field> getAnnotatedFieldsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return getAnnotatedFieldsAllHierarchy(object.getClass(), annoClasses);
     }
@@ -501,7 +501,7 @@ public class AnnotationUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(typeClass, annoClass);
+        AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getDeclaredMethods()) //
                 .filter(m -> m.isAnnotationPresent(annoClass)) //
@@ -531,14 +531,14 @@ public class AnnotationUtils {
      * @version 3.0.0
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethods(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getDeclaredMethods()) // create methods stream
                 .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
@@ -598,7 +598,7 @@ public class AnnotationUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(typeClass, annoClass);
+        AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> m.isAnnotationPresent(annoClass)) // check annotation
@@ -629,14 +629,14 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
@@ -666,7 +666,7 @@ public class AnnotationUtils {
      * @see Class#getMethods()
      */
     public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(object, annoClass);
+        AssertUtils2.notNulls(object, annoClass);
 
         return getAnnotatedMethodsAll(object.getClass(), annoClass);
     }
@@ -693,14 +693,14 @@ public class AnnotationUtils {
      * @see Class#getMethods()
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAll(Object object, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return getAnnotatedMethodsAll(object.getClass(), annoClasses);
     }
@@ -728,14 +728,14 @@ public class AnnotationUtils {
      * @see #existAllAnnotations(AccessibleObject, Class...)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
@@ -769,7 +769,7 @@ public class AnnotationUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
-        ObjectUtils.requireNonNulls(typeClass, annoClass);
+        AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> m.isAnnotationPresent(annoClass)) // check annotation
@@ -796,14 +796,14 @@ public class AnnotationUtils {
      * @since 2020. 11. 9.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         Class<?> type = typeClass;
 
@@ -839,14 +839,14 @@ public class AnnotationUtils {
      * @see #getAnnotatedMethodsAllHierarchy(Class, Class...)
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) annoClasses);
+    // - AssertUtils2.notNulls((Object[]) annoClasses);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
-        ObjectUtils.requireNonNulls((Object[]) annoClasses);
+        AssertUtils2.notNulls((Object[]) annoClasses);
 
         return getAnnotatedMethodsAllHierarchy(object.getClass(), annoClasses);
     }
@@ -859,7 +859,7 @@ public class AnnotationUtils {
      * @return
      */
     public static <T extends Annotation> @Nullable T getAnnotation(AccessibleObject accessObj, Class<T> annoClass) {
-        ObjectUtils.requireNonNulls(accessObj, annoClass);
+        AssertUtils2.notNulls(accessObj, annoClass);
 
         return accessObj.getAnnotation(annoClass);
     }
@@ -882,7 +882,7 @@ public class AnnotationUtils {
      * @since 2012. 2. 6.
      */
     public static <T extends Annotation> @Nullable T getAnnotation(Class<?> clazz, Class<T> annoClass) {
-        ObjectUtils.requireNonNulls(clazz, annoClass);
+        AssertUtils2.notNulls(clazz, annoClass);
 
         return clazz.getAnnotation(annoClass);
     }
@@ -895,7 +895,7 @@ public class AnnotationUtils {
      * @return {@link Field}의 값.
      */
     public static @Nullable String getValue(Field field, Object instance) {
-        ObjectUtils.requireNonNulls(field, instance);
+        AssertUtils2.notNulls(field, instance);
 
         try {
             Object value = field.get(instance);
@@ -931,7 +931,7 @@ public class AnnotationUtils {
      * @since 2019. 5. 29.
      */
     public static <A extends Annotation> @Nullable A hasAnnotation(Class<?> type, Class<A> annoClass) {
-        ObjectUtils.requireNonNulls(type, annoClass);
+        AssertUtils2.notNulls(type, annoClass);
 
         return type.getAnnotation(annoClass);
     }
@@ -947,7 +947,7 @@ public class AnnotationUtils {
      * @since 2012. 2. 6.
      */
     public static <A extends Annotation> A hasAnnotation(Object object, Class<A> annoClass) {
-        ObjectUtils.requireNonNulls(object, annoClass);
+        AssertUtils2.notNulls(object, annoClass);
 
         return object.getClass().getAnnotation(annoClass);
     }
@@ -988,7 +988,7 @@ public class AnnotationUtils {
      * @since 2019. 5. 29.
      */
     public static <A extends Annotation> boolean isAnnotationPresent(Class<?> type, Class<A> annoClass) {
-        ObjectUtils.requireNonNulls(type, annoClass);
+        AssertUtils2.notNulls(type, annoClass);
 
         return type.isAnnotationPresent(annoClass);
     }
@@ -1005,7 +1005,7 @@ public class AnnotationUtils {
      * @since 2012. 02. 13.
      */
     public static <A extends Annotation> boolean isAnnotationPresent(Object obj, Class<A> annoClass) {
-        ObjectUtils.requireNonNulls(obj, annoClass);
+        AssertUtils2.notNulls(obj, annoClass);
 
         return obj.getClass().isAnnotationPresent(annoClass);
     }

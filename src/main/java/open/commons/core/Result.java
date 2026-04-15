@@ -23,7 +23,7 @@ import java.util.Objects;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * true/false 결과와 함께 관련 데이타를 같이 전달해주는 클래스 <BR>
@@ -426,7 +426,7 @@ public class Result<T> {
      * @since 2020. 11. 3.
      */
     public static <T> @Nullable String getTrueMessage(Result<T> result, String format, @Nullable Object... args) {
-        ObjectUtils.requireNonNulls(result, format, args);
+        AssertUtils2.notNulls(result, format, args);
 
         return result.getResult() ? String.format(format, args) : result.getMessage();
     }

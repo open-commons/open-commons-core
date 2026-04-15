@@ -45,6 +45,7 @@ import org.jspecify.annotations.Nullable;
 
 import open.commons.core.database.annotation.ColumnConf;
 import open.commons.core.database.annotation.TableDef;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.ClassUtils;
 import open.commons.core.utils.ObjectUtils;
 
@@ -171,7 +172,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
      */
     @Override
     public String createSelectQuery(Collection<Integer> selects, int... where) {
-        ObjectUtils.requireNonNulls(selects, where);
+        AssertUtils2.notNulls(selects, where);
 
         return createSelectQuery(getTableName(), selects, where);
     }
@@ -217,7 +218,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
      */
     @Override
     public String createUpdateQuery(Collection<Integer> updates, int... where) {
-        ObjectUtils.requireNonNulls(updates, where);
+        AssertUtils2.notNulls(updates, where);
 
         return createUpdateQuery(getTableName(), updates, where);
     }

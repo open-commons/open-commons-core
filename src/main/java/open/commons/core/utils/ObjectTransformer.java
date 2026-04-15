@@ -224,7 +224,7 @@ public class ObjectTransformer {
     public static final PentagonFunction<@Nullable Class<?>, Class<?>, String, @Nullable Class<?>, Class<?>, @NonNull String> FIELD_CONVERTER_KEYGEN = //
             (srcClass, srcPropertyClass, property, targetClass, targetPropertyClass) //
             -> {
-                ObjectUtils.requireNonNulls(srcPropertyClass, targetPropertyClass);
+                AssertUtils2.notNulls(srcPropertyClass, targetPropertyClass);
 
                 return String.join(" -> " //
                         , String.join("#", Objects.toString(srcClass, "null"), srcPropertyClass.toString()) //
@@ -298,7 +298,7 @@ public class ObjectTransformer {
      */
     private static BiConsumer<Object, Object> buildCopier(Class<?> srcClass, boolean lookupSrcSuper, Class<?> targetClass, boolean lookupTargetSuper,
             Map<String, Function<?, ?>> converters) {
-        ObjectUtils.requireNonNulls(srcClass, targetClass, converters);
+        AssertUtils2.notNulls(srcClass, targetClass, converters);
 
         List<StepPlan> steps = planSteps(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, converters);
 
@@ -1198,7 +1198,7 @@ public class ObjectTransformer {
      */
     @SuppressWarnings("unchecked")
     public static <S, T> BiConsumer<S, T> getTransformer(Class<S> srcClass, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
-        ObjectUtils.requireNonNulls(srcClass, targetClass);
+        AssertUtils2.notNulls(srcClass, targetClass);
 
         return (BiConsumer<S, T>) getTransformer(srcClass, lookupSrcSuper, targetClass, lookupTargetSuper, null);
     }
@@ -1601,7 +1601,7 @@ public class ObjectTransformer {
      */
     public static <S, SF, T, TF> void registerPropertyConverter(@Nullable Class<S> srcClass, Class<SF> srcPropertyClass, @Nullable String property, @Nullable Class<T> targetClass,
             Class<TF> targetPropertyClass, Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
-        ObjectUtils.requireNonNulls(srcPropertyClass, targetPropertyClass, srcToTarget, targetToSrc);
+        AssertUtils2.notNulls(srcPropertyClass, targetPropertyClass, srcToTarget, targetToSrc);
 
         // register 'src' to 'target'
         registerPropertyConverter(srcClass, srcPropertyClass, property, targetClass, targetPropertyClass, srcToTarget);

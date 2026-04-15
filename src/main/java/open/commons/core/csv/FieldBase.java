@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -61,7 +61,7 @@ public class FieldBase implements Supplier<String> {
      * @version 1.8.0
      */
     public FieldBase(Object owner, Field field) {
-        ObjectUtils.requireNonNulls(owner, field);
+        AssertUtils2.notNulls(owner, field);
 
         this.owner = owner;
         this.field = field;

@@ -450,7 +450,7 @@ public class CollectionUtils {
             List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R1> transformer1, Function<KEY, R1> emptyCreator1 //
             , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R2> transformer2, Function<KEY, R2> emptyCreator2 //
     ) {
-        ObjectUtils.requireNonNulls(data1, keyProvider1, transformer1, emptyCreator1, data2, keyProvider2, transformer2, emptyCreator2);
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, emptyCreator1, data2, keyProvider2, transformer2, emptyCreator2);
 
         List<R1> resultData1 = new ArrayList<>();
         List<R2> resultData2 = new ArrayList<>();
@@ -551,7 +551,7 @@ public class CollectionUtils {
      * @version 1.8.0
      */
     public static <S, T> void concatenate(Collection<S> data, Function<S, T> transformer, Consumer<T> aggregator) {
-        ObjectUtils.requireNonNulls(data, transformer, aggregator);
+        AssertUtils2.notNulls(data, transformer, aggregator);
 
         data.stream().map(transformer).forEach(aggregator);
     }
@@ -582,7 +582,7 @@ public class CollectionUtils {
      * @version 1.8.0
      */
     public static <S, T, U> U concatenate(Collection<S> data, Function<S, T> transformer, Function<List<T>, U> aggregator) {
-        ObjectUtils.requireNonNulls(data, transformer, aggregator);
+        AssertUtils2.notNulls(data, transformer, aggregator);
 
         return aggregator.apply(data.stream().map(transformer).collect(Collectors.toList()));
     }
@@ -645,7 +645,7 @@ public class CollectionUtils {
             List<E> data, Function<E, KEY> keyProvider, Function<E, KEY> parentKeyProvider //
             , Function<E, TREE> transformer, BiConsumer<TREE, TREE> addChild //
     ) {
-        ObjectUtils.requireNonNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
+        AssertUtils2.notNulls(data, keyProvider, parentKeyProvider, transformer, addChild);
 
         Map<KEY, TREE> top = new LinkedHashMap<>();
         Map<KEY, TREE> elements = new HashMap<>();
@@ -691,7 +691,7 @@ public class CollectionUtils {
      * @version 1.6.17
      */
     public static <E, K> Map<K, List<E>> elementToListValuedMap(Collection<E> col, Function<E, K> keyGen) {
-        ObjectUtils.requireNonNulls(col, keyGen);
+        AssertUtils2.notNulls(col, keyGen);
 
         return StreamUtils.toMap(col.stream(), keyGen, v -> v);
     }
@@ -716,7 +716,7 @@ public class CollectionUtils {
      * @version 1.8.0
      */
     public static <E, C extends Collection<E>> void get(Collection<E> col, Predicate<E> p, C newCol) {
-        ObjectUtils.requireNonNulls(col, newCol);
+        AssertUtils2.notNulls(col, newCol);
 
         for (E e : col) {
             if (p.test(e)) {
@@ -749,7 +749,7 @@ public class CollectionUtils {
      * @version 1.8.0
      */
     public static <E, C extends Collection<E>> C get(Collection<E> col, Predicate<E> p, Class<C> type) throws InstantiationException, IllegalAccessException {
-        ObjectUtils.requireNonNulls(col, p, type);
+        AssertUtils2.notNulls(col, p, type);
 
         try {
             // Stream API와 Collectors.toCollection을 활용한 선언적 파이프라인
@@ -829,7 +829,7 @@ public class CollectionUtils {
      * @version 1.8.0
      */
     public static <E> boolean has(Collection<E> col, Predicate<E> p) {
-        ObjectUtils.requireNonNulls(col, p);
+        AssertUtils2.notNulls(col, p);
         return col.parallelStream().anyMatch(p);
     }
 
@@ -861,7 +861,7 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      */
     public static <E, K> Map<K, List<E>> listElementToListValuedMap(Collection<List<E>> col, Function<E, K> keyGen) {
-        ObjectUtils.requireNonNulls(col, keyGen);
+        AssertUtils2.notNulls(col, keyGen);
 
         // 1. col.stream() : Collection<List<E>>를 Stream<List<E>>로 변환
         return col.stream()
@@ -2219,7 +2219,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <T> List<T> parallelSort(Collection<T> data, Comparator<T> sorter) {
-        ObjectUtils.requireNonNulls(data, sorter);
+        AssertUtils2.notNulls(data, sorter);
 
         return data.parallelStream() //
                 .sorted(sorter)//
@@ -2250,7 +2250,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <T> List<T> parallelSort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
-        ObjectUtils.requireNonNulls(data, filter, sorter);
+        AssertUtils2.notNulls(data, filter, sorter);
 
         return data.parallelStream() //
                 .filter(filter) // 필터 적용
@@ -2493,7 +2493,7 @@ public class CollectionUtils {
      * @since 2017. 10. 18.
      */
     public static <E extends @Nullable Object> E[] readAsArray(List<E> list, int pos, int maxCount, Class<E> type) {
-        ObjectUtils.requireNonNulls(list, type);
+        AssertUtils2.notNulls(list, type);
 
         if (pos >= list.size()) {
             return (E[]) Array.newInstance(type, 0);
@@ -2554,7 +2554,7 @@ public class CollectionUtils {
      * @version 2.0.0
      */
     public static <T extends @Nullable Object> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
-        ObjectUtils.requireNonNulls(data, filter, sorter);
+        AssertUtils2.notNulls(data, filter, sorter);
 
         return data.stream() //
                 .filter(filter) // 필터 적용
@@ -2752,7 +2752,7 @@ public class CollectionUtils {
             List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2, //
             Comparator<KEY> comparator //
     ) {
-        ObjectUtils.requireNonNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
 
         // 두 리스트의 크기 합산만큼 초기 용량(Capacity)을 할당하여 Resizing 오버헤드 완벽 제거
         List<R> sorted = new ArrayList<>(data1.size() + data2.size());
@@ -2959,7 +2959,7 @@ public class CollectionUtils {
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
             , Comparator<KEY> comparator //
     ) {
-        ObjectUtils.requireNonNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, comparator);
 
         // 1. 파라미터로 전달받은 comparator를 적용하여 일관된 정렬 보장
         // 2. Stream.toList()를 활용하여 불필요한 가변 ArrayList 생성 방지
@@ -3550,7 +3550,7 @@ public class CollectionUtils {
      * @since 2018. 2. 8.
      */
     public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen);
+        AssertUtils2.notNulls(col, keyGen, valueGen);
 
         // 비한정적 와일드카드(?, ?)를 사용하여 원시 타입(Raw Type) 경고를 방지하고 제네릭 안정성을 유지합니다.
         return (M) (Map<?, ?>) StreamUtils.toMap(col.stream(), keyGen, valueGen, HashMap::new);
@@ -3590,7 +3590,7 @@ public class CollectionUtils {
      * @version 1.6.17
      */
     public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, M map) {
-        ObjectUtils.requireNonNulls(col, keyGen, map);
+        AssertUtils2.notNulls(col, keyGen, map);
 
         // 컬렉션 내부 최적화를 활용하는 내부 반복자(Internal Iterator) 적용
         col.forEach(v -> map.put(keyGen.apply(v), v));
@@ -4009,7 +4009,7 @@ public class CollectionUtils {
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
             M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
         for (E e : col) {
@@ -4058,7 +4058,7 @@ public class CollectionUtils {
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
             M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Supplier<M> mapSupplier) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+        AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
     }
@@ -4128,7 +4128,7 @@ public class CollectionUtils {
      * @version 1.6.17
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, M map) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
         for (E e : col) {
@@ -4173,7 +4173,7 @@ public class CollectionUtils {
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen,
             Supplier<M> mapSupplier) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+        AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
     }
@@ -4242,7 +4242,7 @@ public class CollectionUtils {
      * @version 1.6.17
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
         for (E e : col) {
@@ -4287,7 +4287,7 @@ public class CollectionUtils {
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
             M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, Supplier<M> mapSupplier) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+        AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
     }
@@ -4363,7 +4363,7 @@ public class CollectionUtils {
      * @version 2.0.0
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, map);
+        AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         col.forEach(e -> map.put(keyGen.apply(e), valueGen.apply(e)));
 
@@ -4403,7 +4403,7 @@ public class CollectionUtils {
      * @version 3.0.0
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Supplier<M> mapSupplier) {
-        ObjectUtils.requireNonNulls(col, keyGen, valueGen, mapSupplier);
+        AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
     }
@@ -4499,7 +4499,7 @@ public class CollectionUtils {
      *      있습니다.
      */
     public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit, TopNStrategy strategy, boolean expensiveComparator) {
-        ObjectUtils.requireNonNulls(data, filter, sorter);
+        AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
         if (limit <= 0 || data == null || data.isEmpty()) {
@@ -4567,7 +4567,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <T> List<T> topnByFullSort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
-        ObjectUtils.requireNonNulls(data, filter, sorter);
+        AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
         return data.parallelStream() //
@@ -4606,7 +4606,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <T> List<T> topnByHeap(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
-        ObjectUtils.requireNonNulls(data, filter, sorter);
+        AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
         // N개 중 "최악"이 루트가 되도록: cmp의 자연스런 최소힙을 쓰고, 들어온 e가 루트보다 "더 낫다"(>0)면 교체합니다.
@@ -4663,7 +4663,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <T> List<T> topnByQuickselect(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
-        ObjectUtils.requireNonNulls(data, filter, sorter);
+        AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
         // 1) 필터 통과본만 ArrayList로 수집
@@ -5009,7 +5009,7 @@ public class CollectionUtils {
      * @since 2012. 02. 22.
      */
     public static <T> String toString(Collection<T> col, String delim, String prefix, String suffix) {
-        ObjectUtils.requireNonNulls(col, delim, prefix, suffix);
+        AssertUtils2.notNulls(col, delim, prefix, suffix);
 
         StringBuilder sb = new StringBuilder();
         if (col.size() > 0) {

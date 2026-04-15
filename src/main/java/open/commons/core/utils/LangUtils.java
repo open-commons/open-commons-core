@@ -72,7 +72,7 @@ public class LangUtils {
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIf(T value, Predicate<Object> p, Consumer<T> c) {
-        ObjectUtils.requireNonNulls(p, c);
+        AssertUtils2.notNulls(p, c);
 
         if (p.test((Object) value)) {
             c.accept(value);
@@ -103,7 +103,7 @@ public class LangUtils {
      * @since 2018. 10. 26.
      */
     public static final <T extends @Nullable Object> void executeIf(T value, T defaultValue, Predicate<Object> p, Consumer<T> c) {
-        ObjectUtils.requireNonNulls(p, c);
+        AssertUtils2.notNulls(p, c);
 
         if (p.test((Object) value)) {
             c.accept(value);

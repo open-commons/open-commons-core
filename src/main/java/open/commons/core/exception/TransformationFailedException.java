@@ -28,7 +28,7 @@ package open.commons.core.exception;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 데이터 '형 변환' 도중 오류가 발생했을 때.
@@ -138,7 +138,7 @@ public class TransformationFailedException extends RuntimeException {
      */
     public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause, boolean enableSuppression,
             boolean writableStackTrace) {
-        ObjectUtils.requireNonNulls(srcClass, targetClass);
+        AssertUtils2.notNulls(srcClass, targetClass);
 
         super(message, cause, enableSuppression, writableStackTrace);
         this.srcClass = srcClass;

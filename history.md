@@ -3,6 +3,9 @@
   + open.commons.core.utils.AssertUtils2
     + notBlank(String)
     + notBlank(String, String, Object...)
+- Modify
+  + 배열 및 배열 데이터를 위한 'assert' 메소드 변경
+    + open.commons.core.utils.ObjectUtils.requreNonNulls(...) -&gt; open.commons.core.utils.AssertUtils2.notNulls(...)
 
 [2026/04/10]
 - Add

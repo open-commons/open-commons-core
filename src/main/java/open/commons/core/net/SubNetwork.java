@@ -34,7 +34,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * @since 2015. 4. 15.
@@ -142,7 +142,7 @@ public class SubNetwork {
      * @since Apr 13, 2015
      */
     public SubNetwork(String ipv4, String mask) {
-        ObjectUtils.requireNonNulls(ipv4, mask);
+        AssertUtils2.notNulls(ipv4, mask);
 
         this(ipv4, dottedDecimalNetmaskToIntValue(mask));
     }

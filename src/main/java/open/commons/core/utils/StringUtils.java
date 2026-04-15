@@ -677,13 +677,13 @@ public class StringUtils {
      * @return 연결된 문자열
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) data);
+    // - AssertUtils2.notNulls((Object[]) data);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static String concatenate(String delimiter, Object... data) {
         Objects.requireNonNull(delimiter);
-        ObjectUtils.requireNonNulls((Object[]) data);
+        AssertUtils2.notNulls((Object[]) data);
 
         return concatenate(delimiter, false, Arrays.asList(data), StreamUtils.identity());
     }
@@ -731,13 +731,13 @@ public class StringUtils {
      * @since 2020. 11. 9.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) strs);
+    // - AssertUtils2.notNulls((Object[]) strs);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static boolean contains(String string, CharSequence... strs) {
         Objects.requireNonNull(string);
-        ObjectUtils.requireNonNulls((Object[]) strs);
+        AssertUtils2.notNulls((Object[]) strs);
 
         for (CharSequence str : strs) {
             if (string.contains(str)) {
@@ -767,13 +767,13 @@ public class StringUtils {
      * @since 2012. 1. 6.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) strs);
+    // - AssertUtils2.notNulls((Object[]) strs);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static boolean containsAll(String string, CharSequence... strs) {
         Objects.requireNonNull(string);
-        ObjectUtils.requireNonNulls((Object[]) strs);
+        AssertUtils2.notNulls((Object[]) strs);
 
         for (CharSequence str : strs) {
             if (!string.contains(str)) {
@@ -1059,7 +1059,7 @@ public class StringUtils {
      * @return 추출된 문자열. 조건을 만족하지 못할 경우 {@code null} 반환.
      */
     public static @Nullable String enclosingLargestString(String string, String pre, String suf) {
-        ObjectUtils.requireNonNulls(string, pre, suf);
+        AssertUtils2.notNulls(string, pre, suf);
 
         int preIndex = string.indexOf(pre);
         if (preIndex < 0) {
@@ -1092,7 +1092,7 @@ public class StringUtils {
      * @return 추출된 문자열. 조건을 만족하지 못할 경우 {@code null} 반환.
      */
     public static @Nullable String enclosingSmallestString(String string, String prefix, String suffix) {
-        ObjectUtils.requireNonNulls(string, prefix, suffix);
+        AssertUtils2.notNulls(string, prefix, suffix);
 
         int preIndex = string.indexOf(prefix);
         if (preIndex < 0) {
@@ -2630,14 +2630,14 @@ public class StringUtils {
      *             {@code regExs}의 길이와 {@code selectedIndice}의 길이가 다른 경우 발생.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) regExs);
+    // - AssertUtils2.notNulls((Object[]) regExs);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static String splitAndGet(String string, String[] regExs, int[] selectedIndice) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(selectedIndice);
-        ObjectUtils.requireNonNulls((Object[]) regExs);
+        AssertUtils2.notNulls((Object[]) regExs);
 
         if (regExs.length != selectedIndice.length) {
             throw new IllegalArgumentException("배열의 길이가 일치하지 않습니다. regExs: " + regExs.length + ", selectedIndice: " + selectedIndice.length);

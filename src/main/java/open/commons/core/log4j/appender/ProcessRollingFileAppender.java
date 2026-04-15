@@ -58,7 +58,7 @@ import org.apache.logging.log4j.core.util.Integers;
 import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 동일한 실행파일의 프로세스별로 서로 다른 로그파일을 생성할 수 있도록 지원하는 클래스.<br>
@@ -259,7 +259,7 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @since 2022. 10. 18.builder.toString()
      */
     public static boolean registerContext(String contextName, String contextHolder, String context) {
-        ObjectUtils.requireNonNulls(contextName, contextHolder, context);
+        AssertUtils2.notNulls(contextName, contextHolder, context);
 
         if (CUSTOM_CONTEXT_CONFIG.containsKey(contextName) || CUSTOM_CONTEXT_CONFIG.containsValue(contextHolder)) {
             return false;

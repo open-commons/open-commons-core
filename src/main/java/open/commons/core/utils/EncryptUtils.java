@@ -152,7 +152,7 @@ public class EncryptUtils {
      */
     public static String decrypt(String algorithm, String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
             NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
-        ObjectUtils.requireNonNulls(algorithm, key, keyCharset, encText, textCharset);
+        AssertUtils2.notNulls(algorithm, key, keyCharset, encText, textCharset);
 
         SecretKeySpec keySpec = keySpec(algorithm, key, keyCharset);
 
@@ -273,7 +273,7 @@ public class EncryptUtils {
     public static byte[] encrypt(String algorithm, String key, String keyCharset, String plainText, String textCharset) //
             throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException,
             IllegalBlockSizeException, BadPaddingException {
-        ObjectUtils.requireNonNulls(algorithm, key, keyCharset, plainText, textCharset);
+        AssertUtils2.notNulls(algorithm, key, keyCharset, plainText, textCharset);
 
         SecretKeySpec keySpec = keySpec(algorithm, key, keyCharset);
 
@@ -309,7 +309,7 @@ public class EncryptUtils {
      * @since 2018. 11. 20.
      */
     private static SecretKeySpec keySpec(String algorithm, String key, String charset) throws UnsupportedEncodingException {
-        ObjectUtils.requireNonNulls(algorithm, key, charset);
+        AssertUtils2.notNulls(algorithm, key, charset);
 
         byte[] keyBytes = key.getBytes(charset);
 

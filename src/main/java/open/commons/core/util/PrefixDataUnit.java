@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 거리/무게 등 여러 가지 단위에 대한 접두어.<br>
@@ -228,7 +228,7 @@ public enum PrefixDataUnit {
      * @version 1.8.0
      */
     public BigDecimal[] convert(long size, PrefixDataUnit bigUnit, PrefixDataUnit littleUnit) {
-        ObjectUtils.requireNonNulls(bigUnit, littleUnit);
+        AssertUtils2.notNulls(bigUnit, littleUnit);
 
         if (bigUnit.num.compareTo(littleUnit.num) < 0) {
             throw new IllegalArgumentException(String.format("변환단위가 잘못되었습니다. big=%s, little=%s", bigUnit, littleUnit));

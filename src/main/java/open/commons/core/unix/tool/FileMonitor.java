@@ -48,8 +48,8 @@ import org.jspecify.annotations.Nullable;
 
 import open.commons.core.concurrent.Mutex;
 import open.commons.core.utils.ArrayUtils;
+import open.commons.core.utils.AssertUtils2;
 import open.commons.core.utils.IOUtils;
-import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.ThreadUtils;
 
 /**
@@ -354,12 +354,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #register(File)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void register(File... files) throws IOException {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         for (File file : files) {
             register(file);
@@ -395,12 +395,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @throws IOException
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void register(String... files) throws IOException {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         for (String file : files) {
             register(file);
@@ -434,12 +434,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #registerDirectory(File, boolean)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) directories);
+    // - AssertUtils2.notNulls((Object[]) directories);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerDirectory(boolean recursive, File... directories) throws IOException {
-        ObjectUtils.requireNonNulls((Object[]) directories);
+        AssertUtils2.notNulls((Object[]) directories);
 
         for (File dir : directories) {
             if (dir.isDirectory()) {
@@ -475,12 +475,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #registerDirectory(boolean, File...)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) directories);
+    // - AssertUtils2.notNulls((Object[]) directories);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerDirectory(File... directories) throws IOException {
-        ObjectUtils.requireNonNulls((Object[]) directories);
+        AssertUtils2.notNulls((Object[]) directories);
 
         for (File dir : directories) {
             if (dir.isDirectory()) {
@@ -586,12 +586,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #register(File)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerFile(boolean dedicated, File... files) {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         for (File file : files) {
             if (file.isFile()) {
@@ -610,12 +610,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #register(File)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void registerFile(boolean dedicated, String... files) {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         for (String file : files) {
             registerFile(new File(file), dedicated);
@@ -746,12 +746,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      *            writers to remove.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) writers);
+    // - AssertUtils2.notNulls((Object[]) writers);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void removeFileContextWriter(IFileContextWriter... writers) {
-        ObjectUtils.requireNonNulls((Object[]) writers);
+        AssertUtils2.notNulls((Object[]) writers);
 
         for (IFileContextWriter writer : writers) {
             if (writer != null) {
@@ -1030,12 +1030,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #unregisterDirectory(File, boolean)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) directories);
+    // - AssertUtils2.notNulls((Object[]) directories);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void unregisterDirectory(boolean recursive, File... directories) throws FileNotFoundException {
-        ObjectUtils.requireNonNulls((Object[]) directories);
+        AssertUtils2.notNulls((Object[]) directories);
 
         for (File dir : directories) {
             if (dir.isDirectory()) {
@@ -1065,12 +1065,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #unregisterDirectory(boolean, File...)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) directories);
+    // - AssertUtils2.notNulls((Object[]) directories);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void unregisterDirectory(File... directories) throws FileNotFoundException {
-        ObjectUtils.requireNonNulls((Object[]) directories);
+        AssertUtils2.notNulls((Object[]) directories);
 
         for (File dir : directories) {
             unregisterDirectory(dir);
@@ -1172,12 +1172,12 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
      * @see {@link #unregister(File)}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public void unregisterFile(File... files) {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         for (File file : files) {
             if (file.isFile()) {

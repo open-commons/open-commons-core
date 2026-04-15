@@ -35,7 +35,7 @@ import jakarta.annotation.Resource;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 다수 개의 {@link AutoCloseable}를 한번에 {@link #close()} 할 수 있도록 지원하는 클래스.
@@ -79,7 +79,7 @@ public class Closeables implements AutoCloseable {
     /**
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) closeables);
+    // - AssertUtils2.notNulls((Object[]) closeables);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
@@ -88,7 +88,7 @@ public class Closeables implements AutoCloseable {
             return;
         }
 
-        ObjectUtils.requireNonNulls((Object[]) closeables);
+        AssertUtils2.notNulls((Object[]) closeables);
 
         this.closeables.addAll(Arrays.asList(closeables));
     }
@@ -198,12 +198,12 @@ public class Closeables implements AutoCloseable {
      * @since 2018. 9. 10.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) closeables);
+    // - AssertUtils2.notNulls((Object[]) closeables);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static Closeables list(AutoCloseable... closeables) {
-        ObjectUtils.requireNonNulls((Object[]) closeables);
+        AssertUtils2.notNulls((Object[]) closeables);
 
         Closeables c = new Closeables(false);
         c.addAll(closeables);

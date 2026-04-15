@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 
 import org.jspecify.annotations.Nullable;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -62,7 +62,7 @@ public class MethodBase implements Supplier<String> {
      * @version 1.8.0
      */
     public MethodBase(Object owner, Method method) {
-        ObjectUtils.requireNonNulls(owner, method);
+        AssertUtils2.notNulls(owner, method);
 
         this.owner = owner;
         this.method = method;

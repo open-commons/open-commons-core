@@ -168,13 +168,13 @@ public class ReflectionUtils {
      * @since 2014. 6. 18.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) standardTypes);
+    // - AssertUtils2.notNulls((Object[]) standardTypes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static List<GenericTypeVariable> createGenericTypeVariables(Class<?> targetClass, boolean lastCopy, Class<?>... typeVarClasses) {
         Objects.requireNonNull(targetClass);
-        ObjectUtils.requireNonNulls((Object[]) typeVarClasses);
+        AssertUtils2.notNulls((Object[]) typeVarClasses);
 
         List<GenericTypeVariable> gTypeVars = new ArrayList<GenericTypeVariable>();
         if (typeVarClasses.length < 1) {
@@ -963,13 +963,13 @@ public class ReflectionUtils {
      * @return 하위 클래스인 경우 {@code true}, 그렇지 않으면 {@code false}
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) candidates);
+    // - AssertUtils2.notNulls((Object[]) candidates);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static boolean subclassOneOf(Class<?> targetClass, Class<?>... candidates) {
         Objects.requireNonNull(targetClass);
-        ObjectUtils.requireNonNulls((Object[]) candidates);
+        AssertUtils2.notNulls((Object[]) candidates);
 
         for (Class<?> candidate : candidates) {
             if (candidate.isAssignableFrom(targetClass)) {
@@ -1023,13 +1023,13 @@ public class ReflectionUtils {
      * @since 2014. 5. 2.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) candidates);
+    // - AssertUtils2.notNulls((Object[]) candidates);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static List<Class<?>> superclasses(Object object, Class<?>... candidates) {
         Objects.requireNonNull(object);
-        ObjectUtils.requireNonNulls((Object[]) candidates);
+        AssertUtils2.notNulls((Object[]) candidates);
 
         List<Class<?>> superclasses = new ArrayList<Class<?>>();
 

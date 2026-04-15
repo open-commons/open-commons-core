@@ -90,7 +90,7 @@ public class ZipUtils {
      * @version 2.0.0
      */
     private static boolean decompress(Path inputFile, Charset inCharset, Path output, IOTripleFunction<Path, Charset, Path, Boolean> decompressor) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, output, decompressor);
+        AssertUtils2.notNulls(inputFile, inCharset, output, decompressor);
 
         if (!Files.exists(inputFile) || !Files.isRegularFile(inputFile)) {
             throw new FileNotFoundException(inputFile.toString());
@@ -134,7 +134,7 @@ public class ZipUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static boolean ungzip(File inputFile, Charset inCharset, File outputFile) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, outputFile);
+        AssertUtils2.notNulls(inputFile, inCharset, outputFile);
         return ungzip(inputFile.toPath(), inCharset, outputFile.toPath());
     }
 
@@ -162,7 +162,7 @@ public class ZipUtils {
      * @version 2.0.0
      */
     public static boolean ungzip(File inputFile, File outputFile) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, outputFile);
+        AssertUtils2.notNulls(inputFile, outputFile);
 
         return ungzip(inputFile, CharUtils.defaultCharset(), outputFile);
     }
@@ -194,7 +194,7 @@ public class ZipUtils {
      * @version 3.0.0
      */
     public static boolean ungzip(Path inputFile, Charset inCharset, Path outputFile) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, outputFile);
+        AssertUtils2.notNulls(inputFile, inCharset, outputFile);
 
         return decompress(inputFile, inCharset, outputFile, (inPath, _, outPath) -> {
             try (GZIPInputStream gzipInStream = new GZIPInputStream(Files.newInputStream(inPath));
@@ -232,7 +232,7 @@ public class ZipUtils {
      * @version 2.0.0
      */
     public static boolean ungzip(Path inputFile, Path outputFile) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, outputFile);
+        AssertUtils2.notNulls(inputFile, outputFile);
         return ungzip(inputFile, CharUtils.defaultCharset(), outputFile);
     }
 
@@ -262,7 +262,7 @@ public class ZipUtils {
      * @version 2.0.0
      */
     public static boolean ungzip(String inputFile, Charset inCharset, String outputFile) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, outputFile);
+        AssertUtils2.notNulls(inputFile, inCharset, outputFile);
         return ungzip(new File(inputFile), inCharset, new File(outputFile));
     }
 
@@ -290,7 +290,7 @@ public class ZipUtils {
      * @version 2.0.0
      */
     public static boolean ungzip(String inputFile, String outputFile) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, outputFile);
+        AssertUtils2.notNulls(inputFile, outputFile);
         return ungzip(inputFile, CharUtils.defaultCharset(), outputFile);
     }
 
@@ -325,7 +325,7 @@ public class ZipUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static boolean unzip(File inputFile, Charset inCharset, File outputDir) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, outputDir);
+        AssertUtils2.notNulls(inputFile, inCharset, outputDir);
         return unzip(inputFile.toPath(), inCharset, outputDir.toPath());
     }
 
@@ -353,7 +353,7 @@ public class ZipUtils {
      * @version 1.8.0
      */
     public static boolean unzip(File inputFile, File outputDir) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, outputDir);
+        AssertUtils2.notNulls(inputFile, outputDir);
         return unzip(inputFile, CharUtils.defaultCharset(), outputDir);
     }
 
@@ -384,7 +384,7 @@ public class ZipUtils {
      * @version 3.0.0
      */
     public static boolean unzip(Path inputFile, Charset inCharset, Path outputDir) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, outputDir);
+        AssertUtils2.notNulls(inputFile, inCharset, outputDir);
 
         return decompress(inputFile, inCharset, outputDir, (infile, cs, outdir) -> {
             try {
@@ -446,7 +446,7 @@ public class ZipUtils {
      * @version 1.8.0
      */
     public static boolean unzip(Path inputFile, Path outputDir) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, outputDir);
+        AssertUtils2.notNulls(inputFile, outputDir);
 
         return unzip(inputFile, CharUtils.defaultCharset(), outputDir);
     }
@@ -477,7 +477,7 @@ public class ZipUtils {
      * @version 1.8.0
      */
     public static boolean unzip(String inputFile, Charset inCharset, String outputDir) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, inCharset, outputDir);
+        AssertUtils2.notNulls(inputFile, inCharset, outputDir);
 
         return unzip(new File(inputFile), inCharset, new File(outputDir));
     }
@@ -506,7 +506,7 @@ public class ZipUtils {
      * @version 1.8.0
      */
     public static boolean unzip(String inputFile, String outputDir) throws IOException {
-        ObjectUtils.requireNonNulls(inputFile, outputDir);
+        AssertUtils2.notNulls(inputFile, outputDir);
 
         return unzip(inputFile, CharUtils.defaultCharset(), outputDir);
     }
@@ -542,7 +542,7 @@ public class ZipUtils {
      * @version 3.0.0
      */
     public static boolean zip(File input, Charset inCharset, File output, Charset outCharset, int compressionLevel) throws IOException {
-        ObjectUtils.requireNonNulls(input, inCharset, output, outCharset);
+        AssertUtils2.notNulls(input, inCharset, output, outCharset);
 
         if (!input.exists() || !(input.isDirectory() || input.isFile())) {
             throw new FileNotFoundException(input.getAbsolutePath());
@@ -612,7 +612,7 @@ public class ZipUtils {
      * @since 2018. 9. 10.
      */
     public static boolean zip(File input, File output, int compressionLevel) throws IOException {
-        ObjectUtils.requireNonNulls(input, output);
+        AssertUtils2.notNulls(input, output);
 
         return zip(input, CharUtils.defaultCharset(), output, CharUtils.defaultCharset(), compressionLevel);
     }
@@ -647,7 +647,7 @@ public class ZipUtils {
      * @version 1.8.0
      */
     public static boolean zip(String input, Charset inCharset, String output, Charset outCharset, int compressionLevel) throws IOException {
-        ObjectUtils.requireNonNulls(input, inCharset, output, outCharset);
+        AssertUtils2.notNulls(input, inCharset, output, outCharset);
 
         return zip(new File(input), inCharset, new File(output), outCharset, compressionLevel);
     }
@@ -677,7 +677,7 @@ public class ZipUtils {
      * @since 2018. 9. 10.
      */
     public static boolean zip(String input, String output, int compressionLevel) throws IOException {
-        ObjectUtils.requireNonNulls(input, output);
+        AssertUtils2.notNulls(input, output);
 
         return zip(input, CharUtils.defaultCharset(), output, CharUtils.defaultCharset(), compressionLevel);
     }

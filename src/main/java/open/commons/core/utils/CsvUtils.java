@@ -456,7 +456,7 @@ public class CsvUtils {
      */
     @SuppressWarnings("null")
     public static <E> String[] objectToArray(E object, Function<E, String[]> creator) {
-        ObjectUtils.requireNonNulls(object, creator);
+        AssertUtils2.notNulls(object, creator);
 
         return creator.apply(object);
     }
@@ -715,7 +715,7 @@ public class CsvUtils {
      */
     public static <E> Result<List<E>> readAsList(CSVReader reader, Function<String[], E> creator, @Nullable Predicate<E> validator, @Nullable Consumer<E> afterCreation,
             boolean close) throws IOException {
-        ObjectUtils.requireNonNulls(reader, creator);
+        AssertUtils2.notNulls(reader, creator);
 
         List<E> data = new ArrayList<>();
         try {
@@ -5140,7 +5140,7 @@ public class CsvUtils {
      */
     public static <E> Result<Long> write(Collection<E> data, ICSVWriter writer, String @Nullable [] header, Function<E, String[]> creator, @Nullable Consumer<E> beforeCreation,
             boolean close) throws IOException {
-        ObjectUtils.requireNonNulls(data, writer, creator);
+        AssertUtils2.notNulls(data, writer, creator);
 
         long count = 0;
         try {

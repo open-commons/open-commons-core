@@ -87,7 +87,7 @@ public class Base64Utils {
      * @return 대상 바이트 배열에 기록된 바이트 수
      */
     public static int decode(byte[] src, byte[] dst) {
-        ObjectUtils.requireNonNulls(src, dst);
+        AssertUtils2.notNulls(src, dst);
 
         return DECODER.decode(src, dst);
     }

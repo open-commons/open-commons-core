@@ -41,7 +41,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * SAX 파싱을 위한 추상 핸들러 클래스입니다.
@@ -243,7 +243,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     @SuppressWarnings("null")
     @Override
     public final void endElement(String uri, String localName, String qName) throws SAXException {
-        ObjectUtils.requireNonNulls(uri, localName, qName);
+        AssertUtils2.notNulls(uri, localName, qName);
 
         // #1. Decrease an indentation.
         decIndentation();
@@ -466,7 +466,7 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     @SuppressWarnings("null")
     @Override
     public final void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        ObjectUtils.requireNonNulls(uri, localName, qName, attributes);
+        AssertUtils2.notNulls(uri, localName, qName, attributes);
 
         // #1. Add a name of an element to be parsed.
         this.qnames.push(qName);

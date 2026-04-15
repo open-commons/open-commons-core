@@ -97,7 +97,7 @@ public class FunctionUtils {
      */
     public static <S extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object, V extends @Nullable Object, W extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(BiFunction<S, T, U> action, S param1, T param2, BiFunction<V, W, X> onSuccess, V osParam1, Function<U, W> osParam2, Function<Throwable, X> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -147,7 +147,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -197,7 +197,7 @@ public class FunctionUtils {
      */
     public static <S extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam, Function<Throwable, X> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -242,7 +242,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, R extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -321,7 +321,7 @@ public class FunctionUtils {
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, R extends @Nullable Object> //
             Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -367,7 +367,7 @@ public class FunctionUtils {
      */
     public static <R extends @Nullable Object, X extends @Nullable Object> //
             Supplier<X> build(Supplier<R> action, Function<R, X> onSuccess, Function<Throwable, X> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -437,7 +437,7 @@ public class FunctionUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -530,7 +530,7 @@ public class FunctionUtils {
     @SuppressWarnings("null")
     public static <R extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object> //
             Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
-        ObjectUtils.requireNonNulls(action, onSuccess, onError);
+        AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
             try {
@@ -609,7 +609,7 @@ public class FunctionUtils {
      * @since 2021. 5. 18.
      */
     public static <T> T ifThenElse(Supplier<Boolean> condition, Supplier<T> then, Supplier<T> elze) {
-        ObjectUtils.requireNonNulls(condition, then, elze);
+        AssertUtils2.notNulls(condition, then, elze);
 
         return condition.get() ? then.get() : elze.get();
     }
@@ -780,7 +780,7 @@ public class FunctionUtils {
      * @since 2021. 11. 15.
      */
     public static void runIf(@Nullable Object value, Runner then, Runner elze) {
-        ObjectUtils.requireNonNulls(then, elze);
+        AssertUtils2.notNulls(then, elze);
 
         if (value != null) {
             then.run();
@@ -842,7 +842,7 @@ public class FunctionUtils {
      * @since 2021. 11. 15.
      */
     public static <T extends @Nullable Object> void runIf(T value, Predicate<T> p, Consumer<T> then) {
-        ObjectUtils.requireNonNulls(p, then);
+        AssertUtils2.notNulls(p, then);
 
         if (p.test(value)) {
             then.accept(value);
@@ -875,7 +875,7 @@ public class FunctionUtils {
      * @since 2021. 11. 15.
      */
     public static <T extends @Nullable Object> void runIf(T value, Predicate<T> p, Consumer<T> then, Consumer<T> elze) {
-        ObjectUtils.requireNonNulls(p, then, elze);
+        AssertUtils2.notNulls(p, then, elze);
 
         if (p.test(value)) {
             then.accept(value);
@@ -912,7 +912,7 @@ public class FunctionUtils {
      * @since 2020. 6. 14.
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run) {
-        ObjectUtils.requireNonNulls(test, run);
+        AssertUtils2.notNulls(test, run);
 
         return test.test(value) ? run.apply(value) : null;
     }
@@ -947,7 +947,7 @@ public class FunctionUtils {
      * @since 2021. 11. 15.
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
-        ObjectUtils.requireNonNulls(test, run);
+        AssertUtils2.notNulls(test, run);
 
         return test.test(value) ? run.apply(value) : defaultValue;
     }
@@ -982,7 +982,7 @@ public class FunctionUtils {
      * @since 2020. 7. 21.
      */
     public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
-        ObjectUtils.requireNonNulls(test, run);
+        AssertUtils2.notNulls(test, run);
 
         return test.test(value) ? run.apply(value) : defaultValue.get();
     }
@@ -1020,7 +1020,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param,
             Function<U, R> run) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.apply(value)) : null;
     }
@@ -1060,7 +1060,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, R defaultValue) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.apply(value)) : defaultValue;
     }
@@ -1100,7 +1100,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.apply(value)) : defaultValue.get();
     }
@@ -1129,7 +1129,7 @@ public class FunctionUtils {
      * @since 2020. 8. 29.
      */
     public static <T extends @Nullable Object> void runIf(T value, Predicate<T> p, Runner run) {
-        ObjectUtils.requireNonNulls(p, run);
+        AssertUtils2.notNulls(p, run);
 
         if (p.test(value)) {
             run.run();
@@ -1164,7 +1164,7 @@ public class FunctionUtils {
      * @since 2020. 8. 29.
      */
     public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test, Supplier<U> param, Consumer<U> run) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         if (test.test(value)) {
             run.accept(param.get());
@@ -1204,7 +1204,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.get()) : null;
     }
@@ -1244,7 +1244,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, R defaultValue) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.get()) : defaultValue;
     }
@@ -1284,7 +1284,7 @@ public class FunctionUtils {
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
             @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
-        ObjectUtils.requireNonNulls(test, param, run);
+        AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.get()) : defaultValue.get();
     }
@@ -1317,7 +1317,7 @@ public class FunctionUtils {
      * @since 2020. 8. 29.
      */
     public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test, U param, Consumer<U> run) {
-        ObjectUtils.requireNonNulls(test, run);
+        AssertUtils2.notNulls(test, run);
 
         if (test.test(value)) {
             run.accept(param);
@@ -1348,7 +1348,7 @@ public class FunctionUtils {
      * @since 2020. 4. 7.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) actions);
+    // - AssertUtils2.notNulls((Object[]) actions);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     // 아래 내용에 적용됨.
@@ -1359,7 +1359,7 @@ public class FunctionUtils {
     @SafeVarargs
     public static <R extends @Nullable Object> Optional<R> runOnAsync(Predicate<R> filterIn, Supplier<R>... actions) {
         Objects.requireNonNull(filterIn);
-        ObjectUtils.requireNonNulls((Object[]) actions);
+        AssertUtils2.notNulls((Object[]) actions);
 
         return Arrays.asList(actions).parallelStream() //
                 // 실행
@@ -1393,7 +1393,7 @@ public class FunctionUtils {
      * @since 2020. 4. 7.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) actions);
+    // - AssertUtils2.notNulls((Object[]) actions);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     // 아래 내용에 적용됨.
@@ -1404,7 +1404,7 @@ public class FunctionUtils {
     @SafeVarargs
     public static <R extends @Nullable Object> Optional<R> runOnSync(Predicate<R> filterIn, Supplier<R>... actions) {
         Objects.requireNonNull(filterIn);
-        ObjectUtils.requireNonNulls((Object[]) actions);
+        AssertUtils2.notNulls((Object[]) actions);
 
         return Arrays.asList(actions).stream() //
                 // 실행

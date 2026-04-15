@@ -551,7 +551,7 @@ public class AssertUtils2 {
         return notNulls((String) null, exClass, objects);
     }
 
-    public static Object notNulls(Object @Nullable... objects) {
+    public static Object notNulls(@Nullable Object @Nullable... objects) {
         return notNulls((String) null, (Class<? extends RuntimeException>) null, objects);
     }
 

@@ -433,7 +433,7 @@ public class SQLUtils {
      * @version 2.0.0
      */
     public static String getColumnName(String clmnName, ColumnNameType clmnNameType, String defaultClmnName) {
-        ObjectUtils.requireNonNulls(clmnName, clmnNameType, defaultClmnName);
+        AssertUtils2.notNulls(clmnName, clmnNameType, defaultClmnName);
 
         return getColumnName(clmnName, clmnNameType, () -> defaultClmnName);
     }

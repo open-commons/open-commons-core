@@ -29,7 +29,7 @@ package open.commons.core.unix.tool;
 
 import java.util.Arrays;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
@@ -66,7 +66,7 @@ public interface IFileModifyListener extends Comparable<IFileModifyListener> {
          * @since 2013. 5. 23.
          */
         public FileContext(String f, byte[] c) {
-            ObjectUtils.requireNonNulls(f, c);
+            AssertUtils2.notNulls(f, c);
 
             file = f;
             context = c;

@@ -177,7 +177,7 @@ public class NumberUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Number toDecimal(String value, IntegerType type) throws NumberFormatException {
-        ObjectUtils.requireNonNulls(value, type);
+        AssertUtils2.notNulls(value, type);
 
         int radix = radix(value);
         // 접두사만 제거하고 부호/데이터 손실 방지

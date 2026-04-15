@@ -168,7 +168,7 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     public static void copyFile(File src, File target) throws IOException {
-        ObjectUtils.requireNonNulls(src, target);
+        AssertUtils2.notNulls(src, target);
 
         Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
@@ -196,7 +196,7 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     public static void copyFile(String src, String target) throws IOException {
-        ObjectUtils.requireNonNulls(src, target);
+        AssertUtils2.notNulls(src, target);
 
         Files.copy(Paths.get(src), Paths.get(target), StandardCopyOption.REPLACE_EXISTING);
     }
@@ -380,12 +380,12 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) dirs);
+    // - AssertUtils2.notNulls((Object[]) dirs);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     private static void deleteDirs(boolean forced, File... dirs) {
-        ObjectUtils.requireNonNulls((Object[]) dirs);
+        AssertUtils2.notNulls((Object[]) dirs);
 
         for (File dir : dirs) {
             deleteDir(dir, forced);
@@ -410,12 +410,12 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) files);
+    // - AssertUtils2.notNulls((Object[]) files);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     private static void deleteFiles(File... files) {
-        ObjectUtils.requireNonNulls((Object[]) files);
+        AssertUtils2.notNulls((Object[]) files);
 
         for (File f : files) {
             try {
@@ -714,14 +714,14 @@ public class FileUtils {
      * @see File#lastModified()
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) fileFilters);
+    // - AssertUtils2.notNulls((Object[]) fileFilters);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static Path getLatestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
         Objects.requireNonNull(absoluteDirPath);
-        ObjectUtils.requireNonNulls((Object[]) fileFilters);
+        AssertUtils2.notNulls((Object[]) fileFilters);
 
         Path dir = Paths.get(absoluteDirPath);
         try {
@@ -766,14 +766,14 @@ public class FileUtils {
      * @see File#lastModified()
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) fileFilters);
+    // - AssertUtils2.notNulls((Object[]) fileFilters);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
     public static Path getOldestFilepath(String absoluteDirPath, Predicate<Path>... fileFilters) {
         Objects.requireNonNull(absoluteDirPath);
-        ObjectUtils.requireNonNulls((Object[]) fileFilters);
+        AssertUtils2.notNulls((Object[]) fileFilters);
 
         Path dir = Paths.get(absoluteDirPath);
         try {
@@ -889,7 +889,7 @@ public class FileUtils {
      * @version 1.8.0
      */
     public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
-        ObjectUtils.requireNonNulls(directory, filter);
+        AssertUtils2.notNulls(directory, filter);
 
         if (!Files.exists(directory)) {
             throw ExceptionUtils.newException(IllegalArgumentException.class, "존재하지 않는 경로입니다. directory=%s", directory.toString());
@@ -945,7 +945,7 @@ public class FileUtils {
      * @version 2.0.0
      */
     public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector) throws IOException {
-        ObjectUtils.requireNonNulls(directory, filter, collector);
+        AssertUtils2.notNulls(directory, filter, collector);
 
         try (Stream<Path> stream = Files.list(directory).filter(filter)) {
             return collector.apply(stream);
@@ -1171,7 +1171,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path move(File source, File target, CopyOption... options) throws IOException {
-        ObjectUtils.requireNonNulls(source, target, options);
+        AssertUtils2.notNulls(source, target, options);
 
         return Files.move(source.toPath(), target.toPath(), options);
     }
@@ -1211,7 +1211,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path move(Path source, Path target, CopyOption... options) throws IOException {
-        ObjectUtils.requireNonNulls(source, target, options);
+        AssertUtils2.notNulls(source, target, options);
 
         return Files.move(source, target, options);
     }
@@ -1251,7 +1251,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path move(Path source, String target, CopyOption... options) throws IOException {
-        ObjectUtils.requireNonNulls(source, target, options);
+        AssertUtils2.notNulls(source, target, options);
 
         return Files.move(source, Paths.get(target), options);
     }
@@ -1291,7 +1291,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path move(String source, Path target, CopyOption... options) throws IOException {
-        ObjectUtils.requireNonNulls(source, target, options);
+        AssertUtils2.notNulls(source, target, options);
 
         return Files.move(Paths.get(source), target, options);
     }
@@ -1331,7 +1331,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path move(String source, String target, CopyOption... options) throws IOException {
-        ObjectUtils.requireNonNulls(source, target, options);
+        AssertUtils2.notNulls(source, target, options);
 
         return Files.move(Paths.get(source), Paths.get(target), options);
     }
@@ -1439,7 +1439,7 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     public static boolean save(File file, String data) {
-        ObjectUtils.requireNonNulls(file, data);
+        AssertUtils2.notNulls(file, data);
 
         boolean saved = true;
 
@@ -1484,7 +1484,7 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     public static boolean save(File file, String data, String charset) {
-        ObjectUtils.requireNonNulls(file, data, charset);
+        AssertUtils2.notNulls(file, data, charset);
 
         boolean saved = true;
 
@@ -1527,7 +1527,7 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     public static boolean save(String pathname, String data) {
-        ObjectUtils.requireNonNulls(pathname, data);
+        AssertUtils2.notNulls(pathname, data);
 
         return save(new File(pathname), data);
     }
@@ -1556,7 +1556,7 @@ public class FileUtils {
      * @since 2019. 8. 8.
      */
     public static boolean save(String pathname, String data, String charset) {
-        ObjectUtils.requireNonNulls(pathname, data, charset);
+        AssertUtils2.notNulls(pathname, data, charset);
 
         return save(new File(pathname), data, charset);
     }
@@ -1633,7 +1633,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path write(Path filepath, String data, boolean append) throws IOException {
-        ObjectUtils.requireNonNulls(filepath, data);
+        AssertUtils2.notNulls(filepath, data);
 
         // 디렉토리 검증
         Path dir = filepath.getParent();
@@ -1691,7 +1691,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path write(Path path, String data, OpenOption... options) throws IOException {
-        ObjectUtils.requireNonNulls(path, data, options);
+        AssertUtils2.notNulls(path, data, options);
 
         return Files.write(path, data.getBytes(), options);
     }
@@ -1731,7 +1731,7 @@ public class FileUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Path write(String dirpath, String filename, String data, boolean append) throws IOException {
-        ObjectUtils.requireNonNulls(dirpath, filename, data);
+        AssertUtils2.notNulls(dirpath, filename, data);
 
         return write(Paths.get(dirpath, filename), data, append);
     }

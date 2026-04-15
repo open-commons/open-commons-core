@@ -38,7 +38,6 @@ import org.jspecify.annotations.Nullable;
 import open.commons.core.EquivalentFactory;
 import open.commons.core.utils.ArrayUtils;
 import open.commons.core.utils.AssertUtils2;
-import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StringUtils;
 
 /**
@@ -127,12 +126,12 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 15.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) elems);
+    // - AssertUtils2.notNulls((Object[]) elems);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public PathElement(String... elems) {
-        ObjectUtils.requireNonNulls((Object[]) elems);
+        AssertUtils2.notNulls((Object[]) elems);
 
         this(DEFAULT_SEPARATOR);
 
@@ -186,7 +185,7 @@ public class PathElement implements Iterable<String> {
                     + elemLength[elemLength.length - 1][2]);
         }
 
-        ObjectUtils.requireNonNulls((Object[]) elemLength);
+        AssertUtils2.notNulls((Object[]) elemLength);
 
         int[] el = null;
         for (int i = 0; i < elemLength.length; i++) {

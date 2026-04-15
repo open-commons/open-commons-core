@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import open.commons.core.utils.ObjectUtils;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 컴퓨터 저장장치 용량 단위. (예: 디스크, 메모리, ...)<br>
@@ -206,7 +206,7 @@ public enum BinaryDataUnit {
      * @version 3.0.0
      */
     public BigDecimal[] convert(long size, BinaryDataUnit bigUnit, BinaryDataUnit littleUnit) {
-        ObjectUtils.requireNonNulls(bigUnit, littleUnit);
+        AssertUtils2.notNulls(bigUnit, littleUnit);
 
         if (bigUnit.num.compareTo(littleUnit.num) < 0) {
             throw new IllegalArgumentException(String.format("변환단위가 잘못되었습니다. big=%s, little=%s", bigUnit, littleUnit));

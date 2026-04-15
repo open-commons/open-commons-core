@@ -38,7 +38,6 @@ import jakarta.annotation.Resource;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.utils.AssertUtils2;
-import open.commons.core.utils.ObjectUtils;
 
 /**
  * 
@@ -99,7 +98,7 @@ public class Consumers<T> implements Closeable {
     /**
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) removables);
+    // - AssertUtils2.notNulls((Object[]) removables);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
@@ -109,7 +108,7 @@ public class Consumers<T> implements Closeable {
             return;
         }
 
-        ObjectUtils.requireNonNulls((Object[]) removables);
+        AssertUtils2.notNulls((Object[]) removables);
 
         this.resources.addAll(Arrays.asList(removables));
     }

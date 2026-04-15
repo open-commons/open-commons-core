@@ -994,12 +994,12 @@ public class ArrayUtils {
      * @since 2014. 6. 18.
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) classes);
+    // - AssertUtils2.notNulls((Object[]) classes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static Class<?>[] adjustByLength(int length, Class<?>... classes) {
-        ObjectUtils.requireNonNulls((Object[]) classes);
+        AssertUtils2.notNulls((Object[]) classes);
 
         Class<?>[] newArray = new Class<?>[length];
         System.arraycopy(classes, 0, newArray, 0, Math.min(length, classes.length));
@@ -1118,7 +1118,7 @@ public class ArrayUtils {
      * @return
      */
     public static int comparable(byte[] v1, byte[] v2) {
-        ObjectUtils.requireNonNulls(v1, v2);
+        AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1144,7 +1144,7 @@ public class ArrayUtils {
      * @return
      */
     public static int comparable(char[] v1, char[] v2) {
-        ObjectUtils.requireNonNulls(v1, v2);
+        AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1171,7 +1171,7 @@ public class ArrayUtils {
      */
     public static int comparable(double[] v1, double[] v2) {
 
-        ObjectUtils.requireNonNulls(v1, v2);
+        AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1198,7 +1198,7 @@ public class ArrayUtils {
      */
     public static int comparable(float[] v1, float[] v2) {
 
-        ObjectUtils.requireNonNulls(v1, v2);
+        AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1225,7 +1225,7 @@ public class ArrayUtils {
      */
     public static int comparable(int[] v1, int[] v2) {
 
-        ObjectUtils.requireNonNulls(v1, v2);
+        AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1252,7 +1252,7 @@ public class ArrayUtils {
      */
     public static <T extends Comparable<T>> int comparable(T[] v1, T[] v2) {
 
-        ObjectUtils.requireNonNulls(v1, v2);
+        AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -1638,7 +1638,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static boolean[] copy(boolean[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         boolean[] newArr = new boolean[indice.length];
 
@@ -1670,7 +1670,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static byte[] copy(byte[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         byte[] newArr = new byte[indice.length];
 
@@ -1702,7 +1702,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static char[] copy(char[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         char[] newArr = new char[indice.length];
 
@@ -1734,7 +1734,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static double[] copy(double[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         double[] newArr = new double[indice.length];
 
@@ -1766,7 +1766,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static float[] copy(float[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         float[] newArr = new float[indice.length];
 
@@ -1798,7 +1798,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static int[] copy(int[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         int[] newArr = new int[indice.length];
 
@@ -1830,7 +1830,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static long[] copy(long[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         long[] newArr = new long[indice.length];
 
@@ -1862,7 +1862,7 @@ public class ArrayUtils {
      * @version 2.0.0
      */
     public static short[] copy(short[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         short[] newArr = new short[indice.length];
 
@@ -1898,7 +1898,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] copy(T[] arr, int... indice) throws ArrayIndexOutOfBoundsException {
-        ObjectUtils.requireNonNulls(arr, indice);
+        AssertUtils2.notNulls(arr, indice);
 
         T[] newArr = (T[]) Array.newInstance(arr.getClass().getComponentType().getComponentType(), indice.length);
 
@@ -1936,7 +1936,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOf(T[] original, int newLength, Class<? extends U[]> newType, Function<T, U> clone) {
-        ObjectUtils.requireNonNulls(original, newType, clone);
+        AssertUtils2.notNulls(original, newType, clone);
 
         U[] copy = ((Object) newType == (Object) Object[].class) //
                 ? (U[]) new Object[newLength] //
@@ -2004,7 +2004,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOfRange(T[] original, int from, int to, Class<? extends U[]> newType, Function<T, U> clone) {
-        ObjectUtils.requireNonNulls(original, newType, clone);
+        AssertUtils2.notNulls(original, newType, clone);
 
         int newLength = to - from;
         if (newLength < 0)
@@ -2526,12 +2526,12 @@ public class ArrayUtils {
      * @see ArrayIndexOutOfBoundsException
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) bytes);
+    // - AssertUtils2.notNulls((Object[]) bytes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static byte[] getDecElements(byte[][] bytes) {
-        ObjectUtils.requireNonNulls((Object[]) bytes);
+        AssertUtils2.notNulls((Object[]) bytes);
 
         byte[] rtnBytes = new byte[bytes.length];
 
@@ -2591,12 +2591,12 @@ public class ArrayUtils {
      * @see ArrayIndexOutOfBoundsException
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) bytes);
+    // - AssertUtils2.notNulls((Object[]) bytes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static byte[] getIncElements(byte[][] bytes) {
-        ObjectUtils.requireNonNulls((Object[]) bytes);
+        AssertUtils2.notNulls((Object[]) bytes);
 
         byte[] rtnBytes = new byte[bytes.length];
 
@@ -2672,12 +2672,12 @@ public class ArrayUtils {
      * @see ArrayIndexOutOfBoundsException
      */
     // 아래 내용에 적용됨.
-    // - ObjectUtils.requireNonNulls((Object[]) bytes);
+    // - AssertUtils2.notNulls((Object[]) bytes);
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     public static byte[] getPlainElements(byte[][] bytes, int index) {
-        ObjectUtils.requireNonNulls((Object[]) bytes);
+        AssertUtils2.notNulls((Object[]) bytes);
 
         byte[] rtnBytes = new byte[bytes.length];
 
@@ -2707,7 +2707,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(boolean[] array, Function<Boolean, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2737,7 +2737,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(byte[] array, Function<Byte, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2767,7 +2767,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(char[] array, Function<Character, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2797,7 +2797,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(double[] array, Function<Double, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2827,7 +2827,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(float[] array, Function<Float, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2857,7 +2857,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(int[] array, Function<Integer, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2887,7 +2887,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(long[] array, Function<Long, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2917,7 +2917,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static int indexOf(short[] array, Function<Short, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -2947,7 +2947,7 @@ public class ArrayUtils {
      * @version 1.8.0
      */
     public static <T extends @Nullable Object> int indexOf(T[] array, Function<T, Boolean> c) {
-        ObjectUtils.requireNonNulls(array, c);
+        AssertUtils2.notNulls(array, c);
 
         for (int i = 0; i < array.length; i++) {
             if (c.apply(array[i])) {
@@ -3020,7 +3020,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(boolean[] array, boolean[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3127,7 +3127,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(byte[] array, byte[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3235,7 +3235,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(char[] array, char[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3342,7 +3342,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(double[] array, double[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3450,7 +3450,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(float[] array, float[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3558,7 +3558,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(int[] array, int[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3664,7 +3664,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(long[] array, long[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3770,7 +3770,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static int[] indiceOf(short[] array, short[] values) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단 및 길이 검증
         if (values.length == 0 || array.length < values.length) {
@@ -3917,7 +3917,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> int[] indiceOfArray(T[] array, T[] values, @Nullable IEquivalent<T[]> equi) {
-        ObjectUtils.requireNonNulls(array, values);
+        AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단
         if (values.length == 0 || array.length < values.length) {
@@ -4185,7 +4185,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static boolean[] insert(boolean[] array, boolean value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4265,7 +4265,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static byte[] insert(byte[] array, byte value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4345,7 +4345,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static char[] insert(char[] array, char value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4425,7 +4425,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static double[] insert(double[] array, double value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4505,7 +4505,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static float[] insert(float[] array, float value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4585,7 +4585,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static int[] insert(int[] array, int value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4665,7 +4665,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static long[] insert(long[] array, long value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4712,7 +4712,7 @@ public class ArrayUtils {
      * @since 2012. 03. 13.
      */
     public static short[] insert(short[] array, short value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -4829,7 +4829,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T> T[] insert(T[] array, T value, int... indice) {
-        ObjectUtils.requireNonNulls(array, indice);
+        AssertUtils2.notNulls(array, indice);
 
         if (indice.length < 1) {
             return array;
@@ -6573,7 +6573,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] removeAll(T[] array, Predicate<T> filter) {
-        ObjectUtils.requireNonNulls(array, filter);
+        AssertUtils2.notNulls(array, filter);
 
         // 1. 최대 크기(원본 배열과 동일)로 임시 배열 생성
         T[] tempArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
@@ -8475,7 +8475,7 @@ public class ArrayUtils {
      */
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data, @Nullable IEquivalent<T[]> equivalent) {
-        ObjectUtils.requireNonNulls(array, target, data);
+        AssertUtils2.notNulls(array, target, data);
 
         int[] matchingIndice = indiceOfArray(array, target, equivalent);
 
@@ -8541,7 +8541,7 @@ public class ArrayUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] replaceAllToArray(T[] array, T target, T[] data, @Nullable IEquivalent<T> equivalent) {
-        ObjectUtils.requireNonNulls(array, data);
+        AssertUtils2.notNulls(array, data);
 
         int[] indice = indiceOf(array, target, equivalent);
 
@@ -8599,7 +8599,7 @@ public class ArrayUtils {
      * @since 2012. 03. 30.
      */
     public static <T extends @Nullable Object> T[] replaceAllToData(T[] array, T[] target, T data, @Nullable IEquivalent<T[]> equivalent) {
-        ObjectUtils.requireNonNulls(array, target);
+        AssertUtils2.notNulls(array, target);
 
         T[] dataArray = (T[]) new Object[] { data };
 

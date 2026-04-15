@@ -40,7 +40,6 @@ import org.jspecify.annotations.Nullable;
 
 import open.commons.core.TwoValueObject;
 import open.commons.core.utils.AssertUtils2;
-import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.StreamUtils;
 
 /**
@@ -268,7 +267,7 @@ public class NamedTemplate {
      * @see #format(String, Map, boolean)
      */
     public static String format(String pattern, Map<String, Object> values) {
-        ObjectUtils.requireNonNulls(pattern, values);
+        AssertUtils2.notNulls(pattern, values);
 
         return format(pattern, values, true);
     }
@@ -315,7 +314,7 @@ public class NamedTemplate {
      * @since 2014. 9. 5.
      */
     public static String format(String pattern, String name, Object value) {
-        ObjectUtils.requireNonNulls(pattern, name);
+        AssertUtils2.notNulls(pattern, name);
 
         Map<String, Object> values = new ConcurrentSkipListMap<String, Object>();
         values.put(name, value);
@@ -538,7 +537,7 @@ public class NamedTemplate {
         // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
         @SuppressWarnings("null")
         private static String value(String key, Map<String, Object> values, String defaultValue) {
-            ObjectUtils.requireNonNulls(key, values);
+            AssertUtils2.notNulls(key, values);
 
             Object value = values.get(key);
 

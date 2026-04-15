@@ -107,7 +107,7 @@ public class ConcurrentUtils {
      * @version 2.1.0
      */
     public static <T, U extends @Nullable Object> List<U> executeAsync(Collection<T> data, Function<T, U> actor, Executor executor) {
-        ObjectUtils.requireNonNulls(data, actor, executor);
+        AssertUtils2.notNulls(data, actor, executor);
 
         // #1. 작업을 병렬로 실행 (supplyAsync)
         @SuppressWarnings("null")
@@ -177,7 +177,7 @@ public class ConcurrentUtils {
      * @version 2.1.0
      */
     public static <T> void executeAsync(T bucket, Collection<Consumer<T>> actors, Executor executor) {
-        ObjectUtils.requireNonNulls(bucket, actors, executor);
+        AssertUtils2.notNulls(bucket, actors, executor);
 
         // #1. 작업을 병렬로 실행
         CompletableFuture<?>[] jobs = actors.stream() //
