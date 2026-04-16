@@ -272,10 +272,6 @@ public class AssertUtils2 {
         }
     }
 
-    public static void isNulls(@Nullable String msg, @Nullable Object @Nullable... objects) {
-        isNulls(msg, null, objects);
-    }
-
     public static void isTrue(boolean bool) {
         isTrue(null, bool, AssertionException.class);
     }
@@ -563,10 +559,6 @@ public class AssertUtils2 {
             throw assert0(resolveExceptionClass(exClass, NullPointerException.class), "objects: " + Arrays.toString(objects) + msg0(msg));
         }
 
-    }
-
-    public static Object notNulls(@Nullable String msg, @Nullable Object @Nullable... objects) {
-        return notNulls(msg, (Class<? extends RuntimeException>) null, objects);
     }
 
     private static final Class<? extends RuntimeException> resolveExceptionClass(@Nullable Class<? extends RuntimeException> exClass,
