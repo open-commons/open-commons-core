@@ -42,8 +42,6 @@ import org.jspecify.annotations.Nullable;
  *            {@link PreparedStatement} 에 데이터를 설정하는 객체 타입.
  * @since 2019. 2. 19.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
- * 
- * @see ConnectionCallbackBroker
  */
 public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbackBroker {
 

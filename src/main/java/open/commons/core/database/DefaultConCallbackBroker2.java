@@ -29,17 +29,17 @@ package open.commons.core.database;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.function.SQLConsumer;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * 
  * @since 2019. 2. 22.
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNull SQLConsumer<PreparedStatement>> {
+public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLConsumer<PreparedStatement>> {
 
     /**
      * @param query
@@ -89,6 +89,8 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<@NonNul
      */
     @Override
     protected void set(PreparedStatement stmt, SQLConsumer<PreparedStatement> setter) throws SQLException {
+        AssertUtils2.notNulls(stmt, setter);
+
         setter.accept(stmt);
     }
 
