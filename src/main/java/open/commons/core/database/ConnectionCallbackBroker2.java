@@ -49,8 +49,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
 
     private final String query;
 
-    @Nullable
-    private T setter;
+    private @Nullable T setter;
 
     /**
      * 실행 쿼리가 Stored Procedure를 실행하는지 여부<br>
