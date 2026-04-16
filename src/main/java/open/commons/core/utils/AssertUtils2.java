@@ -543,10 +543,6 @@ public class AssertUtils2 {
         return notNull(object, null, msg);
     }
 
-    public static Object notNull(@Nullable String msg, @Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        return notNull(object, exClass, msg);
-    }
-
     public static Object notNulls(@Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
         return notNulls((String) null, exClass, objects);
     }
