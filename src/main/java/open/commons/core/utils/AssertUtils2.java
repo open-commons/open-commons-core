@@ -117,12 +117,12 @@ public class AssertUtils2 {
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void equals(@Nullable String msg, @Nullable Object obj1, @Nullable Object obj2, @Nullable Class<? extends RuntimeException> exClass) {
-        if (equals_(obj1, obj2)) {
+        if (equals0(obj1, obj2)) {
             throw assert0(exClass, "The result MUST be 'equal'." + msg0(msg));
         }
     }
 
-    private static boolean equals_(@Nullable Object obj1, @Nullable Object obj2) {
+    private static boolean equals0(@Nullable Object obj1, @Nullable Object obj2) {
         if (obj1 != null && obj2 != null) {
             return obj1.equals(obj2);
         } else {
@@ -302,19 +302,19 @@ public class AssertUtils2 {
         }
     }
 
-    public static Object mapNotNull(Map<?, ?> map) {
-        return mapNotNull(null, map, null);
+    public static void mapNotNull(Map<?, ?> map) {
+        mapNotNull(null, map, null);
     }
 
-    public static Object mapNotNull(Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
-        return mapNotNull(null, map, exClass);
+    public static void mapNotNull(Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
+        mapNotNull(null, map, exClass);
     }
 
-    public static Object mapNotNull(@Nullable String msg, Map<?, ?> map) {
-        return mapNotNull(msg, map, null);
+    public static void mapNotNull(@Nullable String msg, Map<?, ?> map) {
+        mapNotNull(msg, map, null);
     }
 
-    public static Object mapNotNull(@Nullable String msg, Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
+    public static void mapNotNull(@Nullable String msg, Map<?, ?> map, @Nullable Class<? extends RuntimeException> exClass) {
         notNull(map, "The map MUST NOT be null. map: null");
 
         Object key = null;
@@ -324,8 +324,6 @@ public class AssertUtils2 {
             value = entry.getValue();
             notNulls("Neither key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(msg), key, value);
         }
-
-        return map;
     }
 
     private static String msg0(@Nullable String msg) {
@@ -466,7 +464,7 @@ public class AssertUtils2 {
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     public static void notEquals(@Nullable String msg, @Nullable Object obj1, @Nullable Object obj2, @Nullable Class<? extends RuntimeException> exClass) {
-        if (!equals_(obj1, obj2)) {
+        if (!equals0(obj1, obj2)) {
             throw assert0(exClass, "The result MUST be NOT 'equal'." + msg0(msg));
         }
     }
@@ -516,12 +514,12 @@ public class AssertUtils2 {
         }
     }
 
-    public static Object notNull(@Nullable Object object) {
-        return notNull(object, (Class<? extends RuntimeException>) null, (String) null);
+    public static void notNull(@Nullable Object object) {
+        notNull(object, (Class<? extends RuntimeException>) null, (String) null);
     }
 
-    public static Object notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
-        return notNull(object, exClass, (String) null);
+    public static void notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass) {
+        notNull(object, exClass, (String) null);
     }
 
     /**
@@ -546,35 +544,33 @@ public class AssertUtils2 {
      * @since 2025. 8. 13.
      * @version 2.1.0
      */
-    public static Object notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msgFormat, Object... msgArgs) {
+    public static void notNull(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msgFormat, Object... msgArgs) {
         try {
             Objects.requireNonNull(object);
-            return object;
         } catch (NullPointerException e) {
             throw assert0(resolveExceptionClass(exClass, NullPointerException.class), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
         }
     }
 
-    public static Object notNull(@Nullable Object object, @Nullable String msg) {
-        return notNull(object, null, msg);
+    public static void notNull(@Nullable Object object, @Nullable String msg) {
+        notNull(object, null, msg);
     }
 
-    public static Object notNulls(@Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
-        return notNulls((String) null, exClass, objects);
+    public static void notNulls(@Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
+        notNulls((String) null, exClass, objects);
     }
 
-    public static Object notNulls(@Nullable Object @Nullable... objects) {
-        return notNulls((String) null, (Class<? extends RuntimeException>) null, objects);
+    public static void notNulls(@Nullable Object @Nullable... objects) {
+        notNulls((String) null, (Class<? extends RuntimeException>) null, objects);
     }
 
-    public static Object notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, Object @Nullable... objects) {
+    public static void notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, Object @Nullable... objects) {
         try {
             Objects.requireNonNull(objects);
 
             for (Object object : objects) {
                 Objects.requireNonNull(object);
             }
-            return objects;
         } catch (NullPointerException e) {
             throw assert0(resolveExceptionClass(exClass, NullPointerException.class), "objects: " + Arrays.toString(objects) + msg0(msg));
         }

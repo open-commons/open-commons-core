@@ -3,6 +3,8 @@
   + open.commons.core.function.AsserUtils2
     + notBlank(String, Class&lt;? extends RuntimeException&gt;)
     + notBlanks(String...)
+- Modify
+  + mapNotNull(...), notNull(...) 반환 타입 변경: Object -> void
 
 [2026/04/16]
 - Add
