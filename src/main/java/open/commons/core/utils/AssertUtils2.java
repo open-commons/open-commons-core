@@ -564,7 +564,7 @@ public class AssertUtils2 {
         notNulls((String) null, (Class<? extends RuntimeException>) null, objects);
     }
 
-    public static void notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, Object @Nullable... objects) {
+    public static void notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
         try {
             Objects.requireNonNull(objects);
 
