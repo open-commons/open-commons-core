@@ -49,6 +49,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import open.commons.core.function.Functions;
 import open.commons.core.prog.StrLenRvrOrderingEntry;
 
 /**
@@ -440,7 +441,7 @@ public class StringUtils {
      * @since 2019. 6. 21.
      */
     public static <T> String concatenate(String delimiter, boolean startsWithDelimeter, Collection<T> data) {
-        return concatenate(delimiter, false, data, StreamUtils.identity());
+        return concatenate(delimiter, false, data, Functions.Unary.identity());
     }
 
     /**
@@ -555,7 +556,7 @@ public class StringUtils {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(objects);
 
-        return concatenate(delimiter, startsWithDelimeter, Arrays.asList(objects), StreamUtils.identity());
+        return concatenate(delimiter, startsWithDelimeter, Arrays.asList(objects), Functions.Unary.identity());
     }
 
     /**
@@ -588,7 +589,7 @@ public class StringUtils {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
-        return concatenate(delimiter, startsWithDelimeter, Arrays.asList(strings), StreamUtils.identity());
+        return concatenate(delimiter, startsWithDelimeter, Arrays.asList(strings), Functions.Unary.identity());
     }
 
     /**
@@ -611,7 +612,7 @@ public class StringUtils {
      * @since 2012. 01. 17.
      */
     public static <T> String concatenate(String delimiter, Collection<T> data) {
-        return concatenate(delimiter, false, data, StreamUtils.identity());
+        return concatenate(delimiter, false, data, Functions.Unary.identity());
     }
 
     /**
@@ -685,7 +686,7 @@ public class StringUtils {
         Objects.requireNonNull(delimiter);
         AssertUtils2.notNulls((Object[]) data);
 
-        return concatenate(delimiter, false, Arrays.asList(data), StreamUtils.identity());
+        return concatenate(delimiter, false, Arrays.asList(data), Functions.Unary.identity());
     }
 
     /**
@@ -707,7 +708,7 @@ public class StringUtils {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
-        return concatenate(delimiter, false, Arrays.asList(strings), StreamUtils.identity());
+        return concatenate(delimiter, false, Arrays.asList(strings), Functions.Unary.identity());
     }
 
     /**

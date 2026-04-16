@@ -62,7 +62,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import open.commons.core.TwoValueObject;
-import open.commons.core.function.BinaryOperators;
+import open.commons.core.function.Functions;
 import open.commons.core.function.Predicates;
 import open.commons.core.utils.CollectionUtils.TopN.TopNStrategy;
 
@@ -357,7 +357,7 @@ public class CollectionUtils {
             List<E> data1, List<E> data2 //
             , Function<E, KEY> keyProvider, Function<KEY, E> emptyCreator //
     ) {
-        return alignBy(data1, keyProvider, StreamUtils.identity(), emptyCreator, data2, keyProvider, StreamUtils.identity(), emptyCreator);
+        return alignBy(data1, keyProvider, Functions.Unary.identity(), emptyCreator, data2, keyProvider, Functions.Unary.identity(), emptyCreator);
     }
 
     /**
@@ -2285,7 +2285,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
-        return parallelSortAndMerge(data1, keyProvider, StreamUtils.identity(), data2, keyProvider, StreamUtils.identity(), Comparator.naturalOrder());
+        return parallelSortAndMerge(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(), Comparator.naturalOrder());
     }
 
     /**
@@ -2527,7 +2527,7 @@ public class CollectionUtils {
      * @version 2.0.0
      */
     public static <T extends @Nullable Object> List<T> sort(Collection<T> data, Comparator<T> sorter) {
-        return sort(data, Predicates.alwaysTrue(), sorter);
+        return sort(data, Predicates.Unary.alwaysTrue(), sorter);
     }
 
     /**
@@ -2588,7 +2588,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider) {
-        return sort(data1, keyProvider, StreamUtils.identity(), data2, keyProvider, StreamUtils.identity(), Comparator.naturalOrder());
+        return sort(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(), Comparator.naturalOrder());
     }
 
     /**
@@ -2834,7 +2834,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
-        return sortAndMerge(data1, keyProvider, StreamUtils.identity(), data2, keyProvider, StreamUtils.identity(), Comparator.naturalOrder());
+        return sortAndMerge(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(), Comparator.naturalOrder());
     }
 
     /**
@@ -3288,7 +3288,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <E extends @Nullable Object, C extends Collection<E>> C toList(Collection<E> col, Supplier<C> collectionSupplier) {
-        return toCollection(col, StreamUtils.identity(), collectionSupplier);
+        return toCollection(col, Functions.Unary.identity(), collectionSupplier);
     }
 
     /**
@@ -3326,7 +3326,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
+        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
 
     /**
@@ -3364,7 +3364,7 @@ public class CollectionUtils {
      */
     public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
             Supplier<L> listFactory) {
-        return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, listFactory);
+        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, listFactory);
     }
 
     /**
@@ -3641,7 +3641,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), BinaryOperators.last(), mapSupplier);
+        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), Functions.Binary.last(), mapSupplier);
     }
 
     /**
@@ -3676,7 +3676,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
@@ -3807,7 +3807,7 @@ public class CollectionUtils {
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, M extends Map<K, V>> //
             M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(col.stream(), keyMapper, StreamUtils.identity(), mergeFunction, mapSupplier);
+        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), mergeFunction, mapSupplier);
     }
 
     /**
@@ -4432,7 +4432,7 @@ public class CollectionUtils {
      * @version 2.0.0
      */
     public static <T> List<T> topN(Collection<T> data, Comparator<T> sorter, int limit) {
-        return topN(data, Predicates.alwaysTrue(), sorter, limit);
+        return topN(data, Predicates.Unary.alwaysTrue(), sorter, limit);
     }
 
     /**
@@ -4811,7 +4811,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
+        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
@@ -4853,7 +4853,7 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
-        return toCollection(col, keyMapper, StreamUtils.identity(), mergeFunction, setFactory);
+        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, setFactory);
     }
 
     /**

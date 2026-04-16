@@ -45,10 +45,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.NullMarked;
-import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 
+import open.commons.core.function.Functions;
 import open.commons.core.function.Predicates;
 
 /**
@@ -88,33 +87,6 @@ public class StreamUtils {
 
     // prevent to create a new instance.
     private StreamUtils() {
-    }
-
-    /**
-     * {@link Function#identity()}가 현재 <b><i>{@code JSpecify}</i></b> 스펙을 지원하지 않기 때문에 우선적으로 동일한 기능을 구현해서 제공합니다.<br>
-     * 
-     * <br>
-     * 
-     * <pre>
-     * [개정이력]
-     *      날짜    	| 작성자	|	내용
-     * ------------------------------------------
-     * 2026. 3. 17.		parkjunhong77@gmail.com			최초 작성
-     * </pre>
-     *
-     * @param <T>
-     * @return
-     *
-     * @since 2026. 3. 17.
-     * @version 3.0.0
-     * 
-     * @see NonNull
-     * @see Nullable
-     * @see NullMarked
-     * @see NullUnmarked
-     */
-    public static final <T> Function<T, T> identity() {
-        return o -> o;
     }
 
     /**
@@ -170,7 +142,7 @@ public class StreamUtils {
      */
     public static <E extends @Nullable Object, NE extends @Nullable Object, C extends Collection<NE>> C toCollection(Stream<E> stream, Function<E, NE> transformer,
             Supplier<C> collectionSupplier) {
-        return toCollection(stream, Predicates.alwaysTrue(), transformer, collectionSupplier);
+        return toCollection(stream, Predicates.Unary.alwaysTrue(), transformer, collectionSupplier);
     }
 
     /**
@@ -251,7 +223,7 @@ public class StreamUtils {
      * @version 2.1.0
      */
     public static <E extends @Nullable Object, C extends Collection<E>> C toCollection(Stream<E> stream, Predicate<E> filter, Supplier<C> collectionSupplier) {
-        return toCollection(stream, filter, identity(), collectionSupplier);
+        return toCollection(stream, filter, Functions.Unary.identity(), collectionSupplier);
     }
 
     /**
@@ -279,7 +251,7 @@ public class StreamUtils {
      * @version 2.1.0
      */
     public static <E extends @Nullable Object, C extends Collection<E>> C toCollection(Stream<E> stream, Supplier<C> collectionSupplier) {
-        return toCollection(stream, Predicates.alwaysTrue(), identity(), collectionSupplier);
+        return toCollection(stream, Predicates.Unary.alwaysTrue(), Functions.Unary.identity(), collectionSupplier);
     }
 
     /**
@@ -539,7 +511,7 @@ public class StreamUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
-        return toCollection(stream, Predicates.alwaysTrue(), transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
+        return toCollection(stream, Predicates.Unary.alwaysTrue(), transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
@@ -577,7 +549,7 @@ public class StreamUtils {
      * @version 2.1.0
      */
     public static <E extends @Nullable Object, NE extends @Nullable Object, L extends List<NE>> L toList(Stream<E> stream, Function<E, NE> transformer, Supplier<L> listSupplier) {
-        return toCollection(stream, Predicates.alwaysTrue(), transformer, listSupplier);
+        return toCollection(stream, Predicates.Unary.alwaysTrue(), transformer, listSupplier);
     }
 
     /**
@@ -706,7 +678,7 @@ public class StreamUtils {
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
             M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
-        return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+        return toMap(stream, Predicates.Unary.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
@@ -757,7 +729,7 @@ public class StreamUtils {
     public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
             M toMap(Stream<V> stream, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction //
                     , Function<V, U> transformer, Supplier<M> mapSupplier, Supplier<? extends Map<K, V>> mergeMapSupplier) {
-        return toMap(stream, Predicates.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
+        return toMap(stream, Predicates.Unary.alwaysTrue(), keyMapper, mergeFunction, transformer, mapSupplier, mergeMapSupplier);
     }
 
     /**
@@ -795,7 +767,8 @@ public class StreamUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K, V, U> Map<K, List<U>> toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction) {
-        return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new, (Supplier<List<U>>) ArrayList<U>::new);
+        return toMap(stream, Predicates.Unary.alwaysTrue(), keyMapper, valueFunction, (Supplier<HashMap<K, List<U>>>) HashMap<K, List<U>>::new,
+                (Supplier<List<U>>) ArrayList<U>::new);
     }
 
     /**
@@ -842,7 +815,7 @@ public class StreamUtils {
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
             M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
-        return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mergeFunction, mapSupplier);
+        return toMap(stream, Predicates.Unary.alwaysTrue(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
     /**
@@ -921,7 +894,7 @@ public class StreamUtils {
      */
     public static <K, V, U, C extends Collection<U>, M extends Map<K, C>> M toMap(Stream<V> stream, Function<V, K> keyMapper, Function<V, U> valueFunction, Supplier<M> mapSupplier,
             Supplier<C> collectionSupplier) {
-        return toMap(stream, Predicates.alwaysTrue(), keyMapper, valueFunction, mapSupplier, collectionSupplier);
+        return toMap(stream, Predicates.Unary.alwaysTrue(), keyMapper, valueFunction, mapSupplier, collectionSupplier);
     }
 
     /**
@@ -1035,7 +1008,7 @@ public class StreamUtils {
         AssertUtils2.notNulls(transformer, mapSupplier, mergeFunction, mergeMapSupplier);
 
         // 1. 내부 처리용 Map을 먼저 완성합니다.
-        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, identity(), mergeFunction, mergeMapSupplier);
+        Map<K, V> intermediateMap = toMap(stream, filter, keyMapper, Functions.Unary.identity(), mergeFunction, mergeMapSupplier);
 
         // 2. 두 번째 Stream을 생성하지 않고 직접 순회하여 타겟 Map에 값을 할당(Transformation)합니다.
         // 불필요한 충돌(Conflict) 검사를 피하고 성능을 극대화합니다.
@@ -1239,7 +1212,7 @@ public class StreamUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Stream<E> stream, Function<E, NE> transformer) {
-        return toCollection(stream, Predicates.alwaysTrue(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
+        return toCollection(stream, Predicates.Unary.alwaysTrue(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
     /**
@@ -1277,7 +1250,7 @@ public class StreamUtils {
      * @version 2.1.0
      */
     public static <E extends @Nullable Object, NE extends @Nullable Object, S extends Set<NE>> S toSet(Stream<E> stream, Function<E, NE> transformer, Supplier<S> setSupplier) {
-        return toCollection(stream, Predicates.alwaysTrue(), transformer, setSupplier);
+        return toCollection(stream, Predicates.Unary.alwaysTrue(), transformer, setSupplier);
     }
 
     /**

@@ -18,7 +18,7 @@
  *
  * This file is generated under this project, "open-commons-core".
  *
- * Date  : 2026. 3. 17. 오전 11:04:54
+ * Date  : 2026. 4. 16. 오전 10:57:46
  *
  * Author: Park Jun-Hong (parkjunhong77@gmail.com)
  * 
@@ -26,127 +26,109 @@
 
 package open.commons.core.function;
 
-import java.util.function.BiPredicate;
-import java.util.function.Predicate;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 
 import org.jspecify.annotations.Nullable;
 
 /**
- * {@link Predicate}, {@link BiPredicate} 관련 기능을 제공합니다.
+ * {@link Function}, {@link BiFunction} 관련 기능을 제공합니다.
  * 
- * @since 2026. 3. 17.
+ * @since 2026. 4. 16.
  * @version 3.0.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  */
-public class Predicates {
+public class Functions {
     // prevent to create an instance.
-    private Predicates() {
+    private Functions() {
     }
 
     /**
-     * {@link BiPredicate} 관련 기능을 제공합니다.
+     * {@link BiFunction} 관련 기능을 제공합니다.
      * 
      * @since 2026. 4. 16.
      * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static final class Binary {
+    public static class Binary {
         // prevent to create an instance.
         private Binary() {
         }
 
         /**
-         * 언제나 <b><i>{@code false}</i></b>를 제공합니다.<br>
+         * 무조건 '첫번째' 데이터를 반환합니다.
          * 
          * <pre>
          * [개정이력]
-         *      날짜      | 작성자   |   내용
+         *      날짜        | 작성자    |    내용
          * ------------------------------------------
-         * 2026. 4. 16.     parkjunhong77@gmail.com         최초 작성
+         * 2026. 4. 16.     parkjunhong77@gmail.com     최초 작성
          * </pre>
          *
          * @param <T>
+         * @param <U>
          * @return
          *
          * @since 2026. 4. 16.
          * @version 3.0.0
          */
-        public static <T extends @Nullable Object, U extends @Nullable Object> BiPredicate<T, U> alwaysFalse() {
-            return (_, _) -> false;
+        public static <T extends @Nullable Object> BinaryOperator<T> first() {
+            return (a, _) -> a;
         }
 
         /**
-         * 언제나 <b><i>{@code true}</i></b>를 제공합니다. <br>
+         * 무조건 '두번째' 데이터를 반환합니다.
          * 
          * <pre>
          * [개정이력]
-         *      날짜      | 작성자   |   내용
+         *      날짜        | 작성자    |    내용
          * ------------------------------------------
-         * 2026. 4. 16.     parkjunhong77@gmail.com         최초 작성
+         * 2026. 4. 16.     parkjunhong77@gmail.com     최초 작성
          * </pre>
          *
          * @param <T>
+         * @param <U>
          * @return
          *
          * @since 2026. 4. 16.
          * @version 3.0.0
          */
-        public static <T extends @Nullable Object, U extends @Nullable Object> BiPredicate<T, U> alwaysTrue() {
-            return (_, _) -> true;
+        public static <T extends @Nullable Object> BinaryOperator<T> last() {
+            return (_, b) -> b;
         }
-
     }
 
     /**
-     * {@link Predicate} 관련 기능을 제공합니다.
+     * {@link Function} 관련 기능을 제공합니다.
      * 
-     * @since 2026. 3. 17.
+     * @since 2026. 4. 16.
      * @version 3.0.0
      * @author Park Jun-Hong (parkjunhong77@gmail.com)
      */
-    public static final class Unary {
+    public static class Unary {
         // prevent to create an instance.
         private Unary() {
         }
 
         /**
-         * 언제나 <b><i>{@code false}</i></b>를 제공합니다.<br>
+         * 아무 것도 하지 않는 {@link Function}를 제공합니다. <br>
          * 
          * <pre>
          * [개정이력]
-         *      날짜      | 작성자   |   내용
+         *      날짜        | 작성자    |    내용
          * ------------------------------------------
-         * 2026. 3. 17.     parkjunhong77@gmail.com         최초 작성
+         * 2026. 4. 16.     parkjunhong77@gmail.com     최초 작성
          * </pre>
          *
          * @param <T>
          * @return
          *
-         * @since 2026. 3. 17.
+         * @since 2026. 4. 16.
          * @version 3.0.0
          */
-        public static <T> Predicate<T> alwaysFalse() {
-            return _ -> false;
-        }
-
-        /**
-         * 언제나 <b><i>{@code true}</i></b>를 제공합니다. <br>
-         * 
-         * <pre>
-         * [개정이력]
-         *      날짜      | 작성자   |   내용
-         * ------------------------------------------
-         * 2026. 3. 17.     parkjunhong77@gmail.com         최초 작성
-         * </pre>
-         *
-         * @param <T>
-         * @return
-         *
-         * @since 2026. 3. 17.
-         * @version 3.0.0
-         */
-        public static <T> Predicate<T> alwaysTrue() {
-            return _ -> true;
+        public static <T extends @Nullable Object> Function<T, T> identity() {
+            return o -> o;
         }
     }
 }

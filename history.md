@@ -1,5 +1,21 @@
 [2026/04/16]
+- Add
+  + open.commons.core.function.Consumers
+  + open.commons.core.function.Functions
+  + open.commons.core.function.Predicates
+    + Unary
+    + Binary
+- Delete
+  + open.commons.core.function.Predicates
+    + alwaysFalse(): open.commons.core.function.Predicates.Unary.alwaysFalse() 로 대체
+    + alwaysTrue(): open.commons.core.function.Predicates.Unary.alwaysTrue() 로 대체
+  + open.commons.core.utils.StreamUtils
+    + identity(): open.commons.core.function.Functions.Unary.identity() 로 대체.
 - Modify
+  + Consumers, Functions, Predicates 추가/수정에 따라서...
+    + open.commons.core.utils.CollectionUtils
+    + open.commons.core.utils.MapUtils
+    + open.commons.core.utils.StringUtils
   + 내부 메소드 보정
     + open.commons.core.utils.AssertUtils2
     + open.commons.core.utils.ExceptionUtils

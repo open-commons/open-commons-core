@@ -45,6 +45,8 @@ import java.util.stream.Stream;
 
 import org.jspecify.annotations.Nullable;
 
+import open.commons.core.function.Functions;
+
 /**
  * 
  * @since 2015. 1. 6.
@@ -486,7 +488,7 @@ public class MapUtils {
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK> //
             Map<NK, V> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(flat(single, multi), keyMapper, StreamUtils.identity(), mergeFunction, (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
+        return StreamUtils.toMap(flat(single, multi), keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
     }
 
     /**
@@ -679,7 +681,7 @@ public class MapUtils {
      */
     public static <K extends @Nullable Object, V, NK, M extends Map<NK, V>, C extends Collection<V>> //
             M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
-        return map(single, multi, keyMapper, StreamUtils.identity(), mergeFunction, mapSupplier);
+        return map(single, multi, keyMapper, Functions.Unary.identity(), mergeFunction, mapSupplier);
     }
 
     /**
