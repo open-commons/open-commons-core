@@ -55,6 +55,15 @@ import open.commons.core.utils.SQLUtils;
 public interface SQLConsumer<T> {
 
     /**
+     * 파라미터가 없는 요청인 경우에 대응하는 객체를 제공합니다. <br>
+     * 
+     * @since 2026. 4. 16.
+     * @version 3.0.0
+     */
+    public static SQLConsumer<PreparedStatement> DO_NOTHING = _ -> {
+    };
+
+    /**
      * Performs this operation on the given argument.
      *
      * @param t

@@ -5,6 +5,7 @@
   + open.commons.core.function.Predicates
     + Unary
     + Binary
+  + open.commons.core.function.SQLConsumer.DO_NOTHING: 아무 것도하지 않은 SQLConsumer<PreparedStatement> 객체
 - Delete
   + open.commons.core.function.Predicates
     + alwaysFalse(): open.commons.core.function.Predicates.Unary.alwaysFalse() 로 대체
