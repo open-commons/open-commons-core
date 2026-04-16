@@ -29,8 +29,6 @@ package open.commons.core.database;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import org.jspecify.annotations.Nullable;
-
 import open.commons.core.function.SQLConsumer;
 import open.commons.core.utils.AssertUtils2;
 
@@ -42,22 +40,13 @@ import open.commons.core.utils.AssertUtils2;
 public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLConsumer<PreparedStatement>> {
 
     /**
-     * @param query
-     * 
-     * @since 2019. 2. 22.
-     */
-    public DefaultConCallbackBroker2(String query) {
-        this(query, null, false);
-    }
-
-    /**
      * 
      * @param query
      * @param setter
      * 
      * @since 2019. 2. 22.
      */
-    public DefaultConCallbackBroker2(String query, @Nullable SQLConsumer<PreparedStatement> setter) {
+    public DefaultConCallbackBroker2(String query, SQLConsumer<PreparedStatement> setter) {
         this(query, setter, false);
     }
 
@@ -80,11 +69,14 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      *            실행 쿼리가 Stored Procedure를 실행하는지 여부
      * @since 2020. 10. 29.
      */
-    public DefaultConCallbackBroker2(String query, @Nullable SQLConsumer<PreparedStatement> setter, boolean forStoredProcedure) {
+    public DefaultConCallbackBroker2(String query, SQLConsumer<PreparedStatement> setter, boolean forStoredProcedure) {
         super(query, setter, forStoredProcedure);
     }
 
     /**
+     * 
+     * {@inheritDoc}
+     *
      * @see open.commons.core.database.ConnectionCallbackBroker2#set(java.sql.PreparedStatement, java.lang.Object)
      */
     @Override

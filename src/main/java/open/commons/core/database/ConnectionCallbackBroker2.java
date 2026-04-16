@@ -33,7 +33,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.function.Function;
 
-import org.jspecify.annotations.Nullable;
+import open.commons.core.utils.AssertUtils2;
 
 /**
  * {@link Function}을 지원하기 위해서 추가된 클래스.
@@ -47,7 +47,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
 
     private final String query;
 
-    private @Nullable T setter;
+    private T setter;
 
     /**
      * 실행 쿼리가 Stored Procedure를 실행하는지 여부<br>
@@ -58,22 +58,13 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
     /**
      * 
      * @param query
-     * @since 2019. 2. 22.
-     */
-    public ConnectionCallbackBroker2(String query) {
-        this(query, null, false);
-    }
-
-    /**
-     * 
-     * @param query
      *            SQL 쿼리
      * @param setter
      *            {@link PreparedStatement}에 쿼리 파라미터를 설정하는 객체
      * 
      * @since 2019. 2. 19.
      */
-    public ConnectionCallbackBroker2(String query, @Nullable T setter) {
+    public ConnectionCallbackBroker2(String query, T setter) {
         this(query, setter, false);
     }
 
@@ -97,8 +88,8 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      * 
      * @since 2020. 10. 29.
      */
-    public ConnectionCallbackBroker2(String query, @Nullable T setter, boolean forStoredProcedure) {
-        Objects.requireNonNull(query);
+    public ConnectionCallbackBroker2(String query, T setter, boolean forStoredProcedure) {
+        AssertUtils2.notNulls(query, setter);
 
         this.query = query;
         this.setter = setter;
@@ -119,7 +110,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *
      * @since 2019. 2. 22.
      */
-    public @Nullable T getSetter() {
+    public T getSetter() {
         return setter;
     }
 
@@ -153,9 +144,7 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
     public void set(PreparedStatement stmt) throws SQLException {
         Objects.requireNonNull(stmt);
 
-        if (this.setter != null) {
-            set(stmt, setter);
-        }
+        set(stmt, setter);
     }
 
     /**
@@ -181,7 +170,9 @@ public abstract class ConnectionCallbackBroker2<T> implements IConnectionCallbac
      *
      * @since 2019. 2. 22.
      */
-    public void setSetter(@Nullable T setter) {
+    public void setSetter(T setter) {
+        AssertUtils2.notNull(setter);
+
         this.setter = setter;
     }
 
