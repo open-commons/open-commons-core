@@ -1,3 +1,9 @@
+[2026/04/17]
+- Add
+  + open.commons.core.function.AsserUtils2
+    + notBlank(String, Class&lt;? extends RuntimeException&gt;)
+    + notBlanks(String...)
+
 [2026/04/16]
 - Add
   + open.commons.core.function.Consumers

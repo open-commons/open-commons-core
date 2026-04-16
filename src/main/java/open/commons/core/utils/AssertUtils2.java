@@ -336,6 +336,10 @@ public class AssertUtils2 {
         notBlank(string, "주어진 문자열은 비어 있거나 whitespace로만 이루어져 있습니다. 문자열=%s", string);
     }
 
+    public static void notBlank(@Nullable String string, @Nullable Class<? extends RuntimeException> exClass) {
+        notBlank(string, exClass, null, (Object[]) null);
+    }
+
     @SuppressWarnings("null")
     public static void notBlank(@Nullable String string, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msgFormat, @Nullable Object @Nullable... msgArgs) {
         notNull(string, exClass);
@@ -349,12 +353,21 @@ public class AssertUtils2 {
         notBlank(string, IllegalArgumentException.class, msgFormat, msgArgs);
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object) {
-        return notEmpty(object, (Class<? extends RuntimeException>) null, (String) null);
+    public static void notBlanks(@Nullable String @Nullable... strings) {
+        Objects.requireNonNull(strings);
+
+        for (String string : strings) {
+            notBlank(string, "주어진 문자열은 비어 있거나 whitespace로만 이루어져 있습니다. 문자열=%s", string);
+        }
+
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass) {
-        return notEmpty(object, exClass, (String) null);
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col) {
+        return notEmpty(col, (Class<? extends RuntimeException>) null, (String) null);
+    }
+
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col, @Nullable Class<? extends RuntimeException> exClass) {
+        return notEmpty(col, exClass, (String) null);
     }
 
     /**
@@ -369,7 +382,7 @@ public class AssertUtils2 {
      * </pre>
      *
      * @param <T>
-     * @param object
+     * @param col
      *            검증할 객체
      * @param exClass
      *            오류 클래스
@@ -383,26 +396,33 @@ public class AssertUtils2 {
      * @since 2026. 4. 1.
      * @version 3.0.0
      */
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass,
-            @Nullable String msgFormat, Object... msgArgs) {
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msgFormat,
+            Object... msgArgs) {
         try {
-            Objects.requireNonNull(object);
-            if (object.isEmpty()) {
+            Objects.requireNonNull(col);
+            if (col.isEmpty()) {
                 throw assert0(resolveExceptionClass(exClass, IllegalArgumentException.class), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
             } else {
-                return object;
+                return col;
             }
         } catch (NullPointerException e) {
             throw assert0(resolveExceptionClass(exClass, NullPointerException.class), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
         }
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> object, @Nullable String msg) {
-        return notEmpty(object, null, msg);
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col, @Nullable String msg) {
+        return notEmpty(col, null, msg);
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable String msg, @Nullable Collection<T> object, @Nullable Class<? extends RuntimeException> exClass) {
-        return notEmpty(object, exClass, msg);
+    public static @Nullable Object @Nullable [] notEmpty(@Nullable Object @Nullable... objects) {
+        notNull(objects);
+        notEmpty(Arrays.asList(objects));
+
+        return objects;
+    }
+
+    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable String msg, @Nullable Collection<T> col, @Nullable Class<? extends RuntimeException> exClass) {
+        return notEmpty(col, exClass, msg);
     }
 
     /**
