@@ -183,7 +183,7 @@ public class ReflectionUtils {
 
         TypeVariable<?>[] typeVars = targetClass.getTypeParameters();
 
-        AssertUtils2.isFalse("The number of TypeVariable MUST be equal to the number of classes used ", !lastCopy && typeVars.length > typeVarClasses.length);
+        AssertUtils2.isFalse(!lastCopy && typeVars.length > typeVarClasses.length, "The number of TypeVariable MUST be equal to the number of classes used ");
 
         typeVarClasses = ArrayUtils.adjustByLength(typeVars.length, typeVarClasses);
 

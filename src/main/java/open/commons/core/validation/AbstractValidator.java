@@ -204,7 +204,7 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *             Feature 개수가 최대 허용치({@value #MAX_FEATURE_COUNT})를 초과한 경우 발생.
      */
     protected final int getFeature(boolean positive) {
-        AssertUtils2.isFalse("Oops! The count of features is over the MAX.", featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class);
+        AssertUtils2.isFalse(featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class, "Oops! The count of features is over the MAX.");
 
         int feature = this.featureHolder.getAndIncrement();
         setFeature(feature, true, positive);

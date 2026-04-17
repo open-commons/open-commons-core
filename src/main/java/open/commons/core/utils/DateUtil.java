@@ -1525,7 +1525,7 @@ public class DateUtil {
 
         Matcher m = yyyyMMDD_HHmmss.matcher(date);
 
-        AssertUtils2.isTrue("날짜 정보가 잘못되었습니다. 값: " + date, m.matches(), IllegalArgumentException.class);
+        AssertUtils2.isTrue(m.matches(), IllegalArgumentException.class, "날짜 정보가 잘못되었습니다. 값: " + date);
 
         int year = Integer.parseInt(m.group(1));
         int month = Integer.parseInt(m.group(2));

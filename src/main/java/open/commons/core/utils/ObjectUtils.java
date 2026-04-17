@@ -530,7 +530,7 @@ public class ObjectUtils {
         Objects.requireNonNull(srcCol);
         Objects.requireNonNull(targetClass);
 
-        AssertUtils2.notEmpty("'source' object MUST NOT be empty !!!", srcCol, IllegalArgumentException.class);
+        AssertUtils2.notEmpty(srcCol, IllegalArgumentException.class, "'source' object MUST NOT be empty !!!");
 
         @SuppressWarnings("unchecked")
         Optional<Class<S>> fromInstance = srcCol.stream() //
