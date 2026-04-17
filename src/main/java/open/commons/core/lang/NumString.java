@@ -206,8 +206,8 @@ public class NumString<N extends Number> implements CharSequence {
      * @version 1.8.0
      */
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, Collection<T> nums) {
-        Objects.requireNonNull(f);
-        AssertUtils2.notExistNull(nums);
+        AssertUtils2.notNull(f);
+        AssertUtils2.notNulls(nums);
 
         ArrayList<NumString<N>> list = new ArrayList<>();
         for (T n : nums) {
@@ -236,7 +236,7 @@ public class NumString<N extends Number> implements CharSequence {
      */
     @SafeVarargs
     public static <T extends Number, N extends Number> List<NumString<N>> sequence(Function<T, NumString<N>> f, T @Nullable... nums) {
-        Objects.requireNonNull(f);
+        AssertUtils2.notNull(f);
 
         return sequence(f, CollectionUtils.newList(nums));
     }

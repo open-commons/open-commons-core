@@ -1252,7 +1252,7 @@ public class ArrayUtils {
      */
     public static <T extends Comparable<T>> int comparable(T[] v1, T[] v2) {
 
-        AssertUtils2.notNulls(v1, v2);
+        AssertUtils2.notNulls((Object) v1, (Object) v2);
 
         if (v1.length != v2.length) {
             throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
@@ -8475,7 +8475,7 @@ public class ArrayUtils {
      */
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data, @Nullable IEquivalent<T[]> equivalent) {
-        AssertUtils2.notNulls(array, target, data);
+        AssertUtils2.notNulls((Object) array, (Object) target, (Object) data);
 
         int[] matchingIndice = indiceOfArray(array, target, equivalent);
 
@@ -8535,13 +8535,9 @@ public class ArrayUtils {
      * @return 치환이 완료된 새로운 배열
      * @since 2012. 03. 30.
      */
-    // 아래 내용에 적용됨.
-    // - newArray;
-    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
-    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object> T[] replaceAllToArray(T[] array, T target, T[] data, @Nullable IEquivalent<T> equivalent) {
-        AssertUtils2.notNulls(array, data);
+        AssertUtils2.notNulls((Object) array, (Object) data);
 
         int[] indice = indiceOf(array, target, equivalent);
 
@@ -8599,7 +8595,7 @@ public class ArrayUtils {
      * @since 2012. 03. 30.
      */
     public static <T extends @Nullable Object> T[] replaceAllToData(T[] array, T[] target, T data, @Nullable IEquivalent<T[]> equivalent) {
-        AssertUtils2.notNulls(array, target);
+        AssertUtils2.notNulls((Object) array, (Object) target);
 
         T[] dataArray = (T[]) new Object[] { data };
 

@@ -90,7 +90,7 @@ public class Consumers<T> implements Closeable {
             return;
         }
 
-        AssertUtils2.notExistNull(removables);
+        AssertUtils2.notNulls(removables);
 
         this.resources.addAll(removables);
     }

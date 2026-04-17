@@ -323,7 +323,7 @@ public class ReflectionUtils {
         Objects.requireNonNull(methodName);
 
         if (parameterTypes != null) {
-            AssertUtils2.notExistNull(Arrays.asList(parameterTypes));
+            AssertUtils2.notNulls((Object[]) parameterTypes);
         }
 
         Method method = targetClass.getDeclaredMethod(methodName, parameterTypes);

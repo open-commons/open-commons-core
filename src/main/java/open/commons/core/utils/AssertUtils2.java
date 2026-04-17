@@ -220,7 +220,7 @@ public class AssertUtils2 {
     public static void isInterface(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
         Objects.requireNonNull(object, "The object MUST NOT be null. object: null");
 
-        if (!isInterface_(object)) {
+        if (!isInterface0(object)) {
             throw assert0(exClass, "The object is MUST be interface." + msg0(msg));
         }
     }
@@ -229,7 +229,7 @@ public class AssertUtils2 {
         isInterface(object, AssertionException.class, msg);
     }
 
-    private static boolean isInterface_(Object object) {
+    private static boolean isInterface0(Object object) {
         Class<?> class_ = object instanceof Class ? (Class<?>) object : object.getClass();
         return class_.isInterface();
     }
@@ -302,31 +302,6 @@ public class AssertUtils2 {
         isTrue(bool, AssertionException.class, msg);
     }
 
-    public static void mapNotNull(@Nullable Map<?, ? extends @Nullable Object> map) {
-        mapNotNull(map, null, null);
-    }
-
-    public static void mapNotNull(@Nullable Map<?, ? extends @Nullable Object> map, @Nullable Class<? extends RuntimeException> exClass) {
-        mapNotNull(map, exClass, null);
-    }
-
-    @SuppressWarnings("null")
-    public static void mapNotNull(@Nullable Map<?, ? extends @Nullable Object> map, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        notNull(map, "The map MUST NOT be null. map: null");
-
-        Object key = null;
-        Object value = null;
-        for (Entry<?, ?> entry : map.entrySet()) {
-            key = entry.getKey();
-            value = entry.getValue();
-            notNulls("Neither key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(msg), key, value);
-        }
-    }
-
-    public static void mapNotNull(@Nullable Map<?, ? extends @Nullable Object> map, @Nullable String msg) {
-        mapNotNull(map, null, msg);
-    }
-
     private static String msg0(@Nullable String msg) {
         return msg != null ? " (" + msg + ")" : "";
     }
@@ -352,25 +327,62 @@ public class AssertUtils2 {
         notBlank(string, IllegalArgumentException.class, msgFormat, msgArgs);
     }
 
+    public static void notBlanks(@Nullable Collection<@Nullable String> strings) {
+        notBlanks(String.format("주어진 문자열은 비어 있거나 whitespace로만 이루어져 있습니다."), strings);
+    }
+
+    @SafeVarargs
+    public static void notBlanks(@Nullable Collection<@Nullable String> @Nullable... stringsArray) {
+        Objects.requireNonNull(stringsArray);
+
+        for (Collection<@Nullable String> strings : stringsArray) {
+            notBlanks(strings);
+        }
+    }
+
     public static void notBlanks(@Nullable String @Nullable... strings) {
+        notBlanks(String.format("주어진 문자열은 비어 있거나 whitespace로만 이루어져 있습니다."), strings);
+    }
+
+    public static void notBlanks(@Nullable String msg, @Nullable Collection<@Nullable String> strings) {
         Objects.requireNonNull(strings);
 
         for (String string : strings) {
-            notBlank(string, "주어진 문자열은 비어 있거나 whitespace로만 이루어져 있습니다. 문자열=%s", string);
+            notBlank(string, msg);
         }
-
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col) {
-        return notEmpty(col, (Class<? extends RuntimeException>) null, (String) null);
+    public static void notBlanks(@Nullable String msg, @Nullable String @Nullable... strings) {
+        Objects.requireNonNull(strings);
+
+        for (String string : strings) {
+            notBlank(string, msg);
+        }
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col, @Nullable Class<? extends RuntimeException> exClass) {
-        return notEmpty(col, exClass, (String) null);
+    public static void notBlanks(@Nullable String @Nullable [] @Nullable... stringsArray) {
+        Objects.requireNonNull(stringsArray);
+
+        for (@Nullable
+        String[] strings : stringsArray) {
+            notBlanks(strings);
+        }
     }
 
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        return notEmpty(col, exClass, msg);
+    public static void notEmpty(@Nullable Collection<? extends @Nullable Object> col) {
+        notEmpty(col, (Class<? extends RuntimeException>) null, (String) null);
+    }
+
+    public static void notEmpty(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass) {
+        notEmpty(col, exClass, (String) null);
+    }
+
+    public static void notEmpty(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
+        notEmpty(col, exClass, msg);
+    }
+
+    public static void notEmpty(@Nullable Collection<? extends @Nullable Object> col, @Nullable String msg) {
+        notEmpty(col, null, msg);
     }
 
     /**
@@ -411,10 +423,6 @@ public class AssertUtils2 {
         } catch (NullPointerException e) {
             throw assert0(resolveExceptionClass(exClass, NullPointerException.class), msg0(msgFormat != null ? String.format(msgFormat, msgArgs) : null));
         }
-    }
-
-    public static <T extends @Nullable Object> Collection<T> notEmpty(@Nullable Collection<T> col, @Nullable String msg) {
-        return notEmpty(col, null, msg);
     }
 
     public static @Nullable Object @Nullable [] notEmpty(@Nullable Object @Nullable... objects) {
@@ -470,30 +478,6 @@ public class AssertUtils2 {
         notEquals(obj1, obj2, AssertionException.class, msg);
     }
 
-    public static void notExistNull(@Nullable Collection<? extends @Nullable Object> col) {
-        notExistNull(col, null, null);
-    }
-
-    public static void notExistNull(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass) {
-        notExistNull(col, exClass, null);
-    }
-
-    public static void notExistNull(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        Objects.requireNonNull(col);
-
-        for (Object o : col) {
-            notNull(o, null, msg);
-        }
-    }
-
-    public static void notExistNull(@Nullable Collection<? extends @Nullable Object> col, @Nullable String msg) {
-        notExistNull(col, null, msg);
-    }
-
-    public static void notExistNull(@Nullable Object @Nullable... objects) {
-        notExistNull(Arrays.asList(objects), null, null);
-    }
-
     public static void notInterface(@Nullable Object object) {
         notInterface(object, AssertionException.class, null);
     }
@@ -505,7 +489,7 @@ public class AssertUtils2 {
     public static void notInterface(@Nullable Object object, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
         Objects.requireNonNull(object, "The object MUST NOT be null. object: null");
 
-        if (isInterface_(object)) {
+        if (isInterface0(object)) {
             throw assert0(resolveExceptionClass(exClass, IllegalArgumentException.class), "The object is MUST NOT be interface." + msg0(msg));
 
         }
@@ -561,8 +545,61 @@ public class AssertUtils2 {
         notNulls((String) null, exClass, objects);
     }
 
+    public static void notNulls(@Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable [] @Nullable... objectsArray) {
+        notNulls((String) null, exClass, objectsArray);
+    }
+
+    public static void notNulls(@Nullable Collection<? extends @Nullable Object> col) {
+        notNulls(col, null, null);
+    }
+
+    public static void notNulls(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass) {
+        notNulls(col, exClass, null);
+    }
+
+    public static void notNulls(@Nullable Collection<? extends @Nullable Object> col, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
+        Objects.requireNonNull(col);
+
+        for (Object o : col) {
+            notNull(o, exClass, msg);
+        }
+    }
+
+    public static void notNulls(@Nullable Collection<? extends @Nullable Object> col, @Nullable String msg) {
+        notNulls(col, null, msg);
+    }
+
+    public static void notNulls(@Nullable Map<?, ? extends @Nullable Object> map) {
+        notNulls(map, null, null);
+    }
+
+    public static void notNulls(@Nullable Map<?, ? extends @Nullable Object> map, @Nullable Class<? extends RuntimeException> exClass) {
+        notNulls(map, exClass, null);
+    }
+
+    @SuppressWarnings("null")
+    public static void notNulls(@Nullable Map<?, ? extends @Nullable Object> map, @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
+        notNulls(map, "The map MUST NOT be null. map: null");
+
+        Object key = null;
+        Object value = null;
+        for (Entry<?, ?> entry : map.entrySet()) {
+            key = entry.getKey();
+            value = entry.getValue();
+            notNulls("Neither key and value MUST be null. key: " + key + ", value: " + value + ", map: " + map + msg0(msg), key, value);
+        }
+    }
+
+    public static void notNulls(@Nullable Map<?, ? extends @Nullable Object> map, @Nullable String msg) {
+        notNulls(map, null, msg);
+    }
+
     public static void notNulls(@Nullable Object @Nullable... objects) {
         notNulls((String) null, (Class<? extends RuntimeException>) null, objects);
+    }
+
+    public static void notNulls(@Nullable Object @Nullable [] @Nullable... objectsArray) {
+        notNulls((String) null, (Class<? extends RuntimeException>) null, objectsArray);
     }
 
     public static void notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable... objects) {
@@ -576,6 +613,15 @@ public class AssertUtils2 {
             throw assert0(resolveExceptionClass(exClass, NullPointerException.class), "objects: " + Arrays.toString(objects) + msg0(msg));
         }
 
+    }
+
+    @SuppressWarnings("null")
+    public static void notNulls(@Nullable String msg, @Nullable Class<? extends RuntimeException> exClass, @Nullable Object @Nullable [] @Nullable... objectsArray) {
+        Objects.requireNonNull(objectsArray);
+
+        for (Object[] objects : objectsArray) {
+            notNulls(msg, exClass, objects);
+        }
     }
 
     private static final Class<? extends RuntimeException> resolveExceptionClass(@Nullable Class<? extends RuntimeException> exClass,

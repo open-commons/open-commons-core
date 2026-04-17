@@ -336,8 +336,8 @@ public class CsvUtils {
      * @version 1.8.0
      */
     public static <E> String[][] objectsToArray(Collection<E> objects, Function<E, String[]> creator) {
-        Objects.requireNonNull(creator);
-        AssertUtils2.notExistNull(objects);
+        AssertUtils2.notNull(creator);
+        AssertUtils2.notNulls(objects);
 
         String[][] array2d = new String[objects.size()][];
         AtomicInteger idx = new AtomicInteger(0);
@@ -405,6 +405,9 @@ public class CsvUtils {
     @SuppressWarnings("null")
     @SafeVarargs
     public static <E> String[][] objectsToArray(Function<E, String[]> creator, E... objects) {
+        AssertUtils2.notNull(creator);
+        AssertUtils2.notNulls((Object[]) objects);
+
         return objectsToArray(Arrays.asList(objects), creator);
     }
 
@@ -429,7 +432,7 @@ public class CsvUtils {
      * @see #objectToArray(Object, Function)
      */
     public static <E> String[] objectToArray(E object) {
-        Objects.requireNonNull(object);
+        AssertUtils2.notNull(object);
 
         return objectToArray(object, defaultCreator());
     }

@@ -285,8 +285,8 @@ public class NamedTemplate {
      * @since 2014. 4. 8.
      */
     public static String format(String pattern, Map<String, Object> values, boolean trim) {
-        Objects.requireNonNull(pattern);
-        AssertUtils2.notExistNull(Objects.requireNonNull(values.keySet()));
+        AssertUtils2.notNull(pattern);
+        AssertUtils2.notNulls(values.keySet());
 
         NamingParser parser = new NamingParser(pattern, trim);
         parser.parse();
