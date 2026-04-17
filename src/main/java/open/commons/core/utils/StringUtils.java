@@ -2669,7 +2669,6 @@ public class StringUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static Collection<String> splitAsCollection(String string, String delimiter, boolean trim) {
-        // 반환 타입 생성 위임이 발생하므로 Null-check 수행
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
 
