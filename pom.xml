@@ -101,10 +101,10 @@
 
     <!-- begin: slf4j -->
     <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>org.slf4j</groupId>-->
+<!--      <artifactId>slf4j-api</artifactId>-->
+<!--    </dependency>-->
     <!-- end: slf4j -->
     <!-- <<< end: logging -->
     <!-- ********************** -->
@@ -172,42 +172,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
-        <!--        <configuration>-->
-        <!--          <encoding>UTF-8</encoding>-->
-        <!--        </configuration>-->
-        <!--        <executions>-->
-        <!--          <execution>-->
-        <!--            <id>attach-sources</id>-->
-        <!--            <goals>-->
-        <!--              <goal>jar</goal>-->
-        <!--            </goals>-->
-        <!--          </execution>-->
-        <!--        </executions>-->
       </plugin>
       <!-- <<< end: source -->
       <!-- >>> begin: javadoc -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <!--        <configuration>-->
-        <!--          <goal>deploy</goal>-->
-        <!--          <show>private</show>-->
-        <!--          <nohelp>true</nohelp>-->
-        <!--          <additionalOptions>-->
-        <!--            <additionalOption>-Xdoclint:none</additionalOption>-->
-        <!--          </additionalOptions>-->
-        <!--          <charset>${encoding}</charset>-->
-        <!--          <docencoding>${encoding}</docencoding>-->
-        <!--          <encoding>${encoding}</encoding>-->
-        <!--        </configuration>-->
-        <!--        <executions>-->
-        <!--          <execution>-->
-        <!--            <id>attach-javadocs</id>-->
-        <!--            <goals>-->
-        <!--              <goal>jar</goal>-->
-        <!--            </goals>-->
-        <!--          </execution>-->
-        <!--        </executions>-->
       </plugin>
       <!-- <<< end: javadoc -->
 
@@ -215,28 +185,11 @@
       <plugin>
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <!--        <version>0.7.0</version>-->
-        <!--        <extensions>true</extensions>-->
-        <!--        <configuration>-->
-        <!--          <publishingServerId>maven-central</publishingServerId>-->
-        <!--           autoPublish>true</autoPublish>-->
-        <!--             		<waitUntil>published</waitUntil -->
-        <!--        </configuration>-->
       </plugin>
       <!-- GPG signature plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-gpg-plugin</artifactId>
-        <!--        <version>1.5</version>-->
-        <!--        <executions>-->
-        <!--          <execution>-->
-        <!--            <id>sign-artifacts</id>-->
-        <!--            <phase>verify</phase>-->
-        <!--            <goals>-->
-        <!--              <goal>sign</goal>-->
-        <!--            </goals>-->
-        <!--          </execution>-->
-        <!--        </executions>-->
       </plugin>
     </plugins>
   </build>
