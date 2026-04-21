@@ -96,7 +96,8 @@ public class ConvertUtils {
      *            {@link String}를 파라미터로 받는 생성자를 제공해야 합니다.
      */
     @SuppressWarnings("null")
-    public static <T> void assertValue(Object value, Class<T> clazz, @Nullable Class<? extends RuntimeException> occurExeption) {
+    public static <T> void assertValue(Object value, Class<T> clazz,
+            @Nullable Class<? extends RuntimeException> occurExeption) {
         ObjectUtils.requireNonNullsWithMessage("Neither value and class_ MUST be null.", value, clazz);
         Objects.requireNonNull(value);
         Objects.requireNonNull(clazz);
@@ -107,7 +108,8 @@ public class ConvertUtils {
         if (!translatedClass.isAssignableFrom(value.getClass())) {
             try {
 
-                Constructor<? extends RuntimeException> cons = occurExeption != null ? occurExeption.getConstructor(String.class)
+                Constructor<? extends RuntimeException> cons = occurExeption != null
+                        ? occurExeption.getConstructor(String.class)
                         : IllegalArgumentException.class.getConstructor(String.class);
 
                 throw (RuntimeException) cons.newInstance( //
@@ -274,7 +276,8 @@ public class ConvertUtils {
             case TYPE_CONST_DOUBLE:
                 return (T) Double.valueOf(value);
             default:
-                throw new IllegalArgumentException("The 'valus' must be a primitive value or its wrapper class instance.");
+                throw new IllegalArgumentException(
+                        "The 'valus' must be a primitive value or its wrapper class instance.");
         }
     }
 
@@ -294,7 +297,8 @@ public class ConvertUtils {
      * @param value
      *            데이터 문자열
      * @param unsigned
-     *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long ({@link Long})인 경우 unsigned 여부
+     *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long
+     *            ({@link Long})인 경우 unsigned 여부
      * @return
      *
      * @since 2022. 3. 15.
@@ -312,11 +316,14 @@ public class ConvertUtils {
             case TYPE_CONST_DOUBLE:
                 return toPrimitiveTypeValue(primitiveType, value);
             case TYPE_CONST_INT:
-                return unsigned ? (T) ((Integer) Integer.parseUnsignedInt(value)) : toPrimitiveTypeValue(primitiveType, value);
+                return unsigned ? (T) ((Integer) Integer.parseUnsignedInt(value))
+                        : toPrimitiveTypeValue(primitiveType, value);
             case TYPE_CONST_LONG:
-                return unsigned ? (T) ((Long) Long.parseUnsignedLong(value)) : toPrimitiveTypeValue(primitiveType, value);
+                return unsigned ? (T) ((Long) Long.parseUnsignedLong(value))
+                        : toPrimitiveTypeValue(primitiveType, value);
             default:
-                throw new IllegalArgumentException("The 'valus' must be a primitive value or its wrapper class instance.");
+                throw new IllegalArgumentException(
+                        "The 'valus' must be a primitive value or its wrapper class instance.");
         }
     }
 
@@ -453,7 +460,8 @@ public class ConvertUtils {
         if (double.class.equals(componentType)) {
             return (T[]) ArrayUtils.toWrapperArray((double[]) array);
         } else {
-            throw new IllegalArgumentException(String.format("허용하지 않는 데이터 유형입니다. (%s)", array.getClass().getComponentType().toString()));
+            throw new IllegalArgumentException(
+                    String.format("허용하지 않는 데이터 유형입니다. (%s)", array.getClass().getComponentType().toString()));
         }
     }
 }

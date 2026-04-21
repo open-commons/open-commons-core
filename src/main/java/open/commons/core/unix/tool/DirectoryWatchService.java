@@ -152,9 +152,11 @@ public class DirectoryWatchService implements IRunnable {
             path = Paths.get(directory);
 
             // register the events to be notified by the program
-            path.register(this.watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY, StandardWatchEventKinds.ENTRY_DELETE);
+            path.register(this.watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY,
+                    StandardWatchEventKinds.ENTRY_DELETE);
 
-            // LogStringContainer log = LogStringFactory.getContainer(10, 5, 0, "\n");
+            // LogStringContainer log = LogStringFactory.getContainer(10, 5, 0,
+            // "\n");
 
             // infinite loop will take events
             while (running) {

@@ -31,13 +31,14 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * Represents an operation that accepts two input arguments and returns no result. This is the two-arity specialization
- * of {@link Consumer}. Unlike most other functional interfaces, {@code BiConsumer} is expected to operate via
+ * Represents an operation that accepts two input arguments and returns no
+ * result. This is the two-arity specialization of {@link Consumer}. Unlike most
+ * other functional interfaces, {@code BiConsumer} is expected to operate via
  * side-effects.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose functional method is
- * {@link #accept(Object, Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose
+ * functional method is {@link #accept(Object, Object)}.
  *
  * @param <T>
  *            the type of the first argument to the operation
@@ -64,14 +65,16 @@ public interface SQLBiConsumer<T, U> {
     void accept(T t, U u) throws SQLException;
 
     /**
-     * Returns a composed {@code BiConsumer} that performs, in sequence, this operation followed by the {@code after}
-     * operation. If performing either operation throws an exception, it is relayed to the caller of the composed
-     * operation. If performing this operation throws an exception, the {@code after} operation will not be performed.
+     * Returns a composed {@code BiConsumer} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation. If performing this operation throws an exception, the
+     * {@code after} operation will not be performed.
      *
      * @param after
      *            the operation to perform after this operation
-     * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
-     *         operation
+     * @return a composed {@code BiConsumer} that performs in sequence this
+     *         operation followed by the {@code after} operation
      */
     default SQLBiConsumer<T, U> andThen(SQLBiConsumer<? super T, ? super U> after) {
         Objects.requireNonNull(after);

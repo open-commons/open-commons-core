@@ -198,7 +198,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
 
         if (dataQNames.contains(currentQName)) {
             // [PATCH] 불필요한 배열 복사 방지를 위해 생성자에 직접 파라미터 전달 (Zero-Allocation)
-            logger.debug("{} [ELEMENT::characters] start: {}, length: {}, value: {}", indentation(), start, length, new String(ch, start, length));
+            logger.debug("{} [ELEMENT::characters] start: {}, length: {}, value: {}", indentation(), start, length,
+                    new String(ch, start, length));
         } else {
             // 데이터를 갖지 않는 Element는 패스.
             return;
@@ -216,17 +217,20 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
             this.converter.convert(parentObj, currentQName, strValue);
         } catch (NumberFormatException ignored) {
             if (!this.ignoredInvalidValue) {
-                this.errorLogger.warn("잘못된 형식의 데이타 수신. value: {}, QName: {}, ParentObj: {}, cause: {}", strValue, currentQName, parentObj, ignored.getMessage());
+                this.errorLogger.warn("잘못된 형식의 데이타 수신. value: {}, QName: {}, ParentObj: {}, cause: {}", strValue,
+                        currentQName, parentObj, ignored.getMessage());
             }
         } catch (IllegalAccessException | InvocationTargetException | RuntimeException e) {
-            String errorMsg = String.format("value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, currentQName, parentObj, e.getMessage());
+            String errorMsg = String.format("value: %s, QName: %s, ParentObj: %s, cause: %s", strValue, currentQName,
+                    parentObj, e.getMessage());
 
             this.errorLogger.error(errorMsg, e);
             throw new SAXException(errorMsg, e);
         }
 
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug("{}(Object) {}.{} = {}", indentation(), parentObj != null ? parentObj.getClass().getSimpleName() : null, currentQName, strValue);
+            this.logger.debug("{}(Object) {}.{} = {}", indentation(),
+                    parentObj != null ? parentObj.getClass().getSimpleName() : null, currentQName, strValue);
         }
     }
 
@@ -237,7 +241,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     /**
      */
     // 아래 내용에 적용됨.
-    // - public final void endElement(String uri, String localName, String qName) throws SAXException {
+    // - public final void endElement(String uri, String localName, String
+    // qName) throws SAXException {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
@@ -249,7 +254,8 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
         decIndentation();
 
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug("{}[ELEMENT::end] qName: {}, uri: {}, localName: {}", indentation(), qName, uri, localName);
+            this.logger.debug("{}[ELEMENT::end] qName: {}, uri: {}, localName: {}", indentation(), qName, uri,
+                    localName);
             this.logger.debug("{}<<<<<<<<<< end of '{}'", indentation(), qName);
         }
 
@@ -271,11 +277,14 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * </pre>
      *
      * @param uri
-     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
+     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈
+     *            문자열({@code ""})이 전달됩니다.
      * @param localName
-     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
+     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이
+     *            전달됩니다.
      * @param qName
-     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이 전달됩니다.
+     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이
+     *            전달됩니다.
      *
      * @throws SAXException
      *             SAX 처리 중 발생하는 예외. 내부적으로 다른 예외를 래핑(wrapping)할 수 있습니다.
@@ -459,20 +468,23 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
     /**
      */
     // 아래 내용에 적용됨.
-    // - public final void startElement(String uri, String localName, String qName, Attributes attributes) throws
+    // - public final void startElement(String uri, String localName, String
+    // qName, Attributes attributes) throws
     // SAXException {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     @Override
-    public final void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public final void startElement(String uri, String localName, String qName, Attributes attributes)
+            throws SAXException {
         AssertUtils2.notNulls(uri, localName, qName, attributes);
 
         // #1. Add a name of an element to be parsed.
         this.qnames.push(qName);
 
         if (this.logger.isDebugEnabled()) {
-            this.logger.debug("{}[ELEMENT::start] qName: {}, attributes: {}, uri: {}, localName: {}", indentation(), qName, attributes.getLength(), uri, localName);
+            this.logger.debug("{}[ELEMENT::start] qName: {}, attributes: {}, uri: {}, localName: {}", indentation(),
+                    qName, attributes.getLength(), uri, localName);
             // [오류 수정 완료] 괄호 묶음 오류 수정
             this.logger.debug("{}>>>>>>>>>> start of '{}'", indentation(), qName);
         }
@@ -497,13 +509,17 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * </pre>
      *
      * @param uri
-     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
+     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈
+     *            문자열({@code ""})이 전달됩니다.
      * @param localName
-     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
+     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이
+     *            전달됩니다.
      * @param qName
-     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이 전달됩니다.
+     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이
+     *            전달됩니다.
      * @param attributes
-     *            요소에 첨부된 속성(Attributes)들. 지정된 속성이 없는 경우 비어 있는 Attributes 객체가 전달됩니다.
+     *            요소에 첨부된 속성(Attributes)들. 지정된 속성이 없는 경우 비어 있는 Attributes 객체가
+     *            전달됩니다.
      *
      * @throws SAXException
      *             SAX 처리 중 발생하는 예외. 내부적으로 다른 예외를 래핑(wrapping)할 수 있습니다.
@@ -513,5 +529,6 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * @see #startElement(String, String, String, Attributes)
      * @see org.xml.sax.ContentHandler#startElement
      */
-    public abstract void startElement0(String uri, String localName, String qName, Attributes attributes) throws SAXException;
+    public abstract void startElement0(String uri, String localName, String qName, Attributes attributes)
+            throws SAXException;
 }

@@ -143,7 +143,8 @@ public abstract class DefaultTableEntity implements ITableEntity {
         Objects.requireNonNull(table, "테이블 이름이 설정되지 않았습니다.");
 
         StringBuilder query = new StringBuilder();
-        query.append("INSERT INTO ").append(table).append(" (").append(serializeColumns(getAllColumns())).append(") VALUES (").append(serializeValues(getAllValues())).append(");");
+        query.append("INSERT INTO ").append(table).append(" (").append(serializeColumns(getAllColumns()))
+                .append(") VALUES (").append(serializeValues(getAllValues())).append(");");
         return query.toString();
     }
 
@@ -160,7 +161,8 @@ public abstract class DefaultTableEntity implements ITableEntity {
         if (itrCols.hasNext()) {
             sb.append(itrCols.next().column()).append("=").append(itrVals.next());
             while (itrCols.hasNext()) {
-                sb.append(" ").append(concatenator).append(" ").append(itrCols.next().column()).append("=").append(itrVals.next());
+                sb.append(" ").append(concatenator).append(" ").append(itrCols.next().column()).append("=")
+                        .append(itrVals.next());
             }
         }
         return sb.toString();
@@ -168,7 +170,8 @@ public abstract class DefaultTableEntity implements ITableEntity {
 
     /**
      *
-     * @see open.commons.core.database.ITableEntity#createSelectQuery(java.util.Collection, int[])
+     * @see open.commons.core.database.ITableEntity#createSelectQuery(java.util.Collection,
+     *      int[])
      */
     @Override
     public String createSelectQuery(Collection<Integer> selects, int... where) {
@@ -246,7 +249,8 @@ public abstract class DefaultTableEntity implements ITableEntity {
         ObjectUtils.requireNonNullsWithMessage(table, updates, where);
 
         StringBuilder query = new StringBuilder();
-        query.append("UPDATE ").append(table).append(" SET ").append(createKV(getColumns(updates), getValues(updates), ","));
+        query.append("UPDATE ").append(table).append(" SET ")
+                .append(createKV(getColumns(updates), getValues(updates), ","));
 
         if (where.length > 0) {
             query.append(" WHERE ").append(createKV(getColumns(where), getValues(where), "AND"));
@@ -385,7 +389,8 @@ public abstract class DefaultTableEntity implements ITableEntity {
      * 2026. 3. 4.          parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 클래스 레벨 캐싱 적용 및 reflection 최적화
      * </pre>
      * 
-     * @see open.commons.core.database.ITableEntity#setValue(int, java.lang.Object)
+     * @see open.commons.core.database.ITableEntity#setValue(int,
+     *      java.lang.Object)
      */
     @Override
     public boolean setValue(int index, Object value) {
@@ -443,6 +448,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
     /**
      * 클래스 전체의 메타데이터를 관리하는 레코드입니다.
      */
-    private record TableMetadata(String tableName, List<ColumnMeta> allColumns, Map<Integer, List<ColumnMeta>> indexMap, Set<Integer> allIndices) {
+    private record TableMetadata(String tableName, List<ColumnMeta> allColumns, Map<Integer, List<ColumnMeta>> indexMap,
+            Set<Integer> allIndices) {
     }
 }

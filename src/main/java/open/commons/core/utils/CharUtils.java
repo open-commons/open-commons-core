@@ -105,7 +105,8 @@ public class CharUtils {
      * @since 2020. 11. 9.
      */
     public static final boolean isKorean(int c) {
-        // [PATCH] Character.UnicodeBlock.of(c)는 정의되지 않은 블록일 경우 null을 반환할 수 있으나, <br>
+        // [PATCH] Character.UnicodeBlock.of(c)는 정의되지 않은 블록일 경우 null을 반환할 수 있으나,
+        // <br>
         // hangul.equals(b) 구조로 인해 NullPointerException 없이 안전하게 false가 반환됩니다.
         UnicodeBlock b = Character.UnicodeBlock.of(c);
         for (UnicodeBlock hangul : UNICODE_BLOCK_HANGUL) {
@@ -131,7 +132,8 @@ public class CharUtils {
      * @param charset
      *            요청할 문자열 셋 객체 ({@code null} 허용)
      *
-     * @return 파라미터의 {@link Charset}. 만약 파라미터가 {@code null}이면 JVM 기본 문자셋을 반환 (절대 {@code null}이 아님)
+     * @return 파라미터의 {@link Charset}. 만약 파라미터가 {@code null}이면 JVM 기본 문자셋을 반환 (절대
+     *         {@code null}이 아님)
      *
      * @since 2026. 3. 11.
      * @version 3.0.0
@@ -159,7 +161,8 @@ public class CharUtils {
      *         <ul>
      *         <li>지원되는 이름인 경우: 해당 {@link Charset}</li>
      *         <li>지원되지 않는 이름인 경우: {@link StandardCharsets#UTF_8}</li>
-     *         <li>파라미터가 {@code null}인 경우: JVM 기본 문자셋 ({@link #defaultCharset()})</li>
+     *         <li>파라미터가 {@code null}인 경우: JVM 기본 문자셋
+     *         ({@link #defaultCharset()})</li>
      *         </ul>
      *
      * @since 2026. 3. 11.
@@ -176,7 +179,8 @@ public class CharUtils {
     /**
      * {@code char[]} 배열을 {@code byte[]} 배열로 변환해서 반환합니다. <br>
      * 
-     * <b>[경고]</b> 이 메소드는 16비트 {@code char}를 8비트 {@code byte}로 명시적 캐스팅(Truncation)하므로, <br>
+     * <b>[경고]</b> 이 메소드는 16비트 {@code char}를 8비트 {@code byte}로 명시적
+     * 캐스팅(Truncation)하므로, <br>
      * 영문자/숫자(ASCII) 범위를 초과하는 다국어(예: 한글)가 포함될 경우 데이터가 훼손(깨짐)될 수 있습니다. <br>
      * 안전한 문자열 인코딩이 필요한 경우 {@link String#getBytes(Charset)} 사용을 권장합니다.
      * 

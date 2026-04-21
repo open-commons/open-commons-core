@@ -419,12 +419,13 @@ public abstract class AbstractCsvData {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delimiter, char quote, char escape, @Nullable String nullValue,
-            BiConsumer<String, Integer> consumer) {
+    private <T extends Supplier<@Nullable String>> void handleValue(List<T> orderedValues, char delimiter, char quote,
+            char escape, @Nullable String nullValue, BiConsumer<String, Integer> consumer) {
         int index = 0;
         String str = null;
         for (Supplier<@Nullable String> value : orderedValues) {
-            consumer.accept(processString((str = value.get()) != null ? str : nullValue, delimiter, quote, escape), index);
+            consumer.accept(processString((str = value.get()) != null ? str : nullValue, delimiter, quote, escape),
+                    index);
             index++;
         }
     }
@@ -503,16 +504,19 @@ public abstract class AbstractCsvData {
         Objects.requireNonNull(target);
 
         try {
-            // JDK 9+ : Class.newInstance() 대신 getDeclaredConstructor().newInstance() 사용
+            // JDK 9+ : Class.newInstance() 대신
+            // getDeclaredConstructor().newInstance() 사용
             // 기본 생성자를 명시적으로 호출하며, 접근 제어자가 비공개일 경우에 대비해 처리할 수도 있습니다.
             return columns(target.getDeclaredConstructor().newInstance());
         } catch (NullPointerException e) {
             throw ExceptionUtils.newException(IllegalArgumentException.class, "올바르지 않은 데이터 입니다. target=%s", target);
         } catch (NoSuchMethodException e) {
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스에 기본 생성자가 존재하지 않습니다. target=%s", target);
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스에 기본 생성자가 존재하지 않습니다. target=%s",
+                    target);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             // InvocationTargetException: 생성자 내부에서 예외가 발생한 경우를 처리합니다.
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스의 인스턴스를 생성할 수 없습니다. target=%s", target);
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "대상 클래스의 인스턴스를 생성할 수 없습니다. target=%s",
+                    target);
         }
     }
 

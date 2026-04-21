@@ -171,7 +171,8 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
 
     /**
      */
-    protected final void write(OutputStream out, open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
+    protected final void write(OutputStream out, open.commons.core.unix.tool.IFileModifyListener.FileContext context)
+            throws IOException {
         AssertUtils2.notNulls(out, context);
 
         out.write(contextToString(context).getBytes());
@@ -187,7 +188,8 @@ public abstract class AbstractContextWriter implements IFileContextWriter {
 
     /**
      */
-    protected final void write(Writer writer, open.commons.core.unix.tool.IFileModifyListener.FileContext context) throws IOException {
+    protected final void write(Writer writer, open.commons.core.unix.tool.IFileModifyListener.FileContext context)
+            throws IOException {
         AssertUtils2.notNulls(writer, context);
 
         writer.write(contextToString(context));

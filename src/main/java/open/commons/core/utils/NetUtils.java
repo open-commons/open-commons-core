@@ -41,15 +41,17 @@ import org.jspecify.annotations.Nullable;
 public class NetUtils {
 
     /**
-     * Regular Expression from
-     * <a href="https://www.oreilly.com/library/view/regular-expressions-cookbook/9780596802837/ch07s16.html">here</a>.
+     * Regular Expression from <a href=
+     * "https://www.oreilly.com/library/view/regular-expressions-cookbook/9780596802837/ch07s16.html">here</a>.
      */
     public static final String REGEX_IPV4 = "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
     /**
-     * IPv6 Regular Expression from 'http://www.java2s.com/example/java/java.util.regex/is-ipv6-address-by-regex.html'.
+     * IPv6 Regular Expression from
+     * 'http://www.java2s.com/example/java/java.util.regex/is-ipv6-address-by-regex.html'.
      */
-    public static final String REGEX_IPV6 = "^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}" // IPv6 Standard
+    public static final String REGEX_IPV6 = "^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}" // IPv6
+                                                                                        // Standard
             + "|" //
             + "((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)::((?:[0-9A-Fa-f]{1,4}(?::[0-9A-Fa-f]{1,4})*)?)"; // IPv6
                                                                                                               // HEX
@@ -57,15 +59,15 @@ public class NetUtils {
                                                                                                               // Pattern
     /**
      * Valid Port Range (1 ~ 65535).<br>
-     * Regular Expression from
-     * <a href="https://github.com/cusspvz/proxywrap/blob/master/lib/proxy-protocol.regexp.js#L85">here</a>.
+     * Regular Expression from <a href=
+     * "https://github.com/cusspvz/proxywrap/blob/master/lib/proxy-protocol.regexp.js#L85">here</a>.
      */
     public static final String REGEX_PORT = "([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])";
 
     /**
      * Valid Domain Name.<br>
-     * Regular Expression from
-     * <a href="https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch08s15.html">here</a>
+     * Regular Expression from <a href=
+     * "https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch08s15.html">here</a>
      */
     public static final String REGEX_DOMAIN = "\\b((?=[a-z0-9-]{1,63}\\.)(xn--)?[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,63}\\b";
 
@@ -97,7 +99,8 @@ public class NetUtils {
     }
 
     /**
-     * {@link NetworkInterface}에 포함된 {@link InterfaceAddress} 중에서 IPv4에 해당하는 {@link InterfaceAddress}를 반환합니다.
+     * {@link NetworkInterface}에 포함된 {@link InterfaceAddress} 중에서 IPv4에 해당하는
+     * {@link InterfaceAddress}를 반환합니다.
      * 
      * @param ni
      *            검색할 대상 네트워크 인터페이스
@@ -119,7 +122,8 @@ public class NetUtils {
     }
 
     /**
-     * 인터페이스 이름에 해당하는 {@link NetworkInterface}를 찾아, 포함된 {@link InterfaceAddress} 중에서 IPv4에 해당하는 주소를 반환합니다. <br>
+     * 인터페이스 이름에 해당하는 {@link NetworkInterface}를 찾아, 포함된 {@link InterfaceAddress}
+     * 중에서 IPv4에 해당하는 주소를 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -132,7 +136,8 @@ public class NetUtils {
      * @param name
      *            검색할 네트워크 인터페이스의 이름 (예: "eth0", "en0")
      * 
-     * @return IPv4에 해당하는 주소 객체. 이름에 해당하는 인터페이스가 없거나 IPv4 주소가 없으면 {@code null} 반환.
+     * @return IPv4에 해당하는 주소 객체. 이름에 해당하는 인터페이스가 없거나 IPv4 주소가 없으면 {@code null}
+     *         반환.
      * @throws SocketException
      *             네트워크 인터페이스 검색 중 입출력 오류가 발생한 경우.
      *

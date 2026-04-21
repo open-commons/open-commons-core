@@ -282,7 +282,8 @@ public class FileUtils {
      * @param file
      *            삭제할 파일 또는 디렉토리
      * @param forced
-     *            {@link File} 인스턴스가 디렉토리인 경우, 다른 파일이나 디렉토리가 포함되어 있어도 강제로 삭제할지 여부
+     *            {@link File} 인스턴스가 디렉토리인 경우, 다른 파일이나 디렉토리가 포함되어 있어도 강제로 삭제할지
+     *            여부
      *
      * @return 파일이나 디렉토리의 삭제 성공 여부
      *
@@ -888,17 +889,20 @@ public class FileUtils {
      * @since 2021. 2. 8.
      * @version 1.8.0
      */
-    public static Set<Path> listFiles(Path directory, int maxDepth, BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
+    public static Set<Path> listFiles(Path directory, int maxDepth,
+            BiFunction<Path, BasicFileAttributes, Boolean> filter) throws IOException {
         AssertUtils2.notNulls(directory, filter);
 
         if (!Files.exists(directory)) {
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "존재하지 않는 경로입니다. directory=%s", directory.toString());
+            throw ExceptionUtils.newException(IllegalArgumentException.class, "존재하지 않는 경로입니다. directory=%s",
+                    directory.toString());
         }
 
         final Set<Path> files = new HashSet<>();
         Files.walkFileTree(directory, EnumSet.noneOf(FileVisitOption.class), maxDepth, new SimpleFileVisitor<Path>() {
             // 아래 내용에 적용됨.
-            // - public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            // - public FileVisitResult visitFile(Path file, BasicFileAttributes
+            // attrs) throws IOException {
             // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
             // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
             @SuppressWarnings("null")
@@ -917,7 +921,8 @@ public class FileUtils {
 
     /**
      * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
-     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해 OS에서 IO 객체를 유지합니다.<br>
+     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해
+     * OS에서 IO 객체를 유지합니다.<br>
      * 이에 대한 IO 를 제거하기 위해서 {@link Stream#close()}을 호출합니다.
      * 
      * <pre>
@@ -944,7 +949,8 @@ public class FileUtils {
      * @since 2023. 11. 15.
      * @version 2.0.0
      */
-    public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector) throws IOException {
+    public static <T> T listFiles(Path directory, Predicate<Path> filter, Function<Stream<Path>, T> collector)
+            throws IOException {
         AssertUtils2.notNulls(directory, filter, collector);
 
         try (Stream<Path> stream = Files.list(directory).filter(filter)) {
@@ -1351,10 +1357,12 @@ public class FileUtils {
      * @param inStream
      *            입력 스트림 ({@code NOT nullable})
      * @param length
-     *            읽어들일 바이트 수. -1 또는 {@link Integer#MAX_VALUE}인 경우 가능한 모든 바이트를 읽음.
+     *            읽어들일 바이트 수. -1 또는 {@link Integer#MAX_VALUE}인 경우 가능한 모든 바이트를
+     *            읽음.
      * @param readAll
-     *            {@code true}인 경우, 지정된 {@code length}만큼 읽지 못하고 EOF를 만나면 {@link EOFException}을 발생시킴. ({@code length}가
-     *            -1이거나 {@link Integer#MAX_VALUE}인 경우 무시됨)
+     *            {@code true}인 경우, 지정된 {@code length}만큼 읽지 못하고 EOF를 만나면
+     *            {@link EOFException}을 발생시킴. ({@code length}가 -1이거나
+     *            {@link Integer#MAX_VALUE}인 경우 무시됨)
      * 
      * @return 스트림에서 읽어들인 바이트 배열
      *
@@ -1380,7 +1388,8 @@ public class FileUtils {
 
         // [4] EOF 및 readAll 조건 검증 (예외 발생 시 디버깅 정보 포함)
         if (readAll && output.length < length) {
-            throw new EOFException(String.format("Detected premature EOF. Expected: %d bytes, Read: %d bytes", length, output.length));
+            throw new EOFException(
+                    String.format("Detected premature EOF. Expected: %d bytes, Read: %d bytes", length, output.length));
         }
 
         return output;

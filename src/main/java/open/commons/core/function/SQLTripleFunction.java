@@ -39,12 +39,12 @@ import open.commons.core.utils.SQLUtils;
 
 /**
  * 
- * Represents a function that accepts two arguments and produces a result. This is the two-arity specialization of
- * {@link Function}.
+ * Represents a function that accepts two arguments and produces a result. This
+ * is the two-arity specialization of {@link Function}.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose functional method is
- * {@link #apply(Object, Object, Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose
+ * functional method is {@link #apply(Object, Object, Object)}.
  *
  * @subject : Triple Argument Function
  * 
@@ -67,15 +67,18 @@ import open.commons.core.utils.SQLUtils;
 public interface SQLTripleFunction<T, U, V, R> {
 
     /**
-     * Returns a composed function that first applies this function to its input, and then applies the {@code after}
-     * function to the result. If evaluation of either function throws an exception, it is relayed to the caller of the
-     * composed function.
+     * Returns a composed function that first applies this function to its
+     * input, and then applies the {@code after} function to the result. If
+     * evaluation of either function throws an exception, it is relayed to the
+     * caller of the composed function.
      *
      * @param <W>
-     *            the type of output of the {@code after} function, and of the composed function
+     *            the type of output of the {@code after} function, and of the
+     *            composed function
      * @param after
      *            the function to apply after this function is applied
-     * @return a composed function that first applies this function and then applies the {@code after} function
+     * @return a composed function that first applies this function and then
+     *         applies the {@code after} function
      * @throws SQLException
      *             if occurs an exception while interworking with DBMS.
      * @since 1.6.17
@@ -132,11 +135,13 @@ public interface SQLTripleFunction<T, U, V, R> {
      * @see ColumnValue
      */
     // 아래 내용에 적용됨.
-    // - 'stmt, obj' of '(stmt, cur, obj) -> SQLUtils.setParameters(stmt, cur, obj, columnNames)'
+    // - 'stmt, obj' of '(stmt, cur, obj) -> SQLUtils.setParameters(stmt, cur,
+    // obj, columnNames)'
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <T> SQLTripleFunction<PreparedStatement, Integer, T, Integer> setParameters(String @Nullable... columnNames) {
+    public static <T> SQLTripleFunction<PreparedStatement, Integer, T, Integer> setParameters(
+            String @Nullable... columnNames) {
         return (stmt, cur, obj) -> SQLUtils.setParameters(stmt, cur, obj, columnNames);
     }
 }

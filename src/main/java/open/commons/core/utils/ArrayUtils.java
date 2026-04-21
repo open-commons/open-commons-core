@@ -443,7 +443,8 @@ public class ArrayUtils {
      * @return a new array contains new {@code value}
      * 
      * @throws ArrayStoreException
-     *             {@code T} is Wrapper Class of primitive types and {@code value} is the primitive type's value.
+     *             {@code T} is Wrapper Class of primitive types and
+     *             {@code value} is the primitive type's value.
      *             <p>
      *             e.g. add(new Boolean[] { true }, false);
      *             </p>
@@ -960,10 +961,12 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return a new array contains new {@code value} or null if both of parameters are {@code null}.
+     * @return a new array contains new {@code value} or null if both of
+     *         parameters are {@code null}.
      * 
      * @throws ArrayStoreException
-     *             {@code T} is Wrapper Class of primitive types and {@code value} is the primitive type's value.
+     *             {@code T} is Wrapper Class of primitive types and
+     *             {@code value} is the primitive type's value.
      *             <p>
      *             e.g. add(new Boolean[] { true }, false);
      *             </p>
@@ -984,8 +987,10 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 길이(<b>{@code length}</b>)만큼 주어진 배열(<b>{@code classes}</b>) 로부터 데이터를 복사하여 새로운 배열을 반환합니다.<br>
-     * 주어진 배열(<b>{@code classes}</b>)의 길이가 주어진 길이(<b>{@code length}</b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
+     * 주어진 길이(<b>{@code length}</b>)만큼 주어진 배열(<b>{@code classes}</b>) 로부터 데이터를
+     * 복사하여 새로운 배열을 반환합니다.<br>
+     * 주어진 배열(<b>{@code classes}</b>)의 길이가 주어진 길이(<b>{@code length}</b>)보다 작은
+     * 경우, 마지막 데이터로 모두 채운다.
      * 
      * @param length
      * @param classes
@@ -1055,7 +1060,8 @@ public class ArrayUtils {
      * @since 2023. 7. 25.
      * @version 2.0.0
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable List<R> asList(T @Nullable [] arr, Function<T, R> f) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable List<R> asList(T @Nullable [] arr,
+            Function<T, R> f) {
         if (arr == null) {
             return null;
         }
@@ -1070,7 +1076,8 @@ public class ArrayUtils {
 
     private static <T> void assertComponentType(Class<?> arr1, Class<?> arr2) {
         if (!arr1.isAssignableFrom(arr2)) {
-            throw ExceptionUtils.newException(ArrayStoreException.class, "두 개의 데이터가 상호적이지 않습니다. array.component-type=%s, value.type=%s", arr1, arr2);
+            throw ExceptionUtils.newException(ArrayStoreException.class,
+                    "두 개의 데이터가 상호적이지 않습니다. array.component-type=%s, value.type=%s", arr1, arr2);
         }
     }
 
@@ -1106,7 +1113,8 @@ public class ArrayUtils {
     private static void checkRange(int min, int max, int... values) {
         for (int index : values) {
             if (index < min || index > max) {
-                throw new IllegalArgumentException("An index(int index) must be between " + min + " to " + max + ". value=" + Arrays.toString(values));
+                throw new IllegalArgumentException("An index(int index) must be between " + min + " to " + max
+                        + ". value=" + Arrays.toString(values));
             }
         }
     }
@@ -1121,7 +1129,8 @@ public class ArrayUtils {
         AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
-            throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
+            throw new IllegalArgumentException(
+                    "두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
         }
 
         if (v1 == v2) {
@@ -1147,7 +1156,8 @@ public class ArrayUtils {
         AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
-            throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
+            throw new IllegalArgumentException(
+                    "두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
         }
 
         if (v1 == v2) {
@@ -1174,7 +1184,8 @@ public class ArrayUtils {
         AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
-            throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
+            throw new IllegalArgumentException(
+                    "두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
         }
 
         if (v1 == v2) {
@@ -1201,7 +1212,8 @@ public class ArrayUtils {
         AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
-            throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
+            throw new IllegalArgumentException(
+                    "두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
         }
 
         if (v1 == v2) {
@@ -1228,7 +1240,8 @@ public class ArrayUtils {
         AssertUtils2.notNulls(v1, v2);
 
         if (v1.length != v2.length) {
-            throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
+            throw new IllegalArgumentException(
+                    "두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
         }
 
         if (v1 == v2) {
@@ -1255,7 +1268,8 @@ public class ArrayUtils {
         AssertUtils2.notNulls((Object) v1, (Object) v2);
 
         if (v1.length != v2.length) {
-            throw new IllegalArgumentException("두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
+            throw new IllegalArgumentException(
+                    "두 입력값의 길이가 다릅니다. arg1.length: " + v1.length + ", arg2.length: " + v2.length);
         }
 
         if (v1 == v2) {
@@ -1348,7 +1362,8 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a concatenated string of elements of <b>{@code the given array}</b>.
+     * Returns a concatenated string of elements of
+     * <b>{@code the given array}</b>.
      * 
      * @param array
      * @param delimiter
@@ -1376,7 +1391,8 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a concatenated string of elements of <b>{@code the given array}</b>.
+     * Returns a concatenated string of elements of
+     * <b>{@code the given array}</b>.
      * 
      * @param array
      * @param delimiter
@@ -1600,7 +1616,8 @@ public class ArrayUtils {
      * @param container
      * @return
      */
-    public static <T extends @Nullable Object> Result<T> containsPart(T @Nullable [] array, T t, @Nullable IContainer<T> container) {
+    public static <T extends @Nullable Object> Result<T> containsPart(T @Nullable [] array, T t,
+            @Nullable IContainer<T> container) {
         if (array == null || t == null) {
             return new Result<T>();
         }
@@ -1935,7 +1952,8 @@ public class ArrayUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOf(T[] original, int newLength, Class<? extends U[]> newType, Function<T, U> clone) {
+    public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOf(T[] original, int newLength,
+            Class<? extends U[]> newType, Function<T, U> clone) {
         AssertUtils2.notNulls(original, newType, clone);
 
         U[] copy = ((Object) newType == (Object) Object[].class) //
@@ -2003,7 +2021,8 @@ public class ArrayUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOfRange(T[] original, int from, int to, Class<? extends U[]> newType, Function<T, U> clone) {
+    public static <T extends @Nullable Object, U extends @Nullable Object> U[] copyOfRange(T[] original, int from,
+            int to, Class<? extends U[]> newType, Function<T, U> clone) {
         AssertUtils2.notNulls(original, newType, clone);
 
         int newLength = to - from;
@@ -2268,7 +2287,8 @@ public class ArrayUtils {
      * @return
      * @since 2012. 03. 27.
      */
-    public static <T extends @Nullable Object> int countOf(T @Nullable [] array, T value, @Nullable IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> int countOf(T @Nullable [] array, T value,
+            @Nullable IEquivalent<T> equivalent) {
 
         if (array != null) {
             int count = 0;
@@ -2481,7 +2501,8 @@ public class ArrayUtils {
      * 
      * @since 2012. 03. 14.
      */
-    public static <T extends @Nullable Object> boolean equals(T @Nullable [] array1, T @Nullable [] array2, @Nullable IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> boolean equals(T @Nullable [] array1, T @Nullable [] array2,
+            @Nullable IEquivalent<T> equivalent) {
         if (array1 != null && array2 != null) {
             if (array1.length != array2.length) {
                 return false;
@@ -2508,7 +2529,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열들 중에서 첫번째 배열의 마지막번째부터 마지막 배열의 0번째 값의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환합니다.<br>
+     * 주어진 배열들 중에서 첫번째 배열의 마지막번째부터 마지막 배열의 0번째 값의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로
+     * 반환합니다.<br>
      * 
      * <pre>
      * byte[] b1 = {1,2,3};
@@ -3916,7 +3938,8 @@ public class ArrayUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <T extends @Nullable Object> int[] indiceOfArray(T[] array, T[] values, @Nullable IEquivalent<T[]> equi) {
+    public static <T extends @Nullable Object> int[] indiceOfArray(T[] array, T[] values,
+            @Nullable IEquivalent<T[]> equi) {
         AssertUtils2.notNulls(array, values);
 
         // 1. [버그 수정] 빈 배열 예외(ArrayIndexOutOfBoundsException) 사전 차단
@@ -4134,7 +4157,8 @@ public class ArrayUtils {
         Objects.requireNonNull(initValue);
 
         Class<?> _class = initValue.getClass();
-        T[] array = (T[]) Array.newInstance(String.class.isAssignableFrom(_class) ? _class : _class.getComponentType(), length);
+        T[] array = (T[]) Array.newInstance(String.class.isAssignableFrom(_class) ? _class : _class.getComponentType(),
+                length);
 
         for (int i = 0; i < length; i++) {
             array[i] = initValue;
@@ -4938,7 +4962,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(boolean[] arr1, boolean[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(boolean[] arr1, boolean[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5027,7 +5052,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5061,7 +5087,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(byte[] arr1, byte[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5138,7 +5165,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(char[] arr1, char[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(char[] arr1, char[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5215,7 +5243,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(double[] arr1, double[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(double[] arr1, double[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5292,7 +5321,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(float[] arr1, float[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(float[] arr1, float[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5368,7 +5398,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(int[] arr1, int[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(int[] arr1, int[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5444,7 +5475,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(long[] arr1, long[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(long[] arr1, long[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5520,7 +5552,8 @@ public class ArrayUtils {
         } else if (arr2 != null) {
             return Arrays.copyOf(arr2, arr2.length);
         } else {
-            throw new NullPointerException("All parameters(short[] arr1, short[] arr2) must not be null: arr1=null, arr2=null");
+            throw new NullPointerException(
+                    "All parameters(short[] arr1, short[] arr2) must not be null: arr1=null, arr2=null");
         }
     }
 
@@ -5553,7 +5586,8 @@ public class ArrayUtils {
         }
 
         if (mergeIndex != 0) {
-            T[] mergedArray = (T[]) Array.newInstance(arrays.getClass().getComponentType().getComponentType(), mergeIndex);
+            T[] mergedArray = (T[]) Array.newInstance(arrays.getClass().getComponentType().getComponentType(),
+                    mergeIndex);
 
             int copiedLength = 0;
             for (int i = 0; i < evalIndex; i++) {
@@ -5649,7 +5683,8 @@ public class ArrayUtils {
         } else if (value != null) {
             return new Object[] { value };
         } else {
-            throw new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null");
+            throw new NullPointerException(
+                    "All parameters(T[] arr, T[] values) must not be null: arr=null, values=null");
         }
     }
 
@@ -5685,7 +5720,8 @@ public class ArrayUtils {
         } else if (values != null) {
             return values;
         } else {
-            throw new NullPointerException("All parameters(T[] arr, T[] values) must not be null: arr=null, values=null");
+            throw new NullPointerException(
+                    "All parameters(T[] arr, T[] values) must not be null: arr=null, values=null");
         }
     }
 
@@ -6648,7 +6684,8 @@ public class ArrayUtils {
 
         final IEquivalent<T> equi = (equivalent == null) ? new DefaultEquivalent<T>() : equivalent;
 
-        // IEquivalent의 비교 로직을 Predicate로 래핑하여 핵심 엔진(Method 1)으로 위임 &rarr; 중복 코드 완벽 제거
+        // IEquivalent의 비교 로직을 Predicate로 래핑하여 핵심 엔진(Method 1)으로 위임 &rarr; 중복 코드
+        // 완벽 제거
         return ArrayUtils.<T> removeAll(array, v -> equi.equals(v, value));
     }
 
@@ -6669,7 +6706,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6708,7 +6746,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6747,7 +6786,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6786,7 +6826,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6825,7 +6866,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6864,7 +6906,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6903,7 +6946,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6942,7 +6986,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6981,7 +7026,8 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우
+     *             ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7310,7 +7356,8 @@ public class ArrayUtils {
      *
      * @since 2012. 03. 09.
      */
-    public static <T extends @Nullable Object> T[] removeFirst(T[] array, T value, @Nullable IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> T[] removeFirst(T[] array, T value,
+            @Nullable IEquivalent<T> equivalent) {
         Objects.requireNonNull(array, "array must not be null");
 
         if (equivalent == null) {
@@ -7680,7 +7727,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -7717,7 +7765,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         boolean[] newArray = new boolean[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -7773,7 +7822,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -7810,7 +7860,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         byte[] newArray = new byte[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -7866,7 +7917,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -7903,7 +7955,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         char[] newArray = new char[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -7959,7 +8012,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -7996,7 +8050,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         double[] newArray = new double[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -8052,7 +8107,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8089,7 +8145,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         float[] newArray = new float[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -8145,7 +8202,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8182,7 +8240,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         int[] newArray = new int[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -8238,7 +8297,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8275,7 +8335,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         long[] newArray = new long[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -8331,7 +8392,8 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
+     * 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8368,7 +8430,8 @@ public class ArrayUtils {
         int matchCount = matchingIndice.length / 2;
 
         // 정확한 newArray 크기
-        // = array.length - matchCount * target.length + matchCount * data.length
+        // = array.length - matchCount * target.length + matchCount *
+        // data.length
         short[] newArray = new short[array.length + matchCount * (data.length - target.length)];
 
         int srcPos = 0;
@@ -8474,7 +8537,8 @@ public class ArrayUtils {
      * @since 2012. 03. 30.
      */
     @SuppressWarnings("null")
-    public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data, @Nullable IEquivalent<T[]> equivalent) {
+    public static <T extends @Nullable Object> T[] replaceAll(T[] array, T[] target, T[] data,
+            @Nullable IEquivalent<T[]> equivalent) {
         AssertUtils2.notNulls((Object) array, (Object) target, (Object) data);
 
         int[] matchingIndice = indiceOfArray(array, target, equivalent);
@@ -8536,7 +8600,8 @@ public class ArrayUtils {
      * @since 2012. 03. 30.
      */
     @SuppressWarnings("null")
-    public static <T extends @Nullable Object> T[] replaceAllToArray(T[] array, T target, T[] data, @Nullable IEquivalent<T> equivalent) {
+    public static <T extends @Nullable Object> T[] replaceAllToArray(T[] array, T target, T[] data,
+            @Nullable IEquivalent<T> equivalent) {
         AssertUtils2.notNulls((Object) array, (Object) data);
 
         int[] indice = indiceOf(array, target, equivalent);
@@ -8594,7 +8659,8 @@ public class ArrayUtils {
      * @return 치환이 완료된 새로운 배열
      * @since 2012. 03. 30.
      */
-    public static <T extends @Nullable Object> T[] replaceAllToData(T[] array, T[] target, T data, @Nullable IEquivalent<T[]> equivalent) {
+    public static <T extends @Nullable Object> T[] replaceAllToData(T[] array, T[] target, T data,
+            @Nullable IEquivalent<T[]> equivalent) {
         AssertUtils2.notNulls((Object) array, (Object) target);
 
         T[] dataArray = (T[]) new Object[] { data };
@@ -10065,7 +10131,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10079,10 +10146,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         boolean[][] result = new boolean[2][];
@@ -10112,7 +10181,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10126,10 +10196,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         byte[][] result = new byte[2][];
@@ -10159,7 +10231,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10173,10 +10246,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         char[][] result = new char[2][];
@@ -10206,7 +10281,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10220,10 +10296,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         double[][] result = new double[2][];
@@ -10253,7 +10331,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10267,10 +10346,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         float[][] result = new float[2][];
@@ -10300,7 +10381,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10314,10 +10396,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         int[][] result = new int[2][];
@@ -10347,7 +10431,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10361,10 +10446,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         long[][] result = new long[2][];
@@ -10394,7 +10481,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10408,10 +10496,12 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
-        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여 index 데이터 누락)
+        // [3] 분리 지점 보정 (inclusive가 true면 index 뒤에서 절단, false면 index 위치에서 절단하여
+        // index 데이터 누락)
         int secondStart = inclusive ? index + 1 : index;
 
         short[][] result = new short[2][];
@@ -10443,7 +10533,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
+     *            {@code false}인 경우 제외(Omitted)됩니다.
      * 
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10457,7 +10548,8 @@ public class ArrayUtils {
 
         // [2] 가드 클로즈: 인덱스 범위 체크
         if (index < 0 || index >= array.length) {
-            throw new IllegalArgumentException("A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
+            throw new IllegalArgumentException(
+                    "A parameter(int index) must be in '0' ~ '" + (array.length - 1) + "': index=" + index);
         }
 
         // [3] 분리 지점 보정
@@ -10762,7 +10854,8 @@ public class ArrayUtils {
      * @since 2023. 7. 25.
      * @version 2.0.0
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> R @Nullable [] transform(T @Nullable [] arr, Function<T, R> f) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> R @Nullable [] transform(T @Nullable [] arr,
+            Function<T, R> f) {
         if (arr == null) {
             return null;
         }

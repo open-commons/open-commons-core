@@ -145,7 +145,9 @@ public class TimeInfo implements Comparable<TimeInfo> {
             calcMin(minute);
             calcHour(hour);
         } catch (OutOfRangedValue e) {
-            throw new IllegalArgumentException("hour: " + hour + ", minute: " + minute + ", second: " + second + ", millisecond: " + millisecond, e);
+            throw new IllegalArgumentException(
+                    "hour: " + hour + ", minute: " + minute + ", second: " + second + ", millisecond: " + millisecond,
+                    e);
         }
     }
 
@@ -186,8 +188,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
 
                 break;
             default:
-                throw new IllegalArgumentException(
-                        "Excected value is one of : (" + FIELD_HOUR + ", " + FIELD_MINUTE + ", " + FIELD_SECOND + ", " + FIELD_MILLISECOND + "), input: " + field);
+                throw new IllegalArgumentException("Excected value is one of : (" + FIELD_HOUR + ", " + FIELD_MINUTE
+                        + ", " + FIELD_SECOND + ", " + FIELD_MILLISECOND + "), input: " + field);
         }
     }
 
@@ -524,8 +526,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
 
                 break;
             default:
-                throw new IllegalArgumentException(
-                        "Excected value is one of : (" + FIELD_HOUR + ", " + FIELD_MINUTE + ", " + FIELD_SECOND + ", " + FIELD_MILLISECOND + "), input: " + field);
+                throw new IllegalArgumentException("Excected value is one of : (" + FIELD_HOUR + ", " + FIELD_MINUTE
+                        + ", " + FIELD_SECOND + ", " + FIELD_MILLISECOND + "), input: " + field);
         }
     }
 
@@ -550,8 +552,9 @@ public class TimeInfo implements Comparable<TimeInfo> {
      */
     @Override
     public String toString() {
-        return "TimeInfo [NAME=" + NAME + ", day=" + day + ", hour=" + hour + ", minute=" + minute + ", second=" + second + ", millisecond=" + millisecond + ", MAX_HOUR="
-                + MAX_HOUR + ", MAX_MINUTE=" + MAX_MINUTE + ", MAX_SECOND=" + MAX_SECOND + ", MAX_MILLISECOND=" + MAX_MILLISECOND + "]";
+        return "TimeInfo [NAME=" + NAME + ", day=" + day + ", hour=" + hour + ", minute=" + minute + ", second="
+                + second + ", millisecond=" + millisecond + ", MAX_HOUR=" + MAX_HOUR + ", MAX_MINUTE=" + MAX_MINUTE
+                + ", MAX_SECOND=" + MAX_SECOND + ", MAX_MILLISECOND=" + MAX_MILLISECOND + "]";
     }
 
     /**
@@ -620,8 +623,8 @@ public class TimeInfo implements Comparable<TimeInfo> {
         try {
             time = new TimeInfo(h, m, s, ms);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(
-                    "[input=" + timeInfo + "], hour: " + h + ", minute: " + m + ", second: " + s + ", millisecond: " + ms + "\n[cause]\n" + ThreadUtils.getStackTrace(e));
+            throw new IllegalArgumentException("[input=" + timeInfo + "], hour: " + h + ", minute: " + m + ", second: "
+                    + s + ", millisecond: " + ms + "\n[cause]\n" + ThreadUtils.getStackTrace(e));
 
         }
 

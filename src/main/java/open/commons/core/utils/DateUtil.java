@@ -254,7 +254,8 @@ public class DateUtil {
      * @since 2014. 4. 2.
      */
     public static int diffDay(Calendar cal1, Calendar cal2) {
-        return diffDay0(newCalendar(cal1, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH), newCalendar(cal2, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH));
+        return diffDay0(newCalendar(cal1, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH),
+                newCalendar(cal2, Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH));
 
     }
 
@@ -331,7 +332,8 @@ public class DateUtil {
      * @since 2022. 10. 26.
      * @version 2.0.0
      */
-    public static int diffDay(@Nullable String y1, @Nullable String m1, @Nullable String d1, @Nullable String y2, @Nullable String m2, @Nullable String d2) {
+    public static int diffDay(@Nullable String y1, @Nullable String m1, @Nullable String d1, @Nullable String y2,
+            @Nullable String m2, @Nullable String d2) {
 
         return diffDay0(newCalendar(y1, m1, d1), newCalendar(y2, m2, d2));
     }
@@ -605,7 +607,8 @@ public class DateUtil {
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
-    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, Locale locale, YearMonthDay... discards) {
+    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style,
+            Locale locale, YearMonthDay... discards) {
         AssertUtils2.notNulls(cal1, cal2, locale);
         AssertUtils2.notNulls((Object[]) discards);
 
@@ -674,7 +677,8 @@ public class DateUtil {
      * 
      * @since 2014. 4. 3.
      */
-    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style, YearMonthDay... discards) {
+    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, int style,
+            YearMonthDay... discards) {
         return getDisplayNameOfDays(cal1, cal2, weekend, style, LocaleUtils.defaultLocale(), discards);
     }
 
@@ -694,7 +698,8 @@ public class DateUtil {
      * 
      * @since 2014. 4. 3.
      */
-    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, Locale locale, YearMonthDay... discards) {
+    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, Locale locale,
+            YearMonthDay... discards) {
         return getDisplayNameOfDays(cal1, cal2, weekend, Calendar.LONG, locale, discards);
     }
 
@@ -713,7 +718,8 @@ public class DateUtil {
      * 
      * @since 2014. 4. 3.
      */
-    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend, YearMonthDay... discards) {
+    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, boolean weekend,
+            YearMonthDay... discards) {
         return getDisplayNameOfDays(cal1, cal2, weekend, Calendar.LONG, LocaleUtils.defaultLocale(), discards);
     }
 
@@ -736,7 +742,8 @@ public class DateUtil {
      * 
      * @since 2014. 4. 3.
      */
-    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, int style, Locale locale, YearMonthDay... discards) {
+    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, int style, Locale locale,
+            YearMonthDay... discards) {
         return getDisplayNameOfDays(cal1, cal2, true, style, locale, discards);
     }
 
@@ -776,7 +783,8 @@ public class DateUtil {
      * 
      * @since 2014. 4. 3.
      */
-    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, Locale locale, YearMonthDay... discards) {
+    public static List<String> getDisplayNameOfDays(Calendar cal1, Calendar cal2, Locale locale,
+            YearMonthDay... discards) {
         return getDisplayNameOfDays(cal1, cal2, true, Calendar.LONG, locale, discards);
     }
 
@@ -1187,7 +1195,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
+     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>,
+     * <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
      * 
      * @param calendar
      *            TODO
@@ -1208,7 +1217,8 @@ public class DateUtil {
     }
 
     /**
-     * 현재 시간이 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
+     * 현재 시간이 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>,
+     * <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
      * 
      * @param date
      *            시간 정보
@@ -1397,11 +1407,12 @@ public class DateUtil {
      * 
      * @since 2020. 11. 5.
      */
-    public static Calendar newCalendar(@Nullable String year, @Nullable String month, @Nullable String date, @Nullable String hourOfDay, @Nullable String minute,
-            @Nullable String second) {
+    public static Calendar newCalendar(@Nullable String year, @Nullable String month, @Nullable String date,
+            @Nullable String hourOfDay, @Nullable String minute, @Nullable String second) {
 
         Calendar calendar = _getInstance();
-        calendar.set(CAL_S2I.apply(year), CAL_S2I.apply(month), CAL_S2I.apply(date), CAL_S2I.apply(hourOfDay), CAL_S2I.apply(minute), CAL_S2I.apply(second));
+        calendar.set(CAL_S2I.apply(year), CAL_S2I.apply(month), CAL_S2I.apply(date), CAL_S2I.apply(hourOfDay),
+                CAL_S2I.apply(minute), CAL_S2I.apply(second));
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
     }
@@ -1445,7 +1456,8 @@ public class DateUtil {
      * 
      * @param calendar
      * @param dateFields
-     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} ,
+     *            ...
      * 
      * @since 2014. 4. 2.
      */
@@ -1468,7 +1480,8 @@ public class DateUtil {
      * </pre>
      *
      * @param dateFields
-     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} ,
+     *            ...
      *
      * @return
      * 
@@ -1491,7 +1504,8 @@ public class DateUtil {
      * 
      * @param calendar
      * @param dateFields
-     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} ,
+     *            ...
      * 
      * @since 2014. 4. 2.
      */
@@ -1548,7 +1562,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Calendar} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 주어진 {@link Calendar} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT})
+     * 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1571,7 +1586,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Date} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 주어진 {@link Date} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로
+     * 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1594,7 +1610,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 밀리초 타임스탬프를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 주어진 밀리초 타임스탬프를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여
+     * 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1632,7 +1649,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT}) 문자열로 변환하여 제공합니다. <br>
+     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT}) 문자열로 변환하여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1693,7 +1711,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT_NO_TZ}) 문자열로 변환하여 제공합니다. <br>
+     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT_NO_TZ}) 문자열로 변환하여
+     * 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1826,11 +1845,13 @@ public class DateUtil {
      * @see {@value #MESSAGE_ISO_FORMAT_NO_TZ}
      */
     // 아래 내용에 적용됨.
-    // - MessageFormat.format(MESSAGE_ISO_FORMAT_NO_TZ, year, month, dayOfMonth, hourOfDay, min, sec)
+    // - MessageFormat.format(MESSAGE_ISO_FORMAT_NO_TZ, year, month, dayOfMonth,
+    // hourOfDay, min, sec)
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static String toISOFormatNoTZ(String year, String month, String dayOfMonth, String hourOfDay, String min, String sec) {
+    public static String toISOFormatNoTZ(String year, String month, String dayOfMonth, String hourOfDay, String min,
+            String sec) {
         AssertUtils2.notNulls(year, month, dayOfMonth, hourOfDay, min, sec);
 
         return MessageFormat.format(MESSAGE_ISO_FORMAT_NO_TZ, year, month, dayOfMonth, hourOfDay, min, sec);
@@ -1881,19 +1902,24 @@ public class DateUtil {
      * 
      * <table border="1" width="500">
      * <tr>
-     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인 경우</td>
+     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인
+     * 경우</td>
      * </tr>
      * <tr>
      * <td width="41%">패턴</font></td>
      * <td width="59%">결과</font></td>
      * </tr>
      * <tr>
-     * <td width="41%"><font face="Courier New" >yyyy-MM-dd <b><font color="#FF0000">hh</font></b>:mm:ss</font></td>
-     * <td width="59%"><font face="Courier New" >2012-10-10 <b><font color="#FF0000">04</font></b>:23:12</font></td>
+     * <td width="41%"><font face="Courier New" >yyyy-MM-dd
+     * <b><font color="#FF0000">hh</font></b>:mm:ss</font></td>
+     * <td width="59%"><font face="Courier New" >2012-10-10
+     * <b><font color="#FF0000">04</font></b>:23:12</font></td>
      * </tr>
      * <tr>
-     * <td width="41%"><font face="Courier New" >yyyy-MM-dd <b><font color="#0000FF">HH</font></b>:mm:ss</font></td>
-     * <td width="59%"><font face="Courier New" >2012-10-10 <b><font color="#0000FF">16</font></b>:23:12</font></td>
+     * <td width="41%"><font face="Courier New" >yyyy-MM-dd
+     * <b><font color="#0000FF">HH</font></b>:mm:ss</font></td>
+     * <td width="59%"><font face="Courier New" >2012-10-10
+     * <b><font color="#0000FF">16</font></b>:23:12</font></td>
      * </tr>
      * </table>
      * 
@@ -1978,19 +2004,24 @@ public class DateUtil {
      * 
      * <table border="1" width="500">
      * <tr>
-     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인 경우</td>
+     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인
+     * 경우</td>
      * </tr>
      * <tr>
      * <td width="41%">패턴</font></td>
      * <td width="59%">결과</font></td>
      * </tr>
      * <tr>
-     * <td width="41%"><font face="Courier New" >yyyy-MM-dd <b><font color="#FF0000">hh</font></b>:mm:ss</font></td>
-     * <td width="59%"><font face="Courier New" >2012-10-10 <b><font color="#FF0000">04</font></b>:23:12</font></td>
+     * <td width="41%"><font face="Courier New" >yyyy-MM-dd
+     * <b><font color="#FF0000">hh</font></b>:mm:ss</font></td>
+     * <td width="59%"><font face="Courier New" >2012-10-10
+     * <b><font color="#FF0000">04</font></b>:23:12</font></td>
      * </tr>
      * <tr>
-     * <td width="41%"><font face="Courier New" >yyyy-MM-dd <b><font color="#0000FF">HH</font></b>:mm:ss</font></td>
-     * <td width="59%"><font face="Courier New" >2012-10-10 <b><font color="#0000FF">16</font></b>:23:12</font></td>
+     * <td width="41%"><font face="Courier New" >yyyy-MM-dd
+     * <b><font color="#0000FF">HH</font></b>:mm:ss</font></td>
+     * <td width="59%"><font face="Courier New" >2012-10-10
+     * <b><font color="#0000FF">16</font></b>:23:12</font></td>
      * </tr>
      * </table>
      * 

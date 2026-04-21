@@ -112,7 +112,8 @@ public class AsyncExecutionException extends RuntimeException {
      * @since 2021. 9. 14.
      * @version 1.8.0
      */
-    public AsyncExecutionException(@Nullable String message, @Nullable Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public AsyncExecutionException(@Nullable String message, @Nullable Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

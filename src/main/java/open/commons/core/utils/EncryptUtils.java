@@ -80,7 +80,8 @@ public class EncryptUtils {
      * @see #CHARSET
      * @see #CIPHER_TRANSFORMATION
      */
-    public static String decrypt(String key, byte[] encText) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+    public static String decrypt(String key, byte[] encText)
+            throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         return decrypt("AES", key, CHARSET, encText, CHARSET);
     }
@@ -114,8 +115,9 @@ public class EncryptUtils {
      *
      * @since 2018. 11. 20.
      */
-    public static String decrypt(String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
-            NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+    public static String decrypt(String key, String keyCharset, byte[] encText, String textCharset)
+            throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+            InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         return decrypt("AES", key, keyCharset, encText, textCharset);
     }
 
@@ -150,8 +152,9 @@ public class EncryptUtils {
      *
      * @since 2018. 11. 20.
      */
-    public static String decrypt(String algorithm, String key, String keyCharset, byte[] encText, String textCharset) throws UnsupportedEncodingException, NoSuchAlgorithmException,
-            NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+    public static String decrypt(String algorithm, String key, String keyCharset, byte[] encText, String textCharset)
+            throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+            InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         AssertUtils2.notNulls(algorithm, key, keyCharset, encText, textCharset);
 
         SecretKeySpec keySpec = keySpec(algorithm, key, keyCharset);
@@ -194,7 +197,8 @@ public class EncryptUtils {
      * @see #CHARSET
      * @see #CIPHER_TRANSFORMATION
      */
-    public static byte[] encrypt(String key, String plainText) throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException,
+    public static byte[] encrypt(String key, String plainText)
+            throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         return encrypt("AES", key, CHARSET, plainText, CHARSET);
     }
@@ -229,8 +233,8 @@ public class EncryptUtils {
      * @since 2018. 11. 20.
      */
     public static byte[] encrypt(String key, String keyCharset, String plainText, String textCharset) //
-            throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException,
-            IllegalBlockSizeException, BadPaddingException {
+            throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException,
+            InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         return encrypt("AES", key, keyCharset, plainText, textCharset);
     }
 
@@ -271,8 +275,8 @@ public class EncryptUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static byte[] encrypt(String algorithm, String key, String keyCharset, String plainText, String textCharset) //
-            throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException, InvalidAlgorithmParameterException,
-            IllegalBlockSizeException, BadPaddingException {
+            throws NoSuchAlgorithmException, NoSuchPaddingException, UnsupportedEncodingException, InvalidKeyException,
+            InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
         AssertUtils2.notNulls(algorithm, key, keyCharset, plainText, textCharset);
 
         SecretKeySpec keySpec = keySpec(algorithm, key, keyCharset);
@@ -308,7 +312,8 @@ public class EncryptUtils {
      * 
      * @since 2018. 11. 20.
      */
-    private static SecretKeySpec keySpec(String algorithm, String key, String charset) throws UnsupportedEncodingException {
+    private static SecretKeySpec keySpec(String algorithm, String key, String charset)
+            throws UnsupportedEncodingException {
         AssertUtils2.notNulls(algorithm, key, charset);
 
         byte[] keyBytes = key.getBytes(charset);
@@ -318,7 +323,8 @@ public class EncryptUtils {
         System.arraycopy(keyBytes // source
                 , 0 // start point
                 , keySpecBytes // target
-                , 0, keyBytes.length > keySpecBytes.length ? 16 : keyBytes.length // copy length
+                , 0, keyBytes.length > keySpecBytes.length ? 16 : keyBytes.length // copy
+                                                                                  // length
         );
 
         SecretKeySpec keySpec = new SecretKeySpec(keySpecBytes, algorithm);

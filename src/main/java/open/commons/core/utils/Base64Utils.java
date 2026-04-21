@@ -307,7 +307,8 @@ public class Base64Utils {
      * @return URL-Safe Base64 인코딩된 문자열
      */
     // 아래 내용에 적용됨.
-    // - URL_ENCODER.encodeToString(string.getBytes(CharUtils.requireCharset(charset)));
+    // -
+    // URL_ENCODER.encodeToString(string.getBytes(CharUtils.requireCharset(charset)));
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")

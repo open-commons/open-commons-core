@@ -167,7 +167,8 @@ public abstract class AbstractRunnable implements IRunnable {
 
     /**
      * {@link Runnable#run()}을 overriding 하는 메소드이다.<br>
-     * 이 클래스를 사용하는데 있어서 보다 유용한 사용은 {@link #run()}에서 서비스를 제공하기 전에 {@link #startInternally()}를 실행하는 것이다.
+     * 이 클래스를 사용하는데 있어서 보다 유용한 사용은 {@link #run()}에서 서비스를 제공하기 전에
+     * {@link #startInternally()}를 실행하는 것이다.
      * 
      * @see java.lang.Runnable#run()
      */

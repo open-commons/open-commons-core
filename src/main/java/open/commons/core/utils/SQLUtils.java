@@ -108,7 +108,8 @@ public class SQLUtils {
      * {@link Method} 이름을 패턴 비교하여 컬럼명을 추출하여 제공합니다.
      * 
      * @param ptn
-     *            {@link Method} 이름 비교 {@link Pattern} <font color="red">(<b>{@code NOT nullable}</b>)</font>
+     *            {@link Method} 이름 비교 {@link Pattern}
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @param str
      *            메소드 이름
      * 
@@ -129,7 +130,8 @@ public class SQLUtils {
     };
 
     /**
-     * 주어진 클래스에서 정의한 메도스에서 {@link ColumnValue}이 설정되고, {@link ColumnValue#defaultColumn()}가 {@code false}인 메소드를 제공합니다.
+     * 주어진 클래스에서 정의한 메도스에서 {@link ColumnValue}이 설정되고,
+     * {@link ColumnValue#defaultColumn()}가 {@code false}인 메소드를 제공합니다.
      * 
      * @param typeClass
      * 
@@ -141,9 +143,11 @@ public class SQLUtils {
         return Arrays.stream(typeClass.getMethods()) // create methods stream
                 .filter(m -> {
                     ColumnValue annoCv = m.getAnnotation(ColumnValue.class);
-                    // start - 컬럼 생성시 정의된 'default' 속성에 따라서 생성되는 컬럼을 제외 : 2022. 11. 1. 오후 2:28:00
+                    // start - 컬럼 생성시 정의된 'default' 속성에 따라서 생성되는 컬럼을 제외 : 2022.
+                    // 11. 1. 오후 2:28:00
                     return annoCv != null && !annoCv.defaultColumn();
-                    // end - 컬럼 생성시 정의된 'default' 속성에 따라서 생성되는 컬럼을 제외 : 2022. 11. 1. 오후 2:28:00
+                    // end - 컬럼 생성시 정의된 'default' 속성에 따라서 생성되는 컬럼을 제외 : 2022.
+                    // 11. 1. 오후 2:28:00
 
                 }) // check annotation
                 .collect(Collectors.toList());
@@ -232,7 +236,8 @@ public class SQLUtils {
                         }
                         validations.put(index, chekced);
                     } catch (Throwable e) {
-                        throw ExceptionUtils.newException(RuntimeException.class, e, "데이터 검증 중 에러가 발생하였습니다. data=%s, method=%s", object, m);
+                        throw ExceptionUtils.newException(RuntimeException.class, e,
+                                "데이터 검증 중 에러가 발생하였습니다. data=%s, method=%s", object, m);
                     }
                 });
         char[] result = ArrayUtils.toPrimitiveArray(new ArrayList<>(validations.values()).toArray(new Character[] {}));
@@ -265,7 +270,8 @@ public class SQLUtils {
      * 
      * @see ColumnDecl
      */
-    public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns) throws RuntimeException {
+    public static <T> Map<String, TwoValueObject<Object, Object>> findDifferences(T obj1, T obj2, String... columns)
+            throws RuntimeException {
         Objects.requireNonNull(obj1);
         Objects.requireNonNull(obj2);
 
@@ -287,7 +293,8 @@ public class SQLUtils {
 
                         if (v1 == null // v1 is only null
                                 || v2 == null // v2 is only null
-                                || !v1.equals(v2) // v1 & v2 are not null and not equal
+                                || !v1.equals(v2) // v1 & v2 are not null and
+                                                  // not equal
                         ) {
                             ColumnDecl anno = Objects.requireNonNull(m.getAnnotation(ColumnDecl.class));
 
@@ -295,7 +302,8 @@ public class SQLUtils {
                             String annoColumn = anno.column().strip();
 
                             if (StringUtils.isNullOrEmptyStringAnd(annoValue, annoColumn)) {
-                                throw new IllegalArgumentException(String.format("컬럼명은 빈문자열이 올 수 없습니다. column=%s, value=%s", annoColumn, annoValue));
+                                throw new IllegalArgumentException(String
+                                        .format("컬럼명은 빈문자열이 올 수 없습니다. column=%s, value=%s", annoColumn, annoValue));
                             }
 
                             String column = annoValue.isEmpty() ? annoColumn : annoValue;
@@ -333,7 +341,8 @@ public class SQLUtils {
         Objects.requireNonNull(clmnDef);
         Objects.requireNonNull(method);
 
-        return getColumnName(clmnDef.name(), clmnDef.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
+        return getColumnName(clmnDef.name(), clmnDef.columnNameType(),
+                () -> METHOD_MATCHER.apply(METHOD_SETTER_PATTERN, method.getName()));
     }
 
     /**
@@ -359,7 +368,8 @@ public class SQLUtils {
         Objects.requireNonNull(clmnValue);
         Objects.requireNonNull(method);
 
-        return getColumnName(clmnValue.name(), clmnValue.columnNameType(), () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
+        return getColumnName(clmnValue.name(), clmnValue.columnNameType(),
+                () -> METHOD_MATCHER.apply(METHOD_PATTERN, method.getName()));
     }
 
     /**
@@ -404,7 +414,8 @@ public class SQLUtils {
                     if (clmnName != null) {
                         return clmnName;
                     } else {
-                        throw new IllegalArgumentException(String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, method));
+                        throw new IllegalArgumentException(
+                                String.format("해당 데이터에 대한 컬럼명이 설정되지 않았습니다. 설정: %s, 메소드: %s", cv, method));
                     }
                 });
     }
@@ -454,7 +465,8 @@ public class SQLUtils {
      *            컬럼이름 타입.
      * @param defaultClmnName
      *            설정된 컬럼명({clmnName})이 빈 문자열일 경우 컬럼명 제공 함수.<br>
-     *            반환하는 값은 반드시 <font color="red">(<b>{@code NOT nullable}</b>)</font>
+     *            반환하는 값은 반드시
+     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @return
      *
      * @since 2022. 11. 24.
@@ -465,7 +477,8 @@ public class SQLUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static String getColumnName(String clmnName, ColumnNameType clmnNameType, Supplier<String> defaultClmnName) {
+    private static String getColumnName(String clmnName, ColumnNameType clmnNameType,
+            Supplier<String> defaultClmnName) {
         // 설정된 컬럼명이 빈 문자열이 경우 처리
         if (StringUtils.isNullOrEmptyString(clmnName)) {
             clmnName = defaultClmnName.get();
@@ -594,7 +607,8 @@ public class SQLUtils {
     }
 
     /**
-     * {@link PreparedStatement}에 주어진 객체에 포함된 데이터 중에서 전달받은(@param columnNames) 컬럼에 해당하는 값을 설정합니다. <br>
+     * {@link PreparedStatement}에 주어진 객체에 포함된 데이터 중에서 전달받은(@param columnNames)
+     * 컬럼에 해당하는 값을 설정합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -618,7 +632,8 @@ public class SQLUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static int setParameters(PreparedStatement stmt, int index, Object obj, String @Nullable... columnNames) throws SQLException {
+    public static int setParameters(PreparedStatement stmt, int index, Object obj, String @Nullable... columnNames)
+            throws SQLException {
         Objects.requireNonNull(stmt);
         Objects.requireNonNull(obj);
 
@@ -628,7 +643,8 @@ public class SQLUtils {
 
         // #2. 사용자 지정 컬럼 여부에 따른 Method 필터링
         if (columnNames == null || columnNames.length < 1) {
-            // DB Entity 객체의 컬럼 정렬 여부 적용 - 2022. 1. 7. 오전 11:43:25 / Park_Jun_Hong (jhpark@ymtech.co.kr)
+            // DB Entity 객체의 컬럼 정렬 여부 적용 - 2022. 1. 7. 오전 11:43:25 /
+            // Park_Jun_Hong (jhpark@ymtech.co.kr)
             sortColumns(type, methods);
         } else {
             // 메소드별 컬럼명 대/소문자 비교 여부
@@ -637,7 +653,8 @@ public class SQLUtils {
             final Map<@NonNull String, Method> methodMap = CollectionUtils.toMapHSV(methods //
                     , m -> {
                         String clmn = Objects.requireNonNull(getColumnName(Objects.requireNonNull(m)));
-                        clmnCaseSensitive.put(clmn, Objects.requireNonNull(m.getAnnotation(ColumnValue.class)).caseSensitive());
+                        clmnCaseSensitive.put(clmn,
+                                Objects.requireNonNull(m.getAnnotation(ColumnValue.class)).caseSensitive());
 
                         return clmn;
                     } //
@@ -661,7 +678,8 @@ public class SQLUtils {
             try {
                 stmt.setObject(++index, m.invoke(obj));
             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                throw ExceptionUtils.newException(SQLException.class, e, "파라미터 설정 도중  에러가 발생하였습니다. 원인: %s", e.getMessage());
+                throw ExceptionUtils.newException(SQLException.class, e, "파라미터 설정 도중  에러가 발생하였습니다. 원인: %s",
+                        e.getMessage());
             }
         }
         return index;

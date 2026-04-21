@@ -89,7 +89,8 @@ public class ZipUtils {
      * @since 2023. 8. 2.
      * @version 2.0.0
      */
-    private static boolean decompress(Path inputFile, Charset inCharset, Path output, IOTripleFunction<Path, Charset, Path, Boolean> decompressor) throws IOException {
+    private static boolean decompress(Path inputFile, Charset inCharset, Path output,
+            IOTripleFunction<Path, Charset, Path, Boolean> decompressor) throws IOException {
         AssertUtils2.notNulls(inputFile, inCharset, output, decompressor);
 
         if (!Files.exists(inputFile) || !Files.isRegularFile(inputFile)) {
@@ -198,7 +199,8 @@ public class ZipUtils {
 
         return decompress(inputFile, inCharset, outputFile, (inPath, _, outPath) -> {
             try (GZIPInputStream gzipInStream = new GZIPInputStream(Files.newInputStream(inPath));
-                    OutputStream outputStream = Files.newOutputStream(outPath, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+                    OutputStream outputStream = Files.newOutputStream(outPath, StandardOpenOption.CREATE,
+                            StandardOpenOption.TRUNCATE_EXISTING)) {
 
                 gzipInStream.transferTo(outputStream);
                 return true;
@@ -400,7 +402,8 @@ public class ZipUtils {
                         Path normalized = outdirAbs.resolve(entry.getName()).normalize();
 
                         if (!normalized.startsWith(outdirAbs)) {
-                            throw new ZipException(String.format("보안 경고 (Zip Slip): 올바르지 않은 entry 입니다. entry=%s", entry.getName()));
+                            throw new ZipException(
+                                    String.format("보안 경고 (Zip Slip): 올바르지 않은 entry 입니다. entry=%s", entry.getName()));
                         }
 
                         if (entry.isDirectory()) {
@@ -409,7 +412,8 @@ public class ZipUtils {
                             if (normalized.getParent() != null && !Files.exists(normalized.getParent())) {
                                 Files.createDirectories(normalized.getParent());
                             }
-                            try (OutputStream os = Files.newOutputStream(normalized, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+                            try (OutputStream os = Files.newOutputStream(normalized, StandardOpenOption.CREATE,
+                                    StandardOpenOption.TRUNCATE_EXISTING)) {
                                 zipInStream.transferTo(os);
                             }
                         }
@@ -541,7 +545,8 @@ public class ZipUtils {
      * @since 2021. 11. 9.
      * @version 3.0.0
      */
-    public static boolean zip(File input, Charset inCharset, File output, Charset outCharset, int compressionLevel) throws IOException {
+    public static boolean zip(File input, Charset inCharset, File output, Charset outCharset, int compressionLevel)
+            throws IOException {
         AssertUtils2.notNulls(input, inCharset, output, outCharset);
 
         if (!input.exists() || !(input.isDirectory() || input.isFile())) {
@@ -550,7 +555,8 @@ public class ZipUtils {
 
         Path inPath = input.toPath();
 
-        try (OutputStream fos = Files.newOutputStream(output.toPath()); ZipOutputStream zos = new ZipOutputStream(fos, outCharset)) {
+        try (OutputStream fos = Files.newOutputStream(output.toPath());
+                ZipOutputStream zos = new ZipOutputStream(fos, outCharset)) {
             zos.setLevel(Math.max(0, Math.min(9, compressionLevel)));
 
             if (Files.isDirectory(inPath)) {
@@ -646,7 +652,8 @@ public class ZipUtils {
      * @since 2021. 11. 9.
      * @version 1.8.0
      */
-    public static boolean zip(String input, Charset inCharset, String output, Charset outCharset, int compressionLevel) throws IOException {
+    public static boolean zip(String input, Charset inCharset, String output, Charset outCharset, int compressionLevel)
+            throws IOException {
         AssertUtils2.notNulls(input, inCharset, output, outCharset);
 
         return zip(new File(input), inCharset, new File(output), outCharset, compressionLevel);

@@ -123,7 +123,8 @@ public class IntegerUtils {
     }
 
     /**
-     * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로 이루어진 int 배열을 반환합니다.
+     * 길이가 4의 배수인 byte 배열을 길이 4로 구분해서, 구분된 byte-4 배열을 int 타입의 값으로 변환한 후, 이 값들로
+     * 이루어진 int 배열을 반환합니다.
      *
      * <br>
      *
@@ -193,7 +194,8 @@ public class IntegerUtils {
             value = ArrayUtils.merge(new byte[4 - value.length], value);
         }
 
-        int returnedValue = ((value[0] << 24) & 0xFF000000) | ((value[1] << 16) & 0x00FF0000) | ((value[2] << 8) & 0x0000FF00) | ((value[3]) & 0x000000FF);
+        int returnedValue = ((value[0] << 24) & 0xFF000000) | ((value[1] << 16) & 0x00FF0000)
+                | ((value[2] << 8) & 0x0000FF00) | ((value[3]) & 0x000000FF);
 
         return returnedValue;
     }
@@ -304,7 +306,8 @@ public class IntegerUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static int parseInt(String value, int begin, int end) throws IndexOutOfBoundsException, NumberFormatException {
+    public static int parseInt(String value, int begin, int end)
+            throws IndexOutOfBoundsException, NumberFormatException {
         Objects.requireNonNull(value);
 
         int radix = NumberUtils.radix(value);
@@ -590,7 +593,8 @@ public class IntegerUtils {
     }
 
     /**
-     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 {@code <b>char</b>} 배열로 반환합니다. 접두어인 '0x'는 포함하지 않는다.<br>
+     * 정수형 데이타를 원하는 길이의 16진수형태의 8자리 {@code <b>char</b>} 배열로 반환합니다. 접두어인 '0x'는
+     * 포함하지 않는다.<br>
      * 단, 반환되는 배열은 16진수표기의 오른쪽값에서부터 채워진다.
      *
      * <br>

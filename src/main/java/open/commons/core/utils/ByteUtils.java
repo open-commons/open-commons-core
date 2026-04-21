@@ -89,7 +89,8 @@ public class ByteUtils {
      *            바이트 단위 사이에 공백을 추가할지 여부
      * @param data
      *            변환할 바이트 데이터 (가변 인자)
-     * @return 16진수로 변환된 문자열. {@code data}가 {@code null}인 경우 {@code null}을 반환합니다.
+     * @return 16진수로 변환된 문자열. {@code data}가 {@code null}인 경우 {@code null}을
+     *         반환합니다.
      * 
      * @since 2020. 12. 17.
      */
@@ -190,7 +191,8 @@ public class ByteUtils {
         String trimedHexBinString = hexBinString.replaceAll(":", "").replaceAll("\\s", "");
 
         if (trimedHexBinString.length() % 2 != 0) {
-            throw new IllegalArgumentException("입력된 문자열 길이는 짝수(even)이어야 합니다. 길이: " + trimedHexBinString.length() + ", 입력값: " + hexBinString);
+            throw new IllegalArgumentException(
+                    "입력된 문자열 길이는 짝수(even)이어야 합니다. 길이: " + trimedHexBinString.length() + ", 입력값: " + hexBinString);
         }
 
         char[] cs = trimedHexBinString.toCharArray();
@@ -202,7 +204,8 @@ public class ByteUtils {
             int h = hexToBin(cs[i]);
             int l = hexToBin(cs[i + 1]);
             if (h == -1 || l == -1) {
-                throw new IllegalArgumentException("contains illegal character for hexBinary: [" + cs[i] + ", " + cs[i + 1] + "]");
+                throw new IllegalArgumentException(
+                        "contains illegal character for hexBinary: [" + cs[i] + ", " + cs[i + 1] + "]");
             }
 
             bytes[i / 2] = (byte) (h * 16 + l);
@@ -292,7 +295,8 @@ public class ByteUtils {
             value = ArrayUtils.merge(new byte[4 - value.length], value);
         }
 
-        int returnedValue = ((value[0] << 24) & 0xFF000000) | ((value[1] << 16) & 0x00FF0000) | ((value[2] << 8) & 0x0000FF00) | ((value[3]) & 0x000000FF);
+        int returnedValue = ((value[0] << 24) & 0xFF000000) | ((value[1] << 16) & 0x00FF0000)
+                | ((value[2] << 8) & 0x0000FF00) | ((value[3]) & 0x000000FF);
 
         return returnedValue;
     }

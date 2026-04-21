@@ -68,11 +68,13 @@ public class DefaultConvertor implements IEncodingConvertor {
     public int convert() throws IOException {
 
         if (inStream == null || outStream == null) {
-            throw new IllegalStateException("Reader & Writer must be set. reader: " + inStream + ", writer: " + outStream);
+            throw new IllegalStateException(
+                    "Reader & Writer must be set. reader: " + inStream + ", writer: " + outStream);
         }
 
         if (inputEncoding == null || outputEncoding == null) {
-            throw new IllegalStateException("Encoding of Readr & Writer must be set. reader: " + inputEncoding + ", writer: " + outputEncoding);
+            throw new IllegalStateException(
+                    "Encoding of Readr & Writer must be set. reader: " + inputEncoding + ", writer: " + outputEncoding);
         }
 
         InputStreamReader reader = new InputStreamReader(inStream, inputEncoding);
@@ -103,7 +105,8 @@ public class DefaultConvertor implements IEncodingConvertor {
 
     /**
      * 
-     * @see open.commons.core.io.encoding.IEncodingConvertor#convert(java.io.InputStream, java.io.OutputStream)
+     * @see open.commons.core.io.encoding.IEncodingConvertor#convert(java.io.InputStream,
+     *      java.io.OutputStream)
      */
     public int convert(InputStream inStream, OutputStream outStream) throws IOException {
         setInputStream(inStream);
@@ -128,8 +131,8 @@ public class DefaultConvertor implements IEncodingConvertor {
         if (getClass() != obj.getClass())
             return false;
         DefaultConvertor other = (DefaultConvertor) obj;
-        return Objects.equals(inStream, other.inStream) && Objects.equals(inputEncoding, other.inputEncoding) && Objects.equals(outStream, other.outStream)
-                && Objects.equals(outputEncoding, other.outputEncoding);
+        return Objects.equals(inStream, other.inStream) && Objects.equals(inputEncoding, other.inputEncoding)
+                && Objects.equals(outStream, other.outStream) && Objects.equals(outputEncoding, other.outputEncoding);
     }
 
     /**
@@ -213,6 +216,7 @@ public class DefaultConvertor implements IEncodingConvertor {
      */
     @Override
     public String toString() {
-        return "EncodingConvertor [inputEncoding=" + inputEncoding + ", outputEncoding=" + outputEncoding + ", reader=" + inStream + ", writer=" + outStream + "]";
+        return "EncodingConvertor [inputEncoding=" + inputEncoding + ", outputEncoding=" + outputEncoding + ", reader="
+                + inStream + ", writer=" + outStream + "]";
     }
 }

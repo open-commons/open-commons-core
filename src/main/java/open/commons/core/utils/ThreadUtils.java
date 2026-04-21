@@ -93,7 +93,8 @@ public class ThreadUtils {
         Thread thread = Thread.currentThread();
         StackTraceElement[] stacks = thread.getStackTrace();
 
-        return stacks.length < 3 + distance ? "Oops... I DO NOT know where here is." : stacks[2 + distance].getMethodName();
+        return stacks.length < 3 + distance ? "Oops... I DO NOT know where here is."
+                : stacks[2 + distance].getMethodName();
     }
 
     /**
@@ -177,7 +178,8 @@ public class ThreadUtils {
      * @param millis
      *            일시 정지할 시간 (밀리초)
      *
-     * @return 정상적으로 대기 시간을 채웠다면 {@code true}, 대기 중 {@link InterruptedException}이 발생하여 중단되었다면 {@code false}
+     * @return 정상적으로 대기 시간을 채웠다면 {@code true}, 대기 중
+     *         {@link InterruptedException}이 발생하여 중단되었다면 {@code false}
      *
      * @since 2013. 5. 23.
      */

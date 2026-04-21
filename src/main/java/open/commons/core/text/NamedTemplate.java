@@ -457,7 +457,8 @@ public class NamedTemplate {
                     } else {
 
                         if (opened) {
-                            throw new IllegalStateException("DID NOT CLOSE. But opening... at " + index + " (" + pattern + ")");
+                            throw new IllegalStateException(
+                                    "DID NOT CLOSE. But opening... at " + index + " (" + pattern + ")");
                         }
 
                         if (nonameBuf.length() > 0) {
@@ -477,11 +478,13 @@ public class NamedTemplate {
                     } else {
                         if (opened) {
                             if (nameBuf.length() > 0) {
-                                tokens.add(new NamedToken(trimmed ? nameBuf.toString().strip() : nameBuf.toString(), true));
+                                tokens.add(new NamedToken(trimmed ? nameBuf.toString().strip() : nameBuf.toString(),
+                                        true));
                                 nameBuf.setLength(0);
                             }
                         } else {
-                            throw new IllegalStateException("DID NOT OPEN. But closing.... at " + index + " (" + pattern + ")");
+                            throw new IllegalStateException(
+                                    "DID NOT OPEN. But closing.... at " + index + " (" + pattern + ")");
                         }
 
                         opened = false;

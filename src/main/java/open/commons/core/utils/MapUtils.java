@@ -64,7 +64,8 @@ public class MapUtils {
     }
 
     /**
-     * {@link Collection} 형태의 값을 갖는 {@link Map} 정보를 하나의 1차원 형태의 {@link Stream}으로 제공합니다. <br>
+     * {@link Collection} 형태의 값을 갖는 {@link Map} 정보를 하나의 1차원 형태의 {@link Stream}으로
+     * 제공합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -92,7 +93,8 @@ public class MapUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(Map<K, C> multi) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(
+            Map<K, C> multi) {
         Objects.requireNonNull(multi, "A parameter 'multi' must not be 'null'.");
 
         return multi.values().stream().filter(Objects::nonNull).flatMap(Collection::stream);
@@ -129,7 +131,8 @@ public class MapUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(Map<K, V> single, Map<K, C> multi) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, C extends Collection<V>> Stream<V> flat(
+            Map<K, V> single, Map<K, C> multi) {
         AssertUtils2.notNulls(single, multi);
 
         // 불필요한 Stream.of() 및 flatMap() 래핑을 제거하고, 가장 빠르고 표준적인 concat 적용
@@ -164,7 +167,8 @@ public class MapUtils {
      * @since 2020. 10. 23.
      * @version 1.7.0
      */
-    public static <K extends @Nullable Object, V extends @Nullable Object> V getOrDefault(Map<K, V> map, K key, Supplier<V> defaultValue, boolean insertIfNot) {
+    public static <K extends @Nullable Object, V extends @Nullable Object> V getOrDefault(Map<K, V> map, K key,
+            Supplier<V> defaultValue, boolean insertIfNot) {
         Objects.requireNonNull(map);
 
         V v = map.get(key);
@@ -209,7 +213,8 @@ public class MapUtils {
      * 
      * @see Map#getOrDefault(Object, Object)
      */
-    public static <K extends @Nullable Object, V extends @Nullable Object> V getOrDefault(Map<K, V> map, K key, V defaultValue, boolean insertIfNot) {
+    public static <K extends @Nullable Object, V extends @Nullable Object> V getOrDefault(Map<K, V> map, K key,
+            V defaultValue, boolean insertIfNot) {
         Objects.requireNonNull(map);
 
         V v = map.getOrDefault(key, defaultValue);
@@ -222,7 +227,8 @@ public class MapUtils {
     }
 
     /**
-     * 주어진 {@link Map} 객체가 {@code null}이거나 비어 있는지 ({@link Map#isEmpty()}) 여부를 제공합니다. <br>
+     * 주어진 {@link Map} 객체가 {@code null}이거나 비어 있는지 ({@link Map#isEmpty()}) 여부를
+     * 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -246,11 +252,12 @@ public class MapUtils {
     }
 
     /**
-     * {@link Map} 데이터를 새로운 식별정보({@code keyMapper}), 새로운 유형({@code valueFunction})로 변환하여 새로운 {@link Map}를 제공합니다.<br>
+     * {@link Map} 데이터를 새로운 식별정보({@code keyMapper}), 새로운
+     * 유형({@code valueFunction})로 변환하여 새로운 {@link Map}를 제공합니다.<br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -266,17 +273,20 @@ public class MapUtils {
      * @param <V>
      *            데이터 유형 (Nullable)
      * @param <NK>
-     *            새로운 데이터 식별정보 (<b>{@code NOT nullable}</b>: {@link Collectors#groupingBy} 제약사항)
+     *            새로운 데이터 식별정보 (<b>{@code NOT nullable}</b>:
+     *            {@link Collectors#groupingBy} 제약사항)
      * @param <NV>
      *            새로운 데이터 유형 (Nullable).
      * @param <M>
      *            결과 {@link Map} 유형 * @param map 데이터 객체
      * @param keyMapper
      *            데이터 식별정보 제공 함수. (K &rarr; NK) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param valueFunction
      *            데이터 변환 함수. (V &rarr; NV) <br>
-     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 {@code colSupplier}가 제공하는 컬렉션이 {@code null}을 허용해야 합니다.
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 {@code colSupplier}가 제공하는
+     *            컬렉션이 {@code null}을 허용해야 합니다.
      * @param mapSupplier
      *            결과 {@link Map} 객체 제공 함수.
      * 
@@ -286,16 +296,18 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, NK, NV extends @Nullable Object, M extends Map<NK, List<NV>>> //
-            M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction, Supplier<M> mapSupplier) {
+            M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction,
+                    Supplier<M> mapSupplier) {
         return map(map, keyMapper, valueFunction, mapSupplier, (Supplier<List<NV>>) ArrayList<NV>::new);
     }
 
     /**
-     * {@link Map} 데이터를 새로운 식별정보({@code keyMapper}), 새로운 유형({@code valueFunction})으로 변환하여 새로운 {@link Map}를 제공합니다.<br>
+     * {@link Map} 데이터를 새로운 식별정보({@code keyMapper}), 새로운
+     * 유형({@code valueFunction})으로 변환하여 새로운 {@link Map}를 제공합니다.<br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -310,10 +322,12 @@ public class MapUtils {
      * @param <V>
      *            데이터 유형 (Nullable)
      * @param <NK>
-     *            새로운 데이터 식별정보 (<b>{@code NOT nullable}</b>: {@link Collectors#groupingBy} 제약사항)
+     *            새로운 데이터 식별정보 (<b>{@code NOT nullable}</b>:
+     *            {@link Collectors#groupingBy} 제약사항)
      * @param <NV>
      *            새로운 데이터 유형 (Nullable). <br>
-     *            단, {@code colSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     *            단, {@code colSupplier}가 제공하는 {@link Collection} 구현체가
+     *            {@code null}을 허용해야 합니다.
      * @param <C>
      *            새로운 데이터를 담는 {@link Collection} 유형
      * @param <M>
@@ -322,10 +336,12 @@ public class MapUtils {
      *            데이터 객체
      * @param keyMapper
      *            데이터 식별정보 제공 함수. (K &rarr; NK) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param valueFunction
      *            데이터 변환 함수. (V &rarr; NV) <br>
-     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 {@code colSupplier}가 제공하는 컬렉션이 {@code null}을 허용해야 합니다.
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 {@code colSupplier}가 제공하는
+     *            컬렉션이 {@code null}을 허용해야 합니다.
      * @param mapSupplier
      *            결과 {@link Map} 객체 제공 함수.
      * @param colSupplier
@@ -336,11 +352,13 @@ public class MapUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      * 
-     * @see Collectors#groupingBy(Function, Supplier, java.util.stream.Collector)
+     * @see Collectors#groupingBy(Function, Supplier,
+     *      java.util.stream.Collector)
      * @see Collectors#mapping(Function, java.util.stream.Collector)
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, NK, NV extends @Nullable Object, C extends Collection<NV>, M extends Map<NK, C>> //
-            M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction, Supplier<M> mapSupplier, Supplier<C> colSupplier) {
+            M map(Map<K, V> map, Function<Entry<K, V>, NK> keyMapper, Function<Entry<K, V>, NV> valueFunction,
+                    Supplier<M> mapSupplier, Supplier<C> colSupplier) {
         AssertUtils2.notNulls(map, keyMapper, valueFunction, mapSupplier, colSupplier);
 
         return map.entrySet().stream() //
@@ -358,8 +376,8 @@ public class MapUtils {
      * {@link Map} 데이터를 {@code 값(V)} 데이터만 새로운 유형으로 변환하여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -371,17 +389,20 @@ public class MapUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            데이터 유형 (Nullable)
      * @param <U>
      *            새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param map
      *            원본 데이터 객체
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 값이 변환된 새로운 Map 객체
      *
@@ -393,7 +414,8 @@ public class MapUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V extends @Nullable Object, U> Map<K, U> map(Map<K, V> map, Function<V, U> transformer) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U> Map<K, U> map(Map<K, V> map,
+            Function<V, U> transformer) {
         // M extends Map<K, U>
         return map(map, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
@@ -402,8 +424,8 @@ public class MapUtils {
      * {@link Map} 데이터를 {@code 값(V)} 데이터만 새로운 유형으로 변환하여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -415,19 +437,22 @@ public class MapUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            데이터 유형 (Nullable)
      * @param <U>
      *            새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param map
      *            원본 데이터 객체
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * 
@@ -436,14 +461,17 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> M map(Map<K, V> map, Function<V, U> transformer, Supplier<M> mapSupplier) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> M map(Map<K, V> map,
+            Function<V, U> transformer, Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(map, transformer, mapSupplier);
 
         return map.entrySet().stream() //
                 .filter(entry -> entry.getValue() != null) //
                 .collect(Collectors.toMap( //
                         Map.Entry::getKey //
-                        , entry -> transformer.apply(entry.getValue()) // V &rarr; U
+                        , entry -> transformer.apply(entry.getValue()) // V
+                                                                       // &rarr;
+                                                                       // U
                         , StreamUtils.throwingMerger() //
                         , mapSupplier //
                 ));
@@ -452,8 +480,8 @@ public class MapUtils {
     /**
      * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -475,7 +503,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @return
      *
      * @since 2025. 8. 20.
@@ -487,17 +516,20 @@ public class MapUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK> //
-            Map<NK, V> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(flat(single, multi), keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
+            Map<NK, V> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    BinaryOperator<V> mergeFunction) {
+        return StreamUtils.toMap(flat(single, multi), keyMapper, Functions.Unary.identity(), mergeFunction,
+                (Supplier<Map<NK, V>>) HashMap<NK, V>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합 ('V + V &rarr; V' &rarr; U) 합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -523,8 +555,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; NK)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의
+     *            제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U)
      * 
@@ -539,15 +571,16 @@ public class MapUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK extends @Nullable Object, U extends @Nullable Object> //
-            Map<NK, U> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
+            Map<NK, U> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
         return map(single, multi, keyMapper, mergeFunction, transformer, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -573,10 +606,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수.
      * @param valueFunction
      *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @return
      *
      * @since 2025. 8. 20.
@@ -588,16 +623,18 @@ public class MapUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <K extends @Nullable Object, V extends @Nullable Object, NK, U, M> //
-            Map<NK, U> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
+            Map<NK, U> map(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
         return map(single, multi, keyMapper, valueFunction, mergeFunction, (Supplier<Map<NK, U>>) HashMap<NK, U>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합 ('V + V &rarr; V' &rarr; U) 합니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -613,7 +650,8 @@ public class MapUtils {
      *            데이터 유형 (Nullable).
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).<br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <U>
      *            새로운 데이터 유형
      * @param <M>
@@ -624,8 +662,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; NK)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의
+     *            제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
      *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
@@ -638,15 +676,16 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, NK extends @Nullable Object, U extends @Nullable Object, M extends Map<NK, U>, C extends Collection<V>> //
-            M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
+            M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
+                    Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, mergeFunction, transformer, mapSupplier);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -658,7 +697,8 @@ public class MapUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            데이터 유형
      * @param <NK>
@@ -671,7 +711,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
@@ -680,15 +721,16 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK, M extends Map<NK, V>, C extends Collection<V>> //
-            M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
+            M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction,
+                    Supplier<M> mapSupplier) {
         return map(single, multi, keyMapper, Functions.Unary.identity(), mergeFunction, mapSupplier);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -700,14 +742,16 @@ public class MapUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <NK>
      *            새로운 데이터 식별정보 유형
      * @param <U>
      *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param single
@@ -717,10 +761,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수.
      * @param valueFunction
      *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
@@ -729,12 +775,14 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, NK, U, M extends Map<NK, U>, C extends Collection<V>> //
-            M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+            M map(Map<K, V> single, Map<K, C> multi, Function<V, NK> keyMapper, Function<V, U> valueFunction,
+                    BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(flat(single, multi), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
     /**
-     * 2개의 {@link Map}에서 동일한 키를 갖는 값을 새로운 형태의 데이터로 변환하여 새로운 {@link Map}을 제공합니다. <br>
+     * 2개의 {@link Map}에서 동일한 키를 갖는 값을 새로운 형태의 데이터로 변환하여 새로운 {@link Map}을 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -758,7 +806,8 @@ public class MapUtils {
      * @param aggrValue
      *            값 병합 함수 (V + V &rarr; NV) (<b>{@code NOT nullable}</b>).
      *            <ul>
-     *            <li>첫 번째 인자: 기존 값 (<b>주의: 기존 {@code bucket}에 키가 없을 경우 {@code null}이 전달됩니다</b>)</li>
+     *            <li>첫 번째 인자: 기존 값 (<b>주의: 기존 {@code bucket}에 키가 없을 경우
+     *            {@code null}이 전달됩니다</b>)</li>
      *            <li>두 번째 인자: 새로운 값</li>
      *            <li>반환값: 병합 결과</li>
      *            </ul>
@@ -771,8 +820,8 @@ public class MapUtils {
      * @since 2023. 12. 6.
      * @version 2.0.0
      */
-    public static <K extends @Nullable Object, V extends @Nullable Object, NV extends @Nullable Object> Map<K, NV> merge(Map<K, V> bucket, Map<K, V> newData,
-            BiFunction<V, V, NV> aggrValue, @Nullable Map<K, NV> newBucket) {
+    public static <K extends @Nullable Object, V extends @Nullable Object, NV extends @Nullable Object> Map<K, NV> merge(
+            Map<K, V> bucket, Map<K, V> newData, BiFunction<V, V, NV> aggrValue, @Nullable Map<K, NV> newBucket) {
 
         AssertUtils2.notNulls(bucket, newData, aggrValue);
 
@@ -796,7 +845,8 @@ public class MapUtils {
     }
 
     /**
-     * 2개의 {@link Map}에서 동일한 키를 갖는 값을 새로운 형태의 데이터로 변환하여 새로운 {@link Map}을 제공합니다. <br>
+     * 2개의 {@link Map}에서 동일한 키를 갖는 값을 새로운 형태의 데이터로 변환하여 새로운 {@link Map}을 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -817,7 +867,8 @@ public class MapUtils {
      * @param aggrValue
      *            값 병합 함수 (V + V &rarr; NV) (<b>{@code NOT nullable}</b>).
      *            <ul>
-     *            <li>첫 번째 인자: 기존 값 (<b>주의: 기존 {@code bucket}에 키가 없을 경우 {@code null}이 전달됩니다</b>)</li>
+     *            <li>첫 번째 인자: 기존 값 (<b>주의: 기존 {@code bucket}에 키가 없을 경우
+     *            {@code null}이 전달됩니다</b>)</li>
      *            <li>두 번째 인자: 새로운 값</li>
      *            <li>반환값: 병합 결과</li>
      *            </ul>
@@ -857,7 +908,8 @@ public class MapUtils {
      * @since 2017. 10. 18.
      * @version 3.0.0
      */
-    public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> read(Map<K, V> map, int readCount) {
+    public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> read(Map<K, V> map,
+            int readCount) {
         Objects.requireNonNull(map, "A parameter 'map' must not be 'null'.");
 
         if (readCount <= 0) {
@@ -889,11 +941,12 @@ public class MapUtils {
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.<br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다.<br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -907,7 +960,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <C>
@@ -920,7 +974,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * 
@@ -930,17 +985,19 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK extends @Nullable Object, C extends Collection<V>> //
-            C toCollection(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
+            C toCollection(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, collectionFactory);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -954,7 +1011,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <C>
@@ -967,10 +1025,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * 
@@ -980,7 +1040,8 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK extends @Nullable Object, C extends Collection<V>> //
-            C toCollection(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper //
+            C toCollection(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    Function<V, V> valueMapper //
                     , BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return StreamUtils.toCollection(flat(single, multi), keyMapper, valueMapper, mergeFunction, collectionFactory);
     }
@@ -999,7 +1060,8 @@ public class MapUtils {
      *            데이터 식별정보 유형 (Nullable)
      * @param <V>
      *            데이터 유형 (Nullable). <br>
-     *            단, {@code collectionFactory}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     *            단, {@code collectionFactory}가 제공하는 {@link Collection} 구현체가
+     *            {@code null}을 허용해야 합니다.
      * @param <C>
      *            결과 {@link Collection} 유형
      * @param single
@@ -1008,7 +1070,8 @@ public class MapUtils {
      *            다중 값(Collection)을 갖는 새로운 데이터 {@link Map} 객체
      * @param collectionFactory
      *            결과를 담을 새로운 {@link Collection} 객체 제공 함수. <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 두 맵의 값들이 모두 병합되어 담긴 새로운 컬렉션
      *
@@ -1052,11 +1115,12 @@ public class MapUtils {
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1070,7 +1134,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param single
@@ -1081,7 +1146,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -1089,17 +1155,19 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK extends @Nullable Object> //
-            List<V> toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
+            List<V> toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, ArrayList<V>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1113,7 +1181,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <C>
@@ -1126,7 +1195,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체 제공 함수.
      * 
@@ -1136,17 +1206,19 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK extends @Nullable Object, L extends List<V>> //
-            L toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Supplier<L> listFactory) {
+            L toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    BinaryOperator<V> mergeFunction, Supplier<L> listFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, listFactory);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1160,7 +1232,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param single
@@ -1171,10 +1244,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -1182,17 +1257,19 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK extends @Nullable Object> //
-            List<V> toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+            List<V> toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, ArrayList<V>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1206,7 +1283,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <L>
@@ -1219,10 +1297,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
      * 
@@ -1232,7 +1312,8 @@ public class MapUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, NK extends @Nullable Object, L extends List<V>> //
-            L toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper//
+            L toList(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+                    Function<V, V> valueMapper//
                     , BinaryOperator<V> mergeFunction, Supplier<L> listFactory) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, listFactory);
     }
@@ -1272,11 +1353,12 @@ public class MapUtils {
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1290,7 +1372,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <C>
@@ -1303,7 +1386,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -1315,18 +1399,19 @@ public class MapUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, NK extends @Nullable Object> Set<V> toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
-            BinaryOperator<V> mergeFunction) {
+    public static <K extends @Nullable Object, V, NK extends @Nullable Object> Set<V> toSet(Map<K, V> single,
+            Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1340,7 +1425,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <S>
@@ -1353,7 +1439,8 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
      * 
@@ -1362,18 +1449,20 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, NK extends @Nullable Object, S extends Set<V>> S toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi,
-            Function<V, NK> keyMapper, BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
+    public static <K extends @Nullable Object, V, NK extends @Nullable Object, S extends Set<V>> S toSet(
+            Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
+            BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
         return toCollection(single, multi, keyMapper, d -> d, mergeFunction, setFactory);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1387,7 +1476,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param single
@@ -1398,10 +1488,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -1413,18 +1505,20 @@ public class MapUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K extends @Nullable Object, V, NK extends @Nullable Object> Set<V> toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper,
-            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K extends @Nullable Object, V, NK extends @Nullable Object> Set<V> toSet(Map<K, V> single,
+            Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
+            BinaryOperator<V> mergeFunction) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
      * 2개의 {@link Map}에 포함된 값을 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1438,7 +1532,8 @@ public class MapUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <NK>
      *            새로운 데이터 식별정보 유형 (Nullable).
      * @param <S>
@@ -1451,10 +1546,12 @@ public class MapUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
      * 
@@ -1463,8 +1560,9 @@ public class MapUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K, V, NK, S extends Set<V>> S toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi, Function<V, NK> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
+    public static <K, V, NK, S extends Set<V>> S toSet(Map<K, V> single, Map<K, ? extends Collection<V>> multi,
+            Function<V, NK> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
+            Supplier<S> setFactory) {
         return toCollection(single, multi, keyMapper, valueMapper, mergeFunction, setFactory);
     }
 

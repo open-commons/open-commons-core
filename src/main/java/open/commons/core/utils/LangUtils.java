@@ -51,7 +51,8 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 {@code true} 인 경우, 데이타를 {@link Consumer}에게 전달합니다. <br>
+     * {@link Predicate} 가 {@code true} 인 경우, 데이타를 {@link Consumer}에게 전달합니다.
+     * <br>
      *
      * <pre>
      * [개정이력]
@@ -80,7 +81,8 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 {@code true} 인 경우 데이타를, {@code false}인 경우 기본값을 {@link Consumer}에게 전달합니다. <br>
+     * {@link Predicate} 가 {@code true} 인 경우 데이타를, {@code false}인 경우 기본값을
+     * {@link Consumer}에게 전달합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -102,7 +104,8 @@ public class LangUtils {
      *
      * @since 2018. 10. 26.
      */
-    public static final <T extends @Nullable Object> void executeIf(T value, T defaultValue, Predicate<Object> p, Consumer<T> c) {
+    public static final <T extends @Nullable Object> void executeIf(T value, T defaultValue, Predicate<Object> p,
+            Consumer<T> c) {
         AssertUtils2.notNulls(p, c);
 
         if (p.test((Object) value)) {
@@ -202,7 +205,8 @@ public class LangUtils {
      *
      * @since 2018. 10. 26.
      */
-    public static final void executeIfNotNullEmpty(@Nullable String value, @Nullable String defaultValue, Consumer<@Nullable String> c) {
+    public static final void executeIfNotNullEmpty(@Nullable String value, @Nullable String defaultValue,
+            Consumer<@Nullable String> c) {
         executeIf(value, defaultValue, NOT_NULL_EMPTY, c);
     }
 

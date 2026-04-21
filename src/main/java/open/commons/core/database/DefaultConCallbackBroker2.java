@@ -77,7 +77,8 @@ public class DefaultConCallbackBroker2 extends ConnectionCallbackBroker2<SQLCons
      * 
      * {@inheritDoc}
      *
-     * @see open.commons.core.database.ConnectionCallbackBroker2#set(java.sql.PreparedStatement, java.lang.Object)
+     * @see open.commons.core.database.ConnectionCallbackBroker2#set(java.sql.PreparedStatement,
+     *      java.lang.Object)
      */
     @Override
     protected void set(PreparedStatement stmt, SQLConsumer<PreparedStatement> setter) throws SQLException {

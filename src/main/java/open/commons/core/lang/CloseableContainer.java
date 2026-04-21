@@ -38,7 +38,8 @@ import jakarta.annotation.Resource;
 import open.commons.core.utils.IOUtils;
 
 /**
- * {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로 해제({@link AutoCloseable#close()})하는 기능을 제공.
+ * {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로
+ * 해제({@link AutoCloseable#close()})하는 기능을 제공.
  * 
  * @since 2021. 7. 1.
  * @version 1.8.0
@@ -74,8 +75,10 @@ public interface CloseableContainer extends AutoCloseable {
     default void close() throws Exception {
 
         // 1. 캐시에서 리소스 필드 목록 획득 (최초 1회만 리플렉션 스캔 수행)
-        List<Field> resourceFields = CacheHolder.FIELDS_CACHE.computeIfAbsent(getClass(), clazz -> Arrays.stream(clazz.getDeclaredFields())
-                // 기존 fieldClass.isAnnotationPresent -> field.isAnnotationPresent 로 수정
+        List<Field> resourceFields = CacheHolder.FIELDS_CACHE.computeIfAbsent(getClass(), clazz -> Arrays
+                .stream(clazz.getDeclaredFields())
+                // 기존 fieldClass.isAnnotationPresent ->
+                // field.isAnnotationPresent 로 수정
                 .filter(f -> f.isAnnotationPresent(Resource.class) && AutoCloseable.class.isAssignableFrom(f.getType())) //
                 // JDK 25: 캡슐화 대응 및 실행 시점 성능 극대화
                 .peek(f -> f.trySetAccessible()).toList());
@@ -85,7 +88,8 @@ public interface CloseableContainer extends AutoCloseable {
             try {
                 return (AutoCloseable) f.get(this);
             } catch (IllegalAccessException e) {
-                throw new RuntimeException("Fail to access a " + Resource.class.getName() + " instance field: " + f.getName(), e);
+                throw new RuntimeException(
+                        "Fail to access a " + Resource.class.getName() + " instance field: " + f.getName(), e);
             }
         }).filter(Objects::nonNull)
                 // 기존 HashSet을 대체하는 Stream API 중복 제거

@@ -42,7 +42,8 @@ public class DefaultEquivalent<T extends @Nullable Object> implements IEquivalen
      * 
      * @since 2012. 03. 20.
      * 
-     * @see open.commons.core.IEquivalent#equals(java.lang.Object, java.lang.Object)
+     * @see open.commons.core.IEquivalent#equals(java.lang.Object,
+     *      java.lang.Object)
      */
     @Override
     public boolean equals(@Nullable T t1, @Nullable T t2) {

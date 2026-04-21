@@ -732,7 +732,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
                 new Thread(service).start();
 
-                System.out.printf("(new 'Service') service: %s, directory, %s, recursive: %s", service, directory, recursive);
+                System.out.printf("(new 'Service') service: %s, directory, %s, recursive: %s", service, directory,
+                        recursive);
             }
         }
 
@@ -1254,7 +1255,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
 
     /**
      * 
-     * @see open.commons.core.unix.tool.IFileWatchListener#watch(String, java.nio.file.WatchEvent.Kind)
+     * @see open.commons.core.unix.tool.IFileWatchListener#watch(String,
+     *      java.nio.file.WatchEvent.Kind)
      */
     @Override
     public void watch(String pathname, @Nullable Kind<?> kind) {
@@ -1370,7 +1372,8 @@ public class FileMonitor implements IRunnable, IFileWatchListener, IFileModifyLi
         sb.append("              '/home/usr' is equal to '/home/usr");
         sb.append(FmConstants.DIR_OPT_DELIMITER);
         sb.append("0'.\n");
-        sb.append("              ex) /usr/" + FmConstants.DIR_OPT_DELIMITER + "0" + FmConstants.DIR_DELIMITER + "/bin/");
+        sb.append(
+                "              ex) /usr/" + FmConstants.DIR_OPT_DELIMITER + "0" + FmConstants.DIR_DELIMITER + "/bin/");
         sb.append(FmConstants.DIR_OPT_DELIMITER + "1,/usr,/opt" + FmConstants.DIR_OPT_DELIMITER);
         sb.append("1\n");
         sb.append(" -f [value] : files. Values are delimited by " + FmConstants.FILE_DELIMITER_DESC);

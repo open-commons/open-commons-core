@@ -31,11 +31,13 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * Represents an operation that accepts a single input argument and returns no result. Unlike most other functional
- * interfaces, {@code Consumer} is expected to operate via side-effects.
+ * Represents an operation that accepts a single input argument and returns no
+ * result. Unlike most other functional interfaces, {@code Consumer} is expected
+ * to operate via side-effects.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose functional method is {@link #accept(Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose
+ * functional method is {@link #accept(Object)}.
  *
  * @param <T>
  *            the type of the first argument to the operation
@@ -69,18 +71,21 @@ public interface SQLTripleConsumer<T, U, V> {
     void accept(T t, U u, V v) throws SQLException;
 
     /**
-     * Returns a composed {@code BiConsumer} that performs, in sequence, this operation followed by the {@code after}
-     * operation. If performing either operation throws an exception, it is relayed to the caller of the composed
-     * operation. If performing this operation throws an exception, the {@code after} operation will not be performed.
+     * Returns a composed {@code BiConsumer} that performs, in sequence, this
+     * operation followed by the {@code after} operation. If performing either
+     * operation throws an exception, it is relayed to the caller of the
+     * composed operation. If performing this operation throws an exception, the
+     * {@code after} operation will not be performed.
      *
      * @param after
      *            the operation to perform after this operation
-     * @return a composed {@code BiConsumer} that performs in sequence this operation followed by the {@code after}
-     *         operation
+     * @return a composed {@code BiConsumer} that performs in sequence this
+     *         operation followed by the {@code after} operation
      * @throws SQLException
      * @since 1.6.17
      */
-    default SQLTripleConsumer<T, U, V> andThen(TripleConsumer<? super T, ? super U, ? super V> after) throws SQLException {
+    default SQLTripleConsumer<T, U, V> andThen(TripleConsumer<? super T, ? super U, ? super V> after)
+            throws SQLException {
         Objects.requireNonNull(after);
 
         return (l, r, u) -> {

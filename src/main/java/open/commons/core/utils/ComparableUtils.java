@@ -37,7 +37,8 @@ import open.commons.core.annotation.ComparableValue;
 public class ComparableUtils {
 
     @SuppressWarnings("null")
-    private static final Comparator<Field> COMPARABLE_VALUE_SORTER = Comparator.comparingInt(field -> field.getAnnotation(ComparableValue.class).order());
+    private static final Comparator<Field> COMPARABLE_VALUE_SORTER = Comparator
+            .comparingInt(field -> field.getAnnotation(ComparableValue.class).order());
 
     // 클래스 메타데이터 전역 캐시 (Thread-Safe)
     private static final Map<Class<?>, List<Field>> FIELD_CACHE = new ConcurrentHashMap<>();
@@ -103,7 +104,8 @@ public class ComparableUtils {
     }
 
     /**
-     * {@link ComparableValue}이 사용된 필드만 이용해서 동적으로 비교 결과(Nulls First 기준)를 반환합니다. 단, 해당 필드는 {@link Comparable}을 구현해야만 합니다.
+     * {@link ComparableValue}이 사용된 필드만 이용해서 동적으로 비교 결과(Nulls First 기준)를 반환합니다.
+     * 단, 해당 필드는 {@link Comparable}을 구현해야만 합니다.
      *
      * <pre>
      * [개정이력]
@@ -162,7 +164,8 @@ public class ComparableUtils {
                 }
             }
         } catch (IllegalAccessException e) {
-            // 캐시 생성 시점에 trySetAccessible()을 호출했음에도 실패하는 강력한 모듈 캡슐화(JPMS) 환경의 런타임 오류
+            // 캐시 생성 시점에 trySetAccessible()을 호출했음에도 실패하는 강력한 모듈 캡슐화(JPMS) 환경의
+            // 런타임 오류
             throw new RuntimeException("필드 값에 접근할 수 없습니다. (모듈 시스템의 exports/opens 설정 확인 필요)", e);
         }
 

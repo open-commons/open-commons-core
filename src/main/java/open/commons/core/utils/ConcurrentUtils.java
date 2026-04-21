@@ -106,7 +106,8 @@ public class ConcurrentUtils {
      * @since 2025. 9. 30.
      * @version 2.1.0
      */
-    public static <T, U extends @Nullable Object> List<U> executeAsync(Collection<T> data, Function<T, U> actor, Executor executor) {
+    public static <T, U extends @Nullable Object> List<U> executeAsync(Collection<T> data, Function<T, U> actor,
+            Executor executor) {
         AssertUtils2.notNulls(data, actor, executor);
 
         // #1. 작업을 병렬로 실행 (supplyAsync)
@@ -124,7 +125,8 @@ public class ConcurrentUtils {
      * 여러 개의 처리 결과를 하나의 데이터에 적용하는 작업을 병렬로 수행합니다. <br>
      * <p>
      * <b>[동시성(Concurrency) 주의사항]</b><br>
-     * 다수의 스레드가 동시에 {@code bucket} 객체의 상태를 변경하므로, 전달되는 {@code bucket}은 반드시 <b>스레드 안전(Thread-Safe)한 객체</b>여야 합니다. (예:
+     * 다수의 스레드가 동시에 {@code bucket} 객체의 상태를 변경하므로, 전달되는 {@code bucket}은 반드시
+     * <b>스레드 안전(Thread-Safe)한 객체</b>여야 합니다. (예:
      * {@link java.util.concurrent.ConcurrentHashMap}, 락이 구현된 객체 등)
      * </p>
      *

@@ -71,7 +71,8 @@ public class CsvConfig extends CsvCommon {
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
      */
     public CsvConfig() {
-        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
+        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES,
+                DEFAULT_IGNORE_LEADING_WHITESPACE);
     }
 
     /**
@@ -97,7 +98,8 @@ public class CsvConfig extends CsvCommon {
      * @see #DEFAULT_IGNORE_LEADING_WHITESPACE
      */
     public CsvConfig(char separator) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES, DEFAULT_IGNORE_LEADING_WHITESPACE);
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, DEFAULT_STRICT_QUOTES,
+                DEFAULT_IGNORE_LEADING_WHITESPACE);
     }
 
     /**
@@ -200,7 +202,8 @@ public class CsvConfig extends CsvCommon {
      * @since 2021. 6. 25.
      * @version 1.8.0
      */
-    public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes, boolean ignoreLeadingWhiteSpace) {
+    public CsvConfig(char separator, char quotechar, char escape, boolean strictQuotes,
+            boolean ignoreLeadingWhiteSpace) {
         super(separator, quotechar, escape);
         this.strictQuotes = strictQuotes;
         this.ignoreLeadingWhiteSpace = ignoreLeadingWhiteSpace;

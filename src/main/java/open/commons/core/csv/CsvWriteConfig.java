@@ -62,7 +62,8 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig() {
-        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
+        this(DEFAULT_SEPARATOR, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER,
+                CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**
@@ -84,7 +85,8 @@ public class CsvWriteConfig extends CsvCommon {
      * @see #DEFAULT_CHARSET_NAME
      */
     public CsvWriteConfig(char separator) {
-        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER, CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
+        this(separator, DEFAULT_QUOTE_CHARACTER, DEFAULT_ESCAPE_CHARACTER,
+                CharUtils.requireCharset(DEFAULT_CHARSET_NAME));
     }
 
     /**

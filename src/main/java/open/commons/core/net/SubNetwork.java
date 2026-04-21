@@ -90,8 +90,9 @@ public class SubNetwork {
      * @param cidrNotation
      *            A CIDR-notation string, e.g. "192.168.0.1/16"
      * @throws IllegalArgumentException
-     *             if the parameter is invalid, i.e. does not match n.n.n.n/m where n=1-3 decimal digits, m = 1-3
-     *             decimal digits in range 1-32
+     *             if the parameter is invalid, i.e. does not match n.n.n.n/m
+     *             where n=1-3 decimal digits, m = 1-3 decimal digits in range
+     *             1-32
      */
     public SubNetwork(String cidrNotation) throws IllegalArgumentException {
         Objects.requireNonNull(cidrNotation);
@@ -109,7 +110,8 @@ public class SubNetwork {
      * @param ipv4
      * @param subnetMask
      * @throws IllegalArgumentException
-     *             Thrown if an argument is not matched to {@link #REGEX_IPV4} or CIDR is not valid.
+     *             Thrown if an argument is not matched to {@link #REGEX_IPV4}
+     *             or CIDR is not valid.
      * @since Apr 13, 2015
      */
     public SubNetwork(String ipv4, int subnetMask) throws NullPointerException, IllegalArgumentException {
@@ -136,8 +138,9 @@ public class SubNetwork {
      * @param mask
      *            A dotted decimal netmask e.g. "255.255.0.0"
      * @throws IllegalArgumentException
-     *             if the address or mask is invalid, i.e. does not match n.n.n.n where n=1-3 decimal digits and the
-     *             mask is not all zeros
+     *             if the address or mask is invalid, i.e. does not match
+     *             n.n.n.n where n=1-3 decimal digits and the mask is not all
+     *             zeros
      * 
      * @since Apr 13, 2015
      */
@@ -148,7 +151,8 @@ public class SubNetwork {
     }
 
     private String binValueToIPv4Expr(int intValue) {
-        return dotValueToIPv4Expr(intValue >>> 24, (intValue << 8) >>> 24, (intValue << 16) >>> 24, (intValue << 24) >>> 24);
+        return dotValueToIPv4Expr(intValue >>> 24, (intValue << 8) >>> 24, (intValue << 16) >>> 24,
+                (intValue << 24) >>> 24);
     }
 
     /**
@@ -156,7 +160,8 @@ public class SubNetwork {
      * @param ipv4
      * @param netmask
      * @throws IllegalArgumentException
-     *             Thrown if an argument is not matched to {@link #REGEX_IPV4} or CIDR is not valid.
+     *             Thrown if an argument is not matched to {@link #REGEX_IPV4}
+     *             or CIDR is not valid.
      *
      * @since Apr 15, 2015
      */
@@ -182,7 +187,8 @@ public class SubNetwork {
 
             int hostPartBin = ipBin ^ networkBin;
 
-            return new NetInfo(ipv4, ipBin, netmaskStr, netmaskInt, netmaskBin, network, networkBin, broadcast, broadcastBin, hostPartBin);
+            return new NetInfo(ipv4, ipBin, netmaskStr, netmaskInt, netmaskBin, network, networkBin, broadcast,
+                    broadcastBin, hostPartBin);
         } else {
             throw new IllegalArgumentException("A parameters is not matched to " + REGEX_IPV4 + ". parameter: " + ipv4);
         }
@@ -277,7 +283,8 @@ public class SubNetwork {
     /**
      * 
      * @param other
-     *            binary value that a dotted decimal address is translated integer.
+     *            binary value that a dotted decimal address is translated
+     *            integer.
      * @param logged
      * @return
      *
@@ -320,7 +327,8 @@ public class SubNetwork {
         System.out.printf(format, "", toWellFormed32bitBinaryString((int) ((this.netmaskBin & other))) + ", op=&");
         System.out.printf(format, "Host.network", toWellFormed32bitBinaryString(this.networkBin));
         System.out.println("-----------------------------------------------------------------");
-        System.out.printf(format, "Masking", toWellFormed32bitBinaryString((int) ((this.netmaskBin & other) ^ this.networkBin)) + ", op=^");
+        System.out.printf(format, "Masking",
+                toWellFormed32bitBinaryString((int) ((this.netmaskBin & other) ^ this.networkBin)) + ", op=^");
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
@@ -335,13 +343,15 @@ public class SubNetwork {
 
         sb.append(String.format(TO_STRING_FORMAT, "Address", toWellFormed32bitBinaryString(ipBin), ipv4));
         sb.append('\n');
-        sb.append(String.format(TO_STRING_FORMAT, "Mask", toWellFormed32bitBinaryString(maskToBinValue(netmaskInt)), netmask + " (/" + netmaskInt + ")"));
+        sb.append(String.format(TO_STRING_FORMAT, "Mask", toWellFormed32bitBinaryString(maskToBinValue(netmaskInt)),
+                netmask + " (/" + netmaskInt + ")"));
         sb.append('\n');
         sb.append(String.format(TO_STRING_FORMAT, "Network", toWellFormed32bitBinaryString(networkBin), network));
         sb.append('\n');
         sb.append(String.format(TO_STRING_FORMAT, "Broadcast", toWellFormed32bitBinaryString(broadcastBin), broadcast));
         sb.append('\n');
-        sb.append(String.format(TO_STRING_FORMAT, "Host part", toWellFormed32bitBinaryString(hostPartBin), binValueToIPv4Expr(hostPartBin)));
+        sb.append(String.format(TO_STRING_FORMAT, "Host part", toWellFormed32bitBinaryString(hostPartBin),
+                binValueToIPv4Expr(hostPartBin)));
         sb.append('\n');
         sb.append(String.format("%-10s: %s / %s", "Available", getAddressesCount(), getAddresses()));
 
@@ -458,8 +468,8 @@ public class SubNetwork {
      * @since 2026. 3. 19.
      * @version 3.0.0
      */
-    private static record NetInfo(String ipv4, int ipBin, String netmask, int netmaskInt, int netmaskBin, String network, int networkBin, String broadcast, int broadcastBin,
-            int hostPartBin) {
+    private static record NetInfo(String ipv4, int ipBin, String netmask, int netmaskInt, int netmaskBin,
+            String network, int networkBin, String broadcast, int broadcastBin, int hostPartBin) {
     }
 
 }

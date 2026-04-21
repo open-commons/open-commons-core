@@ -115,7 +115,8 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 {@code col}이 {@code null}인 경우, 새로운 객체.
      */
-    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addAll(C col, Class<C> clazz, E... elems) {
+    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addAll(C col, Class<C> clazz,
+            E... elems) {
         if (col == null) {
             try {
                 col = clazz.getDeclaredConstructor().newInstance();
@@ -210,7 +211,8 @@ public class CollectionUtils {
      *
      * @since 2017. 12. 13.
      */
-    public static <E extends @Nullable Object, C extends @Nullable Collection<E>> C addAllIfNotNull(C col, Class<C> clazz, Collection<E> elems) {
+    public static <E extends @Nullable Object, C extends @Nullable Collection<E>> C addAllIfNotNull(C col,
+            Class<C> clazz, Collection<E> elems) {
         if (col == null) {
             try {
                 col = clazz.getDeclaredConstructor().newInstance();
@@ -232,7 +234,8 @@ public class CollectionUtils {
      *            새로운 데이터
      * @return 전달받은 {@code col}이 {@code null}인 경우, 새로운 객체.
      */
-    public static <C extends Collection<E>, E extends @Nullable Object> C addAllIfNotNull(C col, Class<C> clazz, E... elems) {
+    public static <C extends Collection<E>, E extends @Nullable Object> C addAllIfNotNull(C col, Class<C> clazz,
+            E... elems) {
         return addAll(col, clazz, elems);
     }
 
@@ -279,7 +282,8 @@ public class CollectionUtils {
      *
      * @since 2017. 12. 13.
      */
-    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addIfNotNull(C col, Class<C> clazz, E elem) {
+    public static <C extends @Nullable Collection<E>, E extends @Nullable Object> C addIfNotNull(C col, Class<C> clazz,
+            E elem) {
         if (elem == null) {
             return col;
         }
@@ -357,7 +361,8 @@ public class CollectionUtils {
             List<E> data1, List<E> data2 //
             , Function<E, KEY> keyProvider, Function<KEY, E> emptyCreator //
     ) {
-        return alignBy(data1, keyProvider, Functions.Unary.identity(), emptyCreator, data2, keyProvider, Functions.Unary.identity(), emptyCreator);
+        return alignBy(data1, keyProvider, Functions.Unary.identity(), emptyCreator, data2, keyProvider,
+                Functions.Unary.identity(), emptyCreator);
     }
 
     /**
@@ -402,7 +407,8 @@ public class CollectionUtils {
             , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
             , Function<KEY, R> emptyCreator //
     ) {
-        return alignBy(data1, keyProvider1, transformer1, emptyCreator, data2, keyProvider2, transformer2, emptyCreator);
+        return alignBy(data1, keyProvider1, transformer1, emptyCreator, data2, keyProvider2, transformer2,
+                emptyCreator);
     }
 
     /**
@@ -447,10 +453,13 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <E1, E2, KEY extends Comparable<KEY>, R1, R2> TwoValueObject<List<R1>, List<R2>> alignBy( //
-            List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R1> transformer1, Function<KEY, R1> emptyCreator1 //
-            , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R2> transformer2, Function<KEY, R2> emptyCreator2 //
+            List<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R1> transformer1,
+            Function<KEY, R1> emptyCreator1 //
+            , List<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R2> transformer2,
+            Function<KEY, R2> emptyCreator2 //
     ) {
-        AssertUtils2.notNulls(data1, keyProvider1, transformer1, emptyCreator1, data2, keyProvider2, transformer2, emptyCreator2);
+        AssertUtils2.notNulls(data1, keyProvider1, transformer1, emptyCreator1, data2, keyProvider2, transformer2,
+                emptyCreator2);
 
         List<R1> resultData1 = new ArrayList<>();
         List<R2> resultData2 = new ArrayList<>();
@@ -581,7 +590,8 @@ public class CollectionUtils {
      * @since 2021. 12. 20.
      * @version 1.8.0
      */
-    public static <S, T, U> U concatenate(Collection<S> data, Function<S, T> transformer, Function<List<T>, U> aggregator) {
+    public static <S, T, U> U concatenate(Collection<S> data, Function<S, T> transformer,
+            Function<List<T>, U> aggregator) {
         AssertUtils2.notNulls(data, transformer, aggregator);
 
         return aggregator.apply(data.stream().map(transformer).collect(Collectors.toList()));
@@ -748,7 +758,8 @@ public class CollectionUtils {
      * @since 2021. 7. 13.
      * @version 1.8.0
      */
-    public static <E, C extends Collection<E>> C get(Collection<E> col, Predicate<E> p, Class<C> type) throws InstantiationException, IllegalAccessException {
+    public static <E, C extends Collection<E>> C get(Collection<E> col, Predicate<E> p, Class<C> type)
+            throws InstantiationException, IllegalAccessException {
         AssertUtils2.notNulls(col, p, type);
 
         try {
@@ -758,7 +769,8 @@ public class CollectionUtils {
                     // JDK 9+ 표준: getDeclaredConstructor().newInstance() 사용
                     return type.getDeclaredConstructor().newInstance();
                 } catch (InstantiationException | IllegalAccessException e) {
-                    // Supplier 내부에서는 Checked Exception을 던질 수 없으므로 RuntimeException으로 래핑
+                    // Supplier 내부에서는 Checked Exception을 던질 수 없으므로
+                    // RuntimeException으로 래핑
                     throw new RuntimeException(e);
                 } catch (NoSuchMethodException | InvocationTargetException e) {
                     throw new IllegalArgumentException("기본 생성자를 호출할 수 없거나 예외가 발생했습니다: " + type.getName(), e);
@@ -809,7 +821,8 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를 제공합니다. <br>
+     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를
+     * 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -865,9 +878,11 @@ public class CollectionUtils {
 
         // 1. col.stream() : Collection<List<E>>를 Stream<List<E>>로 변환
         return col.stream()
-                // 2. flatMap(Collection::stream) : 중첩된 리스트들을 평탄화하여 하나의 Stream<E>로 병합
+                // 2. flatMap(Collection::stream) : 중첩된 리스트들을 평탄화하여 하나의
+                // Stream<E>로 병합
                 .flatMap(Collection::stream)
-                // 3. collect(Collectors.groupingBy(keyGen)) : keyGen 함수를 기준으로 요소를 Map<K, List<E>>로 자동 그룹화
+                // 3. collect(Collectors.groupingBy(keyGen)) : keyGen 함수를 기준으로
+                // 요소를 Map<K, List<E>>로 자동 그룹화
                 .collect(Collectors.groupingBy(keyGen));
     }
 
@@ -1834,7 +1849,8 @@ public class CollectionUtils {
      *
      * @since 2022. 12. 30.
      */
-    public static <E extends @Nullable Object> Vector<E> newVector(@Nullable Collection<E> col, E elem, boolean addIfNull) {
+    public static <E extends @Nullable Object> Vector<E> newVector(@Nullable Collection<E> col, E elem,
+            boolean addIfNull) {
         if (elem == null && !addIfNull) {
             if (col != null) {
                 return new Vector<>(col);
@@ -2121,7 +2137,8 @@ public class CollectionUtils {
     public static <E extends @Nullable Comparable<E>> Collection<E> order(Collection<E> col, boolean asc) {
         Objects.requireNonNull(col);
 
-        ConcurrentSkipListSet<E> orderedSet = new ConcurrentSkipListSet<E>(asc ? new AscComparator<E>() : new DescComparator<E>());
+        ConcurrentSkipListSet<E> orderedSet = new ConcurrentSkipListSet<E>(
+                asc ? new AscComparator<E>() : new DescComparator<E>());
         orderedSet.addAll(col);
         return orderedSet;
     }
@@ -2284,8 +2301,10 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
-        return parallelSortAndMerge(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(), Comparator.naturalOrder());
+    public static <E, KEY extends Comparable<KEY>> List<E> parallelSortAndMerge(Collection<E> data1,
+            Collection<E> data2, Function<E, KEY> keyProvider) {
+        return parallelSortAndMerge(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider,
+                Functions.Unary.identity(), Comparator.naturalOrder());
     }
 
     /**
@@ -2319,14 +2338,17 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider,
-            Function<E, R> transformer) {
-        return parallelSortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, Comparator.naturalOrder());
+    public static <E, KEY extends Comparable<KEY>, R> List<R> parallelSortAndMerge(Collection<E> data1,
+            Collection<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
+        return parallelSortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer,
+                Comparator.naturalOrder());
     }
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 모두 정렬되어 있다면,
+     * {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기
+     * 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -2364,12 +2386,15 @@ public class CollectionUtils {
             Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
     ) {
-        return parallelSortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, Comparator.naturalOrder());
+        return parallelSortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2,
+                Comparator.naturalOrder());
     }
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 모두 정렬되어 있다면,
+     * {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기
+     * 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -2409,9 +2434,13 @@ public class CollectionUtils {
             , Comparator<KEY> comparator //
     ) {
         @NonNull
-        List<E1> sortedData1 = data1.parallelStream().sorted((o1, o2) -> keyProvider1.apply(o1).compareTo(keyProvider1.apply(o2))).collect(Collectors.toList());
+        List<E1> sortedData1 = data1.parallelStream()
+                .sorted((o1, o2) -> keyProvider1.apply(o1).compareTo(keyProvider1.apply(o2)))
+                .collect(Collectors.toList());
         @NonNull
-        List<E2> sortedData2 = data2.parallelStream().sorted((o1, o2) -> keyProvider2.apply(o1).compareTo(keyProvider2.apply(o2))).collect(Collectors.toList());
+        List<E2> sortedData2 = data2.parallelStream()
+                .sorted((o1, o2) -> keyProvider2.apply(o1).compareTo(keyProvider2.apply(o2)))
+                .collect(Collectors.toList());
 
         return sort(sortedData1, keyProvider1, transformer1, sortedData2, keyProvider2, transformer2, comparator);
     }
@@ -2553,7 +2582,8 @@ public class CollectionUtils {
      * @since 2023. 12. 13.
      * @version 2.0.0
      */
-    public static <T extends @Nullable Object> List<T> sort(Collection<T> data, Predicate<T> filter, Comparator<T> sorter) {
+    public static <T extends @Nullable Object> List<T> sort(Collection<T> data, Predicate<T> filter,
+            Comparator<T> sorter) {
         AssertUtils2.notNulls(data, filter, sorter);
 
         return data.stream() //
@@ -2587,8 +2617,10 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider) {
-        return sort(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(), Comparator.naturalOrder());
+    public static <E, KEY extends Comparable<KEY>> List<E> sort(List<E> data1, List<E> data2,
+            Function<E, KEY> keyProvider) {
+        return sort(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(),
+                Comparator.naturalOrder());
     }
 
     /**
@@ -2620,7 +2652,8 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY extends Comparable<KEY>, R> List<R> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
+    public static <E, KEY extends Comparable<KEY>, R> List<R> sort(List<E> data1, List<E> data2,
+            Function<E, KEY> keyProvider, Function<E, R> transformer) {
         return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, Comparator.naturalOrder());
     }
 
@@ -2655,7 +2688,8 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY, R> List<R> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer, Comparator<KEY> comparator) {
+    public static <E, KEY, R> List<R> sort(List<E> data1, List<E> data2, Function<E, KEY> keyProvider,
+            Function<E, R> transformer, Comparator<KEY> comparator) {
         return sort(data1, keyProvider, transformer, data2, keyProvider, transformer, comparator);
     }
 
@@ -2714,10 +2748,13 @@ public class CollectionUtils {
      *
      * <p>
      * <b>[동시성(Concurrency) 주의사항]</b><br>
-     * 이 메소드는 성능 최적화를 위해 내부적으로 방어적 복사(Defensive Copy)를 수행하지 않고 원본 리스트의 {@link Iterator}를 직접 사용합니다. 따라서 멀티스레드 환경에서 병합 작업
-     * 도중 원본 리스트({@code data1}, {@code data2})에 구조적인 변경(추가/삭제 등)이 발생할 경우
-     * {@link java.util.ConcurrentModificationException}이 발생할 수 있습니다. 동시 수정이 예상되는 환경에서는 호출자가 외부에서 동기화(Lock)를 보장하거나,
-     * {@link java.util.concurrent.CopyOnWriteArrayList}와 같은 스레드 안전한 컬렉션을 전달해야 합니다.
+     * 이 메소드는 성능 최적화를 위해 내부적으로 방어적 복사(Defensive Copy)를 수행하지 않고 원본 리스트의
+     * {@link Iterator}를 직접 사용합니다. 따라서 멀티스레드 환경에서 병합 작업 도중 원본 리스트({@code data1},
+     * {@code data2})에 구조적인 변경(추가/삭제 등)이 발생할 경우
+     * {@link java.util.ConcurrentModificationException}이 발생할 수 있습니다. 동시 수정이
+     * 예상되는 환경에서는 호출자가 외부에서 동기화(Lock)를 보장하거나,
+     * {@link java.util.concurrent.CopyOnWriteArrayList}와 같은 스레드 안전한 컬렉션을 전달해야
+     * 합니다.
      * </p>
      *
      * @param <E1>
@@ -2833,8 +2870,10 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider) {
-        return sortAndMerge(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider, Functions.Unary.identity(), Comparator.naturalOrder());
+    public static <E, KEY extends Comparable<KEY>> List<E> sortAndMerge(Collection<E> data1, Collection<E> data2,
+            Function<E, KEY> keyProvider) {
+        return sortAndMerge(data1, keyProvider, Functions.Unary.identity(), data2, keyProvider,
+                Functions.Unary.identity(), Comparator.naturalOrder());
     }
 
     /**
@@ -2868,13 +2907,17 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <E, KEY extends Comparable<KEY>, R> List<R> sortAndMerge(Collection<E> data1, Collection<E> data2, Function<E, KEY> keyProvider, Function<E, R> transformer) {
-        return sortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer, Comparator.naturalOrder());
+    public static <E, KEY extends Comparable<KEY>, R> List<R> sortAndMerge(Collection<E> data1, Collection<E> data2,
+            Function<E, KEY> keyProvider, Function<E, R> transformer) {
+        return sortAndMerge(data1, keyProvider, transformer, data2, keyProvider, transformer,
+                Comparator.naturalOrder());
     }
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
+     * 모두 정렬되어 있다면,
+     * {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기
+     * 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -2912,12 +2955,15 @@ public class CollectionUtils {
             Collection<E1> data1, Function<E1, KEY> keyProvider1, Function<E1, R> transformer1 //
             , Collection<E2> data2, Function<E2, KEY> keyProvider2, Function<E2, R> transformer2 //
     ) {
-        return sortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2, Comparator.naturalOrder());
+        return sortAndMerge(data1, keyProvider1, transformer1, data2, keyProvider2, transformer2,
+                Comparator.naturalOrder());
     }
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function, Comparator)}를 사용하기 바랍니다.
+     * 모두 정렬되어 있다면,
+     * {@link #sort(List, Function, Function, List, Function, Function, Comparator)}를
+     * 사용하기 바랍니다.
      *
      * <pre>
      * [개정이력]
@@ -2972,9 +3018,11 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된 {@link List}를 반환합니다.<br>
-     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는 {@code delegate} 방식으로
-     * 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는 새로운 복사본을 생성합니다.
+     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된
+     * {@link List}를 반환합니다.<br>
+     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List}
+     * 객체를 내부적으로 유지하는 {@code delegate} 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는
+     * 새로운 복사본을 생성합니다.
      * 
      * <pre>
      * [개정이력]
@@ -3000,9 +3048,11 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된 {@link List}를 반환합니다.<br>
-     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는 {@code delegate} 방식으로
-     * 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는 새로운 복사본을 생성합니다.
+     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된
+     * {@link List}를 반환합니다.<br>
+     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List}
+     * 객체를 내부적으로 유지하는 {@code delegate} 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는
+     * 새로운 복사본을 생성합니다.
      * 
      * <pre>
      * [개정이력]
@@ -3051,11 +3101,13 @@ public class CollectionUtils {
      *
      * <p>
      * <b>[제네릭 타입 소거(Type Erasure) 및 아키텍처 주의사항]</b><br>
-     * 자바의 제네릭 구조는 컴파일 타임에만 유효하며, 런타임(실행 시점)에는 제네릭 타입 정보({@code <E>})가 모두 소거됩니다. 따라서 타입 파라미터가 없는
-     * {@link Collection#toArray()}를 호출할 경우, 컬렉션은 자신의 데이터 타입을 알지 못해 무조건 부모 타입인 {@code Object[]} 메모리 블록을 할당하여 반환합니다.<br>
-     * 이를 강제로 다운캐스팅({@code (E[]) col.toArray()})하여 반환할 경우, 컴파일 경고로 끝나지 않고 호출부에서 해당 배열을 사용할 때 런타임에 치명적인
-     * {@link ClassCastException} 장애가 발생합니다.<br>
-     * 본 유틸리티 메소드는 이러한 언어적 한계를 안전하게 극복하기 위해, {@code Class<E> type} 파라미터(타입 토큰)를 외부에서 명시적으로 주입받아 런타임에 정확한 타입의 네이티브 배열을 동적
+     * 자바의 제네릭 구조는 컴파일 타임에만 유효하며, 런타임(실행 시점)에는 제네릭 타입 정보({@code <E>})가 모두 소거됩니다.
+     * 따라서 타입 파라미터가 없는 {@link Collection#toArray()}를 호출할 경우, 컬렉션은 자신의 데이터 타입을 알지
+     * 못해 무조건 부모 타입인 {@code Object[]} 메모리 블록을 할당하여 반환합니다.<br>
+     * 이를 강제로 다운캐스팅({@code (E[]) col.toArray()})하여 반환할 경우, 컴파일 경고로 끝나지 않고 호출부에서
+     * 해당 배열을 사용할 때 런타임에 치명적인 {@link ClassCastException} 장애가 발생합니다.<br>
+     * 본 유틸리티 메소드는 이러한 언어적 한계를 안전하게 극복하기 위해, {@code Class<E> type} 파라미터(타입 토큰)를
+     * 외부에서 명시적으로 주입받아 런타임에 정확한 타입의 네이티브 배열을 동적
      * 할당({@link java.lang.reflect.Array#newInstance})합니다.
      * </p>
      *
@@ -3087,10 +3139,11 @@ public class CollectionUtils {
     }
 
     /**
-     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
+     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다.
+     * <br>
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3104,7 +3157,8 @@ public class CollectionUtils {
      *            데이터 유형 (Nullable)
      * @param <NE>
      *            새로운 데이터 유형 (Nullable). <br>
-     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가
+     *            {@code null}을 허용해야 합니다.
      * @param <C>
      *            결과 {@link Collection} 유형
      * @param col
@@ -3124,12 +3178,14 @@ public class CollectionUtils {
     }
 
     /**
-     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다.
+     * <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3143,7 +3199,8 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <C>
      *            결과 {@link Collection} 유형
      * @param col
@@ -3152,10 +3209,12 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * 
@@ -3165,7 +3224,8 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V, C extends Collection<V>> //
-            C toCollection(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
+            C toCollection(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
+                    BinaryOperator<V> mergeFunction, Supplier<C> collectionFactory) {
         return StreamUtils.toCollection(col.stream(), keyMapper, valueMapper, mergeFunction, collectionFactory);
     }
 
@@ -3194,8 +3254,8 @@ public class CollectionUtils {
 
     /**
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3218,14 +3278,15 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Collection<E> col, Function<E, NE> transformer) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Collection<E> col,
+            Function<E, NE> transformer) {
         return toCollection(col, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3239,14 +3300,16 @@ public class CollectionUtils {
      *            데이터 유형 (Nullable)
      * @param <NE>
      *            새로운 데이터 유형 (Nullable). <br>
-     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을 허용해야 합니다.
+     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을
+     *            허용해야 합니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
      *            데이터 제공 객체
      * @param transformer
      *            데이터 변환 함수. (E &rarr; NE) <br>
-     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을
+     *            허용해야 합니다.
      * @param listSupplier
      *            결과 {@link Listr} 객체 제공 함수.
      * @return
@@ -3254,7 +3317,8 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object, L extends List<NE>> L toList(Collection<E> col, Function<E, NE> transformer, Supplier<L> listSupplier) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object, L extends List<NE>> L toList(
+            Collection<E> col, Function<E, NE> transformer, Supplier<L> listSupplier) {
         return toCollection(col, transformer, listSupplier);
     }
 
@@ -3262,8 +3326,8 @@ public class CollectionUtils {
      * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3275,7 +3339,8 @@ public class CollectionUtils {
      *
      * @param <E>
      *            데이터 유형 (Nullable)<br>
-     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가
+     *            {@code null}을 허용해야 합니다.
      * @param <C>
      *            결과 {@link List} 유형
      * @param col
@@ -3287,17 +3352,19 @@ public class CollectionUtils {
      * @since 2025. 8. 21.
      * @version 2.1.0
      */
-    public static <E extends @Nullable Object, C extends Collection<E>> C toList(Collection<E> col, Supplier<C> collectionSupplier) {
+    public static <E extends @Nullable Object, C extends Collection<E>> C toList(Collection<E> col,
+            Supplier<C> collectionSupplier) {
         return toCollection(col, Functions.Unary.identity(), collectionSupplier);
     }
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3311,27 +3378,32 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
+    public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper,
+            BinaryOperator<V> mergeFunction) {
+        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction,
+                (Supplier<List<V>>) ArrayList<V>::new);
     }
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3344,7 +3416,8 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
@@ -3353,7 +3426,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
      * 
@@ -3362,18 +3436,19 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
-            Supplier<L> listFactory) {
+    public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col,
+            Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<L> listFactory) {
         return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, listFactory);
     }
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3387,32 +3462,37 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K extends @Nullable Object, V> List<V> toList(Collection<V> col, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<List<V>>) ArrayList<V>::new);
     }
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3426,17 +3506,20 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
      * 
@@ -3445,15 +3528,16 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<L> listFactory) {
+    public static <K extends @Nullable Object, V, L extends List<V>> L toList(Collection<V> col,
+            Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction,
+            Supplier<L> listFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, listFactory);
     }
 
     /**
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3476,24 +3560,30 @@ public class CollectionUtils {
      * 
      * @since 2018. 9. 12.
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream, Function<E, NE> transformer) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object> List<NE> toList(Stream<E> stream,
+            Function<E, NE> transformer) {
         return StreamUtils.toCollection(stream, transformer, (Supplier<List<NE>>) ArrayList<NE>::new);
     }
 
     /**
-     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로 제공합니다.<br>
+     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로
+     * 제공합니다.<br>
      * 단, {@code keyMapper} 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * {@code keyMapper} 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
-     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기 바랍니다.<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)}
+     * 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)}
+     * 를 사용하기 바랍니다.<br>
      * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
      * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
-     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
+     * 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환
+     * 데이터와는 다른 점</font>을 유의하기 바랍니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3516,7 +3606,8 @@ public class CollectionUtils {
      * 
      * @since 2017. 7. 6.
      */
-    public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Collection<E> col, Function<E, K> keyMapper) {
+    public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Collection<E> col,
+            Function<E, K> keyMapper) {
         return toMap(col, keyMapper, (Supplier<Map<K, E>>) HashMap<K, E>::new);
     }
 
@@ -3549,7 +3640,8 @@ public class CollectionUtils {
      *
      * @since 2018. 2. 8.
      */
-    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
+    public static <E, K, V, M extends Map<K, Collection<V>>> M toMap(Collection<E> col, Function<E, K> keyGen,
+            Function<E, V> valueGen) {
         AssertUtils2.notNulls(col, keyGen, valueGen);
 
         // 비한정적 와일드카드(?, ?)를 사용하여 원시 타입(Raw Type) 경고를 방지하고 제네릭 안정성을 유지합니다.
@@ -3561,7 +3653,8 @@ public class CollectionUtils {
      * *
      * <p>
      * <b>[데이터 병합 정책]</b><br>
-     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에 순회되는 요소가 이전 요소를 덮어씁니다(Overwrite).</b>
+     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에
+     * 순회되는 요소가 이전 요소를 덮어씁니다(Overwrite).</b>
      * </p>
      *
      * <pre>
@@ -3589,7 +3682,8 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyGen, M map) {
+    public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(
+            Collection<E> col, Function<E, K> keyGen, M map) {
         AssertUtils2.notNulls(col, keyGen, map);
 
         // 컬렉션 내부 최적화를 활용하는 내부 반복자(Internal Iterator) 적용
@@ -3599,19 +3693,24 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로 제공합니다.<br>
+     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로
+     * 제공합니다.<br>
      * 단, {@code keyMapper} 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * {@code keyMapper} 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
-     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기 바랍니다.<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)}
+     * 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)}
+     * 를 사용하기 바랍니다.<br>
      * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
      * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
-     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
+     * 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환
+     * 데이터와는 다른 점</font>을 유의하기 바랍니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3626,7 +3725,8 @@ public class CollectionUtils {
      *            데이터 유형 (Nullable).
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3640,15 +3740,17 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      * @version 2.1.0
      */
-    public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
-        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), Functions.Binary.last(), mapSupplier);
+    public static <E extends @Nullable Object, K extends @Nullable Object, M extends Map<K, E>> M toMap(
+            Collection<E> col, Function<E, K> keyMapper, Supplier<M> mapSupplier) {
+        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), Functions.Binary.last(),
+                mapSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3668,23 +3770,27 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<Map<K, V>>) HashMap<K, V>::new);
+    public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, V> toMap(Collection<V> col,
+            Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
+        return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), mergeFunction,
+                (Supplier<Map<K, V>>) HashMap<K, V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합 ('V + V &rarr; V' &rarr; U) 합니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3708,8 +3814,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의
+     *            제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U)
      * @return
@@ -3717,16 +3823,18 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, U> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
+    public static <K extends @Nullable Object, V, U> Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper,
+            BinaryOperator<V> mergeFunction, Function<V, U> transformer) {
         return toMap(col, keyMapper, mergeFunction, transformer, (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합 ('V + V &rarr; V' &rarr; U) 합니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3738,12 +3846,14 @@ public class CollectionUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
      *            변환된 새로운 데이터 유형 (Nullable). <br>
-     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이 가능합니다.
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이
+     *            허용한다면 {@code null}이 가능합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3752,8 +3862,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의
+     *            제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
      *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
@@ -3766,15 +3876,16 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U extends @Nullable Object, M extends Map<K, U>> //
-            M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Function<V, U> transformer, Supplier<M> mapSupplier) {
+            M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+                    Function<V, U> transformer, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, mergeFunction, transformer, mapSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3786,7 +3897,8 @@ public class CollectionUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <M>
@@ -3797,7 +3909,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V &rarr; V)<br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
@@ -3806,15 +3919,16 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, M extends Map<K, V>> //
-            M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<M> mapSupplier) {
+            M toMap(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction,
+                    Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, Functions.Unary.identity(), mergeFunction, mapSupplier);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3830,7 +3944,8 @@ public class CollectionUtils {
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
      *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3839,10 +3954,12 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
      *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return
      *
@@ -3850,15 +3967,17 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M> //
-            Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction) {
-        return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, (Supplier<Map<K, U>>) HashMap<K, U>::new);
+            Map<K, U> toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction,
+                    BinaryOperator<U> mergeFunction) {
+        return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction,
+                (Supplier<Map<K, U>>) HashMap<K, U>::new);
     }
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3870,12 +3989,14 @@ public class CollectionUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
+     *            허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
      *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3884,10 +4005,12 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
      *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * 
@@ -3897,7 +4020,8 @@ public class CollectionUtils {
      * @version 2.1.0
      */
     public static <K extends @Nullable Object, V extends @Nullable Object, U, M extends Map<K, U>> //
-            M toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction, BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
+            M toMap(Collection<V> col, Function<V, K> keyMapper, Function<V, U> valueFunction,
+                    BinaryOperator<U> mergeFunction, Supplier<M> mapSupplier) {
         return StreamUtils.toMap(col.stream(), keyMapper, valueFunction, mergeFunction, mapSupplier);
     }
 
@@ -3905,17 +4029,21 @@ public class CollectionUtils {
      * {@link Enumera} 데이터를 {@code keyGen}로 구분되는 {@link Map} 형테로 제공합니다.<br>
      * 단, {@code keyMapper} 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * {@code keyMapper} 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
-     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기 바랍니다.<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)}
+     * 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)}
+     * 를 사용하기 바랍니다.<br>
      * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
      * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
-     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
+     * 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환
+     * 데이터와는 다른 점</font>을 유의하기 바랍니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3940,7 +4068,8 @@ public class CollectionUtils {
      * 
      * @see #toMap(Collection, Function)
      */
-    public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Enumeration<E> col, Function<E, K> keyMapper) {
+    public static <E extends @Nullable Object, K extends @Nullable Object> Map<K, E> toMap(Enumeration<E> col,
+            Function<E, K> keyMapper) {
         return toMap(Collections.list(col), keyMapper);
     }
 
@@ -3972,7 +4101,8 @@ public class CollectionUtils {
      *
      * @since 2019. 8. 8.
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, new HashMap<>());
     }
 
@@ -4021,7 +4151,8 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * Transform {@link Collection} to the specified {@link Map} that each key
+     * has a single value. <br>
      * 원본 컬렉션의 요소와 해당 요소의 인덱스(0부터 시작)를 함께 고려하여 Key-Value 쌍을 생성합니다.
      *
      * <pre>
@@ -4057,7 +4188,8 @@ public class CollectionUtils {
      * @version 3.0.0
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
-            M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen, Supplier<M> mapSupplier) {
+            M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, BiFunction<E, Integer, V> valueGen,
+                    Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
@@ -4091,7 +4223,8 @@ public class CollectionUtils {
      *
      * @since 2019. 8. 8.
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, new HashMap<>());
     }
 
@@ -4127,7 +4260,8 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, M map) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, M map) {
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
@@ -4171,8 +4305,8 @@ public class CollectionUtils {
      * @since 2026. 4. 6.
      * @version 3.0.0
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen,
-            Supplier<M> mapSupplier) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            BiFunction<E, Integer, K> keyGen, Function<E, V> valueGen, Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
@@ -4206,7 +4340,8 @@ public class CollectionUtils {
      *
      * @since 2019. 8. 8.
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen) {
         return (M) toMapHSV(col, keyGen, valueGen, new HashMap<>());
     }
 
@@ -4241,7 +4376,8 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 1.6.17
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, M map) {
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         int i = 0;
@@ -4286,7 +4422,8 @@ public class CollectionUtils {
      * @version 3.0.0
      */
     public static <E, K extends @Nullable Object, V, M extends Map<K, V>> //
-            M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen, Supplier<M> mapSupplier) {
+            M toMapHSV(Collection<E> col, Function<E, K> keyGen, BiFunction<E, Integer, V> valueGen,
+                    Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
@@ -4320,17 +4457,19 @@ public class CollectionUtils {
      * 
      * @since 2019. 1. 15.
      */
-    public static <E, K extends @Nullable Object, V> Map<K, V> toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen) {
+    public static <E, K extends @Nullable Object, V> Map<K, V> toMapHSV(Collection<E> col, Function<E, K> keyGen,
+            Function<E, V> valueGen) {
         return toMapHSV(col, keyGen, valueGen, new HashMap<K, V>());
     }
 
     /**
-     * Transform {@link Collection} to the specified {@link Map} that each key has a single value. <br>
+     * Transform {@link Collection} to the specified {@link Map} that each key
+     * has a single value. <br>
      *
      * <p>
      * <b>[데이터 병합 정책]</b><br>
-     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에 처리되는 요소의 변환 값(valueGen)이 이전 값을
-     * 덮어씁니다(Overwrite).</b>
+     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에
+     * 처리되는 요소의 변환 값(valueGen)이 이전 값을 덮어씁니다(Overwrite).</b>
      * </p>
      *
      * <pre>
@@ -4362,7 +4501,8 @@ public class CollectionUtils {
      * @since 2020. 1. 30.
      * @version 2.0.0
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, M map) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            Function<E, K> keyGen, Function<E, V> valueGen, M map) {
         AssertUtils2.notNulls(col, keyGen, valueGen, map);
 
         col.forEach(e -> map.put(keyGen.apply(e), valueGen.apply(e)));
@@ -4402,7 +4542,8 @@ public class CollectionUtils {
      * @since 2026. 4. 6.
      * @version 3.0.0
      */
-    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col, Function<E, K> keyGen, Function<E, V> valueGen, Supplier<M> mapSupplier) {
+    public static <E, K extends @Nullable Object, V, M extends Map<K, V>> M toMapHSV(Collection<E> col,
+            Function<E, K> keyGen, Function<E, V> valueGen, Supplier<M> mapSupplier) {
         AssertUtils2.notNulls(col, keyGen, valueGen, mapSupplier);
 
         return toMapHSV(col, keyGen, valueGen, mapSupplier.get());
@@ -4466,7 +4607,8 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기됩니다.<br>
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
+     * 값에 따라서 세부적인 구현이 분기됩니다.<br>
      * 자세한 내용은 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
@@ -4495,10 +4637,11 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      * 
-     * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서 {@link TopNStrategy}를 선택하는 설정값을 변경할 수
-     *      있습니다.
+     * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서
+     *      {@link TopNStrategy}를 선택하는 설정값을 변경할 수 있습니다.
      */
-    public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit, TopNStrategy strategy, boolean expensiveComparator) {
+    public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit,
+            TopNStrategy strategy, boolean expensiveComparator) {
         AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
@@ -4522,7 +4665,9 @@ public class CollectionUtils {
         }
 
         // 2) 전략 결정
-        TopNStrategy chosen = strategy == TopNStrategy.AUTO ? TopN.decideStrategy(filteredCount, limit, expensiveComparator) : strategy;
+        TopNStrategy chosen = strategy == TopNStrategy.AUTO
+                ? TopN.decideStrategy(filteredCount, limit, expensiveComparator)
+                : strategy;
 
         // 3) 전략 실행
         switch (chosen) {
@@ -4540,9 +4685,12 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
-     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
-     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
+     * 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는
+     * 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기
+     * 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -4579,9 +4727,12 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
-     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
-     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
+     * 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는
+     * 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기
+     * 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -4636,9 +4787,12 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
-     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
-     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
+     * 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는
+     * 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기
+     * 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -4662,7 +4816,8 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      */
-    public static <T> List<T> topnByQuickselect(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit) {
+    public static <T> List<T> topnByQuickselect(Collection<T> data, Predicate<T> filter, Comparator<T> sorter,
+            int limit) {
         AssertUtils2.notNulls(data, filter, sorter);
         AssertUtils2.isTrue(limit > -1);
 
@@ -4717,10 +4872,11 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection}에 포함된 데이터를 변환({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
+     * {@link Collection}에 포함된 데이터를 변환({@code transformer})하여 {@link Set}에 담아
+     * 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4744,7 +4900,8 @@ public class CollectionUtils {
      * @since 2017. 7. 6.
      * @version
      */
-    public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Collection<E> col, Function<E, NE> transformer) {
+    public static <E extends @Nullable Object, NE extends @Nullable Object> Set<NE> toSet(Collection<E> col,
+            Function<E, NE> transformer) {
         return StreamUtils.toCollection(col.stream(), transformer, (Supplier<Set<NE>>) HashSet<NE>::new);
     }
 
@@ -4760,7 +4917,8 @@ public class CollectionUtils {
      *
      * @param <E>
      *            데이터 유형 (Nullable). <br>
-     *            단, {@code setSupplier}가 제공하는 {@link Set} 구현체가 {@code null}을 허용해야 합니다.
+     *            단, {@code setSupplier}가 제공하는 {@link Set} 구현체가 {@code null}을
+     *            허용해야 합니다.
      * @param <S>
      *            결과 {@link Set} 유형
      * @param col
@@ -4778,11 +4936,12 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4796,31 +4955,36 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction) {
-        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
+    public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper,
+            BinaryOperator<V> mergeFunction) {
+        return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction,
+                (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4834,7 +4998,8 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <S>
      *            결과 {@link Set} 유형
      * @param col
@@ -4843,7 +5008,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
      * 
@@ -4852,17 +5018,19 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper, BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
+    public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper,
+            BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
         return toCollection(col, keyMapper, Functions.Unary.identity(), mergeFunction, setFactory);
     }
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4876,34 +5044,39 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
+    public static <K extends @Nullable Object, V> Set<V> toSet(Collection<V> col, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, (Supplier<Set<V>>) HashSet<V>::new);
     }
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
+     * 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4917,7 +5090,8 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
+     *            않습니다.
      * @param <S>
      *            결과 {@link Set} 유형
      * @param col
@@ -4926,10 +5100,12 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
+     *            됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
      * 
@@ -4938,8 +5114,8 @@ public class CollectionUtils {
      * @since 2025. 8. 20.
      * @version 2.1.0
      */
-    public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper, Function<V, V> valueMapper,
-            BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
+    public static <K extends @Nullable Object, V, S extends Set<V>> S toSet(Collection<V> col, Function<V, K> keyMapper,
+            Function<V, V> valueMapper, BinaryOperator<V> mergeFunction, Supplier<S> setFactory) {
         return toCollection(col, keyMapper, valueMapper, mergeFunction, setFactory);
     }
 
@@ -5070,17 +5246,21 @@ public class CollectionUtils {
          * 우선순위
          * <li>1. 전체 데이터 개수 (M)
          * <ul>
-         * <li>{@link TopN#fullSortThreadhold} 보다 작으면({@code &lt;}) {@link TopNStrategy#FULL_SORT}
+         * <li>{@link TopN#fullSortThreadhold} 보다 작으면({@code &lt;})
+         * {@link TopNStrategy#FULL_SORT}
          * </ul>
          * <li>2. 선택하려는 데이터 개수 (N) 와 N/M의 비율 고정값 (0.25)
          * <ul>
-         * <li>{@link TopN#heapSortThreadhold} 보다 작으고, ({@code &lt;}) 비율이 0.25 보다 작거나 같으면 {@link TopNStrategy#HEAP_SORT}
+         * <li>{@link TopN#heapSortThreadhold} 보다 작으고, ({@code &lt;}) 비율이 0.25
+         * 보다 작거나 같으면 {@link TopNStrategy#HEAP_SORT}
          * </ul>
          * <li>3. N/M 의 비율
          * <ul>
          * 설정값
-         * <li>{@link TopN#heapSortRatio} 보다 작으면({@code &lt;}) {@link TopNStrategy#HEAP_SORT}
-         * <li>{@link TopN#fullSortRatio} 보다 크거나 같으면({@code >=}) {@link TopNStrategy#FULL_SORT}
+         * <li>{@link TopN#heapSortRatio} 보다 작으면({@code &lt;})
+         * {@link TopNStrategy#HEAP_SORT}
+         * <li>{@link TopN#fullSortRatio} 보다 크거나 같으면({@code >=})
+         * {@link TopNStrategy#FULL_SORT}
          * </ul>
          * <li>4. 정렬 비교 함수의 비용에 따라
          * <ul>
@@ -5131,7 +5311,8 @@ public class CollectionUtils {
         }
 
         /**
-         * 파티션: sorter.compare(x, pivot) < 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종 위치. <br>
+         * 파티션: sorter.compare(x, pivot) < 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종
+         * 위치. <br>
          * 
          * <pre>
          * [개정이력]
@@ -5151,7 +5332,8 @@ public class CollectionUtils {
          * @since 2025. 9. 3.
          * @version 2.1.0
          */
-        private static <T> int partitionByComparator(List<T> data, Comparator<T> sorter, int left, int right, int pivotIdx) {
+        private static <T> int partitionByComparator(List<T> data, Comparator<T> sorter, int left, int right,
+                int pivotIdx) {
             T pivotVal = data.get(pivotIdx);
             swap(data, pivotIdx, right);
             int store = left;
@@ -5217,15 +5399,18 @@ public class CollectionUtils {
          * @param fullSortThreshold
          *            설정 개수 이하인 경우 {@link TopNStrategy#FULL_SORT} 적용
          * @param fullSortRatio
-         *            {@link TopNStrategy#FULL_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (>=)
+         *            {@link TopNStrategy#FULL_SORT}가 적용되는 전체 개수(M)와 선택하려는
+         *            개수(N)의 비율 (>=)
          * @param heapSortThreshold
          *            설정 개수 이하인 경우 {@link TopNStrategy#HEAP_SORT} 적용
          * @param heapSortRatio
-         *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (<)
+         *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는
+         *            개수(N)의 비율 (<)
          * @since 2025. 9. 3.
          * @version 2.1.0
          */
-        public static void setAutoConfiguration(int fullSortThreshold, double fullSortRatio, int heapSortThreshold, double heapSortRatio) {
+        public static void setAutoConfiguration(int fullSortThreshold, double fullSortRatio, int heapSortThreshold,
+                double heapSortRatio) {
             TopN.fullSortThreadhold = fullSortThreshold;
             TopN.fullSortRatio = fullSortRatio;
             TopN.heapSortThreadhold = heapSortThreshold;

@@ -125,7 +125,8 @@ public class NumberUtils {
     }
 
     /**
-     * 문자열을 10진수 숫자 객체({@link Number})로 변환합니다. 기본적으로 {@link IntegerType#INTEGER}로 처리됩니다.
+     * 문자열을 10진수 숫자 객체({@link Number})로 변환합니다. 기본적으로
+     * {@link IntegerType#INTEGER}로 처리됩니다.
      *
      * <pre>
      * [개정이력]
@@ -192,7 +193,8 @@ public class NumberUtils {
     }
 
     public static enum IntegerType {
-        // start - Wrapper Classes : 2014. 7. 10., Park_Jun_Hong_(parkjunhong77@gmail.com)
+        // start - Wrapper Classes : 2014. 7. 10.,
+        // Park_Jun_Hong_(parkjunhong77@gmail.com)
         /** The type is {@code Byte.class} */
         BYTE(Byte.class),
         /** The type is {@code Short.class} */
@@ -203,7 +205,8 @@ public class NumberUtils {
         LONG(Long.class),
         // end - Wrapper Classes : 2014. 7. 10.
 
-        // start - primitive Classes : 2014. 7. 10., Park_Jun_Hong_(parkjunhong77@gmail.com)
+        // start - primitive Classes : 2014. 7. 10.,
+        // Park_Jun_Hong_(parkjunhong77@gmail.com)
         /** The type is {@code byte.class} */
         Byte(byte.class),
         /** The type is {@code short.class} */

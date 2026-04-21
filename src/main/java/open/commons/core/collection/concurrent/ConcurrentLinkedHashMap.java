@@ -65,7 +65,8 @@ import org.jspecify.annotations.Nullable;
  * 
  * @see LinkedHashMap
  */
-public class ConcurrentLinkedHashMap<K extends @Nullable Object, V extends @Nullable Object> implements SequencedMap<K, V> {
+public class ConcurrentLinkedHashMap<K extends @Nullable Object, V extends @Nullable Object>
+        implements SequencedMap<K, V> {
 
     private final ReentrantLock mutex = new ReentrantLock();
 

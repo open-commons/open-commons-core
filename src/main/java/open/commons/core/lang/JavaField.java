@@ -135,6 +135,8 @@ public class JavaField {
             comment = "";
         }
         boolean isValueable = value != null && !value.isEmpty();
-        return comment + StringUtils.appendBlank(accessor, type, var, (isValueable ? "=" : null), (isValueable ? value : null)) + ";";
+        return comment
+                + StringUtils.appendBlank(accessor, type, var, (isValueable ? "=" : null), (isValueable ? value : null))
+                + ";";
     }
 }

@@ -64,7 +64,8 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
     public static final int MINUTE = 0x04;
     public static final int SECOND = 0x05;
 
-    private static final int[] CONVERTOR = new int[] { Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND };
+    private static final int[] CONVERTOR = new int[] { Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH,
+            Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND };
 
     private static final String FORMAT_YYYYMMddHHmmss = "yyyyMMddHHmmss";
     private static final String REGEX_YYYYMMddHHmmss = "(\\d{4})" // year
@@ -248,8 +249,9 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
         if (getClass() != obj.getClass())
             return false;
         Timestamp14L other = (Timestamp14L) obj;
-        return Objects.equals(day, other.day) && Objects.equals(hour, other.hour) && Objects.equals(min, other.min) && Objects.equals(month, other.month)
-                && Objects.equals(sec, other.sec) && Objects.equals(year, other.year);
+        return Objects.equals(day, other.day) && Objects.equals(hour, other.hour) && Objects.equals(min, other.min)
+                && Objects.equals(month, other.month) && Objects.equals(sec, other.sec)
+                && Objects.equals(year, other.year);
     }
 
     /**
@@ -410,8 +412,8 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
      */
     @Override
     public String toString() {
-        return CLASS + " [year=" + year + ", month=" + month + ", day=" + day + ", hour=" + hour + ", min=" + min + ", sec=" + sec + ", date: " + sdf.format(date) + ", millis: "
-                + date.getTime() + "]";
+        return CLASS + " [year=" + year + ", month=" + month + ", day=" + day + ", hour=" + hour + ", min=" + min
+                + ", sec=" + sec + ", date: " + sdf.format(date) + ", millis: " + date.getTime() + "]";
     }
 
     /**
@@ -499,7 +501,8 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
          */
         public TimeValue3L(String day, String hour, String minute, String second, int sign) {
             if (StringUtils.isNullOrEmptyStringOr(day, hour, minute, second)) {
-                throw new NullPointerException("입력값은 null 이 될 수 없습니다. day: " + day + ", hour: " + hour + ", minute: " + minute + ", second: " + second);
+                throw new NullPointerException("입력값은 null 이 될 수 없습니다. day: " + day + ", hour: " + hour + ", minute: "
+                        + minute + ", second: " + second);
             }
 
             setTimeValue(day + hour + minute + second);
@@ -523,7 +526,8 @@ public class Timestamp14L implements Comparable<Timestamp14L> {
             if (getClass() != obj.getClass())
                 return false;
             TimeValue3L other = (TimeValue3L) obj;
-            return Objects.equals(day, other.day) && Objects.equals(hour, other.hour) && Objects.equals(minute, other.minute) && Objects.equals(second, other.second);
+            return Objects.equals(day, other.day) && Objects.equals(hour, other.hour)
+                    && Objects.equals(minute, other.minute) && Objects.equals(second, other.second);
         }
 
         /**

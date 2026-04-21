@@ -74,7 +74,8 @@ public class MathUtils {
      */
     public static long combination(long n, long r) {
         if (n < 1 || r < 1 || n < r) {
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "n과 r은 반드시 양수이고, n은 r보다 크거나 같아야 합니다. n=%d, r=%d", n, r);
+            throw ExceptionUtils.newException(IllegalArgumentException.class,
+                    "n과 r은 반드시 양수이고, n은 r보다 크거나 같아야 합니다. n=%d, r=%d", n, r);
         }
 
         // 최적화: 조합의 대칭성 활용 (nCr == nC(n-r))
@@ -171,7 +172,8 @@ public class MathUtils {
 
         return values.stream() //
                 .max(ComparableUtils::compare) //
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find the maximum value from an empty collection."));
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Cannot find the maximum value from an empty collection."));
     }
 
     /**
@@ -236,7 +238,8 @@ public class MathUtils {
 
         return values.stream() //
                 .min(ComparableUtils::compare) //
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find the minimum value from an empty collection."));
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Cannot find the minimum value from an empty collection."));
     }
 
     /**
@@ -298,7 +301,8 @@ public class MathUtils {
      */
     public static long permutation(long n, long r) {
         if (n < 1 || r < 1 || n < r) {
-            throw ExceptionUtils.newException(IllegalArgumentException.class, "n과 r은 반드시 양수이고, n은 r보다 크거나 같아야 합니다. n=%d, r=%d", n, r);
+            throw ExceptionUtils.newException(IllegalArgumentException.class,
+                    "n과 r은 반드시 양수이고, n은 r보다 크거나 같아야 합니다. n=%d, r=%d", n, r);
         }
 
         long v = 1L;

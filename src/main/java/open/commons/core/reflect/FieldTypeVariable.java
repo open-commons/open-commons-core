@@ -130,7 +130,8 @@ public class FieldTypeVariable {
 
     @Override
     public String toString() {
-        return "FieldTypeVariable [fieldName=" + fieldName + ", typeVarName=" + typeVarName + ", field=" + field + ", typeVariable=" + typeVariable + "]";
+        return "FieldTypeVariable [fieldName=" + fieldName + ", typeVarName=" + typeVarName + ", field=" + field
+                + ", typeVariable=" + typeVariable + "]";
     }
 
 }

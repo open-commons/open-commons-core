@@ -176,13 +176,15 @@ public class PathElement implements Iterable<String> {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public PathElement(String separator, char[] elems, int[][] elemLength) {
-        AssertUtils2.notNulls("Parameters (char[] elems, int[][] elemLength) must not be null both of them: elems=" + Arrays.toString(elems) + ", elemLength=" + elemLength //
+        AssertUtils2.notNulls("Parameters (char[] elems, int[][] elemLength) must not be null both of them: elems="
+                + Arrays.toString(elems) + ", elemLength=" + elemLength //
                 , PathElementException.class //
                 , elems, elemLength);
 
         if (elems.length != elemLength[elemLength.length - 1][2]) {
-            throw new PathElementException("A character array of 'Path element's does not match to 'Path element's Length info: elems.length=" + elems.length + ", final-Length="
-                    + elemLength[elemLength.length - 1][2]);
+            throw new PathElementException(
+                    "A character array of 'Path element's does not match to 'Path element's Length info: elems.length="
+                            + elems.length + ", final-Length=" + elemLength[elemLength.length - 1][2]);
         }
 
         AssertUtils2.notNulls((Object[]) elemLength);
@@ -192,7 +194,9 @@ public class PathElement implements Iterable<String> {
             el = elemLength[i];
 
             if (el[0] + el[1] != el[2]) {
-                throw new PathElementException("A total length value is not equal to the sum of a latest-length and a current string. info=" + Arrays.toString(el));
+                throw new PathElementException(
+                        "A total length value is not equal to the sum of a latest-length and a current string. info="
+                                + Arrays.toString(el));
             }
         }
 
@@ -226,7 +230,8 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 12.
      */
     // 아래 내용에 적용됨.
-    // - createPathValue(npc); // char[] npc = path.toCharArray(); 에서 @NonNull이 보장되지 않음.
+    // - createPathValue(npc); // char[] npc = path.toCharArray(); 에서 @NonNull이
+    // 보장되지 않음.
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
@@ -313,7 +318,8 @@ public class PathElement implements Iterable<String> {
             throw new IllegalStateException("There is no path element: elemCount=" + elemCount);
         }
         if (index < 0 || index > elemCount - 1) {
-            throw new ArrayIndexOutOfBoundsException("An parameter(int index) must be in 0 ~ " + (elemCount - 1) + ". index=" + index);
+            throw new ArrayIndexOutOfBoundsException(
+                    "An parameter(int index) must be in 0 ~ " + (elemCount - 1) + ". index=" + index);
         }
     }
 
@@ -361,7 +367,8 @@ public class PathElement implements Iterable<String> {
 
         clone.elemCount = this.elemCount;
 
-        clone.elemLength = (int[][]) Array.newInstance(this.elemLength.getClass().getComponentType(), this.elemLength.length);
+        clone.elemLength = (int[][]) Array.newInstance(this.elemLength.getClass().getComponentType(),
+                this.elemLength.length);
         System.arraycopy(this.elemLength, 0, clone.elemLength, 0, this.elemLength.length);
 
         clone.elems = new char[this.elems.length];
@@ -690,7 +697,8 @@ public class PathElement implements Iterable<String> {
      * @since 2012. 03. 14.
      */
     // 아래 내용에 적용됨.
-    // - this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount - 2][2]);
+    // - this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount -
+    // 2][2]);
     // - this.elemLength = Arrays.copyOf(this.elemLength, this.elemCount - 1);
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
@@ -701,7 +709,8 @@ public class PathElement implements Iterable<String> {
             if (this.elemCount < 1) {
                 throw new PathElementException("There is no a Path-Element");
             } else if (this.elemCount > 1) {
-                removed = new String(this.elems, this.elemLength[this.elemCount - 1][0], this.elemLength[this.elemCount - 1][1]);
+                removed = new String(this.elems, this.elemLength[this.elemCount - 1][0],
+                        this.elemLength[this.elemCount - 1][1]);
 
                 this.elems = Arrays.copyOf(this.elems, this.elemLength[this.elemCount - 2][2]);
                 this.elemLength = Arrays.copyOf(this.elemLength, this.elemCount - 1);
@@ -741,7 +750,8 @@ public class PathElement implements Iterable<String> {
      * 구분자는 {@code null}이 될 수 없다.
      * 
      * @param delimiter
-     * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다. <BR>
+     * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다.
+     *         <BR>
      * @since 2012. 03. 12.
      */
     // 아래 내용에 적용됨.

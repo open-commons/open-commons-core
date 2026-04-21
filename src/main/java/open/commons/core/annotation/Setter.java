@@ -49,7 +49,8 @@ import java.lang.annotation.Target;
 public @interface Setter {
 
     /**
-     * 제공받는 데이터가 '배열'이나 '컬렉션'처럼 여러 개이 데이터를 소유하는 데이터 유형인 경우, 내부 데이터까지 재귀적으로 변환을 할지 여부. <br>
+     * 제공받는 데이터가 '배열'이나 '컬렉션'처럼 여러 개이 데이터를 소유하는 데이터 유형인 경우, 내부 데이터까지 재귀적으로 변환을
+     * 할지 여부. <br>
      * 
      * <pre>
      * [개정이력]
@@ -69,8 +70,10 @@ public @interface Setter {
     String name() default "";
 
     /**
-     * {@code srcClass/srcFieldClass/property/targetClass/targetFieldClass} 로 식별되는 '변환 함수'가 없는 경우<br>
-     * {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
+     * {@code srcClass/srcFieldClass/property/targetClass/targetFieldClass} 로
+     * 식별되는 '변환 함수'가 없는 경우<br>
+     * {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면
+     * 사용할지 여부
      */
     boolean useGlobalConverter() default false;
 

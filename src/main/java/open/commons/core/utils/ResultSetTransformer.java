@@ -127,12 +127,14 @@ public class ResultSetTransformer {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static Function<ResultSet, Object> buildRowMapper(Class<?> entityType, ResultSetMetaData md, List<String> tags) {
+    private static Function<ResultSet, Object> buildRowMapper(Class<?> entityType, ResultSetMetaData md,
+            List<String> tags) {
 
         final MethodHandles.Lookup lookup = MethodHandles.lookup();
 
         // 3-1) 타입별 @ColumnDef 세터 목록 (1회만 스캔/캐시)
-        final List<ColumnPlan> allPlans = COLUMN_PLAN_CACHE.computeIfAbsent(entityType, ResultSetTransformer::scanColumnPlans);
+        final List<ColumnPlan> allPlans = COLUMN_PLAN_CACHE.computeIfAbsent(entityType,
+                ResultSetTransformer::scanColumnPlans);
 
         // 3-2) 태그(columns...)가 지정되었으면 그 컬럼만 선택
         final List<ColumnPlan> plans = filterByTags(allPlans, tags);
@@ -145,7 +147,8 @@ public class ResultSetTransformer {
 
         for (ColumnPlan plan : plans) {
             try {
-                final Integer idx = labelToIndex.get(plan.caseSensitive ? plan.columnName : plan.columnName.toUpperCase());
+                final Integer idx = labelToIndex
+                        .get(plan.caseSensitive ? plan.columnName : plan.columnName.toUpperCase());
                 if (idx == null) {
                     // 컬럼이 없으면: required=true → 런타임 예외, required=false → 스킵
                     if (plan.required) {
@@ -159,7 +162,8 @@ public class ResultSetTransformer {
                 plan.setter.trySetAccessible();
 
                 // #1. reader 준비
-                // reader: (ResultSet,int)->Object -> 인덱스 바인딩 → (ResultSet)->Object
+                // reader: (ResultSet,int)->Object -> 인덱스 바인딩 →
+                // (ResultSet)->Object
                 // #1-1. (ResultSet,int)->Object
                 MethodHandle reader2 = readerForType(lookup, plan.paramType);
                 // #1-2. (ResultSet)->Object
@@ -167,20 +171,24 @@ public class ResultSetTransformer {
 
                 // #2. setter: (Object,Object)->void
                 MethodHandle setter = lookup.unreflect(plan.setter);
-                setter = MethodHandles.explicitCastArguments(setter, MethodType.methodType(void.class, Object.class, Object.class));
+                setter = MethodHandles.explicitCastArguments(setter,
+                        MethodType.methodType(void.class, Object.class, Object.class));
 
-                // #3. null 정책 적용 래퍼: (Object,Object)->void (setter, notNullable, colName 바인딩)
+                // #3. null 정책 적용 래퍼: (Object,Object)->void (setter,
+                // notNullable, colName 바인딩)
                 MethodHandle apply = lookup.findStatic( //
                         ResultSetTransformer.class //
                         , "applyNullPolicy" //
-                        , MethodType.methodType(void.class, MethodHandle.class, boolean.class, String.class, Object.class, Object.class) //
+                        , MethodType.methodType(void.class, MethodHandle.class, boolean.class, String.class,
+                                Object.class, Object.class) //
                 );
                 apply = MethodHandles.insertArguments(apply, 0, setter, plan.nullable, plan.columnName);
 
                 // #4. compose: (target, rs) -> void
                 // value = readerBound(rs)
                 MethodHandle step = MethodHandles.collectArguments(apply, 1, readerBound);
-                step = MethodHandles.explicitCastArguments(step, MethodType.methodType(void.class, Object.class, ResultSet.class));
+                step = MethodHandles.explicitCastArguments(step,
+                        MethodType.methodType(void.class, Object.class, ResultSet.class));
 
                 // optional 컬럼이면 try/catch 래핑 (SQLException 무시)
                 if (!plan.required) {
@@ -191,7 +199,8 @@ public class ResultSetTransformer {
                 steps.add(step);
             } catch (Throwable t) {
                 LOGGER.error("데이터 변환설정 = {}, entity={}, result-set={}", plan, entityType, md);
-                throw new TransformationFailedException(null, entityType, String.format("컬럼 함수 생성 도중 오류가 발생하였습니다. plan={}, result-set={}", plan, md), t);
+                throw new TransformationFailedException(null, entityType,
+                        String.format("컬럼 함수 생성 도중 오류가 발생하였습니다. plan={}, result-set={}", plan, md), t);
             }
         }
 
@@ -258,7 +267,8 @@ public class ResultSetTransformer {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle constructorMH(MethodHandles.Lookup lookup, Class<?> cls) throws NoSuchMethodException, IllegalAccessException {
+    private static MethodHandle constructorMH(MethodHandles.Lookup lookup, Class<?> cls)
+            throws NoSuchMethodException, IllegalAccessException {
         MethodHandle h = lookup.findConstructor(cls, MethodType.methodType(void.class)); // ()V
         return h.asType(MethodType.methodType(Object.class)); // ()->Object
     }
@@ -295,11 +305,13 @@ public class ResultSetTransformer {
      * @version 2.1.0
      */
     // 아래 내용에 적용됨.
-    // - h.asType(MethodType.methodType(Object.class, ResultSet.class, int.class))
+    // - h.asType(MethodType.methodType(Object.class, ResultSet.class,
+    // int.class))
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle mhObj(MethodHandles.Lookup lookup, String name, Class<?> returnType) throws NoSuchMethodException, IllegalAccessException {
+    private static MethodHandle mhObj(MethodHandles.Lookup lookup, String name, Class<?> returnType)
+            throws NoSuchMethodException, IllegalAccessException {
         MethodHandle h = lookup.findVirtual(ResultSet.class //
                 , name //
                 , MethodType.methodType(returnType, int.class) //
@@ -310,13 +322,16 @@ public class ResultSetTransformer {
 
     /** (ResultSet,int)->prim → (ResultSet,int)->Object (박싱) */
     // 아래 내용에 적용됨.
-    // - lookup.findStatic(ResultSetTransformer.class, name, MethodType.methodType(Object.class, ResultSet.class,
+    // - lookup.findStatic(ResultSetTransformer.class, name,
+    // MethodType.methodType(Object.class, ResultSet.class,
     // int.class))
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle mhPrimOrNull(MethodHandles.Lookup lookup, String name, Class<?> primRet) throws NoSuchMethodException, IllegalAccessException {
-        return lookup.findStatic(ResultSetTransformer.class, name, MethodType.methodType(Object.class, ResultSet.class, int.class));
+    private static MethodHandle mhPrimOrNull(MethodHandles.Lookup lookup, String name, Class<?> primRet)
+            throws NoSuchMethodException, IllegalAccessException {
+        return lookup.findStatic(ResultSetTransformer.class, name,
+                MethodType.methodType(Object.class, ResultSet.class, int.class));
     }
 
     /**
@@ -343,11 +358,13 @@ public class ResultSetTransformer {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle mhWrapFromBigDecimal(MethodHandles.Lookup lookup, String convStaticName) throws NoSuchMethodException, IllegalAccessException {
+    private static MethodHandle mhWrapFromBigDecimal(MethodHandles.Lookup lookup, String convStaticName)
+            throws NoSuchMethodException, IllegalAccessException {
         // reader: (ResultSet,int)->Object (BigDecimal)
         MethodHandle reader = mhObj(lookup, "getBigDecimal", BigDecimal.class);
         // converter: (BigDecimal)->Object(wrapper)
-        MethodHandle conv = lookup.findStatic(ResultSetTransformer.class, convStaticName, MethodType.methodType(Object.class, BigDecimal.class));
+        MethodHandle conv = lookup.findStatic(ResultSetTransformer.class, convStaticName,
+                MethodType.methodType(Object.class, BigDecimal.class));
         // collectArguments: conv(reader(rs,i))
         return MethodHandles.collectArguments(conv, 0, reader); // (ResultSet,int)->Object
     }
@@ -372,14 +389,17 @@ public class ResultSetTransformer {
      * @version 2.1.0
      */
     // 아래 내용에 적용됨.
-    // - lookup.findStatic(ResultSetTransformer.class, staticName, MethodType.methodType(Object.class, ResultSet.class,
+    // - lookup.findStatic(ResultSetTransformer.class, staticName,
+    // MethodType.methodType(Object.class, ResultSet.class,
     // int.class))
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle mhWrapFromPrimWasNull(MethodHandles.Lookup lookup, String staticName) throws NoSuchMethodException, IllegalAccessException {
+    private static MethodHandle mhWrapFromPrimWasNull(MethodHandles.Lookup lookup, String staticName)
+            throws NoSuchMethodException, IllegalAccessException {
         // 직접 구현
-        return lookup.findStatic(ResultSetTransformer.class, staticName, MethodType.methodType(Object.class, ResultSet.class, int.class));
+        return lookup.findStatic(ResultSetTransformer.class, staticName,
+                MethodType.methodType(Object.class, ResultSet.class, int.class));
     }
 
     /**
@@ -414,7 +434,8 @@ public class ResultSetTransformer {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings({ "unchecked", "null" })
-    public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String @Nullable... columns) throws SQLException {
+    public static <T> T newInstance(Class<T> objectType, ResultSet rs, final String @Nullable... columns)
+            throws SQLException {
         Objects.requireNonNull(objectType);
         Objects.requireNonNull(rs);
 
@@ -431,7 +452,8 @@ public class ResultSetTransformer {
 
         // 2-3) RowMapper 준비/캐시
         final RowKey key = new RowKey(objectType, tags, mdSig);
-        final Function<ResultSet, Object> mapper = ROW_MAPPER_CACHE.computeIfAbsent(key, _ -> buildRowMapper(objectType, md, tags));
+        final Function<ResultSet, Object> mapper = ROW_MAPPER_CACHE.computeIfAbsent(key,
+                _ -> buildRowMapper(objectType, md, tags));
 
         // 2-4) 실행
         try {
@@ -472,7 +494,8 @@ public class ResultSetTransformer {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle readerForType(MethodHandles.Lookup lookup, Class<?> columnType) throws NoSuchMethodException, IllegalAccessException {
+    private static MethodHandle readerForType(MethodHandles.Lookup lookup, Class<?> columnType)
+            throws NoSuchMethodException, IllegalAccessException {
 
         final Class<?> pt = unwrap(columnType); // 원시/래퍼 정규화
 
@@ -494,7 +517,8 @@ public class ResultSetTransformer {
 
         // ---------- 2) 래퍼형 (NULL 보존) ----------
         if (columnType == Integer.class)
-            return mhWrapFromBigDecimal(lookup, "bdToInteger"); // getBigDecimal → Integer
+            return mhWrapFromBigDecimal(lookup, "bdToInteger"); // getBigDecimal
+                                                                // → Integer
         if (columnType == Long.class)
             return mhWrapFromBigDecimal(lookup, "bdToLong");
         if (columnType == Short.class)
@@ -504,9 +528,13 @@ public class ResultSetTransformer {
         if (columnType == Double.class)
             return mhWrapFromBigDecimal(lookup, "bdToDouble");
         if (columnType == Byte.class)
-            return mhWrapFromPrimWasNull(lookup, "boolWasNullByte"); // getByte + wasNull
+            return mhWrapFromPrimWasNull(lookup, "boolWasNullByte"); // getByte
+                                                                     // +
+                                                                     // wasNull
         if (columnType == Boolean.class)
-            return mhWrapFromPrimWasNull(lookup, "boolWasNullBoolean"); // getBoolean + wasNull
+            return mhWrapFromPrimWasNull(lookup, "boolWasNullBoolean"); // getBoolean
+                                                                        // +
+                                                                        // wasNull
 
         // ---------- 3) 문자열/숫자/시간 ----------
         if (columnType == String.class)
@@ -537,7 +565,8 @@ public class ResultSetTransformer {
         }
         if (columnType == ByteArrayInputStream.class) {
             // ByteArrayInputStream이 정확히 필요하다면 내부에서 모두 읽어 래핑
-            return lookup.findStatic(ResultSetTransformer.class, "readAsByteArrayInputStream", MethodType.methodType(Object.class, ResultSet.class, int.class));
+            return lookup.findStatic(ResultSetTransformer.class, "readAsByteArrayInputStream",
+                    MethodType.methodType(Object.class, ResultSet.class, int.class));
         }
         if (Reader.class.isAssignableFrom(columnType)) {
             return mhObj(lookup, "getCharacterStream", Reader.class);
@@ -619,7 +648,9 @@ public class ResultSetTransformer {
                 defType = paramType;
             }
 
-            final String colName = SQLUtils.getColumnName(def, m); // ★ 기존 유틸 재사용(대/소문자/패턴 정책 유지)
+            final String colName = SQLUtils.getColumnName(def, m); // ★ 기존 유틸
+                                                                   // 재사용(대/소문자/패턴
+                                                                   // 정책 유지)
             list.add(new ColumnPlan(colName, def.caseSensitive(), def.required(), defType, def.nullable(), m));
         }
         return list;
@@ -685,9 +716,11 @@ public class ResultSetTransformer {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static MethodHandle wrapIgnoreSQLException(MethodHandles.Lookup lookup, MethodHandle step) throws NoSuchMethodException, IllegalAccessException {
+    private static MethodHandle wrapIgnoreSQLException(MethodHandles.Lookup lookup, MethodHandle step)
+            throws NoSuchMethodException, IllegalAccessException {
         @NonNull
-        MethodHandle wrapper = lookup.findStatic(ResultSetTransformer.class, "tryIgnoreSql", MethodType.methodType(void.class, MethodHandle.class, Object.class, ResultSet.class));
+        MethodHandle wrapper = lookup.findStatic(ResultSetTransformer.class, "tryIgnoreSql",
+                MethodType.methodType(void.class, MethodHandle.class, Object.class, ResultSet.class));
         // (Object,ResultSet)->void
         wrapper = MethodHandles.insertArguments(wrapper, 0, step);
         return wrapper;
@@ -710,7 +743,8 @@ public class ResultSetTransformer {
         final boolean nullable;
         final Method setter;
 
-        ColumnPlan(String columnName, boolean caseSensitive, boolean required, Class<?> paramType, boolean nullable, Method setter) {
+        ColumnPlan(String columnName, boolean caseSensitive, boolean required, Class<?> paramType, boolean nullable,
+                Method setter) {
             this.columnName = columnName;
             this.caseSensitive = caseSensitive;
             this.required = required;

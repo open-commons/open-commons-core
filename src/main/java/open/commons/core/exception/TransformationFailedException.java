@@ -110,7 +110,8 @@ public class TransformationFailedException extends RuntimeException {
      * @since 2025. 9. 8.
      * @version 2.1.0
      */
-    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause) {
+    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message,
+            @Nullable Throwable cause) {
         this(srcClass, targetClass, message, cause, true, true);
     }
 
@@ -136,8 +137,8 @@ public class TransformationFailedException extends RuntimeException {
      * @since 2025. 9. 8.
      * @version 2.1.0
      */
-    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message, @Nullable Throwable cause, boolean enableSuppression,
-            boolean writableStackTrace) {
+    public TransformationFailedException(Class<?> srcClass, Class<?> targetClass, @Nullable String message,
+            @Nullable Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         AssertUtils2.notNulls(srcClass, targetClass);
 
         super(message, cause, enableSuppression, writableStackTrace);

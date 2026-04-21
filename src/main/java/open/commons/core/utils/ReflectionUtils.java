@@ -159,7 +159,8 @@ public class ReflectionUtils {
      * @param targetClass
      *            {@link TypeVariable}이 사용된 클래스
      * @param lastCopy
-     *            {@code typeVarClasses}의 개수가 {@code targetClass}의 실제 {@link TypeVariable} 개수보다 적은 경우 마지막 값으로 채울지 여부
+     *            {@code typeVarClasses}의 개수가 {@code targetClass}의 실제
+     *            {@link TypeVariable} 개수보다 적은 경우 마지막 값으로 채울지 여부
      * @param typeVarClasses
      *            {@link TypeVariable}로 사용될 클래스 목록
      *
@@ -172,7 +173,8 @@ public class ReflectionUtils {
     // [PATCH] 배열 공변성/가변성에 대한 IDE 분석기의 오탐 우회
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
-    public static List<GenericTypeVariable> createGenericTypeVariables(Class<?> targetClass, boolean lastCopy, Class<?>... typeVarClasses) {
+    public static List<GenericTypeVariable> createGenericTypeVariables(Class<?> targetClass, boolean lastCopy,
+            Class<?>... typeVarClasses) {
         Objects.requireNonNull(targetClass);
         AssertUtils2.notNulls((Object[]) typeVarClasses);
 
@@ -183,7 +185,8 @@ public class ReflectionUtils {
 
         TypeVariable<?>[] typeVars = targetClass.getTypeParameters();
 
-        AssertUtils2.isFalse(!lastCopy && typeVars.length > typeVarClasses.length, "The number of TypeVariable MUST be equal to the number of classes used ");
+        AssertUtils2.isFalse(!lastCopy && typeVars.length > typeVarClasses.length,
+                "The number of TypeVariable MUST be equal to the number of classes used ");
 
         typeVarClasses = ArrayUtils.adjustByLength(typeVars.length, typeVarClasses);
 
@@ -213,7 +216,8 @@ public class ReflectionUtils {
      *
      * @since 2014. 6. 18.
      */
-    public static @Nullable GenericTypeVariable createGenericTypeVariables(Class<?> targetClass, Class<?> typeVarClass) {
+    public static @Nullable GenericTypeVariable createGenericTypeVariables(Class<?> targetClass,
+            Class<?> typeVarClass) {
         Objects.requireNonNull(targetClass);
         Objects.requireNonNull(typeVarClass);
 
@@ -317,8 +321,8 @@ public class ReflectionUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static @Nullable Class<?> getActualTypeArgument(Class<?> targetClass, String methodName, int paramIndex, int actualTypeIndex, Class<?> @Nullable... parameterTypes)
-            throws NoSuchMethodException {
+    public static @Nullable Class<?> getActualTypeArgument(Class<?> targetClass, String methodName, int paramIndex,
+            int actualTypeIndex, Class<?> @Nullable... parameterTypes) throws NoSuchMethodException {
         Objects.requireNonNull(targetClass);
         Objects.requireNonNull(methodName);
 
@@ -385,7 +389,8 @@ public class ReflectionUtils {
     }
 
     /**
-     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
+     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를
+     * 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -406,12 +411,14 @@ public class ReflectionUtils {
      * @see #getAnnotatedFields(Object, Class, IFilter)
      * @see Class#getDeclaredFields()
      */
-    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object, Class<T> annotationClass) {
+    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object,
+            Class<T> annotationClass) {
         return getAllAnnotatedFields(object, annotationClass, new IFilter.TrueFilter<T>());
     }
 
     /**
-     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 필터링하여 반환합니다.
+     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 필터링하여
+     * 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -434,7 +441,8 @@ public class ReflectionUtils {
      * @see #getAnnotatedFields(Object, Class, IFilter)
      * @see Class#getDeclaredFields()
      */
-    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object, Class<T> annotationClass, @Nullable IFilter<T> filter) {
+    public static final <T extends Annotation> Map<Field, T> getAllAnnotatedFields(Object object,
+            Class<T> annotationClass, @Nullable IFilter<T> filter) {
         Objects.requireNonNull(object);
         Objects.requireNonNull(annotationClass);
 
@@ -473,11 +481,13 @@ public class ReflectionUtils {
      * @version 3.0.0
      */
     // 아래 내용에 적용됨.
-    // - Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass))
+    // - Collectors.toUnmodifiableMap(c -> c, c ->
+    // c.getAnnotation(annotationClass))
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static final <T extends Annotation> Map<Constructor<?>, T> getAnnotatedConstructors(Object object, Class<T> annotationClass) {
+    public static final <T extends Annotation> Map<Constructor<?>, T> getAnnotatedConstructors(Object object,
+            Class<T> annotationClass) {
         Objects.requireNonNull(object);
         Objects.requireNonNull(annotationClass);
 
@@ -512,7 +522,8 @@ public class ReflectionUtils {
      * @see #getAnnotatedFields(Object, Class, IFilter)
      * @see Class#getDeclaredFields()
      */
-    public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass) {
+    public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object,
+            Class<T> annotationClass) {
         return getAnnotatedFields(object, annotationClass, new IFilter.TrueFilter<T>());
     }
 
@@ -541,11 +552,13 @@ public class ReflectionUtils {
      * @see Class#getDeclaredFields()
      */
     // 아래 내용에 적용됨.
-    // - Collectors.toUnmodifiableMap(c -> c, c -> c.getAnnotation(annotationClass)) //
+    // - Collectors.toUnmodifiableMap(c -> c, c ->
+    // c.getAnnotation(annotationClass)) //
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass, @Nullable IFilter<T> filter) {
+    public static final <T extends Annotation> Map<Field, T> getAnnotatedFields(Object object, Class<T> annotationClass,
+            @Nullable IFilter<T> filter) {
         Objects.requireNonNull(object);
         Objects.requireNonNull(annotationClass);
 
@@ -591,7 +604,8 @@ public class ReflectionUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annotationClass, Class<?> targetClass) {
+    public static <A extends Annotation> Collection<Method> getAnnotatedMethods(Class<A> annotationClass,
+            Class<?> targetClass) {
         Objects.requireNonNull(annotationClass);
         Objects.requireNonNull(targetClass);
 
@@ -619,7 +633,8 @@ public class ReflectionUtils {
      *
      * @return 추출된 어노테이션 객체. 존재하지 않는 경우 {@code null} 반환.
      */
-    public static <T extends Annotation> @Nullable T getAnnotation(AccessibleObject accessObj, Class<T> annotationClass) {
+    public static <T extends Annotation> @Nullable T getAnnotation(AccessibleObject accessObj,
+            Class<T> annotationClass) {
         Objects.requireNonNull(accessObj);
         Objects.requireNonNull(annotationClass);
 
@@ -695,7 +710,8 @@ public class ReflectionUtils {
     }
 
     /**
-     * 특정 어노테이션이 설정된 필드들 중에서 제네릭 타입 변수({@link TypeVariable})를 사용하는 필드의 메타데이터를 반환합니다.
+     * 특정 어노테이션이 설정된 필드들 중에서 제네릭 타입 변수({@link TypeVariable})를 사용하는 필드의 메타데이터를
+     * 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -720,7 +736,8 @@ public class ReflectionUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings({ "rawtypes", "unchecked", "null" })
-    public static <T extends Annotation> Collection<FieldTypeVariable> getTypeVariableName(Class<?> targetClass, Class<T> annotationClass) {
+    public static <T extends Annotation> Collection<FieldTypeVariable> getTypeVariableName(Class<?> targetClass,
+            Class<T> annotationClass) {
         Collection<FieldTypeVariable> fieldTypeVars = new HashSet<FieldTypeVariable>();
 
         FieldTypeVariable fieldTypeVar = null;
@@ -932,7 +949,8 @@ public class ReflectionUtils {
      * @since 2014. 4. 2.
      * @version 3.0.0
      */
-    public static void resetFieldForced(Object object, Field field) throws IllegalArgumentException, IllegalAccessException {
+    public static void resetFieldForced(Object object, Field field)
+            throws IllegalArgumentException, IllegalAccessException {
         Objects.requireNonNull(object);
         Objects.requireNonNull(field);
 

@@ -95,7 +95,8 @@ public class TestByteUtils {
         byte b = (byte) 255;
         System.out.printf("byte(%d) -> int(%d), int=%d\n", b, ByteUtils.toInt(b), (int) b);
 
-        System.out.println(ByteUtils.hexBinString(ByteUtils.xor(new byte[] { (byte) 0xff }, new byte[] { (byte) 0x00 })));
+        System.out
+                .println(ByteUtils.hexBinString(ByteUtils.xor(new byte[] { (byte) 0xff }, new byte[] { (byte) 0x00 })));
     }
 
     /**

@@ -55,7 +55,8 @@ public abstract class FilesInDirConvertor implements IEncodingConvertor {
     /**
      * No Supports.
      * 
-     * @see open.commons.core.io.encoding.IEncodingConvertor#convert(java.io.InputStream, java.io.OutputStream)
+     * @see open.commons.core.io.encoding.IEncodingConvertor#convert(java.io.InputStream,
+     *      java.io.OutputStream)
      */
     @Override
     public int convert(InputStream inStream, OutputStream outStream) throws IOException {

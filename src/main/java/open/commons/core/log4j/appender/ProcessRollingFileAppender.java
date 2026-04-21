@@ -103,8 +103,9 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
     private @Nullable Object advertisement;
     private final @Nullable Advertiser advertiser;
 
-    private ProcessRollingFileAppender(final String name, final Layout<? extends Serializable> layout, final @Nullable Filter filter, final RollingFileManager manager,
-            final @Nullable String fileName, final @Nullable String filePattern, final boolean ignoreExceptions, final boolean immediateFlush,
+    private ProcessRollingFileAppender(final String name, final Layout<? extends Serializable> layout,
+            final @Nullable Filter filter, final RollingFileManager manager, final @Nullable String fileName,
+            final @Nullable String filePattern, final boolean ignoreExceptions, final boolean immediateFlush,
             final @Nullable Advertiser advertiser) {
         super(name, layout, filter, ignoreExceptions, immediateFlush, null, manager);
         if (advertiser != null) {
@@ -178,8 +179,8 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @param filePattern
      *            The pattern of the file name to use on rollover. (required).
      * @param append
-     *            If true, events are appended to the file. If false, the file is overwritten when opened. Defaults to
-     *            "true"
+     *            If true, events are appended to the file. If false, the file
+     *            is overwritten when opened. Defaults to "true"
      * @param name
      *            The name of the Appender (required).
      * @param bufferedIO
@@ -197,12 +198,15 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @param filter
      *            The Filter or null.
      * @param ignore
-     *            If {@code "true"} (default) exceptions encountered when appending events are logged; otherwise they
-     *            are propagated to the caller.
+     *            If {@code "true"} (default) exceptions encountered when
+     *            appending events are logged; otherwise they are propagated to
+     *            the caller.
      * @param advertise
-     *            "true" if the appender configuration should be advertised, "false" otherwise.
+     *            "true" if the appender configuration should be advertised,
+     *            "false" otherwise.
      * @param advertiseUri
-     *            The advertised URI which can be used to retrieve the file contents.
+     *            The advertised URI which can be used to retrieve the file
+     *            contents.
      * @param config
      *            The Configuration.
      * @return A ProcessRollingFileAppender.
@@ -212,17 +216,22 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
     @Deprecated
     public static <B extends Builder<B>> ProcessRollingFileAppender createAppender(
             // @formatter:off
-            final String fileName, final String filePattern, final String append, final String name, final String bufferedIO, final String bufferSizeStr,
-            final String immediateFlush, final TriggeringPolicy policy, final RolloverStrategy strategy, final Layout<? extends Serializable> layout, final Filter filter,
-            final String ignore, final String advertise, final String advertiseUri, final Configuration config) {
+            final String fileName, final String filePattern, final String append, final String name,
+            final String bufferedIO, final String bufferSizeStr, final String immediateFlush,
+            final TriggeringPolicy policy, final RolloverStrategy strategy, final Layout<? extends Serializable> layout,
+            final Filter filter, final String ignore, final String advertise, final String advertiseUri,
+            final Configuration config) {
         // @formatter:on
         final int bufferSize = Integers.parseInt(bufferSizeStr, DEFAULT_BUFFER_SIZE);
         // @formatter:off
-        return ProcessRollingFileAppender.<B> newBuilder().withAdvertise(Boolean.parseBoolean(advertise)).withAdvertiseUri(advertiseUri)
-                .withAppend(Booleans.parseBoolean(append, true)).setBufferedIo(Booleans.parseBoolean(bufferedIO, true)).setBufferSize(bufferSize).setConfiguration(config)
-                .withFileName(fileName).withFilePattern(filePattern).setFilter(filter).setIgnoreExceptions(Booleans.parseBoolean(ignore, true))
-                .setImmediateFlush(Booleans.parseBoolean(immediateFlush, true)).setLayout(layout).withCreateOnDemand(false).withLocking(false).setName(name).withPolicy(policy)
-                .withStrategy(strategy).build();
+        return ProcessRollingFileAppender.<B> newBuilder().withAdvertise(Boolean.parseBoolean(advertise))
+                .withAdvertiseUri(advertiseUri).withAppend(Booleans.parseBoolean(append, true))
+                .setBufferedIo(Booleans.parseBoolean(bufferedIO, true)).setBufferSize(bufferSize)
+                .setConfiguration(config).withFileName(fileName).withFilePattern(filePattern).setFilter(filter)
+                .setIgnoreExceptions(Booleans.parseBoolean(ignore, true))
+                .setImmediateFlush(Booleans.parseBoolean(immediateFlush, true)).setLayout(layout)
+                .withCreateOnDemand(false).withLocking(false).setName(name).withPolicy(policy).withStrategy(strategy)
+                .build();
         // @formatter:on
     }
 
@@ -326,7 +335,8 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
         @SuppressWarnings("null")
         @Override
         public @Nullable ProcessRollingFileAppender build() {
-            // Even though some variables may be annotated with @Required, we must still perform validation here for
+            // Even though some variables may be annotated with @Required, we
+            // must still perform validation here for
             // call sites that build builders programmatically.
             final boolean isBufferedIo = isBufferedIo();
             final int bufferSize = getBufferSize();
@@ -336,7 +346,8 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             }
 
             if (!isBufferedIo && bufferSize > 0) {
-                LOGGER.warn("ProcessRollingFileAppender '{}': The bufferSize is set to {} but bufferedIO is not true", getName(), bufferSize);
+                LOGGER.warn("ProcessRollingFileAppender '{}': The bufferSize is set to {} but bufferedIO is not true",
+                        getName(), bufferSize);
             }
 
             if (filePattern == null) {
@@ -351,13 +362,17 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
 
             if (strategy == null) {
                 if (fileName != null) {
-                    strategy = DefaultRolloverStrategy.newBuilder().withCompressionLevelStr(String.valueOf(Deflater.DEFAULT_COMPRESSION)).withConfig(getConfiguration()).build();
+                    strategy = DefaultRolloverStrategy.newBuilder()
+                            .withCompressionLevelStr(String.valueOf(Deflater.DEFAULT_COMPRESSION))
+                            .withConfig(getConfiguration()).build();
                 } else {
-                    strategy = DirectWriteRolloverStrategy.newBuilder().withCompressionLevelStr(String.valueOf(Deflater.DEFAULT_COMPRESSION)).withConfig(getConfiguration())
-                            .build();
+                    strategy = DirectWriteRolloverStrategy.newBuilder()
+                            .withCompressionLevelStr(String.valueOf(Deflater.DEFAULT_COMPRESSION))
+                            .withConfig(getConfiguration()).build();
                 }
             } else if (fileName == null && !(strategy instanceof DirectFileRolloverStrategy)) {
-                LOGGER.error("ProcessRollingFileAppender '{}': When no file name is provided a DirectFilenameRolloverStrategy must be configured");
+                LOGGER.error(
+                        "ProcessRollingFileAppender '{}': When no file name is provided a DirectFilenameRolloverStrategy must be configured");
                 return null;
             }
 
@@ -371,16 +386,17 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
             // end - 로그 파일명과 파일패턴에 사용자 정의 데이터를 적용 : 2022. 10. 18. 오후 8:07:07
 
             final Layout<? extends Serializable> layout = getOrCreateLayout();
-            final RollingFileManager manager = RollingFileManager.getFileManager(fileName, filePattern, append, isBufferedIo, policy, strategy, advertiseUri, layout, bufferSize,
-                    isImmediateFlush(), createOnDemand, filePermissions, fileOwner, fileGroup, getConfiguration());
+            final RollingFileManager manager = RollingFileManager.getFileManager(fileName, filePattern, append,
+                    isBufferedIo, policy, strategy, advertiseUri, layout, bufferSize, isImmediateFlush(),
+                    createOnDemand, filePermissions, fileOwner, fileGroup, getConfiguration());
             if (manager == null) {
                 return null;
             }
 
             manager.initialize();
 
-            return new ProcessRollingFileAppender(getName(), layout, getFilter(), manager, fileName, filePattern, isIgnoreExceptions(), isImmediateFlush(),
-                    advertise ? getConfiguration().getAdvertiser() : null);
+            return new ProcessRollingFileAppender(getName(), layout, getFilter(), manager, fileName, filePattern,
+                    isIgnoreExceptions(), isImmediateFlush(), advertise ? getConfiguration().getAdvertiser() : null);
         }
 
         public @Nullable String getAdvertiseUri() {

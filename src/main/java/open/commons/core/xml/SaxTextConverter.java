@@ -111,7 +111,8 @@ public class SaxTextConverter {
      * @since 2019. 1. 24.
      * @version 3.0.0
      */
-    public void convert(Object obj, String saxElement, @Nullable String saxText) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void convert(Object obj, String saxElement, @Nullable String saxText)
+            throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Objects.requireNonNull(obj);
         Objects.requireNonNull(saxElement);
 
@@ -120,13 +121,15 @@ public class SaxTextConverter {
         // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
         @SuppressWarnings("null")
         Map<String, Method> methods = ANNOTATED_METHOD_CACHE.computeIfAbsent(obj.getClass() //
-                , clazz -> CollectionUtils.toMapHSV(AnnotationUtils.getAnnotatedMethodsAll(clazz, SaxElement.class), m -> m.getAnnotation(SaxElement.class).value(), m -> m));
+                , clazz -> CollectionUtils.toMapHSV(AnnotationUtils.getAnnotatedMethodsAll(clazz, SaxElement.class),
+                        m -> m.getAnnotation(SaxElement.class).value(), m -> m));
 
         // #2. SAX Element에 해당하는 메소드
         Method m = methods.get(saxElement);
 
         if (saxText != null && !saxText.isBlank() && m == null) {
-            throw new UnsupportedOperationException(String.format("Object: %s, sax-element: %s, sax-text: %s", obj.getClass().getName(), saxElement, saxText));
+            throw new UnsupportedOperationException(String.format("Object: %s, sax-element: %s, sax-text: %s",
+                    obj.getClass().getName(), saxElement, saxText));
         } else if (m == null) {
             return;
         }
@@ -140,7 +143,9 @@ public class SaxTextConverter {
         Function<String, ?> converter = getConverter0(fqcn);
 
         if (converter == null) {
-            throw new UnsupportedOperationException(String.format("NO CONVERTER !!! Object: %s, sax-element: %s, sax-text: %s", obj.getClass().getName(), saxElement, saxText));
+            throw new UnsupportedOperationException(
+                    String.format("NO CONVERTER !!! Object: %s, sax-element: %s, sax-text: %s",
+                            obj.getClass().getName(), saxElement, saxText));
         }
 
         m.invoke(obj, converter.apply(saxText));
@@ -237,7 +242,8 @@ public class SaxTextConverter {
     }
 
     @SuppressWarnings("unchecked")
-    private static <R> @Nullable Function<String, R> registerConverter0(String fqcn, Function<String, R> converter, ConcurrentMap<String, Function<String, ?>> converters) {
+    private static <R> @Nullable Function<String, R> registerConverter0(String fqcn, Function<String, R> converter,
+            ConcurrentMap<String, Function<String, ?>> converters) {
         Objects.requireNonNull(fqcn, "Class<?> MUST NOT BE NULL !!!");
         Objects.requireNonNull(converter, "Converter MUST NOT BE NULL !!!");
 

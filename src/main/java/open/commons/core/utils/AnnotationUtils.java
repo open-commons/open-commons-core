@@ -79,9 +79,10 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
-     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를
-     * 포함하지 않습니다.
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
+     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package),
+     * private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를 포함하지 않습니다.
      * 
      * <pre>
      * [개정이력]
@@ -120,9 +121,10 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 모든 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
-     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를
-     * 포함하지 않습니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 모든 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
+     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package),
+     * private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를 포함하지 않습니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -150,15 +152,18 @@ public class AnnotationUtils {
         Objects.requireNonNull(typeClass);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
-        return Arrays.stream(typeClass.getDeclaredFields())// create fields stream
-                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
+        return Arrays.stream(typeClass.getDeclaredFields())// create fields
+                                                           // stream
+                .filter(f -> existAllAnnotations(f, annoClasses)) // check
+                                                                  // annotation
                 .collect(Collectors.toList());
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
-     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를
-     * 포함하지 않습니다.
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
+     * {@link Field}는 해당 클래스에서만 정의한 'public, protected, default(package),
+     * private' 를 포함하지만, 상위 클래스에서 정의한 {@link Field}를 포함하지 않습니다.
      * 
      * <pre>
      * [개정이력]
@@ -185,7 +190,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
      * 상위 클래스에서 정의한 {@link Field}를 포함하여 'public' {@link Field}만 제공합니다.
      * 
      * <pre>
@@ -216,13 +222,15 @@ public class AnnotationUtils {
         AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getFields()) // create fields stream
-                .filter(f -> f.isAnnotationPresent(annoClass)) // check annotation
+                .filter(f -> f.isAnnotationPresent(annoClass)) // check
+                                                               // annotation
                 .collect(Collectors.toList()) //
         ;
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 모든 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 모든 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
      * 상위 클래스에서 정의한 {@link Field}를 포함하여 'public' {@link Field}만 제공합니다. <br>
      * 
      * <pre>
@@ -256,13 +264,15 @@ public class AnnotationUtils {
         AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getFields()) // create fields stream
-                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
+                .filter(f -> existAllAnnotations(f, annoClasses)) // check
+                                                                  // annotation
                 .collect(Collectors.toList()) //
         ;
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
      * 상위 클래스에서 정의한 {@link Field}를 포함하여 'public' {@link Field}만 제공합니다. <br>
      * <br>
      * 
@@ -293,7 +303,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
      * 상위 클래스에서 정의한 {@link Field}를 포함하여 'public' {@link Field}만 제공합니다. <br>
      * 
      * <pre>
@@ -321,16 +332,19 @@ public class AnnotationUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass,
+            Class<? extends Annotation> annoClass) {
         AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getFields()) // create fields stream
-                .filter(f -> f.isAnnotationPresent(annoClass)) // check annotation
+                .filter(f -> f.isAnnotationPresent(annoClass)) // check
+                                                               // annotation
         ;
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 모든 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 모든 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
      * 상위 클래스에서 정의한 {@link Field}를 포함하여 'public' {@link Field}만 제공합니다. <br>
      * 
      * <br>
@@ -361,17 +375,21 @@ public class AnnotationUtils {
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
-    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+    public static Stream<Field> getAnnotatedFieldsAllAsStream(Class<?> typeClass,
+            Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
-        return Arrays.stream(typeClass.getDeclaredFields()) // create fields stream
-                .filter(f -> existAllAnnotations(f, annoClasses)) // check annotation
+        return Arrays.stream(typeClass.getDeclaredFields()) // create fields
+                                                            // stream
+                .filter(f -> existAllAnnotations(f, annoClasses)) // check
+                                                                  // annotation
         ;
     }
 
     /**
-     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다. <br>
+     * 대상 클래스의 {@link Field} 중에서 특정 {@link Annotation}이 있는 {@link Field}만 제공합니다.
+     * <br>
      * 상위 클래스에서 정의한 {@link Field}를 포함하여 'public' {@link Field}만 제공합니다. <br>
      * 
      * <pre>
@@ -399,7 +417,8 @@ public class AnnotationUtils {
 
     /**
      * 대상 클래스에 정의된 {@link Field}와 상위 클래스에 정의된 {@link Field}까지 제공합니다. <br>
-     * 해당 클래스 및 상위 클래스에서 정의한 'public, protected, default(package), private' 를 제공합니다. <br>
+     * 해당 클래스 및 상위 클래스에서 정의한 'public, protected, default(package), private' 를
+     * 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -424,7 +443,8 @@ public class AnnotationUtils {
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
-    public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+    public static List<Field> getAnnotatedFieldsAllHierarchy(Class<?> typeClass,
+            Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
@@ -466,7 +486,8 @@ public class AnnotationUtils {
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
-    public static List<Field> getAnnotatedFieldsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
+    public static List<Field> getAnnotatedFieldsAllHierarchy(Object object,
+            Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
@@ -474,9 +495,10 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공합니다. <br>
-     * {@link Method}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한
-     * {@link Method}를 포함하지 않습니다.
+     * 대상 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만
+     * 제공합니다. <br>
+     * {@link Method}는 해당 클래스에서만 정의한 'public, protected, default(package),
+     * private' 를 포함하지만, 상위 클래스에서 정의한 {@link Method}를 포함하지 않습니다.
      * 
      * <pre>
      * [개정이력]
@@ -512,9 +534,10 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공합니다. <br>
-     * {@link Method}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한
-     * {@link Method}를 포함하지 않습니다. <br>
+     * 대상 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만
+     * 제공합니다. <br>
+     * {@link Method}는 해당 클래스에서만 정의한 'public, protected, default(package),
+     * private' 를 포함하지만, 상위 클래스에서 정의한 {@link Method}를 포함하지 않습니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -540,16 +563,19 @@ public class AnnotationUtils {
         Objects.requireNonNull(typeClass);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
-        return Arrays.stream(typeClass.getDeclaredMethods()) // create methods stream
-                .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
+        return Arrays.stream(typeClass.getDeclaredMethods()) // create methods
+                                                             // stream
+                .filter(m -> existAllAnnotations(m, annoClasses)) // check
+                                                                  // annotation
                 .collect(Collectors.toList()) //
         ;
     }
 
     /**
-     * 대상 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공합니다. <br>
-     * {@link Method}는 해당 클래스에서만 정의한 'public, protected, default(package), private' 를 포함하지만, 상위 클래스에서 정의한
-     * {@link Method}를 포함하지 않습니다.
+     * 대상 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만
+     * 제공합니다. <br>
+     * {@link Method}는 해당 클래스에서만 정의한 'public, protected, default(package),
+     * private' 를 포함하지만, 상위 클래스에서 정의한 {@link Method}를 포함하지 않습니다.
      * 
      * <pre>
      * [개정이력]
@@ -601,7 +627,8 @@ public class AnnotationUtils {
         AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
-                .filter(m -> m.isAnnotationPresent(annoClass)) // check annotation
+                .filter(m -> m.isAnnotationPresent(annoClass)) // check
+                                                               // annotation
                 .collect(Collectors.toList()) //
         ;
     }
@@ -639,7 +666,8 @@ public class AnnotationUtils {
         AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
-                .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
+                .filter(m -> existAllAnnotations(m, annoClasses)) // check
+                                                                  // annotation
                 .collect(Collectors.toList()) //
         ;
     }
@@ -733,12 +761,14 @@ public class AnnotationUtils {
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
-    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass,
+            Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
-                .filter(m -> existAllAnnotations(m, annoClasses)) // check annotation
+                .filter(m -> existAllAnnotations(m, annoClasses)) // check
+                                                                  // annotation
         ;
     }
 
@@ -768,16 +798,19 @@ public class AnnotationUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass, Class<? extends Annotation> annoClass) {
+    public static Stream<Method> getAnnotatedMethodsAllAsStream(Class<?> typeClass,
+            Class<? extends Annotation> annoClass) {
         AssertUtils2.notNulls(typeClass, annoClass);
 
         return Arrays.stream(typeClass.getMethods()) // create methods stream
-                .filter(m -> m.isAnnotationPresent(annoClass)) // check annotation
+                .filter(m -> m.isAnnotationPresent(annoClass)) // check
+                                                               // annotation
         ;
     }
 
     /**
-     * 대상 클래스 및 상위 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공합니다. <br>
+     * 대상 클래스 및 상위 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는
+     * {@link Method}만 제공합니다. <br>
      * 'public, protected, default(package), private' 를 포함합니다.
      * 
      * <pre>
@@ -801,7 +834,8 @@ public class AnnotationUtils {
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
-    public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass, Class<? extends Annotation>... annoClasses) {
+    public static List<Method> getAnnotatedMethodsAllHierarchy(Class<?> typeClass,
+            Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(typeClass);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
@@ -817,7 +851,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * 대상 클래스 및 상위 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는 {@link Method}만 제공합니다. <br>
+     * 대상 클래스 및 상위 클래스의 {@link Method} 중에서 특정 {@link Annotation}이 있는
+     * {@link Method}만 제공합니다. <br>
      * 'public, protected, default(package), private' 를 포함합니다.
      * 
      * <pre>
@@ -844,7 +879,8 @@ public class AnnotationUtils {
     // [TODO] 향후 IDE의 배열 데이터 흐름 분석이 고도화되거나 JSpecify가 완벽히 지원되면 '제거'
     @SuppressWarnings("null")
     @SafeVarargs
-    public static List<Method> getAnnotatedMethodsAllHierarchy(Object object, Class<? extends Annotation>... annoClasses) {
+    public static List<Method> getAnnotatedMethodsAllHierarchy(Object object,
+            Class<? extends Annotation>... annoClasses) {
         Objects.requireNonNull(object);
         AssertUtils2.notNulls((Object[]) annoClasses);
 
@@ -911,7 +947,8 @@ public class AnnotationUtils {
 
     /**
      * 
-     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 {@code null}을 반환합니다.
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는
+     * 경우 {@code null}을 반환합니다.
      * 
      * <br>
      * 
@@ -937,7 +974,8 @@ public class AnnotationUtils {
     }
 
     /**
-     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는 경우 {@code null}을 반환합니다.
+     * 주어진 객체에 찾고자 하는 {@link Annotation}이 존재하는 경우 {@link Annotation}객체를 반환하고 없는
+     * 경우 {@code null}을 반환합니다.
      * 
      * @param object
      * @param annoClass

@@ -74,7 +74,8 @@ public class LocaleUtils {
      * @param locale
      *            요청할 로케일 객체 ({@code null} 허용)
      *
-     * @return 파라미터의 {@link Locale}. 만약 파라미터가 {@code null}이면 JVM 기본 로케일을 반환 (절대 {@code null}이 아님)
+     * @return 파라미터의 {@link Locale}. 만약 파라미터가 {@code null}이면 JVM 기본 로케일을 반환 (절대
+     *         {@code null}이 아님)
      *
      * @since 2026. 4. 7.
      * @version 3.0.0
@@ -101,7 +102,8 @@ public class LocaleUtils {
      *         <ul>
      *         <li>유효한 언어 태그인 경우: 파싱된 {@link Locale}</li>
      *         <li>파싱 불가능한 잘못된 태그인 경우: {@link Locale#ROOT} (언어 중립적 안전 로케일)</li>
-     *         <li>파라미터가 {@code null}인 경우: JVM 기본 로케일 ({@link #defaultLocale()})</li>
+     *         <li>파라미터가 {@code null}인 경우: JVM 기본 로케일
+     *         ({@link #defaultLocale()})</li>
      *         </ul>
      *
      * @since 2026. 4. 7.
@@ -113,7 +115,8 @@ public class LocaleUtils {
             return defaultLocale();
         }
 
-        // [PATCH] 레거시 언더스코어 형식("ko_KR")을 BCP 47 표준 하이픈 형식("ko-KR")으로 치환하여 파싱 안정성 확보
+        // [PATCH] 레거시 언더스코어 형식("ko_KR")을 BCP 47 표준 하이픈 형식("ko-KR")으로 치환하여 파싱
+        // 안정성 확보
         Locale parsed = Locale.forLanguageTag(languageTag.replace('_', '-'));
 
         // Locale.forLanguageTag는 파싱 실패 시 언어(Language) 속성이 비어있는 깡통 로케일을 반환합니다.

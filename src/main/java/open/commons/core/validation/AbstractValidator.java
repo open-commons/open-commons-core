@@ -204,7 +204,8 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
      *             Feature 개수가 최대 허용치({@value #MAX_FEATURE_COUNT})를 초과한 경우 발생.
      */
     protected final int getFeature(boolean positive) {
-        AssertUtils2.isFalse(featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class, "Oops! The count of features is over the MAX.");
+        AssertUtils2.isFalse(featureCount > MAX_FEATURE_COUNT, IllegalArgumentException.class,
+                "Oops! The count of features is over the MAX.");
 
         int feature = this.featureHolder.getAndIncrement();
         setFeature(feature, true, positive);
@@ -238,7 +239,8 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
                 .map(entry -> {
                     ITokenValidator<T> validator = entry.getValue();
                     Set<T> tokens = validator.getValidTokens();
-                    return String.join("", validator.getName(), ", expected: ", tokens != null ? tokens.toString() : "null");
+                    return String.join("", validator.getName(), ", expected: ",
+                            tokens != null ? tokens.toString() : "null");
                 }) //
                 .collect(Collectors.toList());
 
@@ -512,7 +514,8 @@ public class AbstractValidator<D, T> implements IValidator<D, T> {
                 setValid(feature);
                 setFeature(feature, false, true);
 
-                // (start) TODO: 미등록 토큰 처리 / Park_Jun_Hong_(parkjunhong77@gmail.com): 2014. 9. 17.
+                // (start) TODO: 미등록 토큰 처리 /
+                // Park_Jun_Hong_(parkjunhong77@gmail.com): 2014. 9. 17.
                 if (feature == UNKNOWN_TOKEN_FEATURE) {
                     // 미등록 토큰 발생 시 별도 후처리 로직 필요
                 }

@@ -68,8 +68,8 @@ public class ExceptionUtils {
      * @since 2021. 7. 5.
      * @version 1.8.0
      */
-    public static <E extends Throwable> E newException(Class<E> type, Class<?> @Nullable [] argTypes, @Nullable Object @Nullable [] args, @Nullable String format,
-            @Nullable Object @Nullable... msgArgs) {
+    public static <E extends Throwable> E newException(Class<E> type, Class<?> @Nullable [] argTypes,
+            @Nullable Object @Nullable [] args, @Nullable String format, @Nullable Object @Nullable... msgArgs) {
         return newException(type, () -> argTypes, args, format, msgArgs);
     }
 
@@ -95,7 +95,8 @@ public class ExceptionUtils {
      *
      * @since 2020. 10. 15.
      */
-    public static <E extends Throwable> E newException(Class<E> type, @Nullable String format, @Nullable Object @Nullable... args) {
+    public static <E extends Throwable> E newException(Class<E> type, @Nullable String format,
+            @Nullable Object @Nullable... args) {
         return newException(type, () -> null, null, format, args);
     }
 
@@ -128,7 +129,8 @@ public class ExceptionUtils {
      * 
      * @version 1.8.00
      */
-    public static <E extends Throwable> E newException(Class<E> type, @Nullable Supplier<@Nullable Class<?> @Nullable []> argTypes, @Nullable Object @Nullable [] args,
+    public static <E extends Throwable> E newException(Class<E> type,
+            @Nullable Supplier<@Nullable Class<?> @Nullable []> argTypes, @Nullable Object @Nullable [] args,
             @Nullable String format, @Nullable Object @Nullable... msgArgs) {
 
         AssertUtils2.notNulls(type);
@@ -192,7 +194,8 @@ public class ExceptionUtils {
      *
      * @since 2020. 10. 20.
      */
-    public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format, Object @Nullable... args) {
+    public static <E extends Throwable> E newException(Class<E> type, Throwable parent, String format,
+            Object @Nullable... args) {
         AssertUtils2.notNulls(type, parent, format);
 
         try {

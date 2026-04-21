@@ -61,23 +61,40 @@ public class TestUnitUtils {
         BinaryDataUnit srcUnit = BinaryDataUnit.BYTE;
         long srcSize = 1 * 1024 * 1024 * 1024;
 
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.BYTE.get(), srcUnit.convert(srcSize, BinaryDataUnit.BYTE).toString());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.KIBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.KIBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.KIBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.KIBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.MEBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.MEBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.MEBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.MEBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.GIBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.GIBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.GIBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.GIBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.TEBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.TEBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.TEBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.TEBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.PEBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.PEBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.PEBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.PEBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.EXBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.EXBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.EXBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.EXBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.ZIBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.ZIBI).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.ZIBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.ZIBI).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.YOBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.YOBI).toString());
-        System.out.printf("%,d %s -> %s => %,.100f\n", srcSize, srcUnit.get(), BinaryDataUnit.YOBI.get(), srcUnit.convert(srcSize, BinaryDataUnit.YOBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.BYTE.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.BYTE).toString());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.KIBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.KIBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.KIBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.KIBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.MEBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.MEBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.MEBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.MEBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.GIBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.GIBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.GIBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.GIBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.TEBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.TEBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.TEBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.TEBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.PEBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.PEBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.PEBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.PEBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.EXBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.EXBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.EXBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.EXBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.ZIBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.ZIBI).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), BinaryDataUnit.ZIBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.ZIBI).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), BinaryDataUnit.YOBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.YOBI).toString());
+        System.out.printf("%,d %s -> %s => %,.100f\n", srcSize, srcUnit.get(), BinaryDataUnit.YOBI.get(),
+                srcUnit.convert(srcSize, BinaryDataUnit.YOBI).doubleValue());
 
         // *--
         srcSize = BinaryDataUnit.GIBI.convert(32, BinaryDataUnit.BYTE).longValueExact();
@@ -101,29 +118,47 @@ public class TestUnitUtils {
         PrefixDataUnit srcUnit = PrefixDataUnit.TERA;
         long srcSize = 1 * 1000 * 1000 * 1000;
 
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.BASE.get(), srcUnit.convert(srcSize, PrefixDataUnit.BASE).toString());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.KILO.get(), srcUnit.convert(srcSize, PrefixDataUnit.KILO).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.KILO.get(), srcUnit.convert(srcSize, PrefixDataUnit.KILO).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.MEGA.get(), srcUnit.convert(srcSize, PrefixDataUnit.MEGA).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.MEGA.get(), srcUnit.convert(srcSize, PrefixDataUnit.MEGA).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.GIGA.get(), srcUnit.convert(srcSize, PrefixDataUnit.GIGA).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.GIGA.get(), srcUnit.convert(srcSize, PrefixDataUnit.GIGA).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.TERA.get(), srcUnit.convert(srcSize, PrefixDataUnit.TERA).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.TERA.get(), srcUnit.convert(srcSize, PrefixDataUnit.TERA).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.PETA.get(), srcUnit.convert(srcSize, PrefixDataUnit.PETA).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.PETA.get(), srcUnit.convert(srcSize, PrefixDataUnit.PETA).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.EXA.get(), srcUnit.convert(srcSize, PrefixDataUnit.EXA).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.EXA.get(), srcUnit.convert(srcSize, PrefixDataUnit.EXA).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.ZETTA.get(), srcUnit.convert(srcSize, PrefixDataUnit.ZETTA).toString());
-        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.ZETTA.get(), srcUnit.convert(srcSize, PrefixDataUnit.ZETTA).doubleValue());
-        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.YOTTA.get(), srcUnit.convert(srcSize, PrefixDataUnit.YOTTA).toString());
-        System.out.printf("%,d %s -> %s => %,.100f\n", srcSize, srcUnit.get(), PrefixDataUnit.YOTTA.get(), srcUnit.convert(srcSize, PrefixDataUnit.YOTTA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.BASE.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.BASE).toString());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.KILO.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.KILO).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.KILO.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.KILO).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.MEGA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.MEGA).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.MEGA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.MEGA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.GIGA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.GIGA).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.GIGA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.GIGA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.TERA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.TERA).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.TERA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.TERA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.PETA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.PETA).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.PETA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.PETA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.EXA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.EXA).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.EXA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.EXA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.ZETTA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.ZETTA).toString());
+        System.out.printf("%,d %s -> %s => %,.30f\n", srcSize, srcUnit.get(), PrefixDataUnit.ZETTA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.ZETTA).doubleValue());
+        System.out.printf("%,d %s -> %s => %s\n", srcSize, srcUnit.get(), PrefixDataUnit.YOTTA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.YOTTA).toString());
+        System.out.printf("%,d %s -> %s => %,.100f\n", srcSize, srcUnit.get(), PrefixDataUnit.YOTTA.get(),
+                srcUnit.convert(srcSize, PrefixDataUnit.YOTTA).doubleValue());
 
         // *--
         srcSize = PrefixDataUnit.GIGA.convert(32, PrefixDataUnit.BASE).longValueExact();
         System.out.printf("%,d >> %s -> %s => %,d\n", srcSize, PrefixDataUnit.BASE.get(), PrefixDataUnit.MEGA.get(),
                 UnitUtils.convert(srcSize, PrefixDataUnit.MEGA).longValueExact());
-        System.out.printf("%,d >> %s -> %s => %s\n", srcSize, PrefixDataUnit.BASE.get(), PrefixDataUnit.MEGA.get(), UnitUtils.convertAsString(srcSize, PrefixDataUnit.MEGA, true));
+        System.out.printf("%,d >> %s -> %s => %s\n", srcSize, PrefixDataUnit.BASE.get(), PrefixDataUnit.MEGA.get(),
+                UnitUtils.convertAsString(srcSize, PrefixDataUnit.MEGA, true));
         // memSize = 12345678;
         System.out.printf("%,d >> %s -> %s => %s\n", srcSize, PrefixDataUnit.BASE.get(), PrefixDataUnit.KILO.get(),
                 UnitUtils.convertAlsoSubUnitAsString(srcSize, PrefixDataUnit.KILO));

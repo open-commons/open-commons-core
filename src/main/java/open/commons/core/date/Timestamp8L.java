@@ -327,7 +327,8 @@ public class Timestamp8L implements Comparable<Timestamp8L> {
      */
     @Override
     public String toString() {
-        return CLASS + " [year=" + year + ", month=" + month + ", day=" + day + ", date: " + sdf.format(date) + ", millis: " + date.getTime() + "]";
+        return CLASS + " [year=" + year + ", month=" + month + ", day=" + day + ", date: " + sdf.format(date)
+                + ", millis: " + date.getTime() + "]";
     }
 
     /**

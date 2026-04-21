@@ -96,7 +96,8 @@ public class FunctionUtils {
      * @since 2020. 6. 12.
      */
     public static <S extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object, V extends @Nullable Object, W extends @Nullable Object, X extends @Nullable Object> //
-            Supplier<X> build(BiFunction<S, T, U> action, S param1, T param2, BiFunction<V, W, X> onSuccess, V osParam1, Function<U, W> osParam2, Function<Throwable, X> onError) {
+            Supplier<X> build(BiFunction<S, T, U> action, S param1, T param2, BiFunction<V, W, X> onSuccess, V osParam1,
+                    Function<U, W> osParam2, Function<Throwable, X> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -146,7 +147,8 @@ public class FunctionUtils {
      * @since 2020. 6. 12.
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object, X extends @Nullable Object> //
-            Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2, Function<R, X> onSuccess, Function<Throwable, X> onError) {
+            Supplier<X> build(BiFunction<T, U, R> action, T param1, U param2, Function<R, X> onSuccess,
+                    Function<Throwable, X> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -196,7 +198,8 @@ public class FunctionUtils {
      * @since 2020. 6. 12.
      */
     public static <S extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object, X extends @Nullable Object> //
-            Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam, Function<Throwable, X> onError) {
+            Supplier<X> build(Function<S, T> action, S param, Function<U, X> onSuccess, Function<T, U> osParam,
+                    Function<Throwable, X> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -241,7 +244,8 @@ public class FunctionUtils {
      * @since 2020. 6. 12.
      */
     public static <T extends @Nullable Object, R extends @Nullable Object, X extends @Nullable Object> //
-            Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess, Function<Throwable, X> onError) {
+            Supplier<X> build(Function<T, R> action, T param, Function<R, X> onSuccess,
+                    Function<Throwable, X> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -281,7 +285,8 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 11.
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> Supplier<String> build(
+            Function<T, Result<R>> action, T param, Consumer<R> onSuccess) {
         return build(action, param, onSuccess, t -> t.getMessage());
     }
 
@@ -320,7 +325,8 @@ public class FunctionUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <T extends @Nullable Object, R extends @Nullable Object> //
-            Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess, Function<Throwable, String> onError) {
+            Supplier<String> build(Function<T, Result<R>> action, T param, Consumer<R> onSuccess,
+                    Function<Throwable, String> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -402,7 +408,8 @@ public class FunctionUtils {
      *
      * @since 2020. 4. 11.
      */
-    public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess) {
+    public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action,
+            Consumer<R> onSuccess) {
         return build(action, onSuccess, t -> t.getMessage());
     }
 
@@ -436,7 +443,8 @@ public class FunctionUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
+    public static <R extends @Nullable Object> Supplier<String> build(Supplier<Result<R>> action, Consumer<R> onSuccess,
+            Function<Throwable, String> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -529,7 +537,8 @@ public class FunctionUtils {
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
     public static <R extends @Nullable Object, T extends @Nullable Object, U extends @Nullable Object> //
-            Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess, Function<Throwable, String> onError) {
+            Supplier<String> build(T param1, U param2, BiFunction<T, U, Result<R>> action, Consumer<R> onSuccess,
+                    Function<Throwable, String> onError) {
         AssertUtils2.notNulls(action, onSuccess, onError);
 
         return () -> {
@@ -759,7 +768,8 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')이 {@code null}이 아닌 경우 및 일치하지 않는 경우 각기 다른 {@link Runner} 함수를 실행합니다.
+     * 전달받은 값('value')이 {@code null}이 아닌 경우 및 일치하지 않는 경우 각기 다른 {@link Runner}
+     * 함수를 실행합니다.
      * 
      * <br>
      * 
@@ -911,7 +921,8 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 14.
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test,
+            Function<T, R> run) {
         AssertUtils2.notNulls(test, run);
 
         return test.test(value) ? run.apply(value) : null;
@@ -946,7 +957,8 @@ public class FunctionUtils {
      *
      * @since 2021. 11. 15.
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run, R defaultValue) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test,
+            Function<T, R> run, R defaultValue) {
         AssertUtils2.notNulls(test, run);
 
         return test.test(value) ? run.apply(value) : defaultValue;
@@ -981,7 +993,8 @@ public class FunctionUtils {
      *
      * @since 2020. 7. 21.
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, R> run, Supplier<R> defaultValue) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test,
+            Function<T, R> run, Supplier<R> defaultValue) {
         AssertUtils2.notNulls(test, run);
 
         return test.test(value) ? run.apply(value) : defaultValue.get();
@@ -1018,8 +1031,8 @@ public class FunctionUtils {
      *
      * @since 2020. 6. 14.
      */
-    public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param,
-            Function<U, R> run) {
+    public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> @Nullable R runIf(
+            T value, Predicate<T> test, Function<T, U> param, Function<U, R> run) {
         AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.apply(value)) : null;
@@ -1099,7 +1112,8 @@ public class FunctionUtils {
      * @since 2020. 7. 22.
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
-            @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run, Supplier<R> defaultValue) {
+            @Nullable R runIf(T value, Predicate<T> test, Function<T, U> param, Function<U, R> run,
+                    Supplier<R> defaultValue) {
         AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.apply(value)) : defaultValue.get();
@@ -1163,7 +1177,8 @@ public class FunctionUtils {
      *
      * @since 2020. 8. 29.
      */
-    public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test, Supplier<U> param, Consumer<U> run) {
+    public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test,
+            Supplier<U> param, Consumer<U> run) {
         AssertUtils2.notNulls(test, param, run);
 
         if (test.test(value)) {
@@ -1283,7 +1298,8 @@ public class FunctionUtils {
      * @since 2020. 7. 21.
      */
     public static <T extends @Nullable Object, U extends @Nullable Object, R extends @Nullable Object> //
-            @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run, Supplier<R> defaultValue) {
+            @Nullable R runIf(T value, Predicate<T> test, Supplier<U> param, Function<U, R> run,
+                    Supplier<R> defaultValue) {
         AssertUtils2.notNulls(test, param, run);
 
         return test.test(value) ? run.apply(param.get()) : defaultValue.get();
@@ -1316,7 +1332,8 @@ public class FunctionUtils {
      *
      * @since 2020. 8. 29.
      */
-    public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test, U param, Consumer<U> run) {
+    public static <T extends @Nullable Object, U extends @Nullable Object> void runIf(T value, Predicate<T> test,
+            U param, Consumer<U> run) {
         AssertUtils2.notNulls(test, run);
 
         if (test.test(value)) {
@@ -1339,7 +1356,8 @@ public class FunctionUtils {
      * @param <R>
      *            반환될 데이터 타입 형식
      * @param filterIn
-     *            결과 포함 여부를 판단할 (positive) 데이터 검증 함수기. {@code true}인 경우 결과로 포함시킵니다.
+     *            결과 포함 여부를 판단할 (positive) 데이터 검증 함수기. {@code true}인 경우 결과로
+     *            포함시킵니다.
      * @param actions
      *            비동기로 처리될 기능 정의 목록들
      *

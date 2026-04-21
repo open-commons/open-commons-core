@@ -112,7 +112,9 @@ public class ReferenceableProperties extends Properties {
     }
 
     /**
-     * {@link Properties#entrySet()}를 {@link Set}&lt;{@link Entry}&lt;{@link String}, {@link String}&gt;&gt;로 반환합니다.
+     * {@link Properties#entrySet()}를
+     * {@link Set}&lt;{@link Entry}&lt;{@link String}, {@link String}&gt;&gt;로
+     * 반환합니다.
      * 
      * @return
      */
@@ -328,7 +330,8 @@ public class ReferenceableProperties extends Properties {
         }
 
         if (keyReferencing.size() != 0 && newKeyReferencing.size() == keyReferencing.size()) {
-            throw new PropertyNoSeedException("There is no more SEED key: seeds=" + keyReferenced.keySet() + ", referer=" + keyReferencing.values());
+            throw new PropertyNoSeedException("There is no more SEED key: seeds=" + keyReferenced.keySet()
+                    + ", referer=" + keyReferencing.values());
         }
 
         if (newKeyReferencing.size() > 0) {
@@ -369,7 +372,8 @@ public class ReferenceableProperties extends Properties {
                 varRef = m.group(2);
                 // check 'self-reference'
                 if (keyOfInput.equals(varRef)) {
-                    throw new PropertySelfReferenceException("'" + OrderingUtils.intToOrdinal(refIndex) + "' reference is invalid: key=" + keyOfInput + ", value=" + input);
+                    throw new PropertySelfReferenceException("'" + OrderingUtils.intToOrdinal(refIndex)
+                            + "' reference is invalid: key=" + keyOfInput + ", value=" + input);
                 }
 
                 value = keyReferenced.get(varRef);

@@ -56,23 +56,30 @@ public class TestFIleUtils {
     }
 
     public static void main(String[] args) {
-        // File src = new File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src\\open\\commons");
+        // File src = new
+        // File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src\\open\\commons");
         // for (File file : src.listFiles()) {
-        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory", file.getAbsolutePath());
+        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory",
+        // file.getAbsolutePath());
         // }
         // System.out.println("-------------------------------------------------------------------------------");
         // for (File file : listFiles(src)) {
-        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory", file.getAbsolutePath());
+        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory",
+        // file.getAbsolutePath());
         // }
         // System.out.println("-------------------------------------------------------------------------------");
         // for (File file : listDirectories(src)) {
-        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory", file.getAbsolutePath());
+        // System.out.printf("%9s: %s\n", file.isFile() ? "File" : "Directory",
+        // file.getAbsolutePath());
         // }
         //
-        // File dir = new File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src - 복사본 (2)");
+        // File dir = new
+        // File("D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\src
+        // - 복사본 (2)");
         // emptyDir(dir);
         //
-        // String filepath = "D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\.classpath";
+        // String filepath =
+        // "D:\\03.WORKSPACE\\eclipse-SDK-4.2-win32-x86_64\\open.commons\\.classpath";
         // System.out.println("path: " + getFilePath(filepath));
         // System.out.println("name: " + getFileName(filepath));
         // System.out.println("ext : " + getFileExtension(filepath));

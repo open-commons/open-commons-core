@@ -53,7 +53,8 @@ public class TestNetUtils {
     public static void main(String[] args) {
         String[] ipAddrs = { "127.0.0.1", "::1" };
         for (String ip : ipAddrs) {
-            System.out.printf("%s is %s IP address.\n", ip, NetUtils.isIPv4OrIPv6(ip) ? "valid" + (NetUtils.isIPv4(ip) ? " (IPv4)" : " (IPv6)") : "invalid");
+            System.out.printf("%s is %s IP address.\n", ip,
+                    NetUtils.isIPv4OrIPv6(ip) ? "valid" + (NetUtils.isIPv4(ip) ? " (IPv4)" : " (IPv6)") : "invalid");
         }
     }
 }

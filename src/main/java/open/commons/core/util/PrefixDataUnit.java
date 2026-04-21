@@ -41,7 +41,8 @@ import open.commons.core.utils.AssertUtils2;
 
 /**
  * 거리/무게 등 여러 가지 단위에 대한 접두어.<br>
- * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
+ * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여
+ * {@link BigDecimal}를 이용.
  * 
  * @since 2021. 11. 5.
  * @version 1.8.0
@@ -379,8 +380,8 @@ public enum PrefixDataUnit {
             }
         }
 
-        throw new IllegalArgumentException(
-                "Unexpected 'str' value of 'BinaryDataUnit'. expected: " + values0() + " & Ignore case-sensitive: " + ignoreCase + ", input: " + unitStr);
+        throw new IllegalArgumentException("Unexpected 'str' value of 'BinaryDataUnit'. expected: " + values0()
+                + " & Ignore case-sensitive: " + ignoreCase + ", input: " + unitStr);
     }
 
     private static List<String> values0() {

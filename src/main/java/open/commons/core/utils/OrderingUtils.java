@@ -52,7 +52,8 @@ public class OrderingUtils {
      *
      * @since 2019. 1. 10.
      */
-    public static <E extends Comparable<E>> void addToSortedList(E e, List<E> list, boolean asc, Comparator<E> comparator) {
+    public static <E extends Comparable<E>> void addToSortedList(E e, List<E> list, boolean asc,
+            Comparator<E> comparator) {
         Objects.requireNonNull(e);
         Objects.requireNonNull(list);
 
@@ -132,7 +133,8 @@ public class OrderingUtils {
      *
      * @since 2019. 1. 10.
      */
-    public static <E extends Comparable<E>> int getBSearchIndex(E e, List<E> list, boolean asc, Comparator<E> comparator) {
+    public static <E extends Comparable<E>> int getBSearchIndex(E e, List<E> list, boolean asc,
+            Comparator<E> comparator) {
         Objects.requireNonNull(e);
         Objects.requireNonNull(list);
 
@@ -170,7 +172,8 @@ public class OrderingUtils {
      *
      * @since 2019. 1. 10.
      */
-    private static <E extends Comparable<E>> int getIndex(E e, List<E> list, boolean asc, Comparator<E> comparator, int size, int pos) {
+    private static <E extends Comparable<E>> int getIndex(E e, List<E> list, boolean asc, Comparator<E> comparator,
+            int size, int pos) {
         // head: pos ~ pos + q x 2
         int q = size / 2;
         // tail: pos + q x 2 + 1 ~ size

@@ -67,7 +67,8 @@ public class TimeUtils {
         TIME_UNITS.put(DEFAULT_LOCALE, DEFAULT_TIME_UNIT_DEF);
 
         // set Korea
-        TIME_UNITS.put(Locale.KOREA, TimeUnitBuilder.create().setSecond("초").setMinute("분").setHour("시간").setDay("일").setYear("년").build());
+        TIME_UNITS.put(Locale.KOREA,
+                TimeUnitBuilder.create().setSecond("초").setMinute("분").setHour("시간").setDay("일").setYear("년").build());
     }
 
     private static final Function<TimeUnit, TimeUnitInfo[]> FN_TIME_UNITS = unit -> {
@@ -84,7 +85,8 @@ public class TimeUtils {
 
     /** 제외시킬 시간 단위 (Thread-Safe Set으로 변경 및 오타 교정) */
     @SuppressWarnings("null")
-    private static final ConcurrentHashMap.KeySetView<TimeUnit, Boolean> OMITTED_TIME_UNITS = ConcurrentHashMap.newKeySet();
+    private static final ConcurrentHashMap.KeySetView<TimeUnit, Boolean> OMITTED_TIME_UNITS = ConcurrentHashMap
+            .newKeySet();
 
     /** discard none. */
     public static final int DC_NONE = 0x00;
@@ -298,7 +300,8 @@ public class TimeUtils {
     }
 
     /**
-     * 입력된 시간을 {year}y {day}d {hour}h {minute}m {second}s {millisecond}ms {nanoseconds}ns 포맷의 문자열로 제공합니다. <br>
+     * 입력된 시간을 {year}y {day}d {hour}h {minute}m {second}s {millisecond}ms
+     * {nanoseconds}ns 포맷의 문자열로 제공합니다. <br>
      * 해당 단위의 값이 0이거나 Omit 목록에 추가된 경우 문자열에서 제외됩니다.
      *
      * <pre>

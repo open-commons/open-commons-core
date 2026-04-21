@@ -105,7 +105,8 @@ public class DefaultThreadFactory implements ThreadFactory {
 
         this.threadType = threadType;
         this.group = Thread.currentThread().getThreadGroup();
-        this.namePrefix = String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(), POOL_NUMBER.getAndIncrement());
+        this.namePrefix = String.format("<%s> %s-pool-%d-thread-", monitor, threadType.name().toLowerCase(),
+                POOL_NUMBER.getAndIncrement());
     }
 
     /**

@@ -334,7 +334,8 @@ public class ObjectUtils {
      * @since 2025. 11. 24.
      * @version 2.1.0
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o, Function<T, R> manipulator, R defaultValue) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o,
+            Function<T, R> manipulator, R defaultValue) {
         Objects.requireNonNull(manipulator);
 
         return o != null ? manipulator.apply(o) : defaultValue;
@@ -364,7 +365,8 @@ public class ObjectUtils {
      * @since 2025. 11. 24.
      * @version 2.1.0
      */
-    public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o, Function<T, R> manipulator, Supplier<R> sup) {
+    public static <T extends @Nullable Object, R extends @Nullable Object> R getOrDefault(T o,
+            Function<T, R> manipulator, Supplier<R> sup) {
         AssertUtils2.notNulls(manipulator, sup);
 
         return o != null ? manipulator.apply(o) : sup.get();
@@ -450,10 +452,12 @@ public class ObjectUtils {
      * @since 2021. 12. 6.
      * @version 1.8.0
      */
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, boolean lookupSrcSuper, Class<T> targetClass,
+            boolean lookupTargetSuper) throws IllegalArgumentException {
         return src -> {
             try {
-                BiConsumer<S, T> copier = ObjectTransformer.getTransformer(srcType, lookupSrcSuper, targetClass, lookupTargetSuper);
+                BiConsumer<S, T> copier = ObjectTransformer.getTransformer(srcType, lookupSrcSuper, targetClass,
+                        lookupTargetSuper);
                 T target = targetClass.getDeclaredConstructor().newInstance();
                 copier.accept(src, target);
 
@@ -487,7 +491,8 @@ public class ObjectUtils {
      * @since 2021. 12. 6.
      * @version 1.8.0
      */
-    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> targetClass) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(Class<S> srcType, Class<T> targetClass)
+            throws NullPointerException {
         return getTransformer(srcType, false, targetClass, false);
     }
 
@@ -526,7 +531,8 @@ public class ObjectUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) {
+    public static <S, T> Function<S, T> getTransformer(Collection<S> srcCol, boolean lookupSrcSuper,
+            Class<T> targetClass, boolean lookupTargetSuper) {
         Objects.requireNonNull(srcCol);
         Objects.requireNonNull(targetClass);
 
@@ -600,7 +606,8 @@ public class ObjectUtils {
      * @version 1.8.0
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper) throws NullPointerException {
+    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, Class<T> targetClass,
+            boolean lookupTargetSuper) throws NullPointerException {
         Objects.requireNonNull(src, "'source' object MUST NOT be null !!!");
         Objects.requireNonNull(targetClass, "'target' type MUST NOT be null !!!");
 
@@ -638,11 +645,13 @@ public class ObjectUtils {
      * @version 1.8.0
      */
     @SuppressWarnings("unchecked")
-    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper) throws IllegalArgumentException {
+    public static <S, T> Function<S, T> getTransformer(S src, boolean lookupSrcSuper, T target,
+            boolean lookupTargetSuper) throws IllegalArgumentException {
         Objects.requireNonNull(src, "'source' object MUST NOT be null !!!");
         Objects.requireNonNull(target, "'target' object MUST NOT be null !!!");
 
-        return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, (Class<T>) target.getClass(), lookupTargetSuper);
+        return getTransformer((Class<S>) src.getClass(), lookupSrcSuper, (Class<T>) target.getClass(),
+                lookupTargetSuper);
     }
 
     /**
@@ -801,7 +810,8 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Setter} 어노테이션이 기술된 메소드를 이용하여 {@link Map}으로부터 데이터를 읽어 새로운 객체를 생성합니다. <br>
+     * {@link Setter} 어노테이션이 기술된 메소드를 이용하여 {@link Map}으로부터 데이터를 읽어 새로운 객체를
+     * 생성합니다. <br>
      * *
      * 
      * <pre>
@@ -831,8 +841,8 @@ public class ObjectUtils {
      * 
      * @see Setter
      */
-    public static <T> T load(Class<T> type, Map<String, Object> map)
-            throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
+    public static <T> T load(Class<T> type, Map<String, Object> map) throws InstantiationException,
+            IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
         Objects.requireNonNull(type);
 
         // [캐싱] 클래스에 대한 Setter 정보를 최초 1회만 스캔하여 저장합니다.
@@ -883,7 +893,8 @@ public class ObjectUtils {
 
             // 기존의 타입 체크 로직 유지 (checkType 메소드 존재 가정)
             if (!checkType(param.getClass(), info.paramType())) {
-                throw new IllegalArgumentException(String.format("Required: %s, Input.type: %s, Input.value: %s", info.paramType(), param.getClass(), param));
+                throw new IllegalArgumentException(String.format("Required: %s, Input.type: %s, Input.value: %s",
+                        info.paramType(), param.getClass(), param));
             }
 
             try {
@@ -1103,9 +1114,11 @@ public class ObjectUtils {
      *            '이전 타입 -> 이후 타입' 변환 함수
      * 
      * @since 2021. 12. 2.
-     * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function)
+     * @see ObjectTransformer#registerPropertyConverter(Class, Class, String,
+     *      Class, Class, Function)
      */
-    public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> converter) throws NullPointerException {
+    public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass,
+            Function<SF, TF> converter) throws NullPointerException {
         ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, converter);
     }
 
@@ -1134,11 +1147,13 @@ public class ObjectUtils {
      *
      * @since 2021. 12. 2.
      * 
-     * @see ObjectTransformer#registerPropertyConverter(Class, Class, String, Class, Class, Function, Function)
+     * @see ObjectTransformer#registerPropertyConverter(Class, Class, String,
+     *      Class, Class, Function, Function)
      */
-    public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass, Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc)
-            throws NullPointerException {
-        ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget, targetToSrc);
+    public static <SF, TF> void registerFieldConverter(Class<SF> srcFieldClass, Class<TF> targetFieldClass,
+            Function<SF, TF> srcToTarget, Function<TF, SF> targetToSrc) throws NullPointerException {
+        ObjectTransformer.registerPropertyConverter(null, srcFieldClass, null, null, targetFieldClass, srcToTarget,
+                targetToSrc);
     }
 
     /**
@@ -1200,8 +1215,8 @@ public class ObjectUtils {
      * 전달받은 데이터를 변환(E &rarr; V)한 후, 새로운 {@link Collection}(R)로 제공합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
+     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      *
      * <pre>
@@ -1212,16 +1227,18 @@ public class ObjectUtils {
      * </pre>
      *
      * @param <E>
-     *            기존 데이터 유형 (Nullable). (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게 제외됩니다)
+     *            기존 데이터 유형 (Nullable). (스트림 내부의 {@code null} 요소는 전처리 과정에서 안전하게
+     *            제외됩니다)
      * @param <V>
-     *            새로운 데이터 유형 (Nullable). 단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야
-     *            합니다.
+     *            새로운 데이터 유형 (Nullable). 단, {@code collectionSupplier}가 제공하는
+     *            {@link Collection} 구현체가 {@code null}을 허용해야 합니다.
      * @param <R>
      *            변환 후 데이터가 저장될 {@link Collection} 유형
      * @param objects
      *            원본 데이터 컬렉션
      * @param transformer
-     *            데이터 변환 함수 (E &rarr; V). 반환값으로 {@code null}을 제공할 수 있으나, 이 경우 결과 컬렉션이 {@code null}을 허용해야 합니다.
+     *            데이터 변환 함수 (E &rarr; V). 반환값으로 {@code null}을 제공할 수 있으나, 이 경우 결과
+     *            컬렉션이 {@code null}을 허용해야 합니다.
      * @param collectionSupplier
      *            결과를 담을 새로운 {@link Collection} 객체 제공 함수
      *
@@ -1252,7 +1269,8 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Boolean Type {@link List}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 Boolean Type {@link List}으로 변환한여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1274,11 +1292,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type
+     * {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1303,11 +1323,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1322,7 +1344,8 @@ public class ObjectUtils {
      * @param objects
      *            변환할 데이터
      * @param transfomer
-     *            데이터 변환 함수 (Object => Boolean). 반환값으로 {@code null}을 제공할 수 있으나, 이 경우 결과 컬렉션이 {@code null}을 허용해야 합니다.
+     *            데이터 변환 함수 (Object => Boolean). 반환값으로 {@code null}을 제공할 수 있으나,
+     *            이 경우 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param collectionSupplier
      *            {@link Collection} 객체 제공 함수.
      * @return
@@ -1335,16 +1358,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Function<Object, Boolean> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects,
+            Function<Object, Boolean> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Boolean} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Boolean} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1366,7 +1392,8 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
-    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Boolean>> R toBoolean(Collection<Object> objects,
+            Supplier<R> collectionSupplier) {
         return toBoolean(objects, booleanFunction, collectionSupplier);
     }
 
@@ -1393,11 +1420,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link List}으로
+     * 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1422,11 +1451,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1455,16 +1486,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Function<Object, Byte> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Byte>> R toByte(Collection<Object> objects, Function<Object, Byte> transformer,
+            Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Byte} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Byte} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1491,7 +1525,8 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Double Type {@link List}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 Double Type {@link List}으로 변환한여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1513,11 +1548,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Double} Type
+     * {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1542,11 +1579,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Double} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1575,16 +1614,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Function<Object, Double> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects,
+            Function<Object, Double> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Double} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Double} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1606,12 +1648,14 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
-    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Double>> R toDouble(Collection<Object> objects,
+            Supplier<R> collectionSupplier) {
         return toDouble(objects, doubleFunction, collectionSupplier);
     }
 
     /**
-     * Object Type {@link Collection}을 Float Type {@link List}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 Float Type {@link List}으로 변환한여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1633,11 +1677,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link List}으로
+     * 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1662,11 +1708,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Float} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1695,16 +1743,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Float>> R toFloat(Collection<Object> objects, Function<Object, Float> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Float>> R toFloat(Collection<Object> objects,
+            Function<Object, Float> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Float} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Float} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1731,7 +1782,8 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Integer Type {@link List}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 Integer Type {@link List}으로 변환한여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1753,11 +1805,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type
+     * {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1782,11 +1836,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1815,16 +1871,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Function<Object, Integer> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects,
+            Function<Object, Integer> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Integer} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Integer} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1846,7 +1905,8 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
-    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Integer>> R toInteger(Collection<Object> objects,
+            Supplier<R> collectionSupplier) {
         return toInteger(objects, intFunction, collectionSupplier);
     }
 
@@ -1873,11 +1933,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link List}으로
+     * 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1902,11 +1964,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Long} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1935,16 +1999,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Function<Object, Long> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Long>> R toLong(Collection<Object> objects, Function<Object, Long> transformer,
+            Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Long} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Long} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -1971,7 +2038,8 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 Short Type {@link List}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 Short Type {@link List}으로 변환한여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -1993,11 +2061,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link List}으로
+     * 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -2022,11 +2092,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Short} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -2055,16 +2127,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<Short>> R toShort(Collection<Object> objects, Function<Object, Short> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<Short>> R toShort(Collection<Object> objects,
+            Function<Object, Short> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link Short} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link Short} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -2091,7 +2166,8 @@ public class ObjectUtils {
     }
 
     /**
-     * Object Type {@link Collection}을 String Type {@link List}으로 변환한여 제공합니다. <br>
+     * Object Type {@link Collection}을 String Type {@link List}으로 변환한여 제공합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]
@@ -2113,11 +2189,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link String} Type {@link List}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link String} Type
+     * {@link List}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -2142,11 +2220,13 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link String} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -2175,16 +2255,19 @@ public class ObjectUtils {
     // [PATCH] [IDE-Null] Eclipse JDT 분석기의 제네릭 & @NullMarked 치환 해석 오류 우회
     // [TODO] 향후 Eclipse IDE 정적 분석기가 JSpecify 제네릭 치환을 완벽히 지원하면 '제거'
     @SuppressWarnings("null")
-    public static <R extends Collection<String>> R toString(Collection<Object> objects, Function<Object, String> transformer, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<String>> R toString(Collection<Object> objects,
+            Function<Object, String> transformer, Supplier<R> collectionSupplier) {
         return to(objects, transformer, collectionSupplier);
     }
 
     /**
-     * {@link Object} Type {@link Collection}을 {@link String} Type {@link Collection}으로 변환한여 제공합니다. <br>
+     * {@link Object} Type {@link Collection}을 {@link String} Type
+     * {@link Collection}으로 변환한여 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(Object)를 처리하는 함수 객체는
-     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(Object)가 <b>{@code null}</b>인 경우 '전처리 과정'에서
+     * 제외시키므로, 데이터(Object)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도
+     * 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -2206,13 +2289,14 @@ public class ObjectUtils {
      * @since 2025. 9. 4.
      * @version 2.1.0
      */
-    public static <R extends Collection<String>> R toString(Collection<Object> objects, Supplier<R> collectionSupplier) {
+    public static <R extends Collection<String>> R toString(Collection<Object> objects,
+            Supplier<R> collectionSupplier) {
         return toString(objects, strFunction, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2250,8 +2334,9 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
-            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         Objects.requireNonNull(targetClass);
 
         return transform(src, lookupSrcSuper //
@@ -2266,8 +2351,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2298,14 +2383,14 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Class<T> targetClass, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetClass, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2340,14 +2425,14 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetClass, false, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2376,13 +2461,14 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Class<T> targetClass, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Class<T> targetClass, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetClass, false, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2419,20 +2505,22 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
             @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         Objects.requireNonNull(src);
         Objects.requireNonNull(collectionSupplier);
 
         return src.stream() //
                 .filter(Objects::nonNull) //
-                .map(s -> ObjectTransformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters)) //
+                .map(s -> ObjectTransformer.transform(s, lookupSrcSuper, targetInstanceSupplier.get(),
+                        lookupTargetSuper, converters)) //
                 .collect(Collectors.toCollection(collectionSupplier));
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2463,14 +2551,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2505,14 +2593,15 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier,
-            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters,
+            Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2541,13 +2630,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, boolean lookupSrcSuper,
+            Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2582,14 +2672,15 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters,
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass,
+            boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters,
             Supplier<C> collectionSupplier) {
         return transform(src, false, targetClass, lookupTargetSuper, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2618,13 +2709,14 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass,
+            boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetClass, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2657,14 +2749,14 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass,
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetClass, false, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2691,13 +2783,14 @@ public class ObjectUtils {
      * @since 2025. 4. 3.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Class<T> targetClass,
+            Supplier<C> collectionSupplier) {
         return transform(src, false, targetClass, false, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2732,14 +2825,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier,
+            boolean lookupTargetSuper, Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2768,13 +2861,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier,
+            boolean lookupTargetSuper, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2807,14 +2901,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier,
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2841,12 +2935,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transform(Collection<S> src, Supplier<T> targetInstanceSupplier,
+            Supplier<C> collectionSupplier) {
         return transform(src, false, targetInstanceSupplier, false, null, collectionSupplier);
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2877,8 +2973,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2918,8 +3014,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -2950,12 +3046,14 @@ public class ObjectUtils {
      * @return
      * 
      * @throws CreateInstanceFailedException
-     *             대상 클래스({@code targetClass})의 기본 생성자를 호출하여 인스턴스를 생성하는 중 예외가 발생한 경우.
+     *             대상 클래스({@code targetClass})의 기본 생성자를 호출하여 인스턴스를 생성하는 중 예외가
+     *             발생한 경우.
      *
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, boolean lookupTargetSuper,
+            @Nullable Map<String, Function<?, ?>> converters) {
         Objects.requireNonNull(targetClass);
 
         return transform(src, lookupSrcSuper //
@@ -2970,7 +3068,8 @@ public class ObjectUtils {
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3003,12 +3102,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Class<T> targetClass,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetClass, false, converters);
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3040,8 +3141,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3068,15 +3169,16 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier,
+            boolean lookupTargetSuper) {
         AssertUtils2.notNulls(src, targetInstanceSupplier);
 
         return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, null);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3109,13 +3211,15 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
-            @Nullable Map<String, Function<?, ?>> converters) {
-        return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper, converters);
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier,
+            boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+        return ObjectTransformer.transform(src, lookupSrcSuper, targetInstanceSupplier.get(), lookupTargetSuper,
+                converters);
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3148,12 +3252,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, Supplier<T> targetInstanceSupplier,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, lookupSrcSuper, targetInstanceSupplier, false, converters);
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3184,8 +3290,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3218,8 +3324,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3242,7 +3348,8 @@ public class ObjectUtils {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param converters
-     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
+     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을
+     *            사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
@@ -3253,12 +3360,14 @@ public class ObjectUtils {
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, boolean lookupTargetSuper,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, lookupTargetSuper, converters);
     }
 
     /**
-     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
+     * {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3291,13 +3400,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Class, boolean)
      */
-    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, boolean lookupSrcSuper, T target,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, lookupSrcSuper, target, false, converters);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3328,8 +3438,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
-     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된
+     * 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3358,8 +3468,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
-     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된
+     * 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3390,13 +3500,14 @@ public class ObjectUtils {
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, Class<T> targetClass, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Class<T> targetClass, boolean lookupTargetSuper,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetClass, lookupTargetSuper, converters);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3433,8 +3544,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3465,8 +3576,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
-     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된
+     * 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3496,8 +3607,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
-     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된
+     * 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3528,13 +3639,14 @@ public class ObjectUtils {
      * @since 2025. 8. 30.
      * @version 2.1.0
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, boolean lookupTargetSuper,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, lookupTargetSuper, converters);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3566,13 +3678,14 @@ public class ObjectUtils {
      * @see Getter
      * @see Setter
      */
-    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, Supplier<T> targetInstanceSupplier,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return transform(src, false, targetInstanceSupplier, false, converters);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3603,8 +3716,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
-     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된
+     * 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3633,8 +3746,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를
-     * 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된
+     * 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3665,13 +3778,14 @@ public class ObjectUtils {
      * @since 2021. 11. 22.
      * @version 1.8.0
      */
-    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper, @Nullable Map<String, Function<?, ?>> converters) {
+    public static <S, T> T transform(S src, T target, boolean lookupTargetSuper,
+            @Nullable Map<String, Function<?, ?>> converters) {
         return ObjectTransformer.transform(src, false, target, lookupTargetSuper, converters);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로
-     * 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -3708,8 +3822,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3745,14 +3859,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetClass, @Nullable Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetClass,
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, true, targetClass, true, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3782,13 +3896,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetClass, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Class<T> targetClass,
+            Supplier<C> collectionSupplier) {
         return transform(src, true, targetClass, true, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3824,14 +3939,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, @Nullable Map<String, Function<?, ?>> converters,
-            Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier,
+            @Nullable Map<String, Function<?, ?>> converters, Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, converters, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3861,13 +3976,14 @@ public class ObjectUtils {
      * 
      * @see #transform(Object, boolean, Object, boolean, Map, Supplier)
      */
-    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier, Supplier<C> collectionSupplier) {
+    public static <S, T, C extends Collection<T>> C transformAll(Collection<S> src, Supplier<T> targetInstanceSupplier,
+            Supplier<C> collectionSupplier) {
         return transform(src, true, targetInstanceSupplier, true, null, collectionSupplier);
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3896,8 +4012,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3926,8 +4042,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>
@@ -3958,8 +4074,8 @@ public class ObjectUtils {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.
-     * <br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
+     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다. <br>
      * 상위 클래스에서 정의한 내용도 이관합니다.
      * 
      * <pre>

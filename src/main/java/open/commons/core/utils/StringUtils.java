@@ -364,7 +364,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static String concat(List<String> strings, String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty) {
+    public static String concat(List<String> strings, String delimiter, boolean startsWithDelimeter, boolean trim,
+            boolean addNulpty) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
@@ -412,7 +413,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static String concat(String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty, String... strings) {
+    public static String concat(String delimiter, boolean startsWithDelimeter, boolean trim, boolean addNulpty,
+            String... strings) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(strings);
 
@@ -478,7 +480,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <T, R> String concatenate(String delimiter, boolean startsWithDelimeter, Collection<T> data, Function<T, R> gen) {
+    public static <T, R> String concatenate(String delimiter, boolean startsWithDelimeter, Collection<T> data,
+            Function<T, R> gen) {
         Objects.requireNonNull(delimiter);
         Objects.requireNonNull(data);
         Objects.requireNonNull(gen);
@@ -520,7 +523,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static <K, V, R> String concatenate(String delimiter, boolean startsWithDelimeter, Map<K, V> data, Function<Entry<K, V>, R> gen) {
+    public static <K, V, R> String concatenate(String delimiter, boolean startsWithDelimeter, Map<K, V> data,
+            Function<Entry<K, V>, R> gen) {
         Objects.requireNonNull(data);
 
         return concatenate(delimiter, startsWithDelimeter, data.entrySet(), gen);
@@ -1019,7 +1023,8 @@ public class StringUtils {
      * @param length
      *            반환될 문자열의 전체 길이 (" ..." 포함)
      *
-     * @return 잘린 문자열 뒤에 " ..."이 붙은 문자열. {@code string}이 {@code null}이면 "null" 반환.
+     * @return 잘린 문자열 뒤에 " ..."이 붙은 문자열. {@code string}이 {@code null}이면 "null"
+     *         반환.
      *
      * @since 2017. 1. 5.
      */
@@ -1100,7 +1105,8 @@ public class StringUtils {
             return null;
         }
 
-        int sufIndex = prefix.equals(suffix) ? indexOf(string, "\"".equals(prefix) ? "\"" : suffix, 2) : string.indexOf(suffix, preIndex + prefix.length());
+        int sufIndex = prefix.equals(suffix) ? indexOf(string, "\"".equals(prefix) ? "\"" : suffix, 2)
+                : string.indexOf(suffix, preIndex + prefix.length());
 
         if (sufIndex < 0) {
             return null;
@@ -1130,7 +1136,8 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})이 접미사({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
+     * 문자열({@code string})이 접미사({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자
+     * 관계없이)
      * 
      * @param string
      *            문자열
@@ -1471,7 +1478,8 @@ public class StringUtils {
     }
 
     /**
-     * {@code prefix}와 {@code suffix}로 둘러싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환합니다.
+     * {@code prefix}와 {@code suffix}로 둘러싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로
+     * 반환합니다.
      *
      * @param string
      *            문자열
@@ -1653,7 +1661,8 @@ public class StringUtils {
             regExTokenEscape.load(StringUtils.class.getResourceAsStream("/properties/RegExTokenEscape.properties"));
 
             for (Entry<Object, Object> entry : regExTokenEscape.entrySet()) {
-                map.put((String) entry.getKey(), new RegExTokenEscape(((String) entry.getKey()).charAt(0), (String) entry.getValue()));
+                map.put((String) entry.getKey(),
+                        new RegExTokenEscape(((String) entry.getKey()).charAt(0), (String) entry.getValue()));
             }
         } catch (Exception ignored) {
         }
@@ -1939,7 +1948,8 @@ public class StringUtils {
     }
 
     /**
-     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
+     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로
+     * 반환시킨다.<br>
      * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
      *
      * @param l
@@ -1960,7 +1970,8 @@ public class StringUtils {
     }
 
     /**
-     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
+     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로
+     * 반환시킨다.<br>
      *
      * @param l
      *            변환할 숫자
@@ -2500,7 +2511,8 @@ public class StringUtils {
      * @since 2025. 4. 2.
      * @version 2.1.0
      */
-    public static @Nullable String[] split(String string, String delim, @Nullable Function<String, @Nullable String> post) {
+    public static @Nullable String[] split(String string, String delim,
+            @Nullable Function<String, @Nullable String> post) {
         return split(string, delim, post, 0);
     }
 
@@ -2533,7 +2545,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static @Nullable String[] split(String string, String delimiter, @Nullable Function<String, @Nullable String> post, int limit) {
+    public static @Nullable String[] split(String string, String delimiter,
+            @Nullable Function<String, @Nullable String> post, int limit) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
 
@@ -2641,7 +2654,8 @@ public class StringUtils {
         AssertUtils2.notNulls((Object[]) regExs);
 
         if (regExs.length != selectedIndice.length) {
-            throw new IllegalArgumentException("배열의 길이가 일치하지 않습니다. regExs: " + regExs.length + ", selectedIndice: " + selectedIndice.length);
+            throw new IllegalArgumentException(
+                    "배열의 길이가 일치하지 않습니다. regExs: " + regExs.length + ", selectedIndice: " + selectedIndice.length);
         }
 
         for (int i = 0; i < regExs.length; i++) {
@@ -2702,7 +2716,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static Collection<@Nullable String> splitAsCollection(String string, String delimiter, @Nullable Function<String, @Nullable String> post) {
+    public static Collection<@Nullable String> splitAsCollection(String string, String delimiter,
+            @Nullable Function<String, @Nullable String> post) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
 
@@ -2750,7 +2765,8 @@ public class StringUtils {
      * @since 2025. 4. 2.
      * @version 2.1.0
      */
-    public static Set<@Nullable String> splitAsSet(String string, String delimiter, @Nullable Function<String, @Nullable String> post) {
+    public static Set<@Nullable String> splitAsSet(String string, String delimiter,
+            @Nullable Function<String, @Nullable String> post) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delimiter);
 
@@ -2829,7 +2845,8 @@ public class StringUtils {
      * @since 2025. 4. 2.
      * @version 2.1.0
      */
-    public static @Nullable String[] splitWithoutBracket(String string, String delim, @Nullable Function<String, @Nullable String> post) {
+    public static @Nullable String[] splitWithoutBracket(String string, String delim,
+            @Nullable Function<String, @Nullable String> post) {
         return splitWithoutBracket(string, delim, post, 0);
     }
 
@@ -2863,7 +2880,8 @@ public class StringUtils {
     // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    public static @Nullable String[] splitWithoutBracket(String string, String delim, @Nullable Function<String, @Nullable String> post, int limit) {
+    public static @Nullable String[] splitWithoutBracket(String string, String delim,
+            @Nullable Function<String, @Nullable String> post, int limit) {
         Objects.requireNonNull(string);
         Objects.requireNonNull(delim);
 
@@ -3303,8 +3321,8 @@ public class StringUtils {
      * 주어진 문자열들을 조합하여 LCC(Lower Camel Case) 형태의 단일 문자열을 반환합니다.<br>
      * 예: "TO", "lOwER", "camel", "casE" &rarr; "toLowerCamelCase" *
      * <p>
-     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게 무시됩니다. 첫 번째로 발견되는 '유효한' 문자열이 Lower
-     * Camel Case의 시작 단어가 됩니다.
+     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게
+     * 무시됩니다. 첫 번째로 발견되는 '유효한' 문자열이 Lower Camel Case의 시작 단어가 됩니다.
      * </p>
      *
      * <pre>
@@ -3476,8 +3494,10 @@ public class StringUtils {
      * <ul>
      * <li>{@code "camelCase"} &rarr; {@code "camel_case"}</li>
      * <li>{@code "PascalCase"} &rarr; {@code "pascal_case"}</li>
-     * <li>{@code "user123Id"}, {@code isSplitNum = false} &rarr; {@code "user123_id"}</li>
-     * <li>{@code "user123Id"}, {@code isSplitNum = true} &rarr; {@code "user_1_2_3_id"}</li>
+     * <li>{@code "user123Id"}, {@code isSplitNum = false} &rarr;
+     * {@code "user123_id"}</li>
+     * <li>{@code "user123Id"}, {@code isSplitNum = true} &rarr;
+     * {@code "user_1_2_3_id"}</li>
      * </ul>
      *
      * <pre>
@@ -3555,7 +3575,8 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우 {@code defaultValue}에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을 반환합니다.
+     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우 {@code defaultValue}에 해당하는 값을 반환하고, 그렇지
+     * 않은 경우 주어진 문자열을 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -3614,7 +3635,8 @@ public class StringUtils {
      * 주어진 문자열들을 조합하여 UCC(Upper Camel Case, Pascal Case) 형태의 단일 문자열을 반환합니다.<br>
      * 예: "upper", "camel", "case" &rarr; "UpperCamelCase" *
      * <p>
-     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게 무시됩니다.
+     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게
+     * 무시됩니다.
      * </p>
      *
      * <pre>
@@ -3628,7 +3650,8 @@ public class StringUtils {
      * @param strings
      *            문자열 가변 인자 (배열 자체 및 내부 요소로 {@code null} 허용)
      *
-     * @return 어퍼 카멜 케이스(파스칼 케이스)로 조합된 문자열. 유효한 문자열이 하나도 없는 경우 빈 문자열({@code ""}) 반환.
+     * @return 어퍼 카멜 케이스(파스칼 케이스)로 조합된 문자열. 유효한 문자열이 하나도 없는 경우 빈 문자열({@code ""})
+     *         반환.
      *
      * @since 2012. 01. 10.
      * @version 3.0.0

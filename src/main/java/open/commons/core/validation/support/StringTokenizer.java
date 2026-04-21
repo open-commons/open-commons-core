@@ -53,7 +53,8 @@ public class StringTokenizer extends AbstractTokenizer<CharSequence, Character> 
      */
     @Override
     protected Iterator<Character> tokenize() {
-        // [PATCH] ArrayList 객체 복사를 제거하고, 원본 데이터에 직접 접근하는 Zero-Allocation Iterator 구현
+        // [PATCH] ArrayList 객체 복사를 제거하고, 원본 데이터에 직접 접근하는 Zero-Allocation
+        // Iterator 구현
         return new Iterator<Character>() {
             private int cursor = 0;
 
