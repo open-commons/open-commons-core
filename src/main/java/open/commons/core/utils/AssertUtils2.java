@@ -366,7 +366,7 @@ public class AssertUtils2 {
         }
     }
 
-    public static void notBlanks(@Nullable String msg, @Nullable String @Nullable... strings) {
+    public static void notBlanks(@Nullable String msg, @Nullable String @Nullable [] strings) {
         Objects.requireNonNull(strings);
 
         for (String string : strings) {
