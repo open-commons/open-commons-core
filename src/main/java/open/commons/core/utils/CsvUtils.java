@@ -244,7 +244,7 @@ public class CsvUtils {
     // [PATCH] [3rdParty-Null] 외부 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static CSVReader newCSVReader(Reader reader, CsvFileConfig config) {
+    public static CSVReader newCSVReader(Reader reader, CsvFileConfig config) {
         // 1. 파싱 관련 상세 설정 (구분자, 인용구, 이스케이프 등)
         ICSVParser parser = new CSVParserBuilder() //
                 .withSeparator(config.getSeparator()) //
@@ -286,7 +286,7 @@ public class CsvUtils {
     // [PATCH] [3rdParty-Null] 외부 API의 JSpecify 미지원 '우회용' 어노테이션.
     // [TODO] 향후 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
     @SuppressWarnings("null")
-    private static ICSVWriter newCSVWriter(Writer writer, CsvWriteConfig config) {
+    public static ICSVWriter newCSVWriter(Writer writer, CsvWriteConfig config) {
         return new CSVWriterBuilder(writer) //
                 .withSeparator(config.getSeparator()) //
                 .withQuoteChar(config.getQuotechar()) //

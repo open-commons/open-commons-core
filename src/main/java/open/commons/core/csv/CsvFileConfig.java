@@ -518,6 +518,27 @@ public class CsvFileConfig extends CsvConfig {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @since 2026. 4. 22.
+     * @version 3.0.0
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public CsvFileConfig clone() {
+        return new CsvFileConfig(//
+                this.separator //
+                , this.quotechar //
+                , this.escape //
+                , this.strictQuotes //
+                , this.ignoreLeadingWhiteSpace //
+                , this.skip //
+                , this.charset //
+        );
+    }
+
+    /**
      * <br>
      * 
      * <pre>
@@ -703,5 +724,4 @@ public class CsvFileConfig extends CsvConfig {
 
         return builder.toString();
     }
-
 }

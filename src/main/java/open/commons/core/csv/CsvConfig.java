@@ -210,6 +210,25 @@ public class CsvConfig extends CsvCommon {
     }
 
     /**
+     * {@inheritDoc}
+     *
+     * @since 2026. 4. 22.
+     * @version 3.0.0
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public CsvConfig clone() {
+        return new CsvConfig(//
+                this.separator //
+                , this.quotechar //
+                , this.escape //
+                , this.strictQuotes //
+                , this.ignoreLeadingWhiteSpace //
+        );
+    }
+
+    /**
      * <br>
      * 
      * <pre>

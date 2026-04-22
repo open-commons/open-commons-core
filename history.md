@@ -1,26 +1,36 @@
+[2026/04/22]
+- 추가
+  + open.commons.core.csv
+    + open.commons.core.csv.CsvConfig.clone()
+    + open.commons.core.csv.CsvFileConfig.clone()
+- 변경
+  + open.commons.core.utils.CSVUtils
+    + newCSVReader(Reader, CsvFileConfig): private -> public
+    + newCSVWriter(Writer, CsvWriteConfig): private -> public
+
 [2026/04/17]
-- Add
+- 추가
   + open.commons.core.function.AsserUtils2
     + notBlank(String, Class&lt;? extends RuntimeException&gt;)
     + notBlanks(String...)
-- Modify
+- 수정
   + mapNotNull(...), notNull(...) 반환 타입 변경: Object -> void
 
 [2026/04/16]
-- Add
+- 추가
   + open.commons.core.function.Consumers
   + open.commons.core.function.Functions
   + open.commons.core.function.Predicates
     + Unary
     + Binary
   + open.commons.core.function.SQLConsumer.DO_NOTHING: 아무 것도하지 않은 SQLConsumer<PreparedStatement> 객체
-- Delete
+- 삭제
   + open.commons.core.function.Predicates
     + alwaysFalse(): open.commons.core.function.Predicates.Unary.alwaysFalse() 로 대체
     + alwaysTrue(): open.commons.core.function.Predicates.Unary.alwaysTrue() 로 대체
   + open.commons.core.utils.StreamUtils
     + identity(): open.commons.core.function.Functions.Unary.identity() 로 대체.
-- Modify
+- 수정
   + Consumers, Functions, Predicates 추가/수정에 따라서...
     + open.commons.core.utils.CollectionUtils
     + open.commons.core.utils.MapUtils
@@ -31,16 +41,16 @@
     + open.commons.core.utils.ObjectUtils
 
 [2026/04/15]
-- Add
+- 추가
   + open.commons.core.utils.AssertUtils2
     + notBlank(String)
     + notBlank(String, String, Object...)
-- Modify
+- 수정
   + 배열 및 배열 데이터를 위한 'assert' 메소드 변경
     + open.commons.core.utils.ObjectUtils.requreNonNulls(...) -&gt; open.commons.core.utils.AssertUtils2.notNulls(...)
 
 [2026/04/10]
-- Add
+- 추가
   + open.commons.core.collection.concurrent
     + ConcurrentLinkedHashMap&lt;K, V&gt;: Thread-safe SequencedMap&lt;K, V&gt;
     + ConcurrentLinkedHashSet&lt;E&gt;: Thread-safe SequencedSet&ltE&gt;
@@ -50,22 +60,22 @@
     + FIFOSet&lt;E&gt;  
 
 [2026/04/07]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core: 완료
     
 [2026/04/06]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core: 완료
     
 [2026/04/03]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils 패키지 완료
   
 [2026/04/02]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils.ObjectUtils
     + open.commons.core.utils.OrderingUtils
@@ -80,7 +90,7 @@
     + open.commons.core.utils.ZipUtils
     
 [2026/04/01]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils.MathUtils
     + open.commons.core.utils.NetUtils
@@ -88,25 +98,25 @@
     + open.commons.core.utils.ObjectTransformer
     
 [2026/03/31]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils.IOUtils
     + open.commons.core.utils.LangUtils
     + open.commons.core.utils.MapUtils
         
 [2026/03/30]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils.IntegerUtils
 
 [2026/03/27]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils.CsvUtils
     
 
 [2026/03/25]
-- Updated
+- 갱신
   + 'null' 체크 우회를 '@SuppressWarnings'으로 변환 중.
     + open.commons.core.utils.AnnotationUtils 까지 완료
 
@@ -141,14 +151,14 @@
 
 [2026/03/12]
 - Dependencies
-  + Delete
+  + 삭제 
     + com.google.code.findbugs:jsr305:3.0.2
-  + Add
+  + 추가
     + org.jspecify:jspecify:1.0.0
 - Code
   + Update
     + jakarta.annotation.Nonnull -&gt; org.jspecify.annotations.NonNull
-- Add
+- 추가
   + open.commons.core.utils.Base64Utils
     + decode(byte[])
     + decode(byte[], byte[])
@@ -185,11 +195,11 @@
     + org.apache.logging.log4j-api.version: 2.24.3
     + slf4j-api.version: 2.0.16
     + jakarta-validation.version: 3.1.0
-  + Add
+  + 추가
     + jakarta-annotation.version: 3.0.0
 
 [2025/11/24]
-- Add
+- 추가
   + open.commons.core.utils.ObjectUtils: 값이 null인 경우 기본값 제공 함수 추가.
     + open.commons.core.utils.ObjectUtils.getOrDefault(T, Function&lt;T, R&gt;, R)
     + open.commons.core.utils.ObjectUtils.getOrDefault(T, Function&lt;T, R&gt;, Supplier&lt;R&gt;)
@@ -197,11 +207,11 @@
     + open.commons.core.utils.ObjectUtils.getOrDefault(T, T)
 
 [2025/10/23]
-- New
+- 신규
  + open.commons.core.function.ThrowableFunction&lt;T, R&gt;
 
 [2025/10/21]
-- Modify
+- 수정
   + 제너릭 반환 타입 일치 및 @NonNull 추가
     + open.commons.core.utils.CollectionUtils
     + open.commons.core.utils.MapUtils
@@ -214,17 +224,17 @@
     + open.commons.core.utils.ObjectTransformer.getOrBuildCopier(CopierKey, Supplier&lt;BiConsumer&lt;Object, Object&gt;&gt;)
 
 [2025/10/01]
-- Add
+- 추가
   + open.commons.core.utils.ConcurrentUtils
     + excuteAsync(T, Collection&lt;Consumer&lt;T&gt;&gt;)
     + excuteAsync(T, Collection&lt;Consumer&lt;T&gt;&gt;, Executor)
 
 [2025/09/30]
-- New
+- 신규
   + open.commons.core.utils.ConcurrentUtils: Concurrent/Parallel/Async Programming을 위한 유틸 클래스
 
 [2025/09/10]
-- Add
+- 추가
   + open.commons.core.annotation.Setter: 기능 확장
     + useGlbalConverter
 - Bugfix
@@ -245,7 +255,7 @@
     - Reflection 스캔을 1회로 줄이고, MethodHanlde 을 사용하여 기능 향상 (native 코드에 가까움)
 
 [2025/09/01]
-- Add
+- 추가
   + open.commons.core.utils.CollectionUtils
     + parallelSort(Collection&lt;T&gt;, Comparator&lt;T&gt;)
     + parallelSort(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;)
@@ -270,7 +280,7 @@
     + topnByQuickselect(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
   
 [2025/09/01]
-- Add
+- 추가
   + pen.commons.core.utils.CollectionUtils
     + alignBy(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, R&gt;, Function&lt;KEY, R&gt;)
     + alignBy(List&lt;E&gt;, List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;KEY, E&gt;)
@@ -279,24 +289,24 @@
     + createTree(List&lt;E&gt;, Function&lt;E, KEY&gt;, Function&lt;E, KEY&gt;, Function&lt;E, TREE&gt;, BiConsumer&lt;TREE, E&gt;)
 
 [2025/08/30]
-- New
+- 신규
   + open.commons.core.exception.CreateInstanceFailedException
-- Add
+- 추가
   + open.commons.core.utils.ObjectUtils: transform(...) 메소드들에서 새로운 객체 생성 방식 추가.
     + Supplier<?> 추가
   + open.commons.core.utils.StringUtils.notBlanks(...)
 
 [2025/08/27]
-- Add
+- 추가
   + open.commons.core.text.NamedTemplate.getNames(String)
   + open.commons.core.utils.StringUtils.notBlank(String)
 
 [2025/08/21]
-- Modify
+- 수정
   + open.commons.core.utils.StreamUtils: 파라미터 타입에 따라서 Utility 클래스로 이관.
     + Collection&lt;E&gt;: open.commons.core.utils.CollectionUtils: 신규 메소드 추가 및 기존 메소드 개선 (Stream API 적용)
     + Map&lt;K,V&gt;: open.commons.core.utils.MapUtils: 신규 메소드 추가 및 기존 메소드 개선 (Stream API 적용)
-- Add
+- 추가
   + open.commons.core.utils.CollectionUtils:
     + toCollection(Collection&lt;V&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;COL&gt;)
     + toList(Collection&lt;V&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;)
@@ -337,7 +347,7 @@
     + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;SET&gt;)
     + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;)
     + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;SET&gt;)
-- Deleted
+- 삭제d
   + open.commons.utils.StreamUtils
     + flat(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;)
     + throwingMerger()
@@ -379,7 +389,7 @@
     + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;SET&gt;)
 
 [2025/08/20]
-- New
+- 신규
   + open.commons.core.utils.StreamUtils
     + flat(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;)
     + toCollection(Collection&lt;V&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;COL&gt;)
@@ -423,39 +433,39 @@
     + toSet(Map&lt;String, V&gt;, Map&lt;String, List&lt;V&gt;&gt;, Function&lt;V, K&gt;, Function&lt;V, V&gt;, BinaryOperator&lt;V&gt;, Supplier&lt;SET&gt;)
 
 [2025/08/18]
-- Modify
+- 수정
   + open.commons.core.lang.IThreadLocalContext.remove(Object): 반환 데이터 타입 변경 (void -&gt; Object)
 
 [2025/08/12]
-- New
+- 신규
   + open.commons.core.function.ThrowableRunner
 
 [2025/08/08]
-- Add
+- 추가
   + open.commons.core.utils.MapUtils.isNullOrEmpty(Map&lt;K, V&gt;)
 
 [2025/07/31]
-- Add
+- 추가
   + 예외 발생 Supplier<T> 추가
     + open.commons.core.function.ExceptionableSupplier&lt;T&gt;
     + open.commons.core.function.ThrowableSupplier&lt;T&gt;
-- Modify
+- 수정
   + open.commons.core.utils.AssertUtils2: 메소드 이름에서 'assert' 제거.
 
 [2025/07/30]
-- Add
+- 추가
   + open.commons.core.utils.StringUtils
     + startsWithIgnoreCaseOneOf(String, Collection<String>)
     + startsWithOneOf(String, Collection<String>)
 
 [2025/07/24]
 - Dependencies
-  + Add
+  + 추가
     + jakarta.validation:jakarata.validation-api:${managed-version}
     + com.google.code.findbugs:jsr305:${managed-version}
     
 [2025/06/24]
-- New
+- 신규
   + ThreadLocal 기능 추가
     + open.commons.core.lang.IThreadLocalContext&lt;K, V&gt;
     + open.commons.core.lang.ThreadLocalContext&lt;K, V&gt;
@@ -469,18 +479,18 @@
   + open.commons.core.utils.DBUtils: DO NOT USE. SHOULD BE REMOVED next version.
 
 [2025/04/16]
-- Update
+- 갱신
   + open.commons.core.utils.ObjectUtils.transform(S, boolean, T, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;) : 프로퍼티 변환 조건 변경 (타입이 다른 경우 -> 타입 무관하게 변환함수가 존재한다면 적용)
 - Deprecated
   + open.commons.core.utils.WebUtils: None of use.
 
 [2025/04/03]
-- Add
+- 추가
   + open.commons.core.annotation.ColumnValue
     + columnType() 추가: <span style="color:red; font-weight:bold;">목적: H2 DBMS 의 '? AS {column}' 구문해석 오류에 대응하기 위함.</span>
 
 [2025/04/03]
-- Add
+- 추가
   + open.commons.core.utils.StringUtils
     + split(String, String, Function&lt;String, String&gt;)
     + split(String, String, Function&lt;String, String&gt;, int)
@@ -499,16 +509,16 @@
     + transform(Collection&lt;S&gt;, Class&lt;T&gt;, Supplier&lt;C&gt;)
 
 [2025/03/11]
-- Update
+- 갱신
   + open.commons.core.util.BinarySortedList: 기능 개선 후 이관
     +  신규 위치: open.commons.core.collection.BinarySortedList
 
 
 [2025/02/21]
-- Update
+- 갱신
   + <deploymentManagement>
     + Release: Maven Central (https://central.sonatype.com)
-- Add
+- 추가
   + <build>
     + org.sonatype.central:central-publishing-maven-plugin
     + org.apache.maven.plugins:maven-gpg-plugin
@@ -522,13 +532,13 @@
   + Maven Repository 주소 변경 (http -> https)
   
 [2024/08/14]
-- Add
+- 추가
   + open.commons.core.utils.FileUtils
     + getLatestFilepath(String, Predicate&lt;Path&gt;...)
     + getOldestFilepath(String, Predicate&lt;Path&gt;...)
   
 [2024/05/09]
-- Add
+- 추가
   + open.commons.core.concurrent.AsyncJobManager&lt;K, V&gt;
     + getJobs()
 
@@ -538,7 +548,7 @@
     + remove(Object): 데이터 미삭제 버그 수정
 
 [2023/12/13]
-- Add
+- 추가
   + open.commons.core.utils.CollectionUtils
     + sort(Collection&lt;T&gt;, Comparator&lt;T&gt;)
     + sort(Collection&lt;T&gt;, Comparator&lt;T&gt;, int)
@@ -546,7 +556,7 @@
     + sort(Collection&lt;T&gt;, Predicate&lt;T&gt;, Comparator&lt;T&gt;, int)
 
 [2023/12/06]
-- Add
+- 추가
   + open.commons.core.Result&lt;T&gt;
     + success(String, Object...)
     + success(T, String, Object...)
@@ -555,12 +565,12 @@
     + merge(Map&lt;K, V&gt;, Map&lt;K, V&gt;, BiFunction&lt;V, V, V&gt;)
 
 [2023/11/27]
-- Add
+- 추가
   + open.commons.core.utils.StringUtils
     + lastIndexOf(String, char)
 
 [2023/11/15]
-- Add
+- 추가
   + open.commons.core.utils.FileUtils
     + listFiles(Path, Predicate&lt;Path&gt;, Function&lt;Stream&lt;Path&gt;, T&gt;)
     + listFilesAsArray(Path)
@@ -571,7 +581,7 @@
     + listFilesAsSet(Path, Predicate&lt;Path&gt;)
 
 [2023/11/07]
-- Add
+- 추가
   + open.commons.core.utils.FileUtils
     + write(String, String, String, boolean)
     + writeAppend(String, String)
@@ -586,7 +596,7 @@
     + getValues(): 상속받은 클래스에서 CSV 데이터 제공 메소드 조회 버그 수정
 
 [2023/09/27]
-- Modify
+- 수정
   + open.commons.core.utils.SQLUtils  
     + getColumnName(String, ColumnNameType, Supplier&lt;String&gt;): 컬럼타입 분류 추가
         - open.commons.core.annotation.ColumnDef.ColumnNameType.KEBAB_CASE_NUM
@@ -594,7 +604,7 @@
   + open.commons.core.utils.StringUtils
     + toKebabCase(String): 내부 구현을 신규 추가 메소드(toKebabCase0(String, boolean))로 전환
     + toSnakeCase(String): 내부 구현을 신규 추가 메소드(toSnakeCase0(String, boolean)로 전환
-- Add
+- 추가
   + open.commons.core.utils.StringUtils
     + toKebabCase0(String, boolean)
     + toKebabCaseNum(String)
@@ -602,7 +612,7 @@
     + toSnakeCaseNum(String)
 
 [2023/08/29]
-- Add
+- 추가
   + open.commons.core.utils.ArrayUtils
     + prepend(boolean[], boolean...)
     + prepend(byte[], byte...)
@@ -615,12 +625,12 @@
     + prepend(T[], T...)
 
 [2023/08/24]
-- Add
+- 추가
   + open.commons.core.utils.StringUtils
     + splitAndDelimiter(String, int, String)
   
 [2023/08/02]
-- Add
+- 추가
   + open.commons.core.utils.ArrayUtils
     + copy(boolean[], int...)
     + copy(byte[], int...)
@@ -639,7 +649,7 @@
     + ungzip(Path, Path)
     + ungzip(String, Charset, String)
     + ungzip(String, String) 
-- Modify
+- 수정
   + open.commons.core.utils.ZipUtils
     + unzip(Path, Charset, Path): 내부 구현 변경. decompress(...) 호출
 
@@ -650,25 +660,25 @@
     + toSet(Collection&lt;E&gt;, S): Return Type 변경. Set&lt;E&gt; -> S
 
 [2023/07/25]
-- Add
+- 추가
   + open.commons.core.utils.ArrayUtils
     + asList(T[])
     + asList(T[], Function&lt;T, R&gt;)
     + transform(T[], Function&lt;T, R&gt;)
 
 [2023/05/22]
-- Add
+- 추가
   + open.commons.core.utils.MathUtils
     + combination(long, long)
     + permutation(long, long)  
 
 [2023/01/05]
-- Add
+- 추가
   + open.commons.core.utils.NetUtils
     + typeOf(String)
 
 [2022/12/30]
-- Add
+- 추가
   + open.commons.core.utils.CollectionUtils
     + newList(Collection&lt;E&gt;, E)
     + newList(Collection&lt;E&gt;, E, boolean)
@@ -681,10 +691,10 @@
     + newVector(Vector&lt;E&gt;, E)
 
 [2022/11/03]
-- Add
+- 추가
   + open.commons.core.utils.SQLUtils
     + getColumnName(String, ColumnNameType, Supplier&lt;String&gt;)
-- Update
+- 갱신
   + open.commons.core.annotation.ColumnDef
     + name(): 기본값 빈 문자열("") 적용
   + open.commons.core.utils.SQLUtils
@@ -692,7 +702,7 @@
     + newInstance(Class&lt;T&gt;, ResultSet, String...): 컬럼명 정의 로직에 기본값 빈문자열("") 처리 적용
 
 [2022/11/03]
-- Add
+- 추가
   + open.commons.core.annotation.ColumnValue
     + defaultColumn()
     + primaryKey()
@@ -702,7 +712,7 @@
     
 
 [2022/10/26]
-- Add
+- 추가
   + open.commons.core.utils.ArrayUtils
     + getFirst(T[])
     + getLast(T[])
@@ -715,41 +725,41 @@
     + diffDay(String, String, String, String, String, String)  
 
 [2022/10/18]
-- Add
+- 추가
   + open.commons.core.log4j.appender.ProcessRollingFileAppender
     + ConcurrentSkipListMap&lt;String, String&gt; CUSTOM_CONTEXT_CONFIG 
     + registerContext(String, String, String): 로그파일명과 로그파일패턴에 적용되는 속성과 값을 설정
   
 [2022/09/02]
-- Add
+- 추가
   + open.commons.core.utils.AnnotationUtils.getAnnotatedFieldsAllHierarchy(Class&lt;?&gt;, Class&lt;? extends Annotation&gt;...)
   + open.commons.core.utils.AnnotationUtils.getAnnotatedFieldsAllHierarchy(Object, Class&lt;? extends Annotation&gt;...)
 
 [2022/07/12]
-- Add
+- 추가
   + open.commons.core.concurrent.AsyncWorker&lt;E&gt;
     + Thread-safe collection을 사용하여 구현한 비동기 메시지 처리 모듈.
 
 [2022/07/01]
-- Modify
+- 수정
   + open.commons.core.log4j.appender.ProcessRollingFileAppender.PROCESS_CONTEXT_HOLDER 문자열 변경
     + %process-context-holder% -> #process-context-holder#
 
 [2022/06/30]
-- Modify
+- 수정
   + open.commons.core.lang.AbstractRunnable: 내부 isRunnable 초기값 변경 및 설정 단계 추가.
 
 [2022/05/31]
-- Modify
+- 수정
   + open.commons.core.io.Closeables: 구현 interface를 변경 (java.io.Closeable -> java.lang.AutoCloseable)
 
 [2022/05/13]
-- Add
+- 추가
   + open.commons.core.log4j.appender.ProcessRollingFileAppender: 동일한 실행파일의 프로세스별로 서로 다른 로그파일을 생성할 수 있도록 지원.
   
 
 [2022/04/20]
-- Add
+- 추가
   + open.commons.core.log.LogUtils
     + entryLog(Logger, Level)
     + entryLog(Logger, Level, Object)
@@ -760,26 +770,26 @@
 [2022/04/07]
 - Release: 2.0.0-SNAPSHOT
 - Tag: 1.8.0
-- Modify
+- 수정
   + default package 변경: open.commons -> open.commons.core
 
 [2022/04/07]
 - Release: 1.8.0
 
 [2022/04/07]
-- Add
+- 추가
   + open.commons.database.IndexedColumnDTO
     + IndexedColumnDTO(char)
     + IndexedColumnDTO(char, char, char)
 
 [2022/04/01]
-- Add
+- 추가
   + open.commons.utils.StringUtils
     + startswithHangul(String)
     + startswithHangul(String, boolean)
   
 [2022/03/30]
-- Add
+- 추가
   + open.commons.utils.CsvUtils
     + readAsList(CSVReader, Class&lt;E&gt;, Predicate&lt;E&gt;, boolean)
     + readAsList(CSVReader, Class&lt;E&gt;, Predicate&lt;E&gt;, Consumer&lt;E&gt;, boolean)
@@ -841,7 +851,7 @@
     + isSortedColumns(Class&lt;?&gt;): 내부 처리 변경
   
 [2022/03/22]
-- Add
+- 추가
   + open.commons.utils.CsvUtils
     + write(Collection&lt;E&gt;, Path, CsvWriteConfig, boolean, OpenOption...)
     + write(Collection&lt;E&gt;, Path, CsvWriteConfig, Consumer&lt;E&gt;, boolean, OpenOption...)
@@ -856,15 +866,15 @@
     + isPrimitiveOrWrapper(Class&lt;?&gt;)
     + registerPropertyConverter(Class&lt;S&gt;, Class&lt;SF&gt;, String, Class&lt;T&gt;, Class&lt;TF&gt;, Function&lt;SF, TF&gt;)
     + registerPropertyConverter(Class&lt;S&gt;, Class&lt;SF&gt;, String, Class&lt;T&gt;, Class&lt;TF&gt;, Function&lt;SF, TF&gt;, Function&lt;TF, SF&gt;)
-- Modify
+- 수정
   + open.commons.utils.ObjectUtils
     + transform(S, boolean, T, boolean, Map&lt;String, Function&lt;?, ?&gt;&gt;): 클래스간 속성값 변환 기능 개선 적용
 
 [2022/03/17]
-- New
+- 신규
   + open.commons.csv.CsvCommon  
   + open.commons.csv.WriteAt
-- Add
+- 추가
   + open.commons.utils.CsvUtils
     + defaultCreator()
     + objectsToArray(Collection&lt;E&gt;)
@@ -921,7 +931,7 @@
   + org.slf4j:slf4j-api:1.7.36
 
 [2022/03/07]
-- Add
+- 추가
   + open.commons.utils.ConvertUtils
     + toPrimitiveTypeValue(Class&lt;T&gt;, String, boolean): int(Integer), long(Long) 인 경우 unsigned 지원
   + open.commons.utils.CsvUtils
@@ -932,19 +942,19 @@
   + open.commons.utils.ObjectUtils
     + isPrimitive(Class&lt;?&gt;): 구현 버그 수정
     + isWrapper(Class&lt;?&gt;): 구현 버그 수정
-- Deleted
+- 삭제d
   + open.commons.utils.ObjectUtils
     + isPrimitive(Object): 잘못 정의된 메소드.
 
 
 [2022/01/26]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
     + getTransformer(S, boolean, T, boolean)
     + getTransformer(S, T)
 
 [2022/01/07]
-- Add
+- 추가
   + open.commons.database.annotation.TableDef
     + sortedColumns(): 컬럼 정렬 여부
   + open.commons.utils.SQLUtils
@@ -952,25 +962,25 @@
     + sortColumns(Class&lt;?&gt;, List&lt;Method&gt;): 컬럼 정렬
     
 [2022/01/05]
-- Add
+- 추가
   + open.commons.test.StopWatch
     + getPercentage(String): 전체 소요기간 대비 비율을 제공
     + stats(): 전체 기록 정보를 제공
     + stats(boolean): 전체 기록 정보를 제공
   
 [2021/12/30]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
     + getTransformer(int)
     + getTransformer(int, Class&lt;S&gt;, boolean, Class&lt;S&gt;, boolean)
 
 [2021/12/28]
-- Add
+- 추가
   + open.commons.utils.ArrayUtils.objectArray(Object, Object[])
   + open.commons.utils.ArrayUtils.objectArray(Object[], Object...)
   
 [2021/12/20]
-- Add
+- 추가
   + open.commons.utils.DateUtil
     - ISO_8601_FORMAT
     - REGEX_ISO_8601_FORMAT
@@ -980,11 +990,11 @@
   + open.commons.utils.CollectionUtils.concatenate(Collection&lt;S&gt;, Function&lt;S, T&gt;, Function&lt;List&lt;T&gt;, U&gt;)
 
 [2021/12/06]
-- Add
+- 추가
   + open.commons.utils.CollectionUtils.concatenate(Collection&lt;S&gt;, Function&lt;S, T&gt;, Consumer&lt;T&gt;)
   
 [2021/12/06]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
     + getTransformer(Class&lt;S&gt;, boolean, Class&lt;T&gt;, boolean)
     + getTransformer(Class&lt;S&gt;, Class&lt;T&gt;)
@@ -994,11 +1004,11 @@
     + getTransformer(S, Class&lt;T&gt;)
   
 [2021/12/03]
-- Add
+- 추가
   + open.commons.utils.ConvertUtils.translateToPrimitive(Class&lt;?&gt;)
-- New
+- 신규
   + open.commons.stream.ClassSpliterator
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
     + containsNull(boolean, Collection&lt;?&gt;)
     + containsNull(boolean, Object...)
@@ -1013,7 +1023,7 @@
   + open.commons.utils.ThreadUtils.getMethodName(int)
   
 [2021/12/02]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils.registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;)
   + open.commons.utils.ObjectUtils.registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;, Function&lt;T, S&gt;)
 
@@ -1022,7 +1032,7 @@
     + createConverter(Class&lt;S&gt;, Class&lt;T&gt;)
     + isAssignableFrom(Class&lt;?&gt;, Class&lt;?&gt;)
     + registerFieldConverter(Class&lt;S&gt;, Class&lt;T&gt;, Function&lt;S, T&gt;)</strike>
-- Modify
+- 수정
   + open.commons.utils.ObjectUtils: 파라미터 타입 변경. Map&lt;String, Function&lt;Object, Object&gt;&gt; -> Map&lt;String, Function&lt;Object, ?&gt;&gt;
     + transform(S, boolean, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
     + transform(S, boolean, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
@@ -1034,11 +1044,11 @@
     + transform(S, D, Map&lt;String, Function&lt;Object, ?&gt;&gt;)
 
 [2021/11/29]
-- Add
+- 추가
   + open.commons.annotation.ColumnValue.variableBinding()
     
 [2021/11/29]
-- Modify
+- 수정
   + open.commons.annotation.ColumnValue
     + @Target()에 java.lang.annotation.ElementType.PARAMETER 추가
     + updatable(): 추가
@@ -1046,12 +1056,12 @@
 [2021/11/26]
 - Bugfix
   + open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...): ColumnValue 어노테이션 정보 추출 버그 수정.
-- Add
+- 추가
   + open.commons.utils.SQLUtils.getColumnName(Method): 컬럼 목록 제공
 
 
 [2021/11/22]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils: 데이터 변환 함수 추가
     + transform(S, boolean, Class&lt;D&gt;, boolean, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
     + transform(S, boolean, Class&lt;D&gt;, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
@@ -1063,9 +1073,9 @@
     + transform(S, D, Map&lt;String, Function&lt;Object, Object&gt;&gt;)
 
 [2021/11/19]
-- New
+- 신규
   + open.commons.io.RandomAccessConfig
-- Modify
+- 수정
   + open.commons.utils.IOUtils
     + readChannel(FileChannel, Function&lt;byte[], T&gt;, R): 접근제어자 변경 (private -> public)
     + readChannel(FileChannel, int, ByteBuffer, Function&lt;byte[], T&gt;): 접근제어자 변경 (private -> public)
@@ -1076,15 +1086,15 @@
   + open.commons.utils.IOUtils.readChannel(FileChannel, Function&lt;byte[], T&gt;, Iterable&lt;R&gt;):파일을 읽는 위치 누락 버그 수정.
   
 [2021/11/17]
-- Modify
+- 수정
   + open.commons.utils.CsvUtils.defaultCreator(Class&lt;?&gt;): 문자열 trim() 적용. 
 - Bugfix
   + open.commons.utils.NumberUtils.LONG_TO_STR: long 데이터 포맷 문자열 버그 수정. (%,l -> %,d)
-- Add
+- 추가
   + open.commons.utils.CsvUtils: 객체 생성 후 처리 작업 지원 메소드 추가 및 메소드 관계 정리
   
 [2021/11/15]
-- Add
+- 추가
   + open.commons.utils.FunctionUtils
     + runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)pen.comm
     + runIf(T, Predicate&lt;T&gt;, Function&lt;T, U&gt;, Function&lt;U, R&gt;, R)
@@ -1094,14 +1104,14 @@
     + REGEX\_DOMAIN_STRICT: 
     + REGEX\_PORT: 네트워크 포트 범위 정규식
     + REGEX\_PORT_STRICT: 
-- Modify
+- 수정
   + open.commons.utils.NetUtils.REGEX_IPV4: 다른 정규식과 혼합해서 사용할 경우 문제가 발생하여 변경.
         
 [2021/11/11]
 - Bugfix
   + open.commons.utils.AnnotationUtils
     + getAnnotatedMethodsAllHierarchy(Class&lt;?&gt;, Class&lt;? extends Annotation&gt;...): 상위 타입의 메소드와 하위 타입의 동일한 메소드가 검색되는 버그 수정
-- Add
+- 추가
   + open.commons.csv.CsvConfig
     + CsvConfig(char, char, char)
     + CsvConfig(char, char, char, boolean)
@@ -1153,12 +1163,12 @@
     + readAsList(Reader, int, char, Function&lt;String[], E&gt;, boolean)
 
 [2021/11/11]
-- New
+- 신규
   + open.commons.csv.ReatAt
   + open.commons.utils.CSVUtils
   
 [2021/11/09]
-- Add
+- 추가
   + open.commons.utils.IOUtils
     + readLines(File, Charset, long)
     + readLines(File, long)
@@ -1179,7 +1189,7 @@
 - Bugfix
   + open.commons.utils.ZipUtils
     + zipEntry(File, String, ZipOutputStream): 단일 파일 압축시 zip-entry 추출 오류 수정
-- Add
+- 추가
   + open.commons.utils.ZipUtils
     + unzip(File, Charset, File)
     + unzip(File, File)
@@ -1192,13 +1202,13 @@
     + zip(String, String, int)    
 
 [2021/11/05]
-- New
+- 신규
   + open.commons.util.PrefixDataUnit
-- Change
+- 변경
   + open.commons.util.BinaryDataUnit
     + <strike>open.commons.util.DataStorageUnit</strike>
       + <strike>open.commons.util.MemoryUnit</strike>
-- Add
+- 추가
   + open.commons.utils.UnitUtils
     + convert(long, PrefixDataUnit)
     + convertAlsoSubUnit(long, PrefixDataUnit)
@@ -1211,22 +1221,22 @@
     + convertAsStringNoUnit(long, PrefixDataUnit, boolean)
   
 [2021/11/04]
-- New
+- 신규
   + open.commons.util.DataStorageUnit
     + <strike>open.commons.util.MemoryUnit</strike>
   + open.commons.utils.UnitUtils
 
 [2021/11/03]
-- New
+- 신규
   + open.commons.annotation.Information
-- Add
+- 추가
   + open.commons.utils.AnnotationUtils
     + getAnnotatedFieldsAllAsStream(Object, Class&lt;? extends Annotation&gt;)
   + open.commons.utils.ObjectUtils
     + readInformation(Object)
 
 [2021/10/28]
-- Add
+- 추가
   + open.commons.Result
     + isError(): 실패 여부를 사용하기 위해서, ``!Result.getResolt()`` 작성할 때 `!(not)`을 종종 빠뜨리는 경우를 방지하기 위함.
     + isSuccess(): 명확한 의미를 제공하기 위함.
@@ -1238,14 +1248,14 @@
     + subCollection(List&lt;E&gt;, int, int): zero-size 반환 객체 변경
 
 [2021/09/14]
-- Add
+- 추가
   + open.commons.exception.AsyncExecutionException: 비동기 작업 실행 도중 발생하는 예외 클래스.
   + open.commons.concurrent.ConcurrentWorker
     + contains(E): 데이터 존재 여부 제공
     + remove(E): 데이터 삭제
 
 [2021/08/27]
-- Add
+- 추가
   + open.commons.utils.DateUtil
     + getTimestamp(Calendar, int, int)
     + getTimestamp(int, int)
@@ -1260,33 +1270,33 @@
 
 
 [2021/08/19]
-- Add
+- 추가
   + open.commons.utils.ArrayUtils.copyOf(T[], int, Function&lt;T, T&gt;)
   + open.commons.utils.ArrayUtils.copyOf(U[], int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
   + open.commons.utils.ArrayUtils.copyOfRange(T[], int, int, Function&lt;T, T&gt;)
   + open.commons.utils.ArrayUtils.copyOfRange(U[], int, int, Class&lt;? extends T[]&gt;, Function&lt;U, T&gt;)
   
 [2021/08/15]
-- Add
+- 추가
   + open.commons.utils.ArrayUtils.entrySet(T[])
   + open.commons.Utils.ComparableUtils.compare(T, T)
 
 [2021/07/14]
-- Add
+- 추가
   + open.commons.function.SQLFunction.setParametersAndRelease(boolean, Object...)
 
 [2021/07/14]
-- Add
+- 추가
   + open.commons.Result.error(String, Object...)
   
 [2021/07/13]
-- Add
+- 추가
   + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, C)
   + open.commons.utils.CollectionUtils.get(Collection&lt;E&gt;, Predicate&lt;E&gt;, Class&lt;C&gt;)
   + open.commons.utils.CollectionUtils.has(Collection&lt;E&gt;, Predicate&lt;E&gt;)
 
 [2021/07/12]
-- Add
+- 추가
   + open.commons.utils.NetUtils.REGEX\_IPV4\_STRICT
   + open.commons.utils.NetUtils.REGEX\_IPV6
   + open.commons.utils.NetUtils.REGEX\_IPV6\_STRICT
@@ -1298,28 +1308,28 @@
   + open.commons.utils.NetUtils.isIPv6(String)
 
 [2021/07/05]
-- Add
+- 추가
   + open.commons.utils.IOUtils.close(Collection&lt;AutoCloseable&gt;)
 
 [2021/07/01]
-- Add
+- 추가
   + open.commons.core.lang.CloseableContainer: {@link Resource}와 함께 정의된 {@link AutoCloseable} Instance Field 들을 자동으로 해제({@link AutoCloseable#close()})
 
 [2021/06/24]
-- Add
+- 추가
   + open.commons.core.csv.CsvConfig
   + open.commons.core.csv.CsvFileConfig
-- Modify
+- 수정
   + open.commons.core.csv.AbstractCsvData: 기본 설정값 참조 변경
     - 자체 설정값에서 open.commons.core.csv.CsvConfig 참조
 
 [2021/06/24]
-- Add
+- 추가
   + open.commons.core.utils.ArrayUtils
     - splitAfter(T[], Function&lt;T, Boolean&gt;)
 
 [2021/06/21]
-- Add
+- 추가
   + open.commons.core.utils.ArrayUtils
     - indexOf(boolean[], Function&lt;Boolean, Boolean&gt;)
     - indexOf(byte[], Function&lt;Byte, Boolean&gt;)
@@ -1336,17 +1346,17 @@
     - startsWithDigit(String)
 
 [2021/06/18]
-- Add
+- 추가
   + open.commons.core.csv.AbstractCsvData
   + open.commons.core.csv.FieldBase
   + open.commons.core.csv.MethodBase
   + open.commons.core.lang.Char
-- Modify
+- 수정
   + open.commons.core.database.IndexedColumnDTO
     - 공통 기능을 open.commons.core.csv.AbstractCsvData 로 이관
 
 [2021/06/16]
-- Add
+- 추가
   + open.commons.core.utils.MapUtils.map(Map&lt;K, V&gt;, Function&lt;Entry&lt;K, V&gt;, NK&gt;, Function&lt;Entry&lt;K, V&gt;, NV&gt;, Class&lt;M&gt;, Class&lt;C&gt;)
 
 [2021/05/55]
@@ -1354,7 +1364,7 @@
   + open.commons.collection.FIFOMap.clear(): 데이터(값) 미삭제 버그 수정
 
 [2021/02/26]
-- Add
+- 추가
   + open.commons.function.IOFunction&lt;T, R&gt;
 
 [2021/02/26]
@@ -1363,19 +1373,19 @@
     + setParameters(Object, String...): 파라미터가 문자열만 오는 경우 판단 오류 수정. (Reported by. 'jhlee@ymtech.kr')
 
 [2021/02/19]
-- Add
+- 추가
   + open.commons.concurrent.ConcurrentWorker
     - getJobCount()
 
 [2021/02/18]
-- Add
+- 추가
   + open.commons.utils.DateUtil
     - resetDateFields(int...)
   + open.commons.utils.FileUtils
     - move(Path, Path, CopyOption...)
 
 [2021/02/10]
-- Add
+- 추가
   + open.commons.utils.FileUtils
     - move(File, File, CopyOption...)
     - move(Path, String, CopyOption...)
@@ -1383,7 +1393,7 @@
     - move(String, String, CopyOption...)
   
 [2021/02/09]
-- Modify
+- 수정
   + open.commons.concurrent.AsyncJobManager
     - get(K)
     - register(K, Future&lt;?&gt;)
@@ -1392,12 +1402,12 @@
     - getManager(Object)
   	
 [2021/02/09]
-- Add
+- 추가
   + open.commons.utils.FileUtils
     - listFiles(Path, int, BiFunction&lt;Path, BasicFileAttributes, Boolean&gt;)
 
 [2021/01/14]
-- Add
+- 추가
   + open.commons.utils.IOUtils
     - transfer(InputStream, boolean, OutputStream, boolean, int)
     - transfer(InputStream, Charset, boolean, Writer, boolean, int)
@@ -1426,7 +1436,7 @@
     - transfer(Reader, Writer, int)  
 
 [2020/12/22]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
     - isPrimitive(Class&lt;?&gt;)
     - isPrimitive(Object)
@@ -1436,14 +1446,14 @@
     - setParameters(Object, String...)
   + open.commons.utils.SQLUtils
     - setParameters(PreparedStatement, int, Object, String...)
-- Modify
+- 수정
   + open.commons.SQLTripleFunction
     - setParameters(String...):  내부 구현부가 open.commons.utils.SQLUtils.setParameters(PreparedStatement, int, Object, String...)로 이관됨.
 
 [2020/12/17]
-- New
+- 신규
   + open.commons.lang.NumString    
-- Add
+- 추가
   + open.commons.utils.ByteUtils
     - hexBinString(boolean, byte ...)
     - hexBinString(String, boolean, byte...)
@@ -1454,12 +1464,12 @@
     - hex(String)
     - toIPv4(int)
     - toIPv4(int[])
-- Delete
+- 삭제
   + open.commons.utils.ByteUtils
     - main(String[])
 
 [2020/12/15]
-- Add
+- 추가
   + open.commons.Utils.CollectionUtils
     - newList(boolean...)
     - newList(byte...)
@@ -1484,13 +1494,13 @@
     - newVector(short...)
   
 [2020/12/13]
-- Add
+- 추가
   + open.commons.Utils.CollectionUtils
     - addAllIfNotNull(C, Class&lt;? extends C&gt;, Collection&lt;E&gt;)
     - addIfAbsent(List&lt;T&gt;, T)
     
 [2020/12/08]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
     - transform(S, boolean, D, boolean)
     - transform(S, boolean, D)
@@ -1498,15 +1508,15 @@
     - transform(S, D)
 
 [2020/11/20]
-- Add
+- 추가
   + open.commons.Result
     - copyOf(Result&lt;?&gt;)
     
 [2020/11/16]
-- Add
+- 추가
   + open.commons.io.IRandomAccessible
   + open.commons.io.TextLineInfo
-- Updated
+- 갱신
   + open.commons.utils.ArrayItr
     - Interable&lt;E&gt; 인터페이스 상속 추가
     - public Iterator&lt;E&gt; iterator() 추가
@@ -1535,14 +1545,14 @@
     - readFully(ReadableByteChannel, int, boolean)  
 
 [2020/11/11]
-- Add
+- 추가
  + open.commons.concurrent.AsyncJobManager: 비동기 작업을 처리할 수 있도록 관리하는 클래스.
  + oepn.commons.database.IndexedColumnDTO: DB Table Column에 대응하는 데이터를 정해진 순서에 맞도록 CSV 데이터를 생성하도록 지원
  + open.commons.database.annotation.ColumnConstraints : DB Table Column 에 정의된 Constraint 를 DTO 레벨에서 확인할 수 있도록 명시
 
 [2020/10/29]
 - Snapshot: 1.8.0-SNAPSHOT
-- Add
+- 추가
   + open.commons.database.ConnectionCallbackBroker2
     - getStatement(Connection)
     - ConnectionCallbackBroker2(String, T, boolean)
@@ -1555,7 +1565,7 @@
 - Release: 1.7.0
 
 [2020/10/28]
-- Add
+- 추가
   + open.commons.utils.ExceptionUtils
     - startsWith(String, String, boolean)
     - startsWith(Throwable, String)
@@ -1569,12 +1579,12 @@
     - convert(Object, String, String): 문자열이 모두 whitespace 로 이루어진 경우 메소드가 없으면 처리
 
 [2020/10/15]
-- Add
+- 추가
   + open.commons.utils.ExceptionUtils
     - newException(Class&lt;E&gt;, String, Object...)
 
 [2020/09/25]
-- Update
+- 갱신
   + open.commons.utils.IOUtils
     - getReader(File, Charset)
     - getReader(File, String)  
@@ -1589,49 +1599,49 @@
     - existsIgnoreCase(String, String...)
   
 [2020/09/24]
-- Update
+- 갱신
   + open.commons.annotation.ColumnValue  
     - ColumnNameType columnNameType() 추가
   + open.commons.function.SQLTripleFunction
     - ColumnNameType 처리 추가
     
 [2020/09/13]
-- Update
+- 갱신
  + open.commons.utils.IOUtils
    - byte[] readFully(InputStream,int, boolean)
-- Add
+- 추가
  + open.commons.utils.IOUtils
    - byte[] readFully(ReadableByteChannel, int, boolean) {
 
 [2020/09/10]
-- Add
+- 추가
   + open.commons.utils.DateUtil
     - Calendar getCalendar(int, int)
     - Date getDate(int, int)
     - long getTimestamp(int, int)
 
 [2020/09/02]
-- Add
+- 추가
  + open.commons.utils.MathUtils
    - &lt;T extends Comparable&lt;T&gt;&gt; T max(T ...)
    - &lt;T extends Comparable&lt;T&gt;&gt; T min(T ...)
 
 [2020/08/29]
-- Add
+- 추가
   + open.commons.functin.Runner
   + open.commons.utils.FunctionUtils
 - Deprecated
   + open.commons.utils.StreamUtils
   
 [2020/08/17]
-- Add
+- 추가
   + open.commons.concurrent.ConcurrentWorker
     - Collection&lt;E&gt; flush()
     - E get(boolean)
     - void push(Collection&lt;E&gt;)
 
 [2020/08/13]
-- Update
+- 갱신
   + open.commons.function.SQLConsumer
     - setParameters(Object...): Variable Binding 이후 파라미터 자원 해제
 
@@ -1639,16 +1649,16 @@
 - Bugfix
   + open.commons.utils.DateUtil.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
   + open.commons.utils.DateUtil2.REGEX_yyyyMMDD_HHmmss: 정규식 오류 수정
-- Update
+- 갱신
   + open.commons.utils.StreamUtils
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, Supplier&lt;R&gt;)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T,U&gt;, Function&lt;U, R&gt;, Supplier&lt;R&gt;)
     - runIf(T, Predicate&lt;T&gt;, Supplier&lt;T,U&gt;, Function&lt;U, R&gt;, Supplier&lt;R&gt;)
-- Update
+- 갱신
   + open.commons.utils.StreamUtils
     - build(BiFunction&lt;S, T, U&gt;, S, T, BiFunction&lt;V, W, X&gt;, V, Function&lt;U, W&gt;, Function&lt;Throwable, X&gt;)
     - build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
-- Delete
+- 삭제
   + open.commons.utils.StreamUtils    
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T, R&gt;, R)
     - runIf(T, Predicate&lt;T&gt;, Function&lt;T,U&gt;, Function&lt;U, R&gt;, R)
@@ -1656,7 +1666,7 @@
     - runIf(T, Predicate&lt;T&gt;, Suplier&lt;T,U&gt;, Function&lt;U, R&gt;)
 
 [2020/06/14]
-- Add
+- 추가
   + open.commons.utils.StreamUtils
     - build(BiFunction&lt;S, T, U&gt;, S, T, BiFunction&lt;V, W, X&gt;, V, Function&lt;U, W&gt;, Function&lt;Throwable, X&gt;)
     - build(BiFunction&lt;T, U, R&gt;, T, U, Function&lt;R, X&gt;, Function&lt;Throwable, X&gt;)
@@ -1679,21 +1689,21 @@
     - primitive type 의 Wrapper Type인 경우 DB조회결과가 null 인 경우 primitive type의 기본값 설정 버그 수정
 
 [2020/05/20]
-- Update
+- 갱신
   + .gitignore
   + POM.xml
     - Apply Javadoc
 
 [2020/04/10]
-- Add
+- 추가
   + open.commons.utils.StreamUtils
 
 [2020/03/29]
-- Add
+- 추가
   + open.commons.utils.MapUtils.getOrDefault(Map&lt;K, V&gt;, K, V, boolean)
   
 [2020/02/14]
-- Add
+- 추가
   + open.commons.Result
     - setMessage(String, Object...)
     - error(String)
@@ -1704,9 +1714,9 @@
 
 [2020/02/13]
 - Release: 1.6.17
-- Add
+- 추가
   + open.commons.function.HexaFunction
-- Update
+- 갱신
   + open.commons.annotation.Getter
   + open.commons.function.SQLTripleFunction
   + open.commons.utils.CollectionUtils
@@ -1714,13 +1724,13 @@
   + open.commons.utils.SQLUtils
 
 [2020/01/22]
-- Add
+- 추가
   + open.commons.function
     - SQLTripleConsumer
     - SQLTripleFunction
   + open.commons.annotations.ColumnValue
   	
-- Update
+- 갱신
   + open.commons.annotations.ColumnDef
     - (+) open.commons.annotation.ColumnDef.ColumnNameType
     - (+) ColumnNameType open.commons.annotation.ColumnDef.columnNameType() : ColumnNameType.NAME
@@ -1734,7 +1744,7 @@
       - String toKebabCase(String)
       - String toPascalCase(String)
       - String toSnakeCase(String)
-- Change
+- 변경
   + open.commons.annotations.ColumnDecl
     - FROM 'OLD' open.commons.annotations.ColumnValue  
     
@@ -1753,30 +1763,30 @@
 
 [2019/11/28]
 - Tag: 1.6.17-SNAPSHOT
-- Update
+- 갱신
   + open.commons.lang.DefaultRunnable
     - implements AutoCloseable  
 
 [2019/11/28]
 - Release: 1.6.16-RELEASE
-- Add
+- 추가
   + open.commons.utils.CollectionUtils
     - toMap(Collection&lt;V&gt;, Function&lt;V, K&gt;, Function&lt;V, E&gt;, Class&lt;M&gt;, Class&lt;C&gt;)
     
 [2019/11/26]
-- Add
+- 추가
   + open.commons.database.AbstractOracleInsertDao
-- Update
+- 갱신
   + open.commons.database.AbstractInsertDao
   
 
 [2019/10/24]
-- Add
+- 추가
   + open.commons.util.ArrayItr&lt;E&gt;
 
 
 [2019/10/17]
-- Update
+- 갱신
   + open.commons.lang.DefaultRunnable
     - beforeRun()
     - run() 메소드 final로 정의하고 Process ID를 ThreadContext에 'pid' 라는 이름으로 추가하는 기능 구현.
@@ -1792,13 +1802,13 @@
 
 
 [2019/10/10]
-- Add
+- 추가
   + void open.commons.lang.IRunnable.start(boolean daemon)
   + void open.commons.lang.AbstractRunnable.start(boolean daemon)
 
 
 [2019/10/02]
-- Add
+- 추가
   + open.commons.lang.AbstractRunnable
     - public void join() 
     - public void join(long) 
@@ -1808,20 +1818,20 @@
     - public boolean remainsWorkJob()
      
 [2019/09/03]
-- Add
+- 추가
   + open.commons.utils.ObjectUtils.checkType(Class&lt;?&gt;, Class&lt;?&gt;)
   + open.commons.utils.ObjectUtils.load(Class&lt;T&gt;, Map&lt;String, Object&gt;)
 
 [2019/08/29]
 - Release: 1.6.15
 - Tag: 1.6.16-SNAPSHOT
-- Update
+- 갱신
   + open.commons.utils.IOUtils.readFully(InputStream, int, boolean)
   + open.commons.utils.IOUtils.readStream(InputStream, int, boolean)
  
 [2019/08/29]
 - Tag: 1.6.15-SNAPSHOT
-- Update
+- 갱신
   + open.commons.test.StopWatch.toString()
   + open.commons.test.StopWatch.Record.toString()
  
@@ -1832,7 +1842,7 @@
 
 
 [2019/08/08]
-- Add
+- 추가
 	+ open.commons.utils.CollectionUtils
 	  - toMapHSV(Collection&lt;V&gt;, BiFunction&lt;V, Integer, K&gt;, BiFunction&lt;V, Integer, E&gt;)
 	  - toMapHSV(Collection&lt;V&gt;, BiFunction&lt;V, Integer, K&gt;, BiFunction&lt;V, Integer, E&gt;, Class&lt;M&gt;)
@@ -1846,7 +1856,7 @@
 
 [2019/08/07]
 - Release: 1.6.13
-- Add
+- 추가
 	+ open.commons.utils.IOUtils.transfer(Reader, Writer)
 - Bugfix
 	+ open.commons.utils.IOUtils.transfer(Reader, boolean, Writer, boolean)
@@ -1859,17 +1869,17 @@
   
 [2019/07/22]
 - Snapshot: 1.6.12-SNAPSHOT
-- Add
+- 추가
   + open.commons.utils.FileUtils.removableFiles()
 - Deprecated
   + open.commons.utils.LangUtils.removableFiles()
 
 [2019/07/11]
 - Release: 1.6.11
-- Update
+- 갱신
 	+ open.commons.utils
 		- ObjectUtils.transform(S, Class&lt;D&gt;)
-- Add
+- 추가
 	+ open.commons.utils
 		- ObjectUtils.transform(S, boolean, Class&lt;D&gt;)
 		- ObjectUtils.transform(S, boolean, Class&lt;D&gt;, boolean)
@@ -1877,7 +1887,7 @@
 	
 [2019/07/04]
 - Release: 1.6.10
-- Add
+- 추가
 	+ open.commons.utils
 		- ArrayUtils.add(boolean[], boolean...)
 		- ArrayUtils.add(byte[], byte...)
@@ -1915,7 +1925,7 @@
 		- ArrayUtils.toPrimitiveArray(Short[])
 
 [2019/06/28]
-- Add
+- 추가
 	+ open.commons.util.IterableEnumeration
 	+ open.commons.utils.LangUtils
 	+ open.commons.utils.StringUtils
@@ -1923,7 +1933,7 @@
 
 [2019/06/21]
 - Release: 1.6.9
-- Add
+- 추가
   + open.commons.utils.ObjectUtils.transform(S, Class&lt;D&gt;)
   + open.commons.utils.StringUtils
     - concatenate(String, boolean, Collection&lt;T&gt;)
@@ -1938,12 +1948,12 @@
 - Release: 1.6.8.1
 - Bugfix
 	+ open.commons.utils.SQLUtils.invoke(ResultSet, ColumnDef, Method, Object)
-- Add
+- 추가
 	+ open.commons.annotation.Getter + open.commons.annotation.Setter
   
 [2019/06/17]
 - Release: 1.6.8
-- Add
+- 추가
   + open.commons.utils.ReflectionUtils.getAnnotatedMethods(Class&lt;A&gt;, Class&lt;?&gt;)
   + open.commons.utils.SQLUtils.findDifferences(T, T, String...)
 
@@ -1958,21 +1968,21 @@
   + open.commons.utils.SQLUtils.invoke(ResultSet, ColumnDef, Method, Object): 타입 비교 우선순위 버그 처리
 
 [2019/04/12]
-- Update
+- 갱신
   + open.commons.util.BinarySortedList.add(E)
-- Add
+- 추가
   + open.commons.util.BinarySortedList
     - insertelementAt(E, int)
     - grow(int)
     - hugeCapacity(int)
 
 [2019/03/28]
-- Add
+- 추가
   + open.commons.function.SQLFunction
 
 [2019/03/20]
 - Release: 1.6.5
-- Add
+- 추가
   + open.commons.utils.IOUtils
     - readFully(InputStream, boolean)
     - readFully(InputStream, int, boolean)
@@ -1985,32 +1995,32 @@
   + open.commons.concurrent.ConcurrentWorker.get() 로직 수정
 
 [2019/02/29]
-- Update
+- 갱신
   + open.commons.Result.setData(T)
   + open.commons.Result.setMessage(String)
   + open.commons.Result.setResult(boolean)
 
 [2019/02/20]
 - Release: 1.6.3
-- Add
+- 추가
   + open.commons.test.StopWatch
   + open.commons.concurernt.ConcurrentJobManager
   + open.commons.concurrent.IJobFinishedListener
 
 [2019/02/19]
 - Release: 1.6.3
-- Add
+- 추가
   + open.commons.database.IConnectionCallbackBroker
   + open.commons.database.ConnectionCallbackBroker2
   + open.commons.function.SQLBiConsumer
   + open.commons.function.SQLConsumer
   + open.commons.lang.AbstractCloseable
-- Update
+- 갱신
   + open.commons.database.AbstractDao
 
 [2019/02/18]
 - Release: 1.6.3
-- Add
+- 추가
   + open.commons.database.AbstractDao
 
 [2019/01/30]
@@ -2020,15 +2030,15 @@
 
 [2019/01/29]
 - Release: 1.6.1
-- Add
+- 추가
   + open.commons.utils.JdbcUtils
   + open.commons.xml package
 
 [2019/01/22]  (misspelled [2019/11/22])
 - Release: 1.6.0
-- Add
+- 추가
   + open.commons.util.BinarySortedList
-- Update
+- 갱신
   + open.commons.utils.CollectionUtils
   + open.commons.utils.MathUtils
   + open.commons.utils.OrderingUtils
@@ -2036,30 +2046,30 @@
 
 [2018/11/20]
 - Release: 1.5.3
-- Add
+- 추가
   + open.commons.utils.EncryptUtils
 
 [2018/11/15]
 - Release: 1.5.2.1
-- Update
+- 갱신
   + open.commons.utils.TimeUtils: Locale 지원
 
 [2018/10/01]
-- Update
+- 갱신
   + open.commons.test.ElapsedTime 상태 체크 추가
 
 [2018/09/28]
 - Release: 1.5.2
-- Add
+- 추가
   + open.commons.io.Consumers
   + open.commons.test.ElapsedTime
   + open.commons.utils.TimeUtils
-- Update
+- 갱신
   + open.commons.utils.StringUtils.toRegExString(String)
 
 [2018/09/12]
 - Release: 1.5.1
-- Add
+- 추가
   + open.commons.utils.IOUtils
     - transfer(InputStream, Charset, boolean, Writer, boolean)
     - transfer(InputStream, Charset, Writer)
@@ -2077,7 +2087,7 @@
 
 [2018/09/12]
 - Release: 1.5.0
-- Update
+- 갱신
   + open.commons.utils.CollectionUtils
     - toList(Stream\&lt;E&gt;, Function&lt;E, NE&gt;)
     - toList(Stream\&lt;E&gt;, Function&lt;E, NE&gt;, Class\&lt;L&gt;)
@@ -2086,14 +2096,14 @@
 
 [2018/09/10]
 - Release: 1.4.17
-- Update
+- 갱신
   + open.commons.utils.IOUtils.transfer(InputStream, boolean, OutputStream, boolean)
     - transfer(InputStream, OutputStream, boolean)
     - transfer(InputStream, Charset, OutputStream, Charset)
     - transfer(InputStream, OutputStream, Charset)
     - transfer(InputStream, String, boolean, OutputStream, String, boolean)
     - transfer(InputStream, String, OutputStream, String)
-- Add
+- 추가
   + open.commons.io.Closeables
 
 [2018/06/18]
@@ -2101,88 +2111,88 @@
   + open.commons.concurrent.ConcurrentWorker.get()
 
 [2018/05/30]
-- Update
+- 갱신
   + open.commons.utils.SQLUtils.newInstance(Class, ResultSet, String ...)
     - 데이터 타입에 맞는 함수 호출 적용
 
 [2018/05/29]
-- Add
+- 추가
   + open.commons.concurrent.ConcurrentWorker\&lt;E&gt;
 
 [2018/04/18]
-- Add
+- 추가
   + public static &lt;T&gt; T[] toArray(Collection&lt;T&gt;, Class&lt;T&gt;)
 
 [2018/03/29]
 - Release: 1.4.15
-- Add
+- 추가
   + public interface open.commons.function.QuadFunction&lt;T, U, V, W, R&gt;
   + public interface open.commons.function.PentagonFunction&lt;T, U, V, W, X, R&gt;
 
 [2018/02/08]
 - Release: 1.4.14
-- Add
+- 추가
   + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt;, BiFunction&lt;K, V, N&gt;, Class\&lt;M&gt;)
   + &lt;K, V, N, M extends Map&lt;K, List&lt;N&gt;&gt;&gt; M open.commons.utils.CollectionUtils.toMap(Collection&lt;V&gt; ,Function&lt;V, K&gt; ,BiFunction&lt;K, V, N&gt;)
 
 
 [2018/01/31]
 - Release: 1.4.13
-- Add
+- 추가
   + open.commons.utils.ObjectUtils
 
 [2018/01/05]
 - Release: 1.4.12
-- Update
+- 갱신
   + open.commons.annotation.ColumnDef.caseSensitivie() 기본값 변경
     - false -> true
 
 [2017/12/29]
 - Release: 1.4.11
-- Add
+- 추가
   + class open.commons.database.ConnectionCallbackBroker
   + class open.commons.database.IConnectionCallbackSetter
   + class open.commons.database.IRowMapperSetter
 
 [2017/12/13]
 - Release: 1.4.10
-- Add
+- 추가
   + &lt;C extends Collectin\&lt;E&gt;, E&gt; C open.commons.utils.CollectionUtils.addIfNotNull(C, Class, E)
   + &lt;C extends Collectin\&lt;E&gt;, E&gt; C open.commons.utils.CollectionUtils.addAllIfNotNull(C, Class, E[])
 
 [2017/12/04]
 - Release: 1.4.9
-- Add
+- 추가
   + open.commons.utils.MathUtils
 
 [2017/10/18]
 - Release: 1.4.8.1
-- Add
+- 추가
   + open.commons.utils.CollectionUtils.read(List&lt;T&gt;, int, int)
   + open.commons.utils.CollectionUtils.readAsArray(List&lt;T&gt;, int, int, Class)
   + open.commons.utils.MapUtils.read(Map&lt;K, V&gt;, int)
 
 [2017/09/22]
 - Release: 1.4.8
-- Add
+- 추가
   + open.commons.function.SQLBiFunction
   + open.commons.function.TripleConsumer
   + open.commons.function.TripleFunction
 
 [2017/09/22]
 - Release: 1.4.7
-- Add
+- 추가
   + open.commons.annotation.ColumnDef
   + open.commons.utils.SQLUtils
 
 [2017/09/07]
 - Release: 1.4.6
-- Add
+- 추가
   + open.commons.concurrent.DefaultThreadFactory
 
 [2017/09/06]
 - Release: 1.4.5
-- Update
+- 갱신
   + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;);
   + &lt;K, V, M extends Map&lt;K, V&gt;&gt; M  open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, Function&lt;V, K&gt;, Class\&lt;M&gt;);
   + &lt;K, V&gt; Map&lt;K,V&gt; open.commons.utils.CollectionUtils.toMap&lt;Enumeration&lt;V&gt;, IKeyExtractor&lt;K, V&gt;);
@@ -2190,49 +2200,49 @@
 
 [2017/09/06]
 - Release: 1.4.4.0
-- Update
+- 갱신
   + boolean open.commons.utils.AssertUtils.assert0(Class, String) 버그 패치
   + int open.commons.utils.IOUtils.readStream(InputStream, int, boolean) 추가
   + int open.commons.utils.IOUtils.readStream(InputStream, int) 수정
 
 [2017/08/07]
 - Release: 1.4.3.1
-- Update
+- 갱신
   + boolean open.commons.utils.StringUtils.isWhiteSpace(String) 버그 패치
 
 [2017/07/27]
 - Release: 1.4.3
-- Update
+- 갱신
   + open.commons.utils.CollectionUtils.java
 
 [2017/07/06]
 - Release: 1.4.2.1
-- Update
+- 갱신
   + open.commons.utils.DateUtil.java
   + open.commons.utils.StringUtils.java
 
 [2017/03/14]
 - Release: 1.4.2
-- Update
+- 갱신
   + open.commons.utils.DateUtil.java
   + open.commons.utils.StringUtils.java
 
 [2016/09/20]
 - Release: 1.4.1
-- Update
+- 갱신
   + open.commons.utils.StringUtils.split(String, String, boolean, int)
   + open.commons.utils.StringUtils.splitWithoutBracket(String, String, boolean)
   + open.commons.utils.StringUtils.splitWithoutBracket(String, String, boolean, int)
 
 [2016/03/15]
 - Release: 1.4.0
-- Update
+- 갱신
   + open.commons.utils.ReflectionUtils.getAllAnnodatedFields(Object, Class, IFilter)
   + open.commons.utils.ReflectionUtils.getAllAnnodatedFields(OBject, Class)
 
 [2015/12/11]
 - Release: 1.3.3
-- Update
+- 갱신
   + open.commons.utils.CollectionUtils.getIgnoreCase(): Apply generic
 
 [2015/07/23]
@@ -2243,7 +2253,7 @@
 
 [2015/04/14]
 - Release: 1.3.1
-- Add
+- 추가
   + open.commons.net.SubNetwork
 
 [2015/03/17]
@@ -2263,28 +2273,28 @@
 
 [2015/03/08]
 - Release: 1.2.4
-- Add
+- 추가
   + open.commons.utils.NetUtils
 
 [2015/01/13]
 - Release: 1.2.2
-- Add
+- 추가
   + open.commons.utils.ExceptionUtils
 
 [2014/12/02]
 - Release 1.2.1
-- Add
+- 추가
   + open.commons.text.NamedTemplate.clear();
 
 
 [2014/11/07]
 - Release 1.2.0 <- 1.1.3
-- Add
+- 추가
   + open.comons.utils.AnnotationUtils.getAnnotatedFields(Object, Class&lt;T&gt;)
   + open.comons.utils.AnnotationUtils.getAnnotatedMethods(Object, Class&lt;T&gt;)
 [2014/10/17]
 - Release 1.1.3
-- Add
+- 추가
   + open.commons.util.CollectionUtils.toList(Collection)
   + open.commons.util.CollectionUtils.toList(Collection, Class)
   + open.commons.util.CollectionUtils.toSet(Collection)
@@ -2293,14 +2303,14 @@
 
 [2014/09/26]
 - Release 1.1.2
-- Add
+- 추가
   + open.commons.annotation.Hide
   + open.commons.reflect.IAccessibleObjectAction
   + open.commons.utils.DataUtils
 
 [2014/09/17]
 - Release 1.1.1
-- Change
+- 변경
   + open.commons.validation.supports -> open.commons.validation.token
 
 [2014/09/05]
@@ -2310,16 +2320,16 @@
     - public static String format(String pattern, Map&lt;String, Object&gt; values, boolean trim): name에 대한 trim() 처리 버그
 
 [2014/07/10]
-- Add
+- 추가
   + open.commons.utils.IntegerUtils.parseInt(String)
   + open.commons.utils.IntegerUtils.radix)String)
 
-- Change
+- 변경
   + open.commons.utils.IntegerUtils.parseInt(String, int)
   + open.commons.utils.IntegerUtils.parseInt(String, int, int)
 
 [2014/06/30]
-- Add
+- 추가
   + open.commons.utils.StringUtils.toStrings(String ...)
 
 [2014/06/24]
@@ -2328,21 +2338,21 @@
 
 [2014/06/18]
 - Release 1.0.9
-- New
+- 신규
   + open.commons.reflect.IllegalGenericNameException 추가
   + open.commons.reflect.TypeVariableNamses 추가
 
-- Update
+- 갱신
   + open.commons.utils/ArrayUtils.java
     - public static Class&lt;?&gt;[] adjustByLength(int length, Class&lt;?&gt;... classes)
 
 [2014/06/04]
 - Release 1.0.8
-- Changes !!!!!!!!!!!!!
+- 변경
   + open.commons.reflect.GenericParamType -> open.commons.reflect.GenericTypeVariable
 
 [2014/06/03]
-- New!!!
+- 신규
   + open.commons.utils.DateUtil2
 
 [2014/05/30]
@@ -2351,14 +2361,14 @@
     - before: COPYLEFT by 'Open Commons' &  Park Jun-Hong All Rights Reserved when use for commercial purpose.
     - after:
 
-- Changes
+- 변경
   + open.commons.text.NamedFormat -> open.commons.text.NamedTemplate
 
-- New!!!
+- 신규
   + open.commons.net.EtherTypejava
 
 [2014/05/27]
-- New!!!
+- 신규
   + open.commons.net.Protocols.java
 
 [2014/05/08]
@@ -2374,6 +2384,6 @@
 
 [2014/04/23]
 - Release 1.0.5
-- New
+- 신규
   + open.commons.text.NamedFormat 추가
   + open.commons.utils.Updated ByteUtils.hexBinStringToByteArray()
