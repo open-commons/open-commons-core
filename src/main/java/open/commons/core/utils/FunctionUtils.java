@@ -768,8 +768,7 @@ public class FunctionUtils {
     }
 
     /**
-     * 전달받은 값('value')이 {@code null}이 아닌 경우 및 일치하지 않는 경우 각기 다른 {@link Runner}
-     * 함수를 실행합니다.
+     * 전달받은 값('value')이 {@code null}이 아닌 경우 및 일치하지 않는 경우 각기 다른 {@link Runner} 함수를 실행합니다.
      * 
      * <br>
      * 
@@ -1356,8 +1355,7 @@ public class FunctionUtils {
      * @param <R>
      *            반환될 데이터 타입 형식
      * @param filterIn
-     *            결과 포함 여부를 판단할 (positive) 데이터 검증 함수기. {@code true}인 경우 결과로
-     *            포함시킵니다.
+     *            결과 포함 여부를 판단할 (positive) 데이터 검증 함수기. {@code true}인 경우 결과로 포함시킵니다.
      * @param actions
      *            비동기로 처리될 기능 정의 목록들
      *

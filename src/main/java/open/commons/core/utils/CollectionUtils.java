@@ -821,8 +821,7 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를
-     * 제공합니다. <br>
+     * {@link Collection}에 포함된 데이터 중에 {@link Predicate}를 만족하는 데이터가 있는지 여부를 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -2346,9 +2345,7 @@ public class CollectionUtils {
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면,
-     * {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기
-     * 바랍니다.
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -2392,9 +2389,7 @@ public class CollectionUtils {
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면,
-     * {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기
-     * 바랍니다.
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -2748,12 +2743,10 @@ public class CollectionUtils {
      *
      * <p>
      * <b>[동시성(Concurrency) 주의사항]</b><br>
-     * 이 메소드는 성능 최적화를 위해 내부적으로 방어적 복사(Defensive Copy)를 수행하지 않고 원본 리스트의
-     * {@link Iterator}를 직접 사용합니다. 따라서 멀티스레드 환경에서 병합 작업 도중 원본 리스트({@code data1},
-     * {@code data2})에 구조적인 변경(추가/삭제 등)이 발생할 경우
-     * {@link java.util.ConcurrentModificationException}이 발생할 수 있습니다. 동시 수정이
-     * 예상되는 환경에서는 호출자가 외부에서 동기화(Lock)를 보장하거나,
-     * {@link java.util.concurrent.CopyOnWriteArrayList}와 같은 스레드 안전한 컬렉션을 전달해야
+     * 이 메소드는 성능 최적화를 위해 내부적으로 방어적 복사(Defensive Copy)를 수행하지 않고 원본 리스트의 {@link Iterator}를 직접 사용합니다.
+     * 따라서 멀티스레드 환경에서 병합 작업 도중 원본 리스트({@code data1}, {@code data2})에 구조적인 변경(추가/삭제 등)이 발생할 경우
+     * {@link java.util.ConcurrentModificationException}이 발생할 수 있습니다. 동시 수정이 예상되는 환경에서는 호출자가 외부에서
+     * 동기화(Lock)를 보장하거나, {@link java.util.concurrent.CopyOnWriteArrayList}와 같은 스레드 안전한 컬렉션을 전달해야
      * 합니다.
      * </p>
      *
@@ -2915,9 +2908,7 @@ public class CollectionUtils {
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면,
-     * {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기
-     * 바랍니다.
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function)}를 사용하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -2961,8 +2952,7 @@ public class CollectionUtils {
 
     /**
      * 정렬되지 않은 2개의 {@link Collection}를 상호 정렬하여 하나의 {@link List}로 제공합니다. <br>
-     * 모두 정렬되어 있다면,
-     * {@link #sort(List, Function, Function, List, Function, Function, Comparator)}를
+     * 모두 정렬되어 있다면, {@link #sort(List, Function, Function, List, Function, Function, Comparator)}를
      * 사용하기 바랍니다.
      *
      * <pre>
@@ -3018,11 +3008,10 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된
-     * {@link List}를 반환합니다.<br>
-     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List}
-     * 객체를 내부적으로 유지하는 {@code delegate} 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는
-     * 새로운 복사본을 생성합니다.
+     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된 {@link List}를
+     * 반환합니다.<br>
+     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는
+     * {@code delegate} 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는 새로운 복사본을 생성합니다.
      * 
      * <pre>
      * [개정이력]
@@ -3048,11 +3037,10 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된
-     * {@link List}를 반환합니다.<br>
-     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List}
-     * 객체를 내부적으로 유지하는 {@code delegate} 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는
-     * 새로운 복사본을 생성합니다.
+     * {@link List}에서 주어진 범위({@code begin} ~ {@code end}) 내의 원소들을 포함하는 새로운 독립된 {@link List}를
+     * 반환합니다.<br>
+     * 동일한 기능을 제공하는 {@link List#subList(int, int)}가 있는데, 일반적으로 전달받은 {@link List} 객체를 내부적으로 유지하는
+     * {@code delegate} 방식으로 제공되어 메모리 누수의 원인이 될 수 있으므로, 이 메소드는 새로운 복사본을 생성합니다.
      * 
      * <pre>
      * [개정이력]
@@ -3101,14 +3089,13 @@ public class CollectionUtils {
      *
      * <p>
      * <b>[제네릭 타입 소거(Type Erasure) 및 아키텍처 주의사항]</b><br>
-     * 자바의 제네릭 구조는 컴파일 타임에만 유효하며, 런타임(실행 시점)에는 제네릭 타입 정보({@code <E>})가 모두 소거됩니다.
-     * 따라서 타입 파라미터가 없는 {@link Collection#toArray()}를 호출할 경우, 컬렉션은 자신의 데이터 타입을 알지
-     * 못해 무조건 부모 타입인 {@code Object[]} 메모리 블록을 할당하여 반환합니다.<br>
-     * 이를 강제로 다운캐스팅({@code (E[]) col.toArray()})하여 반환할 경우, 컴파일 경고로 끝나지 않고 호출부에서
-     * 해당 배열을 사용할 때 런타임에 치명적인 {@link ClassCastException} 장애가 발생합니다.<br>
-     * 본 유틸리티 메소드는 이러한 언어적 한계를 안전하게 극복하기 위해, {@code Class<E> type} 파라미터(타입 토큰)를
-     * 외부에서 명시적으로 주입받아 런타임에 정확한 타입의 네이티브 배열을 동적
-     * 할당({@link java.lang.reflect.Array#newInstance})합니다.
+     * 자바의 제네릭 구조는 컴파일 타임에만 유효하며, 런타임(실행 시점)에는 제네릭 타입 정보({@code <E>})가 모두 소거됩니다. 따라서 타입 파라미터가 없는
+     * {@link Collection#toArray()}를 호출할 경우, 컬렉션은 자신의 데이터 타입을 알지 못해 무조건 부모 타입인 {@code Object[]} 메모리
+     * 블록을 할당하여 반환합니다.<br>
+     * 이를 강제로 다운캐스팅({@code (E[]) col.toArray()})하여 반환할 경우, 컴파일 경고로 끝나지 않고 호출부에서 해당 배열을 사용할 때 런타임에
+     * 치명적인 {@link ClassCastException} 장애가 발생합니다.<br>
+     * 본 유틸리티 메소드는 이러한 언어적 한계를 안전하게 극복하기 위해, {@code Class<E> type} 파라미터(타입 토큰)를 외부에서 명시적으로 주입받아 런타임에
+     * 정확한 타입의 네이티브 배열을 동적 할당({@link java.lang.reflect.Array#newInstance})합니다.
      * </p>
      *
      * <pre>
@@ -3139,11 +3126,10 @@ public class CollectionUtils {
     }
 
     /**
-     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다.
-     * <br>
+     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3157,8 +3143,8 @@ public class CollectionUtils {
      *            데이터 유형 (Nullable)
      * @param <NE>
      *            새로운 데이터 유형 (Nullable). <br>
-     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가
-     *            {@code null}을 허용해야 합니다.
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야
+     *            합니다.
      * @param <C>
      *            결과 {@link Collection} 유형
      * @param col
@@ -3178,14 +3164,12 @@ public class CollectionUtils {
     }
 
     /**
-     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다.
-     * <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 전달받은 {@link Collection} 데이터를 처리하여 새로운 {@link Collection} 구현체로 묶어서 제공합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3199,8 +3183,7 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <C>
      *            결과 {@link Collection} 유형
      * @param col
@@ -3209,12 +3192,10 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param collectionFactory
      *            {@link Collection} 객체 제공 함수.
      * 
@@ -3254,8 +3235,8 @@ public class CollectionUtils {
 
     /**
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3285,8 +3266,8 @@ public class CollectionUtils {
 
     /**
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3300,16 +3281,14 @@ public class CollectionUtils {
      *            데이터 유형 (Nullable)
      * @param <NE>
      *            새로운 데이터 유형 (Nullable). <br>
-     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을
-     *            허용해야 합니다.
+     *            단, {@code listSupplier}가 제공하는 {@link List} 구현체가 {@code null}을 허용해야 합니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
      *            데이터 제공 객체
      * @param transformer
      *            데이터 변환 함수. (E &rarr; NE) <br>
-     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을
-     *            허용해야 합니다.
+     *            반환값으로 {@code null}을 제공할 수 있으나, 이 경우 제공된 결과 컬렉션이 {@code null}을 허용해야 합니다.
      * @param listSupplier
      *            결과 {@link Listr} 객체 제공 함수.
      * @return
@@ -3326,8 +3305,8 @@ public class CollectionUtils {
      * {@link Collection}에 포함된 데이터를 새로운 {@link List}에 담아 제공합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3339,8 +3318,8 @@ public class CollectionUtils {
      *
      * @param <E>
      *            데이터 유형 (Nullable)<br>
-     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가
-     *            {@code null}을 허용해야 합니다.
+     *            단, {@code collectionSupplier}가 제공하는 {@link Collection} 구현체가 {@code null}을 허용해야
+     *            합니다.
      * @param <C>
      *            결과 {@link List} 유형
      * @param col
@@ -3359,12 +3338,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3378,16 +3356,14 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      * 
@@ -3402,8 +3378,7 @@ public class CollectionUtils {
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -3416,8 +3391,7 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
@@ -3426,8 +3400,7 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
      * 
@@ -3443,12 +3416,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3462,18 +3434,15 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -3487,12 +3456,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection}에 포함된 값을 하나의 {@link List}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3506,20 +3474,17 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <L>
      *            결과 {@link List} 유형
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param listFactory
      *            {@link List} 객체를 제공하는 함수.
      * 
@@ -3536,8 +3501,8 @@ public class CollectionUtils {
 
     /**
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3566,24 +3531,21 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로
-     * 제공합니다.<br>
+     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로 제공합니다.<br>
      * 단, {@code keyMapper} 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * {@code keyMapper} 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)}
-     * 또는 <br>
-     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)}
-     * 를 사용하기 바랍니다.<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기
+     * 바랍니다.<br>
      * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
      * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
-     * 를 사용하기 바랍니다.<br>
-     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환
-     * 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을
+     * 유의하기 바랍니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3653,8 +3615,8 @@ public class CollectionUtils {
      * *
      * <p>
      * <b>[데이터 병합 정책]</b><br>
-     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에
-     * 순회되는 요소가 이전 요소를 덮어씁니다(Overwrite).</b>
+     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에 순회되는 요소가 이전 요소를
+     * 덮어씁니다(Overwrite).</b>
      * </p>
      *
      * <pre>
@@ -3693,24 +3655,21 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로
-     * 제공합니다.<br>
+     * {@link Collection} 데이터를 {@code keyMapper}로 구분되는 {@link Map} 형테로 제공합니다.<br>
      * 단, {@code keyMapper} 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * {@code keyMapper} 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)}
-     * 또는 <br>
-     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)}
-     * 를 사용하기 바랍니다.<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기
+     * 바랍니다.<br>
      * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
      * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
-     * 를 사용하기 바랍니다.<br>
-     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환
-     * 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을
+     * 유의하기 바랍니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3725,8 +3684,7 @@ public class CollectionUtils {
      *            데이터 유형 (Nullable).
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
-     *            허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3749,8 +3707,8 @@ public class CollectionUtils {
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3770,8 +3728,7 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수.
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * 
      * @return
      *
@@ -3786,11 +3743,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V'
+     * &rarr; U) 합니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3814,8 +3771,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의
-     *            제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대
+     *            {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U)
      * @return
@@ -3830,11 +3787,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합 ('V + V &rarr; V' &rarr; U) 합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합 ('V + V &rarr; V'
+     * &rarr; U) 합니다.
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3846,14 +3803,13 @@ public class CollectionUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
-     *            허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable).
      * @param <U>
      *            변환된 새로운 데이터 유형 (Nullable). <br>
-     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이
-     *            허용한다면 {@code null}이 가능합니다.
+     *            최종적으로 {@link Map#put}을 통해 할당되므로, {@code mapSupplier}가 제공하는 맵이 허용한다면 {@code null}이
+     *            가능합니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3862,8 +3818,8 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의
-     *            제약으로 인해 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
+     *            <font color="red"><b>주의: 중간 처리기({@link Collectors#toMap})의 제약으로 인해 반환값으로 절대
+     *            {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param transformer
      *            새로운 객체를 제공하는 함수. (V &rarr; U) <br>
      *            {@code mapSupplier}의 구현체가 지원할 경우 반환값으로 {@code null} 제공이 가능합니다.
@@ -3884,8 +3840,8 @@ public class CollectionUtils {
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3897,8 +3853,7 @@ public class CollectionUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
-     *            허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <M>
@@ -3909,8 +3864,7 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. ( V + V &rarr; V)<br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * @return
@@ -3927,8 +3881,8 @@ public class CollectionUtils {
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3944,8 +3898,7 @@ public class CollectionUtils {
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
      *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -3954,12 +3907,10 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
      *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * 
      * @return
      *
@@ -3976,8 +3927,8 @@ public class CollectionUtils {
     /**
      * {@link Collection} 데이터를 새로운 형태로 변환하여 하나의 {@link Map}로 묶어서 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -3989,14 +3940,12 @@ public class CollectionUtils {
      *
      * @param <K>
      *            데이터 식별정보 유형 (Nullable). <br>
-     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를
-     *            허용해야 합니다.
+     *            단, {@code mapSupplier}가 제공하는 {@link Map} 구현체가 {@code null} 키를 허용해야 합니다.
      * @param <V>
      *            스트림 원본 데이터 유형 (Nullable)
      * @param <U>
      *            변환된 새로운 데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <M>
      *            결과 {@link Map} 유형
      * @param col
@@ -4005,12 +3954,10 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueFunction
      *            새로운 객체를 제공하는 변환 함수. (V &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (U + U &rarr; U) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mapSupplier
      *            {@link Map} 제공함수.
      * 
@@ -4029,21 +3976,19 @@ public class CollectionUtils {
      * {@link Enumera} 데이터를 {@code keyGen}로 구분되는 {@link Map} 형테로 제공합니다.<br>
      * 단, {@code keyMapper} 결과 값이 동일한 데이터의 경우 나중에 추가되는 데이터만 존재합니다.<br>
      * {@code keyMapper} 결과 값이 동일한 경우에 대해서 제어하고 싶은 경우,<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)}
-     * 또는 <br>
-     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)}
-     * 를 사용하기 바랍니다.<br>
+     * {@link StreamUtils#toMap(Stream, Function, Function, BinaryOperator, Supplier)} 또는 <br>
+     * {@link StreamUtils#toMap(Stream, Function, BinaryOperator, Function, Supplier)} 를 사용하기
+     * 바랍니다.<br>
      * 데이터를 병합하지 않고 모두 유지하려는 경우<br>
      * {@link StreamUtils#toMap(Stream, Function, Function)},<br>
      * {@link StreamUtils#toMap(Stream, Function, Function, Supplier)},<br>
-     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)}
-     * 를 사용하기 바랍니다.<br>
-     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환
-     * 데이터와는 다른 점</font>을 유의하기 바랍니다.
+     * {@link StreamUtils#toMap(Stream, Function, Function, Supplier, Supplier)} 를 사용하기 바랍니다.<br>
+     * <font color="red">단, 반환데이터 유형이 Map&lt;K,List&lt;E&gt;&gt; 형태로 현재 메소드이 반환 데이터와는 다른 점</font>을
+     * 유의하기 바랍니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4151,8 +4096,8 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to the specified {@link Map} that each key
-     * has a single value. <br>
+     * Transform {@link Collection} to the specified {@link Map} that each key has a single value.
+     * <br>
      * 원본 컬렉션의 요소와 해당 요소의 인덱스(0부터 시작)를 함께 고려하여 Key-Value 쌍을 생성합니다.
      *
      * <pre>
@@ -4463,13 +4408,13 @@ public class CollectionUtils {
     }
 
     /**
-     * Transform {@link Collection} to the specified {@link Map} that each key
-     * has a single value. <br>
+     * Transform {@link Collection} to the specified {@link Map} that each key has a single value.
+     * <br>
      *
      * <p>
      * <b>[데이터 병합 정책]</b><br>
-     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에
-     * 처리되는 요소의 변환 값(valueGen)이 이전 값을 덮어씁니다(Overwrite).</b>
+     * {@code keyGen} 함수를 통해 생성된 키(Key)가 이미 Map에 존재하는 경우(키 중복), 원본 컬렉션의 <b>나중에 처리되는 요소의 변환
+     * 값(valueGen)이 이전 값을 덮어씁니다(Overwrite).</b>
      * </p>
      *
      * <pre>
@@ -4607,8 +4552,8 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
-     * 값에 따라서 세부적인 구현이 분기됩니다.<br>
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이
+     * 분기됩니다.<br>
      * 자세한 내용은 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
@@ -4637,8 +4582,8 @@ public class CollectionUtils {
      * @since 2025. 9. 3.
      * @version 2.1.0
      * 
-     * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서
-     *      {@link TopNStrategy}를 선택하는 설정값을 변경할 수 있습니다.
+     * @see {@link TopN#setAutoConfiguration(int, double, int, double)} 을 통해서 {@link TopNStrategy}를
+     *      선택하는 설정값을 변경할 수 있습니다.
      */
     public static <T> List<T> topN(Collection<T> data, Predicate<T> filter, Comparator<T> sorter, int limit,
             TopNStrategy strategy, boolean expensiveComparator) {
@@ -4685,12 +4630,10 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
-     * 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
-     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는
-     * 것을 권장하며,<br>
-     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기
-     * 바랍니다.
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기되어
+     * 사용되는 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -4727,12 +4670,10 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
-     * 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
-     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는
-     * 것을 권장하며,<br>
-     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기
-     * 바랍니다.
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기되어
+     * 사용되는 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -4787,12 +4728,10 @@ public class CollectionUtils {
 
     /**
      * 조건에 맞는 데이터를 정렬하고 지정된 개수만큼 반환합니다. (원본 유지) <br>
-     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의
-     * 값에 따라서 세부적인 구현이 분기되어 사용되는 메소드입니다.<br>
-     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는
-     * 것을 권장하며,<br>
-     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기
-     * 바랍니다.
+     * 원본 데이터에서 {@code filter}를 통과한 데이터의 개수(M)와 실제 선택하려는 개수({@code limit}, N)의 값에 따라서 세부적인 구현이 분기되어
+     * 사용되는 메소드입니다.<br>
+     * 이 메소드를 직접 사용하기 보다는 {@link #topN(Collection, Comparator, int)} 메소드를 사용하는 것을 권장하며,<br>
+     * 직접 이 메소드를 하는 경우에는 {@link TopN#decideStrategy(int, int, boolean)} 를 참조하기 바랍니다.
      * 
      * <pre>
      * [개정이력]
@@ -4872,11 +4811,10 @@ public class CollectionUtils {
     }
 
     /**
-     * {@link Collection}에 포함된 데이터를 변환({@code transformer})하여 {@link Set}에 담아
-     * 제공합니다. <br>
+     * {@link Collection}에 포함된 데이터를 변환({@code transformer})하여 {@link Set}에 담아 제공합니다. <br>
      * <p>
-     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(E)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(E)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(E)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4917,8 +4855,7 @@ public class CollectionUtils {
      *
      * @param <E>
      *            데이터 유형 (Nullable). <br>
-     *            단, {@code setSupplier}가 제공하는 {@link Set} 구현체가 {@code null}을
-     *            허용해야 합니다.
+     *            단, {@code setSupplier}가 제공하는 {@link Set} 구현체가 {@code null}을 허용해야 합니다.
      * @param <S>
      *            결과 {@link Set} 유형
      * @param col
@@ -4936,12 +4873,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다.
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다.
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4955,16 +4891,14 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -4979,12 +4913,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -4998,8 +4931,7 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <S>
      *            결과 {@link Set} 유형
      * @param col
@@ -5008,8 +4940,7 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
      * 
@@ -5025,12 +4956,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -5044,20 +4974,17 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param col
      *            데이터 제공 객체. (내부의 {@code null} 요소는 전처리 과정에서 안전하게 제거됩니다)
      * @param keyMapper
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * 
      * @return 중복이 병합된 결과 데이터가 담긴 새로운 컬렉션
      *
@@ -5071,12 +4998,11 @@ public class CollectionUtils {
 
     /**
      * {@link Collection} 데이터를 하나의 {@link Set}로 묶어서 제공합니다. <br>
-     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로
-     * 병합합니다. <br>
+     * 단, {@code keyMapper}에 해당하는 값이 동일한 경우 {@code mergeFunction}를 통해서 객체를 하나로 병합합니다. <br>
      * 
      * <p>
-     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로,
-     * 데이터(V)를 처리하는 함수 객체는 <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
+     * <font color="red"><b>* 데이터(V)가 <b>{@code null}</b>인 경우 '전처리 과정'에서 제외시키므로, 데이터(V)를 처리하는 함수 객체는
+     * <b>{@code null}</b>을 처리하지 않아도 됩니다.</b></font>
      * </p>
      * 
      * <pre>
@@ -5090,8 +5016,7 @@ public class CollectionUtils {
      *            데이터 식별정보 (Nullable).
      * @param <V>
      *            데이터 유형 (<b>{@code NOT nullable}</b>). <br>
-     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지
-     *            않습니다.
+     *            JDK 내부 제약({@link Collectors#toMap})으로 인해 {@code null}을 허용하지 않습니다.
      * @param <S>
      *            결과 {@link Set} 유형
      * @param col
@@ -5100,12 +5025,10 @@ public class CollectionUtils {
      *            객체의 식별정보를 제공하는 함수. (V &rarr; K)
      * @param valueMapper
      *            객체의 복제 또는 새로운 객체로 제공하는 함수. (V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param mergeFunction
      *            2개의 객체 정보를 하나로 병합하는 함수. (V + V &rarr; V) <br>
-     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안
-     *            됩니다.</b></font>
+     *            <font color="red"><b>주의: 반환값으로 절대 {@code null}을 제공해서는 안 됩니다.</b></font>
      * @param setFactory
      *            {@link Set} 객체를 제공하는 함수.
      * 
@@ -5246,21 +5169,18 @@ public class CollectionUtils {
          * 우선순위
          * <li>1. 전체 데이터 개수 (M)
          * <ul>
-         * <li>{@link TopN#fullSortThreadhold} 보다 작으면({@code &lt;})
-         * {@link TopNStrategy#FULL_SORT}
+         * <li>{@link TopN#fullSortThreadhold} 보다 작으면({@code &lt;}) {@link TopNStrategy#FULL_SORT}
          * </ul>
          * <li>2. 선택하려는 데이터 개수 (N) 와 N/M의 비율 고정값 (0.25)
          * <ul>
-         * <li>{@link TopN#heapSortThreadhold} 보다 작으고, ({@code &lt;}) 비율이 0.25
-         * 보다 작거나 같으면 {@link TopNStrategy#HEAP_SORT}
+         * <li>{@link TopN#heapSortThreadhold} 보다 작으고, ({@code &lt;}) 비율이 0.25 보다 작거나 같으면
+         * {@link TopNStrategy#HEAP_SORT}
          * </ul>
          * <li>3. N/M 의 비율
          * <ul>
          * 설정값
-         * <li>{@link TopN#heapSortRatio} 보다 작으면({@code &lt;})
-         * {@link TopNStrategy#HEAP_SORT}
-         * <li>{@link TopN#fullSortRatio} 보다 크거나 같으면({@code >=})
-         * {@link TopNStrategy#FULL_SORT}
+         * <li>{@link TopN#heapSortRatio} 보다 작으면({@code &lt;}) {@link TopNStrategy#HEAP_SORT}
+         * <li>{@link TopN#fullSortRatio} 보다 크거나 같으면({@code >=}) {@link TopNStrategy#FULL_SORT}
          * </ul>
          * <li>4. 정렬 비교 함수의 비용에 따라
          * <ul>
@@ -5311,8 +5231,7 @@ public class CollectionUtils {
         }
 
         /**
-         * 파티션: sorter.compare(x, pivot) < 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종
-         * 위치. <br>
+         * 파티션: sorter.compare(x, pivot) < 0 인 x를 왼쪽(상위)으로 보냄. 반환값은 pivot의 최종 위치. <br>
          * 
          * <pre>
          * [개정이력]
@@ -5399,13 +5318,11 @@ public class CollectionUtils {
          * @param fullSortThreshold
          *            설정 개수 이하인 경우 {@link TopNStrategy#FULL_SORT} 적용
          * @param fullSortRatio
-         *            {@link TopNStrategy#FULL_SORT}가 적용되는 전체 개수(M)와 선택하려는
-         *            개수(N)의 비율 (>=)
+         *            {@link TopNStrategy#FULL_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (>=)
          * @param heapSortThreshold
          *            설정 개수 이하인 경우 {@link TopNStrategy#HEAP_SORT} 적용
          * @param heapSortRatio
-         *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는
-         *            개수(N)의 비율 (<)
+         *            {@link TopNStrategy#HEAP_SORT}가 적용되는 전체 개수(M)와 선택하려는 개수(N)의 비율 (<)
          * @since 2025. 9. 3.
          * @version 2.1.0
          */

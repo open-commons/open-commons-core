@@ -1023,8 +1023,7 @@ public class StringUtils {
      * @param length
      *            반환될 문자열의 전체 길이 (" ..." 포함)
      *
-     * @return 잘린 문자열 뒤에 " ..."이 붙은 문자열. {@code string}이 {@code null}이면 "null"
-     *         반환.
+     * @return 잘린 문자열 뒤에 " ..."이 붙은 문자열. {@code string}이 {@code null}이면 "null" 반환.
      *
      * @since 2017. 1. 5.
      */
@@ -1136,8 +1135,7 @@ public class StringUtils {
     }
 
     /**
-     * 문자열({@code string})이 접미사({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자
-     * 관계없이)
+     * 문자열({@code string})이 접미사({@code suffixes})들 중에 하나로 끝나는지 여부를 반환합니다. (대소문자 관계없이)
      * 
      * @param string
      *            문자열
@@ -1478,8 +1476,7 @@ public class StringUtils {
     }
 
     /**
-     * {@code prefix}와 {@code suffix}로 둘러싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로
-     * 반환합니다.
+     * {@code prefix}와 {@code suffix}로 둘러싸인 문자열을 확보하기 위해서 앞뒤 문자의 인덱스를 길이 2인 배열로 반환합니다.
      *
      * @param string
      *            문자열
@@ -1948,8 +1945,7 @@ public class StringUtils {
     }
 
     /**
-     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로
-     * 반환시킨다.<br>
+     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      * 단, 데이터가 길이보다 긴 경우 원본 데이터를 문자열로 반환합니다.
      *
      * @param l
@@ -1970,8 +1966,7 @@ public class StringUtils {
     }
 
     /**
-     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로
-     * 반환시킨다.<br>
+     * <b>{@code long}</b> 타입의 데이터를 주어진 길이만큼 Left Zero-Padding을 적용시켜 문자열로 반환시킨다.<br>
      *
      * @param l
      *            변환할 숫자
@@ -3321,8 +3316,8 @@ public class StringUtils {
      * 주어진 문자열들을 조합하여 LCC(Lower Camel Case) 형태의 단일 문자열을 반환합니다.<br>
      * 예: "TO", "lOwER", "camel", "casE" &rarr; "toLowerCamelCase" *
      * <p>
-     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게
-     * 무시됩니다. 첫 번째로 발견되는 '유효한' 문자열이 Lower Camel Case의 시작 단어가 됩니다.
+     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게 무시됩니다. 첫 번째로 발견되는
+     * '유효한' 문자열이 Lower Camel Case의 시작 단어가 됩니다.
      * </p>
      *
      * <pre>
@@ -3494,10 +3489,8 @@ public class StringUtils {
      * <ul>
      * <li>{@code "camelCase"} &rarr; {@code "camel_case"}</li>
      * <li>{@code "PascalCase"} &rarr; {@code "pascal_case"}</li>
-     * <li>{@code "user123Id"}, {@code isSplitNum = false} &rarr;
-     * {@code "user123_id"}</li>
-     * <li>{@code "user123Id"}, {@code isSplitNum = true} &rarr;
-     * {@code "user_1_2_3_id"}</li>
+     * <li>{@code "user123Id"}, {@code isSplitNum = false} &rarr; {@code "user123_id"}</li>
+     * <li>{@code "user123Id"}, {@code isSplitNum = true} &rarr; {@code "user_1_2_3_id"}</li>
      * </ul>
      *
      * <pre>
@@ -3575,8 +3568,8 @@ public class StringUtils {
     }
 
     /**
-     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우 {@code defaultValue}에 해당하는 값을 반환하고, 그렇지
-     * 않은 경우 주어진 문자열을 반환합니다.
+     * 주어진 문자열이 {@code null}이거나 빈문자열인 경우 {@code defaultValue}에 해당하는 값을 반환하고, 그렇지 않은 경우 주어진 문자열을
+     * 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -3635,8 +3628,7 @@ public class StringUtils {
      * 주어진 문자열들을 조합하여 UCC(Upper Camel Case, Pascal Case) 형태의 단일 문자열을 반환합니다.<br>
      * 예: "upper", "camel", "case" &rarr; "UpperCamelCase" *
      * <p>
-     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게
-     * 무시됩니다.
+     * <b>[참고]</b> 가변 인자 내부에 포함된 {@code null} 또는 빈 문자열({@code ""})은 조합 과정에서 안전하게 무시됩니다.
      * </p>
      *
      * <pre>
@@ -3650,8 +3642,7 @@ public class StringUtils {
      * @param strings
      *            문자열 가변 인자 (배열 자체 및 내부 요소로 {@code null} 허용)
      *
-     * @return 어퍼 카멜 케이스(파스칼 케이스)로 조합된 문자열. 유효한 문자열이 하나도 없는 경우 빈 문자열({@code ""})
-     *         반환.
+     * @return 어퍼 카멜 케이스(파스칼 케이스)로 조합된 문자열. 유효한 문자열이 하나도 없는 경우 빈 문자열({@code ""}) 반환.
      *
      * @since 2012. 01. 10.
      * @version 3.0.0

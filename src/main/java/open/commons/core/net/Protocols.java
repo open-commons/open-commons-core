@@ -34,8 +34,7 @@ package open.commons.core.net;
  * &nbsp;&nbsp;&nbsp;&nbsp;IESG Approval or Standards Action<br>
  * 
  * <b>Reference</b><br>
- * &nbsp;&nbsp;&nbsp;&nbsp;[<a href=
- * "http://www.iana.org/go/rfc5237">RFC5237</a>][
+ * &nbsp;&nbsp;&nbsp;&nbsp;[<a href= "http://www.iana.org/go/rfc5237">RFC5237</a>][
  * <a href="http://www.iana.org/go/rfc7045">RFC7045</a>]<br>
  * 
  * <b>Note</b><br>
@@ -47,8 +46,8 @@ package open.commons.core.net;
  * is called the "Next Header" field.<br>
  * 
  * <b>Note</b><br>
- * &nbsp;&nbsp;&nbsp;&nbsp;Values that are also IPv6 Extension Header Types
- * should be listed in the<br>
+ * &nbsp;&nbsp;&nbsp;&nbsp;Values that are also IPv6 Extension Header Types should be listed in
+ * the<br>
  * IPv6 Extension Header Types registry at
  * [<a href="http://www.iana.org/assignments/ipv6-parameters">IANA registry
  * ipv6-parameters</a>].<br>
@@ -157,10 +156,8 @@ public class Protocols {
     public static final int PROTOCOL_EGP = 0x0008; // 8
 
     /**
-     * <b>Protocol</b>: any private interior gateway (used by Cisco for their
-     * IGRP)<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>Protocol</b>: any private interior gateway (used by Cisco for their IGRP)<br>
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -196,10 +193,9 @@ public class Protocols {
      * <b>Protocol</b>: PUP<br>
      * <b>References</b>:
      * <ul>
-     * <li>Boggs, D., J. Shoch, E. Taft, and R. Metcalfe, "PUP: An Internetwork
-     * Architecture", XEROX Palo Alto Research Center, CSL-79-10, July 1979;
-     * also in IEEE Transactions on Communication, Volume COM-28, Number 4,
-     * April 1980. <br>
+     * <li>Boggs, D., J. Shoch, E. Taft, and R. Metcalfe, "PUP: An Internetwork Architecture", XEROX
+     * Palo Alto Research Center, CSL-79-10, July 1979; also in IEEE Transactions on Communication,
+     * Volume COM-28, Number 4, April 1980. <br>
      * <li>XEROX<br>
      * </ul>
      * 
@@ -233,8 +229,7 @@ public class Protocols {
      * <b>Protocol</b>: Cross Net Debugger<br>
      * <b>References</b>:
      * <ul>
-     * <li>Haverty, J., "XNET Formats for Internet Protocol Version 4", IEN 158,
-     * October 1980.<br>
+     * <li>Haverty, J., "XNET Formats for Internet Protocol Version 4", IEN 158, October 1980.<br>
      * <li>Jack Haverty(mailto:jhaverty@oracle.com / )<br>
      * </ul>
      * 
@@ -272,8 +267,8 @@ public class Protocols {
      * <b>Protocol</b>: Multiplexing<br>
      * <b>References</b>:
      * <ul>
-     * <li>Cohen, D. and J. Postel, "Multiplexing Protocol", IEN 90,
-     * USC/Information Sciences Institute, May 1979.<br>
+     * <li>Cohen, D. and J. Postel, "Multiplexing Protocol", IEN 90, USC/Information Sciences
+     * Institute, May 1979.<br>
      * <li>Jon Postel(mailto:postel@isi.edu / )<br>
      * </ul>
      * 
@@ -321,15 +316,13 @@ public class Protocols {
      * <b>Protocol</b>: XEROX NS IDP<br>
      * <b>References</b>:
      * <ul>
-     * <li>"The Ethernet, A Local Area Network: Data Link Layer and Physical
-     * Layer Specification", AA-K759B-TK, Digital Equipment Corporation,
-     * Maynard, MA. Also as: "The Ethernet - A Local Area Network", Version 1.0,
-     * Digital Equipment Corporation, Intel Corporation, Xerox Corporation,
-     * September 1980. And: "The Ethernet, A Local Area Network: Data Link Layer
-     * and Physical Layer Specifications", Digital, Intel and Xerox, November
-     * 1982. And: XEROX, "The Ethernet, A Local Area Network: Data Link Layer
-     * and Physical Layer Specification", X3T51/80-50, Xerox Corporation,
-     * Stamford, CT., October 1980.<br>
+     * <li>"The Ethernet, A Local Area Network: Data Link Layer and Physical Layer Specification",
+     * AA-K759B-TK, Digital Equipment Corporation, Maynard, MA. Also as: "The Ethernet - A Local
+     * Area Network", Version 1.0, Digital Equipment Corporation, Intel Corporation, Xerox
+     * Corporation, September 1980. And: "The Ethernet, A Local Area Network: Data Link Layer and
+     * Physical Layer Specifications", Digital, Intel and Xerox, November 1982. And: XEROX, "The
+     * Ethernet, A Local Area Network: Data Link Layer and Physical Layer Specification",
+     * X3T51/80-50, Xerox Corporation, Stamford, CT., October 1980.<br>
      * <li>XEROX<br>
      * </ul>
      * 
@@ -439,9 +432,8 @@ public class Protocols {
      * <b>Protocol</b>: MFE Network Services Protocol<br>
      * <b>References</b>:
      * <ul>
-     * <li>Shuttleworth, B., "A Documentary of MFENet, a National Computer
-     * Network", UCRL-52317, Lawrence Livermore Labs, Livermore, California,
-     * June 1977.<br>
+     * <li>Shuttleworth, B., "A Documentary of MFENet, a National Computer Network", UCRL-52317,
+     * Lawrence Livermore Labs, Livermore, California, June 1977.<br>
      * <li>Barry Howard(mailto:Howard@nmfecc.llnl.gov / )<br>
      * </ul>
      * 
@@ -503,8 +495,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Datagram Delivery Protocol<br>
-     * <b>References</b>: Wesley
-     * Craig(mailto:Wesley.Craig@terminator.cc.umich.edu / )
+     * <b>References</b>: Wesley Craig(mailto:Wesley.Craig@terminator.cc.umich.edu / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -702,8 +693,7 @@ public class Protocols {
     public static final int PROTOCOL_MOBILE = 0x0037; // 55
 
     /**
-     * <b>Protocol</b>: Transport Layer Security Protocol using Kryptonet key
-     * management<br>
+     * <b>Protocol</b>: Transport Layer Security Protocol using Kryptonet key management<br>
      * <b>References</b>: Christer Oberg(mailto:chg@bull.se / Oct-94)
      * 
      * @see <a href=
@@ -754,8 +744,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any host internal protocol<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -767,8 +756,7 @@ public class Protocols {
      * <b>Protocol</b>: CFTP<br>
      * <b>References</b>:
      * <ul>
-     * <li>Forsdick, H., "CFTP", Network Message, Bolt Beranek and Newman,
-     * January 1982.<br>
+     * <li>Forsdick, H., "CFTP", Network Message, Bolt Beranek and Newman, January 1982.<br>
      * <li>Harry Forsdick(mailto:Forsdick@bbn.com / )<br>
      * </ul>
      * 
@@ -780,8 +768,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any local network<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -811,8 +798,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: MIT Remote Virtual Disk Protocol<br>
-     * <b>References</b>: Michael
-     * Greenwald(mailto:Greenwald@scrc-stony-brook.symbolics.com / )
+     * <b>References</b>: Michael Greenwald(mailto:Greenwald@scrc-stony-brook.symbolics.com / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -832,8 +818,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any distributed file system<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -963,8 +948,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: VMTP<br>
-     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu /
-     * )
+     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -974,8 +958,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: SECURE-VMTP<br>
-     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu /
-     * )
+     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -995,8 +978,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Transaction Transport Protocol<br>
-     * <b>References</b>: Jim Stevens(mailto:jasteven@rockwellcollins.com /
-     * 2011-01-26)
+     * <b>References</b>: Jim Stevens(mailto:jasteven@rockwellcollins.com / 2011-01-26)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1006,8 +988,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Internet Protocol Traffic Manager<br>
-     * <b>References</b>: Jim Stevens(mailto:jasteven@rockwellcollins.com /
-     * 2011-01-26)
+     * <b>References</b>: Jim Stevens(mailto:jasteven@rockwellcollins.com / 2011-01-26)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1029,9 +1010,8 @@ public class Protocols {
      * <b>Protocol</b>: Dissimilar Gateway Protocol<br>
      * <b>References</b>:
      * <ul>
-     * <li>M/A-COM Government Systems, "Dissimilar Gateway Protocol
-     * Specification, Draft Version", Contract no. CS901145, November 16,
-     * 1987.<br>
+     * <li>M/A-COM Government Systems, "Dissimilar Gateway Protocol Specification, Draft Version",
+     * Contract no. CS901145, November 16, 1987.<br>
      * <li>Mike Little(mailto:little@macom4.arpa / )<br>
      * </ul>
      * 
@@ -1055,8 +1035,8 @@ public class Protocols {
      * <b>Protocol</b>: EIGRP<br>
      * <b>References</b>:
      * <ul>
-     * <li>Cisco Systems, "Gateway Server Reference Manual", Manual Revision B,
-     * January 10, 1988.<br>
+     * <li>Cisco Systems, "Gateway Server Reference Manual", Manual Revision B, January 10,
+     * 1988.<br>
      * <li>Guenther Schreiner(mailto:snmp-admin@ira.uka.de / )<br>
      * </ul>
      * 
@@ -1086,9 +1066,8 @@ public class Protocols {
      * <b>Protocol</b>: Sprite RPC Protocol<br>
      * <b>References</b>:
      * <ul>
-     * <li>Welch, B., "The Sprite Remote Procedure Call System", Technical
-     * Report, UCB/Computer Science Dept., 86/302, University of California at
-     * Berkeley, June 1986.<br>
+     * <li>Welch, B., "The Sprite Remote Procedure Call System", Technical Report, UCB/Computer
+     * Science Dept., 86/302, University of California at Berkeley, June 1986.<br>
      * <li>Bruce Willins<br>
      * </ul>
      * 
@@ -1184,8 +1163,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any private encryption scheme<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1293,8 +1271,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Sitara Networks Protocol<br>
-     * <b>References</b>: Manickam R. Sridhar(mailto:msridhar@sitaranetworks.com
-     * / Sep-97)
+     * <b>References</b>: Manickam R. Sridhar(mailto:msridhar@sitaranetworks.com / Sep-97)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1344,8 +1321,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any 0-hop protocol<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1389,8 +1365,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Schedule Transfer Protocol<br>
-     * <b>References</b>: Jean-Michel Pittet(mailto:jmp@gandalf.engr.sgi.com /
-     * Nov-98)
+     * <b>References</b>: Jean-Michel Pittet(mailto:jmp@gandalf.engr.sgi.com / Nov-98)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1444,8 +1419,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Performance Transparency Protocol<br>
-     * <b>References</b>: Michael Welzl(mailto:michael@tk.uni-linz.ac.at /
-     * Aug-99)
+     * <b>References</b>: Michael Welzl(mailto:michael@tk.uni-linz.ac.at / Aug-99)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1525,8 +1499,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Private IP Encapsulation within IP<br>
-     * <b>References</b>: Bernhard Petri(mailto:bernhard.petri@siemens.com /
-     * 2012-07-09)
+     * <b>References</b>: Bernhard Petri(mailto:bernhard.petri@siemens.com / 2012-07-09)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1670,8 +1643,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: <br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1778,10 +1750,8 @@ public class Protocols {
     public static final String PROTOCOL_0x0008 = "EGP: Exterior Gateway Protocol"; // 8
 
     /**
-     * <b>Protocol</b>: any private interior gateway (used by Cisco for their
-     * IGRP)<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>Protocol</b>: any private interior gateway (used by Cisco for their IGRP)<br>
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -1817,10 +1787,9 @@ public class Protocols {
      * <b>Protocol</b>: PUP<br>
      * <b>References</b>:
      * <ul>
-     * <li>Boggs, D., J. Shoch, E. Taft, and R. Metcalfe, "PUP: An Internetwork
-     * Architecture", XEROX Palo Alto Research Center, CSL-79-10, July 1979;
-     * also in IEEE Transactions on Communication, Volume COM-28, Number 4,
-     * April 1980. <br>
+     * <li>Boggs, D., J. Shoch, E. Taft, and R. Metcalfe, "PUP: An Internetwork Architecture", XEROX
+     * Palo Alto Research Center, CSL-79-10, July 1979; also in IEEE Transactions on Communication,
+     * Volume COM-28, Number 4, April 1980. <br>
      * <li>XEROX<br>
      * </ul>
      * 
@@ -1854,8 +1823,7 @@ public class Protocols {
      * <b>Protocol</b>: Cross Net Debugger<br>
      * <b>References</b>:
      * <ul>
-     * <li>Haverty, J., "XNET Formats for Internet Protocol Version 4", IEN 158,
-     * October 1980.<br>
+     * <li>Haverty, J., "XNET Formats for Internet Protocol Version 4", IEN 158, October 1980.<br>
      * <li>Jack Haverty(mailto:jhaverty@oracle.com / )<br>
      * </ul>
      * 
@@ -1893,8 +1861,8 @@ public class Protocols {
      * <b>Protocol</b>: Multiplexing<br>
      * <b>References</b>:
      * <ul>
-     * <li>Cohen, D. and J. Postel, "Multiplexing Protocol", IEN 90,
-     * USC/Information Sciences Institute, May 1979.<br>
+     * <li>Cohen, D. and J. Postel, "Multiplexing Protocol", IEN 90, USC/Information Sciences
+     * Institute, May 1979.<br>
      * <li>Jon Postel(mailto:postel@isi.edu / )<br>
      * </ul>
      * 
@@ -1942,15 +1910,13 @@ public class Protocols {
      * <b>Protocol</b>: XEROX NS IDP<br>
      * <b>References</b>:
      * <ul>
-     * <li>"The Ethernet, A Local Area Network: Data Link Layer and Physical
-     * Layer Specification", AA-K759B-TK, Digital Equipment Corporation,
-     * Maynard, MA. Also as: "The Ethernet - A Local Area Network", Version 1.0,
-     * Digital Equipment Corporation, Intel Corporation, Xerox Corporation,
-     * September 1980. And: "The Ethernet, A Local Area Network: Data Link Layer
-     * and Physical Layer Specifications", Digital, Intel and Xerox, November
-     * 1982. And: XEROX, "The Ethernet, A Local Area Network: Data Link Layer
-     * and Physical Layer Specification", X3T51/80-50, Xerox Corporation,
-     * Stamford, CT., October 1980.<br>
+     * <li>"The Ethernet, A Local Area Network: Data Link Layer and Physical Layer Specification",
+     * AA-K759B-TK, Digital Equipment Corporation, Maynard, MA. Also as: "The Ethernet - A Local
+     * Area Network", Version 1.0, Digital Equipment Corporation, Intel Corporation, Xerox
+     * Corporation, September 1980. And: "The Ethernet, A Local Area Network: Data Link Layer and
+     * Physical Layer Specifications", Digital, Intel and Xerox, November 1982. And: XEROX, "The
+     * Ethernet, A Local Area Network: Data Link Layer and Physical Layer Specification",
+     * X3T51/80-50, Xerox Corporation, Stamford, CT., October 1980.<br>
      * <li>XEROX<br>
      * </ul>
      * 
@@ -2060,9 +2026,8 @@ public class Protocols {
      * <b>Protocol</b>: MFE Network Services Protocol<br>
      * <b>References</b>:
      * <ul>
-     * <li>Shuttleworth, B., "A Documentary of MFENet, a National Computer
-     * Network", UCRL-52317, Lawrence Livermore Labs, Livermore, California,
-     * June 1977.<br>
+     * <li>Shuttleworth, B., "A Documentary of MFENet, a National Computer Network", UCRL-52317,
+     * Lawrence Livermore Labs, Livermore, California, June 1977.<br>
      * <li>Barry Howard(mailto:Howard@nmfecc.llnl.gov / )<br>
      * </ul>
      * 
@@ -2124,8 +2089,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Datagram Delivery Protocol<br>
-     * <b>References</b>: Wesley
-     * Craig(mailto:Wesley.Craig@terminator.cc.umich.edu / )
+     * <b>References</b>: Wesley Craig(mailto:Wesley.Craig@terminator.cc.umich.edu / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2323,8 +2287,7 @@ public class Protocols {
     public static final String PROTOCOL_0x0037 = "MOBILE: IP Mobility"; // 55
 
     /**
-     * <b>Protocol</b>: Transport Layer Security Protocol using Kryptonet key
-     * management<br>
+     * <b>Protocol</b>: Transport Layer Security Protocol using Kryptonet key management<br>
      * <b>References</b>: Christer Oberg(mailto:chg@bull.se / Oct-94)
      * 
      * @see <a href=
@@ -2375,8 +2338,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any host internal protocol<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2388,8 +2350,7 @@ public class Protocols {
      * <b>Protocol</b>: CFTP<br>
      * <b>References</b>:
      * <ul>
-     * <li>Forsdick, H., "CFTP", Network Message, Bolt Beranek and Newman,
-     * January 1982.<br>
+     * <li>Forsdick, H., "CFTP", Network Message, Bolt Beranek and Newman, January 1982.<br>
      * <li>Harry Forsdick(mailto:Forsdick@bbn.com / )<br>
      * </ul>
      * 
@@ -2401,8 +2362,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any local network<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2432,8 +2392,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: MIT Remote Virtual Disk Protocol<br>
-     * <b>References</b>: Michael
-     * Greenwald(mailto:Greenwald@scrc-stony-brook.symbolics.com / )
+     * <b>References</b>: Michael Greenwald(mailto:Greenwald@scrc-stony-brook.symbolics.com / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2453,8 +2412,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any distributed file system<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2584,8 +2542,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: VMTP<br>
-     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu /
-     * )
+     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2595,8 +2552,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: SECURE-VMTP<br>
-     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu /
-     * )
+     * <b>References</b>: Dave Cheriton(mailto:cheriton@pescadero.stanford.edu / )
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2620,8 +2576,7 @@ public class Protocols {
      * <li>Transaction Transport Protocol<br>
      * <li>Internet Protocol Traffic Manager<br>
      * </ul>
-     * <b>References</b>: Jim Stevens(mailto:jasteven@rockwellcollins.com /
-     * 2011-01-26)
+     * <b>References</b>: Jim Stevens(mailto:jasteven@rockwellcollins.com / 2011-01-26)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2643,9 +2598,8 @@ public class Protocols {
      * <b>Protocol</b>: Dissimilar Gateway Protocol<br>
      * <b>References</b>:
      * <ul>
-     * <li>M/A-COM Government Systems, "Dissimilar Gateway Protocol
-     * Specification, Draft Version", Contract no. CS901145, November 16,
-     * 1987.<br>
+     * <li>M/A-COM Government Systems, "Dissimilar Gateway Protocol Specification, Draft Version",
+     * Contract no. CS901145, November 16, 1987.<br>
      * <li>Mike Little(mailto:little@macom4.arpa / )<br>
      * </ul>
      * 
@@ -2669,8 +2623,8 @@ public class Protocols {
      * <b>Protocol</b>: EIGRP<br>
      * <b>References</b>:
      * <ul>
-     * <li>Cisco Systems, "Gateway Server Reference Manual", Manual Revision B,
-     * January 10, 1988.<br>
+     * <li>Cisco Systems, "Gateway Server Reference Manual", Manual Revision B, January 10,
+     * 1988.<br>
      * <li>Guenther Schreiner(mailto:snmp-admin@ira.uka.de / )<br>
      * </ul>
      * 
@@ -2700,9 +2654,8 @@ public class Protocols {
      * <b>Protocol</b>: Sprite RPC Protocol<br>
      * <b>References</b>:
      * <ul>
-     * <li>Welch, B., "The Sprite Remote Procedure Call System", Technical
-     * Report, UCB/Computer Science Dept., 86/302, University of California at
-     * Berkeley, June 1986.<br>
+     * <li>Welch, B., "The Sprite Remote Procedure Call System", Technical Report, UCB/Computer
+     * Science Dept., 86/302, University of California at Berkeley, June 1986.<br>
      * <li>Bruce Willins<br>
      * </ul>
      * 
@@ -2798,8 +2751,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any private encryption scheme<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2907,8 +2859,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Sitara Networks Protocol<br>
-     * <b>References</b>: Manickam R. Sridhar(mailto:msridhar@sitaranetworks.com
-     * / Sep-97)
+     * <b>References</b>: Manickam R. Sridhar(mailto:msridhar@sitaranetworks.com / Sep-97)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -2958,8 +2909,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: any 0-hop protocol<br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -3003,8 +2953,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Schedule Transfer Protocol<br>
-     * <b>References</b>: Jean-Michel Pittet(mailto:jmp@gandalf.engr.sgi.com /
-     * Nov-98)
+     * <b>References</b>: Jean-Michel Pittet(mailto:jmp@gandalf.engr.sgi.com / Nov-98)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -3058,8 +3007,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Performance Transparency Protocol<br>
-     * <b>References</b>: Michael Welzl(mailto:michael@tk.uni-linz.ac.at /
-     * Aug-99)
+     * <b>References</b>: Michael Welzl(mailto:michael@tk.uni-linz.ac.at / Aug-99)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -3139,8 +3087,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: Private IP Encapsulation within IP<br>
-     * <b>References</b>: Bernhard Petri(mailto:bernhard.petri@siemens.com /
-     * 2012-07-09)
+     * <b>References</b>: Bernhard Petri(mailto:bernhard.petri@siemens.com / 2012-07-09)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol
@@ -3284,8 +3231,7 @@ public class Protocols {
 
     /**
      * <b>Protocol</b>: <br>
-     * <b>References</b>: Internet Assigned Numbers
-     * Authority(mailto:iana@iana.org / Jun-95)
+     * <b>References</b>: Internet Assigned Numbers Authority(mailto:iana@iana.org / Jun-95)
      * 
      * @see <a href=
      *      "http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml">Protocol

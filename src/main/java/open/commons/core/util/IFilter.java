@@ -50,8 +50,7 @@ public interface IFilter<T> {
 
     public static class FalseFilter<T> implements IFilter<T> {
         /**
-         * @see open.commons.core.util.IFilter#filter(java.lang.Object,
-         *      Object...)
+         * @see open.commons.core.util.IFilter#filter(java.lang.Object, Object...)
          */
         @Override
         public boolean filter(@Nullable T target, @Nullable Object @Nullable... objects) {
@@ -61,8 +60,7 @@ public interface IFilter<T> {
 
     public static class TrueFilter<T> implements IFilter<T> {
         /**
-         * @see open.commons.core.util.IFilter#filter(java.lang.Object,
-         *      Object...)
+         * @see open.commons.core.util.IFilter#filter(java.lang.Object, Object...)
          */
         @Override
         public boolean filter(@Nullable T target, @Nullable Object @Nullable... objects) {

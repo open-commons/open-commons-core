@@ -443,8 +443,8 @@ public class ArrayUtils {
      * @return a new array contains new {@code value}
      * 
      * @throws ArrayStoreException
-     *             {@code T} is Wrapper Class of primitive types and
-     *             {@code value} is the primitive type's value.
+     *             {@code T} is Wrapper Class of primitive types and {@code value} is the primitive
+     *             type's value.
      *             <p>
      *             e.g. add(new Boolean[] { true }, false);
      *             </p>
@@ -961,12 +961,12 @@ public class ArrayUtils {
      * @param array
      * @param value
      * 
-     * @return a new array contains new {@code value} or null if both of
-     *         parameters are {@code null}.
+     * @return a new array contains new {@code value} or null if both of parameters are
+     *         {@code null}.
      * 
      * @throws ArrayStoreException
-     *             {@code T} is Wrapper Class of primitive types and
-     *             {@code value} is the primitive type's value.
+     *             {@code T} is Wrapper Class of primitive types and {@code value} is the primitive
+     *             type's value.
      *             <p>
      *             e.g. add(new Boolean[] { true }, false);
      *             </p>
@@ -987,10 +987,9 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 길이(<b>{@code length}</b>)만큼 주어진 배열(<b>{@code classes}</b>) 로부터 데이터를
-     * 복사하여 새로운 배열을 반환합니다.<br>
-     * 주어진 배열(<b>{@code classes}</b>)의 길이가 주어진 길이(<b>{@code length}</b>)보다 작은
-     * 경우, 마지막 데이터로 모두 채운다.
+     * 주어진 길이(<b>{@code length}</b>)만큼 주어진 배열(<b>{@code classes}</b>) 로부터 데이터를 복사하여 새로운 배열을
+     * 반환합니다.<br>
+     * 주어진 배열(<b>{@code classes}</b>)의 길이가 주어진 길이(<b>{@code length}</b>)보다 작은 경우, 마지막 데이터로 모두 채운다.
      * 
      * @param length
      * @param classes
@@ -1362,8 +1361,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a concatenated string of elements of
-     * <b>{@code the given array}</b>.
+     * Returns a concatenated string of elements of <b>{@code the given array}</b>.
      * 
      * @param array
      * @param delimiter
@@ -1391,8 +1389,7 @@ public class ArrayUtils {
     }
 
     /**
-     * Returns a concatenated string of elements of
-     * <b>{@code the given array}</b>.
+     * Returns a concatenated string of elements of <b>{@code the given array}</b>.
      * 
      * @param array
      * @param delimiter
@@ -2529,8 +2526,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열들 중에서 첫번째 배열의 마지막번째부터 마지막 배열의 0번째 값의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로
-     * 반환합니다.<br>
+     * 주어진 배열들 중에서 첫번째 배열의 마지막번째부터 마지막 배열의 0번째 값의 마지막 인덱스에 해당하는 값을 추출해 하나의 배열로 반환합니다.<br>
      * 
      * <pre>
      * byte[] b1 = {1,2,3};
@@ -6706,8 +6702,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6746,8 +6741,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6786,8 +6780,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6826,8 +6819,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6866,8 +6858,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6906,8 +6897,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6946,8 +6936,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -6986,8 +6975,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7026,8 +7014,7 @@ public class ArrayUtils {
      *            제거할 값의 인덱스
      * @return 지정된 인덱스의 값이 제거된 새로운 배열
      * @throws ArrayIndexOutOfBoundsException
-     *             인덱스가 배열의 범위를 벗어난 경우
-     *             ({@code index < 0 || index >= array.length}) 발생.
+     *             인덱스가 배열의 범위를 벗어난 경우 ({@code index < 0 || index >= array.length}) 발생.
      *
      * @since 2012. 03. 09.
      */
@@ -7727,8 +7714,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -7822,8 +7808,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -7917,8 +7902,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8012,8 +7996,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8107,8 +8090,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8202,8 +8184,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8297,8 +8278,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -8392,8 +8372,7 @@ public class ArrayUtils {
     }
 
     /**
-     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을
-     * 반환합니다.<br>
+     * 주어진 배열에서 {@code target} 배열과 일치하는 구간을 모두 찾아 {@code data} 배열로 교체한 새로운 배열을 반환합니다.<br>
      * 교체 대상이 없는 경우 원본 배열을 그대로 반환합니다.
      *
      * <pre>
@@ -10131,8 +10110,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10181,8 +10160,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10231,8 +10210,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10281,8 +10260,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10331,8 +10310,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10381,8 +10360,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10431,8 +10410,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10481,8 +10460,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      *
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException
@@ -10533,8 +10512,8 @@ public class ArrayUtils {
      * @param index
      *            분리할 지점
      * @param inclusive
-     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며,
-     *            {@code false}인 경우 제외(Omitted)됩니다.
+     *            분리 지점 데이타의 첫 번째 배열 포함 여부. {@code true}인 경우 첫 번째 배열에 포함되며, {@code false}인 경우
+     *            제외(Omitted)됩니다.
      * 
      * @return 분리된 2개의 배열을 담은 2차원 배열
      * @throws IllegalArgumentException

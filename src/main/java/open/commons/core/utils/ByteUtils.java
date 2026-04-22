@@ -89,8 +89,7 @@ public class ByteUtils {
      *            바이트 단위 사이에 공백을 추가할지 여부
      * @param data
      *            변환할 바이트 데이터 (가변 인자)
-     * @return 16진수로 변환된 문자열. {@code data}가 {@code null}인 경우 {@code null}을
-     *         반환합니다.
+     * @return 16진수로 변환된 문자열. {@code data}가 {@code null}인 경우 {@code null}을 반환합니다.
      * 
      * @since 2020. 12. 17.
      */

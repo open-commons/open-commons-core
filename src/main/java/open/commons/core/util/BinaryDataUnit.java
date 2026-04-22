@@ -42,15 +42,13 @@ import open.commons.core.utils.AssertUtils2;
 
 /**
  * 컴퓨터 저장장치 용량 단위. (예: 디스크, 메모리, ...)<br>
- * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여
- * {@link BigDecimal}를 이용.
+ * 용량 데이터 타입을 <b>{@code long({@link Long})}</b>으로 하려고 했으나, 데이터 타입의 한계로 인하여 {@link BigDecimal}를 이용.
  *
  * @since 2021. 11. 4.
  * @version 1.8.0
  * @author Park Jun-Hong (parkjunhong77@gmail.com)
  *
- * @see <a href=
- *      "https://en.wikipedia.org/wiki/International_Electrotechnical_Commission">IEC</a>
+ * @see <a href= "https://en.wikipedia.org/wiki/International_Electrotechnical_Commission">IEC</a>
  */
 // [PATCH] JDK 표준 API의 JSpecify 미지원 우회용
 // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 제거.

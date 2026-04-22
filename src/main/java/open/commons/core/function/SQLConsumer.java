@@ -39,13 +39,12 @@ import open.commons.core.utils.ObjectUtils;
 import open.commons.core.utils.SQLUtils;
 
 /**
- * Represents an operation that accepts a single input argument and returns no
- * result. Unlike most other functional interfaces, {@code Consumer} is expected
- * to operate via side-effects.
+ * Represents an operation that accepts a single input argument and returns no result. Unlike most
+ * other functional interfaces, {@code Consumer} is expected to operate via side-effects.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #accept(Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is
+ * {@link #accept(Object)}.
  *
  * @param <T>
  *            the type of the input to the operation
@@ -74,16 +73,15 @@ public interface SQLConsumer<T> {
     void accept(T t) throws SQLException;
 
     /**
-     * Returns a composed {@code Consumer} that performs, in sequence, this
-     * operation followed by the {@code after} operation. If performing either
-     * operation throws an exception, it is relayed to the caller of the
-     * composed operation. If performing this operation throws an exception, the
-     * {@code after} operation will not be performed.
+     * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by
+     * the {@code after} operation. If performing either operation throws an exception, it is
+     * relayed to the caller of the composed operation. If performing this operation throws an
+     * exception, the {@code after} operation will not be performed.
      *
      * @param after
      *            the operation to perform after this operation
-     * @return a composed {@code Consumer} that performs in sequence this
-     *         operation followed by the {@code after} operation
+     * @return a composed {@code Consumer} that performs in sequence this operation followed by the
+     *         {@code after} operation
      */
     default SQLConsumer<T> andThen(SQLConsumer<? super T> after) {
         Objects.requireNonNull(after);
@@ -120,8 +118,7 @@ public interface SQLConsumer<T> {
      * {@link PreparedStatement}에 데이터를 설정합니다. <br>
      * 해당 객체가 Primitive Type, Wrapper class Type 또는 {@link String} 인 경우
      * {@link #setParameters(Object...)} 로 전달되고,<br>
-     * 그외 Reference Type인 경우 {@link ColumnValue}가 적용된 {@link Method}를 이용하여 파라미터를
-     * 추출합니다. <br>
+     * 그외 Reference Type인 경우 {@link ColumnValue}가 적용된 {@link Method}를 이용하여 파라미터를 추출합니다. <br>
      * 
      * <pre>
      * [개정이력]

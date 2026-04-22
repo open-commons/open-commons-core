@@ -277,14 +277,11 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * </pre>
      *
      * @param uri
-     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈
-     *            문자열({@code ""})이 전달됩니다.
+     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param localName
-     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이
-     *            전달됩니다.
+     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param qName
-     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이
-     *            전달됩니다.
+     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이 전달됩니다.
      *
      * @throws SAXException
      *             SAX 처리 중 발생하는 예외. 내부적으로 다른 예외를 래핑(wrapping)할 수 있습니다.
@@ -509,17 +506,13 @@ public abstract class AbstractSAXHandler extends DefaultHandler {
      * </pre>
      *
      * @param uri
-     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈
-     *            문자열({@code ""})이 전달됩니다.
+     *            네임스페이스 URI. 요소에 네임스페이스 URI가 없거나 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param localName
-     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이
-     *            전달됩니다.
+     *            로컬 이름 (접두사 제외). 네임스페이스 처리를 수행하지 않는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param qName
-     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이
-     *            전달됩니다.
+     *            정규화된 이름 (접두사 포함). 정규화된 이름을 사용할 수 없는 경우 빈 문자열({@code ""})이 전달됩니다.
      * @param attributes
-     *            요소에 첨부된 속성(Attributes)들. 지정된 속성이 없는 경우 비어 있는 Attributes 객체가
-     *            전달됩니다.
+     *            요소에 첨부된 속성(Attributes)들. 지정된 속성이 없는 경우 비어 있는 Attributes 객체가 전달됩니다.
      *
      * @throws SAXException
      *             SAX 처리 중 발생하는 예외. 내부적으로 다른 예외를 래핑(wrapping)할 수 있습니다.

@@ -40,8 +40,7 @@ import org.jspecify.annotations.Nullable;
  */
 public interface IContainer<T extends @Nullable Object> {
     /**
-     * Return whether or not a <b>{@code contained}</b> is belonged to a
-     * <b>{@code container}</b>.
+     * Return whether or not a <b>{@code contained}</b> is belonged to a <b>{@code container}</b>.
      * 
      * @param container
      * @param contained

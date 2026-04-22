@@ -157,8 +157,7 @@ public @interface ColumnDef {
      */
     public static enum ColumnNameType {
         /**
-         * camelCase: 각 단어의 첫문자를 대문자로 표기하고 붙여쓰되, 맨처음 문자는 소문자로 표기함 띄어쓰기 대신 대문자로
-         * 단어를 구분하는 표기 방식<br>
+         * camelCase: 각 단어의 첫문자를 대문자로 표기하고 붙여쓰되, 맨처음 문자는 소문자로 표기함 띄어쓰기 대신 대문자로 단어를 구분하는 표기 방식<br>
          * 예) backgroundColor, typeName, iPhone
          */
         CAMEL_CASE,

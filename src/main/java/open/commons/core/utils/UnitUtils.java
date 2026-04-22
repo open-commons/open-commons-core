@@ -150,8 +150,7 @@ public class UnitUtils {
      * @since 2021. 11. 4.
      * @version 1.8.0
      *
-     * @see #binaryStorageAlsoSubUnitAsString(long, BinaryDataUnit, boolean,
-     *      boolean)
+     * @see #binaryStorageAlsoSubUnitAsString(long, BinaryDataUnit, boolean, boolean)
      */
     public static String binaryStorageAlsoSubUnitAsString(long bytes, BinaryDataUnit unit) {
         return binaryStorageAlsoSubUnitAsString(bytes, unit, true, true);
@@ -455,8 +454,7 @@ public class UnitUtils {
     }
 
     /**
-     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함, 천 단위 콤마 추가, 0인 단위
-     * 제외)
+     * 데이터 크기(10진수 기준)를 주어진 단위에 맞게 변환하여 문자열로 제공합니다. (하위 단위 포함, 천 단위 콤마 추가, 0인 단위 제외)
      *
      * <pre>
      * [개정이력]

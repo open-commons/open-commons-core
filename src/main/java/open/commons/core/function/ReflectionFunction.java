@@ -33,8 +33,8 @@ import java.util.function.Function;
  * Represents a function that accepts one argument and produces a result.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #apply(Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is
+ * {@link #apply(Object)}.
  *
  * @param <T>
  *            the type of the input to the function
@@ -49,18 +49,16 @@ import java.util.function.Function;
 public interface ReflectionFunction<T, R> {
 
     /**
-     * Returns a composed function that first applies this function to its
-     * input, and then applies the {@code after} function to the result. If
-     * evaluation of either function throws an exception, it is relayed to the
-     * caller of the composed function.
+     * Returns a composed function that first applies this function to its input, and then applies
+     * the {@code after} function to the result. If evaluation of either function throws an
+     * exception, it is relayed to the caller of the composed function.
      *
      * @param <V>
-     *            the type of output of the {@code after} function, and of the
-     *            composed function
+     *            the type of output of the {@code after} function, and of the composed function
      * @param after
      *            the function to apply after this function is applied
-     * @return a composed function that first applies this function and then
-     *         applies the {@code after} function
+     * @return a composed function that first applies this function and then applies the
+     *         {@code after} function
      * 
      * @since 2021. 11. 11.
      * @version 1.8.0

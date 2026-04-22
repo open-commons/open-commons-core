@@ -282,8 +282,7 @@ public class FileUtils {
      * @param file
      *            삭제할 파일 또는 디렉토리
      * @param forced
-     *            {@link File} 인스턴스가 디렉토리인 경우, 다른 파일이나 디렉토리가 포함되어 있어도 강제로 삭제할지
-     *            여부
+     *            {@link File} 인스턴스가 디렉토리인 경우, 다른 파일이나 디렉토리가 포함되어 있어도 강제로 삭제할지 여부
      *
      * @return 파일이나 디렉토리의 삭제 성공 여부
      *
@@ -921,8 +920,7 @@ public class FileUtils {
 
     /**
      * 주어진 디렉토리의 하위 파일/디렉토리 목록을 제공합니다. <br>
-     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해
-     * OS에서 IO 객체를 유지합니다.<br>
+     * {@link Files#list(Path)} 의 경우 {@link Stream}에 포함된 {@link Path} 객체에 대해 OS에서 IO 객체를 유지합니다.<br>
      * 이에 대한 IO 를 제거하기 위해서 {@link Stream#close()}을 호출합니다.
      * 
      * <pre>
@@ -1357,12 +1355,10 @@ public class FileUtils {
      * @param inStream
      *            입력 스트림 ({@code NOT nullable})
      * @param length
-     *            읽어들일 바이트 수. -1 또는 {@link Integer#MAX_VALUE}인 경우 가능한 모든 바이트를
-     *            읽음.
+     *            읽어들일 바이트 수. -1 또는 {@link Integer#MAX_VALUE}인 경우 가능한 모든 바이트를 읽음.
      * @param readAll
-     *            {@code true}인 경우, 지정된 {@code length}만큼 읽지 못하고 EOF를 만나면
-     *            {@link EOFException}을 발생시킴. ({@code length}가 -1이거나
-     *            {@link Integer#MAX_VALUE}인 경우 무시됨)
+     *            {@code true}인 경우, 지정된 {@code length}만큼 읽지 못하고 EOF를 만나면 {@link EOFException}을 발생시킴.
+     *            ({@code length}가 -1이거나 {@link Integer#MAX_VALUE}인 경우 무시됨)
      * 
      * @return 스트림에서 읽어들인 바이트 배열
      *

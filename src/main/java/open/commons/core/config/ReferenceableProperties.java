@@ -112,9 +112,8 @@ public class ReferenceableProperties extends Properties {
     }
 
     /**
-     * {@link Properties#entrySet()}를
-     * {@link Set}&lt;{@link Entry}&lt;{@link String}, {@link String}&gt;&gt;로
-     * 반환합니다.
+     * {@link Properties#entrySet()}를 {@link Set}&lt;{@link Entry}&lt;{@link String},
+     * {@link String}&gt;&gt;로 반환합니다.
      * 
      * @return
      */

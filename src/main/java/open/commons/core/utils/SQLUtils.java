@@ -130,8 +130,8 @@ public class SQLUtils {
     };
 
     /**
-     * 주어진 클래스에서 정의한 메도스에서 {@link ColumnValue}이 설정되고,
-     * {@link ColumnValue#defaultColumn()}가 {@code false}인 메소드를 제공합니다.
+     * 주어진 클래스에서 정의한 메도스에서 {@link ColumnValue}이 설정되고, {@link ColumnValue#defaultColumn()}가
+     * {@code false}인 메소드를 제공합니다.
      * 
      * @param typeClass
      * 
@@ -465,8 +465,7 @@ public class SQLUtils {
      *            컬럼이름 타입.
      * @param defaultClmnName
      *            설정된 컬럼명({clmnName})이 빈 문자열일 경우 컬럼명 제공 함수.<br>
-     *            반환하는 값은 반드시
-     *            <font color="red">(<b>{@code NOT nullable}</b>)</font>
+     *            반환하는 값은 반드시 <font color="red">(<b>{@code NOT nullable}</b>)</font>
      * @return
      *
      * @since 2022. 11. 24.
@@ -607,8 +606,8 @@ public class SQLUtils {
     }
 
     /**
-     * {@link PreparedStatement}에 주어진 객체에 포함된 데이터 중에서 전달받은(@param columnNames)
-     * 컬럼에 해당하는 값을 설정합니다. <br>
+     * {@link PreparedStatement}에 주어진 객체에 포함된 데이터 중에서 전달받은(@param columnNames) 컬럼에 해당하는 값을 설정합니다.
+     * <br>
      * 
      * <pre>
      * [개정이력]

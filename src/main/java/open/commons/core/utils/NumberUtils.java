@@ -125,8 +125,7 @@ public class NumberUtils {
     }
 
     /**
-     * 문자열을 10진수 숫자 객체({@link Number})로 변환합니다. 기본적으로
-     * {@link IntegerType#INTEGER}로 처리됩니다.
+     * 문자열을 10진수 숫자 객체({@link Number})로 변환합니다. 기본적으로 {@link IntegerType#INTEGER}로 처리됩니다.
      *
      * <pre>
      * [개정이력]

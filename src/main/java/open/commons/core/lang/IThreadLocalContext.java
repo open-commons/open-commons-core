@@ -136,8 +136,7 @@ public interface IThreadLocalContext {
 
     /**
      * 식별정보에 해당하는 데이터를 반환합니다.<br>
-     * 단, {@link #get0()} 에 존재하지 않는 경우 {@code supplier} 값을 {@link #CONTEXT}에
-     * 추가하고 그 값을 반환합니다. <br>
+     * 단, {@link #get0()} 에 존재하지 않는 경우 {@code supplier} 값을 {@link #CONTEXT}에 추가하고 그 값을 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]

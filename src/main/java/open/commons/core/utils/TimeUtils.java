@@ -300,8 +300,8 @@ public class TimeUtils {
     }
 
     /**
-     * 입력된 시간을 {year}y {day}d {hour}h {minute}m {second}s {millisecond}ms
-     * {nanoseconds}ns 포맷의 문자열로 제공합니다. <br>
+     * 입력된 시간을 {year}y {day}d {hour}h {minute}m {second}s {millisecond}ms {nanoseconds}ns 포맷의 문자열로
+     * 제공합니다. <br>
      * 해당 단위의 값이 0이거나 Omit 목록에 추가된 경우 문자열에서 제외됩니다.
      *
      * <pre>

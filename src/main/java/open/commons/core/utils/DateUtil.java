@@ -1195,8 +1195,8 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>,
-     * <b>{@code timeField}</b>) 이상 경과 했는지를 반환합니다.
+     * 주어진 시간(<b>{@code date}</b>)에서 주어진 값(<b>{@code timeValue}</b>, <b>{@code timeField}</b>) 이상 경과
+     * 했는지를 반환합니다.
      * 
      * @param calendar
      *            TODO
@@ -1456,8 +1456,7 @@ public class DateUtil {
      * 
      * @param calendar
      * @param dateFields
-     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} ,
-     *            ...
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
      * 
      * @since 2014. 4. 2.
      */
@@ -1480,8 +1479,7 @@ public class DateUtil {
      * </pre>
      *
      * @param dateFields
-     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} ,
-     *            ...
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
      *
      * @return
      * 
@@ -1504,8 +1502,7 @@ public class DateUtil {
      * 
      * @param calendar
      * @param dateFields
-     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} ,
-     *            ...
+     *            e.g. {@link Calendar#HOUR_OF_DAY} , {@link Calendar#MINUTE} , ...
      * 
      * @since 2014. 4. 2.
      */
@@ -1562,8 +1559,7 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Calendar} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT})
-     * 문자열로 변환하여 제공합니다. <br>
+     * 주어진 {@link Calendar} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1586,8 +1582,7 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Date} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로
-     * 변환하여 제공합니다. <br>
+     * 주어진 {@link Date} 객체를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1610,8 +1605,7 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 밀리초 타임스탬프를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여
-     * 제공합니다. <br>
+     * 주어진 밀리초 타임스탬프를 ISO 8601 포맷({@value #REGEX_ISO_8601_FORMAT}) 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1649,8 +1643,7 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT}) 문자열로 변환하여 제공합니다.
-     * <br>
+     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT}) 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1711,8 +1704,7 @@ public class DateUtil {
     }
 
     /**
-     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT_NO_TZ}) 문자열로 변환하여
-     * 제공합니다. <br>
+     * 주어진 {@link Date} 객체를 ISO 포맷({@value #REGEX_ISO_FORMAT_NO_TZ}) 문자열로 변환하여 제공합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -1902,8 +1894,7 @@ public class DateUtil {
      * 
      * <table border="1" width="500">
      * <tr>
-     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인
-     * 경우</td>
+     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인 경우</td>
      * </tr>
      * <tr>
      * <td width="41%">패턴</font></td>
@@ -2004,8 +1995,7 @@ public class DateUtil {
      * 
      * <table border="1" width="500">
      * <tr>
-     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인
-     * 경우</td>
+     * <td width="100%" colspan="2">날짜가 &quot;2012년 10월 17일 오후 4시 23분 12초&quot;인 경우</td>
      * </tr>
      * <tr>
      * <td width="41%">패턴</font></td>

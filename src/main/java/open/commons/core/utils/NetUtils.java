@@ -122,8 +122,8 @@ public class NetUtils {
     }
 
     /**
-     * 인터페이스 이름에 해당하는 {@link NetworkInterface}를 찾아, 포함된 {@link InterfaceAddress}
-     * 중에서 IPv4에 해당하는 주소를 반환합니다. <br>
+     * 인터페이스 이름에 해당하는 {@link NetworkInterface}를 찾아, 포함된 {@link InterfaceAddress} 중에서 IPv4에 해당하는 주소를
+     * 반환합니다. <br>
      * 
      * <pre>
      * [개정이력]
@@ -136,8 +136,7 @@ public class NetUtils {
      * @param name
      *            검색할 네트워크 인터페이스의 이름 (예: "eth0", "en0")
      * 
-     * @return IPv4에 해당하는 주소 객체. 이름에 해당하는 인터페이스가 없거나 IPv4 주소가 없으면 {@code null}
-     *         반환.
+     * @return IPv4에 해당하는 주소 객체. 이름에 해당하는 인터페이스가 없거나 IPv4 주소가 없으면 {@code null} 반환.
      * @throws SocketException
      *             네트워크 인터페이스 검색 중 입출력 오류가 발생한 경우.
      *

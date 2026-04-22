@@ -159,8 +159,8 @@ public class ReflectionUtils {
      * @param targetClass
      *            {@link TypeVariable}이 사용된 클래스
      * @param lastCopy
-     *            {@code typeVarClasses}의 개수가 {@code targetClass}의 실제
-     *            {@link TypeVariable} 개수보다 적은 경우 마지막 값으로 채울지 여부
+     *            {@code typeVarClasses}의 개수가 {@code targetClass}의 실제 {@link TypeVariable} 개수보다 적은
+     *            경우 마지막 값으로 채울지 여부
      * @param typeVarClasses
      *            {@link TypeVariable}로 사용될 클래스 목록
      *
@@ -389,8 +389,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를
-     * 반환합니다.
+     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -417,8 +416,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 필터링하여
-     * 반환합니다.
+     * 상위 클래스를 포함하여 객체의 계층 구조 전체에서 주어진 어노테이션이 설정된 {@link Field}와 어노테이션 객체를 필터링하여 반환합니다.
      *
      * <pre>
      * [개정이력]
@@ -710,8 +708,7 @@ public class ReflectionUtils {
     }
 
     /**
-     * 특정 어노테이션이 설정된 필드들 중에서 제네릭 타입 변수({@link TypeVariable})를 사용하는 필드의 메타데이터를
-     * 반환합니다.
+     * 특정 어노테이션이 설정된 필드들 중에서 제네릭 타입 변수({@link TypeVariable})를 사용하는 필드의 메타데이터를 반환합니다.
      *
      * <pre>
      * [개정이력]

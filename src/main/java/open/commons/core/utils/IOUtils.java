@@ -260,8 +260,7 @@ public class IOUtils {
      *
      * @param inStream
      *
-     * @return {@link BufferedReader} 객체, {@link InputStream}인 {@code null}인 경우
-     *         {@code null}반환.
+     * @return {@link BufferedReader} 객체, {@link InputStream}인 {@code null}인 경우 {@code null}반환.
      */
     public static BufferedReader getReader(InputStream inStream) {
         return getReader(inStream, CharUtils.defaultCharset());
@@ -493,8 +492,7 @@ public class IOUtils {
      *
      * @param inStream
      *
-     * @return {@link BufferedWriter} 객체, {@link OutputStream}인 {@code null}인 경우
-     *         {@code null}반환.
+     * @return {@link BufferedWriter} 객체, {@link OutputStream}인 {@code null}인 경우 {@code null}반환.
      */
     public static @Nullable BufferedWriter getWriter(@Nullable OutputStream outStream) {
         return outStream != null //
@@ -509,12 +507,11 @@ public class IOUtils {
      *
      * @throws FileNotFoundException
      * @throws FileNotFoundException
-     *             if the file does not exist, is a directory rather than a
-     *             regular file, or for some other reason cannot be opened for
-     *             reading.
+     *             if the file does not exist, is a directory rather than a regular file, or for
+     *             some other reason cannot be opened for reading.
      * @throws SecurityException
-     *             if a security manager exists and its {@code checkRead} method
-     *             denies read access to the file.
+     *             if a security manager exists and its {@code checkRead} method denies read access
+     *             to the file.
      *
      * @since 2012. 3. 9.
      *
@@ -538,9 +535,8 @@ public class IOUtils {
      *
      * @throws FileNotFoundException
      * @throws FileNotFoundException
-     *             if the file does not exist, is a directory rather than a
-     *             regular file, or for some other reason cannot be opened for
-     *             reading.
+     *             if the file does not exist, is a directory rather than a regular file, or for
+     *             some other reason cannot be opened for reading.
      *
      * @since 2012. 3. 9.
      *
@@ -570,9 +566,8 @@ public class IOUtils {
      * @return
      *
      * @throws FileNotFoundException
-     *             if the file does not exist, is a directory rather than a
-     *             regular file, or for some other reason cannot be opened for
-     *             reading.
+     *             if the file does not exist, is a directory rather than a regular file, or for
+     *             some other reason cannot be opened for reading.
      *
      * @since 2012. 3. 9.
      *
@@ -596,9 +591,8 @@ public class IOUtils {
      *
      * @throws FileNotFoundException
      * @throws FileNotFoundException
-     *             if the file does not exist, is a directory rather than a
-     *             regular file, or for some other reason cannot be opened for
-     *             reading.
+     *             if the file does not exist, is a directory rather than a regular file, or for
+     *             some other reason cannot be opened for reading.
      *
      * @since 2012. 3. 9.
      *
@@ -715,8 +709,7 @@ public class IOUtils {
      * @param close
      *            작업 완료 또는 예외 발생 시 채널을 닫을지 여부
      *
-     * @return 채널에서 읽어들인 바이트 배열. 스트림의 끝(EOF)에 도달하여 요청한 길이보다 적게 읽은 경우, 실제 읽은
-     *         크기만큼의 배열 반환.
+     * @return 채널에서 읽어들인 바이트 배열. 스트림의 끝(EOF)에 도달하여 요청한 길이보다 적게 읽은 경우, 실제 읽은 크기만큼의 배열 반환.
      *
      * @throws IOException
      *             I/O 에러가 발생한 경우
@@ -1443,8 +1436,7 @@ public class IOUtils {
      *
      * @since 2012. 01. 10.
      *
-     * @see <strike>sun.misc.IOUtils.readFully(InputStream, int,
-     *      boolean)</strike>
+     * @see <strike>sun.misc.IOUtils.readFully(InputStream, int, boolean)</strike>
      * @see #readFully(InputStream, boolean) since 1.6.5
      * @see #readFully(InputStream, int, boolean) since 1.6.5
      */
@@ -2278,10 +2270,9 @@ public class IOUtils {
     }
 
     /**
-     * Non-blocking 모드의 {@link SocketChannel}로부터 지정된 길이만큼 데이터를 읽어 바이트 배열로 반환합니다.
-     * <br>
-     * CPU 100% 점유(Busy-Spin)를 방지하기 위해 데이터가 없을 경우 짧은 대기(Back-off)를 수행하며, 지정된
-     * 타임아웃 시간을 초과하면 그때까지 읽은 데이터를 반환합니다. *
+     * Non-blocking 모드의 {@link SocketChannel}로부터 지정된 길이만큼 데이터를 읽어 바이트 배열로 반환합니다. <br>
+     * CPU 100% 점유(Busy-Spin)를 방지하기 위해 데이터가 없을 경우 짧은 대기(Back-off)를 수행하며, 지정된 타임아웃 시간을 초과하면 그때까지 읽은
+     * 데이터를 반환합니다. *
      *
      * <pre>
      * [개정이력]
@@ -2668,8 +2659,7 @@ public class IOUtils {
      *
      * @since 2018. 9. 10.
      *
-     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset,
-     *      boolean)
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset)
             throws IOException {
@@ -2703,8 +2693,7 @@ public class IOUtils {
      *
      * @since 2021. 1. 14.
      *
-     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset,
-     *      boolean)
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, Charset inCharset, OutputStream outStream, Charset outCharset,
@@ -2980,8 +2969,7 @@ public class IOUtils {
      *
      * @since 2018. 9. 10.
      *
-     * @see #transfer(InputStream, String, boolean, OutputStream, String,
-     *      boolean)
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
      */
     public static int transfer(InputStream inStream, OutputStream outStream, Charset charset, boolean close)
             throws IOException {
@@ -3111,8 +3099,7 @@ public class IOUtils {
      *
      * @since 2014. 4. 14.
      *
-     * @see #transfer(InputStream, String, boolean, OutputStream, String,
-     *      boolean)
+     * @see #transfer(InputStream, String, boolean, OutputStream, String, boolean)
      */
     public static int transfer(InputStream inStream, OutputStream outStream, String charset) throws IOException {
         return transfer(inStream, true, outStream, true);
@@ -3398,8 +3385,7 @@ public class IOUtils {
      * @since 2018. 9. 10.
      *
      * @see #CharUtils.requireCharset(String)
-     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset,
-     *      boolean)
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset)
             throws IOException {
@@ -3438,8 +3424,7 @@ public class IOUtils {
      * @since 2021. 1. 14.
      *
      * @see #CharUtils.requireCharset(String)
-     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset,
-     *      boolean)
+     * @see #transfer(InputStream, Charset, boolean, OutputStream, Charset, boolean)
      */
     @Deprecated(since = "3.0.0", forRemoval = true)
     public static int transfer(InputStream inStream, String inCharset, OutputStream outStream, String outCharset,

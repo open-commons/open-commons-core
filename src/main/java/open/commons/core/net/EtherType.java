@@ -77,8 +77,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: DECnet Phase IV<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/DECnet">http://en.wikipedia.org/wiki/DECnet</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/DECnet">http://en.wikipedia.org/wiki/DECnet</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -98,8 +98,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: AppleTalk (Ethertalk)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
      * <br>
      * 
      * @see <a href=
@@ -109,8 +109,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: AppleTalk Address Resolution Protocol (AARP)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
      * <br>
      * 
      * @see <a href=
@@ -119,8 +119,8 @@ public class EtherType {
     public static final String _0x80F3 = "APPLE_TALK_ARP"; // 33011
 
     /**
-     * <b>Protocol</b>: VLAN-tagged frame (IEEE 802.1Q) &#38; Shortest Path
-     * Bridging IEEE 802.1aq[4]<br>
+     * <b>Protocol</b>: VLAN-tagged frame (IEEE 802.1Q) &#38; Shortest Path Bridging IEEE
+     * 802.1aq[4]<br>
      * <b>References</b>:
      * <ul>
      * <li><a href=
@@ -137,8 +137,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: IPX<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -147,8 +147,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: IPX<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -191,8 +191,7 @@ public class EtherType {
     /**
      * <b>Protocol</b>: Slow Protocols (IEEE 802.3)<br>
      * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/IEEE_802.3">http://en.wikipedia.org/wiki/IEEE_802.3</a>
-     * <br>
+     * "http://en.wikipedia.org/wiki/IEEE_802.3">http://en.wikipedia.org/wiki/IEEE_802.3</a> <br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -295,8 +294,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: HyperSCSI (SCSI over Ethernet)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/HyperSCSI">http://en.wikipedia.org/wiki/HyperSCSI</a>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/HyperSCSI">http://en.wikipedia.org/wiki/HyperSCSI</a>
      * <br>
      * 
      * @see <a href=
@@ -325,8 +324,8 @@ public class EtherType {
     public static final String _0x88A4 = "ETHERCAT"; // 34980
 
     /**
-     * <b>Protocol</b>: Provider Bridging (IEEE 802.1ad) &#38; Shortest Path
-     * Bridging IEEE 802.1aq[5]<br>
+     * <b>Protocol</b>: Provider Bridging (IEEE 802.1ad) &#38; Shortest Path Bridging IEEE
+     * 802.1aq[5]<br>
      * <b>References</b>: <a href=
      * "http://en.wikipedia.org/wiki/IEEE_802.1ad">http://en.wikipedia.org/wiki/IEEE_802.1ad</a><br>
      * 
@@ -359,8 +358,7 @@ public class EtherType {
     /**
      * <b>Protocol</b>: SERCOS III<br>
      * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/SERCOS_III">http://en.wikipedia.org/wiki/SERCOS_III</a>
-     * <br>
+     * "http://en.wikipedia.org/wiki/SERCOS_III">http://en.wikipedia.org/wiki/SERCOS_III</a> <br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -400,8 +398,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: Precision Time Protocol (IEEE 1588)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/Precision_Time_Protocol">http://en.wikipedia.org/wiki/
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/Precision_Time_Protocol">http://en.wikipedia.org/wiki/
      * Precision_Time_Protocol</a><br>
      * 
      * @see <a href=
@@ -410,8 +408,8 @@ public class EtherType {
     public static final String _0x88F7 = "PTP"; // 35063
 
     /**
-     * <b>Protocol</b>: IEEE 802.1ag Connectivity Fault Management (CFM)
-     * Protocol / ITU-T Recommendation Y.1731 (OAM) <br>
+     * <b>Protocol</b>: IEEE 802.1ag Connectivity Fault Management (CFM) Protocol / ITU-T
+     * Recommendation Y.1731 (OAM) <br>
      * <b>References</b>:
      * <ul>
      * <li><a href=
@@ -422,8 +420,7 @@ public class EtherType {
      * <li><a href=
      * "http://en.wikipedia.org/wiki/ITU-T_Recommendation_Y.1731">http://en.wikipedia.org/wiki/ITU-
      * T_Recommendation_Y.1731</a>
-     * <li><a href=
-     * "http://en.wikipedia.org/wiki/OA%26M">http://en.wikipedia.org/wiki/OA%26M</a>
+     * <li><a href= "http://en.wikipedia.org/wiki/OA%26M">http://en.wikipedia.org/wiki/OA%26M</a>
      * </ul>
      * <br>
      * 
@@ -489,8 +486,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: Q-in-Q<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/Q-in-Q">http://en.wikipedia.org/wiki/Q-in-Q</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/Q-in-Q">http://en.wikipedia.org/wiki/Q-in-Q</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -498,10 +495,9 @@ public class EtherType {
     public static final String _0x9100 = "Q_IN_Q"; // 37120
 
     /**
-     * <b>Protocol</b>: Veritas Low Latency Transport (LLT)[7] for Veritas
-     * Cluster Server<br>
-     * <b>References</b>: <a href=
-     * "http://wiki.wireshark.org/LLT">http://wiki.wireshark.org/LLT</a><br>
+     * <b>Protocol</b>: Veritas Low Latency Transport (LLT)[7] for Veritas Cluster Server<br>
+     * <b>References</b>:
+     * <a href= "http://wiki.wireshark.org/LLT">http://wiki.wireshark.org/LLT</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -552,8 +548,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: DECnet Phase IV<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/DECnet">http://en.wikipedia.org/wiki/DECnet</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/DECnet">http://en.wikipedia.org/wiki/DECnet</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -573,8 +569,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: AppleTalk (Ethertalk)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
      * <br>
      * 
      * @see <a href=
@@ -584,8 +580,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: AppleTalk Address Resolution Protocol (AARP)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/AppleTalk">http://en.wikipedia.org/wiki/AppleTalk</a>
      * <br>
      * 
      * @see <a href=
@@ -594,8 +590,8 @@ public class EtherType {
     public static final int APPLE_TALK_ARP = 0x80F3; // 33011
 
     /**
-     * <b>Protocol</b>: VLAN-tagged frame (IEEE 802.1Q) &#38; Shortest Path
-     * Bridging IEEE 802.1aq[4]<br>
+     * <b>Protocol</b>: VLAN-tagged frame (IEEE 802.1Q) &#38; Shortest Path Bridging IEEE
+     * 802.1aq[4]<br>
      * <b>References</b>:
      * <ul>
      * <li><a href=
@@ -612,8 +608,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: IPX<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -622,8 +618,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: IPX<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/IPX">http://en.wikipedia.org/wiki/IPX</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -666,8 +662,7 @@ public class EtherType {
     /**
      * <b>Protocol</b>: Slow Protocols (IEEE 802.3)<br>
      * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/IEEE_802.3">http://en.wikipedia.org/wiki/IEEE_802.3</a>
-     * <br>
+     * "http://en.wikipedia.org/wiki/IEEE_802.3">http://en.wikipedia.org/wiki/IEEE_802.3</a> <br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -770,8 +765,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: HyperSCSI (SCSI over Ethernet)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/HyperSCSI">http://en.wikipedia.org/wiki/HyperSCSI</a>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/HyperSCSI">http://en.wikipedia.org/wiki/HyperSCSI</a>
      * <br>
      * 
      * @see <a href=
@@ -800,8 +795,8 @@ public class EtherType {
     public static final int ETHERCAT = 0x88A4; // 34980
 
     /**
-     * <b>Protocol</b>: Provider Bridging (IEEE 802.1ad) &#38; Shortest Path
-     * Bridging IEEE 802.1aq[5]<br>
+     * <b>Protocol</b>: Provider Bridging (IEEE 802.1ad) &#38; Shortest Path Bridging IEEE
+     * 802.1aq[5]<br>
      * <b>References</b>: <a href=
      * "http://en.wikipedia.org/wiki/IEEE_802.1ad">http://en.wikipedia.org/wiki/IEEE_802.1ad</a><br>
      * 
@@ -834,8 +829,7 @@ public class EtherType {
     /**
      * <b>Protocol</b>: SERCOS III<br>
      * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/SERCOS_III">http://en.wikipedia.org/wiki/SERCOS_III</a>
-     * <br>
+     * "http://en.wikipedia.org/wiki/SERCOS_III">http://en.wikipedia.org/wiki/SERCOS_III</a> <br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -875,8 +869,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: Precision Time Protocol (IEEE 1588)<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/Precision_Time_Protocol">http://en.wikipedia.org/wiki/
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/Precision_Time_Protocol">http://en.wikipedia.org/wiki/
      * Precision_Time_Protocol</a><br>
      * 
      * @see <a href=
@@ -885,8 +879,8 @@ public class EtherType {
     public static final int PTP = 0x88F7; // 35063
 
     /**
-     * <b>Protocol</b>: IEEE 802.1ag Connectivity Fault Management (CFM)
-     * Protocol / ITU-T Recommendation Y.1731 (OAM) <br>
+     * <b>Protocol</b>: IEEE 802.1ag Connectivity Fault Management (CFM) Protocol / ITU-T
+     * Recommendation Y.1731 (OAM) <br>
      * <b>References</b>:
      * <ul>
      * <li><a href=
@@ -897,8 +891,7 @@ public class EtherType {
      * <li><a href=
      * "http://en.wikipedia.org/wiki/ITU-T_Recommendation_Y.1731">http://en.wikipedia.org/wiki/ITU-
      * T_Recommendation_Y.1731</a>
-     * <li><a href=
-     * "http://en.wikipedia.org/wiki/OA%26M">http://en.wikipedia.org/wiki/OA%26M</a>
+     * <li><a href= "http://en.wikipedia.org/wiki/OA%26M">http://en.wikipedia.org/wiki/OA%26M</a>
      * </ul>
      * <br>
      * 
@@ -964,8 +957,8 @@ public class EtherType {
 
     /**
      * <b>Protocol</b>: Q-in-Q<br>
-     * <b>References</b>: <a href=
-     * "http://en.wikipedia.org/wiki/Q-in-Q">http://en.wikipedia.org/wiki/Q-in-Q</a><br>
+     * <b>References</b>:
+     * <a href= "http://en.wikipedia.org/wiki/Q-in-Q">http://en.wikipedia.org/wiki/Q-in-Q</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>
@@ -973,10 +966,9 @@ public class EtherType {
     public static final int Q_IN_Q = 0x9100; // 37120
 
     /**
-     * <b>Protocol</b>: Veritas Low Latency Transport (LLT)[7] for Veritas
-     * Cluster Server<br>
-     * <b>References</b>: <a href=
-     * "http://wiki.wireshark.org/LLT">http://wiki.wireshark.org/LLT</a><br>
+     * <b>Protocol</b>: Veritas Low Latency Transport (LLT)[7] for Veritas Cluster Server<br>
+     * <b>References</b>:
+     * <a href= "http://wiki.wireshark.org/LLT">http://wiki.wireshark.org/LLT</a><br>
      * 
      * @see <a href=
      *      "http://en.wikipedia.org/wiki/EtherType">http://en.wikipedia.org/wiki/EtherType</a>

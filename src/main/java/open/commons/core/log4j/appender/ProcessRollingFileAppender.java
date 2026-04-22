@@ -179,8 +179,8 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @param filePattern
      *            The pattern of the file name to use on rollover. (required).
      * @param append
-     *            If true, events are appended to the file. If false, the file
-     *            is overwritten when opened. Defaults to "true"
+     *            If true, events are appended to the file. If false, the file is overwritten when
+     *            opened. Defaults to "true"
      * @param name
      *            The name of the Appender (required).
      * @param bufferedIO
@@ -198,15 +198,12 @@ public final class ProcessRollingFileAppender extends AbstractOutputStreamAppend
      * @param filter
      *            The Filter or null.
      * @param ignore
-     *            If {@code "true"} (default) exceptions encountered when
-     *            appending events are logged; otherwise they are propagated to
-     *            the caller.
+     *            If {@code "true"} (default) exceptions encountered when appending events are
+     *            logged; otherwise they are propagated to the caller.
      * @param advertise
-     *            "true" if the appender configuration should be advertised,
-     *            "false" otherwise.
+     *            "true" if the appender configuration should be advertised, "false" otherwise.
      * @param advertiseUri
-     *            The advertised URI which can be used to retrieve the file
-     *            contents.
+     *            The advertised URI which can be used to retrieve the file contents.
      * @param config
      *            The Configuration.
      * @return A ProcessRollingFileAppender.

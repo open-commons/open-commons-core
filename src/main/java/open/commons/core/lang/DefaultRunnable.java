@@ -163,11 +163,9 @@ public abstract class DefaultRunnable extends AbstractRunnable implements AutoCl
     }
 
     /**
-     * {@link Thread}에 Process ID 정보를 설정하기 위해서, {@link Runnable#run()} 를 final 로
-     * 정의하였다.<br>
+     * {@link Thread}에 Process ID 정보를 설정하기 위해서, {@link Runnable#run()} 를 final 로 정의하였다.<br>
      * 이를 대체하기 위해서 실제 기능 구현을 하는 메소드이다. <br>
-     * Log4j(1,2)에서 Pattern에 %X{pid} 로 설정함으로써 로그메시지에 Process ID 를 출력할 수
-     * 있습니다.<br>
+     * Log4j(1,2)에서 Pattern에 %X{pid} 로 설정함으로써 로그메시지에 Process ID 를 출력할 수 있습니다.<br>
      * 
      * <pre>
      * [개정이력]

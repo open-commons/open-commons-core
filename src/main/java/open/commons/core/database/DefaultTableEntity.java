@@ -170,8 +170,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
 
     /**
      *
-     * @see open.commons.core.database.ITableEntity#createSelectQuery(java.util.Collection,
-     *      int[])
+     * @see open.commons.core.database.ITableEntity#createSelectQuery(java.util.Collection, int[])
      */
     @Override
     public String createSelectQuery(Collection<Integer> selects, int... where) {
@@ -389,8 +388,7 @@ public abstract class DefaultTableEntity implements ITableEntity {
      * 2026. 3. 4.          parkjunhong77@gmail.com         (3.0.0) JDK 25 마이그레이션: 클래스 레벨 캐싱 적용 및 reflection 최적화
      * </pre>
      * 
-     * @see open.commons.core.database.ITableEntity#setValue(int,
-     *      java.lang.Object)
+     * @see open.commons.core.database.ITableEntity#setValue(int, java.lang.Object)
      */
     @Override
     public boolean setValue(int index, Object value) {

@@ -101,8 +101,8 @@ public @interface ColumnValue {
 
     /**
      * 컬럼의 데이터 유형. <br>
-     * <span style="color:red; font-weight:bold;">목적: H2 DBMS 의 '? AS {column}'
-     * 구문해석 오류에 대응하기 위함.</span>
+     * <span style="color:red; font-weight:bold;">목적: H2 DBMS 의 '? AS {column}' 구문해석 오류에 대응하기
+     * 위함.</span>
      * 
      * <pre>
      * [개정이력]
@@ -139,13 +139,11 @@ public @interface ColumnValue {
     /**
      * 컬럼명을 제공합니다.<br>
      * 이 값이 빈문자열("")인 경우 해당 메소드 이름과 반환 타입을 이용하여 컬럼명을 추출합니다.<br>
-     * 먼저 반환타입이 boolean/Boolean 인 경우 메소드이름이 알파벳 소문자 'is' 또는 'get'으로 시작하는지
-     * 확인하고<br>
-     * 맞다면 'is' 또는 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면
-     * {@link IllegalArgumentException} 를 발생시킨다.<br>
+     * 먼저 반환타입이 boolean/Boolean 인 경우 메소드이름이 알파벳 소문자 'is' 또는 'get'으로 시작하는지 확인하고<br>
+     * 맞다면 'is' 또는 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면 {@link IllegalArgumentException} 를
+     * 발생시킨다.<br>
      * 반환타입이 그 외인 경우 알파벳 소문자 메소드 이름이 알파벳 소문자 'get' 으로 시작는지 확인하고<br>
-     * 맞다면 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면
-     * {@link IllegalArgumentException} 를 발생시킨다.<br>
+     * 맞다면 'get'을 제거하고 camelCase로 변경해서 처리하고, 그렇지 않으면 {@link IllegalArgumentException} 를 발생시킨다.<br>
      * 
      * <pre>
      * // 'isGood' -> 'good' 으로 처리
@@ -236,8 +234,7 @@ public @interface ColumnValue {
 
     /**
      * JDBC Variable Binding 에 사용될 문자열을 제공합니다. <br>
-     * 일반적으로 물음표(?)를 사용하지만, 연동하는 DBMS에서 제공하는 함수나 프로시저와 같은 정보를 사용하는 경우 지원하기
-     * 위합입니다.
+     * 일반적으로 물음표(?)를 사용하지만, 연동하는 DBMS에서 제공하는 함수나 프로시저와 같은 정보를 사용하는 경우 지원하기 위합입니다.
      * 
      * <pre>
      * [개정이력]

@@ -31,8 +31,7 @@ import java.util.Objects;
 import org.jspecify.annotations.Nullable;
 
 /**
- * {@link Class#newInstance()}를 이용하여 새로운 객체를 생성하는 것이 실패할 경우 발생하는
- * {@link RuntimeException}.
+ * {@link Class#newInstance()}를 이용하여 새로운 객체를 생성하는 것이 실패할 경우 발생하는 {@link RuntimeException}.
  * 
  * @since 2025. 8. 30.
  * @version 2.1.0

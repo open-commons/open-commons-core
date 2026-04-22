@@ -232,8 +232,8 @@ public class Result<T> {
      * @param data
      * @return
      * 
-     * @updated 2019. 2. 29. Apply chainging, 'return this' since 1.6.3. Before
-     *          updating, return lastest data.
+     * @updated 2019. 2. 29. Apply chainging, 'return this' since 1.6.3. Before updating, return
+     *          lastest data.
      */
     public Result<T> setData(@Nullable T data) {
         this.data = data;
@@ -290,8 +290,8 @@ public class Result<T> {
      * 
      * @since 2012. 02. 15.
      * 
-     * @updated 2019. 2. 29. Apply chaining, 'return this' since 1.6.3. Before
-     *          updating, returh latest result.
+     * @updated 2019. 2. 29. Apply chaining, 'return this' since 1.6.3. Before updating, returh
+     *          latest result.
      */
     public boolean setResult(boolean result) {
         boolean latestResult = this.result;
@@ -408,8 +408,7 @@ public class Result<T> {
 
     /**
      * {@link Result#getResult()} 가 {@code true} 인 경우의 메시지를 선택적으로 제공합니다. <br>
-     * {@link Result#getResult()} 가 {@code false} 인 경우
-     * {@link Result#getMessage()}를 제공합니다.
+     * {@link Result#getResult()} 가 {@code false} 인 경우 {@link Result#getMessage()}를 제공합니다.
      * 
      * <pre>
      * [개정이력]

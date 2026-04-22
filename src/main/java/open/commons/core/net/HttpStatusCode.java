@@ -34,8 +34,8 @@ import org.jspecify.annotations.Nullable;
 
 /**
  * 
- * Referenced in <a href=
- * "http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">http://en.wikipedia.org/wiki/
+ * Referenced in
+ * <a href= "http://en.wikipedia.org/wiki/List_of_HTTP_status_codes">http://en.wikipedia.org/wiki/
  * List_of_HTTP_status_codes</a>
  * 
  * @since 2014. 6. 24.

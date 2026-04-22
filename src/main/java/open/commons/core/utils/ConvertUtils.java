@@ -297,8 +297,8 @@ public class ConvertUtils {
      * @param value
      *            데이터 문자열
      * @param unsigned
-     *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long
-     *            ({@link Long})인 경우 unsigned 여부
+     *            <b>{@code primitiveType}</b>이 int ({@link Integer}), long ({@link Long})인 경우
+     *            unsigned 여부
      * @return
      *
      * @since 2022. 3. 15.

@@ -96,8 +96,7 @@ public @interface ReadAt {
     boolean skippable() default false;
 
     /**
-     * 데이터 타입이 int ({@link Integer}), long ({@link Long})인 경우
-     * <b>{@code unsigned}</b>를 지원하기 위함. <br>
+     * 데이터 타입이 int ({@link Integer}), long ({@link Long})인 경우 <b>{@code unsigned}</b>를 지원하기 위함. <br>
      * 
      * <pre>
      * [개정이력]

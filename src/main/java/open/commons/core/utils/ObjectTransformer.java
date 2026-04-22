@@ -1041,9 +1041,9 @@ public class ObjectTransformer {
     }
 
     /**
-     * setXxx(Collection<E>) 형태의 세터에서 E의 런타임 Class를 추출한다. - 파라미터가 1개가 아니거나,
-     * Collection이 아니거나, E를 Class로 확정할 수 없으면 Optional.empty() - E가 ? extends X /
-     * ? super X / T(타입변수)인 경우, 상한/첫 바운드를 Class로 환산해 반환 시도
+     * setXxx(Collection<E>) 형태의 세터에서 E의 런타임 Class를 추출한다. - 파라미터가 1개가 아니거나, Collection이 아니거나, E를
+     * Class로 확정할 수 없으면 Optional.empty() - E가 ? extends X / ? super X / T(타입변수)인 경우, 상한/첫 바운드를
+     * Class로 환산해 반환 시도
      */
     private static Optional<Class<?>> genericElementTypeOfSetter(Method setter) {
         // putXxx(K,V) 같은 2-파라미터 세터는 대상 아님
@@ -1102,8 +1102,7 @@ public class ObjectTransformer {
      * @param converters
      *            변환 함수들
      * @param useGlobalConverter
-     *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는
-     *            '변환 함수'가 있다면 사용할지 여부
+     *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
      * 
      * @return
      *
@@ -1275,8 +1274,7 @@ public class ObjectTransformer {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param fieldConverters
-     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을
-     *            사용합니다.
+     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
@@ -1678,8 +1676,8 @@ public class ObjectTransformer {
     }
 
     /**
-     * {@link #buildCopier(Class, boolean, Class, boolean, Map)}에서 호출하는
-     * 'MethodHandle' 대상으로, 데이터를 이관하는 메소드들의 실행을 담당합니다.<br>
+     * {@link #buildCopier(Class, boolean, Class, boolean, Map)}에서 호출하는 'MethodHandle' 대상으로, 데이터를
+     * 이관하는 메소드들의 실행을 담당합니다.<br>
      * {@code LMF가 호출할 루프 본체}로써 실제 데이터 형변환을 실행합니다. <br>
      * 
      * <pre>
@@ -1710,8 +1708,8 @@ public class ObjectTransformer {
     }
 
     /**
-     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter}
-     * 어노테이션이 적용된 객체를 변환하여 새로운 타입의 객체로 제공합니다.<br>
+     * 입력데이터 타입에서 정의된 메소드 중에서 {@link Getter}, 대상 타입에서 정의된 메소드 중에서 {@link Setter} 어노테이션이 적용된 객체를 변환하여
+     * 새로운 타입의 객체로 제공합니다.<br>
      * 
      * <pre>
      * [개정이력]
@@ -1735,8 +1733,7 @@ public class ObjectTransformer {
      * @param lookupTargetSuper
      *            대상 객체 상위 인터페이스/클래스 확장 여부
      * @param fieldConverters
-     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을
-     *            사용합니다.
+     *            데이터 변환 함수. 이 값이 {@code null}인 경우, {@link #FIELD_CONVERTERS} 값을 사용합니다.
      *            <ul>
      *            <li>{@link #FIELD_CONVERTER_KEYGEN} 로 만들어진 식별정보
      *            <li>타입 변환 함수
@@ -1894,8 +1891,7 @@ public class ObjectTransformer {
      * @param converter
      *            데이터 형변환 함수.
      * @param useGlobalConverter
-     *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는
-     *            '변환 함수'가 있다면 사용할지 여부
+     *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지 여부
      * @param deepConvert
      *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
      * @param containerKind
@@ -1934,8 +1930,7 @@ public class ObjectTransformer {
          * @param setter
          *            대상 클래스의 'setter' 메소드
          * @param deepConvert
-         *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터
-         *            변환 여부
+         *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
          * @param containerKind
          *            'container' 유형
          * @param addStyle
@@ -1973,11 +1968,10 @@ public class ObjectTransformer {
          * @param converter
          *            데이터 형변환 함수.
          * @param useGlobalConverter
-         *            {@code null/srcFieldClass/null/null/targetFieldClass}로
-         *            식별되는 '변환 함수'가 있다면 사용할지 여부
+         *            {@code null/srcFieldClass/null/null/targetFieldClass}로 식별되는 '변환 함수'가 있다면 사용할지
+         *            여부
          * @param deepConvert
-         *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터
-         *            변환 여부
+         *            '배열, {@link Collection}, {@link Map}' (이하 Container) 데이터 변환 여부
          * @param containerKind
          *            'container' 유형
          * @param addStyle

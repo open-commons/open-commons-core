@@ -750,8 +750,7 @@ public class PathElement implements Iterable<String> {
      * 구분자는 {@code null}이 될 수 없다.
      * 
      * @param delimiter
-     * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다.
-     *         <BR>
+     * @return 이전 구분자. 파라미터가 {@code null}인 경우 변경을 하지 않고, {@code null}을 반환하다. <BR>
      * @since 2012. 03. 12.
      */
     // 아래 내용에 적용됨.

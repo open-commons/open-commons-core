@@ -51,8 +51,7 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 {@code true} 인 경우, 데이타를 {@link Consumer}에게 전달합니다.
-     * <br>
+     * {@link Predicate} 가 {@code true} 인 경우, 데이타를 {@link Consumer}에게 전달합니다. <br>
      *
      * <pre>
      * [개정이력]
@@ -81,8 +80,8 @@ public class LangUtils {
     }
 
     /**
-     * {@link Predicate} 가 {@code true} 인 경우 데이타를, {@code false}인 경우 기본값을
-     * {@link Consumer}에게 전달합니다. <br>
+     * {@link Predicate} 가 {@code true} 인 경우 데이타를, {@code false}인 경우 기본값을 {@link Consumer}에게 전달합니다.
+     * <br>
      *
      * <pre>
      * [개정이력]

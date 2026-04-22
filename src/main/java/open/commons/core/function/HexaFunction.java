@@ -30,12 +30,12 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts two arguments and produces a result. This
- * is the two-arity specialization of {@link Function}.
+ * Represents a function that accepts two arguments and produces a result. This is the two-arity
+ * specialization of {@link Function}.
  *
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #apply(Object, Object, Object, Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is
+ * {@link #apply(Object, Object, Object, Object)}.
  * 
  * @since 2020. 1. 30.
  * @version 1.8.0
@@ -45,10 +45,9 @@ import java.util.function.Function;
 public interface HexaFunction<T, U, V, W, X, Y, R> {
 
     /**
-     * Returns a composed function that first applies this function to its
-     * input, and then applies the {@code after} function to the result. If
-     * evaluation of either function throws an exception, it is relayed to the
-     * caller of the composed function. <br>
+     * Returns a composed function that first applies this function to its input, and then applies
+     * the {@code after} function to the result. If evaluation of either function throws an
+     * exception, it is relayed to the caller of the composed function. <br>
      * 
      * <pre>
      * [개정이력]
@@ -58,8 +57,7 @@ public interface HexaFunction<T, U, V, W, X, Y, R> {
      * </pre>
      *
      * @param <Z>
-     *            the type of output of the {@code after} function, and of the
-     *            composed function
+     *            the type of output of the {@code after} function, and of the composed function
      * @param after
      *            the function to apply after this function is applied
      * @return
