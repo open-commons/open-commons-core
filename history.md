@@ -1,3 +1,6 @@
+[2026/04/21]
+- Release 2.1.0
+
 [2025/11/24]
 - Add
   + open.commons.core.utils.ObjectUtils: 값이 null인 경우 기본값 제공 함수 추가.
