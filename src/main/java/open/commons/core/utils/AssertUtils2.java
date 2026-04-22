@@ -392,11 +392,6 @@ public class AssertUtils2 {
         notEmpty(col, exClass, (String) null);
     }
 
-    public static void notEmpty(@Nullable Collection<? extends @Nullable Object> col,
-            @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        notEmpty(col, exClass, msg);
-    }
-
     public static void notEmpty(@Nullable Collection<? extends @Nullable Object> col, @Nullable String msg) {
         notEmpty(col, null, msg);
     }
