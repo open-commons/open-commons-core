@@ -27,6 +27,8 @@
 package open.commons.core.utils;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.lang.invoke.CallSite;
@@ -84,6 +86,99 @@ public class ResultSetTransformer {
     private static final ConcurrentHashMap<Class<?>, List<ColumnPlan>> COLUMN_PLAN_CACHE = new ConcurrentHashMap<>();
 
     private ResultSetTransformer() {
+    }
+
+    /**
+     * <code>(setterMH bound, notNullable, colName, target, value) -> void</code> <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param setter
+     * @param nullable
+     * @param columnName
+     * @param target
+     * @param value
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unused")
+    private static void applyNullPolicy(MethodHandle setter, boolean nullable, String columnName, Object target,
+            @Nullable Object value) {
+        try {
+            if (value == null) {
+                if (nullable) {
+                    return; // nullable=true면 세터 호출 스킵
+                }
+                throw new SQLException("Column '" + columnName + "' is NULL but @ColumnDef.nullable=" + nullable);
+            }
+            // value != null이면 세터 호출
+            setter.invokeExact(target, value);
+        } catch (Throwable t) {
+            throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object bdToDouble(@Nullable BigDecimal d) {
+        return d == null ? null : Double.valueOf(d.doubleValue());
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object bdToFloat(@Nullable BigDecimal d) {
+        return d == null ? null : Float.valueOf(d.floatValue());
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object bdToInteger(@Nullable BigDecimal d) {
+        return d == null ? null : Integer.valueOf(d.intValue());
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object bdToLong(@Nullable BigDecimal d) {
+        return d == null ? null : Long.valueOf(d.longValue());
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object bdToShort(@Nullable BigDecimal d) {
+        return d == null ? null : Short.valueOf(d.shortValue());
+    }
+
+    /**
+     * Boolean/Byte 래퍼: prim 호출 + wasNull()로 NULL 보존 <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param rs
+     * @param idx
+     * @return
+     * @throws SQLException
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unused")
+    private static @Nullable Object boolWasNullBoolean(ResultSet rs, int idx) throws SQLException {
+        boolean v = rs.getBoolean(idx);
+        return rs.wasNull() ? null : Boolean.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object boolWasNullByte(ResultSet rs, int idx) throws SQLException {
+        byte v = rs.getByte(idx);
+        return rs.wasNull() ? null : Byte.valueOf(v);
     }
 
     private static Map<String, Integer> buildLabelIndexMap(ResultSetMetaData md) {
@@ -198,7 +293,7 @@ public class ResultSetTransformer {
 
                 steps.add(step);
             } catch (Throwable t) {
-                LOGGER.error("데이터 변환설정 = {}, entity={}, result-set={}", plan, entityType, md);
+                LOGGER.error("데이터 변환설정 = {}, entity={}, result-set={}", plan, entityType, md, t);
                 throw new TransformationFailedException(null, entityType,
                         String.format("컬럼 함수 생성 도중 오류가 발생하였습니다. plan={}, result-set={}", plan, md), t);
             }
@@ -282,6 +377,85 @@ public class ResultSetTransformer {
             if (allowed.contains(p.columnName))
                 res.add(p);
         return res;
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getBooleanOrNull(ResultSet rs, int idx) throws SQLException {
+        boolean v = rs.getBoolean(idx);
+        return rs.wasNull() ? null : Boolean.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getByteOrNull(ResultSet rs, int idx) throws SQLException {
+        byte v = rs.getByte(idx);
+        return rs.wasNull() ? null : Byte.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getDoubleOrNull(ResultSet rs, int idx) throws SQLException {
+        double v = rs.getDouble(idx);
+        return rs.wasNull() ? null : Double.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getFloatOrNull(ResultSet rs, int idx) throws SQLException {
+        float v = rs.getFloat(idx);
+        return rs.wasNull() ? null : Float.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getIntOrNull(ResultSet rs, int idx) throws SQLException {
+        int v = rs.getInt(idx);
+        return rs.wasNull() ? null : Integer.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getLongOrNull(ResultSet rs, int idx) throws SQLException {
+        long v = rs.getLong(idx);
+        return rs.wasNull() ? null : Long.valueOf(v);
+    }
+
+    @SuppressWarnings("unused")
+    private static @Nullable Object getShortOrNull(ResultSet rs, int idx) throws SQLException {
+        short v = rs.getShort(idx);
+        return rs.wasNull() ? null : Short.valueOf(v);
+    }
+
+    /**
+     * ctor()로 객체 만들고, steps를 순회해 채운 뒤 객체를 반환합니다. <br>
+     * <b>유형: 실행 루틴/헬퍼</b>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param ctor
+     * @param steps
+     * @param rs
+     * @return
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    // 아래 내용에 적용됨.
+    // - Object dst = ctor.invoke()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings({ "unused", "null" })
+    private static Object materialize(MethodHandle ctor, MethodHandle[] steps, ResultSet rs) {
+        try {
+            final Object dst = ctor.invoke(); // ()->Object
+            for (int i = 0; i < steps.length; i++) {
+                steps[i].invokeExact(dst, rs); // (Object, ResultSet)->void
+            }
+            return dst;
+        } catch (Throwable t) {
+            throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
+        }
     }
 
     /**
@@ -463,6 +637,52 @@ public class ResultSetTransformer {
         } catch (Throwable t) {
             // 일반적으로 mapper.apply 에서 RuntimeException만 나옵니다.
             throw new SQLException("Row mapping failed for " + objectType, t);
+        }
+    }
+
+    // 아래 내용에 적용됨.
+    // - bos.toByteArray()
+    // [PATCH] [JDK-Null] JDK 표준 API의 JSpecify 미지원 '우회용' 어노테이션.
+    // [TODO] 향후 JDK 자체 지원 또는 외부 Stub 환경이 갖춰지면 '제거'
+    @SuppressWarnings("null")
+    private static byte[] readAll(InputStream in) throws java.io.IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] b = new byte[8192];
+        int n;
+        while ((n = in.read(b)) != -1)
+            bos.write(b, 0, n);
+        return bos.toByteArray();
+    }
+
+    /**
+     * getBinaryStream(idx)를 모두 읽어 ByteArrayInputStream 으로 감싸 반환 (NULL 안전) <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜      | 작성자   |   내용
+     * ------------------------------------------
+     * 2025. 9. 8.      parkjunhong77@gmail.com         최초 작성
+     * </pre>
+     *
+     * @param rs
+     * @param idx
+     * @return
+     * @throws SQLException
+     *
+     * @since 2025. 9. 8.
+     * @version 2.1.0
+     * @author Park Jun-Hong (parkjunhong77@gmail.com)
+     */
+    @SuppressWarnings("unused")
+    private static @Nullable Object readAsByteArrayInputStream(ResultSet rs, int idx) throws SQLException {
+        InputStream in = rs.getBinaryStream(idx);
+        if (in == null)
+            return null;
+        try {
+            byte[] buf = readAll(in);
+            return new java.io.ByteArrayInputStream(buf);
+        } catch (IOException ioe) {
+            throw new SQLException("Failed to read binary stream", ioe);
         }
     }
 
@@ -654,6 +874,18 @@ public class ResultSetTransformer {
             list.add(new ColumnPlan(colName, def.caseSensitive(), def.required(), defType, def.nullable(), m));
         }
         return list;
+    }
+
+    @SuppressWarnings("unused")
+    private static void tryIgnoreSql(MethodHandle step, Object target, ResultSet rs) {
+        try {
+            step.invokeExact(target, rs);
+        } catch (Throwable t) {
+            if (!(t instanceof SQLException)) {
+                throw (t instanceof RuntimeException) ? (RuntimeException) t : new RuntimeException(t);
+            }
+            // SQLException 은 무시 (optional 컬럼)
+        }
     }
 
     /**
