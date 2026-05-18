@@ -108,7 +108,7 @@ public class AssertUtils2 {
      */
     public static void equals(@Nullable Object obj1, @Nullable Object obj2,
             @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        if (equals0(obj1, obj2)) {
+        if (!equals0(obj1, obj2)) {
             throw assert0(exClass, "The result MUST be 'equal'." + msg0(msg));
         }
     }
@@ -167,7 +167,7 @@ public class AssertUtils2 {
 
         notNulls("Neither parentClass and childClass MUST be null.", parentClass, childClass);
 
-        if (!parentClass.isAssignableFrom(childClass.getClass())) {
+        if (!parentClass.isAssignableFrom(childClass)) {
             throw assert0(exClass,
                     "childClass's type MUST be " + parentClass + " or impelemt " + parentClass + msg0(msg));
         }
@@ -477,7 +477,7 @@ public class AssertUtils2 {
      */
     public static void notEquals(@Nullable Object obj1, @Nullable Object obj2,
             @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        if (!equals0(obj1, obj2)) {
+        if (equals0(obj1, obj2)) {
             throw assert0(exClass, "The result MUST be NOT 'equal'." + msg0(msg));
         }
     }
@@ -601,10 +601,10 @@ public class AssertUtils2 {
         notNulls(map, exClass, null);
     }
 
-    @SuppressWarnings("null")
     public static void notNulls(@Nullable Map<?, ? extends @Nullable Object> map,
             @Nullable Class<? extends RuntimeException> exClass, @Nullable String msg) {
-        notNulls(map, "The map MUST NOT be null. map: null");
+
+        notNull(map, resolveExceptionClass(exClass, NullPointerException.class), "The map MUST NOT be null. map: null");
 
         Object key = null;
         Object value = null;
@@ -656,7 +656,8 @@ public class AssertUtils2 {
     private static final Class<? extends RuntimeException> resolveExceptionClass(
             @Nullable Class<? extends RuntimeException> exClass,
             Class<? extends RuntimeException> defaultExceptionClass) {
-        AssertUtils2.notNull(defaultExceptionClass);
+
+        Objects.requireNonNull(defaultExceptionClass, "defaultExceptionClass MUST NOT be null.");
 
         return exClass != null ? exClass : defaultExceptionClass;
     }
