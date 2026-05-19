@@ -1,3 +1,12 @@
+[2025/05/18]
+- 오류 수정
+  + open.commons.core.utils.AssertUtils2
+    + equals(Object, Object, Class<? extends RuntimeException>, String): 판단 조건 반대. (equals(...) -> !equals(...))
+    + isClass(Class<?>, Class<?>, Class<? extends RuntimeException>, String); 판단 조건 반대. (!equals(...) -> equals(...))
+    + notEquals(Object, Object, Class<? extends RuntimeException>, String): 내부 비교 파라미터 오류. childClass.getClass() -> childClass)
+    + notNulls(Map<?, ? extends Object>, Class<? extends RuntimeException>, String): 순환 호출 오류 제거
+
+ 
 [2026/04/22]
 - 추가
   + open.commons.core.csv
