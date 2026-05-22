@@ -1,3 +1,7 @@
+[2026/05/22]
+- 기능 추가
+  + open.commons.core.lang.AbstractRunnable.startVirtualThread(Runnable): virtual thread 구동 기능
+
 [2025/05/18]
 - 오류 수정
   + open.commons.core.utils.AssertUtils2

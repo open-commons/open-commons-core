@@ -210,6 +210,32 @@ public abstract class AbstractRunnable implements IRunnable {
     }
 
     /**
+     * <b><i>{@code Virtual Thread}</i></b>로 실행을 합니다.
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜        | 작성자    |    내용
+     * ------------------------------------------
+     * 2026. 5. 20.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param runnable
+     *
+     * @since 2026. 5. 20.
+     * @version 3.0.0
+     */
+    protected void startVirtualThread(Runnable runnable) {
+        beforeStartup();
+
+        this.startedInternally = true;
+        this.startedExternally = false;
+        
+        this.executor = Thread.startVirtualThread(runnable);
+
+        afterStartup();
+    }
+
+    /**
      * 서비스 시작 전에 {@link #start()}를 통해서 시작시킨다.
      */
     protected final void startInternally() {
