@@ -145,7 +145,6 @@ public abstract class AbstractRunnable implements IRunnable {
      *
      * @since 2019. 10. 2.
      */
-    @SuppressWarnings("null")
     public void join(long millis, int nanos) {
         try {
             if (this.executor == null) {
