@@ -274,6 +274,32 @@ public class NetUtils {
     }
 
     /**
+     * IPv4 문자열을 {@link Long} 값으로 변환하여 제공합니다. <br>
+     * 
+     * <pre>
+     * [개정이력]
+     *      날짜        | 작성자    |    내용
+     * ------------------------------------------
+     * 2026. 10. 23.     parkjunhong77@gmail.com     최초 작성
+     * </pre>
+     *
+     * @param ipv4
+     *            IPv4 문자열
+     * @return
+     *
+     * @since 2026. 10. 23.
+     * @version 3.0.0
+     */
+    public static long toLong(String ipv4) {
+        String[] octets = ipv4.split("\\.");
+        long result = 0;
+        for (int i = 0; i < 4; i++) {
+            result = (result << 8) | (Integer.parseInt(octets[i]) & 0xFF);
+        }
+        return result;
+    }
+
+    /**
      * 주어진 MAC 주소 바이트 배열을 "00:11:22:33:44:55" 포맷의 읽기 쉬운 문자열로 변환하여 반환합니다.<br>
      * 
      * <pre>

@@ -1,3 +1,7 @@
+[2026/10/23]
+- 추가
+  + open.commons.core.utils.NetUtils.toLong(String): 'IPv4 -> 숫자' 변환.
+
 [2026/05/26]
 - SnapShot 배포정보를 내부 도메인으로 변경 (외부 도메인 업로드 기능 차단)
 
